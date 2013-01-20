@@ -1,2 +1,2 @@
-openjs
+OpenJS
 ======
