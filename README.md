@@ -1,2 +1,2 @@
-OpenJS
+OJ :: OpenJS
 ======
