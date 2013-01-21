@@ -1,0 +1,50 @@
+{
+  "name": "oj",
+  "title": "JavaScript OJ",
+  "description": "Calcium Enriched JavaScript Library",
+  "version": "0.1.0",
+  "homepage": "",
+  "author": {
+    "name": "Christopher Froehlich",
+    "email": "crf@luddites.me"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/somecallmechief/oj"
+  },
+  "bugs": {
+    "url": "https://github.com/somecallmechief/oj/issues"
+  },
+  "licenses": [
+    {
+      "type": "Puclic Domain, CC0",
+      "url": "http://creativecommons.org/about/pdm"
+    }
+  ],
+  "dependencies": {
+    "grunt": "latest",
+    "grunt-jasmine-runner": "latest",
+    "grunt-jasmine-node": "latest",
+    "grunt-closure-typechecker": "latest",
+    "grunt-contrib-jst": "latest",
+    "grunt-contrib-mincss": "latest",
+    "grunt-contrib-copy": "latest",
+    "grunt-tmplmin": "0.0.1",
+    "html-minifier": "latest",
+    "clean-css": "0.3.2",
+    "grunt-reload": "latest",
+    "express": "latest",
+    "jasmine-node": "latest",
+    "objeq": "latest",
+    "underscore": "latest",
+    "supertest": "latest",
+    "commander": "latest",
+    "restler": "latest",
+    "bower": "latest"
+  },
+  "keywords": [],
+  "engines": {
+    "node": "0.8.x",
+    "npm": "1.1.x"
+  }
+}

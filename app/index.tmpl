@@ -1,0 +1,17 @@
+<doctype html>
+<head>
+<%
+    var jsFiles = grunt.config('jsFiles'),
+        isConcat = grunt.config('isConcat');
+
+    if(isConcat) {
+        print('<script type="text/javascript" src="' + grunt.config('concat.dist.dest') + '"></script>\n');
+    } else {
+        for(var i = 0, len = jsFiles.length; i < len; i++) {
+            print('<script type="text/javascript" src="' + jsFiles[i] + '"></script>\n');
+        }
+    }
+%>
+</head>
+<html>
+</html>
