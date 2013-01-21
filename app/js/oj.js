@@ -6,7 +6,7 @@
             methods: ['lift']
         };
 
-        var OjOutput = { };
+        var OjOut = { };
 
         function makeNameSpace(externalCollection, anInternalCollection) {
             'use strict';
@@ -44,18 +44,19 @@
                 });
             
             externalCollection.makeSubNameSpace = externalCollection.makeSubNameSpace ||
-                externalCollection.lift('makeSubNameSpace', function(subNameSpace) {
-					externalCollection.lift(subNameSpace, function() {
-						return makeNameSpace();
+                externalCollection.lift('makeSubNameSpace', function(subNameSpace, optionalReturn) {
+						return externalCollection.makeNameSpace(optionalReturn);
 					});
 				});
             return externalCollection;
         }
 
-        makeNameSpace(OjOutput, OjPrivate);
+        makeNameSpace(OjOut, OjPrivate);
 
-        OjOutput.isFunction = OjOutput.isFunction ||
-            OjOutput.lift('isFunction', function(obj) {
+		OjOut.is = OjOut.is || OjOut.makeSubNameSpace('is');
+		
+        OjOut.is.func = OjOut.is.func ||
+            OjOut.is.lift('func', function(obj) {
                 'use strict';
                 /// <summary> Returns true if the object is a function</summary>
                 /// <param name="obj" type="Object"> Object to test</param>
@@ -64,15 +65,15 @@
                 return ret;
             });
 
-        OjOutput.tryExec = OjOutput.tryExec ||
-            OjOutput.lift('tryExec', function(func) {
+        OjOut.tryExec = OjOut.tryExec ||
+            OjOut.lift('tryExec', function(func) {
                 'use strict';
                 /// <summary> If the supplied argument is a function, execute it. </summary>
                 /// <param name="func" type="Function"> Function to evaluate </param>
                 /// <returns type="undefined" />
                 var ret = false;
                 try {
-                    if (OJ.isFunction(func)) {
+                    if (OJ.is.func(func)) {
                         ret = func.apply(this, Array.prototype.slice.call(arguments, 1));
                     }
                 } catch(exception) {
@@ -86,8 +87,8 @@
                 }
             });
 
-        OjOutput.method = OjOutput.method ||
-            OjOutput.lift('method', function(func) {
+        OjOut.method = OjOut.method ||
+            OjOut.lift('method', function(func) {
                 'use strict';
                 var that = this;
                 return function() {
@@ -97,7 +98,7 @@
                 };
             });
 
-        return OjOutput;
+        return OjOut;
 
     }());
 
