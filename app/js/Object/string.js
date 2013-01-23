@@ -2,22 +2,15 @@
 
 	OJ.string = OJ.string ||
         OJ.lift('string', function (inputStr, defaultStr) {
-            function tryGetString() {
+            function tryGetString(str) {
                 var ret = '';
-                if (false === OJ.is.plainObject(inputStr) &&
-                    false === OJ.is.func(inputStr) &&
-                        false === OJ.is.nullOrEmpty(inputStr)) {
-                    ret = inputStr.toString();
+                if (false === OJ.is.stringNullOrEmpty(str)) {
+                    ret = str.toString();
                 } 
-				else if (false === OJ.is.plainObject(defaultStr) &&
-                    false === OJ.is.func(defaultStr) &&
-                        false === OJ.is.nullOrEmpty(defaultStr)) {
-                    ret = defaultStr.toString();
-                }
                 return ret;
             }
 
-            var retObj = tryGetString();
+            var retObj = tryGetString(inputStr) || tryGetString(defaultStr);
 
             return retObj;
 
