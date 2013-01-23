@@ -58,6 +58,10 @@
         return ret;
     });
 
+    OJ.is.lift('elementInDom', function (elementId) {
+            return false === OJ.is.nullOrEmpty(document.getElementById(elementId));
+        });
+
     OJ.is.lift('generic', function (obj) {
         'use strict';
         var ret = (false === OJ.is.function(obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj));

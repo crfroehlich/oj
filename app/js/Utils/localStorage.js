@@ -17,11 +17,10 @@
 			return ojInternal || (window.Modernizr.localstorage || window.Modernizr.sessionstorage);
     };
 
-	var localDb = {
-	
-	};
-	
-    localDb.clear = function (clearAll) {
+	OJ.makeSubNameSpace('localDb');
+
+
+    OJ.localDb.lift('clear', function (clearAll) {
             ojInternal = ojInternal || init();
 			if (OJ.bool(clearAll)) {
                 //nuke the entire storage collection
@@ -34,13 +33,13 @@
                 ojInternal.closureStorage.clear();
             } else {
                 ojInternal.keys.forEach(function (key) {
-                    OJ.clientDb.removeItem(key);
+                    OJ.localDb.removeItem(key);
                 });
             }
-            return OJ.clientDb;
-     };
+            return OJ.localDb;
+     });
 
-    localDb.getItem = function (key) {
+    OJ.localDb.lift('getItem',  function (key) {
 		ojInternal = ojInternal || init();
 		var ret = '';
 		if (false === OJ.is.nullOrEmpty(key)) {
@@ -57,9 +56,9 @@
 			}
 		}
 		return ret;
-    };
+    });
 
-    localDb.getKeys = function () {
+    OJ.localDb.lift('getKeys',  function () {
 		ojInternal = ojInternal || init();
 		var locKey, sesKey, memKey;
 		if (OJ.is.nullOrEmpty(ojInternal.keys) && window.localStorage.length > 0) {
@@ -73,24 +72,24 @@
 			}
 		}
 		return ojInternal.keys;
-	};
+	});
 
-    localDb.hasKey = function (key) {
+    OJ.localDb.lift('hasKey',  function (key) {
 		ojInternal = ojInternal || init();
-		var ret = OJ.contains(localDb.getKeys(), key);
+		var ret = OJ.contains(OJ.localDb.getKeys(), key);
 		return ret;
-	};
+	});
 
-    localDb.removeItem = function (key) {
+    OJ.localDb.lift('removeItem', function (key) {
 		window.localStorage.removeItem(key);
 		window.sessionStorage.removeItem(key);
 		delete ojInternal.keys[key];
-	};
+	});
 
-    localDb.setItem = function (key, value) {
+    OJ.localDb.lift('setItem', function (key, value) {
 		var ret = true;
 		if (false === OJ.isNullOrEmpty(key)) {
-			if (false === localDb.hasKey(key)) {
+			if (false === OJ.localDb.hasKey(key)) {
 				ojInternal.keys.push(key);
 			}
 			var val = (typeof value === 'object') ? ojInternal.serialize(value) : value;
@@ -111,9 +110,6 @@
 			}
 		}
 		return ret;
-    };
-		
-	OJ.localDb = OJ.localDB ||
-		OJ.lift('localDb', localDb);	
+    });
 		
 }());

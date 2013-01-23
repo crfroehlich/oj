@@ -8,33 +8,32 @@
 	
 	};
 	
-	ojReturn.get = function (cookiename) {
+	OJ.makeSubNameSpace('cookies');
+
+	OJ.cookies.lift('get', function (cookiename) {
 		var ret = OJ.string($.cookie(cookiename));
 		if(ret !== ojInternal.cookies[cookiename]) {
 			ojInternal.cookies[cookiename] = ret;
 		}
 		return ret;
-	};
+	});
 
-    ojReturn.set = function (cookiename, value) {
+    OJ.cookies.lift('set', function (cookiename, value) {
 		ojInternal.cookies[cookiename] = value;
 		return $.cookie(cookiename, value);
 	};
 
-    ojReturn.clear = function (cookiename) {
+    OJ.cookies.lift('remove', function (cookiename) {
 		delete ojInternal.cookies[cookiename];
 		return $.cookie(cookiename, '');
-	};
+	});
 
-   ojReturn.clearAll = function () {
+   OJ.cookies.lift('clear', function () {
 		var cookieName;
 		for (cookieName in ojInternal.cookies) {
-			$.cookie(cookieName, null);
+			OJ.cookies.remove(cookieName);
 		}
 		return true;
-	};
-
-	OJ.cookie = OJ.cookie ||
-		OJ.lift('cookie', ojReturn);
+	});
 	
 }());

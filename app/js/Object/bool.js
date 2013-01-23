@@ -1,6 +1,6 @@
 (function() {
 
-	OJ.lift('bool', function bool(str, trueIfNull) {
+	OJ.lift('bool', function bool(str, nullIsTrue) {
 		var retBool = false;
 		function toBool() {
 			var ret = (str === true),
@@ -9,13 +9,15 @@
 				if (str === false) {
 					ret = false;
 				} else {
-					truthy = OJ.string(str).toLowerCase().trim();
-					if (truthy === 'true' || truthy === '1') {
+					if(OJ.is.trueOrFalse(str)) {
+						truthy = OJ.string(str).toLowerCase().trim();
+						if (truthy === 'true' || truthy === '1') {
+							ret = true;
+						} else 
+							ret = false;
+						}
+					} else if (nullIsTrue && OJ.is.nullOrEmpty(str)) {
 						ret = true;
-					} else if (trueIfNull && OJ.is.nullOrEmpty(str)) {
-						ret = true;
-					} else if (truthy === 'false' || truthy === '0') {
-						ret = false;
 					} else {
 						ret = false;
 					}
@@ -26,6 +28,15 @@
 		retBool = toBool();
 
 		return retBool;
+	});
+
+	OJ.lift('ES5_ToBool', function(val) {
+	    return (val !== false &&
+            val !== 0 &&
+            val !== '' &&
+            val !== null &&
+            val !== undefined &&
+            (typeof val !== 'number' || !isNaN(val)));
 	});
     
 }());
