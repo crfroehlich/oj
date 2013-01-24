@@ -3,10 +3,158 @@
 	{
 		"selected_items":
 		[
+			[
+				"local",
+				"localDb"
+			],
+			[
+				"get",
+				"getKeys"
+			],
+			[
+				"cooki",
+				"cookieName"
+			],
+			[
+				"fun",
+				"function"
+			],
+			[
+				"is",
+				"isArray"
+			],
+			[
+				"proto",
+				"prototype"
+			],
+			[
+				"pr",
+				"proto	Prototype"
+			],
+			[
+				"pro",
+				"prototype"
+			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "app/index.html",
+			"settings":
+			{
+				"buffer_size": 2478,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/oj.js",
+			"settings":
+			{
+				"buffer_size": 1273,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/DOM/nodeWrapper.js",
+			"settings":
+			{
+				"buffer_size": 30362,
+				"line_ending": "Windows",
+				"name": "/// <reference path=\"~/app/CswApp-vsdoc.js\" />"
+			}
+		},
+		{
+			"file": "app/js/DOM/node.js",
+			"settings":
+			{
+				"buffer_size": 2969,
+				"line_ending": "Windows",
+				"name": "function () {"
+			}
+		},
+		{
+			"file": "app/js/Utils/ajax.js",
+			"settings":
+			{
+				"buffer_size": 9834,
+				"line_ending": "Windows",
+				"name": "(function () {"
+			}
+		},
+		{
+			"file": "app/js/Object/function.js",
+			"settings":
+			{
+				"buffer_size": 927,
+				"line_ending": "Windows",
+				"name": "(function(){"
+			}
+		},
+		{
+			"file": "app/js/Object/truthy.js",
+			"settings":
+			{
+				"buffer_size": 2857,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/Object/string.js",
+			"settings":
+			{
+				"buffer_size": 5213,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/Object/object.js",
+			"settings":
+			{
+				"buffer_size": 2730,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/Utils/bindings.js",
+			"settings":
+			{
+				"buffer_size": 744,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/Object/bool.js",
+			"settings":
+			{
+				"buffer_size": 860,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/Utils/console.js",
+			"settings":
+			{
+				"buffer_size": 1455,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/Utils/cookie.js",
+			"settings":
+			{
+				"buffer_size": 768,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/Utils/localStorage.js",
+			"settings":
+			{
+				"buffer_size": 3164,
+				"line_ending": "Unix"
+			}
+		}
 	],
 	"build_system": "",
 	"command_palette":
@@ -19,7 +167,7 @@
 	},
 	"console":
 	{
-		"height": 0.0
+		"height": 125.0
 	},
 	"distraction_free":
 	{
@@ -32,10 +180,13 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Object/bool.js",
+		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Object/date.js",
+		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Object/number.js"
 	],
 	"find":
 	{
-		"height": 0.0
+		"height": 34.0
 	},
 	"find_in_files":
 	{
@@ -49,6 +200,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"\n    OJ.console.lift('trace', OJ.method(function (msg) {\n        console.trace(msg);\n    });",
+			"\n    OJ.console.lift('time', OJ.method(function (msg) {\n        console.time(msg);\n    });\n",
+			"js"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -66,8 +220,397 @@
 	"groups":
 	[
 		{
+			"selected": 4,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "app/index.html",
+					"settings":
+					{
+						"buffer_size": 2478,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1356,
+								1356
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 86.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "app/js/oj.js",
+					"settings":
+					{
+						"buffer_size": 1273,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								840,
+								856
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 417.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "app/js/DOM/nodeWrapper.js",
+					"settings":
+					{
+						"buffer_size": 30362,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								28039,
+								28039
+							]
+						],
+						"settings":
+						{
+							"auto_name": "/// <reference path=\"~/app/CswApp-vsdoc.js\" />",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5850.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "app/js/DOM/node.js",
+					"settings":
+					{
+						"buffer_size": 2969,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2969,
+								2969
+							]
+						],
+						"settings":
+						{
+							"auto_name": "function () {",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 690.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "app/js/Utils/ajax.js",
+					"settings":
+					{
+						"buffer_size": 9834,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								9834,
+								9834
+							]
+						],
+						"settings":
+						{
+							"auto_name": "(function () {",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2940.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "app/js/Object/function.js",
+					"settings":
+					{
+						"buffer_size": 927,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								556,
+								556
+							]
+						],
+						"settings":
+						{
+							"auto_name": "(function(){",
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "app/js/Object/truthy.js",
+					"settings":
+					{
+						"buffer_size": 2857,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1465,
+								1465
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 630.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "app/js/Object/string.js",
+					"settings":
+					{
+						"buffer_size": 5213,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								230,
+								230
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 8,
+					"file": "app/js/Object/object.js",
+					"settings":
+					{
+						"buffer_size": 2730,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2730,
+								2730
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 900.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 9,
+					"file": "app/js/Utils/bindings.js",
+					"settings":
+					{
+						"buffer_size": 744,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								732,
+								732
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 10,
+					"file": "app/js/Object/bool.js",
+					"settings":
+					{
+						"buffer_size": 860,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								443,
+								443
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 11,
+					"file": "app/js/Utils/console.js",
+					"settings":
+					{
+						"buffer_size": 1455,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1446,
+								1446
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 451.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "app/js/Utils/cookie.js",
+					"settings":
+					{
+						"buffer_size": 768,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								114,
+								83
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 13,
+					"file": "app/js/Utils/localStorage.js",
+					"settings":
+					{
+						"buffer_size": 3164,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								3154,
+								3154
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 990.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				}
 			]
 		}
 	],
@@ -77,7 +620,7 @@
 	},
 	"input":
 	{
-		"height": 0.0
+		"height": 31.0
 	},
 	"layout":
 	{
@@ -127,6 +670,6 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 150.0,
+	"side_bar_width": 277.0,
 	"status_bar_visible": true
 }
