@@ -1,21 +1,5 @@
 (function() {
 
-	OJ.string = OJ.string ||
-        OJ.lift('string', function (inputStr, defaultStr) {
-            function tryGetString(str) {
-                var ret = '';
-                if (false === OJ.is.stringNullOrEmpty(str)) {
-                    ret = str.toString();
-                } 
-                return ret;
-            }
-
-            var retObj = tryGetString(inputStr) || tryGetString(defaultStr);
-
-            return retObj;
-
-        });
-
     OJ.delimitedString = OJ.delimitedString ||
         OJ.lift('delimitedString', function (string, opts) {
             var ojInternal = {
@@ -23,7 +7,7 @@
                 spaceToDelimiter: true,
                 removeDuplicates: true,
                 delimiter: ',',
-                initString: OJ.string(string)
+                initString: OJ.to.string(string)
             };
 
             var ojReturn = {
@@ -65,13 +49,13 @@
                     return ojReturn.array.length;
                 },
                 contains: function (str, caseSensitive) {
-                    var isCaseSensitive = OJ.bool(caseSensitive);
+                    var isCaseSensitive = OJ.to.bool(caseSensitive);
                     str = OJ.string(str).trim();
                     if (false === isCaseSensitive) {
                         str = str.toLowerCase();
                     }
                     var match = ojReturn.array.filter(function (matStr) {
-                        return ((isCaseSensitive && OJ.string(matStr).trim() === str) || OJ.string(matStr).trim().toLowerCase() === str);
+                        return ((isCaseSensitive && OJ.to.string(matStr).trim() === str) || OJ.to.string(matStr).trim().toLowerCase() === str);
                     });
                     return match.length > 0;
                 },
@@ -81,7 +65,7 @@
             };
 
             ojInternal.parse = function (str) {
-                var ret = OJ.string(str);
+                var ret = OJ.to.string(str);
 
                 if (ojInternal.newLineToDelimiter) {
                     while (ret.indexOf('\n') !== -1) {
@@ -119,9 +103,9 @@
             };
 
             (function (a) { 
-                if (a.length > 1 && false === OJ.isPlainObject(opts)) {
+                if (a.length > 1 && false === OJ.is.plainObject(opts)) {
                     OJ.each(a, function (val) {
-                        if (false === OJ.isNullOrEmpty(val)) {
+                        if (false === OJ.is.nullOrEmpty(val)) {
                             ojReturn.array.push(val);
                         }
                     });
