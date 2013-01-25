@@ -1,3 +1,4 @@
+/*global OJ:true,$:true*/
 (function () {
 
     OJ.makeSubNameSpace('dom');
@@ -17,9 +18,9 @@
                 //Setup our Node instance
                 if(true !== OjNode.isValid) {
 
-                    if (OjNode && 
-                        OjNode[0] instanceof HTMLElement && 
-                        OJ.is.jQuery(OjNode.$) {
+                    if (OjNode &&
+                        OjNode[0] instanceof HTMLElement &&
+                        OJ.is.jQuery(OjNode.$)) {
                         OjInternal.isValid = true;
                     }
                     else if (OJ.is.jQuery(DomEl)) {
@@ -55,12 +56,12 @@
                     var ret;
                     var newNode = Object.create(null);
 
-                    Object.defineProperty(newNode, 'parent', value: OjNode);
-                    Object.defineProperty(newNode, 'root', value: OjNode.root);
+                    Object.defineProperty(newNode, 'parent', {value: OjNode});
+                    Object.defineProperty(newNode, 'root', {value: OjNode.root});
 
                     if (false === OJ.is.nullOrEmpty($child) && $child.length > 0) {
-                        Object.defineProperty(newNode, '$', value: $child);                                              
-                        Object.defineProperty(newNode, '0', value: $child[0]);
+                        Object.defineProperty(newNode, '$', {value: $child});
+                        Object.defineProperty(newNode, '0', {value: $child[0]});
                     }
                     ret = OJ.dom.nodeWrapper(newNode);
                     OjNode.childNodes.push(newNode);
@@ -71,11 +72,11 @@
                     var ret;
                     var newNode = Object.create(null);
 
-                    Object.defineProperty(newNode, 'root', value: OjNode.root);
+                    Object.defineProperty(newNode, 'root', {value: OjNode.root});
 
                     if (false === OJ.is.nullOrEmpty($child) && $child.length > 0) {
-                        Object.defineProperty(newNode, '$', value: $child);                                              
-                        Object.defineProperty(newNode, '0', value: $child[0]);
+                        Object.defineProperty(newNode, '$', {value: $child});
+                        Object.defineProperty(newNode, '0', {value: $child[0]});
                     }
                     ret = OJ.dom.nodeWrapper(newNode);
                     return ret;
@@ -97,8 +98,8 @@
                         ret = OjNode[0].dataset.propName;
                     }
                     if (OJ.is.stringNullOrEmpty(ret)) {
-                        ret = OjInternal.data[propName] || 
-                            OjNode.$.data(propName) || 
+                        ret = OjInternal.data[propName] ||
+                            OjNode.$.data(propName) ||
                             OJ.localStorage.getItem(propName + '_control_data_' + OjNode.getId());
                     }
                 }
@@ -120,17 +121,17 @@
                     }
                 }
                 return ret;
-            };
+            }});
 
             Object.defineProperty(OjInternal, 'setDataProperties', { value: function (obj) {
                 OJ.each(obj, function (val, propName) {
                     OjInternal.setDataProp(propName, val);
                 });
-            };
+            }});
 
 
             /**
-              OJ doesn't need many jQuery selectors, 
+              OJ doesn't need many jQuery selectors,
               but when it does they are sequestered on this property to "try" to avoid confusion.
             */
             var el = Object.create(null);
@@ -138,7 +139,7 @@
             Object.defineProperty(el, 'children', {value: function (searchTerm, selector) {
                 var ret = [];
                 if (OjInternal.isNodeAlive()) {
-                    var $chilren = OjNode.$.children(OJ.to.string(searchTerm), OJ.to.string(selector));
+                    var $children = OjNode.$.children(OJ.to.string(searchTerm), OJ.to.string(selector));
                     if($children) {
                         $children.each(function() {
                             var $child = $(this);
@@ -148,13 +149,13 @@
                 }
                 return ret;
             }});
-            
+
             Object.defineProperty(el, 'filter', { value: function (selector) {
                 var ret = [];
                 if (OjInternal.isNodeAlive()) {
                     var $children = OjNode.$.filter(selector);
                     if($children.length > 0) {
-                        $chilren.each(function() {
+                        $children.each(function() {
                             var $child = $(this);
                             ret.push(OjInternal.wrapChildNode($child));
                         });
@@ -162,13 +163,13 @@
                 }
                 return ret;
             }});
-            
+
             Object.defineProperty(el, 'find', { value: function (selector) {
                 var ret = [];
                 if (OjInternal.isNodeAlive()) {
                     var $children = OjNode.$.find(selector);
                     if($children.length > 0) {
-                        $chilren.each(function() {
+                        $children.each(function() {
                             var $child = $(this);
                             ret.push(OjInternal.wrapChildNode($child));
                         });
@@ -215,7 +216,7 @@
                         if (OJ.is.string(object)) {
                             OjNode.text(object);
                         }
-                    })
+                    });
                 }
                 return OjNode;
             }});
@@ -229,7 +230,7 @@
                         OjNode.$.attr(name);
                     } else  if(arguments.length === 1) {
                         ret = OjNode.$.attr(name);
-                    } else { 
+                    } else {
                         OjNode.$.attr(name, value);
                     }
                 }
@@ -258,7 +259,8 @@
                 }
                 return OjNode;
             }});
-            
+            Object.defineProperty(OjNode, 'on', {value : OJ.bind });
+
             Object.defineProperty(OjNode, 'clickOnEnter', {value: function (anOjNode) {
                 if (OjInternal.isNodeAlive()) {
                     OjNode.$.clickOnEnter(anOjNode.$);
@@ -360,7 +362,7 @@
                         OjNode.$.prop(name);
                     } else  if(arguments.length === 1) {
                         ret = OjNode.$.prop(name);
-                    } else { 
+                    } else {
                         OjNode.$.prop(name, value);
                     }
                 }
@@ -371,7 +373,7 @@
                 if(OjNode && OjNode.$) {
                     OjNode.$.remove();
                     OjNode.childNodes = [];
-                    //This will update the internal reference to the node, 
+                    //This will update the internal reference to the node,
                     //which will allow isNodeAlive() to work as expected;
                     //however, it won't delete outstanding references to the Node.
                     //But that's OK. The GC will clean-up just fine.
@@ -443,14 +445,14 @@
                     OjNode.$.trigger(eventName, eventOpts);
                 }
                 return OjNode;
-            };
+            }});
 
             Object.defineProperty(OjNode, 'unbind', { value: function (eventName, event) {
                 if (OjInternal.isNodeAlive()) {
                     OjNode.$.off(eventName, event);
                 }
                 return OjNode;
-            };
+            }});
             Object.defineProperty(OjNode, 'off', { value:  OjNode.unbind });
 
             Object.defineProperty(OjNode, 'valueOf', { value: function () {
@@ -458,7 +460,7 @@
             }});
 
             /**
-                Individual DOM classes will need to override this method. 
+                Individual DOM classes will need to override this method.
             */
             OjNode.val = OjNode.val || function (value) {
                 if (OjInternal.isNodeAlive()) {
