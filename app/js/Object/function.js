@@ -1,3 +1,4 @@
+/*global OJ:true*/
 (function(){
 	
 	OJ.lift('tryExec', function(func) {

@@ -1,3 +1,4 @@
+/*global OJ:true*/
 (function() {
 
     OJ.lift('hasLength', function (obj) {
@@ -51,7 +52,7 @@
 		}
 		return ret;
     });
-    
+
     OJ.lift('params', function (data, delimiter) {
          'use strict';
         var ret = '';
@@ -69,7 +70,7 @@
         return OJ.string(ret);
     });
 
-    
+
     OJ.lift('extend', function (destObj, srcObj, deepCopy) {
         'use strict';
         var ret = destObj || {};
@@ -85,11 +86,11 @@
          'use strict';
          if(OJ.is.array(object) && object.length > 0) {
             object.forEach(callBack);
-         } 
-         else if(object && object.keys && object.keys.length > 0) {
-            object.keys.forEach(callBack);
+         }
+         else if(object && Object.keys(object) && Object.keys(object).length > 0) {
+            Object.keys(object).forEach(callBack);
          }
          return null;
     });
-		
+
 }());

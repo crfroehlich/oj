@@ -1,31 +1,32 @@
+/*global OJ:true,$:true*/
 (function() {
 
 	OJ.makeSubNameSpace('is');
 
 	OJ.is.lift('arrayNullOrEmpty', function(arr) {
-		'use strict';			
+		'use strict';
 		return (!Array.isArray(arr) || !arr || !arr.length || arr.length === 0 || !arr.push);
 	});
 
 	OJ.is.lift('stringNullOrEmpty', function(str) {
-		'use strict';			
-		return (!str || !str.length || str.length === 0 || !str.trim || !str.trim() );
+		'use strict';
+		return (str && ( !str.length || str.length === 0 || !str.trim || !str.trim() ));
 	});
 
 	OJ.is.lift('numberNullOrEmpty', function(num) {
 		'use strict';
 		return (!num || isNaN(num) || !num.toPrecision);
-	});	
+	});
 
 	OJ.is.lift('dateNullOrEmpty', function(dt) {
-		'use strict';			
+		'use strict';
 		return (!dt || !dt.getTime);
-	});		
+	});
 
 	OJ.is.lift('objectNullOrEmpty', function(obj) {
 		'use strict';
-		return (!obj || !obj.keys || obj.keys.length == 0);
-	});	
+		return (!obj || !Object.keys(obj) || Object.keys(obj).length === 0);
+	});
 
     OJ.is.lift('plainObject', function (obj) {
         'use strict';
@@ -94,8 +95,8 @@
     OJ.is.lift('nullOrEmpty', function (obj, checkLength) {
         'use strict';
         var ret = false;
-		if ((!obj && !OJ.is.trueOrFalse(obj) && !OJ.is.func(obj)) || 
-			(checkLength && obj && (obj.length === 0 || (obj.keys && obj.keys.length === 0)))) {
+		if ((!obj && !OJ.is.trueOrFalse(obj) && !OJ.is.func(obj)) ||
+			(checkLength && obj && (obj.length === 0 || (Object.keys(obj) && Object.keys(obj).length === 0)))) {
             ret = true;
         }
         return ret;
@@ -105,8 +106,8 @@
         'use strict';
         return (obj.type === name || obj instanceof name);
     });
-		        
-    OjOut.is.lift('func', function(obj) {
+
+    OJ.is.lift('func', function(obj) {
         'use strict';
         var ret = ($.isFunction(obj));
         return ret;

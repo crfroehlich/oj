@@ -1,17 +1,18 @@
+/*global OJ:true*/
 (function() {
 
 	var init = function() {
 		var initObj = {
 			keys: [],
 			deserialize: OJ.deserialize,
-			serializer: O,
+			serializer: OJ.serialize,
 			hasLocalStorage: (window.Modernizr.localstorage),
 			hasSessionStorage: (window.Modernizr.sessionstorage)
 		};
 		initObj.serialize = initObj.serializer.stringify;
 	};
 	var ojInternal;
-    
+
     var hasWebStorage = function () {
             ojInternal.hasLocalStorage = (window.Modernizr.localstorage || window.Modernizr.sessionstorage);
 			return ojInternal || (window.Modernizr.localstorage || window.Modernizr.sessionstorage);
@@ -111,5 +112,5 @@
 		}
 		return ret;
     });
-		
+
 }());

@@ -1,3 +1,4 @@
+/*global OJ:true,$:true*/
 (function() {
 
 	OJ.makeSubNameSpace('to');
@@ -15,7 +16,7 @@
 						truthy = OJ.string(str).toLowerCase().trim();
 						if (truthy === 'true' || truthy === '1') {
 							ret = true;
-						} else 
+						} else {
 							ret = false;
 						}
 					} else if (nullIsTrue && OJ.is.nullOrEmpty(str)) {
