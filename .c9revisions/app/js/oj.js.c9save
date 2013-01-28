@@ -6,3 +6,35 @@
 {"ts":1359161942026,"patch":[[{"diffs":[[0,"        "],[-1,"function"],[1,"var"],[0," makeNam"]],"start1":135,"start2":135,"length1":24,"length2":19}]],"length":1124,"saved":false}
 {"ts":1359161945285,"patch":[[{"diffs":[[0,"akeNameSpace"],[1," = f"],[0,"(proto) {\n  "]],"start1":148,"start2":148,"length1":24,"length2":28}]],"length":1128,"saved":false}
 {"ts":1359161947254,"patch":[[{"diffs":[[0,"pace = f"],[1,"unction"],[0,"(proto) "]],"start1":156,"start2":156,"length1":16,"length2":23}]],"length":1135,"saved":false}
+{"contributors":[],"silentsave":true,"ts":1359339304775,"patch":[[{"diffs":[[0,"on() {\n\n"],[1,"    \n"],[0,"    wind"]],"start1":7,"start2":7,"length1":16,"length2":21}]],"length":1140,"saved":false}
+{"ts":1359339310006,"patch":[[{"diffs":[[0," {\n\n    "],[1,"/**/"],[0,"\n    win"]],"start1":11,"start2":11,"length1":16,"length2":20}]],"length":1144,"saved":false}
+{"ts":1359339311380,"patch":[[{"diffs":[[0,"\n    /**"],[1,"*"],[0,"/\n    wi"]],"start1":14,"start2":14,"length1":16,"length2":17}]],"length":1145,"saved":false}
+{"ts":1359339313484,"patch":[[{"diffs":[[0,"\n    /**"],[1,"\n        \n    \n    "],[0,"*/\n    w"]],"start1":14,"start2":14,"length1":16,"length2":35}]],"length":1164,"saved":false}
+{"ts":1359339629928,"patch":[[{"diffs":[[0,"/**\n        "],[1,"The "],[0,"\n    \n    */"]],"start1":19,"start2":19,"length1":24,"length2":28}]],"length":1168,"saved":false}
+{"ts":1359339630460,"patch":[[{"diffs":[[0,"     The"],[-1," \n    "],[1,"O\n"],[0,"\n    */\n"]],"start1":26,"start2":26,"length1":22,"length2":18}]],"length":1164,"saved":false}
+{"ts":1359339631793,"patch":[[{"diffs":[[0,"    TheO"],[1,"J "],[0,"\n\n    */"]],"start1":27,"start2":27,"length1":16,"length2":18}]],"length":1166,"saved":false}
+{"ts":1359339633502,"patch":[[{"diffs":[[0,"     The"],[1," "],[0,"OJ "],[1," "],[0,"\n\n    */"]],"start1":26,"start2":26,"length1":19,"length2":21}]],"length":1168,"saved":false}
+{"ts":1359339637880,"patch":[[{"diffs":[[0,"The OJ  "],[1,"NameSpace, an "],[0,"\n\n    */"]],"start1":31,"start2":31,"length1":16,"length2":30}]],"length":1182,"saved":false}
+{"ts":1359339638413,"patch":[[{"diffs":[[0,"pace, an"],[-1," "],[1,"II"],[0,"\n\n    */"]],"start1":44,"start2":44,"length1":17,"length2":18}]],"length":1183,"saved":false}
+{"ts":1359339639133,"patch":[[{"diffs":[[0,"e, a"],[-1,"nII"],[0,"\n\n  "]],"start1":47,"start2":47,"length1":11,"length2":8}]],"length":1180,"saved":false}
+{"ts":1359339640162,"patch":[[{"diffs":[[0,"Space, a"],[1," n "],[0,"\n\n    */"]],"start1":43,"start2":43,"length1":16,"length2":19}]],"length":1183,"saved":false}
+{"ts":1359339642059,"patch":[[{"diffs":[[0,"ce, a n "],[1,"IIFO"],[0,"\n\n    */"]],"start1":46,"start2":46,"length1":16,"length2":20}]],"length":1187,"saved":false}
+{"ts":1359339645320,"patch":[[{"diffs":[[0,"e, a"],[-1," "],[0,"n IIFO"],[1,"\n        "],[0,"\n\n  "]],"start1":47,"start2":47,"length1":15,"length2":23}]],"length":1195,"saved":false}
+{"ts":1359339646476,"patch":[[{"diffs":[[0,"an IIFO\n"],[-1,"        "],[1,"@name"],[0,"\n\n    */"]],"start1":50,"start2":50,"length1":24,"length2":21}]],"length":1192,"saved":false}
+{"ts":1359339647751,"patch":[[{"diffs":[[0,"FO\n@name"],[1,"spa"],[0,"\n\n    */"]],"start1":55,"start2":55,"length1":16,"length2":19}]],"length":1195,"saved":false}
+{"ts":1359339648911,"patch":[[{"diffs":[[0,"IFO\n"],[1,"    "],[0,"@namespa"],[1,"ce"],[0,"\n\n  "]],"start1":54,"start2":54,"length1":16,"length2":22}]],"length":1201,"saved":false}
+{"ts":1359339652021,"patch":[[{"diffs":[[0,"an IIFO\n"],[1,"    "],[0,"    @nam"]],"start1":50,"start2":50,"length1":16,"length2":20},{"diffs":[[0,"mespace\n"],[1,"        @"],[0,"\n    */\n"]],"start1":69,"start2":69,"length1":16,"length2":25}]],"length":1214,"saved":false}
+{"ts":1359339652478,"patch":[[{"diffs":[[0,"       @"],[1,"e"],[0,"\n    */\n"]],"start1":78,"start2":78,"length1":16,"length2":17}]],"length":1215,"saved":false}
+{"ts":1359339654465,"patch":[[{"diffs":[[0,"      @e"],[1,"xport "],[0,"\n    */\n"]],"start1":79,"start2":79,"length1":16,"length2":22}]],"length":1221,"saved":false}
+{"ts":1359339690967,"patch":[[{"diffs":[[0,"export \n"],[1,"        \n"],[0,"    */\n "]],"start1":86,"start2":86,"length1":16,"length2":25}]],"length":1230,"saved":false}
+{"ts":1359339692355,"patch":[[{"diffs":[[0,"        "],[1,"@ret"],[0,"\n    */\n"]],"start1":94,"start2":94,"length1":16,"length2":20}]],"length":1234,"saved":false}
+{"ts":1359339693638,"patch":[[{"diffs":[[0,"    @ret"],[1,"urn"],[0,"\n    */\n"]],"start1":98,"start2":98,"length1":16,"length2":19}]],"length":1237,"saved":false}
+{"ts":1359339697729,"patch":[[{"diffs":[[0," @return"],[1," {OJ"],[0,"\n    */\n"]],"start1":101,"start2":101,"length1":16,"length2":20}]],"length":1241,"saved":false}
+{"ts":1359339698503,"patch":[[{"diffs":[[0," @export"],[-1," "],[0,"\n       "]],"start1":84,"start2":84,"length1":17,"length2":16},{"diffs":[[0,"turn {OJ"],[1,"}"],[0,"\n    */\n"]],"start1":104,"start2":104,"length1":16,"length2":17}]],"length":1241,"saved":false}
+{"ts":1359339705019,"patch":[[{"diffs":[[0,"  'use strict';\n"],[1,"        "],[0,"\n        var pro"]],"start1":178,"start2":178,"length1":32,"length2":40}]],"length":1249,"saved":false}
+{"ts":1359339706175,"patch":[[{"diffs":[[0,"       \n"],[1,"        \n"],[0,"        "]],"start1":195,"start2":195,"length1":16,"length2":25}]],"length":1258,"saved":false}
+{"ts":1359339708648,"patch":[[{"diffs":[[0,"trict';\n        "],[1,"///"],[0,"\n        \n      "]],"start1":186,"start2":186,"length1":32,"length2":35}]],"length":1261,"saved":false}
+{"ts":1359339712377,"patch":[[{"diffs":[[0,"     ///"],[1,"<summa"],[0,"\n       "]],"start1":197,"start2":197,"length1":16,"length2":22}]],"length":1267,"saved":false}
+{"ts":1359339712984,"patch":[[{"diffs":[[0,"//<summa"],[-1,"\n        "],[1,"ry\n"],[0,"\n       "]],"start1":203,"start2":203,"length1":25,"length2":19}]],"length":1261,"saved":false}
+{"ts":1359339779440,"patch":[[{"diffs":[[0,"<summary"],[1,">Intializes the OJ namespace. Immediately invoked function object.</summary>\n        ///<returns type=\"OJ\">The </returns>"],[0,"\n\n      "]],"start1":205,"start2":205,"length1":16,"length2":137}]],"length":1382,"saved":false}
+{"ts":1359339787719,"patch":[[{"diffs":[[0,"OJ\">The "],[1,"OJ namespace."],[0,"</return"]],"start1":316,"start2":316,"length1":16,"length2":29}]],"length":1395,"saved":false}

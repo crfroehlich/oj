@@ -1,7 +1,15 @@
 (function() {
 
+    /**
+        The OJ  NameSpace, an IIFO
+        @namespace
+        @export
+        @return {OJ}
+    */
     window.OrangeJuice = window.OJ = (function() {
         'use strict';
+        ///<summary>Intializes the OJ namespace. Immediately invoked function object.</summary>
+        ///<returns type="OJ">The OJ namespace.</returns>
 
         var prototype = Object.create(null);
 
