@@ -18,13 +18,14 @@ from the user.
     
 ## Dependencies
 
-OJ currently depends on jQuery, but OJ has abstracted DOM insertion and manipulation such that other frameworks be 
+OJ currently depends on jQuery, but OJ has abstracted DOM insertion and manipulation such that other frameworks can be 
 supported down the line. Bacon.js will likely be a hard requirement in at least the short term for data-binding.
 
 ## State
 
 OJ currently supports casting any DOM node into an OJ node, and it supports adding DIV and SPAN elements. 
 That's not a lot, but I'm working to get all the other pieces in place before building out the rest of the DOM framework.
+Namely grunt tasks to build the project, unit tests and documentation--easier to do first than later.
 
 ## Goals
 
