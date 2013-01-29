@@ -59,7 +59,8 @@ module.exports = function(grunt) {
         eqnull: true,
         strict: false,
         browser: true,
-        globalstrict: false
+        globalstrict: false,
+        smarttabs: true
       },
       globals: {
         $: true,
@@ -110,6 +111,6 @@ module.exports = function(grunt) {
   grunt.registerTask('default', 'qunit concat closure-compiler watch');
 
   //grunt.loadNpmTasks('grunt-closure-compiler');
-  grunt.registerTask('dev', 'index concat');
+  grunt.registerTask('dev', 'index concat lint');
 
 };

@@ -180,7 +180,7 @@
 
     OJ.is.lift('generic', function (obj) {
         'use strict';
-        var ret = (false === OJ.is.function(obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj));
+        var ret = (false === OJ.is['function'](obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj));
         return ret;
     });
 
@@ -190,7 +190,7 @@
 
 
 	OJ.is.lift('string', function(str) {
-		return typeof obj === 'string' || OJ.is.instanceOf('string', obj);
+		return typeof str === 'string' || OJ.is.instanceOf('string', str);
 	});
 
     OJ.is.lift('trueOrFalse', function (obj) {
@@ -321,7 +321,7 @@
                     (function () {
 
                         var unique = function (array) {
-                            var seen = new Set;
+                            var seen = new Set();
                             return array.filter(function (item) {
                                 if (false === seen.has(item)) {
                                     seen.add(item);
@@ -335,7 +335,7 @@
                 }
             };
 
-            (function (a) { 
+            (function (a) {
                 if (a.length > 1 && false === OJ.is.plainObject(opts)) {
                     OJ.each(a, function (val) {
                         if (false === OJ.is.nullOrEmpty(val)) {
@@ -517,7 +517,6 @@
         @return {OJ}
     */
     window.OrangeJuice = window.OJ = (function() {
-        'use strict';
         ///<summary>Intializes the OJ namespace. Immediately invoked function object.</summary>
         ///<returns type="OJ">The OJ namespace.</returns>
 
@@ -544,6 +543,7 @@
             };
 
             proto['makeSubNameSpace'] = function(subNameSpace) {
+				'use strict';
 				return Object.defineProperty(ret, subNameSpace, {
                         value: makeNameSpace(null),
                         writable: false,
@@ -565,7 +565,7 @@
 (function() {
 
 	var ojInternal = {
-		cookies: {},
+		cookies: {}
 	};
 
 	OJ.makeSubNameSpace('cookies');
@@ -589,10 +589,9 @@
 	});
 
    OJ.cookies.lift('clear', function () {
-		var cookieName;
-		for (cookieName in ojInternal.cookies) {
-			OJ.cookies.remove(cookieName);
-		}
+		Object.keys(ojInternal.cookies).forEach(function(key) {
+		OJ.cookies.remove(key);
+		});
 		return true;
 	});
 
@@ -601,6 +600,7 @@
 (function() {
 
 	var init = function() {
+		'use strict';
 		var initObj = {
 			keys: [],
 			deserialize: OJ.deserialize,
@@ -613,15 +613,17 @@
 	var ojInternal;
 
     var hasWebStorage = function () {
-            ojInternal.hasLocalStorage = (window.Modernizr.localstorage || window.Modernizr.sessionstorage);
-			return ojInternal || (window.Modernizr.localstorage || window.Modernizr.sessionstorage);
+        'use strict';
+        ojInternal.hasLocalStorage = (window.Modernizr.localstorage || window.Modernizr.sessionstorage);
+		return ojInternal || (window.Modernizr.localstorage || window.Modernizr.sessionstorage);
     };
 
 	OJ.makeSubNameSpace('localDb');
 
 
     OJ.localDb.lift('clear', function (clearAll) {
-            ojInternal = ojInternal || init();
+        'use strict';
+        ojInternal = ojInternal || init();
 			if (OJ.bool(clearAll)) {
                 //nuke the entire storage collection
                 if (ojInternal.hasLocalStorage) {
@@ -640,6 +642,7 @@
      });
 
     OJ.localDb.lift('getItem',  function (key) {
+		'use strict';
 		ojInternal = ojInternal || init();
 		var ret = '';
 		if (false === OJ.is.nullOrEmpty(key)) {
@@ -659,34 +662,37 @@
     });
 
     OJ.localDb.lift('getKeys',  function () {
+		'use strict';
 		ojInternal = ojInternal || init();
-		var locKey, sesKey, memKey;
 		if (OJ.is.nullOrEmpty(ojInternal.keys) && window.localStorage.length > 0) {
-			for (locKey in window.localStorage) {
-				ojInternal.keys.push(locKey);
-			}
+			Object.keys(window.localStorage).forEach(function(key) {
+				ojInternal.keys.push(key);
+			});
 			if (window.sessionStorage.length > 0) {
-				for (sesKey in window.sessionStorage) {
-					ojInternal.keys.push(sesKey);
-				}
+				Object.keys(window.sessionStorage).forEach(function(key) {
+					ojInternal.keys.push(key);
+				});
 			}
 		}
 		return ojInternal.keys;
 	});
 
     OJ.localDb.lift('hasKey',  function (key) {
+		'use strict';
 		ojInternal = ojInternal || init();
 		var ret = OJ.contains(OJ.localDb.getKeys(), key);
 		return ret;
 	});
 
     OJ.localDb.lift('removeItem', function (key) {
+		'use strict';
 		window.localStorage.removeItem(key);
 		window.sessionStorage.removeItem(key);
 		delete ojInternal.keys[key];
 	});
 
     OJ.localDb.lift('setItem', function (key, value) {
+		'use strict';
 		var ret = true;
 		if (false === OJ.isNullOrEmpty(key)) {
 			if (false === OJ.localDb.hasKey(key)) {
@@ -713,7 +719,7 @@
     });
 
 }());
-/*global OJ:true*/
+/*global OJ:true, $:true*/
 (function () {
     'use strict';
     var OjInternal = {
@@ -746,70 +752,69 @@
     });
     
 } ());
-/*global OJ:true*/
+/*global OJ:true,window:true*/
 (function () {
     'use strict';
-    
+
     OJ.makeSubNameSpace('console');
 
     OJ.console.lift('assert', OJ.method(function (truth, msg) {
-        console.assert(truth, msg);
+        window.console.assert(truth, msg);
     }));
 
     OJ.console.lift('count', OJ.method(function (msg) {
-        console.count(msg);
+        window.console.count(msg);
     }));
-    
+
     OJ.console.lift('error', OJ.method(function (msg) {
-        console.error(msg);
+        window.console.error(msg);
     }));
 
     OJ.console.lift('group', OJ.method(function (name) {
-        console.group(name);
+        window.console.group(name);
     }));
 
     OJ.console.lift('groupCollapsed', OJ.method(function (name) {
-        console.groupCollapsed(name);
+        window.console.groupCollapsed(name);
     }));
 
     OJ.console.lift('groupEnd', OJ.method(function (name) {
-        console.groupEnd(name);
+        window.console.groupEnd(name);
     }));
 
     OJ.console.lift('info', OJ.method(function (msg) {
-        console.info(msg);
+        window.console.info(msg);
     }));
 
     OJ.console.lift('log', OJ.method(function (msg) {
-        console.log(msg);
+        window.console.log(msg);
     }));
 
     OJ.console.lift('profile', OJ.method(function (msg) {
-        console.profile(msg);
+        window.console.profile(msg);
     }));
 
     OJ.console.lift('profileEnd', OJ.method(function (msg) {
-        console.profileEnd(msg);
+        window.console.profileEnd(msg);
     }));
 
     OJ.console.lift('time', OJ.method(function (msg) {
-        console.time(msg);
+        window.console.time(msg);
     }));
 
     OJ.console.lift('timeEnd', OJ.method(function (msg) {
-        console.timeEnd(msg);
+        window.console.timeEnd(msg);
     }));
 
     OJ.console.lift('trace', OJ.method(function (msg) {
-        console.trace(msg);
+        window.console.trace(msg);
     }));
 
     OJ.console.lift('warn', OJ.method(function (msg) {
-        console.warn(msg);
+        window.console.warn(msg);
     }));
-	
-}());
 
+}());
 /*global OJ:true*/
 (function() {
 
@@ -1665,7 +1670,7 @@
     var length = methods.length;
     var console = (window.console = window.console || {});
 
-    while (length--) {
+    while (length -+ 1) {
         method = methods[length];
 
         // Only stub undefined methods.

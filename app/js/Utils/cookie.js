@@ -2,7 +2,7 @@
 (function() {
 
 	var ojInternal = {
-		cookies: {},
+		cookies: {}
 	};
 
 	OJ.makeSubNameSpace('cookies');
@@ -26,10 +26,9 @@
 	});
 
    OJ.cookies.lift('clear', function () {
-		var cookieName;
-		for (cookieName in ojInternal.cookies) {
-			OJ.cookies.remove(cookieName);
-		}
+		Object.keys(ojInternal.cookies).forEach(function(key) {
+		OJ.cookies.remove(key);
+		});
 		return true;
 	});
 

@@ -89,7 +89,7 @@
                     (function () {
 
                         var unique = function (array) {
-                            var seen = new Set;
+                            var seen = new Set();
                             return array.filter(function (item) {
                                 if (false === seen.has(item)) {
                                     seen.add(item);
@@ -103,7 +103,7 @@
                 }
             };
 
-            (function (a) { 
+            (function (a) {
                 if (a.length > 1 && false === OJ.is.plainObject(opts)) {
                     OJ.each(a, function (val) {
                         if (false === OJ.is.nullOrEmpty(val)) {

@@ -2,6 +2,7 @@
 (function() {
 
 	var init = function() {
+		'use strict';
 		var initObj = {
 			keys: [],
 			deserialize: OJ.deserialize,
@@ -14,15 +15,17 @@
 	var ojInternal;
 
     var hasWebStorage = function () {
-            ojInternal.hasLocalStorage = (window.Modernizr.localstorage || window.Modernizr.sessionstorage);
-			return ojInternal || (window.Modernizr.localstorage || window.Modernizr.sessionstorage);
+        'use strict';
+        ojInternal.hasLocalStorage = (window.Modernizr.localstorage || window.Modernizr.sessionstorage);
+		return ojInternal || (window.Modernizr.localstorage || window.Modernizr.sessionstorage);
     };
 
 	OJ.makeSubNameSpace('localDb');
 
 
     OJ.localDb.lift('clear', function (clearAll) {
-            ojInternal = ojInternal || init();
+        'use strict';
+        ojInternal = ojInternal || init();
 			if (OJ.bool(clearAll)) {
                 //nuke the entire storage collection
                 if (ojInternal.hasLocalStorage) {
@@ -41,6 +44,7 @@
      });
 
     OJ.localDb.lift('getItem',  function (key) {
+		'use strict';
 		ojInternal = ojInternal || init();
 		var ret = '';
 		if (false === OJ.is.nullOrEmpty(key)) {
@@ -60,34 +64,37 @@
     });
 
     OJ.localDb.lift('getKeys',  function () {
+		'use strict';
 		ojInternal = ojInternal || init();
-		var locKey, sesKey, memKey;
 		if (OJ.is.nullOrEmpty(ojInternal.keys) && window.localStorage.length > 0) {
-			for (locKey in window.localStorage) {
-				ojInternal.keys.push(locKey);
-			}
+			Object.keys(window.localStorage).forEach(function(key) {
+				ojInternal.keys.push(key);
+			});
 			if (window.sessionStorage.length > 0) {
-				for (sesKey in window.sessionStorage) {
-					ojInternal.keys.push(sesKey);
-				}
+				Object.keys(window.sessionStorage).forEach(function(key) {
+					ojInternal.keys.push(key);
+				});
 			}
 		}
 		return ojInternal.keys;
 	});
 
     OJ.localDb.lift('hasKey',  function (key) {
+		'use strict';
 		ojInternal = ojInternal || init();
 		var ret = OJ.contains(OJ.localDb.getKeys(), key);
 		return ret;
 	});
 
     OJ.localDb.lift('removeItem', function (key) {
+		'use strict';
 		window.localStorage.removeItem(key);
 		window.sessionStorage.removeItem(key);
 		delete ojInternal.keys[key];
 	});
 
     OJ.localDb.lift('setItem', function (key, value) {
+		'use strict';
 		var ret = true;
 		if (false === OJ.isNullOrEmpty(key)) {
 			if (false === OJ.localDb.hasKey(key)) {

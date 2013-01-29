@@ -29,3 +29,6 @@
 {"ts":1359425621429,"patch":[[{"diffs":[[0,"rc: "],[-1,"jsF"],[1,"'<config:lint.f"],[0,"iles"],[1,">'"],[0,",\n  "]],"start1":765,"start2":765,"length1":15,"length2":29}]],"length":3090,"saved":false}
 {"ts":1359425630073,"patch":[[{"diffs":[[0,"es: "],[-1,"['app/*.js', 'app/**/*.js', 'app/**/**/*.js']"],[1,"'<config:lint.files>'"],[0,"\n   "]],"start1":2180,"start2":2180,"length1":53,"length2":29}]],"length":3066,"saved":false}
 {"ts":1359425696978,"patch":[[{"diffs":[[0,"ncat"],[-1," watch qunit"],[0,"');\n"]],"start1":3042,"start2":3042,"length1":20,"length2":8}]],"length":3054,"saved":false}
+{"ts":1359427039780,"patch":[[{"diffs":[[0,"x concat"],[1," lint"],[0,"');\n\n};\n"]],"start1":3038,"start2":3038,"length1":16,"length2":21}]],"length":3059,"saved":false}
+{"ts":1359427278906,"patch":[[{"diffs":[[0,"t: false"],[1,",\n        smarttabs:"],[0,"\n      }"]],"start1":1766,"start2":1766,"length1":16,"length2":36}]],"length":3079,"saved":false}
+{"ts":1359427280986,"patch":[[{"diffs":[[0,"arttabs:"],[1," true"],[0,"\n      }"]],"start1":1786,"start2":1786,"length1":16,"length2":21}]],"length":3084,"saved":false}

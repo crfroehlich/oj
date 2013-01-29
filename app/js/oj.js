@@ -7,15 +7,12 @@
         @return {OJ}
     */
     window.OrangeJuice = window.OJ = (function() {
-        'use strict';
         ///<summary>Intializes the OJ namespace. Immediately invoked function object.</summary>
         ///<returns type="OJ">The OJ namespace.</returns>
 
         var prototype = Object.create(null);
 
         var makeNameSpace = function(proto) {
-            'use strict';
-
             proto = proto || Object.create(null);
 
             var ret = Object.create(proto);
@@ -34,6 +31,7 @@
             };
 
             proto['makeSubNameSpace'] = function(subNameSpace) {
+				'use strict';
 				return Object.defineProperty(ret, subNameSpace, {
                         value: makeNameSpace(null),
                         writable: false,

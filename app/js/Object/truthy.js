@@ -65,7 +65,7 @@
 
     OJ.is.lift('generic', function (obj) {
         'use strict';
-        var ret = (false === OJ.is.function(obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj));
+        var ret = (false === OJ.is['function'](obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj));
         return ret;
     });
 
@@ -75,7 +75,7 @@
 
 
 	OJ.is.lift('string', function(str) {
-		return typeof obj === 'string' || OJ.is.instanceOf('string', obj);
+		return typeof str === 'string' || OJ.is.instanceOf('string', str);
 	});
 
     OJ.is.lift('trueOrFalse', function (obj) {

@@ -11,7 +11,7 @@
     var length = methods.length;
     var console = (window.console = window.console || {});
 
-    while (length--) {
+    while (length -+ 1) {
         method = methods[length];
 
         // Only stub undefined methods.

@@ -1,4 +1,4 @@
-/*global OJ:true*/
+/*global OJ:true, $:true*/
 (function () {
     'use strict';
     var OjInternal = {

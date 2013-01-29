@@ -38,3 +38,7 @@
 {"ts":1359339712984,"patch":[[{"diffs":[[0,"//<summa"],[-1,"\n        "],[1,"ry\n"],[0,"\n       "]],"start1":203,"start2":203,"length1":25,"length2":19}]],"length":1261,"saved":false}
 {"ts":1359339779440,"patch":[[{"diffs":[[0,"<summary"],[1,">Intializes the OJ namespace. Immediately invoked function object.</summary>\n        ///<returns type=\"OJ\">The </returns>"],[0,"\n\n      "]],"start1":205,"start2":205,"length1":16,"length2":137}]],"length":1382,"saved":false}
 {"ts":1359339787719,"patch":[[{"diffs":[[0,"OJ\">The "],[1,"OJ namespace."],[0,"</return"]],"start1":316,"start2":316,"length1":16,"length2":29}]],"length":1395,"saved":false}
+{"contributors":[],"silentsave":true,"ts":1359428059009,"patch":[[{"diffs":[[0,"ion() {\n"],[-1,"        'use strict';\n"],[0,"        "]],"start1":164,"start2":164,"length1":38,"length2":16}]],"length":1373,"saved":false}
+{"ts":1359428071750,"patch":[[{"diffs":[[0,"ameSpace) {\n"],[1,"\t\t\t\t\n"],[0,"\t\t\t\treturn O"]],"start1":975,"start2":975,"length1":24,"length2":29}]],"length":1378,"saved":false}
+{"ts":1359428072975,"patch":[[{"diffs":[[0,") {\n\t\t\t\t"],[1,"'use strict';"],[0,"\n\t\t\t\tret"]],"start1":983,"start2":983,"length1":16,"length2":29}]],"length":1391,"saved":false}
+{"ts":1359428109817,"patch":[[{"diffs":[[0,") {\n"],[-1,"            'use strict';\n\n"],[0,"    "]],"start1":415,"start2":415,"length1":35,"length2":8}]],"length":1364,"saved":false}
