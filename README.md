@@ -1,13 +1,13 @@
 OJ :: Orange Juice (O) JavaScript (J) :: Calcium Fortified JS
 ======
-This code is Public Domain, though it's dependencies may not be.
+This code is Public Domain, though its dependencies may not be.
 
 ## Purpose
 
-OJ provides a zero-HTML approach to writing web applications. Everything that goes into the DOM enters via JavaScript. 
+OJ aims to provide a zero-HTML approach to writing web applications. Everything that goes into the DOM enters via JavaScript. 
 DOM nodes, their parent and child nodes, and their events are accessible in-memory and through the chaining that OJ
-provides. Data-binding happens automatically, bi-directionally to/from the Objects you provide the DOM and the changes
-from the user.
+provides. Data-binding happens automatically, bi-directionally to/from the Objects you provide OJ and the changes
+the user makes to the rendered page.
 
 ## Usage
 
