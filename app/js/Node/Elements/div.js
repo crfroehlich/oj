@@ -1,9 +1,9 @@
-/*global OJ:true,$:true*/
+/*global OJ:true*/
 (function() {
 
     OJ.elements.lift('div', function(OjNode, options) {
 
-        var div = OjNode.addChild($('<div id="' + options.id +  '" value="' + options.value + '">' + OJ.to.string(options.display) + '</div>'));
+        var div = OjNode.addChild('<div id="' + options.id +  '" value="' + options.value + '">' + OJ.to.string(options.display) + '</div>');
         div.data(options);
         div.addClass(options.cssclass);
         div.css(options.styles);

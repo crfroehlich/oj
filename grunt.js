@@ -1,12 +1,8 @@
 /*global module:false*/
 module.exports = function(grunt) {
-	var jsFiles = [
-		'app/js/oj.js', 'app/js/**/*.js', 'app/init.js'
-	];
   // Project configuration.
   grunt.initConfig({
     pkg: '<json:package.json>',
-    jsFiles: jsFiles,
 	meta: {
       banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
         '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
@@ -18,35 +14,35 @@ module.exports = function(grunt) {
 	index: {
 		src: 'app/index.tmpl',  // source template file
 		dest: 'app/index.html'  // destination file (usually index.html)
-	  },
+	},
     concat: {
       dist: {
-        src: jsFiles,
-        dest: 'app/oj.<%= grunt.template.today("yyyy.m.d") %>.js'
+        src: '<config:lint.files>',
+        dest: 'release/js/oj.<%= grunt.template.today("yyyy.m.d") %>.js'
       },
       html: {
         src: ['Index.html'],
         dest: 'Index.html'
-      }  
-    },    
+      }
+    },
     min: {
       dist: {
         src: ['app/oj.<%= grunt.template.today("yyyy.m.d") %>.js'],
         dest: 'app/oj.<%= grunt.template.today("yyyy.m.d") %>.min.js',
         separator: ';'
       }
-    },  
-    qunit: { 
+    },
+    qunit: {
       files: ['test/**/*.html']
     },
     lint: {
-      files: jsFiles
+      files: ['app/*.js', 'app/**/*.js', 'app/**/**/*.js']
     },
     watch: {
-      files: jsFiles,
+      files: '<config:lint.files>',
       tasks: 'concat min closure-compiler'
-    }, 
-    jshint: {     
+    },
+    jshint: {
       options: {
         bitwise: true,
         curly: true,
@@ -72,8 +68,8 @@ module.exports = function(grunt) {
         Ext: true
       }
     },
-    uglify: { 
-      ast: true, 
+    uglify: {
+      ast: true,
       verbose: true
     },
     'closure-compiler': {
@@ -86,7 +82,7 @@ module.exports = function(grunt) {
       }
     },
     docco: {
-      files: ['app/ol.js', 'app/**/*.js']
+      files: '<config:lint.files>'
     },
     ducksboard: {
           tasks: {
@@ -94,9 +90,9 @@ module.exports = function(grunt) {
               endpoint: 'iMPZSvSciCQFntmd9MPlPvcYpEV4rBOu1tAv2TJWgEGDLBDCKh'
           }
       }
-    
+
   });
- 
+
   grunt.registerTask( 'index', 'Generate index.html depending on configuration', function() {
         var conf = grunt.config('index'),
             tmpl = grunt.file.read(conf.src);
@@ -105,16 +101,15 @@ module.exports = function(grunt) {
 
         grunt.log.writeln('Generated \'' + conf.dest + '\' from \'' + conf.src + '\'');
     });
- 
+
   grunt.loadNpmTasks('grunt-barkeep');
   grunt.loadNpmTasks('grunt-growl');
   grunt.loadNpmTasks('grunt-closure-compiler');
-  
+
   // Default task.
   grunt.registerTask('default', 'qunit concat closure-compiler watch');
 
   //grunt.loadNpmTasks('grunt-closure-compiler');
-  grunt.registerTask('dev', 'index lint watch qunit');
-  
-  grunt.registerTask('dev', 'index concat watch qunit');
-}; 
+  grunt.registerTask('dev', 'index concat');
+
+};

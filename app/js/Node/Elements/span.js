@@ -1,16 +1,16 @@
-/*global OJ:true,$:true*/
+/*global OJ:true*/
 (function() {
 
     OJ.elements.lift('span', function(OjNode, options) {
 
-        var div = OjNode.addChild($('<span id="' + options.id +  '" value="' + options.value + '">' + OJ.to.string(options.display) + '</span>'));
-        div.data(options);
-        div.addClass(options.cssclass);
-        div.css(options.styles);
-        div.attr(options.attr);
-        div.prop(options.prop);
+        var span = OjNode.addChild('<span id="' + options.id +  '" value="' + options.value + '">' + OJ.to.string(options.display) + '</span>');
+        span.data(options);
+        span.addClass(options.cssclass);
+        span.css(options.styles);
+        span.attr(options.attr);
+        span.prop(options.prop);
 
-        return div;
+        return span;
 
     });
 
