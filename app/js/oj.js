@@ -1,20 +1,20 @@
 (function() {
 
     /**
-    *    The OJ  NameSpace, an IIFO
+    *    The OJ  NameSpace, an IIFE
     *    @namespace
     *    @export
     *    @return {window.OJ}
     */
     window.OrangeJuice = window.OJ = (function() {
-        ///<summary>(IIFO) Intializes the OJ namespace.</summary>
+        ///<summary>(IIFE) Intializes the OJ namespace.</summary>
         ///<returns type="window.OJ">The OJ namespace.</returns>
 
         var prototype = Object.create(null);
 
 		/**
 		*	Internal OJ method to create new "sub" namespaces on arbitrary child objects.
-		*	@param (Object) proto An instance of an Object to use as the basis of the new namespace prototype			
+		*	@param (Object) proto An instance of an Object to use as the basis of the new namespace prototype
 		*/
         var makeNameSpace = function(proto) {
             /// <summary>Internal OJ method to create new "sub" namespaces on arbitrary child objects.</summary>
@@ -23,9 +23,9 @@
             proto = proto || Object.create(null);
 
             var ret = Object.create(proto);
-			
+
 			/**
-			*	"Lift" an Object into the prototype of the namespace. 
+			*	"Lift" an Object into the prototype of the namespace.
 			*	This Object will be readable/executable but is otherwise immutable.
 			*   @param (String) name The name of the object to lift
 			*   @param (Object) obj Any, arbitrary Object to use as the value.
@@ -47,7 +47,7 @@
 				}
                 return obj;
             };
-			
+
 			/**
 			*	Create a new, static namespace on the current parent (e.g. OJ.to... || OJ.is...)
 			*   @param (String) subNameSpace The name of the new namespace.

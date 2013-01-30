@@ -11,9 +11,14 @@ module.exports = function(grunt) {
         ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */',
       ducksboard_api_key: 'iMPZSvSciCQFntmd9MPlPvcYpEV4rBOu1tAv2TJWgEGDLBDCKh'
     },
-	index: {
-		src: 'app/index.tmpl',  // source template file
-		dest: 'app/index.html'  // destination file (usually index.html)
+	indexHtml: {
+		src: 'app/index.tmpl',
+		dest: 'app/index.html'
+	},
+    testHtml: {
+		src: 'test/test.tmpl',
+		dest: 'test/test.html',
+		testJsFiles: ['test/*.js', 'test/**/*.js', 'test/**/**/*.js']
 	},
     concat: {
       dist: {
@@ -33,7 +38,7 @@ module.exports = function(grunt) {
       }
     },
     qunit: {
-      files: ['test/**/*.html']
+      files: ['test/*.html']
     },
     lint: {
       files: ['app/*.js', 'app/**/*.js', 'app/**/**/*.js']
@@ -94,8 +99,8 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask( 'index', 'Generate index.html depending on configuration', function() {
-        var conf = grunt.config('index'),
+	grunt.registerTask( 'indexHtml', 'Generate index.html depending on configuration', function() {
+        var conf = grunt.config('indexHtml'),
             tmpl = grunt.file.read(conf.src);
 
         grunt.file.write(conf.dest, grunt.template.process(tmpl));
@@ -103,14 +108,24 @@ module.exports = function(grunt) {
         grunt.log.writeln('Generated \'' + conf.dest + '\' from \'' + conf.src + '\'');
     });
 
-  grunt.loadNpmTasks('grunt-barkeep');
-  grunt.loadNpmTasks('grunt-growl');
-  grunt.loadNpmTasks('grunt-closure-compiler');
+	grunt.registerTask( 'testHtml', 'Generate test.html depending on configuration', function() {
+        var conf = grunt.config('testHtml'),
+            tmpl = grunt.file.read(conf.src);
 
-  // Default task.
-  grunt.registerTask('default', 'qunit concat closure-compiler watch');
+        grunt.file.write(conf.dest, grunt.template.process(tmpl));
 
-  //grunt.loadNpmTasks('grunt-closure-compiler');
-  grunt.registerTask('dev', 'index concat lint');
+        grunt.log.writeln('Generated \'' + conf.dest + '\' from \'' + conf.src + '\'');
+    });
+
+	grunt.loadNpmTasks('grunt-barkeep');
+	grunt.loadNpmTasks('grunt-growl');
+	grunt.loadNpmTasks('grunt-closure-compiler');
+
+	// Default task.
+	grunt.registerTask('default', 'qunit concat closure-compiler watch');
+
+	//grunt.loadNpmTasks('grunt-closure-compiler');
+	grunt.registerTask('dev', 'indexHtml concat lint');
+	grunt.registerTask('test', 'testHtml qunit');
 
 };
