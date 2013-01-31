@@ -75,7 +75,7 @@
 
 
 	OJ.is.lift('string', function(str) {
-		return typeof str === 'string' || OJ.is.instanceOf('string', str);
+		return typeof str === 'string' || (typeof str === 'object' && typeof str.valueOf() === 'string');
 	});
 
     OJ.is.lift('trueOrFalse', function (obj) {
