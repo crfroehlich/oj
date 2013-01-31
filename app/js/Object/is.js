@@ -3,6 +3,11 @@
 
 	OJ.makeSubNameSpace('is');
 
+	OJ.is.lift('bool', function(boolean) {
+		'use strict';
+		return (boolean	=== true || boolean	=== false);
+	});
+
 	OJ.is.lift('arrayNullOrEmpty', function(arr) {
 		'use strict';
 		return (!Array.isArray(arr) || !arr || !arr.length || arr.length === 0 || !arr.push);
@@ -75,7 +80,9 @@
 
 
 	OJ.is.lift('string', function(str) {
-		return typeof str === 'string' || (typeof str === 'object' && typeof str.valueOf() === 'string');
+		return  null !== str &&
+				(typeof str === 'string' || // covers any primitive assignment (e.g. var x = 'x')
+				(typeof str === 'object' && str && str.valueOf && typeof str.valueOf() === 'string')); //covers any object assignment (e.g. var x = new String('x'))
 	});
 
     OJ.is.lift('trueOrFalse', function (obj) {

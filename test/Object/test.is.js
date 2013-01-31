@@ -3,6 +3,8 @@
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 (function() {
 
+	//#region OJ.is.string
+
 	module("Oj.is.string");
 	test( "OJ.is.string('a')", function() {
 		deepEqual( OJ.is.string('a'), true, "'a' is _a_ string");
@@ -79,5 +81,64 @@
 	test( "OJ.is.string(String)", function() {
 		deepEqual( OJ.is.string(String), false, "String is not a string");
 	});
+
+	//#endregion OJ.is.string
+
+	//#region OJ.is.bool
+
+	test( "OJ.is.bool(true)", function() {
+		deepEqual( OJ.is.bool(true), true, "true is a boolean value");
+	});
+
+	test( "OJ.is.bool(false)", function() {
+		deepEqual( OJ.is.bool(false), true, "false is a boolean value");
+	});
+
+	test( "OJ.is.bool(0)", function() {
+		deepEqual( OJ.is.bool(0), false, "0 is not a boolean value");
+	});
+
+	test( "OJ.is.bool('0')", function() {
+		deepEqual( OJ.is.bool('0'), false, "'0' is not a boolean value");
+	});
+
+	test( "OJ.is.bool(1)", function() {
+		deepEqual( OJ.is.bool(1), false, "1 is not a boolean value");
+	});
+
+	test( "OJ.is.bool('1')", function() {
+		deepEqual( OJ.is.bool('1'), false, "'1' is not a boolean value");
+	});
+
+	test( "OJ.is.bool('true')", function() {
+		deepEqual( OJ.is.bool('true'), false, "'true' is not a boolean value");
+	});
+
+	test( "OJ.is.bool('false')", function() {
+		deepEqual( OJ.is.bool('false'), false, "'false' is not a boolean value");
+	});
+
+	test( "OJ.is.bool(NaN)", function() {
+		deepEqual( OJ.is.bool(NaN), false, "NaN is not a boolean value");
+	});
+
+	test( "OJ.is.bool(null)", function() {
+		deepEqual( OJ.is.bool(null), false, "null is not a boolean value");
+	});
+
+	test( "OJ.is.bool(undefined)", function() {
+		deepEqual( OJ.is.bool(undefined), false, "undefined is not a boolean value");
+	});
+
+	test( "OJ.is.bool()", function() {
+		deepEqual( OJ.is.bool(), false, "(Empty argument) is not a boolean value");
+	});
+
+	test( "OJ.is.bool('')", function() {
+		deepEqual( OJ.is.bool(''), false, "'' is not a boolean value");
+	});
+
+	//#endregion OJ.is.bool
+
 
 }());
