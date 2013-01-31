@@ -52,7 +52,7 @@
 		expect(8); //all 8 assertions must pass
 		deepEqual( OJ.is.string(NaN), false, "NaN is not a String");
 		deepEqual( OJ.is.bool(NaN), false, "NaN is not a Boolean");
-		deepEqual( OJ.is.number(NaN), true, "NaN is (actually) a Number");
+		deepEqual( OJ.is.number(NaN), true, "NaN is (actually) a Number!");
 		deepEqual( OJ.is.numeric(NaN), false, "NaN is not numeric");
 		deepEqual( OJ.is.date(NaN), false, "NaN is not a Date");
 		deepEqual( OJ.is.func(NaN), false, "NaN is not a Function");
@@ -65,14 +65,120 @@
 	module("empty string");
 	test( "'' is not of any OJ supported type, except String", function() {
 		expect(8); //all 8 assertions must pass
-		deepEqual( OJ.is.string(''), true, "'' is (actually) a String");
+		deepEqual( OJ.is.string(''), true, "'' is (actually) a String!");
 		deepEqual( OJ.is.bool(''), false, "'' is not a Boolean");
-		deepEqual( OJ.is.number(''), false, "'' is (actually) a Number");
+		deepEqual( OJ.is.number(''), false, "'' is not a Number");
 		deepEqual( OJ.is.numeric(''), false, "'' is not numeric");
 		deepEqual( OJ.is.date(''), false, "'' is not a Date");
 		deepEqual( OJ.is.func(''), false, "'' is not a Function");
 		deepEqual( OJ.is.array(''), false, "'' is not an Array");
 		deepEqual( OJ.is.plainObject(''), false, "'' is not an Object");
+	});
+}());
+
+(function _stringFalseChecks() {
+	module("string 'false'");
+	test( "'false' is a String and only a String", function() {
+		expect(8); //all 8 assertions must pass
+		deepEqual( OJ.is.string('false'), true, "'false' is (actually) a String!");
+		deepEqual( OJ.is.bool('false'), false, "'false' is not a Boolean");
+		deepEqual( OJ.is.number('false'), false, "'false' is not a Number");
+		deepEqual( OJ.is.numeric('false'), false, "'false' is not numeric");
+		deepEqual( OJ.is.date('false'), false, "'false' is not a Date");
+		deepEqual( OJ.is.func('false'), false, "'false' is not a Function");
+		deepEqual( OJ.is.array('false'), false, "'false' is not an Array");
+		deepEqual( OJ.is.plainObject('false'), false, "'false' is not an Object");
+	});
+}());
+
+(function _stringTrueChecks() {
+	module("string 'true'");
+	test( "'true' is a String and only a String", function() {
+		expect(8); //all 8 assertions must pass
+		deepEqual( OJ.is.string('true'), true, "'true' is (actually) a String!");
+		deepEqual( OJ.is.bool('true'), false, "'true' is not a Boolean");
+		deepEqual( OJ.is.number('true'), false, "'true' is not a Number");
+		deepEqual( OJ.is.numeric('true'), false, "'true' is not numeric");
+		deepEqual( OJ.is.date('true'), false, "'true' is not a Date");
+		deepEqual( OJ.is.func('true'), false, "'true' is not a Function");
+		deepEqual( OJ.is.array('true'), false, "'true' is not an Array");
+		deepEqual( OJ.is.plainObject('true'), false, "'true' is not an Object");
+	});
+}());
+
+(function _falseChecks() {
+	module("boolean false");
+	test( "false is a Boolean and only a Boolean", function() {
+		expect(8); //all 8 assertions must pass
+		deepEqual( OJ.is.string(false), false, "false is not a String");
+		deepEqual( OJ.is.bool(false), true, "false is (actuall) a Boolean!");
+		deepEqual( OJ.is.number(false), false, "false is not a Number");
+		deepEqual( OJ.is.numeric(false), false, "false is not numeric");
+		deepEqual( OJ.is.date(false), false, "false is not a Date");
+		deepEqual( OJ.is.func(false), false, "false is not a Function");
+		deepEqual( OJ.is.array(false), false, "false is not an Array");
+		deepEqual( OJ.is.plainObject(false), false, "false is not an Object");
+	});
+}());
+
+(function _trueChecks() {
+	module("boolean true");
+	test( "true is a Boolean and only a Boolean", function() {
+		expect(8); //all 8 assertions must pass
+		deepEqual( OJ.is.string(true), false, "true is not a String");
+		deepEqual( OJ.is.bool(true), true, "true is (actuall) a Boolean!");
+		deepEqual( OJ.is.number(true), false, "true is not a Number");
+		deepEqual( OJ.is.numeric(true), false, "true is not numeric");
+		deepEqual( OJ.is.date(true), false, "true is not a Date");
+		deepEqual( OJ.is.func(true), false, "true is not a Function");
+		deepEqual( OJ.is.array(true), false, "true is not an Array");
+		deepEqual( OJ.is.plainObject(true), false, "true is not an Object");
+	});
+}());
+
+(function _arrayChecks() {
+	module("Array []");
+	test( "[] is an Array", function() {
+		expect(8); //all 8 assertions must pass
+		deepEqual( OJ.is.string([]), false, "[] is not a String");
+		deepEqual( OJ.is.bool([]), false, "[] is not a Boolean");
+		deepEqual( OJ.is.number([]), false, "[] is not a Number");
+		deepEqual( OJ.is.numeric([]), false, "[] is not numeric");
+		deepEqual( OJ.is.date([]), false, "[] is not a Date");
+		deepEqual( OJ.is.func([]), false, "[] is not a Function");
+		deepEqual( OJ.is.array([]), true, "[] is (actually) an Array!");
+		deepEqual( OJ.is.plainObject([]), false, "[] is not an Object");
+	});
+}());
+
+(function _objectChecks() {
+	module("Object {}");
+	test( "{} is an Object", function() {
+		expect(8); //all 8 assertions must pass
+		deepEqual( OJ.is.string({}), false, "{} is not a String");
+		deepEqual( OJ.is.bool({}), false, "{} is not a Boolean");
+		deepEqual( OJ.is.number({}), false, "{} is not a Number");
+		deepEqual( OJ.is.numeric({}), false, "{} is not numeric");
+		deepEqual( OJ.is.date({}), false, "{} is not a Date");
+		deepEqual( OJ.is.func({}), false, "{} is not a Function");
+		deepEqual( OJ.is.array({}), false, "{} is not an Array");
+		deepEqual( OJ.is.plainObject({}), true, "{} is (actually) an Object!");
+	});
+}());
+
+
+(function _functionChecks() {
+	module("Function() {}");
+	test( "function() {} is a Function", function() {
+		expect(8); //all 8 assertions must pass
+		deepEqual( OJ.is.string(function() {}), false, "function() {} is not a String");
+		deepEqual( OJ.is.bool(function() {}), false, "function() {} is not a Boolean");
+		deepEqual( OJ.is.number(function() {}), false, "function() {} is not a Number");
+		deepEqual( OJ.is.numeric(function() {}), false, "function() {} is not numeric");
+		deepEqual( OJ.is.date(function() {}), false, "function() {} is not a Date");
+		deepEqual( OJ.is.func(function() {}), true, "function() {} is (actually) a Function!");
+		deepEqual( OJ.is.array(function() {}), false, "function() {} is not an Array");
+		deepEqual( OJ.is.plainObject(function() {}), false, "function() {} is not an Object");
 	});
 }());
 
@@ -118,14 +224,6 @@
 		deepEqual( OJ.is.string(' '), true, "' ' is a string");
 	});
 
-	test( "OJ.is.string([])", function() {
-		deepEqual( OJ.is.string([]), false, "[] is not a string");
-	});
-
-	test( "OJ.is.string({})", function() {
-		deepEqual( OJ.is.string({}), false, "{} is not a string");
-	});
-
 	test( "OJ.is.string(0)", function() {
 		deepEqual( OJ.is.string(0), false, "0 is not a string");
 	});
@@ -148,14 +246,6 @@
 
 	module("OJ.is.bool");
 
-	test( "OJ.is.bool(true)", function() {
-		deepEqual( OJ.is.bool(true), true, "true is a boolean value");
-	});
-
-	test( "OJ.is.bool(false)", function() {
-		deepEqual( OJ.is.bool(false), true, "false is a boolean value");
-	});
-
 	test( "OJ.is.bool(0)", function() {
 		deepEqual( OJ.is.bool(0), false, "0 is not a boolean value");
 	});
@@ -170,14 +260,6 @@
 
 	test( "OJ.is.bool('1')", function() {
 		deepEqual( OJ.is.bool('1'), false, "'1' is not a boolean value");
-	});
-
-	test( "OJ.is.bool('true')", function() {
-		deepEqual( OJ.is.bool('true'), false, "'true' is not a boolean value");
-	});
-
-	test( "OJ.is.bool('false')", function() {
-		deepEqual( OJ.is.bool('false'), false, "'false' is not a boolean value");
 	});
 
 	//#endregion OJ.is.bool
