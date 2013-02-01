@@ -276,6 +276,47 @@
 		deepEqual( OJ.is.number(1), true, "1 is a number");
 	});
 
+	test( "OJ.is.number(-1)", function() {
+		deepEqual( OJ.is.number(-1), true, "-1 is a number");
+	});
+
+	test( "OJ.is.number(0)", function() {
+		deepEqual( OJ.is.number(0), true, "0 is a number");
+	});
+
+	test( "OJ.is.number(-0)", function() {
+		deepEqual( OJ.is.number(-0), true, "-0 is a number");
+	});
+
+	test( "OJ.is.number(Infinity)", function() {
+		deepEqual( OJ.is.number(Infinity), true, "Infinity is a number");
+	});
+
+	test( "OJ.is.number(-Infinity)", function() {
+		deepEqual( OJ.is.number(-Infinity), true, "-Infinity is a number");
+	});
+
+	test( "OJ.is.number(0.000000000000000000000000001)", function() {
+		deepEqual( OJ.is.number(0.000000000000000000000000001), true, "0.000000000000000000000000001 is a number");
+	});
+
+	test( "OJ.is.number(-0.000000000000000000000000001)", function() {
+		deepEqual( OJ.is.number(-0.000000000000000000000000001), true, "-0.000000000000000000000000001 is a number");
+	});
+
+	test( "OJ.is.number(1e+20)", function() {
+		deepEqual( OJ.is.number(1e+20), true, "1e+20 is a number");
+	});
+
+	test( "OJ.is.number(0xA)", function() {
+		deepEqual( OJ.is.number(0xA), true, "0xA a number");
+	});
+
+	test( "OJ.is.number('-')", function() {
+		deepEqual( OJ.is.number('-'), false, "'-' is not a number");
+	});
+
+
 	//#endregion OJ.is.bool
 
 }());
