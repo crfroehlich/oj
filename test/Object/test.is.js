@@ -1,6 +1,13 @@
 /*global OJ:true, QUnit:false, module:false, test:false, asyncTest:false, expect:false*/
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
+
+// It's desirable that these tests not be optimized for pure functional programming,
+// because they need to quickly communicate their intention to the reader.
+// Unless testing abstraction and encapsulation, it is better to be dundant and verbose,
+// as this will make troubleshooting failures easier for anyone who might come behind
+
+// Test the truthiness of the null Type
 (function _nullChecks() {
 	module("null");
 	test( "null is not of any OJ supported type", function() {
@@ -16,6 +23,23 @@
 	});
 }());
 
+// Test the truthiness of the undefined value of the undefined type, when undefined is explicitly undefined (Only required in < ES5 envs.)
+(function _undefinedChecks(undefined) {
+	module("undefined");
+	test( "undefined is not of any OJ supported type", function() {
+		expect(8); //all 8 assertions must pass
+		deepEqual( OJ.is.string(undefined), false, "undefined is not a String");
+		deepEqual( OJ.is.bool(undefined), false, "undefined is not a Boolean");
+		deepEqual( OJ.is.number(undefined), false, "undefined is not a Number");
+		deepEqual( OJ.is.numeric(undefined), false, "undefined is not numeric");
+		deepEqual( OJ.is.date(undefined), false, "undefined is not a Date");
+		deepEqual( OJ.is.func(undefined), false, "undefined is not a Function");
+		deepEqual( OJ.is.array(undefined), false, "undefined is not an Array");
+		deepEqual( OJ.is.plainObject(undefined), false, "undefined is not an Object");
+	});
+}());
+
+// Test the truthiness of the undefined value of the undefined type, when undefined is implicitly undefined (always true in compliant ES5 envs.)
 (function _undefinedChecks() {
 	module("undefined");
 	test( "undefined is not of any OJ supported type", function() {
@@ -31,6 +55,7 @@
 	});
 }());
 
+// Test the truthiness of implicitly pass undefined, by passing no arguments
 (function _emptyArgumentsChecks() {
 	module("empty arguments");
 	test( "Empty arguments are not of any OJ supported type", function() {
@@ -46,6 +71,7 @@
 	});
 }());
 
+// Test the truthiness of NaN
 (function _NaNChecks() {
 	module("NaN");
 	test( "NaN not of any OJ supported type, except Number", function() {
@@ -61,6 +87,7 @@
 	});
 }());
 
+// Test the truthiness of ''
 (function _emptyStringChecks() {
 	module("empty string");
 	test( "'' is not of any OJ supported type, except String", function() {
@@ -76,6 +103,7 @@
 	});
 }());
 
+// Test the truthiness of String 'false'
 (function _stringFalseChecks() {
 	module("string 'false'");
 	test( "'false' is a String and only a String", function() {
@@ -91,6 +119,7 @@
 	});
 }());
 
+// Test the truthiness of String 'true'
 (function _stringTrueChecks() {
 	module("string 'true'");
 	test( "'true' is a String and only a String", function() {
@@ -106,6 +135,7 @@
 	});
 }());
 
+// Test the truthiness of Boolean false
 (function _falseChecks() {
 	module("boolean false");
 	test( "false is a Boolean and only a Boolean", function() {
@@ -121,6 +151,7 @@
 	});
 }());
 
+// Test the truthiness of Boolean true
 (function _trueChecks() {
 	module("boolean true");
 	test( "true is a Boolean and only a Boolean", function() {
@@ -136,6 +167,7 @@
 	});
 }());
 
+// Test the truthiness of empty Array []
 (function _arrayChecks() {
 	module("Array []");
 	test( "[] is an Array", function() {
@@ -151,6 +183,7 @@
 	});
 }());
 
+// Test the truthiness of empty Object  {}
 (function _objectChecks() {
 	module("Object {}");
 	test( "{} is an Object", function() {
@@ -166,7 +199,7 @@
 	});
 }());
 
-
+// Test the truthiness of 'empty' Function function() {}
 (function _functionChecks() {
 	module("Function() {}");
 	test( "function() {} is a Function", function() {
@@ -182,7 +215,7 @@
 	});
 }());
 
-
+// String truthy checks
 (function _isString() {
 
 	//#region OJ.is.string
@@ -240,6 +273,7 @@
 
 }());
 
+// Boolean truthy checks
 (function _isBool() {
 
 	//#region OJ.is.bool
@@ -266,6 +300,7 @@
 
 }());
 
+// Number truthy checks
 (function _isNumber() {
 
 	//#region OJ.is.number
@@ -308,7 +343,15 @@
 		deepEqual( OJ.is.number(1e+20), true, "1e+20 is a number");
 	});
 
+	test( "OJ.is.number(-1e+20)", function() {
+		deepEqual( OJ.is.number(1e+20), true, "1e+20 is a number");
+	});
+
 	test( "OJ.is.number(0xA)", function() {
+		deepEqual( OJ.is.number(0xA), true, "0xA a number");
+	});
+
+	test( "OJ.is.number(-0xA)", function() {
 		deepEqual( OJ.is.number(0xA), true, "0xA a number");
 	});
 
@@ -317,6 +360,7 @@
 	});
 
 
-	//#endregion OJ.is.bool
+	//#endregion OJ.is.number
 
 }());
+
