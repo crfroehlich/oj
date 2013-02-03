@@ -1,4 +1,4 @@
-/*global OJ:true,$:true*/
+/*global OJ:true,$:true,window:true,Number:true*/
 (function() {
 
 	OJ.makeSubNameSpace('is');
@@ -47,7 +47,7 @@
         Determines if a value is an instance of a Number and not NaN*
     */
 	OJ.is.lift('number', function(num) {
-        return (typeof num === 'number' && false === (Number.isNaN(num) || false === Number.isFinite(num) || Number.MAX_VALUE === num || Number.MIN_VALUE === num));
+        return (typeof num === 'number' && !isNaN(num) && isFinite(num));// && Number.MAX_VALUE !== num && Number.MIN_VALUE !== num);
 	});
 
     /**

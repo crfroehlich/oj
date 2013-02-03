@@ -1,4 +1,4 @@
-/*global OJ:true,$:true*/
+/*global OJ:true,$:true,window:true,Number:true*/
 (function() {
 
 	OJ.makeSubNameSpace('to');
