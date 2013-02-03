@@ -72,7 +72,7 @@
 }());
 
 // Test the truthiness of -Infinity
-(function _NaNChecks() {
+(function _InfinityChecks() {
 	module("-Infinity");
 	test( "-Infinity not of any OJ supported type, except Number", function() {
 		expect(8); //all 8 assertions must pass
@@ -95,7 +95,7 @@
 		deepEqual( OJ.is.string(''), true, "'' is (actually) a String!");
 		deepEqual( OJ.is.bool(''), false, "'' is not a Boolean");
 		deepEqual( OJ.is.number(''), false, "'' is not a Number");
-		deepEqual( OJ.is.numeric(''), true, "'' converts to 0 and is numeric");
+		deepEqual( OJ.is.numeric(''), true, "'' is binary 0 and is numeric");
 		deepEqual( OJ.is.date(''), false, "'' is not a Date");
 		deepEqual( OJ.is.func(''), false, "'' is not a Function");
 		deepEqual( OJ.is.array(''), false, "'' is not an Array");
@@ -111,7 +111,7 @@
 		deepEqual( OJ.is.string('false'), true, "'false' is (actually) a String!");
 		deepEqual( OJ.is.bool('false'), false, "'false' is not a Boolean");
 		deepEqual( OJ.is.number('false'), false, "'false' is not a Number");
-		deepEqual( OJ.is.numeric('false'), false, "'false' converts to NaN is not numeric");
+		deepEqual( OJ.is.numeric('false'), true, "'false' is binary 0 is numeric");
 		deepEqual( OJ.is.date('false'), false, "'false' is not a Date");
 		deepEqual( OJ.is.func('false'), false, "'false' is not a Function");
 		deepEqual( OJ.is.array('false'), false, "'false' is not an Array");
@@ -127,7 +127,7 @@
 		deepEqual( OJ.is.string('true'), true, "'true' is (actually) a String!");
 		deepEqual( OJ.is.bool('true'), false, "'true' is not a Boolean");
 		deepEqual( OJ.is.number('true'), false, "'true' is not a Number");
-		deepEqual( OJ.is.numeric('true'), false, "'true' converts to NaN and is not numeric");
+		deepEqual( OJ.is.numeric('true'), true, "'true' is binary 1 and is numeric");
 		deepEqual( OJ.is.date('true'), false, "'true' is not a Date");
 		deepEqual( OJ.is.func('true'), false, "'true' is not a Function");
 		deepEqual( OJ.is.array('true'), false, "'true' is not an Array");
@@ -324,11 +324,11 @@
 	});
 
 	test( "OJ.is.number(Infinity)", function() {
-		deepEqual( OJ.is.number(Infinity), true, "Infinity is a number");
+		deepEqual( OJ.is.number(Infinity), false, "Infinity is not a number");
 	});
 
 	test( "OJ.is.number(-Infinity)", function() {
-		deepEqual( OJ.is.number(-Infinity), true, "-Infinity is a number");
+		deepEqual( OJ.is.number(-Infinity), false, "-Infinity is not a number");
 	});
 
 	test( "OJ.is.number(0.000000000000000000000000001)", function() {

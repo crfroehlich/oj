@@ -65,35 +65,64 @@
         return ret;
     });
 
+    OJ.to.lift('binary', function(obj){
+        var ret = -1;
+        if(obj === 0 || obj === '0' || obj === '' || obj === false || OJ.to.string(obj).toLowerCase().trim() === 'false') {
+            ret = 0;
+        }
+        else if (obj === 1 || obj === '1' || obj === true || OJ.to.string(obj).toLowerCase().trim() === 'true') {
+            ret = 1;
+        }
+        return ret;
+    });
+
+    /**
+    *   Attempts to converts an arbitrary value to a Number. 
+    *   Loose falsy values are converted to 0.
+    *   Loose truthy values are converted to 1.
+    *   All other values are parsed as Integers.
+    *   Failures return as NaN.
+    *
+    */
 	OJ.to.lift('number', function(inputNum, defaultNum) {
         'use strict';
         function tryGetNumber(val) {
-            var ret = NaN;
-
-            var getNumber = function(value) {
-                var num = NaN;
-                if (value) {
-                    num = +value;
-                }
-                if (isNaN(num)) {
-                    num = parseInt(value, 0);
-                }
-                return num;
-            };
-
-            var tryGet = getNumber(val);
-
-            if (!window.Number.isNaN(tryGet) && 
-                window.Number.isFinite(tryGet) &&
-                window.Number.MAX_VALUE !== tryGet &&
-                window.Number.MIN_VALUE !== tryGet) {
-                ret = tryGet;
+            var ret;
+            if(OJ.is.number(val)) {
+                ret = val;
             } 
-            return ret;
+            else if(OJ.is.string(val) || OJ.is.bool(val)) {
+
+                var getNumber = function(value) {
+                    var num = OJ.to.binary(value);
+                    if(num < 0) {
+                        num = Number.NaN;
+                    }
+                    if (!OJ.is.number(num) && value) {
+                        num = +value;
+                    }
+                    if (!OJ.is.number(num)) {
+                        num = parseInt(value, 0);
+                    }
+                    return num;
+                };
+
+                var tryGet = getNumber(val);
+
+                if (OJ.is.number(tryGet)) {
+                    ret = tryGet;
+                } 
+                return ret;
+            }
         }
 
-        var retVal = tryGetNumber(inputNum) || tryGetNumber(defaultNum);
-
+        var retVal = tryGetNumber(inputNum);
+        if (!OJ.is.number(retVal)) {
+            retVal = tryGetNumber(defaultNum);
+            if(!OJ.is.number(retVal)) {
+                retVal = Number.NaN;
+            }
+        }
         return retVal;
     });
 

@@ -47,7 +47,7 @@
         Determines if a value is an instance of a Number and not NaN*
     */
 	OJ.is.lift('number', function(num) {
-        return (typeof num === 'number' && !Number.isNaN(num) && Number.isFinite(num));
+        return (typeof num === 'number' && false === (Number.isNaN(num) || false === Number.isFinite(num) || Number.MAX_VALUE === num || Number.MIN_VALUE === num));
 	});
 
     /**
@@ -55,7 +55,7 @@
     */
 	OJ.is.lift('numeric', function(num) {
 		var ret = OJ.is.number(num);
-		if ( !ret && !OJ.is.nullOrEmpty(num)) {
+		if (!ret) {
 			var nuNum = OJ.to.number(num);
 			ret = OJ.is.number(nuNum);
 		}
