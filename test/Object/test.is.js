@@ -39,22 +39,6 @@
 	});
 }());
 
-// Test the truthiness of the undefined value of the undefined type, when undefined is implicitly undefined (always true in compliant ES5 envs.)
-(function _undefinedChecks() {
-	module("undefined");
-	test( "undefined is not of any OJ supported type", function() {
-		expect(8); //all 8 assertions must pass
-		deepEqual( OJ.is.string(undefined), false, "undefined is not a String");
-		deepEqual( OJ.is.bool(undefined), false, "undefined is not a Boolean");
-		deepEqual( OJ.is.number(undefined), false, "undefined is not a Number");
-		deepEqual( OJ.is.numeric(undefined), false, "undefined is not numeric");
-		deepEqual( OJ.is.date(undefined), false, "undefined is not a Date");
-		deepEqual( OJ.is.func(undefined), false, "undefined is not a Function");
-		deepEqual( OJ.is.array(undefined), false, "undefined is not an Array");
-		deepEqual( OJ.is.plainObject(undefined), false, "undefined is not an Object");
-	});
-}());
-
 // Test the truthiness of implicitly pass undefined, by passing no arguments
 (function _emptyArgumentsChecks() {
 	module("empty arguments");
@@ -78,12 +62,28 @@
 		expect(8); //all 8 assertions must pass
 		deepEqual( OJ.is.string(NaN), false, "NaN is not a String");
 		deepEqual( OJ.is.bool(NaN), false, "NaN is not a Boolean");
-		deepEqual( OJ.is.number(NaN), true, "NaN is (actually) a Number!");
+		deepEqual( OJ.is.number(NaN), false, "NaN is not a Number");
 		deepEqual( OJ.is.numeric(NaN), false, "NaN is not numeric");
 		deepEqual( OJ.is.date(NaN), false, "NaN is not a Date");
 		deepEqual( OJ.is.func(NaN), false, "NaN is not a Function");
 		deepEqual( OJ.is.array(NaN), false, "NaN is not an Array");
 		deepEqual( OJ.is.plainObject(NaN), false, "NaN is not an Object");
+	});
+}());
+
+// Test the truthiness of -Infinity
+(function _NaNChecks() {
+	module("-Infinity");
+	test( "-Infinity not of any OJ supported type, except Number", function() {
+		expect(8); //all 8 assertions must pass
+		deepEqual( OJ.is.string(-Infinity), false, "-Infinity is not a String");
+		deepEqual( OJ.is.bool(-Infinity), false, "-Infinity is not a Boolean");
+		deepEqual( OJ.is.number(-Infinity), false, "-Infinity is not a Number");
+		deepEqual( OJ.is.numeric(-Infinity), false, "-Infinity is not numeric");
+		deepEqual( OJ.is.date(-Infinity), false, "-Infinity is not a Date");
+		deepEqual( OJ.is.func(-Infinity), false, "-Infinity is not a Function");
+		deepEqual( OJ.is.array(-Infinity), false, "-Infinity is not an Array");
+		deepEqual( OJ.is.plainObject(-Infinity), false, "-Infinity is not an Object");
 	});
 }());
 
@@ -95,7 +95,7 @@
 		deepEqual( OJ.is.string(''), true, "'' is (actually) a String!");
 		deepEqual( OJ.is.bool(''), false, "'' is not a Boolean");
 		deepEqual( OJ.is.number(''), false, "'' is not a Number");
-		deepEqual( OJ.is.numeric(''), false, "'' is not numeric");
+		deepEqual( OJ.is.numeric(''), true, "'' converts to 0 and is numeric");
 		deepEqual( OJ.is.date(''), false, "'' is not a Date");
 		deepEqual( OJ.is.func(''), false, "'' is not a Function");
 		deepEqual( OJ.is.array(''), false, "'' is not an Array");
@@ -111,7 +111,7 @@
 		deepEqual( OJ.is.string('false'), true, "'false' is (actually) a String!");
 		deepEqual( OJ.is.bool('false'), false, "'false' is not a Boolean");
 		deepEqual( OJ.is.number('false'), false, "'false' is not a Number");
-		deepEqual( OJ.is.numeric('false'), false, "'false' is not numeric");
+		deepEqual( OJ.is.numeric('false'), false, "'false' converts to NaN is not numeric");
 		deepEqual( OJ.is.date('false'), false, "'false' is not a Date");
 		deepEqual( OJ.is.func('false'), false, "'false' is not a Function");
 		deepEqual( OJ.is.array('false'), false, "'false' is not an Array");
@@ -127,7 +127,7 @@
 		deepEqual( OJ.is.string('true'), true, "'true' is (actually) a String!");
 		deepEqual( OJ.is.bool('true'), false, "'true' is not a Boolean");
 		deepEqual( OJ.is.number('true'), false, "'true' is not a Number");
-		deepEqual( OJ.is.numeric('true'), false, "'true' is not numeric");
+		deepEqual( OJ.is.numeric('true'), false, "'true' converts to NaN and is not numeric");
 		deepEqual( OJ.is.date('true'), false, "'true' is not a Date");
 		deepEqual( OJ.is.func('true'), false, "'true' is not a Function");
 		deepEqual( OJ.is.array('true'), false, "'true' is not an Array");
@@ -143,7 +143,7 @@
 		deepEqual( OJ.is.string(false), false, "false is not a String");
 		deepEqual( OJ.is.bool(false), true, "false is (actuall) a Boolean!");
 		deepEqual( OJ.is.number(false), false, "false is not a Number");
-		deepEqual( OJ.is.numeric(false), false, "false is not numeric");
+		deepEqual( OJ.is.numeric(false), true, "false converts to 0 is numeric");
 		deepEqual( OJ.is.date(false), false, "false is not a Date");
 		deepEqual( OJ.is.func(false), false, "false is not a Function");
 		deepEqual( OJ.is.array(false), false, "false is not an Array");
@@ -159,7 +159,7 @@
 		deepEqual( OJ.is.string(true), false, "true is not a String");
 		deepEqual( OJ.is.bool(true), true, "true is (actuall) a Boolean!");
 		deepEqual( OJ.is.number(true), false, "true is not a Number");
-		deepEqual( OJ.is.numeric(true), false, "true is not numeric");
+		deepEqual( OJ.is.numeric(true), true, "true converts to 1 is numeric");
 		deepEqual( OJ.is.date(true), false, "true is not a Date");
 		deepEqual( OJ.is.func(true), false, "true is not a Function");
 		deepEqual( OJ.is.array(true), false, "true is not an Array");

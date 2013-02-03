@@ -1,2 +1,5 @@
 node_modules/
 .c9revisions/
+/app/index.html
+
+/test/test.html
