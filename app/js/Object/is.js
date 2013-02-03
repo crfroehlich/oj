@@ -43,17 +43,21 @@
 		return (dt instanceof Date);
 	});
 
+    /**
+        Determines if a value is an instance of a Number and not NaN*
+    */
 	OJ.is.lift('number', function(num) {
-		return (typeof num === 'number');
+        return (typeof num === 'number' && !Number.isNaN(num) && Number.isFinite(num));
 	});
 
+    /**
+        Determines if a value is convertable to a Number
+    */
 	OJ.is.lift('numeric', function(num) {
-		var ret = false;
-		if (OJ.is.number(num) && false === OJ.is.nullOrEmpty(num)) {
-			var nuNum = +num;
-			if (false === isNaN(nuNum)) {
-				ret = true;
-			}
+		var ret = OJ.is.number(num);
+		if ( !ret && !OJ.is.nullOrEmpty(num)) {
+			var nuNum = OJ.to.number(num);
+			ret = OJ.is.number(nuNum);
 		}
 		return ret;
 	});
