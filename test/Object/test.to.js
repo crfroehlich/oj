@@ -7,10 +7,17 @@
 // Unless testing abstraction and encapsulation, it is better to be dundant and verbose,
 // as this will make troubleshooting failures easier for anyone who might come behind
 
+<<<<<<< HEAD
 // String conversion checks
 (function _toString() {
 
     //#region OJ.is.string
+=======
+// String truthy checks
+(function _toString() {
+
+	//#region OJ.is.string
+>>>>>>> 61d0361b65f7907cda5b3c17003709f21bc76ec7
 
 	module("Oj.to.string");
 	test( "OJ.to.string(null)", function() {
