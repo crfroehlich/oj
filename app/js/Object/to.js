@@ -41,11 +41,11 @@
             val !== undefined &&
             (typeof val !== 'number' || !isNaN(val)));
 	});
-    
+
 	OJ.to.lift('dateFromTicks', function(tickStr) {
 		var ticsDateTime = OJ.string(tickStr);
         var ret, ticks, offset, localOffset, arr;
-        
+
         if (false === OJ.is.nullOrEmpty(ticsDateTime)) {
             ticsDateTime = ticsDateTime.replace('/', '');
             ticsDateTime = ticsDateTime.replace('Date', '');
@@ -77,7 +77,7 @@
     });
 
     /**
-    *   Attempts to converts an arbitrary value to a Number. 
+    *   Attempts to converts an arbitrary value to a Number.
     *   Loose falsy values are converted to 0.
     *   Loose truthy values are converted to 1.
     *   All other values are parsed as Integers.
@@ -90,7 +90,7 @@
             var ret;
             if(OJ.is.number(val)) {
                 ret = val;
-            } 
+            }
             else if(OJ.is.string(val) || OJ.is.bool(val)) {
 
                 var getNumber = function(value) {
@@ -111,7 +111,7 @@
 
                 if (OJ.is.number(tryGet)) {
                     ret = tryGet;
-                } 
+                }
                 return ret;
             }
         }
@@ -127,18 +127,33 @@
     });
 
 	OJ.to.lift('string', function (inputStr, defaultStr) {
-            function tryGetString(str) {
-                var ret = '';
-                if (false === OJ.is.stringNullOrEmpty(str)) {
+        function tryGetString(str) {
+            var ret;
+            if(OJ.is.string(str)) {
+                ret = str;
+            } else {
+                ret = '';
+                if (OJ.is.bool(str) || OJ.is.number(str) || OJ.is.date(str)) {
                     ret = str.toString();
-                } 
-                return ret;
+                }
             }
+            return ret;
+        }
 
-            var retObj = tryGetString(inputStr) || tryGetString(defaultStr);
+        var ret1 = tryGetString(inputStr);
+        var ret2 = tryGetString(defaultStr);
+        var retVal = '';
+        if(ret1.length !== 0) {
+            retVal = ret1;
+        }
+        else if(ret1 === ret2 || ret2.length === 0) {
+            retVal = ret1;
+        } else {
+            retVal = ret2;
+        }
 
-            return retObj;
+        return retVal;
 
-        });
+    });
 
 }());
