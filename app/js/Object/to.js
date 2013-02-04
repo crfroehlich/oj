@@ -127,7 +127,6 @@
     });
 
 	OJ.to.lift('string', function (inputStr, defaultStr) {
-<<<<<<< HEAD
         function tryGetString(str) {
             var ret;
             if(OJ.is.string(str)) {
@@ -137,24 +136,10 @@
                 if (OJ.is.bool(str) || OJ.is.number(str) || OJ.is.date(str)) {
                     ret = str.toString();
                 }
-=======
-            function tryGetString(str) {
-                var ret;
-                if(OJ.is.string(str)) {
-                    ret = str;
-                } else {
-                    ret = '';
-                    if (OJ.is.bool(str) || OJ.is.number(str) || OJ.is.date(str)) {
-                        ret = str.toString();
-                    } 
-                }
-                return ret;
->>>>>>> 61d0361b65f7907cda5b3c17003709f21bc76ec7
             }
             return ret;
         }
 
-<<<<<<< HEAD
         var ret1 = tryGetString(inputStr);
         var ret2 = tryGetString(defaultStr);
         var retVal = '';
@@ -168,22 +153,6 @@
         }
 
         return retVal;
-=======
-            var ret1 = tryGetString(inputStr);
-            var ret2 = tryGetString(defaultStr);
-            var retVal = '';
-            if(ret1.length !== 0) {
-                retVal = ret1;
-            }
-            else if(ret1 === ret2 || ret2.length === 0) {
-                retVal = ret1;
-            } else {
-                retVal = ret2;
-            }
-            
-            return retVal;
->>>>>>> 61d0361b65f7907cda5b3c17003709f21bc76ec7
-
     });
 
 }());

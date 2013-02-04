@@ -47,15 +47,12 @@
         Determines if a value is an instance of a Number and not NaN*
     */
 	OJ.is.lift('number', function(num) {
-<<<<<<< HEAD
+
         return (typeof num === 'number' &&
         false === (OJ.number.isNaN(num) ||
             false === OJ.number.isFinite(num) ||
             OJ.number.MAX_VALUE === num ||
             OJ.number.MIN_VALUE === num));
-=======
-        return (typeof num === 'number' && !isNaN(num) && isFinite(num));// && Number.MAX_VALUE !== num && Number.MIN_VALUE !== num);
->>>>>>> 21cafda93463d1141f599ae49f731dfefd5bfa76
 	});
 
     /**
