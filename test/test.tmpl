@@ -6,23 +6,21 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
 
-        <link rel="stylesheet" href="../app/css/normalize.css">
-        <link rel="stylesheet" href="../vendor/css/qunit-1.11.0.css">
-        <link rel="stylesheet" href="../app/css/main.css">
-        <script src="../vendor/js/modernizr-2.6.2.min.js"></script>
-        <script src="../vendor/js/qunit-1.11.0.js"></script>
+        <link rel="stylesheet" href="../vendor/test/qunit-1.11.0.css">
+        <link rel="stylesheet" href="../vendor/vendor.css">
+        
     </head>
     <body>
 		<h1 id="qunit-header">QUnit example</h1>
 		<h2 id="qunit-banner"></h2>
 		<h2 id="qunit-userAgent"></h2>
 		<ol id="qunit-tests"></ol>
-		<div id="qunit-fixture">test markup, will be hidden</div
+		<div id="qunit-fixture">test markup, will be hidden</div>
 
-        <!--<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>-->
-        <script src="../vendor/js/jquery-1.9.0.min.js"></script>
-
-        <%
+        <script src="../vendor/vendor.js"></script>
+		<script src="../vendor/test/qunit-1.11.0.js"></script>
+        
+		<%
             var jsFiles = grunt.file.expand(grunt.config('lint.files')),
                 testJsFiles = grunt.file.expand(grunt.config('testHtml.testJsFiles')),
 				releaseMode = grunt.config('releaseMode');

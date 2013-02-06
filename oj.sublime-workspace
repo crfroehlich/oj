@@ -4,6 +4,70 @@
 		"selected_items":
 		[
 			[
+				"M",
+				"MIN_VALUE"
+			],
+			[
+				"is",
+				"isFinite"
+			],
+			[
+				"b",
+				"bool"
+			],
+			[
+				"st",
+				"string"
+			],
+			[
+				"num",
+				"number"
+			],
+			[
+				"tr",
+				"trim"
+			],
+			[
+				"ret",
+				"retVal"
+			],
+			[
+				"rem",
+				"removeClass"
+			],
+			[
+				"ch",
+				"childNodes"
+			],
+			[
+				"add",
+				"addClass"
+			],
+			[
+				"no",
+				"nodeWrapper"
+			],
+			[
+				"fo",
+				"forEach"
+			],
+			[
+				"p",
+				"param1"
+			],
+			[
+				"try",
+				"tryThisThenThat"
+			],
+			[
+				"O",
+				"OjInternal"
+			],
+			[
+				"Do",
+				"DomEl"
+			],
+			[
 				"local",
 				"localDb"
 			],
@@ -18,10 +82,6 @@
 			[
 				"fun",
 				"function"
-			],
-			[
-				"is",
-				"isArray"
 			],
 			[
 				"proto",
@@ -43,15 +103,15 @@
 			"file": "app/index.html",
 			"settings":
 			{
-				"buffer_size": 2478,
-				"line_ending": "Unix"
+				"buffer_size": 0,
+				"line_ending": "Windows"
 			}
 		},
 		{
 			"file": "app/js/oj.js",
 			"settings":
 			{
-				"buffer_size": 1273,
+				"buffer_size": 3010,
 				"line_ending": "Unix"
 			}
 		},
@@ -59,7 +119,7 @@
 			"file": "app/js/DOM/nodeWrapper.js",
 			"settings":
 			{
-				"buffer_size": 30362,
+				"buffer_size": 0,
 				"line_ending": "Windows",
 				"name": "/// <reference path=\"~/app/CswApp-vsdoc.js\" />"
 			}
@@ -68,66 +128,58 @@
 			"file": "app/js/DOM/node.js",
 			"settings":
 			{
-				"buffer_size": 2969,
+				"buffer_size": 0,
 				"line_ending": "Windows",
 				"name": "function () {"
+			}
+		},
+		{
+			"file": "app/js/DOM/nodeFactory",
+			"settings":
+			{
+				"buffer_size": 0,
+				"line_ending": "Windows",
+				"name": "/// <reference path=\"~/app/CswApp-vsdoc.js\" />"
+			}
+		},
+		{
+			"file": "grunt.js",
+			"settings":
+			{
+				"buffer_size": 3556,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test/test.html",
+			"settings":
+			{
+				"buffer_size": 2621,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "package.json",
+			"settings":
+			{
+				"buffer_size": 1195,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "app/js/Utils/ajax.js",
 			"settings":
 			{
-				"buffer_size": 9834,
+				"buffer_size": 0,
 				"line_ending": "Windows",
 				"name": "(function () {"
 			}
 		},
 		{
-			"file": "app/js/Object/function.js",
+			"file": "app/js/plugins.js",
 			"settings":
 			{
-				"buffer_size": 927,
-				"line_ending": "Windows",
-				"name": "(function(){"
-			}
-		},
-		{
-			"file": "app/js/Object/truthy.js",
-			"settings":
-			{
-				"buffer_size": 2857,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/js/Object/string.js",
-			"settings":
-			{
-				"buffer_size": 5213,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/js/Object/object.js",
-			"settings":
-			{
-				"buffer_size": 2730,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/js/Utils/bindings.js",
-			"settings":
-			{
-				"buffer_size": 744,
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "app/js/Object/bool.js",
-			"settings":
-			{
-				"buffer_size": 860,
+				"buffer_size": 1681,
 				"line_ending": "Unix"
 			}
 		},
@@ -135,23 +187,47 @@
 			"file": "app/js/Utils/console.js",
 			"settings":
 			{
-				"buffer_size": 1455,
+				"buffer_size": 1421,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/js/Utils/cookie.js",
+			"file": "test/Object/test.to.js",
 			"settings":
 			{
-				"buffer_size": 768,
+				"buffer_size": 3530,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/js/Object/is.js",
+			"settings":
+			{
+				"buffer_size": 3521,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "app/js/Utils/localStorage.js",
+			"file": "app/js/Object/to.js",
 			"settings":
 			{
-				"buffer_size": 3164,
+				"buffer_size": 4492,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test/Object/test.is.js",
+			"settings":
+			{
+				"buffer_size": 14424,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/js/Object/number.js",
+			"settings":
+			{
+				"buffer_size": 1015,
 				"line_ending": "Unix"
 			}
 		}
@@ -180,9 +256,19 @@
 	},
 	"file_history":
 	[
-		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Object/bool.js",
+		"/C/Users/Froehlich/Documents/GitHub/oj/test/Object/test.truthy.js",
+		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Object/function.js",
+		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Object/truthy.js",
+		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Utils/localStorage.js",
+		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Utils/cookie.js",
+		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Utils/console.js",
+		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Object/convert.js",
+		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Utils/bindings.js",
+		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Object/string.js",
+		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Object/object.js",
+		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Object/number.js",
 		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Object/date.js",
-		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Object/number.js"
+		"/C/Users/Froehlich/Documents/GitHub/oj/app/js/Object/bool.js"
 	],
 	"find":
 	{
@@ -190,7 +276,7 @@
 	},
 	"find_in_files":
 	{
-		"height": 0.0,
+		"height": 90.0,
 		"where_history":
 		[
 		]
@@ -200,6 +286,23 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"7",
+			"Number",
+			"8",
+			"Number",
+			"}));",
+			"OJ.method(",
+			"Csw",
+			"defineProperty",
+			"chainChildNode",
+			"prepControl",
+			"chainChildNode",
+			"makeControlForChain",
+			"isControlStillValid",
+			"ojInternal",
+			"OjInternal",
+			"cswPublic",
+			"cswPrivate",
 			"\n    OJ.console.lift('trace', OJ.method(function (msg) {\n        console.trace(msg);\n    });",
 			"\n    OJ.console.lift('time', OJ.method(function (msg) {\n        console.time(msg);\n    });\n",
 			"js"
@@ -210,6 +313,15 @@
 		"regex": false,
 		"replace_history":
 		[
+			"8",
+			"7",
+			"});",
+			"",
+			"chainChildNode",
+			"isNodeAlive",
+			"OjInternal",
+			"OjNode",
+			"ojInternal"
 		],
 		"reverse": false,
 		"show_context": true,
@@ -220,7 +332,7 @@
 	"groups":
 	[
 		{
-			"selected": 4,
+			"selected": 11,
 			"sheets":
 			[
 				{
@@ -228,15 +340,15 @@
 					"file": "app/index.html",
 					"settings":
 					{
-						"buffer_size": 2478,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1356,
-								1356
+								0,
+								0
 							]
 						],
 						"settings":
@@ -256,15 +368,15 @@
 					"file": "app/js/oj.js",
 					"settings":
 					{
-						"buffer_size": 1273,
+						"buffer_size": 3010,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								840,
-								856
+								0,
+								0
 							]
 						],
 						"settings":
@@ -284,15 +396,15 @@
 					"file": "app/js/DOM/nodeWrapper.js",
 					"settings":
 					{
-						"buffer_size": 30362,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								28039,
-								28039
+								0,
+								0
 							]
 						],
 						"settings":
@@ -303,7 +415,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5850.0,
+						"translation.y": 6622.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -313,15 +425,15 @@
 					"file": "app/js/DOM/node.js",
 					"settings":
 					{
-						"buffer_size": 2969,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2969,
-								2969
+								0,
+								0
 							]
 						],
 						"settings":
@@ -332,113 +444,116 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 690.0,
+						"translation.y": 720.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 4,
-					"file": "app/js/Utils/ajax.js",
+					"file": "app/js/DOM/nodeFactory",
 					"settings":
 					{
-						"buffer_size": 9834,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								9834,
-								9834
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"auto_name": "(function () {",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"auto_name": "/// <reference path=\"~/app/CswApp-vsdoc.js\" />",
+							"syntax": "Packages/Text/Plain text.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 2940.0,
+						"translation.y": 3375.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 5,
-					"file": "app/js/Object/function.js",
+					"file": "grunt.js",
 					"settings":
 					{
-						"buffer_size": 927,
+						"buffer_size": 3556,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								556,
-								556
+								3556,
+								3556
 							]
 						],
 						"settings":
 						{
-							"auto_name": "(function(){",
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 521.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 6,
-					"file": "app/js/Object/truthy.js",
+					"file": "test/test.html",
 					"settings":
 					{
-						"buffer_size": 2857,
+						"buffer_size": 2621,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1465,
-								1465
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 630.0,
+						"translation.y": 90.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 7,
-					"file": "app/js/Object/string.js",
+					"file": "package.json",
 					"settings":
 					{
-						"buffer_size": 5213,
+						"buffer_size": 1195,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								230,
-								230
+								512,
+								512
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
+							"syntax": "Packages/JavaScript/JSON.tmLanguage",
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
@@ -449,46 +564,47 @@
 				},
 				{
 					"buffer": 8,
-					"file": "app/js/Object/object.js",
+					"file": "app/js/Utils/ajax.js",
 					"settings":
 					{
-						"buffer_size": 2730,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								2730,
-								2730
+								0,
+								0
 							]
 						],
 						"settings":
 						{
+							"auto_name": "(function () {",
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 900.0,
+						"translation.y": 1725.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 9,
-					"file": "app/js/Utils/bindings.js",
+					"file": "app/js/plugins.js",
 					"settings":
 					{
-						"buffer_size": 744,
+						"buffer_size": 1681,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								732,
-								732
+								618,
+								1633
 							]
 						],
 						"settings":
@@ -498,31 +614,32 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 255.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 10,
-					"file": "app/js/Object/bool.js",
+					"file": "app/js/Utils/console.js",
 					"settings":
 					{
-						"buffer_size": 860,
+						"buffer_size": 1421,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								443,
-								443
+								0,
+								1421
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -532,18 +649,45 @@
 				},
 				{
 					"buffer": 11,
-					"file": "app/js/Utils/console.js",
+					"file": "test/Object/test.to.js",
 					"settings":
 					{
-						"buffer_size": 1455,
+						"buffer_size": 3530,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1446,
-								1446
+								702,
+								702
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1152.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 12,
+					"file": "app/js/Object/is.js",
+					"settings":
+					{
+						"buffer_size": 3521,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1445,
+								1445
 							]
 						],
 						"settings":
@@ -553,31 +697,32 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 451.0,
+						"translation.y": 1665.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 12,
-					"file": "app/js/Utils/cookie.js",
+					"buffer": 13,
+					"file": "app/js/Object/to.js",
 					"settings":
 					{
-						"buffer_size": 768,
+						"buffer_size": 4492,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								114,
-								83
+								4101,
+								4101
 							]
 						],
 						"settings":
 						{
 							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"translate_tabs_to_spaces": false
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -586,27 +731,56 @@
 					"type": "text"
 				},
 				{
-					"buffer": 13,
-					"file": "app/js/Utils/localStorage.js",
+					"buffer": 14,
+					"file": "test/Object/test.is.js",
 					"settings":
 					{
-						"buffer_size": 3164,
+						"buffer_size": 14424,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3154,
-								3154
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 990.0,
+						"translation.y": 945.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 15,
+					"file": "app/js/Object/number.js",
+					"settings":
+					{
+						"buffer_size": 1015,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -647,7 +821,7 @@
 	"menu_visible": true,
 	"replace":
 	{
-		"height": 0.0
+		"height": 62.0
 	},
 	"save_all_on_build": true,
 	"select_file":

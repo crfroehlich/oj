@@ -2,7 +2,8 @@
 module.exports = function(grunt) {
   // Project configuration.
   grunt.initConfig({
-    pkg: '<json:package.json>',
+    releasePath: 'release',
+	pkg: '<json:package.json>',
 	meta: {
       banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
         '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
@@ -13,7 +14,7 @@ module.exports = function(grunt) {
     },
 	indexHtml: {
 		src: 'app/index.tmpl',
-		dest: 'app/index.html'
+		dest: '<%=releasePath%>' + '/index.html'
 	},
     testHtml: {
 		src: 'test/test.tmpl',
@@ -23,18 +24,27 @@ module.exports = function(grunt) {
     concat: {
       dist: {
         src: '<config:lint.files>',
-        dest: 'release/js/oj.<%= grunt.template.today("yyyy.m.d") %>.js'
+        dest: 'release/oj.min.js'
       },
       html: {
         src: ['Index.html'],
         dest: 'Index.html'
+      },
+      vendorJs: {
+         src: ['vendor/js/*.js'],
+         dest: 'vendor/vendor.js',
+         separator: ';\n\n\n;'
+      },
+      vendorCss: {
+         src: ['vendor/js/*.css'],
+         dest: 'vendor/vendor.css'
       }
     },
     min: {
       dist: {
         src: ['app/oj.<%= grunt.template.today("yyyy.m.d") %>.js'],
         dest: 'app/oj.<%= grunt.template.today("yyyy.m.d") %>.min.js',
-        separator: ';'
+        separator: ';\n\n\n;'
       }
     },
     qunit: {
@@ -100,7 +110,8 @@ module.exports = function(grunt) {
   });
 
 	grunt.registerTask( 'indexHtml', 'Generate index.html depending on configuration', function() {
-        var conf = grunt.config('indexHtml'),
+        grunt.config('releasePath', 'app');
+		var conf = grunt.config('indexHtml'),
             tmpl = grunt.file.read(conf.src);
 
         grunt.file.write(conf.dest, grunt.template.process(tmpl));
@@ -109,7 +120,8 @@ module.exports = function(grunt) {
     });
 
 	grunt.registerTask( 'testHtml', 'Generate test.html depending on configuration', function() {
-        var conf = grunt.config('testHtml'),
+        grunt.config('releasePath', 'test');
+		var conf = grunt.config('testHtml'),
             tmpl = grunt.file.read(conf.src);
 
         grunt.file.write(conf.dest, grunt.template.process(tmpl));
@@ -126,6 +138,6 @@ module.exports = function(grunt) {
 
 	//grunt.loadNpmTasks('grunt-closure-compiler');
 	grunt.registerTask('dev', 'indexHtml concat lint');
-	grunt.registerTask('test', 'testHtml qunit');
+	grunt.registerTask('test', 'testHtml concat qunit');
 
 };

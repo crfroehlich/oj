@@ -3,3 +3,14 @@ node_modules/
 /app/index.html
 
 /test/test.html
+
+/vendor/vendor.js
+
+/vendor/vendor.css
+
+/release/index.html
+/release/oj.min.js
+/release/vendor.css
+/release/vendor.js
+
+/Index.html
