@@ -95,18 +95,28 @@ module.exports = function(grunt) {
         options: {
           language_in: 'ECMASCRIPT5_STRICT'
         }
-      }
+      },
+	  includeSourcemap: {
+            js: '<config:lint.files>',
+            jsOutputFile: "release/oj.min.js",
+            options: {
+                create_source_map: "release/oj.min.js.map",
+                source_map_format: "V3"
+            }
+        }
+    },
+	'append-sourcemapping': {
+        main: {
+            files: {
+                "release/oj.min.js": "oj.min.js.map"
+            }
+        }
     },
     docco: {
-      files: '<config:lint.files>'
-    },
-    ducksboard: {
-          tasks: {
-              src: ['tasks/*.js'],
-              endpoint: 'iMPZSvSciCQFntmd9MPlPvcYpEV4rBOu1tAv2TJWgEGDLBDCKh'
-          }
-      }
-
+      src: '<config:lint.files>',
+	  dest: 'docs/'
+	  
+    }
   });
 
 	grunt.registerTask( 'indexHtml', 'Generate index.html depending on configuration', function() {
@@ -129,15 +139,15 @@ module.exports = function(grunt) {
         grunt.log.writeln('Generated \'' + conf.dest + '\' from \'' + conf.src + '\'');
     });
 
-	grunt.loadNpmTasks('grunt-barkeep');
+	grunt.loadNpmTasks('grunt-docco');
 	grunt.loadNpmTasks('grunt-growl');
 	grunt.loadNpmTasks('grunt-closure-compiler');
 
 	// Default task.
-	grunt.registerTask('default', 'qunit concat closure-compiler watch');
+	grunt.registerTask('default', 'concat closure-compiler qunit watch');
 
 	//grunt.loadNpmTasks('grunt-closure-compiler');
-	grunt.registerTask('dev', 'indexHtml concat lint');
-	grunt.registerTask('test', 'testHtml concat qunit');
+	grunt.registerTask('dev', 'indexHtml concat lint docco');
+	grunt.registerTask('test', 'testHtml concat qunit docco');
 
 };
