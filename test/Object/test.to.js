@@ -160,12 +160,84 @@
 
 }());
 
-// Number truthy checks
+// Number conversion checks
 (function _isNumber() {
 
-	//#region OJ.is.number
+	//#region OJ.to.number
 
-	module("OJ.is.number");
+	module("OJ.to.number");
+
+	test( "OJ.to.number(null)", function() {
+        deepEqual( OJ.number.isNaN(OJ.to.number(null)), true, "OJ.to.number converts null to NaN.");
+	});
+
+	test( "OJ.to.number(undefined)", function() {
+        deepEqual( OJ.number.isNaN(OJ.to.number(undefined)), true, "OJ.to.number converts undefined to NaN.");
+	});
+
+	test( "OJ.to.number(NaN)", function() {
+        deepEqual( OJ.number.isNaN(OJ.to.number(NaN)), true, "OJ.to.number converts NaN to NaN.");
+	});
+
+	test( "OJ.to.number(Infinity)", function() {
+        deepEqual( OJ.number.isNaN(OJ.to.number(Infinity)), true, "OJ.to.number converts Infinity to NaN.");
+	});
+
+	test( "OJ.to.number(-Infinity)", function() {
+        deepEqual( OJ.number.isNaN(OJ.to.number(-Infinity)), true, "OJ.to.number converts -Infinity to NaN.");
+	});
+
+	test( "OJ.to.number({})", function() {
+        deepEqual( OJ.number.isNaN(OJ.to.number({})), true, "OJ.to.number converts {} to NaN.");
+	});
+
+	test( "OJ.to.number([])", function() {
+        deepEqual( OJ.number.isNaN(OJ.to.number([])), true, "OJ.to.number converts [] to NaN.");
+	});
+
+	test( "OJ.to.number(new Date())", function() {
+        deepEqual( OJ.number.isNaN(OJ.to.number(new Date())), true, "OJ.to.number converts new Date() to NaN.");
+	});
+
+	test( "OJ.to.number(0)", function() {
+        deepEqual( OJ.to.number(0) === 0, true, "OJ.to.number converts 0 to 0.");
+	});
+
+	test( "OJ.to.number('0')", function() {
+        deepEqual( OJ.to.number('0') === 0, true, "OJ.to.number converts '0' to 0.");
+	});
+
+	test( "OJ.to.number('false')", function() {
+        deepEqual( OJ.to.number('false') === 0, true, "OJ.to.number converts 'false' to 0.");
+	});
+
+	test( "OJ.to.number(false)", function() {
+        deepEqual( OJ.to.number(false) === 0, true, "OJ.to.number converts false to 0.");
+	});
+
+	test( "OJ.to.number(1)", function() {
+        deepEqual( OJ.to.number(1) === 1, true, "OJ.to.number converts 1 to 1.");
+	});
+
+	test( "OJ.to.number('1')", function() {
+        deepEqual( OJ.to.number('1') === 1, true, "OJ.to.number converts '1' to 1.");
+	});
+
+	test( "OJ.to.number('true')", function() {
+        deepEqual( OJ.to.number('true') === 1, true, "OJ.to.number converts 'true' to 1.");
+	});
+
+	test( "OJ.to.number(true)", function() {
+        deepEqual( OJ.to.number(true) === 1, true, "OJ.to.bool converts true to 1.");
+	});
+
+	test( "OJ.to.number('42')", function() {
+        deepEqual( OJ.to.number('42') === 42, true, "OJ.to.number converts '42' to 42.");
+	});
+
+	test( "OJ.to.number('-42')", function() {
+        deepEqual( OJ.to.number('-42') === 42, true, "OJ.to.number converts '-42' to -42.");
+	});
 
 
 
