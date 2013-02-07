@@ -3,33 +3,11 @@
 
 	OJ.makeSubNameSpace('to');
 
-	OJ.to.lift('bool', function bool(str, nullIsTrue) {
-		var retBool = false;
-		function toBool() {
-			var ret = (str === true),
-				truthy;
-			if(!ret) {
-				if (str === false) {
-					ret = false;
-				} else {
-					if(OJ.is.trueOrFalse(str)) {
-						truthy = OJ.string(str).toLowerCase().trim();
-						if (truthy === 'true' || truthy === '1') {
-							ret = true;
-						} else {
-							ret = false;
-						}
-					} else if (nullIsTrue && OJ.is.nullOrEmpty(str)) {
-						ret = true;
-					} else {
-						ret = false;
-					}
-				}
-				return ret;
-			}
-		}
-		retBool = toBool();
-
+	OJ.to.lift('bool', function bool(str) {
+		var retBool = OJ.is.true(str);
+        if(retBool === false || retBool !== true) {
+            retBool = false;
+        } 
 		return retBool;
 	});
 

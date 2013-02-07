@@ -81,15 +81,82 @@
 
 }());
 
-// Boolean truthy checks
+// Boolean conversion checks
 (function _isBool() {
 
-	//#region OJ.is.bool
+	//#region OJ.to.bool
 
-	module("OJ.is.bool");
+	module("OJ.to.bool");
 
+	test( "OJ.to.bool(null)", function() {
+        deepEqual( OJ.to.bool(null), false, "OJ.to.bool converts null to false.");
+	});
 
-	//#endregion OJ.is.bool
+	test( "OJ.to.bool(undefined)", function() {
+        deepEqual( OJ.to.bool(undefined), false, "OJ.to.bool converts undefined to false.");
+	});
+
+	test( "OJ.to.bool(NaN)", function() {
+        deepEqual( OJ.to.bool(NaN), false, "OJ.to.bool converts NaN to false.");
+	});
+
+	test( "OJ.to.bool(Infinity)", function() {
+        deepEqual( OJ.to.bool(Infinity), false, "OJ.to.bool converts Infinity to false.");
+	});
+
+	test( "OJ.to.bool(-Infinity)", function() {
+        deepEqual( OJ.to.bool(-Infinity), false, "OJ.to.bool converts -Infinity to false.");
+	});
+
+	test( "OJ.to.bool({})", function() {
+        deepEqual( OJ.to.bool({}), false, "OJ.to.bool converts {} to false.");
+	});
+
+	test( "OJ.to.bool([])", function() {
+        deepEqual( OJ.to.bool([]), false, "OJ.to.bool converts [] to false.");
+	});
+
+	test( "OJ.to.bool(new Date())", function() {
+        deepEqual( OJ.to.bool(new Date()), false, "OJ.to.bool converts new Date() to false.");
+	});
+
+	test( "OJ.to.bool(5)", function() {
+        deepEqual( OJ.to.bool(5), false, "OJ.to.bool converts 5 to false.");
+	});
+
+	test( "OJ.to.bool(0)", function() {
+        deepEqual( OJ.to.bool(0), false, "OJ.to.bool converts 0 to false.");
+	});
+
+	test( "OJ.to.bool('0')", function() {
+        deepEqual( OJ.to.bool('0'), false, "OJ.to.bool converts '0' to false.");
+	});
+
+	test( "OJ.to.bool('false')", function() {
+        deepEqual( OJ.to.bool('false'), false, "OJ.to.bool converts 'false' to false.");
+	});
+
+	test( "OJ.to.bool(false)", function() {
+        deepEqual( OJ.to.bool(false), false, "OJ.to.bool converts false to false.");
+	});
+
+	test( "OJ.to.bool(1)", function() {
+        deepEqual( OJ.to.bool(1), true, "OJ.to.bool converts 1 to true.");
+	});
+
+	test( "OJ.to.bool('1')", function() {
+        deepEqual( OJ.to.bool('1'), true, "OJ.to.bool converts '1' to true.");
+	});
+
+	test( "OJ.to.bool('true')", function() {
+        deepEqual( OJ.to.bool('true'), true, "OJ.to.bool converts 'true' to true.");
+	});
+
+	test( "OJ.to.bool(true)", function() {
+        deepEqual( OJ.to.bool(true), true, "OJ.to.bool converts true to true.");
+	});
+
+	//#endregion OJ.to.bool
 
 }());
 

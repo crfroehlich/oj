@@ -94,18 +94,29 @@
 				(typeof str === 'object' && str && str.valueOf && typeof str.valueOf() === 'string')); //covers any object assignment (e.g. var x = new String('x'))
 	});
 
-    OJ.is.lift('trueOrFalse', function (obj) {
+    OJ.is.lift('true', function (obj) {
         'use strict';
         return (
             obj === true ||
-            obj === false ||
             obj === 'true' ||
-            obj === 'false' ||
             obj === 1 ||
+            obj === '1'
+        );
+    });
+
+    OJ.is.lift('false', function (obj) {
+        'use strict';
+        return (
+            obj === false ||
+            obj === 'false' ||
             obj === 0 ||
-            obj === '1' ||
             obj === '0'
         );
+    });
+
+    OJ.is.lift('trueOrFalse', function (obj) {
+        'use strict';
+        return ( OJ.is.true(obj) || OJ.is.false(obj) );
     });
 
     OJ.is.lift('nullOrEmpty', function (obj, checkLength) {
