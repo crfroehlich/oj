@@ -3,6 +3,17 @@
 
     OJ.makeSubNameSpace('node');
 
+    OJ.node.lift('getById', function (id) {
+        var ret = null, htmlEl;
+        if(id) {
+            htmlEl = document.getElementById(id);
+            if(htmlEl) {
+                ret = OJ.node.wrapper(null, htmlEl);
+            }
+        }
+        return ret;
+    });
+
     OJ.node.lift('wrapper', function (OjNode, DomEl, options) {
             'use strict';
         if(!(OjNode && true === OjNode.isValid)) { //Don't try to wrap the same OjNode twice
@@ -499,6 +510,7 @@
             return OJ.node.factory(OjNode);
         }
     });
+
 
 } ());
 
