@@ -11,16 +11,16 @@
                 enabled: true,
                 isValid: false
             };
-            OjNode = OjNode || Object.create({ 0: null, $: $({}), isValid: false });
+            OjNode = OjNode || Object.create({ 0: null, '?': $({}), isValid: false });
 
             (function _initConstructor() {
                 //Validate and setup our Node instance
                 if (OjNode[0] instanceof HTMLElement &&
-                    OJ.is.jQuery(OjNode.$)) {
+                    OJ.is.jQuery(OjNode['?'])) {
                     OjInternal.isValid = true;
                 }
                 else if (OJ.is.jQuery(DomEl)) {
-                    Object.defineProperty(OjNode, '$', {
+                    Object.defineProperty(OjNode, '?', {
                         value: DomEl
                     });
                     Object.defineProperty(OjNode, '0', {
@@ -32,7 +32,7 @@
                     Object.defineProperty(OjNode, '0', {
                         value: DomEl
                     });
-                    Object.defineProperty(OjNode, '$', {
+                    Object.defineProperty(OjNode, '?', {
                         value: $('#' + DomEl.id)
                     });
                     OjInternal.isValid = true;
@@ -109,7 +109,7 @@
                     }
                     if (OJ.is.stringNullOrEmpty(ret)) {
                         ret = OjInternal.data[propName] ||
-                            OjNode.$.data(propName) ||
+                            OjNode['?'].data(propName) ||
                             OJ.localStorage.getItem(propName + '_control_data_' + OjNode.getId());
                     }
                 }
@@ -127,7 +127,7 @@
                         OjInternal.data[propName] = value;
                     } else {
                         OjInternal.data[propName] = value;
-                        OjNode.$.data(propName, value);
+                        OjNode['?'].data(propName, value);
                     }
                 }
                 return ret;
@@ -151,7 +151,7 @@
             Object.defineProperty(el, 'children', {value: function (searchTerm, selector) {
                 var ret = [];
                 if (OjInternal.isNodeAlive()) {
-                    var $children = OjNode.$.children(OJ.to.string(searchTerm), OJ.to.string(selector));
+                    var $children = OjNode['?'].children(OJ.to.string(searchTerm), OJ.to.string(selector));
                     if($children) {
                         $children.each(function() {
                             var $child = $(this);
@@ -165,7 +165,7 @@
             Object.defineProperty(el, 'filter', { value: function (selector) {
                 var ret = [];
                 if (selector && OjInternal.isNodeAlive()) {
-                    var $children = OjNode.$.filter(selector);
+                    var $children = OjNode['?'].filter(selector);
                     if($children.length > 0) {
                         $children.each(function() {
                             var $child = $(this);
@@ -179,7 +179,7 @@
             Object.defineProperty(el, 'find', { value: function (selector) {
                 var ret = [];
                 if (selector && OjInternal.isNodeAlive()) {
-                    var $children = OjNode.$.find(selector);
+                    var $children = OjNode['?'].find(selector);
                     if($children.length > 0) {
                         $children.each(function() {
                             var $child = $(this);
@@ -198,7 +198,7 @@
             Object.defineProperty(el, 'parent', { value: function () {
                 var ret = {};
                 if (OjInternal.isNodeAlive()) {
-                    var $parent = OjNode.$.parent();
+                    var $parent = OjNode['?'].parent();
 
                     if (false === OJ.is.nullOrEmpty($parent) && $parent.length > 0) {
                         ret = OJ.dom.nodeWrapper({}, $parent);
@@ -213,7 +213,7 @@
             */
             Object.defineProperty(OjNode, 'addClass', { value: function (name) {
                 if (name && OjInternal.isNodeAlive()) {
-                    OjNode.$.addClass(name);
+                    OjNode['?'].addClass(name);
                 }
                 return OjNode;
             }});
@@ -222,7 +222,7 @@
                 var ret = OjNode;
                 if (object && OjInternal.isNodeAlive()) {
                     OJ.tryThisThenThat(function _first() {
-                        OjNode.$.append(object);
+                        OjNode['?'].append(object);
                         ret = OjInternal.chainChildNode(object);
                     }, function _second() {
                         //Probably attempted to append a string which matched a selector (e.g. 'a')
@@ -241,11 +241,11 @@
                     ret = OjNode;
 
                     if(OJ.is.plainObject(name)) {
-                        OjNode.$.attr(name);
+                        OjNode['?'].attr(name);
                     } else  if(arguments.length === 1) {
-                        ret = OjNode.$.attr(name);
+                        ret = OjNode['?'].attr(name);
                     } else {
-                        OjNode.$.attr(name, value);
+                        OjNode['?'].attr(name, value);
                     }
                 }
                 return ret;
@@ -269,7 +269,7 @@
 
             Object.defineProperty(OjNode, 'bind', {value : function (eventName, event) {
                 if (eventName && OjInternal.isNodeAlive()) {
-                    OjNode.$.on(eventName, event);
+                    OjNode['?'].on(eventName, event);
                 }
                 return OjNode;
             }});
@@ -277,7 +277,7 @@
 
             Object.defineProperty(OjNode, 'clickOnEnter', {value: function (anOjNode) {
                 if (anOjNode &&  OjInternal.isNodeAlive()) {
-                    OjNode.$.clickOnEnter(anOjNode.$);
+                    OjNode['?'].clickOnEnter(anOjNode['?']);
                 }
                 return OjNode;
             }});
@@ -286,11 +286,11 @@
                 var ret = OjNode;
                 if (param1 && OjInternal.isNodeAlive()) {
                     if (OJ.is.plainObject(param1)) {
-                        OjNode.$.css(param1);
+                        OjNode['?'].css(param1);
                     } else if(arguments.length === 1) {
-                        ret = OjNode.$.css(param1);
+                        ret = OjNode['?'].css(param1);
                     } else {
-                        OjNode.$.css(param1, param2);
+                        OjNode['?'].css(param1, param2);
                     }
                 }
                 return ret;
@@ -328,7 +328,7 @@
 
             Object.defineProperty(OjNode, 'empty', { value: function () {
                 if (OjInternal.isNodeAlive()) {
-                    OjNode.$.empty();
+                    OjNode['?'].empty();
                     OjNode.childNodes = [];
                 }
                 return OjNode;
@@ -354,7 +354,7 @@
             Object.defineProperty(OjNode, 'hide', { value: function () {
                 if (OjInternal.isNodeAlive()) {
                     OjNode.addClass('OjHidden');
-                    OjNode.$.hide();
+                    OjNode['?'].hide();
                 }
                 return OjNode;
             }});
@@ -362,7 +362,7 @@
             Object.defineProperty(OjNode, 'length', { value: function () {
                 var ret = 0;
                 if (OjInternal.isNodeAlive()) {
-                    ret = OJ.to.number(OjNode.$.length);
+                    ret = OJ.to.number(OjNode['?'].length);
                 }
                 return ret;
             }});
@@ -373,19 +373,19 @@
                     ret = OjNode;
 
                     if(OJ.is.plainObject(name)) {
-                        OjNode.$.prop(name);
+                        OjNode['?'].prop(name);
                     } else  if(arguments.length === 1) {
-                        ret = OjNode.$.prop(name);
+                        ret = OjNode['?'].prop(name);
                     } else {
-                        OjNode.$.prop(name, value);
+                        OjNode['?'].prop(name, value);
                     }
                 }
                 return ret;
             }});
 
             Object.defineProperty(OjNode, 'remove', { value: function () {
-                if(OjNode && OjNode.$) {
-                    OjNode.$.remove();
+                if(OjNode && OjNode['?']) {
+                    OjNode['?'].remove();
                     OjNode.childNodes = [];
                     //This will update the internal reference to the node,
                     //which will allow isNodeAlive() to work as expected;
@@ -398,21 +398,21 @@
 
             Object.defineProperty(OjNode, 'removeClass', { value: function (name) {
                 if (name && OjInternal.isNodeAlive()) {
-                    OjNode.$.removeClass(name);
+                    OjNode['?'].removeClass(name);
                 }
                 return OjNode;
             }});
 
             Object.defineProperty(OjNode, 'removeProp', { value: function (name) {
                 if (name && OjInternal.isNodeAlive()) {
-                    OjNode.$.removeProp(name);
+                    OjNode['?'].removeProp(name);
                 }
                 return OjNode;
             }});
 
             Object.defineProperty(OjNode, 'removeAttr', { value: function (name) {
                 if (name && OjInternal.isNodeAlive()) {
-                    OjNode.$.removeAttr(name);
+                    OjNode['?'].removeAttr(name);
                 }
                 return OjNode;
             }});
@@ -420,7 +420,7 @@
             Object.defineProperty(OjNode, 'show', { value: function () {
                 if (OjInternal.isNodeAlive()) {
                     OjNode.removeClass('OjHidden');
-                    OjNode.$.show();
+                    OjNode['?'].show();
                 }
                 return OjNode;
             }});
@@ -428,17 +428,17 @@
             Object.defineProperty(OjNode, 'text', { value: function (text) {
                 if (text && OjInternal.isNodeAlive()) {
                     if (arguments.length === 1 && false === OJ.is.nullOrUndefined(text)) {
-                        OjNode.$.text(text);
+                        OjNode['?'].text(text);
                         return OjNode;
                     } else {
-                        return OJ.to.string(OjNode.$.text());
+                        return OJ.to.string(OjNode['?'].text());
                     }
                 }
             }});
 
             Object.defineProperty(OjNode, 'toggle', { value: function () {
                 if (OjInternal.isNodeAlive()) {
-                    OjNode.$.toggle();
+                    OjNode['?'].toggle();
                 }
                 return OjNode;
             }});
@@ -456,14 +456,14 @@
 
             Object.defineProperty(OjNode, 'trigger', { value: function (eventName, eventOpts) {
                 if (eventName && OjInternal.isNodeAlive()) {
-                    OjNode.$.trigger(eventName, eventOpts);
+                    OjNode['?'].trigger(eventName, eventOpts);
                 }
                 return OjNode;
             }});
 
             Object.defineProperty(OjNode, 'unbind', { value: function (eventName, event) {
                 if (eventName && OjInternal.isNodeAlive()) {
-                    OjNode.$.off(eventName, event);
+                    OjNode['?'].off(eventName, event);
                 }
                 return OjNode;
             }});
@@ -479,10 +479,10 @@
             OjNode.val = OjNode.val || function (value) {
                 if (OjInternal.isNodeAlive()) {
                     if (arguments.length === 1 && false === OJ.is.nullOrUndefined(value)) {
-                        OjNode.$.val(value);
+                        OjNode['?'].val(value);
                         return OjNode;
                     } else {
-                        return OJ.to.string(OjNode.$.val());
+                        return OJ.to.string(OjNode['?'].val());
                     }
                 }
             };
