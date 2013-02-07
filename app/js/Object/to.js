@@ -65,7 +65,7 @@
 	OJ.to.lift('number', function(inputNum, defaultNum) {
         'use strict';
         function tryGetNumber(val) {
-            var ret;
+            var ret = NaN;
             if(OJ.is.number(val)) {
                 ret = val;
             }
@@ -85,8 +85,8 @@
                 if (OJ.is.number(tryGet)) {
                     ret = tryGet;
                 }
-                return ret;
             }
+            return ret;
         }
 
         var retVal = tryGetNumber(inputNum);

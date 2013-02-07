@@ -236,7 +236,7 @@
 	});
 
 	test( "OJ.to.number('-42')", function() {
-        deepEqual( OJ.to.number('-42') === 42, true, "OJ.to.number converts '-42' to -42.");
+        deepEqual( OJ.to.number('-42') === -42, true, "OJ.to.number converts '-42' to -42.");
 	});
 
 
