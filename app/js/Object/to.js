@@ -44,7 +44,7 @@
     });
 
     OJ.to.lift('binary', function(obj){
-        var ret = -1;
+        var ret = NaN;
         if(obj === 0 || obj === '0' || obj === '' || obj === false || OJ.to.string(obj).toLowerCase().trim() === 'false') {
             ret = 0;
         }
@@ -71,11 +71,8 @@
             }
             else if(OJ.is.string(val) || OJ.is.bool(val)) {
 
-                var getNumber = function(value) {
+                var tryGet = (function(value) {
                     var num = OJ.to.binary(value);
-                    if(num < 0) {
-                        num = Number.NaN;
-                    }
                     if (!OJ.is.number(num) && value) {
                         num = +value;
                     }
@@ -83,9 +80,7 @@
                         num = parseInt(value, 0);
                     }
                     return num;
-                };
-
-                var tryGet = getNumber(val);
+                }(val));
 
                 if (OJ.is.number(tryGet)) {
                     ret = tryGet;
