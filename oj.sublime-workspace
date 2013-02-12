@@ -4,6 +4,22 @@
 		"selected_items":
 		[
 			[
+				"O",
+				"OjTestingDiv"
+			],
+			[
+				"get",
+				"getById"
+			],
+			[
+				"ret",
+				"retBool"
+			],
+			[
+				"tr",
+				"trueOrFalse"
+			],
+			[
 				"M",
 				"MIN_VALUE"
 			],
@@ -22,14 +38,6 @@
 			[
 				"num",
 				"number"
-			],
-			[
-				"tr",
-				"trim"
-			],
-			[
-				"ret",
-				"retVal"
 			],
 			[
 				"rem",
@@ -60,20 +68,12 @@
 				"tryThisThenThat"
 			],
 			[
-				"O",
-				"OjInternal"
-			],
-			[
 				"Do",
 				"DomEl"
 			],
 			[
 				"local",
 				"localDb"
-			],
-			[
-				"get",
-				"getKeys"
 			],
 			[
 				"cooki",
@@ -111,7 +111,7 @@
 			"file": "app/js/oj.js",
 			"settings":
 			{
-				"buffer_size": 3010,
+				"buffer_size": 3269,
 				"line_ending": "Unix"
 			}
 		},
@@ -146,7 +146,7 @@
 			"file": "grunt.js",
 			"settings":
 			{
-				"buffer_size": 3556,
+				"buffer_size": 4140,
 				"line_ending": "Unix"
 			}
 		},
@@ -154,7 +154,7 @@
 			"file": "test/test.html",
 			"settings":
 			{
-				"buffer_size": 2621,
+				"buffer_size": 2387,
 				"line_ending": "Windows"
 			}
 		},
@@ -162,7 +162,7 @@
 			"file": "package.json",
 			"settings":
 			{
-				"buffer_size": 1195,
+				"buffer_size": 1075,
 				"line_ending": "Unix"
 			}
 		},
@@ -179,8 +179,8 @@
 			"file": "app/js/plugins.js",
 			"settings":
 			{
-				"buffer_size": 1681,
-				"line_ending": "Unix"
+				"buffer_size": 0,
+				"line_ending": "Windows"
 			}
 		},
 		{
@@ -195,15 +195,23 @@
 			"file": "test/Object/test.to.js",
 			"settings":
 			{
-				"buffer_size": 3530,
+				"buffer_size": 8350,
 				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "oj.sublime-workspace",
+			"settings":
+			{
+				"buffer_size": 14049,
+				"line_ending": "Unix"
 			}
 		},
 		{
 			"file": "app/js/Object/is.js",
 			"settings":
 			{
-				"buffer_size": 3521,
+				"buffer_size": 3745,
 				"line_ending": "Unix"
 			}
 		},
@@ -211,7 +219,7 @@
 			"file": "app/js/Object/to.js",
 			"settings":
 			{
-				"buffer_size": 4492,
+				"buffer_size": 3947,
 				"line_ending": "Unix"
 			}
 		},
@@ -229,6 +237,46 @@
 			{
 				"buffer_size": 1015,
 				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/Node/wrapper.js",
+			"settings":
+			{
+				"buffer_size": 20286,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "test/Node/test.node.js",
+			"settings":
+			{
+				"buffer_size": 649,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "app/js/Node/globalAttributes.js",
+			"settings":
+			{
+				"buffer_size": 2030,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "app/js/Node/factory.js",
+			"settings":
+			{
+				"buffer_size": 8805,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "test/test.tmpl",
+			"settings":
+			{
+				"buffer_size": 1718,
+				"line_ending": "Windows"
 			}
 		}
 	],
@@ -286,6 +334,9 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"\n\n	test( \"OJ.to.number('42')\", function() {\n        deepEqual( OJ.to.number(1) === 42, true, \"OJ.to.number converts '42' to 42.\");\n	});",
+			".$",
+			"$",
 			"7",
 			"Number",
 			"8",
@@ -313,6 +364,8 @@
 		"regex": false,
 		"replace_history":
 		[
+			"['?']",
+			"jQuery",
 			"8",
 			"7",
 			"});",
@@ -332,7 +385,7 @@
 	"groups":
 	[
 		{
-			"selected": 11,
+			"selected": 18,
 			"sheets":
 			[
 				{
@@ -368,15 +421,15 @@
 					"file": "app/js/oj.js",
 					"settings":
 					{
-						"buffer_size": 3010,
+						"buffer_size": 3269,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								3255,
+								3255
 							]
 						],
 						"settings":
@@ -386,7 +439,7 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 417.0,
+						"translation.y": 810.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -483,15 +536,15 @@
 					"file": "grunt.js",
 					"settings":
 					{
-						"buffer_size": 3556,
+						"buffer_size": 4140,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								3556,
-								3556
+								0,
+								0
 							]
 						],
 						"settings":
@@ -511,7 +564,7 @@
 					"file": "test/test.html",
 					"settings":
 					{
-						"buffer_size": 2621,
+						"buffer_size": 2387,
 						"regions":
 						{
 						},
@@ -539,15 +592,15 @@
 					"file": "package.json",
 					"settings":
 					{
-						"buffer_size": 1195,
+						"buffer_size": 1075,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								512,
-								512
+								0,
+								0
 							]
 						],
 						"settings":
@@ -596,15 +649,15 @@
 					"file": "app/js/plugins.js",
 					"settings":
 					{
-						"buffer_size": 1681,
+						"buffer_size": 0,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								618,
-								1633
+								0,
+								0
 							]
 						],
 						"settings":
@@ -652,15 +705,15 @@
 					"file": "test/Object/test.to.js",
 					"settings":
 					{
-						"buffer_size": 3530,
+						"buffer_size": 8350,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								702,
-								702
+								5862,
+								5639
 							]
 						],
 						"settings":
@@ -669,60 +722,31 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1152.0,
+						"translation.y": 2069.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
 					"buffer": 12,
-					"file": "app/js/Object/is.js",
+					"file": "oj.sublime-workspace",
 					"settings":
 					{
-						"buffer_size": 3521,
+						"buffer_size": 14049,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								1445,
-								1445
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 1665.0,
-						"zoom_level": 1.0
-					},
-					"type": "text"
-				},
-				{
-					"buffer": 13,
-					"file": "app/js/Object/to.js",
-					"settings":
-					{
-						"buffer_size": 4492,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4101,
-								4101
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/Text/Plain text.tmLanguage",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -731,7 +755,63 @@
 					"type": "text"
 				},
 				{
+					"buffer": 13,
+					"file": "app/js/Object/is.js",
+					"settings":
+					{
+						"buffer_size": 3745,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2778,
+								2778
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 630.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
 					"buffer": 14,
+					"file": "app/js/Object/to.js",
+					"settings":
+					{
+						"buffer_size": 3947,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2897,
+								2897
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 1505.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 15,
 					"file": "test/Object/test.is.js",
 					"settings":
 					{
@@ -752,17 +832,99 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 945.0,
+						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
 				},
 				{
-					"buffer": 15,
+					"buffer": 16,
 					"file": "app/js/Object/number.js",
 					"settings":
 					{
 						"buffer_size": 1015,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								751,
+								751
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 17,
+					"file": "app/js/Node/wrapper.js",
+					"settings":
+					{
+						"buffer_size": 20286,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								296,
+								296
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2385.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 18,
+					"file": "test/Node/test.node.js",
+					"settings":
+					{
+						"buffer_size": 649,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								649,
+								649
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 19,
+					"file": "app/js/Node/globalAttributes.js",
+					"settings":
+					{
+						"buffer_size": 2030,
 						"regions":
 						{
 						},
@@ -781,6 +943,62 @@
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 20,
+					"file": "app/js/Node/factory.js",
+					"settings":
+					{
+						"buffer_size": 8805,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JavaScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 2700.0,
+						"zoom_level": 1.0
+					},
+					"type": "text"
+				},
+				{
+					"buffer": 21,
+					"file": "test/test.tmpl",
+					"settings":
+					{
+						"buffer_size": 1718,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1654,
+								1666
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 360.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
