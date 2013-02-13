@@ -2,7 +2,7 @@
 (function () {
     'use strict';
     var OjInternal = {
-        bindingObj: $({})
+        bindingObj: OJ['?']({})
     };
     
     OJ.lift('subscribe', function () {

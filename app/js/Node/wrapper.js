@@ -1,6 +1,11 @@
-/*global OJ:true,$:true*/
+/*global OJ:true */
 (function () {
 
+    var Node = function() {
+        this.nodeInstance = 'node';
+        return this;
+    };
+    
     OJ.makeSubNameSpace('node');
 
     OJ.node.lift('getById', function (id) {
@@ -16,21 +21,31 @@
 
     OJ.node.lift('wrapper', function (OjNode, DomEl, options) {
             'use strict';
-        if(!(OjNode && true === OjNode.isValid)) { //Don't try to wrap the same OjNode twice
+        if(OjNode || OjNode instanceof Node || DomEl ) { 
             var OjInternal = {
                 data: {},
                 enabled: true,
                 isValid: false
             };
-            OjNode = OjNode || Object.create({ 0: null, '?': $({}), isValid: false });
+
+            if(false === (OjNode instanceof Node) ) {
+                OjNode = new Node();
+            } else {
+                /***
+                *  Multiple returns are generally considered bad practice, 
+                *  but in this case I think it's clear what our intention is:
+                *  if this is already an OJ Node, return it.
+                */
+                return OjNode;
+            }
 
             (function _initConstructor() {
                 //Validate and setup our Node instance
                 if (OjNode[0] instanceof HTMLElement &&
-                    OJ.is.jQuery(OjNode['?'])) {
+                    OJ.is.vendorObject(OjNode['?'])) {
                     OjInternal.isValid = true;
                 }
-                else if (OJ.is.jQuery(DomEl)) {
+                else if (OJ.is.vendorObject(DomEl)) {
                     Object.defineProperty(OjNode, '?', {
                         value: DomEl
                     });
@@ -44,7 +59,7 @@
                         value: DomEl
                     });
                     Object.defineProperty(OjNode, '?', {
-                        value: $('#' + DomEl.id)
+                        value: OJ['?']('#' + DomEl.id)
                     });
                     OjInternal.isValid = true;
                 } else {
@@ -77,7 +92,7 @@
                     // root and parent are safe assumptions
                     Object.defineProperty(node, 'root', {value: OjNode.root});
                     Object.defineProperty(node, 'parent', {value: OjNode });
-                    if (OJ.is.jQuery($element)) {
+                    if (OJ.is.vendorInstance($element)) {
                         // this is a valid child
                         Object.defineProperty(node, '$', {value: $element});
                         Object.defineProperty(node, '0', {value: $element[0]});

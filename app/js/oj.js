@@ -1,4 +1,4 @@
-(function() {
+(function(domVendor) {
 
     /**
     *    The OJ  NameSpace, an IIFE
@@ -70,9 +70,10 @@
             };
 
             var OjOut = makeNameSpace(prototype);
-
+            OjOut.lift('?', domVendor);
+            
             return OjOut;
 
         }())
     });
-}());
+}(jQuery));

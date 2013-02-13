@@ -1,4 +1,4 @@
-/*global OJ:true,$:true,window:true,Number:true*/
+/*global OJ:true,$Array:true,window:true,Number:true*/
 (function() {
 
 	OJ.makeSubNameSpace('is');
@@ -35,7 +35,7 @@
 
     OJ.is.lift('plainObject', function (obj) {
         'use strict';
-        var ret = (window.$.isPlainObject(obj));
+        var ret = (OJ['?'].isPlainObject(obj));
         return ret;
     });
 
@@ -67,9 +67,9 @@
 		return ret;
 	});
 
-    OJ.is.lift('jQuery', function (obj) {
+    OJ.is.lift('vendorObject', function (obj) {
         'use strict';
-        var ret = (obj instanceof window.jQuery);
+        var ret = (obj instanceof OJ['?']);
         return ret;
     });
 
@@ -84,7 +84,7 @@
     });
 
 	OJ.is.lift('array', function(obj) {
-		return $.isArray(obj);
+		return Array.isArray(obj);
 	});
 
 
@@ -136,8 +136,7 @@
 
     OJ.is.lift('func', function(obj) {
         'use strict';
-        var ret = ($.isFunction(obj));
-        return ret;
+        return typeof(obj) === 'function';
     });
 
 
