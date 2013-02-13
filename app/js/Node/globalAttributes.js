@@ -6,68 +6,57 @@
 
         Object.defineProperty(ret, 'accesskey', {
             value: '',
-            writable: true,
-            enumerabl: true
+            writable: true
         });
 
         Object.defineProperty(ret, 'class', {
             value: '',
-            writable: true,
-            enumerabl: true
+            writable: true
         });
 
         Object.defineProperty(ret, 'contenteditable', {
             value: '',
-            writable: true,
-            enumerabl: true
+            writable: true
         });
 
         Object.defineProperty(ret, 'contextmenu', {
             value: '',
-            writable: true,
-            enumerabl: true
+            writable: true
         });
 
         Object.defineProperty(ret, 'draggable', {
             value: '',
-            writable: true,
-            enumerabl: true
+            writable: true
         });
 
         Object.defineProperty(ret, 'dropzone', {
             value: '',
-            writable: true,
-            enumerabl: true
+            writable: true
         });
 
         Object.defineProperty(ret, 'hidden', {
             value: '',
-            writable: true,
-            enumerabl: true
+            writable: true
         });
 
         Object.defineProperty(ret, 'spellcheck', {
             value: '',
-            writable: true,
-            enumerabl: true
+            writable: true
         });
 
         Object.defineProperty(ret, 'style', {
             value: '',
-            writable: true,
-            enumerabl: true
+            writable: true
         });
 
         Object.defineProperty(ret, 'tabindex', {
             value: '',
-            writable: true,
-            enumerabl: true
+            writable: true
         });
 
         Object.defineProperty(ret, 'title', {
             value: '',
-            writable: true,
-            enumerabl: true
+            writable: true
         });
 
         return ret;

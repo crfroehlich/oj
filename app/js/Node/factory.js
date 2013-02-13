@@ -22,11 +22,22 @@
                     var ret = false;
                     switch(OjNode.tagName.toLowerCase()) {
                         case 'body':
-                            ret= (tagName === 'div' || tagName === 'span' || tagName === 'h1' || tagName === 'h2' || tagName === 'h3' || tagName === 'h4' || tagName === 'h5' || tagName === 'h6' || tagName === 'p' || tagName === 'fieldset' || tagName === 'select' || tagName === 'ol' || tagName === 'ul' || tagName === 'table');
+                            ret = (tagName === 'div' || 
+                                    tagName === 'span' || 
+                                    tagName === 'h1' || 
+                                    tagName === 'h2' || 
+                                    tagName === 'h3' || 
+                                    tagName === 'h4' || 
+                                    tagName === 'h5' || 
+                                    tagName === 'h6' || 
+                                    tagName === 'p' || 
+                                    tagName === 'fieldset' || 
+                                    tagName === 'select' || 
+                                    tagName === 'ol' || 
+                                    tagName === 'ul' || tagName === 'table');
                             break;
                         case 'div':
                             ret = nonNestableNodes.indexOf(tagName) === -1;
-                            ret = true;
                             break;
                         case 'form':
                             ret = nonNestableNodes.indexOf(tagName) === -1;
@@ -35,10 +46,10 @@
                             ret = nonNestableNodes.indexOf(tagName) === -1;
                             break;
                         case 'legend':
-                            ret = OjNode.parent.tagName === 'fieldset';
+                            ret = (OjNode.parent.tagName === 'fieldset');
                             break;
                         case 'fieldset':
-                            ret = tagName === 'legend' || nonNestableNodes.indexOf(tagName) === -1;
+                            ret = (tagName === 'legend' || nonNestableNodes.indexOf(tagName) === -1);
                             break;
                         case 'ol':
                             ret = tagName === 'li';
