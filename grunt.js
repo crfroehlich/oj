@@ -111,13 +111,17 @@ module.exports = function(grunt) {
                     "release/oj.min.js": "oj.min.js.map"
                 }
             }
-        },
-        docco: {
-            src: '<config:lint.files>',
-            dest: 'docs/'
-
         }
     });
+
+    /**REGION: init tasks */
+
+    grunt.loadNpmTasks('grunt-growl');
+    grunt.loadNpmTasks('grunt-closure-compiler');
+
+    /**ENDREGION: init tasks */
+
+    /**REGION: register tasks */
 
     grunt.registerTask('indexHtml', 'Generate index.html depending on configuration', function() {
         grunt.config('releasePath', 'app');
@@ -139,15 +143,12 @@ module.exports = function(grunt) {
         grunt.log.writeln('Generated \'' + conf.dest + '\' from \'' + conf.src + '\'');
     });
 
-    grunt.loadNpmTasks('grunt-docco');
-    grunt.loadNpmTasks('grunt-growl');
-    grunt.loadNpmTasks('grunt-closure-compiler');
 
-    // Default task.
+
     grunt.registerTask('default', 'concat closure-compiler qunit watch');
 
-    //grunt.loadNpmTasks('grunt-closure-compiler');
-    grunt.registerTask('dev', 'indexHtml concat lint docco');
-    grunt.registerTask('test', 'testHtml concat qunit docco');
+    grunt.registerTask('dev', 'indexHtml concat lint');
+    grunt.registerTask('test', 'testHtml concat qunit');
 
+    /**REGION: register tasks */
 };

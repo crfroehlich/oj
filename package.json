@@ -34,8 +34,8 @@
     "html-minifier": "latest",
     "clean-css": "latest",
     "express": "latest",
-	"grunt-docco": "latest",
-	"grunt-growl": "latest"
+	"grunt-growl": "latest",
+    "node-phantom": "latest"
   },
   "keywords": [],
   "engines": {
