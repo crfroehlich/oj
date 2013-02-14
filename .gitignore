@@ -4,7 +4,8 @@ node_modules/
 
 /test/test.html
 
-/vendor/vendor.js
+/vendor/vendor-core.js
+/vendor/vendor-extensions.js
 
 /vendor/vendor.css
 
