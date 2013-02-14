@@ -1,11 +1,16 @@
 /*global OJ:true */
-(function () {
+(function (_$) {
 
     var Node = function() {
-        this.nodeInstance = 'node';
+        'use strict';
+        this.nodeInstance = 'Node';
+        this.vendorVal = function() {
+            return node['?'].apply(this, Array.prototype.slice.call(arguments, 0));
+        }
+        this.OjVal = function() {};
         return this;
     };
-    
+
     OJ.makeSubNameSpace('node');
 
     OJ.node.lift('getById', function (id) {
@@ -21,7 +26,7 @@
 
     OJ.node.lift('wrapper', function (OjNode, DomEl, options) {
             'use strict';
-        if(OjNode || OjNode instanceof Node || DomEl ) { 
+        if(OjNode || OjNode instanceof Node || DomEl ) {
             var OjInternal = {
                 data: {},
                 enabled: true,
@@ -29,10 +34,10 @@
             };
 
             if(false === (OjNode instanceof Node) ) {
-                OjNode = new Node();
+                OjNode = Object.create(new Node());
             } else {
                 /***
-                *  Multiple returns are generally considered bad practice, 
+                *  Multiple returns are generally considered bad practice,
                 *  but in this case I think it's clear what our intention is:
                 *  if this is already an OJ Node, return it.
                 */
@@ -41,7 +46,7 @@
 
             (function _initConstructor() {
                 //Validate and setup our Node instance
-                if (OjNode[0] instanceof HTMLElement &&
+                if (OjNode && OjNode[0] instanceof HTMLElement &&
                     OJ.is.vendorObject(OjNode['?'])) {
                     OjInternal.isValid = true;
                 }
@@ -70,7 +75,7 @@
             }()); //end initConstructor
 
             // No technical need to sequester the code in this way,
-            // but it feels more readable in these blocks
+            // but it feels more readable in these blocksarent..nodeInstance === 'node'
             (function _postConstructor(){
                 //We have a valid OjNode, let's build it out.
                 Object.defineProperty(OjNode, 'isValid', {
@@ -86,32 +91,90 @@
                         writable: true
                     });
 
+                var addRoot = function(ojNode) {
+                    var ret = null;
+                    if(ojNode instanceof Node && false === (ojNode.root instanceof Node)) {
+                        if(ojNode && ojNode[0] && ojNode[0].tagName !== 'BODY') {
+                            if(!ojNode.root && !ojNode.root[0]) {
+                                if(!ojNode.parent && !ojNode.parent[0]) {
+                                    //Without valid OJ parents, the only logical root node is the body node
+                                    ret = document.getElementsByTagName('body')[0];
+                                } else {
+                                    var getRoot = function(parent) {
+                                        if(parent &&
+                                            parent.nodeInstance === 'node' &&
+                                            parent.parent &&
+                                            parent.parent.nodeInstance === 'node' ) {
+
+                                            ret = parent.parent;
+                                            if(ret.parent && ret.parent.nodeInstance === 'node' && ret.parent[0].tagName.toLowerCase() !== 'body') {
+                                                ret = getRoot(ret);
+                                            }
+                                        }
+                                        return ret;
+                                    }
+                                    ret = getRoot(ojNode);
+                                }
+
+                            }
+                        }
+                        Object.defineProperty(ojNode, 'root', {value: OJ.node.wrapper(null, ret)});
+                    }
+                    return ret;
+                };
+
+                var addParent = function(ojNode) {
+                    'use strict';
+                    var ret = null;
+                    if(ojNode instanceof Node && false === (ojNode.parent instanceof Node)) {
+                        if(ojNode && ojNode[0] && ojNode[0].tagName.toLowerCase() !== 'body') {
+                            if(!ojNode.parent && !ojNode.parent[0]) {
+                                ret = ojNode[0].parentNode;
+                            }
+                        }
+                        Object.defineProperty(ojNode, 'parent', {value: OJ.node.wrapper(null, ret)});
+                    }
+                    return ret;
+                };
+
                 // Keep this method safely enveloped in the closure.
-                var buildChildNode = function(node, $element) {
-                    node = node || Object.create(null);
+                OjInternal.buildChildNode = function(node, _$element) {
+                    'use strict';
+                    node = node || Object.create(new Node());
                     // root and parent are safe assumptions
-                    Object.defineProperty(node, 'root', {value: OjNode.root});
-                    Object.defineProperty(node, 'parent', {value: OjNode });
-                    if (OJ.is.vendorInstance($element)) {
+                    Object.defineProperty(node, 'root', {value: addRoot(node) });
+                    Object.defineProperty(node, 'parent', {value: addParent(node) });
+                    if (OJ.is.vendorObject(_$element)) {
                         // this is a valid child
-                        Object.defineProperty(node, '$', {value: $element});
-                        Object.defineProperty(node, '0', {value: $element[0]});
+                        Object.defineProperty(node, '?', {value: _$element});
+                        Object.defineProperty(node, '0', {value: _$element[0]});
 
                     }
                     // Extend the child with the wrapper methods around itself
                     return  OJ.node.wrapper(node);
                 };
 
-                Object.defineProperty(OjInternal, 'chainChildNode', { value: function ($child) {
-                    var newNode = Object.create(null);
-                    buildChildNode(newNode, $child);
+                Object.defineProperty(OjInternal, 'chainChildNode', { value: function (_$child, newNode) {
+                    'use strict';
+                    if(newNode && false === (newNode instanceof Node)) {
+                        OjEl.prototype = new Node();
+                    } else {
+                        newNode = new Node();
+                    }
+                    OjInternal.buildChildNode(newNode, _$child);
                     OjNode.childNodes.push(newNode);
                     return newNode;
                 }});
 
-                Object.defineProperty(OjInternal, 'wrapChildNode', { value: function ($child) {
-                    var newNode = Object.create(null);
-                    return buildChildNode(newNode, $child);
+                Object.defineProperty(OjInternal, 'wrapChildNode', { value: function (_$child, newNode) {
+                    'use strict';
+                    if(newNode && false === (newNode instanceof Node)) {
+                        OjEl.prototype = new Node();
+                    } else {
+                        newNode = new Node();
+                    }
+                    var newNode = new Node(OjEl);
+                    return OjInternal.buildChildNode(newNode, _$child);
                 }});
 
                 /**
@@ -177,11 +240,11 @@
             Object.defineProperty(el, 'children', {value: function (searchTerm, selector) {
                 var ret = [];
                 if (OjInternal.isNodeAlive()) {
-                    var $children = OjNode['?'].children(OJ.to.string(searchTerm), OJ.to.string(selector));
-                    if($children) {
-                        $children.each(function() {
-                            var $child = $(this);
-                            ret.push(OjInternal.chainChildNode($child));
+                    var _$children = OjNode['?'].children(OJ.to.string(searchTerm), OJ.to.string(selector));
+                    if(_$children) {
+                        _$children.each(function() {
+                            var _$child = OJ['?'](this);
+                            ret.push(OjInternal.chainChildNode(_$child));
                         });
                     }
                 }
@@ -191,11 +254,11 @@
             Object.defineProperty(el, 'filter', { value: function (selector) {
                 var ret = [];
                 if (selector && OjInternal.isNodeAlive()) {
-                    var $children = OjNode['?'].filter(selector);
-                    if($children.length > 0) {
-                        $children.each(function() {
-                            var $child = $(this);
-                            ret.push(OjInternal.wrapChildNode($child));
+                    var _$children = OjNode['?'].filter(selector);
+                    if(_$children.length > 0) {
+                        _$children.each(function() {
+                            var _$child = _$(this);
+                            ret.push(OjInternal.wrapChildNode(_$child));
                         });
                     }
                 }
@@ -205,11 +268,11 @@
             Object.defineProperty(el, 'find', { value: function (selector) {
                 var ret = [];
                 if (selector && OjInternal.isNodeAlive()) {
-                    var $children = OjNode['?'].find(selector);
-                    if($children.length > 0) {
-                        $children.each(function() {
-                            var $child = $(this);
-                            ret.push(OjInternal.wrapChildNode($child));
+                    var _$children = OjNode['?'].find(selector);
+                    if(_$children.length > 0) {
+                        _$children.each(function() {
+                            var _$child = _$(this);
+                            ret.push(OjInternal.wrapChildNode(_$child));
                         });
                     }
                 }
@@ -224,10 +287,10 @@
             Object.defineProperty(el, 'parent', { value: function () {
                 var ret = {};
                 if (OjInternal.isNodeAlive()) {
-                    var $parent = OjNode['?'].parent();
+                    var _$parent = OjNode['?'].parent();
 
-                    if (false === OJ.is.nullOrEmpty($parent) && $parent.length > 0) {
-                        ret = OJ.dom.nodeWrapper({}, $parent);
+                    if (false === OJ.is.nullOrEmpty(_$parent) && _$parent.length > 0) {
+                        ret = OJ.dom.nodeWrapper({}, _$parent);
                     }
                 }
                 return ret;
@@ -278,13 +341,13 @@
             }});
 
             Object.defineProperty(OjNode, 'attach', { value: function (object) {
-                var $child = null, ret;
+                var _$child = null, ret;
                 if (object && OjInternal.isNodeAlive()) {
                     OJ.tryThisThenThat(function _first() {
-                        $child = $(object);
-                        if (false === OJ.is.nullOrEmpty($child)) {
-                            OjNode.append($child);
-                            ret = OjInternal.chainChildNode($child);
+                        _$child = _$(object);
+                        if (false === OJ.is.nullOrEmpty(_$child)) {
+                            OjNode.append(_$child);
+                            ret = OjInternal.chainChildNode(_$child);
                         }
                     }, function _second() {
 
@@ -501,24 +564,32 @@
 
             /**
              * Individual DOM classes will need to override this method.
+            *
+            * OjNode.OjVal = ...
             */
-            OjNode.val = OjNode.val || function (value) {
-                if (OjInternal.isNodeAlive()) {
-                    if (arguments.length === 1 && false === OJ.is.nullOrUndefined(value)) {
-                        OjNode['?'].val(value);
-                        return OjNode;
-                    } else {
-                        return OJ.to.string(OjNode['?'].val());
-                    }
-                }
-            };
 
             /**
-             * This is THE mechanism for building out the DOM.
+             * These are _THE_ mechanisms for building out the DOM.
              * OJ may later support *pend methods, but for now it's turtles all the way down.
              */
-            Object.defineProperty(OjNode, 'addChild', { value: function (object) {
-                return OjNode.append(object);
+            Object.defineProperty(OjNode, 'addChild', { value: function (newNode, html) {
+                var _$el = _$(html);
+                if(newNode && false === (newNode instanceof Node)) {
+                    newNode.prototype = new Node();
+                } else {
+                    newNode = new Node();
+                }
+                return OjInternal.buildChildNode(newNode, _$el);
+            }});
+
+            /**
+             * These are _THE_ mechanisms for building out the DOM.
+             * OJ may later support *pend methods, but for now it's turtles all the way down.
+             */
+            Object.defineProperty(OjNode, 'makeChild', { value: function (html) {
+                if(OJ.is.string(html)) {
+                    return OjNode.append(html);
+                }
             }});
 
             //Finally! Return something.
@@ -527,6 +598,6 @@
     });
 
 
-} ());
+} (OJ['?']));
 
 

@@ -7,7 +7,7 @@
         function(OjNode) {
             'use strict';
 
-            if(!OjNode || true !== OjNode.isValid) {
+            if(!OjNode || OjNode.nodeInstance !== 'Node' || true !== OjNode.isValid) {
                 throw new Error('Cannot make an OJ factory without an OJ Node!');
             }
 
@@ -34,7 +34,8 @@
                                     tagName === 'fieldset' || 
                                     tagName === 'select' || 
                                     tagName === 'ol' || 
-                                    tagName === 'ul' || tagName === 'table');
+                                    tagName === 'ul' || 
+                                    tagName === 'table');
                             break;
                         case 'div':
                             ret = nonNestableNodes.indexOf(tagName) === -1;
