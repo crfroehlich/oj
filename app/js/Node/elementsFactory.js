@@ -7,7 +7,7 @@
         function(OjNode) {
             'use strict';
 
-            if(!OjNode || OjNode.nodeInstance !== 'Node' || true !== OjNode.isValid) {
+            if(!OjNode && OjNode.isValid()) {
                 throw new Error('Cannot make an OJ factory without an OJ Node!');
             }
 
@@ -22,19 +22,19 @@
                     var ret = false;
                     switch(OjNode.tagName.toLowerCase()) {
                         case 'body':
-                            ret = (tagName === 'div' || 
-                                    tagName === 'span' || 
-                                    tagName === 'h1' || 
-                                    tagName === 'h2' || 
-                                    tagName === 'h3' || 
-                                    tagName === 'h4' || 
-                                    tagName === 'h5' || 
-                                    tagName === 'h6' || 
-                                    tagName === 'p' || 
-                                    tagName === 'fieldset' || 
-                                    tagName === 'select' || 
-                                    tagName === 'ol' || 
-                                    tagName === 'ul' || 
+                            ret = (tagName === 'div' ||
+                                    tagName === 'span' ||
+                                    tagName === 'h1' ||
+                                    tagName === 'h2' ||
+                                    tagName === 'h3' ||
+                                    tagName === 'h4' ||
+                                    tagName === 'h5' ||
+                                    tagName === 'h6' ||
+                                    tagName === 'p' ||
+                                    tagName === 'fieldset' ||
+                                    tagName === 'select' ||
+                                    tagName === 'ol' ||
+                                    tagName === 'ul' ||
                                     tagName === 'table');
                             break;
                         case 'div':

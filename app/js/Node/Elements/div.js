@@ -1,7 +1,7 @@
 /*global OJ:true*/
 (function() {
 
-	var Div = function(obj) {
+	var Div = function() {
 		this.nodeName = 'DIV';
 		return this;
 	};
@@ -11,11 +11,23 @@
         var div = new Div();
         var html = '<div id="' + options.id +  '" value="' + options.value + '">' + OJ.to.string(options.display) + '</div>';
         OjNode.addChild(div, html);
-        div.data(options);
-        div.addClass(options.cssclass);
-        div.css(options.styles);
-        div.attr(options.attr);
-        div.prop(options.prop);
+
+        Object.defineProperty(div, 'OjVal', {
+            get: function() {
+                return options.value;
+            },
+            set: function(val) {
+                options.value  = val;
+                return val;
+            }
+        });
+
+
+//        div.data(options);
+//        div.addClass(options.cssclass);
+//        div.css(options.styles);
+//        div.attr(options.attr);
+//        div.prop(options.prop);
 
         return div;
 

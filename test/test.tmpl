@@ -8,7 +8,7 @@
 
         <link rel="stylesheet" href="../vendor/test/qunit-1.11.0.css">
         <link rel="stylesheet" href="../vendor/vendor.css">
-        
+
     </head>
     <body>
 		<h1 id="qunit-header">QUnit example</h1>
@@ -17,9 +17,11 @@
 		<ol id="qunit-tests"></ol>
 		<div id="qunit-fixture">test markup, will be hidden</div>
 
-        <script src="../vendor/vendor.js"></script>
-		<script src="../vendor/test/qunit-1.11.0.js"></script>
-        
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="../vendor/vendor-core.js"></script>
+		<script src="../vendor/vendor-extensions.js"></script>
+        <script src="../vendor/test/qunit-1.11.0.js"></script>
+
 		<%
             var jsFiles = grunt.file.expand(grunt.config('lint.files')),
                 testJsFiles = grunt.file.expand(grunt.config('testHtml.testJsFiles')),
