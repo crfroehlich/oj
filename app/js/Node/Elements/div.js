@@ -17,6 +17,8 @@
         div.attr(options.attr);
         div.prop(options.prop);
 
+        Object.defineProperty(div, 'val', { value: function() { return div[0].getAttribute('value'); } })
+
         return div;
 
     });

@@ -5,7 +5,7 @@
         'use strict';
         this.nodeInstance = 'Node';
         this.vendorVal = function() {
-            return node['?'].apply(this, Array.prototype.slice.call(arguments, 0));
+            return this['?'].apply(this, Array.prototype.slice.call(arguments, 0));
         }
         this.OjVal = function() {};
         return this;
@@ -29,12 +29,14 @@
         if(OjNode || OjNode instanceof Node || DomEl ) {
             var OjInternal = {
                 data: {},
-                enabled: true,
-                isValid: false
+                enabled: true
             };
 
-            if(false === (OjNode instanceof Node) ) {
+            if(!OjNode || OJ.is.objectNullOrEmpty(OjNode)) {
                 OjNode = Object.create(new Node());
+            }
+            else if(false === (OjNode instanceof Node)) {
+                OjNode.prototype = new Node();
             } else {
                 /***
                 *  Multiple returns are generally considered bad practice,
@@ -48,7 +50,6 @@
                 //Validate and setup our Node instance
                 if (OjNode && OjNode[0] instanceof HTMLElement &&
                     OJ.is.vendorObject(OjNode['?'])) {
-                    OjInternal.isValid = true;
                 }
                 else if (OJ.is.vendorObject(DomEl)) {
                     Object.defineProperty(OjNode, '?', {
@@ -57,7 +58,6 @@
                     Object.defineProperty(OjNode, '0', {
                         value: DomEl[0]
                     });
-                    OjInternal.isValid = true;
                 }
                 else if (DomEl instanceof HTMLElement) {
                     Object.defineProperty(OjNode, '0', {
@@ -66,9 +66,7 @@
                     Object.defineProperty(OjNode, '?', {
                         value: OJ['?']('#' + DomEl.id)
                     });
-                    OjInternal.isValid = true;
                 } else {
-                    OjInternal.isValid = false;
                     //No reason to continue. There is no juice to be had here.
                     throw new Error('Cannot make OJ without citrus fruit! OJ.node.wrapper was handed an invalid DOM handle.');
                 }
@@ -79,7 +77,9 @@
             (function _postConstructor(){
                 //We have a valid OjNode, let's build it out.
                 Object.defineProperty(OjNode, 'isValid', {
-                        value: OjInternal.isValid
+                        value: function() {
+                            return OjNode instanceof Node || OjNode.prototype  instanceof Node;
+                        }
                     });
 
                 Object.defineProperty(OjNode, 'tagName', {
@@ -145,7 +145,7 @@
                     Object.defineProperty(node, 'root', {value: addRoot(node) });
                     Object.defineProperty(node, 'parent', {value: addParent(node) });
                     if (OJ.is.vendorObject(_$element)) {
-                        // this is a valid child
+                        OjNode.append(_$element);
                         Object.defineProperty(node, '?', {value: _$element});
                         Object.defineProperty(node, '0', {value: _$element[0]});
 
@@ -599,5 +599,3 @@
 
 
 } (OJ['?']));
-
-

@@ -15,7 +15,7 @@
 	test( "OJ test child node", function() {
         expect(3);
         var node = OJ.node.getById('OjTestingDiv');
-        var childDiv = node.div({value: 'text'});
+        var childDiv = node.div({value: 'test'});
         deepEqual( document.getElementById('OjTestingDiv').childNodes[0].getAttribute('value') === 'test', true, "OJ chaning single node works from document. ");
         deepEqual( childDiv[0].getAttribute('value') === 'test', true, "OJ chaning single node works from OJ.");
         deepEqual( childDiv.value() === 'test', true, "OJ chaning single node works from OJ.");
