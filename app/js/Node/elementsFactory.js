@@ -10,7 +10,7 @@
             if(!OjNode && OjNode.isValid()) {
                 throw new Error('Cannot make an OJ factory without an OJ Node!');
             }
-
+            
             var OjInternal = {
                 count: 0
             };
