@@ -77,4 +77,27 @@
 
         }())
     });
+
+    OJ.makeSubNameSpace('errors');
+
+    OJ.makeSubNameSpace('is');
+
+
+    /**
+     * The MetaData namespace. Represents the structures of OJ nodes, elements and properties.
+     */
+    OJ.makeSubNameSpace('metadata');
+
+    /**
+     * The node namespace. Represents an OJ Node and its properties.
+     * [1]: This class is responsible for constructing the DOM getters (properties on this object which reference Nodes in the DOM tree)
+     * [2]: This class exposes helper methods which can get/set properties on this instance of the node.
+     * [3]: This class validates the execution of these methods (e.g. Is the node still in the DOM; has it been GC'd behind our backs)
+     * [4]: Maintaining an im-memory representation of tree with children/parents
+     */
+    OJ.makeSubNameSpace('node');
+
+    OJ.makeSubNameSpace('to');
+
+
 }(jQuery));

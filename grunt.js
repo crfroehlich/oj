@@ -111,6 +111,12 @@ module.exports = function(grunt) {
                     "release/oj.min.js": "oj.min.js.map"
                 }
             }
+        },
+        jsdoc: {
+            dist : {
+                src: '<config:lint.files>',
+                dest: 'docs'
+            }
         }
     });
 
@@ -118,6 +124,7 @@ module.exports = function(grunt) {
 
     grunt.loadNpmTasks('grunt-growl');
     grunt.loadNpmTasks('grunt-closure-compiler');
+    grunt.loadNpmTasks('grunt-jsdoc-plugin');
 
     /**ENDREGION: init tasks */
 

@@ -8,17 +8,17 @@
 
     module("OJ.node");
 
-    test("OJ.node.getById('OjTestingDiv')", function() {
+    test("OJ.node.make('OjTestingDiv')", function() {
         expect(3);
-        var node = OJ.node.getById('OjTestingDiv');
+        var node = OJ.node.make('OjTestingDiv');
         deepEqual(node.tagName === 'DIV', true, "OJ Node is a DIV");
-        deepEqual(node.nodeInstance === 'Node', true, "OJ Node is an instance of an OJ Node");
-        deepEqual(node.getId() === 'OjTestingDiv', true, "OJ node has an element ID.");
+        deepEqual(node instanceof  OJ.metadata.Node, true, "OJ Node is an instance of an OJ Node");
+        deepEqual(node.id === 'OjTestingDiv', true, "OJ node has an element ID.");
     });
 
     test("OJ test child node", function() {
         expect(3);
-        var node = OJ.node.getById('OjTestingDiv');
+        var node = OJ.node.make('OjTestingDiv');
         var childDiv = node.div({
             value: 'test'
         });

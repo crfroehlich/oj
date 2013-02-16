@@ -1,18 +1,24 @@
 /*global OJ:true*/
 (function() {
 
-	var Div = function() {
-		this.nodeName = 'DIV';
-		return this;
+	var Div = function(id, el, _$el) {
+		var div = this;
+        div.prototype = new OJ.metadata.Node(id, el, _$el);
+		div.__proto__ = new OJ.metadata.Node(id, el, _$el);
+		div.prototype.constructor = Div;
+
+        div.nodeName = 'DIV';
+		return div;
 	};
 
     OJ.elements.lift('div', function(OjNode, options) {
 
-        var div = new Div();
         var html = '<div id="' + options.id +  '" value="' + options.value + '">' + OJ.to.string(options.display) + '</div>';
+        var vendorHtml = OJ['?'](html);
+        var div = new Div(options.id, null, vendorHtml);
         OjNode.addChild(div, html);
 
-        Object.defineProperty(div, 'OjVal', {
+        div.OjVal = {
             get: function() {
                 return options.value;
             },
@@ -20,7 +26,7 @@
                 options.value  = val;
                 return val;
             }
-        });
+        };
 
 
 //        div.data(options);

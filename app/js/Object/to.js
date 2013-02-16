@@ -1,13 +1,11 @@
 /*global OJ:true,$:true,window:true,Number:true*/
-(function() {
-
-	OJ.makeSubNameSpace('to');
+(function(_$) {
 
 	OJ.to.lift('bool', function bool(str) {
 		var retBool = OJ.is.true(str);
         if(retBool === false || retBool !== true) {
             retBool = false;
-        } 
+        }
 		return retBool;
 	});
 
@@ -128,4 +126,13 @@
         return retVal;
     });
 
-}());
+    OJ.to.lift('vendorDomObject', function(id) {
+        var ret = null;
+        var _$el = _$('#' + id);
+        if(_$el) {
+            ret = _$el; 
+        }
+        return ret;
+    })
+
+}(OJ['?']));

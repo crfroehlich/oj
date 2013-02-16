@@ -1,8 +1,6 @@
 /*global OJ:true,$Array:true,window:true,Number:true*/
 (function() {
 
-	OJ.makeSubNameSpace('is');
-
 	OJ.is.lift('bool', function(boolean) {
 		'use strict';
 		return (boolean	=== true || boolean	=== false);
@@ -129,7 +127,7 @@
         return ret;
     });
 
-    OJ.is.lift('instanceOf', function (name, obj) {
+    OJ.is.lift('instanceof', function (name, obj) {
         'use strict';
         return (obj.type === name || obj instanceof name);
     });
