@@ -117,6 +117,15 @@ module.exports = function(grunt) {
                 src: '<config:lint.files>',
                 dest: 'docs'
             }
+        },
+        'qunit-sonar': {
+             mysubtask: {
+                "minimum": 0.01, //min coverage; 80% default
+                "srcDir":'<config:lint.files>', //your source here
+                "depDirs": ["vendor/vendor-core.js", "vendor/vendor-extensions.js"], //your depended files
+                "outDir": "coverage", //where you want save reports (LCov and xml)
+                "testFiles": "coverage/TestsChart.html" // html file where you include unit tests
+            }
         }
     });
 
@@ -125,6 +134,8 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-growl');
     grunt.loadNpmTasks('grunt-closure-compiler');
     grunt.loadNpmTasks('grunt-jsdoc-plugin');
+
+    grunt.loadNpmTasks('grunt-qunit-sonar');
 
     /**ENDREGION: init tasks */
 
@@ -157,5 +168,7 @@ module.exports = function(grunt) {
     grunt.registerTask('dev', 'indexHtml concat lint');
     grunt.registerTask('test', 'testHtml concat qunit');
 
+
+    grunt.registerTask('sonar', 'qunit-sonar');
     /**REGION: register tasks */
 };

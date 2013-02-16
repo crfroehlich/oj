@@ -6,13 +6,13 @@
 
     //#region OJ.to.number
 
-    module("OJ.node");
+    module("OJnode");
 
     test("OJ.node.make('OjTestingDiv')", function() {
         expect(3);
         var node = OJ.node.make('OjTestingDiv');
         deepEqual(node.tagName === 'DIV', true, "OJ Node is a DIV");
-        deepEqual(node instanceof  OJ.metadata.Node, true, "OJ Node is an instance of an OJ Node");
+        deepEqual(node instanceof OJ.metadata.Node, true, "OJ Node is an instance of an OJ Node");
         deepEqual(node.id === 'OjTestingDiv', true, "OJ node has an element ID.");
     });
 

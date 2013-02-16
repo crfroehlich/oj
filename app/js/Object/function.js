@@ -85,7 +85,7 @@
      *
      * Obviously, this method has very little utility if you are not using protypical inheritance
     */
-    OJ.lift('Class', function(name, callBack, inheritsFrom) {
+    OJ.lift('Class', function(name, inheritsFrom, callBack) {
         var obj = Object.create(null);
         obj[name] = function() {
             try {

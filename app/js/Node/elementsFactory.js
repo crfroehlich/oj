@@ -76,7 +76,7 @@
                 options = options || Object.create(null);
                 OjInternal.count += 1;
 
-                var id = OjNode.getId();
+                var id = OjNode.id;
                 if(options.name) {
                     id += options.name;
                 }

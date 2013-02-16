@@ -21,9 +21,9 @@
             throw new TypeError('Cannot chain DOM methods without a Node.')
         }
 
-        addRootToNode(OjNode);
+        //addRootToNode(OjNode);
 
-        addParentToNode(OjNode);
+        //addParentToNode(OjNode);
 
         OjInternal.buildChildNode = function (node, _$element) {
             'use strict';
@@ -523,11 +523,11 @@
     var addRootToNode = function (ojNode) {
         'use strict';
         var retNode = null;
-        if (isNode(ojNode) && !(isNode(ojNode.root))) {
+        if (isNode(ojNode) && !(isNode(ojNode.rootNode))) {
 
-            if (ojNode[0].tagName !== 'BODY') {
-                if (!ojNode.root && !ojNode.root[0]) {
-                    if (!ojNode.parent && !ojNode.parent[0]) {
+            if (ojNode.tagName !== 'BODY') {
+                if (!ojNode.rootNode || !ojNode.rootNode[0]) {
+                    if (!ojNode.parentNode || !ojNode.parentNode[0]) {
                         //Without valid OJ parents, the only logical root node is the body node
                         retNode = OJ.node.make('body', document.getElementsByTagName('body')[0], OJ.to.vendorDomObject('body'));
                     }
@@ -552,9 +552,9 @@
 
     var addParentToNode = function (ojNode) {
         'use strict';
-        if (isNode(ojNode) && !(isNode(ojNode.parentNode))) {
-            if (ojNode[0].parentNode[0].tagName.toLowerCase() !== 'body') {
-                ojNode.parentNode = OJ.node.make(ojNode[0].parentNode[0].id, ojNode[0].parentNode[0]);
+        if (isNode(ojNode) && ojNode.tagName !== 'body' && !(isNode(ojNode.parentNode))) {
+            if (ojNode[0].parentNode.tagName.toLowerCase() !== 'body') {
+                ojNode.parentNode = OJ.node.make(ojNode[0].parentNode.id, ojNode[0].parentNode);
             }
         }
     };
@@ -578,8 +578,8 @@
                 ret = OjNode[0].dataset.propName;
             }
             if (OJ.is.stringNullOrEmpty(ret)) {
-                ret = dataObj.data[propName] || 
-                OjNode[' ? '].data(propName) || 
+                ret = dataObj.data[propName] ||
+                OjNode[' ? '].data(propName) ||
                 OJ.localStorage.getItem(propName + '_control_data_ ' + OjNode.getId());
             }
         }
