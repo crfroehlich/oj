@@ -135,4 +135,13 @@
         return ret;
     })
 
+    OJ.to.lift('vendorDomObjFromString', function(html) {
+        var ret = null;
+        var _$el = _$(html);
+        if(_$el) {
+            ret = _$el; 
+        }
+        return ret;
+    })
+
 }(OJ['?']));

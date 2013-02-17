@@ -25,70 +25,65 @@
 
         //addParentToNode(OjNode);
 
-        OjInternal.buildChildNode = function (node, _$element) {
+        /*** Region DOM Extension Methods  */
+
+        /**
+         * These are _THE_ mechanisms for building out the DOM.
+         * OJ may later support *pend methods, but for now it's turtles all the way down.
+         */
+        Object.defineProperty(OjNode, 'addChild', {
+            value: function (newNode) {
+                return OjInternal.buildChildNode(newNode);
+            }
+        });
+
+        /**
+         * These are _THE_ mechanisms for building out the DOM.
+         * OJ may later support *pend methods, but for now it's turtles all the way down.
+         */
+        Object.defineProperty(OjNode, 'makeChild', {
+            value: function (html) {
+                if (OJ.is.string(html)) {
+                    return OjNode.append(html);
+                }
+            }
+        });
+
+        OjInternal.buildChildNode = function (node) {
             'use strict';
             if (!isNode(node)) {
-                node = OJ.node.makeTemp();
+                throw new TypeError('Argument called with invalid node.')
             }
 
             if (OjNode.rootNode) {
                 node.rootNode = OjNode.rootNode;
             }
-            else {
-                addRootToNode(node);
+            else if (OjNode.parentNode) {
+                node.rootNode = OjNode.parentNode;
+            } else {
+                node.rootNode = OjNode;
             }
 
-            node.parentNode = OjNode.parentNode;
+            node.parentNode = OjNode;
 
-            var domEl;
-            if (_$element instanceof HTMLElement) {
-                domEl = _$element;
-            }
-            if (false === OJ.is.vendorObject(_$element)) {
-                _$element = _$(_$element);
-            }
-            if (false === domEl instanceof HTMLElement) {
-                domEl = _$element[0];
-            }
-
-            node['?'] = _$element;
-            node['0'] = domEl;
-
-            OjNode.append(_$element);
+            OjNode.append(node['?']);
             OjNode.childNodes.push(node);
-            // Extend the child with the wrapper methods around itself
-            return OJ.node.wrapper(node);
+
+            /**
+             * To complete the loop, the newly appended node must be extended with the node.methods collectiom;
+             * which, in turn, will extend the node it receives with the elements factory.
+            */
+            return OJ.node.extendNode(node);
         };
 
-        Object.defineProperty(OjInternal, 'chainChildNode', {
-            value: function (_$child, newNode) {
-                'use strict';
-                if (!isNode(newNode)) {
-                    newNode = OJ.node.makeTemp();
-                }
-                OjInternal.buildChildNode(newNode, _$child);
-                OjNode.childNodes.push(newNode);
-                return newNode;
-            }
-        });
+        /*** End Region DOM Extension Methods  */
 
-        Object.defineProperty(OjInternal, 'wrapChildNode', {
-            value: function (_$child, newNode) {
-                'use strict'
-                if (!isNode(newNode)) {
-                    newNode = OJ.node.makeTemp();
-                }
-                return OjInternal.buildChildNode(newNode, _$child);
-            }
-        });
-
-
-
+        /*** Region Vendor Selector Methods */
 
         /**
-              OJ doesn't need many jQuery selectors,
-              but when it does they are sequestered on this property to "try" to avoid confusion.
-            */
+         *  OJ doesn't need many vendor selectors,
+         *  but when it does they are sequestered on this property to "try" to avoid confusion.
+        */
         var el = Object.create(null);
 
         Object.defineProperty(el, 'children', {
@@ -98,8 +93,9 @@
                     var _$children = OjNode['?'].children(OJ.to.string(searchTerm), OJ.to.string(selector));
                     if (_$children) {
                         _$children.each(function () {
-                            var _$child = OJ['?'](this);
-                            ret.push(OjInternal.chainChildNode(_$child));
+                            var el = this;
+                            var childNode = OJ.nodes.make(el.id, el, _$(el));
+                            ret.push(childNode);
                         });
                     }
                 }
@@ -112,12 +108,11 @@
                 var ret = [];
                 if (selector && isNodeAlive(OjNode)) {
                     var _$children = OjNode['?'].filter(selector);
-                    if (_$children.length > 0) {
-                        _$children.each(function () {
-                            var _$child = _$(this);
-                            ret.push(OjInternal.wrapChildNode(_$child));
+                    _$children.each(function () {
+                            var el = this;
+                            var childNode = OJ.nodes.make(el.id, el, _$(el));
+                            ret.push(childNode);
                         });
-                    }
                 }
                 return ret;
             }
@@ -130,8 +125,9 @@
                     var _$children = OjNode['?'].find(selector);
                     if (_$children.length > 0) {
                         _$children.each(function () {
-                            var _$child = _$(this);
-                            ret.push(OjInternal.wrapChildNode(_$child));
+                            var el = this;
+                            var childNode = OJ.nodes.make(el.id, el, _$(el));
+                            ret.push(childNode);
                         });
                     }
                 }
@@ -152,22 +148,22 @@
                 if (isNodeAlive(OjNode)) {
                     var _$parent = OjNode['?'].parent();
 
-                    if (false === OJ.is.nullOrEmpty(_$parent) && _$parent.length > 0) {
-                        ret = OJ.dom.nodeWrapper({}, _$parent);
+                    if (false === OJ.is.vendorObject(_$parent) && _$parent.length > 0) {
+                        ret = OJ.node.make(_$parent[0].id, _$parent[0], _$parent);
                     }
                 }
                 return ret;
             }
         });
-        /***
-            End of 'el' region
-        */
 
+        /*** End Region Vendor Selector Methods */
+
+        /*** Region DOM Manipulation Methods */
 
         /**
-                OJ implements these wrappers around jQuery methods to provide better chaining on OJ Nodes,
-                as well as to make it easy to swap out the DOM framework without having to change the interfaces
-            */
+         * OJ implements these wrappers around jQuery methods to provide better chaining on OJ Nodes,
+         * as well as to make it easy to swap out the DOM framework without having to change the interfaces
+        */
         Object.defineProperty(OjNode, 'addClass', {
             value: function (name) {
                 if (name && isNodeAlive(OjNode)) {
@@ -182,8 +178,11 @@
                 var ret = OjNode;
                 if (object && isNodeAlive(OjNode)) {
                     OJ.tryThisThenThat(function _first() {
-                        OjNode['?'].append(object);
-                        ret = OjInternal.chainChildNode(object);
+                        if(OJ.is.vendorObject(object) || OJ.is.string(object)) {
+                            OjNode['?'].append(object);
+                        }
+                        //var _$el = OJ.to.vendorDomObjFromString(object);
+                        ret = OjInternal.buildChildNode(null, object);
                     }, function _second() {
                         //Probably attempted to append a string which matched a selector (e.g. 'a')
                         //which will attempt to (and fail to) append all <a> nodes to this one.
@@ -222,10 +221,10 @@
                     ret;
                 if (object && isNodeAlive(OjNode)) {
                     OJ.tryThisThenThat(function _first() {
-                        _$child = _$(object);
+                        _$child = OJ.to.vendorDomObjFromString(object);
                         if (false === OJ.is.nullOrEmpty(_$child)) {
                             OjNode.append(_$child);
-                            ret = OjInternal.chainChildNode(_$child);
+                            ret = OjInternal.buildChildNode(null, _$child);
                         }
                     }, function _second() {
 
@@ -480,33 +479,7 @@
             value: OjNode.unbind
         });
 
-        /**
-         * These are _THE_ mechanisms for building out the DOM.
-         * OJ may later support *pend methods, but for now it's turtles all the way down.
-         */
-        Object.defineProperty(OjNode, 'addChild', {
-            value: function (newNode, html) {
-                var _$el = _$(html);
-
-                if (!isNode(newNode)) {
-                    newNode = OJ.node.makeTemp();
-                    newNode['?'] = _$el;
-                }
-                return OjInternal.buildChildNode(newNode, _$el);
-            }
-        });
-
-        /**
-         * These are _THE_ mechanisms for building out the DOM.
-         * OJ may later support *pend methods, but for now it's turtles all the way down.
-         */
-        Object.defineProperty(OjNode, 'makeChild', {
-            value: function (html) {
-                if (OJ.is.string(html)) {
-                    return OjNode.append(html);
-                }
-            }
-        });
+        /*** Region DOM Manipulation Methods */
 
         //Finally! Return something.
         return OJ.node.factory(OjNode);
@@ -579,7 +552,7 @@
             }
             if (OJ.is.stringNullOrEmpty(ret)) {
                 ret = dataObj.data[propName] ||
-                OjNode[' ? '].data(propName) ||
+                OjNode['?'].data(propName) ||
                 OJ.localStorage.getItem(propName + '_control_data_ ' + OjNode.getId());
             }
         }
@@ -598,7 +571,7 @@
             }
             else {
                 dataObj.data[propName] = value;
-                OjNode[' ? '].data(propName, value);
+                OjNode['?'].data(propName, value);
             }
         }
         return ret;
@@ -614,4 +587,4 @@
 
 
 
-}(OJ[' ? ']));
+}(OJ['?']));
