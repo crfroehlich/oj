@@ -7,24 +7,31 @@ module.exports = function(grunt) {
         meta: {
             banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %>\n' + '<%= pkg.homepage ? "* " + pkg.homepage + "\n" : "" %>' + '* No Copyright (!c) <%= grunt.template.today("yyyy") %> <%= pkg.author.name %>;' + ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %>'
         },
-        indexHtml: {
-            src: 'app/index.tmpl',
-            dest: '<%=releasePath%>' + '/index.html'
-        },
-        testHtml: {
-            src: 'test/test.tmpl',
-            dest: 'test/test.html',
-            testJsFiles: ['test/*.js', 'test/**/*.js', 'test/**/**/*.js']
+        tmpHtml: {
+            release: {
+                src: 'app/index.tmpl',
+                dest: '<%=releasePath%>' + '/index.html'
+            },
+            test: {
+                src: 'test/test.tmpl',
+                dest: 'test/test.html',
+                testJsFiles: ['test/*.js', 'test/**/*.js', 'test/**/**/*.js']
+            },
+            debug: {
+                src: 'app/index.tmpl',
+                dest: 'app/index.html'
+            }
         },
         concat: {
             dist: {
                 src: '<config:lint.files>',
                 dest: 'release/oj.min.js'
             },
-            html: {
-                src: ['Index.html'],
-                dest: 'Index.html'
-            },
+// No HTML to concat for now
+//            html: {
+//                src: '<%=releasePath%>/index.html',
+//                dest: 'index.html'
+//            },
             vendorCoreJs: {
                 src: ['vendor/js/core/*.js'],
                 dest: 'vendor/vendor-core.js',
@@ -141,32 +148,33 @@ module.exports = function(grunt) {
 
     /**REGION: register tasks */
 
-    grunt.registerTask('indexHtml', 'Generate index.html depending on configuration', function() {
-        grunt.config('releasePath', 'app');
-        var conf = grunt.config('indexHtml'),
-            tmpl = grunt.file.read(conf.src);
+    var buildHtmlFromTmpl = function(releasePath, path) {
+        grunt.log.write('Starting HTML concat for ' + releasePath + ' mode.')
+        grunt.config('releasePath', releasePath);
+        var conf = grunt.config(path);
+        var tmpl = grunt.file.read(conf.src);
 
         grunt.file.write(conf.dest, grunt.template.process(tmpl));
 
         grunt.log.writeln('Generated \'' + conf.dest + '\' from \'' + conf.src + '\'');
+    };
+
+    grunt.registerTask('releaseTmpl', 'Generate Release/index.html from app.tmpl template.', function() {
+        buildHtmlFromTmpl('release', 'tmpHtml.release');
     });
 
-    grunt.registerTask('testHtml', 'Generate test.html depending on configuration', function() {
-        grunt.config('releasePath', 'test');
-        var conf = grunt.config('testHtml'),
-            tmpl = grunt.file.read(conf.src);
-
-        grunt.file.write(conf.dest, grunt.template.process(tmpl));
-
-        grunt.log.writeln('Generated \'' + conf.dest + '\' from \'' + conf.src + '\'');
+    grunt.registerTask('debugTmpl', 'Generate App/index.html from app.tmpl template.', function() {
+        buildHtmlFromTmpl('debug', 'tmpHtml.debug');
     });
 
+    grunt.registerTask('testTmpl', 'Generate Test/test.html from test.tmpl template.', function() {
+        buildHtmlFromTmpl('test', 'tmpHtml.test');
+    });
 
+    grunt.registerTask('default', 'debugTmpl concat closure-compiler qunit watch');
 
-    grunt.registerTask('default', 'concat closure-compiler qunit watch');
-
-    grunt.registerTask('dev', 'indexHtml concat lint');
-    grunt.registerTask('test', 'testHtml concat qunit');
+    grunt.registerTask('dev', 'debugTmpl concat lint');
+    grunt.registerTask('test', 'testTmpl concat qunit');
 
 
     grunt.registerTask('sonar', 'qunit-sonar');

@@ -21,10 +21,10 @@
 		deepEqual( OJ.is.array(null), false, "null is not an Array");
 		deepEqual( OJ.is.plainObject(null), false, "null is not an Object");
 	});
-}());
-
-// Test the truthiness of the undefined value of the undefined type, when undefined is explicitly undefined (Only required in < ES5 envs.)
-(function _undefinedChecks(undefined) {
+//}());
+//
+//// Test the truthiness of the undefined value of the undefined type, when undefined is explicitly undefined (Only required in < ES5 envs.)
+//(function _undefinedChecks(undefined) {
 	module("undefined");
 	test( "undefined is not of any OJ supported type", function() {
 		expect(8); //all 8 assertions must pass
@@ -37,10 +37,10 @@
 		deepEqual( OJ.is.array(undefined), false, "undefined is not an Array");
 		deepEqual( OJ.is.plainObject(undefined), false, "undefined is not an Object");
 	});
-}());
-
-// Test the truthiness of implicitly pass undefined, by passing no arguments
-(function _emptyArgumentsChecks() {
+//}());
+//
+//// Test the truthiness of implicitly pass undefined, by passing no arguments
+//(function _emptyArgumentsChecks() {
 	module("empty arguments");
 	test( "Empty arguments are not of any OJ supported type", function() {
 		expect(8); //all 8 assertions must pass
@@ -53,10 +53,10 @@
 		deepEqual( OJ.is.array(), false, "(An empty argument) is not an Array");
 		deepEqual( OJ.is.plainObject(), false, "(An empty argument) is not an Object");
 	});
-}());
-
-// Test the truthiness of NaN
-(function _NaNChecks() {
+//}());
+//
+//// Test the truthiness of NaN
+//(function _NaNChecks() {
 	module("NaN");
 	test( "NaN not of any OJ supported type, except Number", function() {
 		expect(8); //all 8 assertions must pass
@@ -69,10 +69,10 @@
 		deepEqual( OJ.is.array(NaN), false, "NaN is not an Array");
 		deepEqual( OJ.is.plainObject(NaN), false, "NaN is not an Object");
 	});
-}());
-
-// Test the truthiness of -Infinity
-(function _InfinityChecks() {
+//}());
+//
+//// Test the truthiness of -Infinity
+//(function _InfinityChecks() {
 	module("-Infinity");
 	test( "-Infinity not of any OJ supported type, except Number", function() {
 		expect(8); //all 8 assertions must pass
@@ -85,10 +85,10 @@
 		deepEqual( OJ.is.array(-Infinity), false, "-Infinity is not an Array");
 		deepEqual( OJ.is.plainObject(-Infinity), false, "-Infinity is not an Object");
 	});
-}());
-
-// Test the truthiness of ''
-(function _emptyStringChecks() {
+//}());
+//
+//// Test the truthiness of ''
+//(function _emptyStringChecks() {
 	module("empty string");
 	test( "'' is not of any OJ supported type, except String", function() {
 		expect(8); //all 8 assertions must pass
@@ -101,10 +101,10 @@
 		deepEqual( OJ.is.array(''), false, "'' is not an Array");
 		deepEqual( OJ.is.plainObject(''), false, "'' is not an Object");
 	});
-}());
-
-// Test the truthiness of String 'false'
-(function _stringFalseChecks() {
+//}());
+//
+//// Test the truthiness of String 'false'
+//(function _stringFalseChecks() {
 	module("string 'false'");
 	test( "'false' is a String and only a String", function() {
 		expect(8); //all 8 assertions must pass
@@ -117,10 +117,10 @@
 		deepEqual( OJ.is.array('false'), false, "'false' is not an Array");
 		deepEqual( OJ.is.plainObject('false'), false, "'false' is not an Object");
 	});
-}());
-
-// Test the truthiness of String 'true'
-(function _stringTrueChecks() {
+//}());
+//
+//// Test the truthiness of String 'true'
+//(function _stringTrueChecks() {
 	module("string 'true'");
 	test( "'true' is a String and only a String", function() {
 		expect(8); //all 8 assertions must pass
@@ -133,10 +133,10 @@
 		deepEqual( OJ.is.array('true'), false, "'true' is not an Array");
 		deepEqual( OJ.is.plainObject('true'), false, "'true' is not an Object");
 	});
-}());
-
-// Test the truthiness of Boolean false
-(function _falseChecks() {
+//}());
+//
+//// Test the truthiness of Boolean false
+//(function _falseChecks() {
 	module("boolean false");
 	test( "false is a Boolean and only a Boolean", function() {
 		expect(8); //all 8 assertions must pass
@@ -149,10 +149,10 @@
 		deepEqual( OJ.is.array(false), false, "false is not an Array");
 		deepEqual( OJ.is.plainObject(false), false, "false is not an Object");
 	});
-}());
-
-// Test the truthiness of Boolean true
-(function _trueChecks() {
+//}());
+//
+//// Test the truthiness of Boolean true
+//(function _trueChecks() {
 	module("boolean true");
 	test( "true is a Boolean and only a Boolean", function() {
 		expect(8); //all 8 assertions must pass
@@ -165,10 +165,10 @@
 		deepEqual( OJ.is.array(true), false, "true is not an Array");
 		deepEqual( OJ.is.plainObject(true), false, "true is not an Object");
 	});
-}());
-
-// Test the truthiness of empty Array []
-(function _arrayChecks() {
+//}());
+//
+//// Test the truthiness of empty Array []
+//(function _arrayChecks() {
 	module("Array []");
 	test( "[] is an Array", function() {
 		expect(8); //all 8 assertions must pass
@@ -181,10 +181,10 @@
 		deepEqual( OJ.is.array([]), true, "[] is (actually) an Array!");
 		deepEqual( OJ.is.plainObject([]), false, "[] is not an Object");
 	});
-}());
-
-// Test the truthiness of empty Object  {}
-(function _objectChecks() {
+//}());
+//
+//// Test the truthiness of empty Object  {}
+//(function _objectChecks() {
 	module("Object {}");
 	test( "{} is an Object", function() {
 		expect(8); //all 8 assertions must pass
@@ -197,10 +197,10 @@
 		deepEqual( OJ.is.array({}), false, "{} is not an Array");
 		deepEqual( OJ.is.plainObject({}), true, "{} is (actually) an Object!");
 	});
-}());
-
-// Test the truthiness of 'empty' Function function() {}
-(function _functionChecks() {
+//}());
+//
+//// Test the truthiness of 'empty' Function function() {}
+//(function _functionChecks() {
 	module("Function() {}");
 	test( "function() {} is a Function", function() {
 		expect(8); //all 8 assertions must pass
@@ -213,10 +213,10 @@
 		deepEqual( OJ.is.array(function() {}), false, "function() {} is not an Array");
 		deepEqual( OJ.is.plainObject(function() {}), false, "function() {} is not an Object");
 	});
-}());
-
-// String truthy checks
-(function _isString() {
+//}());
+//
+//// String truthy checks
+//(function _isString() {
 
 	//#region OJ.is.string
 
@@ -271,10 +271,10 @@
 
 	//#endregion OJ.is.string
 
-}());
-
-// Boolean truthy checks
-(function _isBool() {
+//}());
+//
+//// Boolean truthy checks
+//(function _isBool() {
 
 	//#region OJ.is.bool
 
@@ -298,10 +298,10 @@
 
 	//#endregion OJ.is.bool
 
-}());
-
-// Number truthy checks
-(function _isNumber() {
+//}());
+//
+//// Number truthy checks
+//(function _isNumber() {
 
 	//#region OJ.is.number
 

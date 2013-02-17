@@ -24,8 +24,8 @@
 
 		<%
             var jsFiles = grunt.file.expand(grunt.config('lint.files')),
-                testJsFiles = grunt.file.expand(grunt.config('testHtml.testJsFiles')),
-				releaseMode = grunt.config('releaseMode');
+                testJsFiles = grunt.file.expand(grunt.config('tmpHtml.test.testJsFiles')),
+				releaseMode = grunt.config('tmplHtml.releaseMode');
 
             if(releaseMode) {
                 print('        <script type="text/javascript" src="' + grunt.config('concat.dist.dest') + '"></script>\n');
