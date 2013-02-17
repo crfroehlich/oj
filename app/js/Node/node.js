@@ -18,7 +18,7 @@
         'use strict';
         var OjInternal = Object.create(null);
         if (!isNode(OjNode)) {
-            throw new TypeError('Cannot chain DOM methods without a Node.')
+            throw new TypeError('Cannot chain DOM methods without a Node.');
         }
 
         //addRootToNode(OjNode);
@@ -50,9 +50,8 @@
         });
 
         OjInternal.buildChildNode = function (node) {
-            'use strict';
             if (!isNode(node)) {
-                throw new TypeError('Argument called with invalid node.')
+                throw new TypeError('Argument called with invalid node.');
             }
 
             if (OjNode.rootNode) {
@@ -490,7 +489,7 @@
      */
 
     var isNode = function (nodeCandidate) {
-        return nodeCandidate && OJ.is.instanceof(OJ.metadata.Node, nodeCandidate);
+        return nodeCandidate && OJ.is['instanceof'](OJ.metadata.Node, nodeCandidate);
     };
 
     var addRootToNode = function (ojNode) {
@@ -514,7 +513,7 @@
                                 }
                             }
                             return retNode;
-                        }
+                        };
                         retNode = getRoot(ojNode);
                     }
                 }

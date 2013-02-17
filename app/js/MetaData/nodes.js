@@ -27,14 +27,12 @@
 
                 internalEntity.id = val;
 
-                if (null === entity[0] &&
-                    null !== document.getElementById(val)) {
+                if (null === entity[0] && null !== document.getElementById(val)) {
 
                     entity[0] = document.getElementById(val);
                 }
 
-                if (null === entity['?'] &&
-                    OJ.to.vendorDomObject(val)) {
+                if (null === entity['?'] && OJ.to.vendorDomObject(val)) {
 
                     entity['?'] = OJ.to.vendorDomObject(val);
                 }
@@ -46,7 +44,7 @@
 
         Object.defineProperty(entity, '0', {
             set: function (val) {
-                if(val) {
+                if (val) {
                     if (false === val instanceof HTMLElement) {
                         throw new TypeError('Invalid assignment. Element must be of type HTMLElement.');
                     }
@@ -66,7 +64,7 @@
 
         Object.defineProperty(entity, '?', {
             set: function (val) {
-                if(val) {
+                if (val) {
                     if (false === OJ.is.vendorObject(val)) {
                         throw new TypeError('Invalid assignment. Vendor element must match the current vendor framework.');
                     }
@@ -104,7 +102,7 @@
      * Returns an Object of type Node: call either by creating Object.create(new Nodee()) or
      * at some later point by someObj.prototype = new Node().
      */
-    var Node = OJ.Class('Node', NodeAbstract, function (id, el, _$el) {
+    var Node = OJ.Class('Node', NodeAbstract, function () {
         'use strict';
         ///<summary>Instance an OJ Node prototype</summary>
         ///<param name="entity" type="Entity">An Entity object</param>
@@ -115,7 +113,7 @@
             get: function () {
                 var ret = null;
                 if (node && node['?']) {
-                    ret = node['?'].val.call(node)
+                    ret = node['?'].val.call(node);
                 }
                 return ret;
             },
@@ -171,7 +169,7 @@
                     ret = node.OjVal;
                 }
                 else {
-                    ret = node.vendorVal()
+                    ret = node.vendorVal();
                 }
                 return ret;
             },
@@ -181,7 +179,7 @@
                     node.OjVal = ret;
                 }
                 else {
-                    node.vendorVal(ret)
+                    node.vendorVal(ret);
                 }
                 return ret;
             }
@@ -192,12 +190,12 @@
 
     OJ.metadata.lift('Node', Node);
 
-    var Div = OJ.Class('Div', Node, function(id, el, _$el) {
-		var div = this;
+    var Div = OJ.Class('Div', Node, function () {
+        var div = this;
 
         div.nodeName = 'DIV';
-		return div;
-	});
+        return div;
+    });
 
     OJ.metadata.lift('Div', Div);
 

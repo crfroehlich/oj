@@ -114,7 +114,7 @@
 
     OJ.is.lift('trueOrFalse', function (obj) {
         'use strict';
-        return ( OJ.is.true(obj) || OJ.is.false(obj) );
+        return ( OJ.is['true'](obj) || OJ.is['false'](obj) );
     });
 
     OJ.is.lift('nullOrEmpty', function (obj, checkLength) {

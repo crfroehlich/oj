@@ -9,7 +9,7 @@
             }
             return isNaN;
         }())
-    })
+    });
 
     Object.defineProperty(number, 'isFinite', { value:
         (function() {
@@ -18,7 +18,7 @@
             }
             return isFinite;
         }())
-    })
+    });
 
     Object.defineProperty(number, 'MAX_VALUE', { value:
         (function() {
@@ -27,7 +27,7 @@
             }
             return 1.7976931348623157e+308;
         }())
-    })
+    });
 
     Object.defineProperty(number, 'MIN_VALUE', { value:
         (function() {
@@ -36,7 +36,7 @@
             }
             return 5e-324;
         }())
-    })
+    });
 
     OJ.lift('number', number);
 }());

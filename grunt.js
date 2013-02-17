@@ -174,7 +174,7 @@ module.exports = function(grunt) {
     grunt.registerTask('default', 'debugTmpl concat closure-compiler qunit watch');
 
     grunt.registerTask('dev', 'debugTmpl concat lint');
-    grunt.registerTask('test', 'testTmpl concat qunit');
+    grunt.registerTask('test', 'testTmpl lint concat qunit');
 
 
     grunt.registerTask('sonar', 'qunit-sonar');

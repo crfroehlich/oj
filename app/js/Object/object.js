@@ -58,7 +58,7 @@
         var ret = '';
         delimiter = delimiter || '&';
         if (delimiter === '&') {
-            OJ.tryExec(function() { ret = $.param(data); });
+            OJ.tryExec(function() { ret = OJ['?'].param(data); });
         } else {
             OJ.each(data, function(val, key) {
                 if(ret.length > 0) {
