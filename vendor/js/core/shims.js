@@ -24,5 +24,19 @@
      *   End Function
     */
 
+    /***
+     *  Window
+    */
+
+    if (!window.setImmediate) {
+        window.setImmediate = function(func, args){
+            return window.setTimeout(func, 0, args);
+        };
+        window.clearImmediate = window.clearTimeout;
+    }
+
+    /***
+     *  End Window
+    */
 
 }());

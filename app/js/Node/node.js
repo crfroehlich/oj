@@ -1,15 +1,14 @@
 /*global OJ:true */
 (function (_$) {
 
-    OJ.node.lift('makeTemp', function () {
+    OJ.node.lift('makeTemp', function (id, el, _$el) {
         'use strict';
         //return Object.create(new OJ.metadata.Node());
-        return new OJ.metadata.Node();
+        return new OJ.metadata.Node(id, el, _$el);
     });
 
     OJ.node.lift('make', function (id, el, _$el) {
         'use strict';
-        //var node = Object.create(new OJ.metadata.Node(id, el, _$el));
         var node = new OJ.metadata.Node(id, el, _$el);
         return OJ.node.extendNode(node);
     });
@@ -20,10 +19,6 @@
         if (!isNode(OjNode)) {
             throw new TypeError('Cannot chain DOM methods without a Node.');
         }
-
-        //addRootToNode(OjNode);
-
-        //addParentToNode(OjNode);
 
         /*** Region DOM Extension Methods  */
 
@@ -176,19 +171,12 @@
             value: function (object) {
                 var ret = OjNode;
                 if (object && isNodeAlive(OjNode)) {
-                    OJ.tryThisThenThat(function _first() {
-                        if(OJ.is.vendorObject(object) || OJ.is.string(object)) {
-                            OjNode['?'].append(object);
-                        }
-                        //var _$el = OJ.to.vendorDomObjFromString(object);
-                        ret = OjInternal.buildChildNode(null, object);
-                    }, function _second() {
-                        //Probably attempted to append a string which matched a selector (e.g. 'a')
-                        //which will attempt to (and fail to) append all <a> nodes to this one.
-                        if (OJ.is.string(object)) {
-                            OjNode.text(object);
-                        }
-                    });
+                    if(OJ.is.vendorObject(object) || OJ.is.string(object)) {
+                        OjNode['?'].append(object);
+//                        var tmpNode = OJ.node.makeTemp(object[0].id, object[0], object);
+//                        ret = OjInternal.buildChildNode(tmpNode, object);
+                    }
+
                 }
                 return ret;
             }
@@ -214,24 +202,20 @@
             }
         });
 
-        Object.defineProperty(OjNode, 'attach', {
-            value: function (object) {
-                var _$child = null,
-                    ret;
-                if (object && isNodeAlive(OjNode)) {
-                    OJ.tryThisThenThat(function _first() {
-                        _$child = OJ.to.vendorDomObjFromString(object);
-                        if (false === OJ.is.nullOrEmpty(_$child)) {
-                            OjNode.append(_$child);
-                            ret = OjInternal.buildChildNode(null, _$child);
-                        }
-                    }, function _second() {
-
-                    });
-                }
-                return ret;
-            }
-        });
+//        Object.defineProperty(OjNode, 'attach', {
+//            value: function (object) {
+//                var _$child = null,
+//                    ret;
+//                if (object && isNodeAlive(OjNode)) {
+//                    _$child = OJ.to.vendorDomObjFromString(object);
+//                    if (false === OJ.is.nullOrEmpty(_$child)) {
+//                        OjNode.append(_$child);
+//                        ret = OjInternal.buildChildNode(null, _$child);
+//                    }
+//                }
+//                return ret;
+//            }
+//        });
 
         Object.defineProperty(OjNode, 'bind', {
             value: function (eventName, event) {
@@ -492,44 +476,44 @@
         return nodeCandidate && OJ.is['instanceof'](OJ.metadata.Node, nodeCandidate);
     };
 
-    var addRootToNode = function (ojNode) {
-        'use strict';
-        var retNode = null;
-        if (isNode(ojNode) && !(isNode(ojNode.rootNode))) {
-
-            if (ojNode.tagName !== 'BODY') {
-                if (!ojNode.rootNode || !ojNode.rootNode[0]) {
-                    if (!ojNode.parentNode || !ojNode.parentNode[0]) {
-                        //Without valid OJ parents, the only logical root node is the body node
-                        retNode = OJ.node.make('body', document.getElementsByTagName('body')[0], OJ.to.vendorDomObject('body'));
-                    }
-                    else {
-                        var getRoot = function (parent) {
-                            if (isNode(parent) && isNode(parent.parentNode)) {
-
-                                retNode = parent.parentNode;
-                                if (isNode(retNode.parentNode) && retNode.parentNode.tagName.toLowerCase() !== 'body') {
-                                    retNode = getRoot(retNode);
-                                }
-                            }
-                            return retNode;
-                        };
-                        retNode = getRoot(ojNode);
-                    }
-                }
-            }
-            ojNode.rootNode = OJ.node.methods(retNode);
-        }
-    };
-
-    var addParentToNode = function (ojNode) {
-        'use strict';
-        if (isNode(ojNode) && ojNode.tagName !== 'body' && !(isNode(ojNode.parentNode))) {
-            if (ojNode[0].parentNode.tagName.toLowerCase() !== 'body') {
-                ojNode.parentNode = OJ.node.make(ojNode[0].parentNode.id, ojNode[0].parentNode);
-            }
-        }
-    };
+//    var addRootToNode = function (ojNode) {
+//        'use strict';
+//        var retNode = null;
+//        if (isNode(ojNode) && !(isNode(ojNode.rootNode))) {
+//
+//            if (ojNode.tagName !== 'BODY') {
+//                if (!ojNode.rootNode || !ojNode.rootNode[0]) {
+//                    if (!ojNode.parentNode || !ojNode.parentNode[0]) {
+//                        //Without valid OJ parents, the only logical root node is the body node
+//                        retNode = OJ.node.make('body', document.getElementsByTagName('body')[0], OJ.to.vendorDomObject('body'));
+//                    }
+//                    else {
+//                        var getRoot = function (parent) {
+//                            if (isNode(parent) && isNode(parent.parentNode)) {
+//
+//                                retNode = parent.parentNode;
+//                                if (isNode(retNode.parentNode) && retNode.parentNode.tagName.toLowerCase() !== 'body') {
+//                                    retNode = getRoot(retNode);
+//                                }
+//                            }
+//                            return retNode;
+//                        };
+//                        retNode = getRoot(ojNode);
+//                    }
+//                }
+//            }
+//            ojNode.rootNode = OJ.node.methods(retNode);
+//        }
+//    };
+//
+//    var addParentToNode = function (ojNode) {
+//        'use strict';
+//        if (isNode(ojNode) && ojNode.tagName !== 'body' && !(isNode(ojNode.parentNode))) {
+//            if (ojNode[0].parentNode.tagName.toLowerCase() !== 'body') {
+//                ojNode.parentNode = OJ.node.make(ojNode[0].parentNode.id, ojNode[0].parentNode);
+//            }
+//        }
+//    };
 
     /**
      * Whether or no we have removed the node internally.
