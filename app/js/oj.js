@@ -12,18 +12,51 @@
             ///<summary>(IIFE) Intializes the OJ namespace.</summary>
             ///<returns type="window.OJ">The OJ namespace.</returns>
 
-//            var OjInternal = {
-//                dependents: []
-//            };
+            var OjInternal = {
+                dependents: []
+            };
+
+             Object.defineProperty(OjInternal, 'getOjMembers', { value: function() {
+                var members = [];
+                function recurseTree(key, lastKey) {
+                    if(typeof(key) === 'string') {
+                        members.push(lastKey + '.' + key);
+                    }
+                    if(domVendor.isPlainObject(key)) {
+                        Object.keys(key).forEach(function(k) {
+                            if(typeof(k) === 'string') {
+                                members.push(lastKey + '.' + k);
+                            }
+                            if(domVendor.isPlainObject(key[k])) {
+                                recurseTree(key[k], lastKey + '.' + k);
+                            }
+                        });
+                    }
+                }
+                Object.keys(OJ.tree).forEach(function(key) {
+                    if(OJ.is.plainObject(OJ.tree[key])) {
+                        recurseTree(OJ.tree[key], 'OJ');
+                    }
+                });
+                return members;
+            }});
+
+            Object.defineProperty(OjInternal, 'alertDependents', { value: function() {
+                OjInternal.dependents = OjInternal.dependents.filter(function(depOn) {
+                    return false === depOn;
+                });
+            }});
+
             var OjTree = Object.create(null);
             OjTree['OJ'] = Object.create(null);
+
             var prototype = Object.create(null);
 
             /**
              *	Internal OJ method to create new "sub" namespaces on arbitrary child objects.
              *	@param (Object) proto An instance of an Object to use as the basis of the new namespace prototype
              */
-            var makeNameSpace = function(proto, tree, nameSpaceName) {
+            var makeNameSpace = function(proto) {
                 /// <summary>Internal OJ method to create new "sub" namespaces on arbitrary child objects.</summary>
                 /// <param name="proto" type="Object"> String to parse </param>
                 /// <returns type="Object">The new child namespace.</returns>
@@ -51,8 +84,7 @@
                             enumerable: false,
                             configurable: false
                         });
-                        tree[name] = typeof(obj);
-                        //OJ.alertDependents(nameSpaceName, name);
+                        OjInternal.alertDependents();
                     }
                     return obj;
                 }});
@@ -67,10 +99,9 @@
                     /// <summary>Create a new, static namespace on the current parent (e.g. OJ.to... || OJ.is...).</summary>
                     /// <param name="subNameSpace" type="String">The name of the new namespace.</param>
                     /// <returns type="Object">The new namespace.</returns>
-                    tree[subNameSpace] = Object.create(null);
-                    //OJ.alertDependents(subNameSpace);
+                    OjInternal.alertDependents();
                     return Object.defineProperty(ret, subNameSpace, {
-                        value: makeNameSpace(null, tree[subNameSpace], subNameSpace),
+                        value: makeNameSpace(null),
                         writable: false,
                         enumerable: false,
                         configurable: false
@@ -83,11 +114,8 @@
             var OjOut = makeNameSpace(prototype, OjTree['OJ']);
 
             OjOut.lift('?', domVendor);
-//            OjOut.lift('alertDependents', function() {
-//                OjInternal.dependents.forEach(depMethod) {
-//                    depMethod(namespace, methodname);
-//                }
-//            })
+
+
 
             /**
              *    "Depend" an Object upon another member of this namespace, upon another namespace,
@@ -97,20 +125,25 @@
              */
             Object.defineProperty(OjOut, 'dependsOn', { value: function(dependencies, callBack) {
                 'use strict';
-//                if (dependencies && dependencies.length > 0 && callBack ) {
-//                    dependencies.forEach(function(depen){
-//                        var path = depen.split('.');
-//                        if(path.length > 0) {
-//                            switch(path.length) {
-//                                case 1:
-//                                    if(OjTree[path[0]] ==  )
-//                                    break;
-//
-//                            }
-//                        }
-//                    });
-//                }
+                var ret = false;
+                var OjMembers = OjInternal.getOjMembers();
+                if (dependencies && dependencies.length > 0 && callBack ) {
+                    var missing = [];
+                    dependencies.forEach(function(depen){
+                        if(OjMembers.indexOf(depen) === -1) {
+                            missing.push(depen);
+                        }
+                    });
+                    if(missing.length === 0) {
+                        ret = true;
+                        callBack();
+                    } else {
+                        OjInternal.dependents.push(function() { return OJ.dependsOn(missing, callBack); });
+                    }
+                }
+                return ret;
             }});
+
 
             Object.defineProperty(OjOut, 'tree', { value: OjTree } );
 
