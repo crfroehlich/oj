@@ -1,5 +1,5 @@
 /*global OJ:true, jQuery: true, window: true */
-(function(domVendor) {
+(function (domVendor) {
 
     /**
      *    The OJ  NameSpace, an IIFE
@@ -16,36 +16,44 @@
                 dependents: []
             };
 
-             Object.defineProperty(OjInternal, 'getOjMembers', { value: function() {
-                var members = [];
-                function recurseTree(key, lastKey) {
-                    if(typeof(key) === 'string') {
-                        members.push(lastKey + '.' + key);
+            Object.defineProperty(OjInternal, 'getOjMembers', {
+                value: function () {
+                    var members = [];
+
+                    function recurseTree(key, lastKey) {
+                        if (typeof (key) === 'string') {
+                            members.push(lastKey + '.' + key);
+                        }
+                        if (domVendor.isPlainObject(key)) {
+                            Object.keys(key).forEach(function (k) {
+                                if (typeof (k) === 'string') {
+                                    members.push(lastKey + '.' + k);
+                                }
+                                if (domVendor.isPlainObject(key[k])) {
+                                    recurseTree(key[k], lastKey + '.' + k);
+                                }
+                            });
+                        }
                     }
-                    if(domVendor.isPlainObject(key)) {
-                        Object.keys(key).forEach(function(k) {
-                            if(typeof(k) === 'string') {
-                                members.push(lastKey + '.' + k);
-                            }
-                            if(domVendor.isPlainObject(key[k])) {
-                                recurseTree(key[k], lastKey + '.' + k);
-                            }
-                        });
+                    Object.keys(OjTree['OJ']).forEach(function (key) {
+                        if (domVendor.isPlainObject(OjTree['OJ'][key])) {
+                            recurseTree(OjTree['OJ'][key], 'OJ');
+                        }
+                    });
+                    return members;
+                }
+            });
+
+            Object.defineProperty(OjInternal, 'alertDependents', {
+                value: function (imports) {
+                    var deps = OjInternal.dependents.filter(function (depOn) {
+                        return false === depOn(imports);
+                    });
+                    if (Array.isArray(deps)) {
+                        OjInternal.dependents = deps;
                     }
                 }
-                Object.keys(OJ.tree).forEach(function(key) {
-                    if(OJ.is.plainObject(OJ.tree[key])) {
-                        recurseTree(OJ.tree[key], 'OJ');
-                    }
-                });
-                return members;
-            }});
-
-            Object.defineProperty(OjInternal, 'alertDependents', { value: function() {
-                OjInternal.dependents = OjInternal.dependents.filter(function(depOn) {
-                    return false === depOn;
-                });
-            }});
+            });
 
             var OjTree = Object.create(null);
             OjTree['OJ'] = Object.create(null);
@@ -56,7 +64,7 @@
              *	Internal OJ method to create new "sub" namespaces on arbitrary child objects.
              *	@param (Object) proto An instance of an Object to use as the basis of the new namespace prototype
              */
-            var makeNameSpace = function(proto) {
+            var makeNameSpace = function (proto, tree, spacename) {
                 /// <summary>Internal OJ method to create new "sub" namespaces on arbitrary child objects.</summary>
                 /// <param name="proto" type="Object"> String to parse </param>
                 /// <returns type="Object">The new child namespace.</returns>
@@ -71,42 +79,48 @@
                  *   @param (Object) obj Any, arbitrary Object to use as the value.
                  *   @return (Object) The value of the new property.
                  */
-                Object.defineProperty(proto, 'lift', { value: function(name, obj) {
-                    'use strict';
-                    /// <summary>"Lift" an Object into the prototype of the namespace. This Object will be readable/executable but is otherwise immutable.</summary>
-                    /// <param name="name" type="String">The name of the object to lift.</param>
-                    /// <param name="obj" type="Object">Any, arbitrary Object to use as the value.</param>
-                    /// <returns type="Object">The value of the new property.</returns>
-                    if (name && obj) {
-                        Object.defineProperty(ret, name, {
-                            value: obj,
-                            writable: false,
-                            enumerable: false,
-                            configurable: false
-                        });
-                        OjInternal.alertDependents();
+                Object.defineProperty(proto, 'lift', {
+                    value: function (name, obj) {
+                        'use strict';
+                        /// <summary>"Lift" an Object into the prototype of the namespace. This Object will be readable/executable but is otherwise immutable.</summary>
+                        /// <param name="name" type="String">The name of the object to lift.</param>
+                        /// <param name="obj" type="Object">Any, arbitrary Object to use as the value.</param>
+                        /// <returns type="Object">The value of the new property.</returns>
+                        if (name && obj) {
+                            Object.defineProperty(ret, name, {
+                                value: obj,
+                                writable: false,
+                                enumerable: false,
+                                configurable: false
+                            });
+                            tree[name] = typeof (obj);
+                            OjInternal.alertDependents('OJ.' + spacename + '.' + name);
+                        }
+                        return obj;
                     }
-                    return obj;
-                }});
+                });
 
                 /**
                  *	Create a new, static namespace on the current parent (e.g. OJ.to... || OJ.is...)
                  *   @param (String) subNameSpace The name of the new namespace.
                  *   @return (Object) The new namespace.
                  */
-                Object.defineProperty(proto, 'makeSubNameSpace', { value: function(subNameSpace) {
-                    'use strict';
-                    /// <summary>Create a new, static namespace on the current parent (e.g. OJ.to... || OJ.is...).</summary>
-                    /// <param name="subNameSpace" type="String">The name of the new namespace.</param>
-                    /// <returns type="Object">The new namespace.</returns>
-                    OjInternal.alertDependents();
-                    return Object.defineProperty(ret, subNameSpace, {
-                        value: makeNameSpace(null),
-                        writable: false,
-                        enumerable: false,
-                        configurable: false
-                    });
-                }});
+                Object.defineProperty(proto, 'makeSubNameSpace', {
+                    value: function (subNameSpace) {
+                        'use strict';
+                        /// <summary>Create a new, static namespace on the current parent (e.g. OJ.to... || OJ.is...).</summary>
+                        /// <param name="subNameSpace" type="String">The name of the new namespace.</param>
+                        /// <returns type="Object">The new namespace.</returns>
+                        tree[subNameSpace] = Object.create(null);
+                        OjInternal.alertDependents('OJ.' + subNameSpace);
+                        return Object.defineProperty(ret, subNameSpace, {
+                            value: makeNameSpace(null, tree[subNameSpace], subNameSpace),
+                            writable: false,
+                            enumerable: false,
+                            configurable: false
+                        });
+                    }
+                });
 
                 return ret;
             };
@@ -116,36 +130,40 @@
             OjOut.lift('?', domVendor);
 
 
-
             /**
              *    "Depend" an Object upon another member of this namespace, upon another namespace,
              *   or upon a member of another namespace
              *   @param (Array) array of dependencies for this method
              *   @param (Function) obj Any, arbitrary Object to use as the value
              */
-            Object.defineProperty(OjOut, 'dependsOn', { value: function(dependencies, callBack) {
+            var dependsOn = function (dependencies, callBack, imports) {
                 'use strict';
                 var ret = false;
                 var OjMembers = OjInternal.getOjMembers();
-                if (dependencies && dependencies.length > 0 && callBack ) {
-                    var missing = [];
-                    dependencies.forEach(function(depen){
-                        if(OjMembers.indexOf(depen) === -1) {
-                            missing.push(depen);
-                        }
+                if (dependencies && dependencies.length > 0 && callBack) {
+                    var missing = dependencies.filter(function (depen) {
+                        return (OjMembers.indexOf(depen) === -1 && (!imports || imports !== depen));
                     });
-                    if(missing.length === 0) {
+                    if (missing.length === 0) {
                         ret = true;
                         callBack();
-                    } else {
-                        OjInternal.dependents.push(function() { return OJ.dependsOn(missing, callBack); });
+                    }
+                    else {
+                        OjInternal.dependents.push(function (imports) {
+                            return dependsOn(missing, callBack, imports);
+                        });
                     }
                 }
                 return ret;
-            }});
+            };
+            Object.defineProperty(OjOut, 'dependsOn', {
+                value: dependsOn
+            });
 
 
-            Object.defineProperty(OjOut, 'tree', { value: OjTree } );
+            Object.defineProperty(OjOut, 'tree', {
+                value: OjTree
+            });
 
             return OjOut;
 

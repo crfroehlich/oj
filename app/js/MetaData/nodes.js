@@ -190,13 +190,6 @@
 
     OJ.metadata.lift('Node', Node);
 
-    var Div = OJ.Class('Div', Node, function () {
-        var div = this;
-
-        div.nodeName = 'DIV';
-        return div;
-    });
-
-    OJ.metadata.lift('Div', Div);
+    
 
 }(OJ['?']));
