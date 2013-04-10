@@ -9,7 +9,7 @@ module.exports = function(grunt) {
         },
         tmpHtml: {
             release: {
-                src: 'app/index.tmpl',
+                src: 'release/index.tmpl',
                 dest: '<%=releasePath%>' + '/index.html'
             },
             test: {
@@ -175,7 +175,6 @@ module.exports = function(grunt) {
 
     grunt.registerTask('dev', 'debugTmpl concat lint');
     grunt.registerTask('test', 'testTmpl lint concat qunit');
-
 
     grunt.registerTask('sonar', 'qunit-sonar');
     /**REGION: register tasks */
