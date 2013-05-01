@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8' />
+    <meta http-equiv="X-UA-Compatible" content="chrome=1" />
+    <meta name="description" content="Oj : A framework for writing zero-template, zero-html, zero-css web apps in pure JavaScript." />
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Oj</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/somecallmechief/oj">View on GitHub</a>
+
+          <h1 id="project_title">Oj</h1>
+          <h2 id="project_tagline">A framework for writing zero-template, zero-html, zero-css web apps in pure JavaScript.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/somecallmechief/oj/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/somecallmechief/oj/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h3>Welcome to OJ.</h3>
+
+<p>OJ (OJ.js || OpenJS || Orange Julius || whatever you like) is a framework upon which to build web applications in pure (sometimes functional) JavaScript. Currently, it's packaged for Node. So, download:</p>
+
+<pre><code>$ cd oj
+$ npm install
+$ grunt build
+</code></pre>
+
+<p>There are more than a few TODOs before OJ will deliver anything useful, but this is the vision:</p>
+
+<pre><code>$ var div = OJ.body.div({ text: 'Aloha, World!' });
+$ div.table().row(1).column(1).span({ text: 'Ahoy, column 1, row 1!' });
+$ ...
+$ div.loginDialog({ pass: init, fail: div.loginDialog });
+</code></pre>
+
+<p>Basic HTML and CSS are fully encapsulated in strongly validated OJ classes. Complex forms, layouts and composites are abstracted into thin OJ classes which are extensible with mixins. Entire workflows are simplified into OJ structures which can be defined with just a few lines (or so) of JavaScript code. Layouts are configurable simply by clicking and dragging the form. Validation and data binding come for free.</p>
+
+<h3>TODO Priority 1</h3>
+
+<p>The core factory class is in place, but only SPAN and DIV have been implemented. TABLE is next, followed by INPUT (which will immediately spawn a factory subclass to handle input type: radio, checkbox, etc). SELECT (with child class OPTION) will be followed by the rest of the classic DOM Nodes.</p>
+
+<h3>TODO Priority 2</h3>
+
+<p>A secondary factory will need to implement components. There's still some implementation specing to do on how to distinguish between abstract components (e.g. an array of checkboxes) vs. concrete controls (e.g. an Address composite).</p>
+
+<h3>TODO Priority 3</h3>
+
+<p>A FORM factory is on the table, so to speak. Additional specification work is needed to define a data structure which can be implicitly cast into an OJ form, generating an ordered layout of controls and to facilitate real time data.</p>
+
+<h3>Support or Contact</h3>
+
+<p>Feel like contributing? Wondering what in the sam hill I'm thinking? Challenge me to a duel; fork me; contact me; ignore me. The choices are abundant and welcomed.</p>
+
+<h3>Licensing</h3>
+
+<p>Everything I write is always Public Domain. Please take generously. </p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Oj maintained by <a href="https://github.com/somecallmechief">somecallmechief</a></p>
+        <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
