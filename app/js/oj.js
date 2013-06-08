@@ -1,22 +1,22 @@
-/*global OJ:true, jQuery: true, window: true */
-(function (domVendor) {
+/*global nameSpaceName:true, jQuery: true, window: true */
+(function (nameSpaceName, domVendor) {
 
     /**
-     *    The OJ  NameSpace, an IIFE
+     *    The nameSpaceName  NameSpace, an IIFE
      *    @namespace
      *    @export
-     *    @return {window.OJ}
+     *    @return {window.nameSpaceName}
      */
-    Object.defineProperty(window, 'OJ', {
-        value: (function OJ() {
-            ///<summary>(IIFE) Intializes the OJ namespace.</summary>
-            ///<returns type="window.OJ">The OJ namespace.</returns>
+    Object.defineProperty(window, nameSpaceName, {
+        value: (function () {
+            ///<summary>(IIFE) Intializes the nameSpaceName namespace.</summary>
+            ///<returns type="window.nameSpaceName">The nameSpaceName namespace.</returns>
 
-            var OjInternal = {
+            var nsInternal = {
                 dependents: []
             };
 
-            Object.defineProperty(OjInternal, 'getOjMembers', {
+            Object.defineProperty(nsInternal, 'getNsMembers', {
                 value: function () {
                     var members = [];
 
@@ -35,99 +35,106 @@
                             });
                         }
                     }
-                    Object.keys(OjTree['OJ']).forEach(function (key) {
-                        if (domVendor.isPlainObject(OjTree['OJ'][key])) {
-                            recurseTree(OjTree['OJ'][key], 'OJ');
+                    Object.keys(NsTree[nameSpaceName]).forEach(function (key) {
+                        if (domVendor.isPlainObject(NsTree[nameSpaceName][key])) {
+                            recurseTree(NsTree[nameSpaceName][key], nameSpaceName);
                         }
                     });
                     return members;
                 }
             });
 
-            Object.defineProperty(OjInternal, 'alertDependents', {
+            Object.defineProperty(nsInternal, 'alertDependents', {
                 value: function (imports) {
-                    var deps = OjInternal.dependents.filter(function (depOn) {
+                    var deps = nsInternal.dependents.filter(function (depOn) {
                         return false === depOn(imports);
                     });
                     if (Array.isArray(deps)) {
-                        OjInternal.dependents = deps;
+                        nsInternal.dependents = deps;
                     }
                 }
             });
 
-            var OjTree = Object.create(null);
-            OjTree['OJ'] = Object.create(null);
-
-            var prototype = Object.create(null);
-
             /**
-             *	Internal OJ method to create new "sub" namespaces on arbitrary child objects.
-             *	@param (Object) proto An instance of an Object to use as the basis of the new namespace prototype
+             *    Internal nameSpaceName method to create new "sub" namespaces on arbitrary child objects.
+             *	@param spacename {String} the namespace name
              */
-            var makeNameSpace = function (proto, tree, spacename) {
-                /// <summary>Internal OJ method to create new "sub" namespaces on arbitrary child objects.</summary>
+            function makeNameSpace(spacename) {
+                /// <summary>Internal nameSpaceName method to create new "sub" namespaces on arbitrary child objects.</summary>
                 /// <param name="proto" type="Object"> String to parse </param>
                 /// <returns type="Object">The new child namespace.</returns>
-                proto = proto || Object.create(null);
+                var Class = new Function(
+                    "return function " + spacename + "(){}"
+                )();
+                function Base(nsName) {
+                    var proto = this;
+                    Object.defineProperty(this, 'lift', {
+                        value:
+                            /**
+                             *	"Lift" an Object into the prototype of the namespace.
+                             *	This Object will be readable/executable but is otherwise immutable.
+                             *   @param {String} name The name of the object to lift
+                             *   @param {Object} obj Any, arbitrary Object to use as the value.
+                             *   @return {Object} The value of the new property.
+                             */
+                            function (name, obj, enumerable) {
+                                'use strict';
+                                /// <summary>"Lift" an Object into the prototype of the namespace. This Object will be readable/executable but is otherwise immutable.</summary>
+                                /// <param name="name" type="String">The name of the object to lift.</param>
+                                /// <param name="obj" type="Object">Any, arbitrary Object to use as the value.</param>
+                                /// <returns type="Object">The value of the new property.</returns>
+                                if (!(typeof name === 'string') || name === '') {
+                                    throw new Error('Cannot lift a new property without a valid name.');
+                                }
+                                if (!obj) {
+                                    throw new Error('Cannot lift a new property without a valid property instance.');
+                                }
+                                    Object.defineProperty(proto, name, {
+                                        value: obj,
+                                        enumerable: false !== enumerable
+                                    });
+                                    nsInternal.alertDependents(nsName + '.' + spacename + '.' + name);
+                                
+                                return obj;
+                            }
+                    });
 
-                var ret = Object.create(proto);
+                    proto.lift('makeSubNameSpace',
+                        /**
+                         *	Create a new, static namespace on the current parent (e.g. nsName.to... || nsName.is...)
+                         *   @param {String} subNameSpace The name of the new namespace.
+                         *   @return {Object} The new namespace.
+                         */
+                        function (subNameSpace) {
+                            'use strict';
+                            /// <summary>Create a new, static namespace on the current parent (e.g. nsName.to... || nsName.is...).</summary>
+                            /// <param name="subNameSpace" type="String">The name of the new namespace.</param>
+                            /// <returns type="Object">The new namespace.</returns>
+                            if (!(typeof subNameSpace === 'string') || subNameSpace === '') {
+                                throw new Error('Cannot create a new sub namespace without a valid name.');
+                            }
+                            nsInternal.alertDependents(nsName + '.' + subNameSpace);
 
-                /**
-                 *	"Lift" an Object into the prototype of the namespace.
-                 *	This Object will be readable/executable but is otherwise immutable.
-                 *   @param (String) name The name of the object to lift
-                 *   @param (Object) obj Any, arbitrary Object to use as the value.
-                 *   @return (Object) The value of the new property.
-                 */
-                Object.defineProperty(proto, 'lift', {
-                    value: function (name, obj) {
-                        'use strict';
-                        /// <summary>"Lift" an Object into the prototype of the namespace. This Object will be readable/executable but is otherwise immutable.</summary>
-                        /// <param name="name" type="String">The name of the object to lift.</param>
-                        /// <param name="obj" type="Object">Any, arbitrary Object to use as the value.</param>
-                        /// <returns type="Object">The value of the new property.</returns>
-                        if (name && obj) {
-                            Object.defineProperty(ret, name, {
-                                value: obj,
-                                writable: false,
-                                enumerable: false,
-                                configurable: false
-                            });
-                            tree[name] = typeof (obj);
-                            OjInternal.alertDependents('OJ.' + spacename + '.' + name);
-                        }
-                        return obj;
-                    }
-                });
+                            var newNameSpace = makeNameSpace(subNameSpace);
 
-                /**
-                 *	Create a new, static namespace on the current parent (e.g. OJ.to... || OJ.is...)
-                 *   @param (String) subNameSpace The name of the new namespace.
-                 *   @return (Object) The new namespace.
-                 */
-                Object.defineProperty(proto, 'makeSubNameSpace', {
-                    value: function (subNameSpace) {
-                        'use strict';
-                        /// <summary>Create a new, static namespace on the current parent (e.g. OJ.to... || OJ.is...).</summary>
-                        /// <param name="subNameSpace" type="String">The name of the new namespace.</param>
-                        /// <returns type="Object">The new namespace.</returns>
-                        tree[subNameSpace] = Object.create(null);
-                        OjInternal.alertDependents('OJ.' + subNameSpace);
-                        return Object.defineProperty(ret, subNameSpace, {
-                            value: makeNameSpace(null, tree[subNameSpace], subNameSpace),
-                            writable: false,
-                            enumerable: false,
-                            configurable: false
-                        });
-                    }
-                });
+                            newNameSpace.lift('constants', makeNameSpace('constants'));
 
-                return ret;
+                            proto.lift(subNameSpace, newNameSpace);
+                            return newNameSpace;
+                        }, false);
+                }
+
+                Class.prototype = new Base(spacename);
+                //Class.prototype.parent = Base.prototype;
+                
+                return new Class(spacename);
             };
 
-            var OjOut = makeNameSpace(prototype, OjTree['OJ']);
+            var NsOut = makeNameSpace(nameSpaceName);
 
-            OjOut.lift('?', domVendor);
+            NsOut.lift('constants', makeNameSpace('constants'));
+
+            NsOut.lift('?', domVendor);
 
 
             /**
@@ -136,60 +143,31 @@
              *   @param (Array) array of dependencies for this method
              *   @param (Function) obj Any, arbitrary Object to use as the value
              */
-            var dependsOn = function (dependencies, callBack, imports) {
+            function dependsOn(dependencies, callBack, imports) {
                 'use strict';
                 var ret = false;
-                var OjMembers = OjInternal.getOjMembers();
+                var nsMembers = nsInternal.getNsMembers();
                 if (dependencies && dependencies.length > 0 && callBack) {
                     var missing = dependencies.filter(function (depen) {
-                        return (OjMembers.indexOf(depen) === -1 && (!imports || imports !== depen));
+                        return (nsMembers.indexOf(depen) === -1 && (!imports || imports !== depen));
                     });
                     if (missing.length === 0) {
                         ret = true;
                         callBack();
                     }
                     else {
-                        OjInternal.dependents.push(function (imports) {
+                        nsInternal.dependents.push(function (imports) {
                             return dependsOn(missing, callBack, imports);
                         });
                     }
                 }
                 return ret;
             };
-            Object.defineProperty(OjOut, 'dependsOn', {
-                value: dependsOn
-            });
-
-
-            Object.defineProperty(OjOut, 'tree', {
-                value: OjTree
-            });
-
-            return OjOut;
+            NsOut.lift('dependsOn', dependsOn, false);
+            
+            return NsOut;
 
         }())
     });
 
-    OJ.makeSubNameSpace('errors');
-
-    OJ.makeSubNameSpace('is');
-
-
-    /**
-     * The MetaData namespace. Represents the structures of OJ nodes, elements and properties.
-     */
-    OJ.makeSubNameSpace('metadata');
-
-    /**
-     * The node namespace. Represents an OJ Node and its properties.
-     * [1]: This class is responsible for constructing the DOM getters (properties on this object which reference Nodes in the DOM tree)
-     * [2]: This class exposes helper methods which can get/set properties on this instance of the node.
-     * [3]: This class validates the execution of these methods (e.g. Is the node still in the DOM; has it been GC'd behind our backs)
-     * [4]: Maintaining an im-memory representation of tree with children/parents
-     */
-    OJ.makeSubNameSpace('node');
-
-    OJ.makeSubNameSpace('to');
-
-
-}(jQuery));
+}('OJ', jQuery));
