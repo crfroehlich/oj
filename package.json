@@ -1,12 +1,12 @@
 {
-  "name": "oj",
+  "name": "ojs",
   "title": "JavaScript OJ",
-  "description": "Calcium Enriched JavaScript Library",
+  "description": "A framework for writing zero-template, zero-html, zero-css web apps in pure JavaScript.",
   "version": "0.1.0",
-  "homepage": "",
+  "homepage": "http://somecallmechief.github.io/oj/",
   "author": {
     "name": "Christopher Froehlich",
-    "email": "crf@luddites.me"
+    "email": "npm@luddites.me"
   },
   "repository": {
     "type": "git",
@@ -22,25 +22,16 @@
     }
   ],
   "dependencies": {
-    "grunt": "latest",
-    "grunt-contrib-concat" : "latest",
-    "grunt-contrib-jshint" : "latest",
-    "grunt-contrib-uglify" : "latest",
-    "grunt-contrib-qunit" : "latest",
-	"grunt-contrib-jst": "latest",
-    "grunt-contrib-mincss": "latest",
-    "grunt-contrib-copy": "latest",
-    "grunt-contrib-connect": "latest",
-    "grunt-contrib-nodeunit": "latest",
-    "grunt-contrib-watch": "latest",
-    "grunt-closure-typechecker": "latest",
-    "grunt-append-sourcemapping": "latest",
-	"grunt-tmplmin": "latest",
-    "html-minifier": "latest",
+    "grunt": "0.4.1",
+    "grunt-contrib": "0.6.1",
+    "grunt-tmplmin": "0.0.2",
+    "html-minifier": "latest"
+  },
+  "devDependencies": {
+    "grunt-plato": "latest",
     "clean-css": "latest",
     "express": "latest",
-	"grunt-growl": "latest",
-    "node-phantom": "latest"
+    "grunt-growl": "latest"
   },
   "keywords": [],
   "engines": {

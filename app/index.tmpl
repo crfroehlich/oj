@@ -28,17 +28,25 @@
         <script src="../vendor/js/jquery-1.9.0.min.js"></script>
 
         <%
-            var jsFiles = grunt.file.expand(grunt.config('lint.files')),
-                releaseMode = grunt.config('releaseMode');
-
-            if(releaseMode) {
-                print('        <script type="text/javascript" src="' + grunt.config('concat.dist.dest') + '"></script>\n');
-            } else {
-                jsFiles.sort().reverse();
-                for(var i = 0, len = jsFiles.length; i < len; i += 1) {
-                    print('        <script type="text/javascript" src="' + jsFiles[i] + '"></script>\n');
-                }
+            var buildMode = grunt.config('buildMode');
+            switch(buildMode) {
+                case 'dev':
+                    var jsVendorFiles = grunt.file.expand(grunt.config('ojVendorJsFiles'));
+                    for(var i = 0, len = jsVendorFiles.length; i < len; i += 1) {
+                        print('        <script type="text/javascript" src="' + jsVendorFiles[i] + '"></script>\n');
+                    }
+                    var jsFiles = grunt.file.expand(grunt.config('ojAppJsFiles'));
+                    for(var i = 0, len = jsFiles.length; i < len; i += 1) {
+                        print('        <script type="text/javascript" src="' + jsFiles[i] + '"></script>\n');
+                    }
+                    break;
+                default:
+                 
+                    print('        <script src="release/vendor.min.js"></script>\n');
+                    print('        <script type="text/javascript" src="release/OJ.' + grunt.template.today("yyyy.m.d") + '.min.js"></script>\n');
+                    break;
             }
+            
         %>
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
