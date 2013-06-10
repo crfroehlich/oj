@@ -1,8 +1,8 @@
 
 /*global module:false*/
 module.exports = function (grunt) {
-    var ojAppJsFiles = ['app/js/oj.js', 'app/js/oj.initNameSpaces.js', 'app/js/core/**/*.js', 'app/js/dom/**/*.js', 'app/js/legos/**/*.js', 'app/js/actions/**/*.js'
-    ]; //Unfortunately, due to race conditions in loading, we can't blindly accept all (YET)
+    var files = require('./files');
+    var ojAppJsFiles = files.app;
     var ojAppCssFiles = ['app/css/oj.css', 'app/css/oj*.css'];
 
     var ojTestJsFiles = ['test/*.js', 'test/*/*.js'];
@@ -250,6 +250,8 @@ module.exports = function (grunt) {
 
     // Build the Test HTML and execute the QUnit tests
     grunt.registerTask('runUnitTests', function () {
+        grunt.task.run('concat:vendorCoreJs');
+        grunt.task.run('concat:vendorCss');
         grunt.task.run('toHtml:dev:test'); //Generate the HTML file from the template
         grunt.task.run('qunit');
         grunt.task.run('plato');
