@@ -35,11 +35,13 @@
                             });
                         }
                     }
-                    Object.keys(NsTree[nameSpaceName]).forEach(function (key) {
-                        if (domVendor.isPlainObject(NsTree[nameSpaceName][key])) {
-                            recurseTree(NsTree[nameSpaceName][key], nameSpaceName);
-                        }
-                    });
+                    if (typeof NsTree != "undefined") {
+                        Object.keys(NsTree[nameSpaceName]).forEach(function (key) {
+                            if (domVendor.isPlainObject(NsTree[nameSpaceName][key])) {
+                                recurseTree(NsTree[nameSpaceName][key], nameSpaceName);
+                            }
+                        });
+                    }
                     return members;
                 }
             });

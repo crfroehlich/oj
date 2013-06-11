@@ -1,7 +1,7 @@
 /*global OJ:true*/
 (function () {
 
-    OJ.dependsOn(['OJ.metadata.Node'], function () {
+//    OJ.dependsOn(['OJ.metadata.Node'], function () {
 
         var Div = OJ.Class('Div', OJ.metadata.Node, function () {
             var div = this;
@@ -45,6 +45,6 @@
             return div;
 
         });
-    });
+//    });
 
 }());
