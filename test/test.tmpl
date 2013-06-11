@@ -7,7 +7,7 @@
         <meta name="viewport" content="width=device-width">
 
         <link rel="stylesheet" href="../vendor/test/qunit-1.11.0.css">
-        <link rel="stylesheet" href="../vendor/vendor.css">
+        <link rel="stylesheet" href="../release/vendor.min.css">
 
     </head>
     <body>
@@ -17,20 +17,18 @@
 		<ol id="qunit-tests"></ol>
 		<div id="qunit-fixture">test markup, will be hidden</div>
 
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="../vendor/vendor-core.js"></script>
-		<script src="../vendor/vendor-extensions.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="../release/vendor.min.js"></script>
         <script src="../vendor/test/qunit-1.11.0.js"></script>
 
 		<%
-            var jsFiles = grunt.file.expand(grunt.config('lint.files')),
+            var jsFiles = grunt.file.expand(grunt.config('ojAppJsTestFiles')),
                 testJsFiles = grunt.file.expand(grunt.config('tmpHtml.test.testJsFiles')),
 				releaseMode = grunt.config('tmplHtml.releaseMode');
 
             if(releaseMode) {
                 print('        <script type="text/javascript" src="' + grunt.config('concat.dist.dest') + '"></script>\n');
             } else {
-                jsFiles.sort().reverse();
 				testJsFiles.sort().reverse();
                 for(var i = 0, len = jsFiles.length; i < len; i += 1) {
                     print('        <script type="text/javascript" src="../' + jsFiles[i] + '"></script>\n');

@@ -82,15 +82,15 @@
         return ret;
     });
 
-    OJ.lift('each', function(object, callBack) {
-         'use strict';
-         if(OJ.is.array(object) && object.length > 0) {
-            object.forEach(callBack);
-         }
-         else if(object && Object.keys(object) && Object.keys(object).length > 0) {
-            Object.keys(object).forEach(callBack);
-         }
-         return null;
-    });
+//    OJ.lift('each', function(object, callBack) {
+//         'use strict';
+//         if(OJ.is.array(object) && object.length > 0) {
+//            object.forEach(callBack);
+//         }
+//         else if(object && Object.keys(object) && Object.keys(object).length > 0) {
+//            Object.keys(object).forEach(callBack);
+//         }
+//         return null;
+//    });
 
 }());
