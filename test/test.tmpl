@@ -22,7 +22,7 @@
         <script src="../vendor/test/qunit-1.11.0.js"></script>
 
 		<%
-            var jsFiles = grunt.file.expand(grunt.config('lint.files')),
+            var jsFiles = grunt.file.expand(grunt.config('ojAppJsTestFiles')),
                 testJsFiles = grunt.file.expand(grunt.config('tmpHtml.test.testJsFiles')),
 				releaseMode = grunt.config('tmplHtml.releaseMode');
 

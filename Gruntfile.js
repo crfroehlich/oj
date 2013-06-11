@@ -14,6 +14,7 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
         ojAppJsFiles: ojAppJsFiles,
+        ojAppJsTestFiles: files.test,
         ojAppCssFiles: ojAppCssFiles,
 
         ojTestJsFiles: ojTestJsFiles,
