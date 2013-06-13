@@ -1,9 +1,9 @@
 /* global window:true, Ext:true */
 
-(function () {
+(function (n$) {
 
-    var panel = OJ.panels.panel({
-        name: 'Ext.OJ.qbTablePanel',
+    var panel = n$.panels.panel({
+        name: 'Ext.' + n$.name + '.qbTablePanel',
         alias: ['widget.qbTablePanel'],
         id: 'qbTablePanel'
     });
@@ -14,10 +14,10 @@
             ddGroup: 'sqlDDGroup',
             notifyDrop: function(source, event, data) {
                 var qbTablePanel;
-                // add a qbSqlWindow to the qbTablePanel component
+                // add a qbSqlWindowTable to the qbTablePanel component
                 qbTablePanel = Ext.getCmp('qbTablePanel');
                 qbTablePanel.add({
-                    xtype: 'qbSqlWindow',
+                    xtype: 'qbSqlWindowTable',
                     constrain: true,
                     title: data.records[0].get('text')
                 }).show();
@@ -39,4 +39,4 @@
     panel.init();
 
 
-}());
+}(window.$nameSpace$));

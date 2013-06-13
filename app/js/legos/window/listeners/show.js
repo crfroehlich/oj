@@ -1,12 +1,13 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global n$:true, window:true, Ext:true, $: true */
 
-(function _afterrenderIIFE() {
+(function _showIIFE(n$) {
 
-     /**
-      * Create a new show listener;
-     */
-    OJ.okna.listeners.lift('show', function (callBack) {
+    n$.okna.listeners.lift('show',
+         /**
+          * Create a new show listener;
+         */
+        function listeners(callBack) {
           if (callBack) {
               //http://docs.sencha.com/extjs/4.1.3/#!/api/Ext.window.Window-event-show
 
@@ -15,11 +16,11 @@
                * @param extView {Ext.Component} usually the Ext Window
                * @param eOpts {Object} arbitrary Ext props
               */
-              return function (extView, eOpts) {
+              return function show(extView, eOpts) {
                   callBack.call(extView, extView, eOpts);
               };
           }
       });
 
 
-      }());
+}(window.$nameSpace$));

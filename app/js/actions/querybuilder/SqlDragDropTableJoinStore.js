@@ -1,17 +1,17 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global window:true, Ext:true, $: true */
 
 /**
 * The Tabble Join Store represents the join data bound between columns across tables
 */
-(function _joinsStoreIIFE() {
-    
+(function _joinsStoreIIFE(n$) {
+
     /**
      * Instance a collection of fields to describe a JOIN in the SQL output table
     */
-    var SqlDragDropTableJoinModel = OJ.models.model({
-        name: 'Ext.OJ.SqlDragDropTableJoinModel',
-        fields: [
+    var SqlDragDropTableJoinModel = n$.models.model({
+        name: 'Ext.' + n$.name + '.SqlDragDropTableJoinModel',
+        dataTypeCollection: [
             ['id'],
             ['leftTableId'],
             ['rightTableId'],
@@ -22,18 +22,18 @@
         ]
     });
 
-    OJ.actions.querybuilder.lift('SqlDragDropTableJoinModel', SqlDragDropTableJoinModel);
+    n$.actions.querybuilder.lift('SqlDragDropTableJoinModel', SqlDragDropTableJoinModel);
 
     /**
      * Define the store
     */
-    var SqlDragDropTableJoinStore = OJ.stores.store({ name: 'Ext.OJ.SqlDragDropTableJoinStore', model: OJ.actions.querybuilder.SqlDragDropTableJoinModel });
+    var SqlDragDropTableJoinStore = n$.stores.store({ name: 'Ext.' + n$.name + '.SqlDragDropTableJoinStore', model: n$.actions.querybuilder.SqlDragDropTableJoinModel });
 
     /**
      * Put the class into the namespace
     */
-    OJ.actions.querybuilder.lift('SqlDragDropTableJoinStore', SqlDragDropTableJoinStore);
+    n$.actions.querybuilder.lift('SqlDragDropTableJoinStore', SqlDragDropTableJoinStore);
 
-    
 
-}());
+
+}(window.$nameSpace$));

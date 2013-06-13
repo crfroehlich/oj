@@ -1,19 +1,13 @@
 /*global nameSpaceName:true, jQuery: true, window: true */
 (function (nameSpaceName, domVendor) {
 
-    //Define a quick and dirty way to get the 'instanceof' value of an object. 
-    //CAUTION: this is the Object prototype. Possible collisions abound.
     Object.defineProperties(Object.prototype, {
         getInstanceName: {
-            value: 
-                /**
-                 * Get the name of the instance of this object
-                */
-                function () {
-                    var funcNameRegex = /function (.{1,})\(/;
-                    var results = (funcNameRegex).exec((this).constructor.toString());
-                    return (results && results.length > 1) ? results[1] : "";
-                }
+            value: function () {
+                var funcNameRegex = /function (.{1,})\(/;
+                var results = (funcNameRegex).exec((this).constructor.toString());
+                return (results && results.length > 1) ? results[1] : "";
+            }
         }
     });
 
@@ -94,7 +88,7 @@
 
                 /**
                  * Internal nameSpaceName method to create new "sub" namespaces on arbitrary child objects.
-                 * @internal  
+                 * @internal	
                  * @param spacename {String} the namespace name
                  * @param tree {Object} the internal tree representation of the current level of the namespace
                  * @return namespace {Object} A new namespace
@@ -120,8 +114,8 @@
                         Object.defineProperty(this, 'lift', {
                             value:
                                 /**
-                                 *  "Lift" an Object into the prototype of the namespace.
-                                 *  This Object will be readable/executable but is otherwise immutable.
+                                 *	"Lift" an Object into the prototype of the namespace.
+                                 *	This Object will be readable/executable but is otherwise immutable.
                                  *   @param {String} name The name of the object to lift
                                  *   @param {Object} obj Any, arbitrary Object to use as the value.
                                  *   @return {Object} The value of the new property.
@@ -133,6 +127,9 @@
                                     }
                                     if (!obj) {
                                         throw new Error('Cannot lift a new property without a valid property instance.');
+                                    }
+                                    if (proto[name]) {
+                                        throw new Error('Property named ' + name + ' is already defined on ' + spacename + '.');
                                     }
 
                                     //Guard against obliterating the tree as the tree is recursively extended
@@ -154,7 +151,7 @@
 
                         proto.lift('makeSubNameSpace',
                             /**
-                             *  Create a new, static namespace on the current parent (e.g. nsName.to... || nsName.is...)
+                             *	Create a new, static namespace on the current parent (e.g. nsName.to... || nsName.is...)
                              *   @param {String} subNameSpace The name of the new namespace.
                              *   @return {Object} The new namespace.
                              */
@@ -162,6 +159,9 @@
                                 'use strict';
                                 if (!(typeof subNameSpace === 'string') || subNameSpace === '') {
                                     throw new Error('Cannot create a new sub namespace without a valid name.');
+                                }
+                                if (proto.subNameSpace) {
+                                    throw new Error('Sub namespace named ' + subNameSpace + ' is already defined on ' + spacename + '.');
                                 }
                                 nsInternal.alertDependents(nsName + '.' + subNameSpace);
 
@@ -187,12 +187,16 @@
 
                 //Define the core namespace and the return of this class
                 var NsOut = makeNameSpace(nameSpaceName, NsTree[nameSpaceName]);
-                
+                Object.defineProperties(window, { $nameSpace$: { value: NsOut } });
+
                 //Cache a handle on the vendor (probably jQuery) on the root namespace
                 NsOut.lift('?', domVendor, false);
                 
                 //Cache the tree (useful for documentation/visualization/debugging)
                 NsOut.lift('tree', NsTree[nameSpaceName], false);
+                
+                //Cache the name space name
+                NsOut.lift('name', nameSpaceName, false);
 
 
                 /**
@@ -227,6 +231,5 @@
 
             }())
     });
-
 
 }('OJ', jQuery));

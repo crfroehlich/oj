@@ -1,24 +1,26 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global n$:true, window:true, Ext:true, $: true */
 
-(function _listenerIIFE() {
+(function _listenerIIFE(n$) {
 
     /**
      * Define the listener methods which are available to this class.
     */
-    var windowListeners = OJ.object();
+    var windowListeners = n$.object();
     windowListeners.add('beforeclose', 'beforeclose');
     windowListeners.add('beforeshow', 'beforeshow');
     windowListeners.add('show', 'show');
-    OJ.constant(OJ.okna, 'listeners', windowListeners);
-    
-    /**
-     * Create a new listeners collection. This returns a listeners object with an add method.
-    */
-    OJ.okna.listeners.lift('listeners', function () {
-        var ret = OJ.makeListeners('windowListeners', 'okna');
-        return ret;
-    });
+    n$.constant(n$.okna, 'listeners', windowListeners);
+
+    n$.okna.listeners.lift('listeners',
+        /**
+         * Create a new listeners collection. This returns a listeners object with an add method.
+        */
+        function listeners() {
+            'use strict';
+            var ret = n$.makeListeners('windowListeners', 'okna');
+            return ret;
+        });
 
 
-}());
+}(window.$nameSpace$));

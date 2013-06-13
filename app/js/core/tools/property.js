@@ -1,7 +1,7 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global n$:true, window:true, Ext:true, $: true */
 
-(function _propertyIIFE() {
+(function _propertyIIFE(n$) {
 
 
     /**
@@ -35,6 +35,6 @@
         return obj;
     };
 
-    OJ.lift('property', property);
+    n$.lift('property', property);
 
-}());
+}(window.$nameSpace$));

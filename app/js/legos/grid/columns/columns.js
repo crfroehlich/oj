@@ -1,45 +1,44 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global n$:true, window:true, Ext:true, $: true */
 
-(function _columnsIIFE() {
+(function _columnsIIFE(n$) {
 
-    //OJ.dependsOn(['OJ.models.field'], function () {
+    //n$.dependsOn(['n$.models.field'], function () {
 
-        /**
-         * Defines a collection of columns
-         */
-        var Columns = function() {
-            var that = this;
-            Object.defineProperties(that, {
-                value: {
-                    value: [],
-                    writable: true,
-                    configurable: true,
-                    enumerable: true
-                },
-                add: {
-                    value: function (column) {
-                        if (!(column instanceof OJ.instanceOf.Column)) {
-                            throw new Error('Only columns can be added to the Columns collection');
-                        }
-                        that.value.push(column);
-                        return that;
-                    }
+    /**
+     * Defines a collection of columns
+     */
+    var Columns = function () {
+        'use strict';
+
+        var that = this;
+        n$.property(that, 'value', []);
+        n$.property(that, 'add',
+            /**
+             * Add a column to the collection
+            */
+            function add(column) {
+                if (!(column instanceof n$.instanceOf.Column)) {
+                    throw new Error('Only columns can be added to the Columns collection');
                 }
+                that.value.push(column);
+                return that;
             });
-            return that;
-        };
+        return that;
+    };
 
-        OJ.instanceOf.lift('Columns', Columns);
+    n$.instanceOf.lift('Columns', Columns);
 
+    n$.grids.columns.lift('columns',
         /**
          * A mechanism for generating columns
          */
-        OJ.grids.columns.lift('columns', function() {
+        function columns() {
+            'use strict';
             var ret = new Columns();
             return ret;
         });
 
     //});
 
-}());
+}(window.$nameSpace$));

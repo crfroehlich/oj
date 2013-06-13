@@ -1,124 +1,123 @@
-/*global OJ:true*/
-(function() {
+/*global n$:true*/
+(function (n$) {
 
-    OJ.delimitedString = OJ.delimitedString ||
-        OJ.lift('delimitedString', function (string, opts) {
-            var ojInternal = {
-                newLineToDelimiter: true,
-                spaceToDelimiter: true,
-                removeDuplicates: true,
-                delimiter: ',',
-                initString: OJ.to.string(string)
-            };
+    n$.lift('delimitedString', function (string, opts) {
+        var nsInternal = {
+            newLineToDelimiter: true,
+            spaceToDelimiter: true,
+            removeDuplicates: true,
+            delimiter: ',',
+            initString: n$.to.string(string)
+        };
 
-            var ojReturn = {
-                array: [],
-                delimited: function () {
-                    return ojReturn.array.join(ojInternal.delimiter);
-                },
-                string: function (delimiter) {
-                    delimiter = delimiter || ojInternal.delimiter;
-                    var ret = '';
-                    OJ.each(ojReturn.array, function (val) {
-                        if (ret.length > 0) {
-                            ret += delimiter;
+        var nsRet = {
+            array: [],
+            delimited: function () {
+                return nsRet.array.join(nsInternal.delimiter);
+            },
+            string: function (delimiter) {
+                delimiter = delimiter || nsInternal.delimiter;
+                var ret = '';
+                n$.each(nsRet.array, function (val) {
+                    if (ret.length > 0) {
+                        ret += delimiter;
+                    }
+                    ret += val;
+                });
+                return ret;
+            },
+            toString: function () {
+                return nsRet.string();
+            },
+            add: function (str) {
+                nsRet.array.push(nsInternal.parse(str));
+                nsInternal.deleteDuplicates();
+                return nsRet;
+            },
+            remove: function (str) {
+                var remove = function (array) {
+                    return array.filter(function (item) {
+                        if (item !== str) {
+                            return true;
                         }
-                        ret += val;
                     });
-                    return ret;
-                },
-                toString: function () {
-                    return ojReturn.string();
-                },
-                add: function (str) {
-                    ojReturn.array.push(ojInternal.parse(str));
-                    ojInternal.deleteDuplicates();
-                    return ojReturn;
-                },
-                remove: function (str) {
-                    var remove = function (array) {
+                };
+                nsRet.array = remove(nsRet.array);
+                return nsRet;
+            },
+            count: function () {
+                return nsRet.array.length;
+            },
+            contains: function (str, caseSensitive) {
+                var isCaseSensitive = n$.to.bool(caseSensitive);
+                str = n$.string(str).trim();
+                if (false === isCaseSensitive) {
+                    str = str.toLowerCase();
+                }
+                var match = nsRet.array.filter(function (matStr) {
+                    return ((isCaseSensitive && n$.to.string(matStr).trim() === str) || n$.to.string(matStr).trim().toLowerCase() === str);
+                });
+                return match.length > 0;
+            },
+            each: function (callBack) {
+                return nsRet.array.forEach(callBack);
+            }
+        };
+
+        nsInternal.parse = function (str) {
+            var ret = n$.to.string(str);
+
+            if (nsInternal.newLineToDelimiter) {
+                while (ret.indexOf('\n') !== -1) {
+                    ret = ret.replace(/\n/g, nsInternal.delimiter);
+                }
+            }
+            if (nsInternal.spaceToDelimiter) {
+                while (ret.indexOf(' ') !== -1) {
+                    ret = ret.replace(/ /g, nsInternal.delimiter);
+                }
+            }
+            while (ret.indexOf(',,') !== -1) {
+                ret = ret.replace(/,,/g, nsInternal.delimiter);
+            }
+            return ret;
+        };
+
+        nsInternal.deleteDuplicates = function () {
+            if (nsInternal.removeDuplicates) {
+                (function () {
+
+                    var unique = function (array) {
+                        var seen = new Set();
                         return array.filter(function (item) {
-                            if (item !== str) {
+                            if (false === seen.has(item)) {
+                                seen.add(item);
                                 return true;
                             }
                         });
                     };
-                    ojReturn.array = remove(ojReturn.array);
-                    return ojReturn;
-                },
-                count: function() {
-                    return ojReturn.array.length;
-                },
-                contains: function (str, caseSensitive) {
-                    var isCaseSensitive = OJ.to.bool(caseSensitive);
-                    str = OJ.string(str).trim();
-                    if (false === isCaseSensitive) {
-                        str = str.toLowerCase();
+
+                    nsRet.array = unique(nsRet.array);
+                }());
+            }
+        };
+
+        (function (a) {
+            if (a.length > 1 && false === n$.is.plainObject(opts)) {
+                n$.each(a, function (val) {
+                    if (false === n$.is.nullOrEmpty(val)) {
+                        nsRet.array.push(val);
                     }
-                    var match = ojReturn.array.filter(function (matStr) {
-                        return ((isCaseSensitive && OJ.to.string(matStr).trim() === str) || OJ.to.string(matStr).trim().toLowerCase() === str);
-                    });
-                    return match.length > 0;
-                },
-                each: function(callBack) {
-                    return ojReturn.array.forEach(callBack);
-                }
-            };
+                });
+            } else if (string && string.length > 0) {
+                n$.extend(nsInternal, opts);
+                var delimitedString = nsInternal.parse(string);
+                nsInternal.initString = delimitedString;
+                nsRet.array = delimitedString.split(nsInternal.delimiter);
+            }
 
-            ojInternal.parse = function (str) {
-                var ret = OJ.to.string(str);
-
-                if (ojInternal.newLineToDelimiter) {
-                    while (ret.indexOf('\n') !== -1) {
-                        ret = ret.replace(/\n/g, ojInternal.delimiter);
-                    }
-                }
-                if (ojInternal.spaceToDelimiter) {
-                    while (ret.indexOf(' ') !== -1) {
-                        ret = ret.replace(/ /g, ojInternal.delimiter);
-                    }
-                }
-                while (ret.indexOf(',,') !== -1) {
-                    ret = ret.replace(/,,/g, ojInternal.delimiter);
-                }
-                return ret;
-            };
-
-            ojInternal.deleteDuplicates = function () {
-                if (ojInternal.removeDuplicates) {
-                    (function () {
-
-                        var unique = function (array) {
-                            var seen = new Set();
-                            return array.filter(function (item) {
-                                if (false === seen.has(item)) {
-                                    seen.add(item);
-                                    return true;
-                                }
-                            });
-                        };
-
-                        ojReturn.array = unique(ojReturn.array);
-                    }());
-                }
-            };
-
-            (function (a) {
-                if (a.length > 1 && false === OJ.is.plainObject(opts)) {
-                    OJ.each(a, function (val) {
-                        if (false === OJ.is.nullOrEmpty(val)) {
-                            ojReturn.array.push(val);
-                        }
-                    });
-                } else if(string && string.length > 0) {
-                    OJ.extend(ojInternal, opts);
-                    var delimitedString = ojInternal.parse(string);
-                    ojInternal.initString = delimitedString;
-                    ojReturn.array = delimitedString.split(ojInternal.delimiter);
-                }
-
-                ojInternal.deleteDuplicates();
-            }(arguments));
-            return ojReturn;
-        });
-}());
+            nsInternal.deleteDuplicates();
+        }(arguments));
+        return nsRet;
+    });
+}(window.$nameSpace$));

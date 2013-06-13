@@ -1,7 +1,7 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global n$:true, window:true, Ext:true, $: true */
 
-(function _propertyIIFE() {
+(function _propertyIIFE(n$) {
 
     /**
      * Create an instance of Object
@@ -17,12 +17,18 @@
             properties = {};
         }
         var obj = Object.create(inheritsFromPrototype, properties);
-        OJ.property(obj, 'add', function(name, val, writable, configurable, enumerable) {
-            return OJ.property(obj, name, val, writable, configurable, enumerable);
+
+        n$.property(obj, 'add',
+            /**
+             * Add a property to the object and return it
+            */
+            function (name, val, writable, configurable, enumerable) {
+            return n$.property(obj, name, val, writable, configurable, enumerable);
         }, false, false, false);
+
         return obj;
     };
 
-    OJ.lift('object', object);
+    n$.lift('object', object);
 
-}());
+}(window.$nameSpace$));

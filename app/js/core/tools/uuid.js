@@ -1,7 +1,7 @@
 /* jshint undef: true, unused: true */
-/* global Ext, OJ  */
+/* global Ext, n$  */
 
-(function() {
+(function (n$) {
 
     /**
      * Generates a random string that complies to the RFC 4122 specification for GUID/UUID.
@@ -26,6 +26,6 @@
         return uuid;
     };
 
-    OJ.lift('createUUID', createFauxUUID);
+    n$.lift('createUUID', createFauxUUID);
 
-    }());
+}(window.$nameSpace$));

@@ -1,5 +1,5 @@
-/*global OJ:true,window:true*/
-(function () {
+/*global n$:true,window:true*/
+(function (n$) {
     'use strict';
 
     var method;
@@ -22,66 +22,81 @@
         }
     }
 
-    OJ.makeSubNameSpace('console');
+    n$.makeSubNameSpace('console');
 
-    OJ.console.lift('assert', function (truth, msg) {
-        window.console.assert(truth, msg);
+    n$.console.lift('assert', function () {
+        'use strict';
+        window.console.assert.apply(this, arguments);
     });
 
-    OJ.console.lift('count', function (msg) {
-        window.console.count(msg);
+    n$.console.lift('count', function () {
+        'use strict';
+        window.console.count.apply(this, arguments);
     });
 
-    OJ.console.lift('error', function (msg) {
-        window.console.error(msg);
+    n$.console.lift('error', function () {
+        'use strict';
+        window.console.error.apply(this, arguments);
     });
 
-    OJ.console.lift('group', function (name) {
-        window.console.group(name);
+    n$.console.lift('group', function () {
+        'use strict';
+        window.console.group.apply(this, arguments);
     });
 
-    OJ.console.lift('groupCollapsed', function (name) {
-        window.console.groupCollapsed(name);
+    n$.console.lift('groupCollapsed', function () {
+        'use strict';
+        window.console.groupCollapsed.apply(this, arguments);
     });
 
-    OJ.console.lift('groupEnd', function (name) {
-        window.console.groupEnd(name);
+    n$.console.lift('groupEnd', function (name) {
+        'use strict';
+        window.console.groupEnd.apply(this, arguments);
     });
 
-    OJ.console.lift('info', function (msg) {
-        window.console.info(msg);
+    n$.console.lift('info', function (msg) {
+        'use strict';
+        window.console.info.apply(this, arguments);
     });
 
-    OJ.console.lift('log', function (msg) {
-        window.console.log(msg);
+    n$.console.lift('log', function (msg) {
+        'use strict';
+        window.console.log.apply(this, arguments);
     });
 
-    OJ.console.lift('profile', function (msg) {
-        window.console.profile(msg);
+    n$.console.lift('profile', function (msg) {
+        'use strict';
+        window.console.profile.apply(this, arguments);
     });
 
-    OJ.console.lift('profileEnd', function (msg) {
-        window.console.profileEnd(msg);
+    n$.console.lift('profileEnd', function (msg) {
+        'use strict';
+        window.console.profileEnd.apply(this, arguments);
     });
 
-    OJ.console.lift('table', function (msg) {
-        window.console.table(msg);
+    n$.console.lift('table', function (msg) {
+        'use strict';
+        window.console.table.apply(this, arguments);
     });
 
-    OJ.console.lift('time', function (msg) {
-        window.console.time(msg);
+    n$.console.lift('time', function (msg) {
+        'use strict';
+        window.console.time.apply(this, arguments);
     });
 
-    OJ.console.lift('timeEnd', function (msg) {
-        window.console.timeEnd(msg);
+    n$.console.lift('timeEnd', function (msg) {
+        'use strict';
+        window.console.timeEnd.apply(this, arguments);
     });
 
-    OJ.console.lift('trace', function (msg) {
-        window.console.trace(msg);
+    n$.console.lift('trace', function (msg) {
+        'use strict';
+        window.console.trace.apply(this, arguments);
     });
 
-    OJ.console.lift('warn', function (msg) {
-        window.console.warn(msg);
+    n$.console.lift('warn', function (msg) {
+        'use strict';
+        window.console.warn.apply(this, arguments);
     });
 
-}());
+}(window.$nameSpace$));

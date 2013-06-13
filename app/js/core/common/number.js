@@ -1,5 +1,5 @@
-/*global OJ:true*/
-(function() {
+/*global n$:true*/
+(function (n$) {
 
     var number = Object.create(null);
     Object.defineProperty(number, 'isNaN', { value:
@@ -38,5 +38,5 @@
         }())
     });
 
-    OJ.lift('number', number);
-}());
+    n$.lift('number', number);
+}(window.$nameSpace$));

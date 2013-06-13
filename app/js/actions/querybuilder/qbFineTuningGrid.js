@@ -1,14 +1,14 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global n$:true, window:true, Ext:true, $: true */
 
-(function() {
+(function(n$) {
     
     /**
         * Instance a collection of fields to describe a row in the SQL output table
     */
-    var SqlFineTuningModel = OJ.models.model({
-        name: 'Ext.OJ.SqlFineTuningModel',
-        fields: [
+    var SqlFineTuningModel = n$.models.model({
+        name: 'Ext.' + n$.name + '.SqlFineTuningModel',
+        dataTypeCollection: [
             ['id'],
             ['tableName'],
             ['tableId'],
@@ -26,27 +26,27 @@
         ]
     });
 
-    OJ.actions.querybuilder.lift('SqlFineTuningModel', SqlFineTuningModel);
+    n$.actions.querybuilder.lift('SqlFineTuningModel', SqlFineTuningModel);
 
     /**
      * Define the store
     */
-    var SqlFineTuningStore = OJ.stores.store({ name: 'Ext.OJ.SqlFineTuningStore', model: OJ.actions.querybuilder.SqlFineTuningModel });
+    var SqlFineTuningStore = n$.stores.store({ name: 'Ext.' + n$.name + '.SqlFineTuningStore', model: n$.actions.querybuilder.SqlFineTuningModel });
 
     /**
      * Put the class into the namespace
     */
-    OJ.actions.querybuilder.lift('SqlFineTuningStore', SqlFineTuningStore);
+    n$.actions.querybuilder.lift('SqlFineTuningStore', SqlFineTuningStore);
 
 
     /**
      * Define the grid
     */
-    var grid = OJ.grids.grid({
-        name: 'Ext.OJ.qbFineTuningGrid',
+    var grid = n$.grids.grid({
+        name: 'Ext.' + n$.name + '.qbFineTuningGrid',
         requires: ['Ext.ux.CheckColumn'],
         id: 'qbFineTuningGrid',
-        store: 'SqlFineTuningStore',//new OJ.actions.querybuilder.SqlFineTuningStore(),
+        store: 'SqlFineTuningStore',//new n$.actions.querybuilder.SqlFineTuningStore(),
         alias: ['widget.qbFineTuningGrid'],
         plugins: [window.Ext.create('Ext.grid.plugin.CellEditing', {
             clicksToEdit: 1
@@ -57,7 +57,7 @@
     /**
      * Add the listeners
     */
-    grid.listeners.add(OJ.grids.constants.listeners.render, function(view) {
+    grid.listeners.add(n$.grids.constants.listeners.render, function(view) {
             this.dd = {};
             this.dd.dropZone = new Ext.grid.ViewDropZone({
                 view: view,
@@ -67,10 +67,10 @@
                 }
             });
         })
-        .add(OJ.grids.constants.listeners.drop, function (node, data, dropRec, dropPosition) {
+        .add(n$.grids.constants.listeners.drop, function (node, data, dropRec, dropPosition) {
         // add new rows to the qbFineTuningGrid after a drop
-            OJ.each(data.records, function(rec) {
-                OJ.actions.sql.manager.select.fields.addFieldRecord(rec, false);
+            n$.each(data.records, function(rec) {
+                n$.actions.sql.manager.select.fields.addFieldRecord(rec, false);
             });
     });
     
@@ -112,9 +112,9 @@
     /**
      * Define the action column
     */
-    var actionColumn = OJ.grids.columns.actionColumn(false, 'Action', true);
+    var actionColumn = n$.grids.columns.actionColumn(false, 'Action', true);
     actionColumn.addItem(
-        OJ.grids.columns.columnItem('../images/sqlbuilder/up_arrow.gif', 'Move Column Up', function onGetClass(index) {
+        n$.grids.columns.columnItem('../images/sqlbuilder/up_arrow.gif', 'Move Column Up', function onGetClass(index) {
             return index === 0;
         },
         function onHandler(grid, rowIndex, colIndex) {
@@ -122,7 +122,7 @@
             moveGridRow(grid, rec, rowIndex, - 1);
         })
     ).addItem(
-        OJ.grids.columns.columnItem('../images/sqlbuilder/down_arrow.gif', 'Move Column Down', function onGetClass(index, store) {
+        n$.grids.columns.columnItem('../images/sqlbuilder/down_arrow.gif', 'Move Column Down', function onGetClass(index, store) {
             return ((index + 1) == store.getCount());
         },
         function onHandler(grid, rowIndex, colIndex) {
@@ -130,11 +130,11 @@
             moveGridRow(grid, rec, rowIndex, 1);
         })
     ).addItem(
-        OJ.grids.columns.columnItem('../images/sqlbuilder/remove.gif', 'Remove Column', null, function onHandler(grid, rowIndex, colIndex) {
+        n$.grids.columns.columnItem('../images/sqlbuilder/remove.gif', 'Remove Column', null, function onHandler(grid, rowIndex, colIndex) {
             var rec = grid.getStore().getAt(rowIndex),
             store, tableId, tableGrid, selectionModel, bDel = true;
             // rec contains column grid model, the one to remove
-            // get tableId of original qbSqlWindow
+            // get tableId of original qbSqlWindowTable
             tableId = rec.get('extCmpId');
             // get the sql tables grid and its selection
             tableGrid = Ext.getCmp(tableId).down('gridpanel');
@@ -160,18 +160,18 @@
      * Define the columns
     */
     grid.columnCollection.add(actionColumn)
-        .add(OJ.grids.columns.checkColumn(false, 'Output', true))
-        .add(OJ.grids.columns.gridColumn(false, 'Expression', true, 0.225, 'textfield'))
-        .add(OJ.grids.columns.gridColumn(false, 'Aggregate', true, null, 'textfield'))
-        .add(OJ.grids.columns.gridColumn(false, 'Alias', true, null, 'textfield'))
-        .add(OJ.grids.columns.gridColumn(false, 'Sort Type', true))
-        .add(OJ.grids.columns.gridColumn(false, 'Sort Order', true))
-        .add(OJ.grids.columns.checkColumn(false, 'Grouping', true))
-        .add(OJ.grids.columns.gridColumn(false, 'Criteria', true, null, 'textfield'));
+        .add(n$.grids.columns.checkColumn(false, 'Output', true))
+        .add(n$.grids.columns.gridColumn(false, 'Expression', true, 0.225, 'textfield'))
+        .add(n$.grids.columns.gridColumn(false, 'Aggregate', true, null, 'textfield'))
+        .add(n$.grids.columns.gridColumn(false, 'Alias', true, null, 'textfield'))
+        .add(n$.grids.columns.gridColumn(false, 'Sort Type', true))
+        .add(n$.grids.columns.gridColumn(false, 'Sort Order', true))
+        .add(n$.grids.columns.checkColumn(false, 'Grouping', true))
+        .add(n$.grids.columns.gridColumn(false, 'Criteria', true, null, 'textfield'));
     
     /**
      *Create the grid
     */
     grid.init();
 
-}());
+}(window.$nameSpace$));

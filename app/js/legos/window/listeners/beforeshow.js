@@ -1,13 +1,15 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global n$:true, window:true, Ext:true, $: true */
 
-(function _afterrenderIIFE() {
+(function _beforeshowIIFE(n$) {
 
-     /**
-      * Create a new render listener;
-     */
-      OJ.okna.listeners.lift('beforeshow', function (callBack){
-          if (callBack) {
+   n$.okna.listeners.lift('beforeshow',
+         /**
+          * Create a new render listener;
+         */
+        function (callBack) {
+            'use strict';
+            if (callBack) {
               //http://docs.sencha.com/extjs/4.1.3/#!/api/Ext.window.Window-event-beforeshow
 
               /**
@@ -16,10 +18,11 @@
                * @param eOpts {Object} arbitrary Ext props
               */
               return function (extView, eOpts) {
+                  'use strict';
                   callBack.call(extView, extView, eOpts);
               };
           }
       });
 
 
-      }());
+}(window.$nameSpace$));

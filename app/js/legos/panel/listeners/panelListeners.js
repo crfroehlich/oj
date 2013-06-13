@@ -1,24 +1,25 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global n$:true, window:true, Ext:true, $: true */
 
-(function _listenerIIFE() {
+(function _listenerIIFE(n$) {
 
     /**
      * Define the listener methods which are available to this class.
     */
-    var panelListeners = Object.create(null);
+    var panelListeners = n$.object();
     panelListeners.afterlayout = 'afterlayout';
-
-    OJ.constant(OJ.panels, 'listeners', panelListeners);
-
-    /**
-     * Create a new listeners collection. This returns a listeners object with an add method.
-    */
-    OJ.panels.listeners.lift('listeners', function () {
-        var ret = OJ.makeListeners('panelListeners', 'panels');
-        return ret;
-    });
+    n$.constant(n$.panels, 'listeners', panelListeners);
 
 
+    n$.panels.listeners.lift('listeners',
+        /**
+         * Create a new listeners collection. This returns a listeners object with an add method.
+        */
+        function panellisteners() {
+            'use strict';
+            var ret = n$.makeListeners('panelListeners', 'panels');
+            return ret;
+        });
+    
 
-}());
+}(window.$nameSpace$));

@@ -1,35 +1,35 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global window:true, Ext:true, $: true */
 
 /**
 * The Table Store represents the data bound to a Database Table
 */
-(function _joinsStoreIIFE() {
+(function _joinsStoreIIFE(n$) {
 
-    
+
     /**
-     * Instance a collection of fields to describe a table in the table Tree
+     * Instance a data type collection to describe a table in the table Tree
     */
-    var SqlTableNameModel = OJ.models.model({
-        name: 'Ext.OJ.SqlTableNameModel',
-        fields: [
+    var SqlTableNameModel = n$.models.model({
+        name: 'Ext.' + n$.name + '.SqlTableNameModel',
+        dataTypeCollection: [
             ['id'],
             ['tableName'],
             ['tableAlias']
         ]
     });
 
-    OJ.actions.querybuilder.lift('SqlTableNameModel', SqlTableNameModel);
+    n$.actions.querybuilder.lift('SqlTableNameModel', SqlTableNameModel);
 
     /**
      * Define the store
     */
-    var SqlTableNameStore = OJ.stores.store({ name: 'Ext.OJ.SqlTableNameStore', model: OJ.actions.querybuilder.SqlTableNameModel });
-    
+    var SqlTableNameStore = n$.stores.store({ name: 'Ext.' + n$.name + '.SqlTableNameStore', model: n$.actions.querybuilder.SqlTableNameModel });
+
     /**
      * Put the class into the namespace
     */
-    OJ.actions.querybuilder.lift('SqlTableNameStore', SqlTableNameStore);
-    
+    n$.actions.querybuilder.lift('SqlTableNameStore', SqlTableNameStore);
 
-}());
+
+}(window.$nameSpace$));

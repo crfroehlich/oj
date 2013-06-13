@@ -1,6 +1,6 @@
 /* global window:true, Ext:true */
 
-(function() {
+(function(n$) {
 
     var initTreeDragZone = function(thisTree, t) {
         // init tree view as a ViewDragZone
@@ -16,36 +16,36 @@
     /**
      * Define the grid
     */
-    var tree = OJ.trees.tree({
-        name: 'Ext.OJ.qbTablesTree',
+    var tree = n$.trees.tree({
+        name: 'Ext.' + n$.name + '.qbTablesTree',
         alias: ['widget.qbTablesTree'],
         id: 'qbTablesTree',
         //TODO: expose
-        store: OJ.trees.treeStore({
+        store: n$.trees.treeStore({
             rootText: 'Tables',
             children: [
-                OJ.trees.treeNode({ text: 'library' }),
-                OJ.trees.treeNode({ text: 'shelf' }),
-                OJ.trees.treeNode({ text: 'floor' }),
-                OJ.trees.treeNode({ text: 'room' }),
-                OJ.trees.treeNode({ text: 'book' })]
+                n$.trees.treeNode({ text: 'library' }),
+                n$.trees.treeNode({ text: 'shelf' }),
+                n$.trees.treeNode({ text: 'floor' }),
+                n$.trees.treeNode({ text: 'room' }),
+                n$.trees.treeNode({ text: 'book' })]
         })
     });
 
     /**
      * Add the listeners
     */
-    tree.listeners.add(OJ.trees.constants.listeners.afterrender, function (extView, eOpts) {
+    tree.listeners.add(n$.trees.constants.listeners.afterrender, function (extView, eOpts) {
         var that = extView;
         initTreeDragZone(that, tree);
     });
 
-    tree.listeners.add(OJ.trees.constants.listeners.itemdblclick, function (extView, record, item, index, e, eOpts) {
+    tree.listeners.add(n$.trees.constants.listeners.itemdblclick, function (extView, record, item, index, e, eOpts) {
         var qbTablePanel;
-        // add a qbSqlWindow to the qbTablePanel component
+        // add a qbSqlWindowTable to the qbTablePanel component
         qbTablePanel = Ext.getCmp('qbTablePanel');
         qbTablePanel.add({
-            xtype: 'qbSqlWindow',
+            xtype: 'qbSqlWindowTable',
             constrain: true,
             title: record.get('text')
         }).show();
@@ -53,6 +53,6 @@
     
     tree.init();
 
-}());
+}(window.$nameSpace$));
 
 

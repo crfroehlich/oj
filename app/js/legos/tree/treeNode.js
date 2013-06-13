@@ -1,60 +1,64 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global n$:true, window:true, Ext:true, $: true */
 
-(function _treelIIFE() {
+(function _treelIIFE(n$) {
 
     /**
-     * Private class representing the construnction of a tree node. It returns a OJ.tree.treeNode instance.
+     * Private class representing the construnction of a tree node. It returns a n$.tree.treeNode instance.
      * @param text {String} The text to display
      * @param children {Array} [children] An array of tree node children
      * @param expanded {Boolean} [expanded=false] If children are provided, true to render the node expanded
      * @param leaf {Boolean} [leaf] If true, render the node as a leaf of the tree
      * @param allowDrop {Boolean} [allowDrop=false] If true, allow the node to be dropped
     */
-    var TreeNode = function(text, children, expanded, leaf, allowDrop) {
+    var TreeNode = function (text, children, expanded, leaf, allowDrop) {
+        'use strict';
         var that = this;
 
         if (text) {
-            OJ.property(that, 'text', text);
+            n$.property(that, 'text', text);
         }
         if (!children) {
             leaf = true;
         } else {
-            OJ.property(that, 'children', children);
+            n$.property(that, 'children', children);
             if (true !== expanded) {
                 expanded = false;
             }
-            OJ.property(that, 'expanded', expanded);
+            n$.property(that, 'expanded', expanded);
         }
         if (true === leaf) {
-            OJ.property(that, 'leaf', true);
+            n$.property(that, 'leaf', true);
         }
         if (true !== allowDrop) {
             allowDrop = false;
         }
-        OJ.property(that, 'allowDrop', allowDrop);
-        
+        n$.property(that, 'allowDrop', allowDrop);
+
         return that;
     };
 
-    OJ.instanceOf.lift('TreeNode', TreeNode);
+    n$.instanceOf.lift('TreeNode', TreeNode);
 
-    /**
-     * Create a tree node object.
-     * @param nodeDef.text {String} The text to display
-     * @param nodeDef.children {Array} [children] An array of tree node children
-     * @param nodeDef.expanded {Boolean} [expanded=false] If children are provided, true to render the node expanded
-     * @param nodeDef.leaf {Boolean} [leaf] If true, render the node as a leaf of the tree
-     * @param nodeDef.allowDrop {Boolean} [allowDrop=false] If true, allow the node to be dropped
-     * @returns {OJ.trees.treeNode} A tree object. Exposese listeners and columns collections. Call init when ready to construct the tree. 
-    */
-    OJ.trees.lift('treeNode', function(nodeDef) {
-        if (!(nodeDef)) {
-            throw new Error('Cannot instance a tree node without properties');
-        }
-        var node = new TreeNode(nodeDef.text, nodeDef.children, nodeDef.expanded, nodeDef.leaf, nodeDef.allowDrop);
-        return node;
-    });
+    n$.trees.lift('treeNode',
+
+        /**
+         * Create a tree node object.
+         * @param nodeDef.text {String} The text to display
+         * @param nodeDef.children {Array} [children] An array of tree node children
+         * @param nodeDef.expanded {Boolean} [expanded=false] If children are provided, true to render the node expanded
+         * @param nodeDef.leaf {Boolean} [leaf] If true, render the node as a leaf of the tree
+         * @param nodeDef.allowDrop {Boolean} [allowDrop=false] If true, allow the node to be dropped
+         * @returns {Csw.trees.treeNode} A tree object. Exposese listeners and columns collections. Call init when ready to construct the tree. 
+        */
+        function treeNode(nodeDef) {
+            'use strict';
+            if (!(nodeDef)) {
+                throw new Error('Cannot instance a tree node without properties');
+            }
+            var node = new TreeNode(nodeDef.text, nodeDef.children, nodeDef.expanded, nodeDef.leaf, nodeDef.allowDrop);
+            return node;
+        });
 
 
-}());
+}(window.$nameSpace$));

@@ -1,13 +1,13 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global n$:true, window:true, Ext:true, $: true */
 
-(function () {
+(function (n$) {
 
     var startDrag = function(id) {
         var me = this,
             win, qbTablePanel, xyParentPos, xyChildPos;
 
-        // get a reference to a qbSqlWindow
+        // get a reference to a qbSqlWindowTable
         win = Ext.getCmp(id);
 
         // get the main qbTablePanel
@@ -16,7 +16,7 @@
         // get the main qbTablePanel position
         xyParentPos = qbTablePanel.el.getXY();
 
-        // get the size of the previously added qbSqlWindow
+        // get the size of the previously added qbSqlWindowTable
         xyChildPos = win.el.getXY();
 
         me.prev = me.surface.transformToViewBox(xyChildPos[0] - xyParentPos[0] + 2, xyChildPos[1] - xyParentPos[1] + 2);
@@ -36,19 +36,19 @@
         }, true);
     };
 
-    var spriteDef = OJ.classDefinition({
-        name: 'Ext.OJ.SqlTableJoinSprite',
+    var spriteDef = n$.classDefinition({
+        name: 'Ext.' + n$.name + '.SqlTableJoinSprite',
         extend: 'Ext.draw.Sprite',
         alias: ['widget.SqlTableJoinSprite'],
         onDefine: function(classDef) {
-            OJ.property(classDef, 'bConnections', false);
-            OJ.property(classDef, 'startDrag', startDrag);
-            OJ.property(classDef, 'onDrag', onDrag);
+            n$.property(classDef, 'bConnections', false);
+            n$.property(classDef, 'startDrag', startDrag);
+            n$.property(classDef, 'onDrag', onDrag);
         }
     });
 
     var sprite = spriteDef.init();
 
-    OJ.actions.querybuilder.lift('SqlTableJoinSprite', sprite);
+    n$.actions.querybuilder.lift('SqlTableJoinSprite', sprite);
 
-}());
+}(window.$nameSpace$));

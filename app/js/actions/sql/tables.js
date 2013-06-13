@@ -1,10 +1,10 @@
 /* jshint undef: true, unused: true */
 /* global Ext  */
 
-(function () {
+(function (n$) {
 
     var tables = function(select) {
-        var ret = new OJ.actions.querybuilder.SqlTableNameStore({
+        var ret = new n$.actions.querybuilder.SqlTableNameStore({
             storeId: 'SqlTableNameStore'
         });
 
@@ -57,6 +57,6 @@
     };
 
 
-    OJ.actions.sql.lift('tables', tables);
+    n$.actions.sql.lift('tables', tables);
 
-}());
+}(window.$nameSpace$));

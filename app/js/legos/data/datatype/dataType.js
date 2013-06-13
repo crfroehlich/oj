@@ -1,38 +1,43 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global n$:true, window:true, Ext:true, $: true */
 
-(function _fieldIIFE() {
+(function _dataTypeIIFE(n$) {
 
-     /**
-      * The private constructor for a Field object.
-      * @param defaultValue {String} [defaultValue] A default value
-     */
-      var Field = function (name, type, defaultValue) {
-          var that = this;
-          OJ.property(that, 'type', type || 'string');
-          OJ.property(that, 'name', name);
-         
-          if(defaultValue) {
-              OJ.property(that, 'defaultValue', defaultValue);
-          }
-          return that;
-      };
+    /**
+     * Data Types: the meta data attributes for a value (e.g. the value of a cell in a grid, or the value of a node in a tree, or the value of an input text box)
+    */
+    n$.makeSubNameSpace('dataTypes');
 
-      OJ.instanceOf.lift('Field', Field);
+    /**
+     * The private constructor for a DataType object.
+     * @param defaultValue {String} [defaultValue] A default value
+    */
+    var DataType = function (name, type, defaultValue) {
+        var that = this;
+        n$.property(that, 'type', type || 'string');
+        n$.property(that, 'name', name);
 
-     /**
-      * Create a new field
-      * @param namme {String} A unique name for this field
-      * @param type {String} [type='string'] The display type of this field
-      * @param defaultValue {String} [defaultValue] A default value
-     */
-      OJ.fields.lift('field', function (name, type, defaultValue){
-          if (!name) {
-              throw new Error('Cannot create a field without a name');
-          }
-          var ret = new Field(name, type, defaultValue);
-          return ret;
-      });
+        if (defaultValue) {
+            n$.property(that, 'defaultValue', defaultValue);
+        }
+        return that;
+    };
+
+    n$.instanceOf.lift('DataType', DataType);
+
+    /**
+     * Create a new dataType
+     * @param namme {String} A unique name for this dataType
+     * @param type {String} [type='string'] The display type of this dataType
+     * @param defaultValue {String} [defaultValue] A default value
+    */
+    n$.dataTypes.lift('type', function (name, type, defaultValue) {
+        if (!name) {
+            throw new Error('Cannot create a dataType without a name');
+        }
+        var ret = new DataType(name, type, defaultValue);
+        return ret;
+    });
 
 
-      }());
+}(window.$nameSpace$));

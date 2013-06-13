@@ -1,8 +1,9 @@
-/*global OJ:true*/
-(function _Error(){
+/*global n$:true*/
+(function _Error(n$){
 
 
-    var AssignmentError = OJ.Class('AssignmentError', Error, function _AE(message, fileName, lineNumber) {
+    var AssignmentError = n$.Class('AssignmentError', Error, function _AE(message, fileName, lineNumber) {
+        'use strict';
         var error = this;
         
         error.name = "AssignmentError";
@@ -16,11 +17,12 @@
         return error;
     });
 
-    OJ.errors.lift('AssignmentError', function(message, fileName, lineNumber){
+    n$.errors.lift('AssignmentError', function(message, fileName, lineNumber){
         return new AssignmentError(message, fileName, lineNumber);
     });
 
-    var ClassInheritanceError = OJ.Class('ClassInheritanceError', Error, function _CIE(message, fileName, lineNumber) {
+    var ClassInheritanceError = n$.Class('ClassInheritanceError', Error, function _CIE(message, fileName, lineNumber) {
+        'use strict';
         var error = this;
         
         error.name = "ClassInheritanceError";
@@ -34,8 +36,9 @@
         return error;
     });
 
-    OJ.errors.lift('ClassInheritanceError', function(message, fileName, lineNumber){
+    n$.errors.lift('ClassInheritanceError', function(message, fileName, lineNumber){
+        'use strict';
         return new ClassInheritanceError(message, fileName, lineNumber);
     });
 
-}());
+}(window.$nameSpace$));

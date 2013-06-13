@@ -1,32 +1,32 @@
-/*global OJ:true*/
-(function(){
+/*global n$:true*/
+(function(n$){
 
-    OJ.lift('tryExec', function(func) {
+    n$.lift('tryExec', function(func) {
         'use strict';
         var ret = false;
         try {
-            if (OJ.is.func(func)) {
+            if (n$.is.func(func)) {
                 ret = func.apply(this, Array.prototype.slice.call(arguments, 1));
             }
         } catch(exception) {
             if ((exception.name !== 'TypeError' ||
                 exception.type !== 'called_non_callable') &&
                 exception.type !== 'non_object_property_load') { /* ignore errors failing to exec self-executing functions */
-                OJ.console.error(exception);
+                n$.console.error(exception);
             }
         } finally {
             return ret;
         }
     });
 
-    OJ.lift('method', function(func) {
+    n$.lift('method', function(func) {
         'use strict';
         var that = this;
         return function() {
             var args = Array.prototype.slice.call(arguments, 0);
             args.unshift(func);
-            return OJ.tryExec.apply(that, args);
+            return n$.tryExec.apply(that, args);
         };
     });
 
-}());
+}(window.$nameSpace$));

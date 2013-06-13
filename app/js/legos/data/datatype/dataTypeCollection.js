@@ -1,44 +1,42 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global window:true, Ext:true, $: true */
 
-(function _fieldsIIFE() {
+(function _dataTypeCollectionIIFE(n$) {
 
-    //OJ.dependsOn(['OJ.models.field'], function () {
-
+    /**
+     * Defines a collection of data types
+     * @constructor
+     * @internal
+     */
+    var DataTypeCollection = function () {
+        var that = this;
         /**
-         * Defines a collection of fields
-         */
-        var Fields = function() {
-            var that = this;
+        * Get the value of the data type collection
+        */
+        n$.property(that, 'value', []);
+
+        n$.property(that, 'add',
             /**
-            * Get the value of the fields collection
+             * Add a validated data type to the collection
             */
-            OJ.property(that, 'value', []);
-
-            OJ.property(that, 'add', 
-                /**
-                 * Add a validated field to the collection
-                */
-                function (field) {
-                    if (!(field instanceof OJ.instanceOf.Field)) {
-                        throw new Error('Only fields can be added to the Fields collection');
-                    }
-                    that.value.push(field);
-                    return that;
+            function (dataType) {
+                if (!(dataType instanceof n$.instanceOf.DataType)) {
+                    throw new Error('Only fields can be added to the Fields collection');
+                }
+                that.value.push(dataType);
+                return that;
             });
-            return that;
-        };
+        return that;
+    };
 
-        OJ.instanceOf.lift('Fields', Fields);
+    n$.instanceOf.lift('DataTypeCollection', DataTypeCollection);
 
-        /**
-         * A mechanism for generating fields
-         */
-        OJ.fields.lift('fields', function() {
-            var ret = new Fields();
-            return ret;
-        });
+    /**
+     * A mechanism for generating data type
+     */
+    n$.dataTypes.lift('collection', function () {
+        var ret = new DataTypeCollection();
+        return ret;
+    });
 
-    //});
-
-}());
+}(window.$nameSpace$));

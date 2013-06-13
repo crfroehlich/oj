@@ -1,10 +1,10 @@
 /* jshint undef: true, unused: true */
-/* global OJ:true, window:true, Ext:true, $: true */
+/* global n$:true, window:true, Ext:true, $: true */
 
-(function () {
+(function (n$) {
 
     var onInit = function (thisGrid) {
-        thisGrid.columns = [OJ.grids.columns.rendererColumn({
+        thisGrid.columns = [n$.grids.columns.rendererColumn({
             width: 16,
             dataIndex: 'key',
             onRender: function (val, meta, model) {
@@ -14,7 +14,7 @@
                 return '&nbsp;';
             }
         }),
-            OJ.grids.columns.rendererColumn({
+            n$.grids.columns.rendererColumn({
                 flex: 1,
                 dataIndex: 'field',
                 onRender: function (val, meta, model) {
@@ -26,15 +26,15 @@
                 }
             })];
 
-        var SelModel = OJ.stores.selectionModel({
+        var SelModel = n$.stores.selectionModel({
             checkOnly: true,
             onSelect: function (selModel, data) {
                 // add new rows to the qbFineTuningGrid after a selection change
-                OJ.actions.sql.manager.select.fields.addFieldRecord(data, true);
+                n$.actions.sql.manager.select.fields.addFieldRecord(data, true);
             },
             onDeselect: function (selModel, data) {
                 // remove row from qbFineTuningGrid after deselection
-                OJ.actions.sql.manager.select.fields.removeFieldById(data.get('id'));
+                n$.actions.sql.manager.select.fields.removeFieldById(data.get('id'));
             }
         });
 
@@ -45,35 +45,35 @@
     /**
      * Define the grid
     */
-    var grid = OJ.grids.grid({
-        name: 'Ext.OJ.qbTableGrid',
+    var grid = n$.grids.grid({
+        name: 'Ext.' + n$.name + '.qbTableGrid',
         alias: ['widget.qbTableGrid'],
         onInit: onInit
     });
 
-    grid.addProp(OJ.grids.constants.properties.hideHeaders, true);
-    grid.addProp(OJ.grids.constants.properties.border, false);
+    grid.addProp(n$.grids.constants.properties.hideHeaders, true);
+    grid.addProp(n$.grids.constants.properties.border, false);
 
 
     /**
      * Add the listeners
     */
-    grid.listeners.add(OJ.grids.constants.listeners.bodyscroll, function () {
-        var scrollOffset, qbSqlWindow;
+    grid.listeners.add(n$.grids.constants.listeners.bodyscroll, function () {
+        var scrollOffset, qbSqlWindowTable;
         // the bodyscroll event of the view was fired
         // get scroll information
         scrollOffset = this.el.getScroll();
-        // get the parent qbSqlWindow
-        qbSqlWindow = this.up('qbSqlWindow');
+        // get the parent qbSqlWindowTable
+        qbSqlWindowTable = this.up('qbSqlWindowTable');
         // change shadowSprites scrollTop property
-        qbSqlWindow.shadowSprite.scrollTop = scrollOffset.top;
+        qbSqlWindowTable.shadowSprite.scrollTop = scrollOffset.top;
         // redraw all connections to reflect scroll action
-        for (var i = OJ.actions.sql.manager.connections.length; i--;) {
-            qbSqlWindow.connection(OJ.actions.sql.manager.connections[i]);
+        for (var i = n$.actions.sql.manager.connections.length; i--;) {
+            qbSqlWindowTable.connection(n$.actions.sql.manager.connections[i]);
         }
     });
 
-    grid.listeners.add(OJ.grids.constants.listeners.render, function (view) {
+    grid.listeners.add(n$.grids.constants.listeners.render, function (view) {
         this.dd = {};
         // init the view as a DragZone
         this.dd.dragZone = new Ext.view.DragZone({
@@ -129,7 +129,7 @@
         });
     });
 
-    grid.listeners.add(OJ.grids.constants.listeners.drop, function (node, data, dropRec, dropPosition) {
+    grid.listeners.add(n$.grids.constants.listeners.drop, function (node, data, dropRec, dropPosition) {
         var sqlTable1, sqlTable2, showJoinCM, connection, aBBPos, join, joinCondition = '',
             dropTable, targetTable;
 
@@ -149,8 +149,8 @@
                     text: 'Remove Join',
                     icon: 'resources/images/remove.gif',
                     handler: Ext.Function.bind(function () {
-                        // remove any connection lines from surface and from array OJ.actions.sql.manager.connections
-                        OJ.actions.sql.manager.connections = Ext.Array.filter(OJ.actions.sql.manager.connections, function (connection) {
+                        // remove any connection lines from surface and from array n$.actions.sql.manager.connections
+                        n$.actions.sql.manager.connections = Ext.Array.filter(n$.actions.sql.manager.connections, function (connection) {
                             var bRemove = true;
                             if (this.uuid == connection.uuid) {
                                 this.line.remove();
@@ -161,7 +161,7 @@
                             }
                             return bRemove;
                         }, this);
-                        OJ.actions.sql.manager.select.joins.removeJoinById(this.uuid);
+                        n$.actions.sql.manager.select.joins.removeJoinById(this.uuid);
                     }, this)
                 }, {
                     text: 'Close Menu',
@@ -180,8 +180,8 @@
             sqlTable2 = Ext.getCmp(node.boundView).up('window');
             sqlTable2.shadowSprite.bConnections = true;
 
-            dropTable = OJ.actions.sql.manager.select.tables.getTableById(sqlTable1.tableId);
-            targetTable = OJ.actions.sql.manager.select.tables.getTableById(sqlTable2.tableId);
+            dropTable = n$.actions.sql.manager.select.tables.getTableById(sqlTable1.tableId);
+            targetTable = n$.actions.sql.manager.select.tables.getTableById(sqlTable2.tableId);
 
             aBBPos = [data.item.viewIndex, node.viewIndex];
 
@@ -190,7 +190,7 @@
             sqlTable1.connectionUUIDs.push(connection.uuid);
             sqlTable2.connectionUUIDs.push(connection.uuid);
 
-            OJ.actions.sql.manager.connections.push(connection);
+            n$.actions.sql.manager.connections.push(connection);
 
             // bgLine is white(invisble) and its stroke-width is 10
             // so it is easier to capture the dblclick event
@@ -200,8 +200,8 @@
             connection.line.el.on('contextmenu', showJoinCM, connection);
 
             // create an instance of the join model
-            //join = Ext.create('Ext.OJ.SqlDragDropTableJoinModel');
-            join = new OJ.actions.querybuilder.SqlDragDropTableJoinModel();
+            //join = Ext.create('Ext.' + n$.name + '.SqlDragDropTableJoinModel');
+            join = new n$.actions.querybuilder.SqlDragDropTableJoinModel();
             // set join id
             join.set('id', connection.uuid);
             // sqlTable1 is the left table
@@ -228,11 +228,11 @@
             }
 
             join.set('joinCondition', joinCondition);
-            OJ.actions.sql.manager.select.joins.addJoin(join);
+            n$.actions.sql.manager.select.joins.addJoin(join);
         }
 
     });
 
     grid.init();
 
-}());
+}(window.$nameSpace$));

@@ -1,10 +1,10 @@
 /* jshint undef: true, unused: true */
 /* global Ext  */
 
-(function () {
+(function (n$) {
 
     var fields = function (select) {
-        var ret = new OJ.actions.querybuilder.SqlFineTuningStore({
+        var ret = new n$.actions.querybuilder.SqlFineTuningStore({
             storeId: 'SqlFineTuningStore'
         });
 
@@ -94,7 +94,7 @@
             model.set('field', record.get('field'));
             // copy tableId to the new model instance
             model.set('tableId', record.get('tableId'));
-            // copy cmp id of origin qbSqlWindow to the new model instance
+            // copy cmp id of origin qbSqlWindowTable to the new model instance
             model.set('extCmpId', record.get('extCmpId'));
             ret.addField(model);
             return ret;
@@ -106,13 +106,13 @@
         };
 
         ret.getNewField = function() {
-            return new OJ.actions.querybuilder.SqlFineTuningModel();
+            return new n$.actions.querybuilder.SqlFineTuningModel();
         };
 
         return ret;
     };
 
 
-    OJ.actions.sql.lift('fields', fields);
+    n$.actions.sql.lift('fields', fields);
 
-}());
+}(window.$nameSpace$));
