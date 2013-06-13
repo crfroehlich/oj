@@ -3,93 +3,100 @@
 <html class="x-border-box x-strict">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title>OJ Visual SQL Query Builder
+    <title>ChemSW Visual SQL Query Builder
     </title>
 
-    <link rel="stylesheet" href="../vendor/extJS-4.1.0/resources/css/ext-all-scoped.css" type="text/css">
+    <!--<link rel="stylesheet" href="../vendor/extJS-4.1.0/resources/css/ext-all-scoped.css" type="text/css">-->
+    <link rel="stylesheet" href="//cdn.sencha.io/ext-4.1.1a-gpl/resources/css/ext-all-scoped.css" type="text/css">
     <link href="../Content/shCore.css" rel="stylesheet" type="text/css">
     <link href="../Content/shThemeDefault.css" rel="stylesheet" type="text/css">
 
-    <link href="app/css/OJ.css" rel="stylesheet" type="text/css">
-
+    <link href="nameSpace.css" rel="stylesheet" type="text/css">
+    
+    <script type="text/javascript" src="//cdn.sencha.io/ext-4.1.1a-gpl/ext-all-debug.js"></script>
+    <script type="text/javascript" src="//cdn.sencha.io/ext-4.1.1a-gpl/examples/ux/CheckColumn.js"></script>
+    <!--
     <script type="text/javascript" src="../vendor/extJS-4.1.0/ext-all-debug.js"></script>
-    <!--<script type="text/javascript" src="../vendor/extJS-4.1.0/ext-all.js"></script>-->
+    <script type="text/javascript" src="../vendor/extJS-4.1.0/ux/CheckColumn.js"></script>
+    -->
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.2/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/q.js/0.9.2/q.min.js"></script>
 
     <script type="text/javascript" src="../vendor/shCore.js"></script>
     <script type="text/javascript" src="../vendor/shBrushSql.js"></script>
-    <script type="text/javascript" src="app/js/core/integrations/OJ.afterExt.js"></script>
-    <script type="text/javascript" src="../vendor/extJS-4.1.0/ux/CheckColumn.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+    <script type="text/javascript" src="core/integrations/afterExt.js"></script>
+    
+    <script type="text/javascript" src="nameSpace.js"></script>
+    <script type="text/javascript" src="initChildNamespaces.js"></script>
+    <script type="text/javascript" src="core/definitions/classDefinition.js"></script>
+    <script type="text/javascript" src="core/definitions/listeners.js"></script>
+    <script type="text/javascript" src="core/tools/uuid.js"></script>
+    <script type="text/javascript" src="core/tools/each.js"></script>
+    <script type="text/javascript" src="core/tools/constant.js"></script>
+    <script type="text/javascript" src="core/tools/property.js"></script>
+    <script type="text/javascript" src="core/tools/object.js"></script>
 
-    <script type="text/javascript" src="app/js/OJ.js"></script>
-    <script type="text/javascript" src="app/js/OJ.initNamespaces.js"></script>
-    <script type="text/javascript" src="app/js/core/definitions/OJ.classDefinition.js"></script>
-    <script type="text/javascript" src="app/js/core/definitions/OJ.listeners.js"></script>
-    <script type="text/javascript" src="app/js/core/tools/OJ.uuid.js"></script>
-    <script type="text/javascript" src="app/js/core/tools/OJ.each.js"></script>
-    <script type="text/javascript" src="app/js/core/tools/OJ.constant.js"></script>
-    <script type="text/javascript" src="app/js/core/tools/OJ.property.js"></script>
-    <script type="text/javascript" src="app/js/core/tools/OJ.object.js"></script>
+    <script type="text/javascript" src="legos/data/datatype/dataType.js"></script>
+    <script type="text/javascript" src="legos/data/datatype/dataTypeCollection.js"></script>
 
-    <script type="text/javascript" src="app/js/legos/field/OJ.field.js"></script>
-    <script type="text/javascript" src="app/js/legos/field/OJ.fields.js"></script>
+    <script type="text/javascript" src="legos/data/model/model.js"></script>
 
-    <script type="text/javascript" src="app/js/legos/model/OJ.model.js"></script>
+    <script type="text/javascript" src="legos/data/stores/proxy.js"></script>
+    <script type="text/javascript" src="legos/data/stores/store.js"></script>
+    <script type="text/javascript" src="legos/data/stores/selectionModel.js"></script>
 
-    <script type="text/javascript" src="app/js/legos/stores/OJ.proxy.js"></script>
-    <script type="text/javascript" src="app/js/legos/stores/OJ.store.js"></script>
-    <script type="text/javascript" src="app/js/legos/stores/OJ.selectionModel.js"></script>
+    <script type="text/javascript" src="legos/grid/columns/column.js"></script>
+    <script type="text/javascript" src="legos/grid/columns/columns.js"></script>
+    <script type="text/javascript" src="legos/grid/columns/actionColumn.js"></script>
+    <script type="text/javascript" src="legos/grid/columns/columnItem.js"></script>
+    <script type="text/javascript" src="legos/grid/columns/checkColumn.js"></script>
+    <script type="text/javascript" src="legos/grid/columns/gridColumn.js"></script>
+    <script type="text/javascript" src="legos/grid/columns/rendererColumn.js"></script>
+    <script type="text/javascript" src="legos/grid/listeners/gridListeners.js"></script>
+    <script type="text/javascript" src="legos/grid/listeners/bodyscroll.js"></script>
+    <script type="text/javascript" src="legos/grid/listeners/drop.js"></script>
+    <script type="text/javascript" src="legos/grid/listeners/render.js"></script>
+    <script type="text/javascript" src="legos/grid/grid.js"></script>
 
-    <script type="text/javascript" src="app/js/legos/grid/columns/OJ.column.js"></script>
-    <script type="text/javascript" src="app/js/legos/grid/columns/OJ.columns.js"></script>
-    <script type="text/javascript" src="app/js/legos/grid/columns/OJ.actionColumn.js"></script>
-    <script type="text/javascript" src="app/js/legos/grid/columns/OJ.columnItem.js"></script>
-    <script type="text/javascript" src="app/js/legos/grid/columns/OJ.checkColumn.js"></script>
-    <script type="text/javascript" src="app/js/legos/grid/columns/OJ.gridColumn.js"></script>
-    <script type="text/javascript" src="app/js/legos/grid/columns/OJ.rendererColumn.js"></script>
-    <script type="text/javascript" src="app/js/legos/grid/listeners/OJ.gridListeners.js"></script>
-    <script type="text/javascript" src="app/js/legos/grid/listeners/OJ.bodyscroll.js"></script>
-    <script type="text/javascript" src="app/js/legos/grid/listeners/OJ.drop.js"></script>
-    <script type="text/javascript" src="app/js/legos/grid/listeners/OJ.render.js"></script>
-    <script type="text/javascript" src="app/js/legos/grid/OJ.grid.js"></script>
+    <script type="text/javascript" src="legos/panel/listeners/afterLayout.js"></script>
+    <script type="text/javascript" src="legos/panel/listeners/panelListeners.js"></script>
+    <script type="text/javascript" src="legos/panel/panel.js"></script>
 
-    <script type="text/javascript" src="app/js/legos/panel/listeners/OJ.afterLayout.js"></script>
-    <script type="text/javascript" src="app/js/legos/panel/listeners/OJ.panelListeners.js"></script>
-    <script type="text/javascript" src="app/js/legos/panel/OJ.panel.js"></script>
+    <script type="text/javascript" src="legos/tree/treeNode.js"></script>
+    <script type="text/javascript" src="legos/tree/treeStore.js"></script>
+    <script type="text/javascript" src="legos/tree/tree.js"></script>
+    <script type="text/javascript" src="legos/tree/listeners/treeListeners.js"></script>
+    <script type="text/javascript" src="legos/tree/listeners/itemdbclick.js"></script>
+    <script type="text/javascript" src="legos/tree/listeners/afterrender.js"></script>
 
-    <script type="text/javascript" src="app/js/legos/tree/OJ.treeNode.js"></script>
-    <script type="text/javascript" src="app/js/legos/tree/OJ.treeStore.js"></script>
-    <script type="text/javascript" src="app/js/legos/tree/OJ.tree.js"></script>
-    <script type="text/javascript" src="app/js/legos/tree/listeners/OJ.treeListeners.js"></script>
-    <script type="text/javascript" src="app/js/legos/tree/listeners/OJ.itemdbclick.js"></script>
-    <script type="text/javascript" src="app/js/legos/tree/listeners/OJ.afterrender.js"></script>
+    <script type="text/javascript" src="legos/window/window.js"></script>
+    <script type="text/javascript" src="legos/window/listeners/windowListeners.js"></script>
+    <script type="text/javascript" src="legos/window/listeners/beforeshow.js"></script>
+    <script type="text/javascript" src="legos/window/listeners/beforeclose.js"></script>
+    <script type="text/javascript" src="legos/window/listeners/show.js"></script>
 
-    <script type="text/javascript" src="app/js/legos/window/OJ.window.js"></script>
-    <script type="text/javascript" src="app/js/legos/window/listeners/OJ.windowListeners.js"></script>
-    <script type="text/javascript" src="app/js/legos/window/listeners/OJ.beforeshow.js"></script>
-    <script type="text/javascript" src="app/js/legos/window/listeners/OJ.show.js"></script>
+    <script type="text/javascript" src="actions/querybuilder/SqlDragDropTableJoinStore.js"></script>
+    <script type="text/javascript" src="actions/querybuilder/SqlTableNameStore.js"></script>
+    <script type="text/javascript" src="actions/querybuilder/SqlTableJoinSprite.js"></script>
 
-    <script type="text/javascript" src="app/js/actions/querybuilder/OJ.SqlDragDropTableJoinStore.js"></script>
-    <script type="text/javascript" src="app/js/actions/querybuilder/OJ.SqlTableNameStore.js"></script>
-    <script type="text/javascript" src="app/js/actions/querybuilder/OJ.SqlTableJoinSprite.js"></script>
+    <script type="text/javascript" src="actions/querybuilder/qbFineTuningGrid.js"></script>
+    <script type="text/javascript" src="actions/querybuilder/qbTableGrid.js"></script>
+    <script type="text/javascript" src="actions/querybuilder/qbOutputPanel.js"></script>
+    <script type="text/javascript" src="actions/querybuilder/qbTablePanel.js"></script>
+    <script type="text/javascript" src="actions/querybuilder/qbTablesTree.js"></script>
 
-    <script type="text/javascript" src="app/js/actions/querybuilder/OJ.qbFineTuningGrid.js"></script>
-    <script type="text/javascript" src="app/js/actions/querybuilder/OJ.qbTableGrid.js"></script>
-    <script type="text/javascript" src="app/js/actions/querybuilder/OJ.qbOutputPanel.js"></script>
-    <script type="text/javascript" src="app/js/actions/querybuilder/OJ.qbTablePanel.js"></script>
-    <script type="text/javascript" src="app/js/actions/querybuilder/OJ.qbTablesTree.js"></script>
-
-    <script type="text/javascript" src="app/js/actions/sql/OJ.fields.js"></script>
-    <script type="text/javascript" src="app/js/actions/sql/OJ.joins.js"></script>
-    <script type="text/javascript" src="app/js/actions/sql/OJ.tables.js"></script>
-    <script type="text/javascript" src="app/js/actions/sql/OJ.select.js"></script>
-    <script type="text/javascript" src="app/js/actions/sql/OJ.manager.js"></script>
+    <script type="text/javascript" src="actions/sql/fields.js"></script>
+    <script type="text/javascript" src="actions/sql/joins.js"></script>
+    <script type="text/javascript" src="actions/sql/tables.js"></script>
+    <script type="text/javascript" src="actions/sql/select.js"></script>
+    <script type="text/javascript" src="actions/sql/manager.js"></script>
 
 
-    <script type="text/javascript" src="app/js/actions/querybuilder/OJ.sb.table.js"></script>
+    <script type="text/javascript" src="actions/querybuilder/qbSqlWindowTable.js"></script>
 
-    <script type="text/javascript" src="app/js/actions/querybuilder/OJ-sqlbuilder.js"></script>
-    <script type="text/javascript" src="app/js/actions/OJ-sqlbuilder-init.js"></script>
+    <script type="text/javascript" src="actions/querybuilder/_queryBuilderUI.js"></script>
+    <script type="text/javascript" src="actions/sqlBuilderInit.js"></script>
 </head>
 
 <body class="x-body x-webkit x-chrome x-reset">
