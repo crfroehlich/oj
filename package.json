@@ -23,7 +23,7 @@
   ],
   "dependencies": {
     "grunt": "0.4.1",
-    "grunt-contrib": "0.6.1",
+    "grunt-contrib": "0.7.0",
     "grunt-tmplmin": "0.0.2",
     "html-minifier": "latest"
   },

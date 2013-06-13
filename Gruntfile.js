@@ -2,23 +2,23 @@
 /*global module:false*/
 module.exports = function (grunt) {
     var files = require('./files');
-    var ojAppJsFiles = files.app;
-    var ojAppCssFiles = ['app/css/oj.css', 'app/css/oj*.css'];
+    var nsAppJsFiles = files.app;
+    var nsAppCssFiles = ['app/css/*.css'];
 
-    var ojTestJsFiles = ['test/*.js', 'test/*/*.js'];
+    var nsTestJsFiles = ['test/*.js', 'test/*/*.js'];
 
-    var ojVendorJsMinFiles = ['vendor/js/core/*.js', 'vendor/js/extensions/*.js'];
-    var ojVendorJsFiles = ojVendorJsMinFiles;
-    var ojVendorCssFiles = [];
+    var nsVendorJsMinFiles = ['vendor/js/core/*.js', 'vendor/js/extensions/*.js'];
+    var nsVendorJsFiles = nsVendorJsMinFiles;
+    var nsVendorCssFiles = [];
 
     // Project configuration.
     grunt.initConfig({
-        ojAppJsFiles: ojAppJsFiles,
+        nsAppJsFiles: nsAppJsFiles,
         ojAppJsTestFiles: files.test,
-        ojAppCssFiles: ojAppCssFiles,
+        nsAppCssFiles: nsAppCssFiles,
 
-        ojTestJsFiles: ojTestJsFiles,
-        ojVendorJsFiles: ojVendorJsFiles,
+        nsTestJsFiles: nsTestJsFiles,
+        nsVendorJsFiles: nsVendorJsFiles,
 
         pkg: grunt.file.readJSON('package.json'),
 
@@ -29,7 +29,7 @@ module.exports = function (grunt) {
         },
 
         buildMode: 'prod',
-        buildPrefix: 'release/OJ.' + grunt.template.today("yyyy.m.d") + '.min',
+        buildPrefix: 'release/NS.' + grunt.template.today("yyyy.m.d") + '.min',
 
         clean: ['release'],
 
@@ -39,17 +39,17 @@ module.exports = function (grunt) {
                 dest: 'release/index.tmpl'
             },
             vendorCoreJs: {
-                src: ojVendorJsMinFiles,
+                src: nsVendorJsMinFiles,
                 dest: 'release/vendor.min.js',
                 separator: ';/* next JS  */\n'
             },
             vendorCss: {
-                src: ojVendorCssFiles,
+                src: nsVendorCssFiles,
                 dest: 'release/vendor.min.css',
                 separator: '/*  next CSS  */'
             },
-            ojIntellisense: {
-                src: ojAppJsFiles,
+            nsIntellisense: {
+                src: nsAppJsFiles,
                 dest: 'app/ojApp-vsdoc.js'
             }
         },
@@ -59,13 +59,13 @@ module.exports = function (grunt) {
                 banner: '<%=meta.banner%>'
             },
             files: {
-                src: ojAppCssFiles,
+                src: nsAppCssFiles,
                 dest: '<%= buildPrefix %>.css'
             }
         },
 
         docco: {
-            src: ojAppJsFiles,
+            src: nsAppJsFiles,
             options: {
                 output: 'docs/'
             }
@@ -112,11 +112,11 @@ module.exports = function (grunt) {
                 window: true,
                 Ext: true
             },
-            files: ojAppJsFiles
+            files: nsAppJsFiles
         },
 
         lint: {
-            files: ojAppJsFiles
+            files: nsAppJsFiles
         },
 
         min: {
@@ -134,7 +134,7 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
-                    'test/plato': ojAppJsFiles,
+                    'test/plato': nsAppJsFiles,
                 },
             }
         },
@@ -155,7 +155,7 @@ module.exports = function (grunt) {
             test: {
                 src: 'test/test.tmpl',
                 dest: 'test/Test.html',
-                testJsFiles: ojTestJsFiles
+                testJsFiles: nsTestJsFiles
             }
         },
 
@@ -170,13 +170,13 @@ module.exports = function (grunt) {
                 sourceMap: '<%= buildPrefix %>' + '.map'
             },
             files: {
-                src: ojAppJsFiles,
+                src: nsAppJsFiles,
                 dest: '<%= buildPrefix %>' + '.js'
             }
         },
 
         watch: {
-            files: ojAppJsFiles,
+            files: nsAppJsFiles,
             tasks: ['buildDev', 'runUnitTests', 'buildProd']
         }
 
@@ -195,7 +195,7 @@ module.exports = function (grunt) {
 
     /**ENDREGION: init tasks */
 
-    /**REGION: register oj tasks */
+    /**REGION: register ns tasks */
 
     grunt.registerTask('buildProd', function () {
         grunt.task.run('clean'); //Delete anything in the 'release' folder
@@ -258,5 +258,5 @@ module.exports = function (grunt) {
         grunt.task.run('plato');
     });
 
-    /**REGION: register oj tasks */
+    /**REGION: register ns tasks */
 };
