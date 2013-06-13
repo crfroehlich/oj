@@ -14,7 +14,7 @@ module.exports = function (grunt) {
     // Project configuration.
     grunt.initConfig({
         nsAppJsFiles: nsAppJsFiles,
-        ojAppJsTestFiles: files.test,
+        nsAppJsTestFiles: files.test,
         nsAppCssFiles: nsAppCssFiles,
 
         nsTestJsFiles: nsTestJsFiles,
@@ -31,12 +31,18 @@ module.exports = function (grunt) {
         buildMode: 'prod',
         buildPrefix: 'release/NS.' + grunt.template.today("yyyy.m.d") + '.min',
 
+        //purges the contents of the release folder
         clean: ['release'],
 
+        //This will concatenate the template files together and prepare them for the parser
         concat: {
             prod: { //index.html
                 src: ['app/index.tmpl'],
                 dest: 'release/index.tmpl'
+            },
+            sql: { //sql.html
+                src: ['app/sql.tmpl'],
+                dest: 'release/sql.tmpl'
             },
             vendorCoreJs: {
                 src: nsVendorJsMinFiles,
@@ -50,7 +56,7 @@ module.exports = function (grunt) {
             },
             nsIntellisense: {
                 src: nsAppJsFiles,
-                dest: 'app/ojApp-vsdoc.js'
+                dest: 'release/nsApp-vsdoc.js'
             }
         },
 
@@ -64,6 +70,7 @@ module.exports = function (grunt) {
             }
         },
 
+        //Generate Docco style documentation
         docco: {
             src: nsAppJsFiles,
             options: {
@@ -72,19 +79,23 @@ module.exports = function (grunt) {
 
         },
 
-        htmlminifier: {
-            removeComments: true,
-            collapseWhitespace: true,
-            collapseBooleanAttributes: false,
-            removeRedundantAttributes: false,
-            removeEmptyAttributes: false,
-            removeOptionalTags: false
-        },
+        //Maybe one day, but the HTML is tiny
 
+        //htmlminifier: {
+        //    removeComments: true,
+        //    collapseWhitespace: true,
+        //    collapseBooleanAttributes: false,
+        //    removeRedundantAttributes: false,
+        //    removeEmptyAttributes: false,
+        //    removeOptionalTags: false
+        //},
+
+        //Placeholder for jsdoc docomentation generator
         jsdoc: {
 
         },
 
+        //Brutal honesty
         jshint: {
             options: {
                 bitwise: true,
@@ -104,25 +115,18 @@ module.exports = function (grunt) {
                 browser: true,
                 globalstrict: false,
                 smarttabs: true,
-                reporter: 'jslint.js'
+                reporterOutput: 'jslint.log'
             },
             globals: {
                 $: true,
-                OJ: true,
+                $nameSpace$: true,
                 window: true,
                 Ext: true
             },
             files: nsAppJsFiles
         },
 
-        lint: {
-            files: nsAppJsFiles
-        },
-
-        min: {
-
-        },
-
+        //Cyclomatic complexity reporting
         plato: {
             test: {
                 options : {
@@ -134,7 +138,7 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
-                    'test/plato': nsAppJsFiles,
+                    'plato': nsAppJsFiles,
                 },
             }
         },
@@ -146,11 +150,15 @@ module.exports = function (grunt) {
         tmpHtml: {
             prod: {
                 src: 'release/index.tmpl',
-                dest: 'index.html',
+                dest: 'release/index.html',
             },
             dev: {
                 src: 'release/index.tmpl',
-                dest: 'dev.html',
+                dest: 'app/dev.html',
+            },
+            sql: {
+                src: 'release/sql.tmpl',
+                dest: 'app/sql.html',
             },
             test: {
                 src: 'test/test.tmpl',
@@ -186,6 +194,7 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib');
     grunt.loadNpmTasks('grunt-plato');
+    grunt.loadNpmTasks('docco');
 
     /**ENDREGION: *-contrib tasks */
 
@@ -205,10 +214,15 @@ module.exports = function (grunt) {
         grunt.task.run('toHtml:prod:prod'); //Generate the Main HTML file from the template
     });
 
-    grunt.registerTask('buildDev', function () {
+    grunt.registerTask('buildDev', function(exhaustive) {
         grunt.task.run('toHtml:dev:test'); //Generate the HTML file from the template
         grunt.task.run('toHtml:dev:dev'); //Generate the HTML file from the template
+        grunt.task.run('toHtml:dev:sql'); //Generate the HTML file from the template
         grunt.task.run('qunit'); //Unit tests
+        if (exhaustive) {
+            grunt.task.run('docco');
+            grunt.task.run('plato');
+        }
     });
 
     grunt.registerTask('toHtml', function (buildMode, page) {
@@ -226,14 +240,14 @@ module.exports = function (grunt) {
     });
 
     // Plain vanilla build task, which supports two modes: dev and prod. Dev always builds prod. Syntax is `grunt release:dev`
-    grunt.registerTask('release', function(mode) {
+    grunt.registerTask('release', function(mode, exhaustive) {
         if (!mode) {
             throw grunt.task.taskError('Build mode must be supplied');
         }
         switch(mode) {
             case 'dev':
                 grunt.task.run('buildProd');
-                grunt.task.run('buildDev');
+                grunt.task.run('buildDev:' + exhaustive);
                 break;
             case 'prod':
                 grunt.task.run('buildProd');

@@ -1,5 +1,5 @@
 /*global n$:true,window:true,Number:true*/
-(function (n$, _$) {
+(function (n$) {
 
     n$.to.lift('bool', function bool(str) {
         var retBool = n$.is['true'](str);
@@ -127,7 +127,7 @@
 
     n$.to.lift('vendorDomObject', function (id) {
         var ret = null;
-        var _$el = _$('#' + id);
+        var _$el = n$['?']('#' + id);
         if (_$el) {
             ret = _$el;
         }
@@ -136,11 +136,11 @@
 
     n$.to.lift('vendorDomObjFromString', function (html) {
         var ret = null;
-        var _$el = _$(html);
+        var _$el = n$['?'](html);
         if (_$el) {
             ret = _$el;
         }
         return ret;
     });
 
-}(window.$nameSpace$, n$['?']));
+}(window.$nameSpace$));

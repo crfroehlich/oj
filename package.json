@@ -31,7 +31,8 @@
     "grunt-plato": "latest",
     "clean-css": "latest",
     "express": "latest",
-    "grunt-growl": "latest"
+    "grunt-growl": "latest",
+    "docco": "~0.6.2"
   },
   "keywords": [],
   "engines": {
