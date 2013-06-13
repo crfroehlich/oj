@@ -1,0 +1,33 @@
+.x-grid-center-icon {
+    margin: 2px 1px 2px 1px;
+}
+
+.x-action-icon-disabled {
+    margin: 2px 1px 2px 1px;
+    opacity: 0.4;
+}
+
+.x-grid-cell-checkcolumn .x-grid-cell-inner {
+    line-height: 14px;
+    padding-bottom: 2px;
+    padding-top: 4px;
+}
+.x-grid-with-row-lines .x-grid-cell-checkcolumn .x-grid-cell-inner {
+    padding-top: 3px;
+}
+.x-grid-checkheader {
+    background-color: transparent;
+    background-image: url("../Images/sqlbuilder/unchecked.gif");
+    background-position: 50% -2px;
+    background-repeat: no-repeat;
+    height: 14px;
+}
+.x-grid-checkheader-checked {
+    background-image: url("../Images/sqlbuilder/checked.gif");
+}
+.x-grid-checkheader-editor .x-form-cb-wrap {
+    text-align: center;
+}
+
+
+
