@@ -2,7 +2,7 @@
   "name": "ojs",
   "title": "JavaScript OJ",
   "description": "A framework for writing zero-template, zero-html, zero-css web apps in pure JavaScript.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "homepage": "http://somecallmechief.github.io/oj/",
   "author": {
     "name": "Christopher Froehlich",
@@ -32,7 +32,9 @@
     "clean-css": "latest",
     "express": "latest",
     "grunt-growl": "latest",
-    "docco": "~0.6.2"
+    "grunt-docco2": "latest",
+    "grunt-jsdoc": "latest",
+    "grunt-jsduck": "latest"
   },
   "keywords": [],
   "engines": {

@@ -1,4 +1,4 @@
-/// <reference path="~/Csw2/release/nsApp-vsdoc.js" />
+/// <reference path="../release/nsApp-vsdoc.js" />
 /** jshint undef: true, unused: true */
 /** global n$:true, window:true, Ext:true, $: true */
 
