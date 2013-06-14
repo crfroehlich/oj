@@ -23,7 +23,7 @@
         return that;
     };
 
-    n$.instanceOf.lift('DataType', DataType);
+    n$.instanceOf.register('DataType', DataType);
 
     /**
      * Create a new dataType
@@ -31,7 +31,7 @@
      * @param type {String} [type='string'] The display type of this dataType
      * @param defaultValue {String} [defaultValue] A default value
     */
-    n$.dataTypes.lift('type', function (name, type, defaultValue) {
+    n$.dataTypes.register('type', function (name, type, defaultValue) {
         if (!name) {
             throw new Error('Cannot create a dataType without a name');
         }

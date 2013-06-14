@@ -29,12 +29,12 @@
         return that;
     };
 
-    n$.instanceOf.lift('DataTypeCollection', DataTypeCollection);
+    n$.instanceOf.register('DataTypeCollection', DataTypeCollection);
 
     /**
      * A mechanism for generating data type
      */
-    n$.dataTypes.lift('collection', function () {
+    n$.dataTypes.register('collection', function () {
         var ret = new DataTypeCollection();
         return ret;
     });

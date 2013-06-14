@@ -35,6 +35,6 @@
         return obj;
     };
 
-    n$.lift('property', property);
+    n$.register('property', property);
 
 }(window.$nameSpace$));

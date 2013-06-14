@@ -32,17 +32,25 @@ module.exports = function (grunt) {
         buildPrefix: 'release/NS.' + grunt.template.today("yyyy.m.d") + '.min',
 
         //purges the contents of the release folder
-        clean: ['release'],
+        clean: ['release', 'temp'],
 
         //This will concatenate the template files together and prepare them for the parser
         concat: {
             prod: { //index.html
-                src: ['app/index.tmpl'],
-                dest: 'release/index.tmpl'
+                src: ['templates/header.tmpl', 'templates/scripts.tmpl', 'templates/end.tmpl'],
+                dest: 'temp/index.tmpl'
+            },
+            dev: { //index.html
+                src: ['templates/header.tmpl', 'templates/scripts.tmpl', 'templates/end.tmpl'],
+                dest: 'temp/index.tmpl'
             },
             sql: { //sql.html
-                src: ['app/sql.tmpl'],
-                dest: 'release/sql.tmpl'
+                src: ['templates/header.tmpl', 'templates/scripts.tmpl', 'templates/end.tmpl'],
+                dest: 'temp/sql.tmpl'
+            },
+            test: { //test.html
+                src: ['templates/header.tmpl', 'templates/scripts.tmpl', 'templates/test.tmpl', 'templates/end.tmpl'],
+                dest: 'temp/test.tmpl'
             },
             vendorCoreJs: {
                 src: nsVendorJsMinFiles,
@@ -74,7 +82,7 @@ module.exports = function (grunt) {
         docco: {
             src: nsAppJsFiles,
             options: {
-                output: 'docs/'
+                output: 'docco/'
             }
 
         },
@@ -92,7 +100,20 @@ module.exports = function (grunt) {
 
         //Placeholder for jsdoc docomentation generator
         jsdoc: {
+            src: nsAppJsFiles,
+            options: {
+                destination: 'jsdocs'
+            }
+        },
 
+        jsduck: {
+            src: nsAppJsFiles,
+            dest: 'jsduck',
+            options: {
+                'builtin-classes': true,
+                'warnings': ['-no_doc', '-dup_member', '-link_ambiguous'],
+                'external': ['XMLHttpRequest']
+            }
         },
 
         //Brutal honesty
@@ -129,12 +150,12 @@ module.exports = function (grunt) {
         //Cyclomatic complexity reporting
         plato: {
             test: {
-                options : {
-                    complexity : {
-                        logicalor : false,
-                        switchcase : false,
-                        forin : true,
-                        trycatch : true
+                options: {
+                    complexity: {
+                        logicalor: false,
+                        switchcase: false,
+                        forin: true,
+                        trycatch: true
                     }
                 },
                 files: {
@@ -149,21 +170,32 @@ module.exports = function (grunt) {
 
         tmpHtml: {
             prod: {
-                src: 'release/index.tmpl',
+                src: 'temp/index.tmpl',
                 dest: 'release/index.html',
+                jsFiles: ['<%= buildPrefix %>.js'],
+                cssFiles: ['<%= buildPrefix %>.css'],
+                title: 'Production Index Page'
             },
             dev: {
-                src: 'release/index.tmpl',
+                src: 'temp/index.tmpl',
                 dest: 'app/dev.html',
+                jsFiles: nsAppJsFiles,
+                cssFiles: nsAppCssFiles,
+                title: 'Development Index Page'
             },
             sql: {
-                src: 'release/sql.tmpl',
+                src: 'temp/sql.tmpl',
                 dest: 'app/sql.html',
+                jsFiles: nsAppJsFiles,
+                cssFiles: nsAppCssFiles,
+                title: 'SQL Builder'
             },
             test: {
-                src: 'test/test.tmpl',
+                src: 'temp/test.tmpl',
                 dest: 'test/Test.html',
-                testJsFiles: nsTestJsFiles
+                jsFiles: nsTestJsFiles,
+                cssFiles: ['vendor/test/qunit-1.11.0.css'],
+                title: 'Unit Tests'
             }
         },
 
@@ -194,7 +226,9 @@ module.exports = function (grunt) {
 
     grunt.loadNpmTasks('grunt-contrib');
     grunt.loadNpmTasks('grunt-plato');
-    grunt.loadNpmTasks('docco');
+    grunt.loadNpmTasks('grunt-docco2');
+    grunt.loadNpmTasks('grunt-jsdoc');
+    grunt.loadNpmTasks('grunt-jsduck');
 
     /**ENDREGION: *-contrib tasks */
 
@@ -211,25 +245,29 @@ module.exports = function (grunt) {
         grunt.task.run('cssmin'); //Compile the CSS
         grunt.task.run('concat'); //Assembles the HTML template
         grunt.task.run('uglify'); //Compile the JavaScript
-        grunt.task.run('toHtml:prod:prod'); //Generate the Main HTML file from the template
+        grunt.task.run('toHtml:prod'); //Generate the Main HTML file from the template
     });
 
-    grunt.registerTask('buildDev', function(exhaustive) {
-        grunt.task.run('toHtml:dev:test'); //Generate the HTML file from the template
-        grunt.task.run('toHtml:dev:dev'); //Generate the HTML file from the template
-        grunt.task.run('toHtml:dev:sql'); //Generate the HTML file from the template
-        grunt.task.run('qunit'); //Unit tests
+    grunt.registerTask('buildDev', function (exhaustive) {
+        grunt.task.run('toHtml:test'); //Generate the HTML file from the template
+        grunt.task.run('toHtml:dev'); //Generate the HTML file from the template
+        grunt.task.run('toHtml:sql'); //Generate the HTML file from the template
+
         if (exhaustive) {
+            grunt.task.run('qunit'); //Unit tests
+            grunt.task.run('jshint');
             grunt.task.run('docco');
+            grunt.task.run('jsdoc');
             grunt.task.run('plato');
         }
     });
 
-    grunt.registerTask('toHtml', function (buildMode, page) {
+    grunt.registerTask('toHtml', function (page) {
         //This needs to be a Grunt task, because we want it to run serially. If executed as a function, its sequence in the execution will be unknown
-        grunt.log.write('Starting template-to-HTML conversion for ' + buildMode + ' mode.');
-        if (buildMode === 'dev' || buildMode === 'prod') {
-            grunt.config('buildMode', buildMode);
+        grunt.log.write('Starting template-to-HTML conversion for ' + page + ' mode.');
+        
+        if (page) {
+            grunt.config('buildMode', page);
         }
         var conf = grunt.config('tmpHtml')[page];
         var tmpl = grunt.file.read(conf.src);
@@ -240,11 +278,11 @@ module.exports = function (grunt) {
     });
 
     // Plain vanilla build task, which supports two modes: dev and prod. Dev always builds prod. Syntax is `grunt release:dev`
-    grunt.registerTask('release', function(mode, exhaustive) {
+    grunt.registerTask('release', function (mode, exhaustive) {
         if (!mode) {
             throw grunt.task.taskError('Build mode must be supplied');
         }
-        switch(mode) {
+        switch (mode) {
             case 'dev':
                 grunt.task.run('buildProd');
                 grunt.task.run('buildDev:' + exhaustive);
@@ -271,6 +309,8 @@ module.exports = function (grunt) {
         grunt.task.run('qunit');
         grunt.task.run('plato');
     });
+
+    grunt.registerTask('default', ['release:dev:true']);
 
     /**REGION: register ns tasks */
 };

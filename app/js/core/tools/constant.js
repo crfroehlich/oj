@@ -38,11 +38,11 @@
      * @param name {String} the name of the enum
      * @param props {Object} the properties of the enum
     */
-    n$.lift('constant', function (n$, name, props) {
+    n$.register('constant', function (n$, name, props) {
         var ret = new Constant(props);
         n$ = n$ || n$;
-        if (ret && n$.constants && n$.constants.lift && name) {
-            n$.constants.lift(name, ret);
+        if (ret && n$.constants && n$.constants.register && name) {
+            n$.constants.register(name, ret);
             Object.seal(ret);
             Object.freeze(ret);
         }

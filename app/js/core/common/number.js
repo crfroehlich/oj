@@ -38,5 +38,5 @@
         }())
     });
 
-    n$.lift('number', number);
+    n$.register('number', number);
 }(window.$nameSpace$));

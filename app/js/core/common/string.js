@@ -1,7 +1,7 @@
 /*global n$:true*/
 (function (n$) {
 
-    n$.lift('delimitedString', function (string, opts) {
+    n$.register('delimitedString', function (string, opts) {
         var nsInternal = {
             newLineToDelimiter: true,
             spaceToDelimiter: true,

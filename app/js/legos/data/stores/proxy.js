@@ -14,14 +14,14 @@
         return that;
     };
 
-    n$.instanceOf.lift('Proxy', Proxy);
+    n$.instanceOf.register('Proxy', Proxy);
 
     /**
      * Instance a new Proxy. Proxies are the mechanisms by which Stores are populated with data.
      * Currently, only Proxy types of 'memory' are supported.
      * @param type {String} The type of proxy
      */
-    n$.stores.lift('proxy', function(type) {
+    n$.stores.register('proxy', function(type) {
         if(type !== 'memory') {
             throw new Error('Only proxy types of "memory" are supported.');
         }

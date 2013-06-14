@@ -69,10 +69,10 @@
                         xtype: 'tbfill'
                     }, {
                         text: "Save",
-                        icon: "../Images/sqlbuilder/icon-save.gif"
+                        icon: "img/icon-save.gif"
                     }, {
                         text: "Run",
-                        icon: "../Images/sqlbuilder/run.png"
+                        icon: "img/run.png"
                     }]
                 }];
 

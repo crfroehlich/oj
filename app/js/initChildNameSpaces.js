@@ -71,7 +71,7 @@
     /**
      * Models
     */
-    n$.makeSubNameSpace('models');
+    n$.makeSubNameSpace('dataModels');
 
     /**
      *Grids
@@ -84,9 +84,9 @@
     n$.grids.makeSubNameSpace('columns');
 
     /**
-     * Grids Listeners
+     * Grids Subscribers
     */
-    n$.grids.makeSubNameSpace('listeners');
+    n$.grids.makeSubNameSpace('subscribers');
 
     /**
      * Stores
@@ -99,9 +99,9 @@
     n$.makeSubNameSpace('panels');
 
     /**
-     * Panel Listeners
+     * Panel Subscribers
     */
-    n$.panels.makeSubNameSpace('listeners');
+    n$.panels.makeSubNameSpace('subscribers');
 
     /**
      * Trees
@@ -109,20 +109,20 @@
     n$.makeSubNameSpace('trees');
 
     /**
-     * Tree Listeners
+     * Tree Subscribers
     */
-    n$.trees.makeSubNameSpace('listeners');
+    n$.trees.makeSubNameSpace('subscribers');
 
     /**
      * Windows.
-     * Aside: Since 'window' cannot be used _and_ since few synonyms of the word conjurre the same meaning, use the Russian: okno (window), okna (windows)
+     * Aside: Since 'window' cannot be used _and_ since few synonyms of the word conjurre the same meaning, use the Russian: sheet (window), sheets (windows)
     */
-    n$.makeSubNameSpace('okna');
+    n$.makeSubNameSpace('sheets');
 
     /**
-     * Window listeners
+     * Window subscribers
     */
-    n$.okna.makeSubNameSpace('listeners');
+    n$.sheets.makeSubNameSpace('subscribers');
 
 
     //#endregion EXT

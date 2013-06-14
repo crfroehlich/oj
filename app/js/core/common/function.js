@@ -1,7 +1,7 @@
 /*global n$:true*/
 (function(n$){
 
-    n$.lift('tryExec', function(func) {
+    n$.register('tryExec', function(func) {
         'use strict';
         var ret = false;
         try {
@@ -19,7 +19,7 @@
         }
     });
 
-    n$.lift('method', function(func) {
+    n$.register('method', function(func) {
         'use strict';
         var that = this;
         return function() {

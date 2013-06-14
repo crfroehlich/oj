@@ -29,6 +29,6 @@
         return obj;
     };
 
-    n$.lift('object', object);
+    n$.register('object', object);
 
 }(window.$nameSpace$));

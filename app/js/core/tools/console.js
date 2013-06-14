@@ -24,77 +24,77 @@
 
     n$.makeSubNameSpace('console');
 
-    n$.console.lift('assert', function () {
+    n$.console.register('assert', function () {
         'use strict';
         window.console.assert.apply(this, arguments);
     });
 
-    n$.console.lift('count', function () {
+    n$.console.register('count', function () {
         'use strict';
         window.console.count.apply(this, arguments);
     });
 
-    n$.console.lift('error', function () {
+    n$.console.register('error', function () {
         'use strict';
         window.console.error.apply(this, arguments);
     });
 
-    n$.console.lift('group', function () {
+    n$.console.register('group', function () {
         'use strict';
         window.console.group.apply(this, arguments);
     });
 
-    n$.console.lift('groupCollapsed', function () {
+    n$.console.register('groupCollapsed', function () {
         'use strict';
         window.console.groupCollapsed.apply(this, arguments);
     });
 
-    n$.console.lift('groupEnd', function (name) {
+    n$.console.register('groupEnd', function (name) {
         'use strict';
         window.console.groupEnd.apply(this, arguments);
     });
 
-    n$.console.lift('info', function (msg) {
+    n$.console.register('info', function (msg) {
         'use strict';
         window.console.info.apply(this, arguments);
     });
 
-    n$.console.lift('log', function (msg) {
+    n$.console.register('log', function (msg) {
         'use strict';
         window.console.log.apply(this, arguments);
     });
 
-    n$.console.lift('profile', function (msg) {
+    n$.console.register('profile', function (msg) {
         'use strict';
         window.console.profile.apply(this, arguments);
     });
 
-    n$.console.lift('profileEnd', function (msg) {
+    n$.console.register('profileEnd', function (msg) {
         'use strict';
         window.console.profileEnd.apply(this, arguments);
     });
 
-    n$.console.lift('table', function (msg) {
+    n$.console.register('table', function (msg) {
         'use strict';
         window.console.table.apply(this, arguments);
     });
 
-    n$.console.lift('time', function (msg) {
+    n$.console.register('time', function (msg) {
         'use strict';
         window.console.time.apply(this, arguments);
     });
 
-    n$.console.lift('timeEnd', function (msg) {
+    n$.console.register('timeEnd', function (msg) {
         'use strict';
         window.console.timeEnd.apply(this, arguments);
     });
 
-    n$.console.lift('trace', function (msg) {
+    n$.console.register('trace', function (msg) {
         'use strict';
         window.console.trace.apply(this, arguments);
     });
 
-    n$.console.lift('warn', function (msg) {
+    n$.console.register('warn', function (msg) {
         'use strict';
         window.console.warn.apply(this, arguments);
     });

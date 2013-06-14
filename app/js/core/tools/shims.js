@@ -30,7 +30,7 @@
             inheritsFrom: {
                 value:
                     /**
-                     * 
+                     * Easy inheritance by prototype
                     */
                     function inheritsFrom(parentClassOrObject) {
                         if (parentClassOrObject.constructor === Function) {

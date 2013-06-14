@@ -9,9 +9,9 @@
      * This private class can never be directly instanced.
      * @param name {String} A name for the store class
      * @param proxy {n$.stores.proxy} A proxy for loading data into the store
-     * @param model {n$.models.model} The model of the store
+     * @param dataModel {n$.dataModels.dataModel} The dataModel of the store
     */
-    var Store = function (name, proxy, model) {
+    var Store = function (name, proxy, dataModel) {
         'use strict';
         var that = n$.classDefinition({
             name: name,
@@ -19,7 +19,7 @@
             onDefine: function (classDef) {
                 n$.property(classDef, 'autoSync', true);
                 n$.property(classDef, 'proxy', proxy || n$.stores.proxy('memory'));
-                n$.property(classDef, 'model', model);
+                n$.property(classDef, 'model', dataModel);
                 delete classDef.initComponent;
             }
         });
@@ -27,14 +27,14 @@
         return that;
     };
 
-    n$.instanceOf.lift('Store', Store);
+    n$.instanceOf.register('Store', Store);
 
-    n$.stores.lift('store',
+    n$.stores.register('store',
         /**
          * Instance a new Store for consumption by an Ext view or panel
          * @param storeDef.name {String} A name for the store class
          * @param storeDef.proxy {n$.stores.proxy} A proxy for loading data into the store
-         * @param storeDef.model {n$.models.model} The model of the store
+         * @param storeDef.dataModel {n$.dataModels.dataModel} The dataModel of the store
          * @returns {n$.stores.store} A n$ store
         */
         function store(storeDef) {
@@ -45,10 +45,10 @@
             if (!(storeDef.proxy instanceof n$.instanceOf.Proxy)) {
                 storeDef.proxy = n$.stores.proxy('memory');
             }
-            if (!storeDef.model) {
-                throw new Error('Cannot create a Store without a Model.');
+            if (!storeDef.dataModel) {
+                throw new Error('Cannot create a Store without a DataModel.');
             }
-            var ret = new Store(storeDef.name, storeDef.proxy, storeDef.model);
+            var ret = new Store(storeDef.name, storeDef.proxy, storeDef.dataModel);
             return ret.init();
         });
 

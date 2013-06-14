@@ -36,6 +36,6 @@
 
     };
 
-    n$.lift('each', each);
+    n$.register('each', each);
 
 }(window.$nameSpace$));

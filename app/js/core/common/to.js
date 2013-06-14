@@ -1,7 +1,7 @@
 /*global n$:true,window:true,Number:true*/
 (function (n$) {
 
-    n$.to.lift('bool', function bool(str) {
+    n$.to.register('bool', function bool(str) {
         var retBool = n$.is['true'](str);
         if (retBool === false || retBool !== true) {
             retBool = false;
@@ -9,11 +9,11 @@
         return retBool;
     });
 
-    n$.to.lift('ES5_ToBool', function (val) {
+    n$.to.register('ES5_ToBool', function (val) {
         return (val !== false && val !== 0 && val !== '' && val !== null && val !== undefined && (typeof val !== 'number' || !isNaN(val)));
     });
 
-    n$.to.lift('dateFromTicks', function (tickStr) {
+    n$.to.register('dateFromTicks', function (tickStr) {
         var ticsDateTime = n$.string(tickStr);
         var ret, ticks, offset, localOffset, arr;
 
@@ -37,7 +37,7 @@
         return ret;
     });
 
-    n$.to.lift('binary', function (obj) {
+    n$.to.register('binary', function (obj) {
         var ret = NaN;
         if (obj === 0 || obj === '0' || obj === '' || obj === false || n$.to.string(obj).toLowerCase().trim() === 'false') {
             ret = 0;
@@ -56,7 +56,7 @@
      *   Failures return as NaN.
      *
      */
-    n$.to.lift('number', function (inputNum, defaultNum) {
+    n$.to.register('number', function (inputNum, defaultNum) {
         'use strict';
 
         function tryGetNumber(val) {
@@ -94,7 +94,7 @@
         return retVal;
     });
 
-    n$.to.lift('string', function (inputStr, defaultStr) {
+    n$.to.register('string', function (inputStr, defaultStr) {
         function tryGetString(str) {
             var ret;
             if (n$.is.string(str)) {
@@ -125,7 +125,7 @@
         return retVal;
     });
 
-    n$.to.lift('vendorDomObject', function (id) {
+    n$.to.register('vendorDomObject', function (id) {
         var ret = null;
         var _$el = n$['?']('#' + id);
         if (_$el) {
@@ -134,7 +134,7 @@
         return ret;
     });
 
-    n$.to.lift('vendorDomObjFromString', function (html) {
+    n$.to.register('vendorDomObjFromString', function (html) {
         var ret = null;
         var _$el = n$['?'](html);
         if (_$el) {

@@ -31,7 +31,7 @@
      *
      * Obviously, this method has very little utility if you are not using protypical inheritance
     */
-    n$.lift('Class', function(name, inheritsFrom, callBack) {
+    n$.register('Class', function(name, inheritsFrom, callBack) {
         var obj = Object.create(null);
         obj[name] = function() {
             try {

@@ -1,7 +1,7 @@
 /*global n$:true*/
 (function (n$) {
 
-    n$.lift('hasLength',
+    n$.register('hasLength',
         /**
          * True if the Object has an Array-like length property
         */
@@ -11,7 +11,7 @@
             return ret;
         });
 
-    n$.lift('contains',
+    n$.register('contains',
         /*
          * True if the Object has a property by name, excluding the properties on the Object's prototype
         */
@@ -29,7 +29,7 @@
             return ret;
         });
 
-    n$.lift('clone',
+    n$.register('clone',
         /**
          * Convert an Object to a String to an Object to get a dereferenced copy.
         */
@@ -38,7 +38,7 @@
             return n$.deserialize(n$.serialize(data));
         });
 
-    n$.lift('serialize',
+    n$.register('serialize',
         /**
          * Convert an Object to a String
         */
@@ -50,7 +50,7 @@
         });
 
 
-    n$.lift('deserialize',
+    n$.register('deserialize',
         /**
          * Convert a string into an Object
         */
@@ -64,7 +64,7 @@
             return ret;
         });
 
-    n$.lift('params',
+    n$.register('params',
         /**
          * Convert an Object into a serialized parameter string
         */
@@ -85,7 +85,7 @@
             return n$.string(ret);
         });
 
-    n$.lift('extend',
+    n$.register('extend',
         /**
          * Extend the properties of one object with the properties of another. Deep copy to recurse and preserve references.
         */
@@ -100,7 +100,7 @@
             return ret;
         });
 
-    n$.lift('getArguments',
+    n$.register('getArguments',
         /**
          * Take an arguments object and convert it into an Array
         */

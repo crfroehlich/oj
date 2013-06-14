@@ -111,10 +111,10 @@
                         tree[nsName] = tree[nsName] || {};
                         var nsTree = tree[nsName];
 
-                        Object.defineProperty(this, 'lift', {
+                        Object.defineProperty(this, 'register', {
                             value:
                                 /**
-                                 *	"Lift" an Object into the prototype of the namespace.
+                                 *	Register (e.g. "Lift") an Object into the prototype of the namespace.
                                  *	This Object will be readable/executable but is otherwise immutable.
                                  *   @param {String} name The name of the object to lift
                                  *   @param {Object} obj Any, arbitrary Object to use as the value.
@@ -149,7 +149,7 @@
                                 }
                         });
 
-                        proto.lift('makeSubNameSpace',
+                        proto.register('makeSubNameSpace',
                             /**
                              *	Create a new, static namespace on the current parent (e.g. nsName.to... || nsName.is...)
                              *   @param {String} subNameSpace The name of the new namespace.
@@ -168,10 +168,10 @@
                                 var newNameSpace = makeNameSpace(subNameSpace, nsTree);
 
                                 if (subNameSpace !== 'constants') {
-                                    newNameSpace.lift('constants', makeNameSpace('constants', nsTree), false);
+                                    newNameSpace.register('constants', makeNameSpace('constants', nsTree), false);
                                 }
 
-                                proto.lift(subNameSpace, newNameSpace, false);
+                                proto.register(subNameSpace, newNameSpace, false);
                                 return newNameSpace;
                             }, false);
                     }
@@ -190,13 +190,13 @@
                 Object.defineProperties(window, { $nameSpace$: { value: NsOut } });
 
                 //Cache a handle on the vendor (probably jQuery) on the root namespace
-                NsOut.lift('?', domVendor, false);
+                NsOut.register('?', domVendor, false);
                 
                 //Cache the tree (useful for documentation/visualization/debugging)
-                NsOut.lift('tree', NsTree[nameSpaceName], false);
+                NsOut.register('tree', NsTree[nameSpaceName], false);
                 
                 //Cache the name space name
-                NsOut.lift('name', nameSpaceName, false);
+                NsOut.register('name', nameSpaceName, false);
 
 
                 /**
@@ -225,11 +225,11 @@
                     }
                     return ret;
                 };
-                NsOut.lift('dependsOn', dependsOn, false);
+                NsOut.register('dependsOn', dependsOn, false);
 
                 return NsOut;
 
             }())
     });
 
-}('OJ', jQuery));
+}('Csw2', jQuery));

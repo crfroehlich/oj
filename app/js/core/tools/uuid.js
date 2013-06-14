@@ -26,6 +26,6 @@
         return uuid;
     };
 
-    n$.lift('createUUID', createFauxUUID);
+    n$.register('createUUID', createFauxUUID);
 
 }(window.$nameSpace$));

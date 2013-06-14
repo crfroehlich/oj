@@ -13,7 +13,7 @@
      * @param store {n$.store} [store] A data store for this class
      * @param plugins {Array} [plugins] An array of plugins to initialize with new instances of this class
      * @param constant {String} [constant] A n$.constants constant to constrain property additions
-     * @param namespace {String} A n$ namespace to constrain listeners
+     * @param namespace {String} A n$ namespace to constrain subscribers
      * @param onDefine {Function} [onDefine] A method to call when the class definition is defined on the Ext namespace
      * @param debug {Boolean} [debug=false] For development debugging purposes. If true, output log content.
     */
@@ -43,12 +43,12 @@
         }, false, false, false);
 
         /**
-         * We don't allow listeners to be defined ad hoc; and if they are defined, they must be defined on the namespace listener object
+         * We don't allow subscribers to be defined ad hoc; and if they are defined, they must be defined on the namespace subscriber object
         */
         if (namespace && n$[namespace]) {
-            var listeners = n$[namespace].listeners.listeners();
-            n$.property(that, 'listeners', listeners);
-            n$.property(that.listeners, 'exception', function() {
+            var subscribers = n$[namespace].subscribers.subscribers();
+            n$.property(that, 'subscribers', subscribers);
+            n$.property(that.subscribers, 'exception', function() {
                 n$.console.error('An error occurred in ' + name + '.', arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5]);
             });
             /**
@@ -62,6 +62,11 @@
                     n$.property(classDef, propName, value);
                 }, false, false, false);
             }
+            //Convenience access to the constant properties on the instance
+            n$.property(that, 'props', n$[namespace].constants.properties);
+            
+            //Convenience access to the constant subscribeables on the instance
+            n$.property(that, 'subs', n$[namespace].constants.subscribers);
         }
         
         /**
@@ -78,15 +83,15 @@
                 them.callParent(arguments);
             });
 
-            if (listeners && Object.keys(listeners).length > 0) {
+            if (subscribers && Object.keys(subscribers).length > 0) {
                 /**
                  * Bit of a hack; but grids are a special case.
                 */
                 if (namespace === 'grids') {
                     n$.property(classDef, 'viewConfig', {});
-                    n$.property(classDef.viewConfig, 'listeners', that.listeners);
+                    n$.property(classDef.viewConfig, 'listeners', that.subscribers); //Subscribers === listeners in Ext
                 } else {
-                    n$.property(classDef, 'listeners', listeners);
+                    n$.property(classDef, 'listeners', subscribers);
                 }
             }
             
@@ -102,7 +107,7 @@
         return that;
     };
 
-    n$.instanceOf.lift('ClassDefinition', ClassDefinition);
+    n$.instanceOf.register('ClassDefinition', ClassDefinition);
 
     /**
      * Define declares a new class on the ExtJs namespace
@@ -115,10 +120,10 @@
      * @param def.store {n$.store} [def.store] A data store for this class
      * @param def.plugins {Array} [def.plugins] An array of plugins to initialize with new instances of this class
      * @param def.constant {String} [def.constant] A n$.constants constant to constrain property additions
-     * @param def.namespace [String] A n$ namespace to constrain listeners
+     * @param def.namespace [String] A n$ namespace to constrain subscribers
      * @param def.onDefine {Function} [def.onDefine] A method to call when the class definition is defined on the Ext namespace
     */
-    n$.lift('classDefinition', function(def) {
+    n$.register('classDefinition', function(def) {
         if(!def) {
             throw new Error('Cannot create a definition without parameters.');
         }
