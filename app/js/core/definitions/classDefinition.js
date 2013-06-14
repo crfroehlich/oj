@@ -127,6 +127,10 @@
         if(!def) {
             throw new Error('Cannot create a definition without parameters.');
         }
+        if (def.id) {
+            def.name = 'Ext.' + n$.name + '.' + def.id;
+            def.alias = ['widget.' + def.id];
+        }
         if (!(typeof def.name === 'string')) {
             throw new Error('Cannot define a class without a name');
         }

@@ -54,7 +54,7 @@
             if (!(treeDef)) {
                 throw new Error('Cannot instance a tree without properties');
             }
-            if (!(treeDef.name)) {
+            if (!(treeDef.name) && !(treeDef.id)) {
                 throw new Error('Cannot instance a tree without a classname');
             }
             var tree = new Tree(treeDef.name, treeDef.requires, treeDef.extend, treeDef.alias, treeDef.id, treeDef.store, treeDef.plugins, treeDef.onInit);

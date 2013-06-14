@@ -48,7 +48,7 @@
             if (!(panelDef)) {
                 throw new Error('Cannot instance a panel without properties');
             }
-            if (!(panelDef.name)) {
+            if (!(panelDef.name) && !(panelDef.id)) {
                 throw new Error('Cannot instance a panel without a classname');
             }
             var panel = new Panel(panelDef.name, panelDef.requires, panelDef.extend, panelDef.alias, panelDef.id, panelDef.store, panelDef.plugins);

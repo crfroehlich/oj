@@ -15,6 +15,8 @@
     sheetProperties.add('layout', 'layout');
     sheetProperties.add('closable', 'closable');
     sheetProperties.add('connection', 'connection');
+    sheetProperties.add('items', 'items');
+    sheetProperties.add('title', 'title');
     n$.constant(n$.sheets, 'properties', sheetProperties);
 
     /**
@@ -69,7 +71,7 @@
             if (!(sheetDef)) {
                 throw new Error('Cannot instance a window (sheet) without properties');
             }
-            if (!(sheetDef.name)) {
+            if (!(sheetDef.name) && !(sheetDef.id)) {
                 throw new Error('Cannot instance a window (sheet) without a classname');
             }
             var sheet = new Sheet(sheetDef.name, sheetDef.requires, sheetDef.extend, sheetDef.alias, sheetDef.id, sheetDef.store, sheetDef.plugins, sheetDef.onInit);

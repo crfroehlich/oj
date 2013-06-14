@@ -5,42 +5,31 @@
 (function _selectionModelClassIIFE(n$) {
 
     //Init the nameSpace
-    n$.makeSubNameSpace('selections');
+    n$.makeSubNameSpace('dataSelections');
 
     var selectionMode = n$.object();
     selectionMode.simple = 'SIMPLE';
     selectionMode.single = 'SINGLE';
     selectionMode.multi = 'MULTI';
-    n$.constant(n$.selections, 'selectionMode', selectionMode);
+    n$.constant(n$.dataSelections, 'selectionMode', selectionMode);
     
     var selectionModelProperties = n$.object();
     selectionModelProperties.allowDeselect = 'allowDeselect';
     selectionModelProperties.mode = 'mode';
     selectionModelProperties.pruneRemoved = 'pruneRemoved';
-    n$.constant(n$.selections, 'properties', selectionModelProperties);
+    n$.constant(n$.dataSelections, 'properties', selectionModelProperties);
 
     /**
-<<<<<<< local
      * Internal class to define a Selection Mode. This class cannot be directly instanced.
      * @param name {String} A name for the store class
      * @param extend {String} [extend=Ext.selection.Model] The Ext extension to use
      * @param mode {String} [mode=SIMPLE] The selection mode (SIMPLE; SINGLE; MULTI)
      * @param onDefine {Function} [onDefine] An optional callba
-=======
-     * Internal class to define a Selection DataModel. This class cannot be directly instanced.
->>>>>>> other
      */
-<<<<<<< local
     var SelectionModel = function(name, extend, mode, onDefine) {
-        if (!(n$.selections.constants.selectionMode.has(mode))) {
+        if (!(n$.dataSelections.constants.selectionMode.has(mode))) {
             throw new Error('Grid selection model does not support mode "' + mode + '".');
-=======
-    var SelectionModel = function(mode, checkOnly, onSelect, onDeselect) {
-        if (!(n$.grids.constants.selectionMode.has(mode))) {
-            throw new Error('Grid selection Selection Model does not support mode "' + mode + '".');
->>>>>>> other
         }
-<<<<<<< local
         var that = n$.classDefinition({
             name: name,
             namespace: 'selections',
@@ -50,18 +39,6 @@
                 if (onDefine) {
                     onDefine(classDef);
                 }
-=======
-        var that = this;
-        n$.property(that, 'mode', mode);
-        n$.property(that, 'checkOnly', checkOnly);
-
-        //Until we need more subscribers on the Selection DataModel, let's define them ad hoc.
-        //This'll be right until it isn't.
-        if (onSelect || onDeselect) {
-            n$.property(that, 'subscribers', {});
-            if (onSelect) {
-                n$.property(that.subscribers, 'select', onSelect);
->>>>>>> other
             }
         });
         
@@ -72,19 +49,15 @@
 
     /**
      * Instance a new Selection Model. Selection Models are the constraints upon which elements from grids can be selected.
-<<<<<<< local
      * @param selDef {Object} Object describing the model
      * @param selDef.name {String} A name for the store class
      * @param selDef.extend {String} [extend=Ext.selection.Model] The Ext extension to use
      * @param selDef.mode {String} [mode=SIMPLE] The selection mode (SIMPLE; SINGLE; MULTI)
      * @param selDef.onDefine {Function} [onDefine] An optional callba
-=======
-     * @param selDef {Object} Object describing the Selection Model
->>>>>>> other
      */
-    n$.selections.register('selectionModel', function (selDef) {
+    n$.dataSelections.register('selectionModel', function (selDef) {
         if (!selDef) {
-            throw new Error('Cannot create a selection Selection Model without a definition.');
+            throw new Error('Cannot create a selection model without a definition.');
         }
         selDef.mode = selDef.mode || n$.grids.constants.selectionMode.simple;
         var ret = new SelectionModel(selDef.name, selDef.extend, selDef.mode, selDef.onDefine);
