@@ -1,36 +1,66 @@
-OJ(S) :: Orange Juice JS :: Calcium Fortified JS
-======
-This code is Public Domain, though its dependencies may not be.
+### Welcome to OJ.
+OJ(S) (OJ.js || OpenJS || Orange Julius || whatever you like) is a framework upon which to build web applications in pure (sometimes functional) JavaScript. Currently, it's packaged for Node. So, either download:
 
-## Purpose
+```
+$ cd ojs
+$ npm install
+$ grunt build
+```
 
-OJ aims to provide a zero-HTML approach to writing web applications. Everything that goes into the DOM enters via JavaScript. 
-DOM nodes, their parent and child nodes, and their events are accessible in-memory and through the chaining that OJ
-provides. Data-binding happens automatically, bi-directionally to/from the Objects you provide OJ and the changes
-the user makes to the rendered page.
+or install from npm
 
-## Usage
+```
+$ npm install ojs
+$ grunt build
+```
 
-    var body = OJ.node.wrapper($('body')); //fetch the Body, cast it into an OJ node, and store it in memory
-    var div1 = body.div({ display: 'This is DIV 1' }); //Insert a div into the DOM on the Body node
-    div1.div({ display: 'This is DIV 1-1' }); //Insert a div onto the div1 node
-    div1.childNodes[0] // Fetch the just added div later, if you need it
-    
-## Dependencies
+There are more than a few TODOs before OJ will deliver anything useful, but this is the core of the vision:
 
-OJ currently depends on jQuery, but OJ has abstracted DOM insertion and manipulation such that other frameworks can be 
-supported down the line. For dynamic, complex form components (grids/trees/etc), OJ depends on ExtJs.
+```
+$ var div =  OJ.node.make('body').div({ value: 'Aloha! Ahoy! Hola! Prevet!' });
+$ div.table().row(1).column(1).span({ text: 'Ahoy, column 1, row 1!' });
+$ ...
+$ div.loginDialog({ pass: init, fail: div.loginDialog });
+```
 
-## State
+###Semantics
 
-*OJ currently supports casting any DOM node into an OJ node, and it supports adding DIV and SPAN elements. 
-That's not a lot, but I'm working to get all the other pieces in place before building out the rest of the DOM framework.
-Namely grunt tasks to build the project, unit tests and documentation--easier to do first than later.
-*OJ can generate some complex forms (see the SQL Builder demo). That leaves a big gap between lower level DOM manipulation,
-but it is a start.
+By design, OJ handles the generation of unique element IDs for every DOM node automatically under the hood. This provides faster lookups in the internal API and encourages you to reference nodes in memory as opposed to relying on "truth in DOM". For example, while you might write something like the following in jQuery:
 
-## Goals
+```
+$ jQuery('myHolaDiv').append('<div>Leaving...</div>');
+$ jQuery('myHolaDiv').append('<div>Leaving......</div>');
+$ jQuery('myHolaDiv').append('<div>Gone</div>');
+```
 
-OJ node chaining/element creation is intended to be the nitty gritty of OJ work. Eventually, OJ will generate whole
-form content across a variety of libraries (jQuery UI, Bootstrap, ExtJs, Dojo, etc.) and expose an easier way to 
-compose responsive pages.
+In OJ, this is not possible. Node lookups by ID are possible, but it better to chain in memory:
+
+```
+$ var myHolaDiv = OJ.node.make('myHolaDiv');
+$ myHolaDiv.div({ value: 'Leaving...' });
+$ myHolaDiv.div({ value: 'Leaving......' });
+$ myHolaDiv.div({ value: 'Gone' });
+```
+
+This is not a fault of frameworks like jQuery (in fact jQuery is currently a hard requirement of OJ), but it is different. I think the OJ style is more consistent with the Promise pattern in that it frees you from having to worry about low level details; but that is the opinion of this framework.
+
+###State of the Project
+
+The Dream: Basic HTML and CSS are fully encapsulated in strongly validated OJ classes. Complex forms, layouts and composites are abstracted into thin OJ classes which are extensible with mixins. Entire workflows are simplified into OJ structures which can be defined with just a few lines (or so) of JavaScript code. Layouts are configurable simply by clicking and dragging the form. Validation and data binding come for free.
+
+The Reality: Some of the most complex work has already been done. The SQL Builder demo is complete, minus actual AJAX requests. A fully fledged wrapper around IndexedDb is in place. Objects are queryable using SQL-like semantics. Raw DOM nodes are wrapped and ready. Much has been done, but much more still remains to do.
+
+### TODO Priority 1
+The core factory class is in place, but only SPAN and DIV have been implemented. TABLE is next, followed by INPUT (which will immediately spawn a factory subclass to handle input type: radio, checkbox, etc). SELECT (with child class OPTION) will be followed by the rest of the classic DOM Nodes.
+
+### TODO Priority 2
+A secondary factory will need to implement components. There's still some implementation specing to do on how to distinguish between abstract components (e.g. an array of checkboxes) vs. concrete controls (e.g. an Address composite).
+
+### TODO Priority 3
+A FORM factory is on the table, so to speak. Additional specification work is needed to define a data structure which can be implicitly cast into an OJ form, generating an ordered layout of controls and to facilitate real time data.
+
+### Support or Contact
+Feel like contributing? Wondering what in the sam hill I'm thinking? Challenge me to a duel; fork me; contact me; ignore me. Collaborate in real time [in my IDE of choice] (https://c9.io/somecallmechief/oj). 
+
+### Licensing
+Everything I write is always Public Domain. Please take generously. 
