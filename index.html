@@ -55,6 +55,26 @@ $ ...
 $ div.loginDialog({ pass: init, fail: div.loginDialog });
 </code></pre>
 
+<h2>
+<a name="semantics" class="anchor" href="#semantics"><span class="octicon octicon-link"></span></a>Semantics</h2>
+
+<p>By design, OJ handles the generation of unique element IDs for every DOM node automatically under the hood. This provides faster lookups in the internal API and encourages you to reference nodes in memory as opposed to relying on "truth in DOM". For example, while you might write something like the following in jQuery:</p>
+
+<pre><code>$ jQuery('myHolaDiv').append('&lt;div&gt;Leaving...&lt;/div&gt;');
+$ jQuery('myHolaDiv').append('&lt;div&gt;Leaving......&lt;/div&gt;');
+$ jQuery('myHolaDiv').append('&lt;div&gt;Gone&lt;/div&gt;');
+</code></pre>
+
+<p>In OJ, this is not possible. Node lookups by ID are possible, but it better to chain in memory:</p>
+
+<pre><code>$ var myHolaDiv = OJ.node.make('myHolaDiv');
+$ myHolaDiv.div({ value: 'Leaving...' });
+$ myHolaDiv.div({ value: 'Leaving......' });
+$ myHolaDiv.div({ value: 'Gone' });
+</code></pre>
+
+<p>This is not a fault of frameworks like jQuery (in fact jQuery is currently a hard requirement of OJ), but it is different. I think the OJ style is more consistent with the Promise pattern in that it frees you from having to worry about low level details; but that is the opinion of this framework.</p>
+
 <p>Basic HTML and CSS are fully encapsulated in strongly validated OJ classes. Complex forms, layouts and composites are abstracted into thin OJ classes which are extensible with mixins. Entire workflows are simplified into OJ structures which can be defined with just a few lines (or so) of JavaScript code. Layouts are configurable simply by clicking and dragging the form. Validation and data binding come for free.</p>
 
 <p>Some of the most complex work has already been done. The SQL Builder demo is complete, minus actual AJAX requests. A fully fledged wrapper around IndexedDb is in place. Objects are queryable using SQL-like semantics. Raw DOM nodes are wrapped and ready. Much has been done, but much more still remains to do.</p>
