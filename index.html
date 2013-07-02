@@ -4,11 +4,11 @@
   <head>
     <meta charset='utf-8' />
     <meta http-equiv="X-UA-Compatible" content="chrome=1" />
-    <meta name="description" content="Oj : A framework for writing zero-template, zero-html, zero-css web apps in pure JavaScript." />
+    <meta name="description" content="OJ : A framework for writing zero-template, zero-html, zero-css web apps in pure JavaScript." />
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Oj</title>
+    <title>OJ</title>
   </head>
 
   <body>
@@ -18,7 +18,7 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/somecallmechief/oj">View on GitHub</a>
 
-          <h1 id="project_title">Oj</h1>
+          <h1 id="project_title">OJ</h1>
           <h2 id="project_tagline">A framework for writing zero-template, zero-html, zero-css web apps in pure JavaScript.</h2>
 
             <section id="downloads">
@@ -47,15 +47,17 @@ $ grunt build
 $ grunt build
 </code></pre>
 
-<p>There are more than a few TODOs before OJ will deliver anything useful, but this is the vision:</p>
+<p>There are more than a few TODOs before OJ will deliver anything useful, but this is the core of the vision:</p>
 
-<pre><code>$ var div = OJ.body.div({ text: 'Aloha, World!' });
+<pre><code>$ var div =  OJ.node.make('body').div({ value: 'Aloha! Ahoy! Hola! Prevet!' });
 $ div.table().row(1).column(1).span({ text: 'Ahoy, column 1, row 1!' });
 $ ...
 $ div.loginDialog({ pass: init, fail: div.loginDialog });
 </code></pre>
 
 <p>Basic HTML and CSS are fully encapsulated in strongly validated OJ classes. Complex forms, layouts and composites are abstracted into thin OJ classes which are extensible with mixins. Entire workflows are simplified into OJ structures which can be defined with just a few lines (or so) of JavaScript code. Layouts are configurable simply by clicking and dragging the form. Validation and data binding come for free.</p>
+
+<p>Some of the most complex work has already been done. The SQL Builder demo is complete, minus actual AJAX requests. A fully fledged wrapper around IndexedDb is in place. Objects are queryable using SQL-like semantics. Raw DOM nodes are wrapped and ready. Much has been done, but much more still remains to do.</p>
 
 <h3>
 <a name="todo-priority-1" class="anchor" href="#todo-priority-1"><span class="octicon octicon-link"></span></a>TODO Priority 1</h3>
@@ -75,7 +77,7 @@ $ div.loginDialog({ pass: init, fail: div.loginDialog });
 <h3>
 <a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p>Feel like contributing? Wondering what in the sam hill I'm thinking? Challenge me to a duel; fork me; contact me; ignore me. Collaborate in real time <a href="https://c9.io/somecallmechief/ojs">in my IDE of choice</a>. </p>
+<p>Feel like contributing? Wondering what in the sam hill I'm thinking? Challenge me to a duel; fork me; contact me; ignore me. Collaborate in real time <a href="https://c9.io/somecallmechief/oj">in my IDE of choice</a>. </p>
 
 <h3>
 <a name="licensing" class="anchor" href="#licensing"><span class="octicon octicon-link"></span></a>Licensing</h3>
@@ -87,7 +89,7 @@ $ div.loginDialog({ pass: init, fail: div.loginDialog });
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Oj maintained by <a href="https://github.com/somecallmechief">somecallmechief</a></p>
+        <p class="copyright">OJ maintained by <a href="https://github.com/somecallmechief">somecallmechief</a></p>
         <p>Published with <a href="http://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
