@@ -55,8 +55,8 @@ $ ...
 $ div.loginDialog({ pass: init, fail: div.loginDialog });
 </code></pre>
 
-<h2>
-<a name="semantics" class="anchor" href="#semantics"><span class="octicon octicon-link"></span></a>Semantics</h2>
+<h3>
+<a name="semantics" class="anchor" href="#semantics"><span class="octicon octicon-link"></span></a>Semantics</h3>
 
 <p>By design, OJ handles the generation of unique element IDs for every DOM node automatically under the hood. This provides faster lookups in the internal API and encourages you to reference nodes in memory as opposed to relying on "truth in DOM". For example, while you might write something like the following in jQuery:</p>
 
@@ -75,9 +75,12 @@ $ myHolaDiv.div({ value: 'Gone' });
 
 <p>This is not a fault of frameworks like jQuery (in fact jQuery is currently a hard requirement of OJ), but it is different. I think the OJ style is more consistent with the Promise pattern in that it frees you from having to worry about low level details; but that is the opinion of this framework.</p>
 
-<p>Basic HTML and CSS are fully encapsulated in strongly validated OJ classes. Complex forms, layouts and composites are abstracted into thin OJ classes which are extensible with mixins. Entire workflows are simplified into OJ structures which can be defined with just a few lines (or so) of JavaScript code. Layouts are configurable simply by clicking and dragging the form. Validation and data binding come for free.</p>
+<h3>
+<a name="state-of-the-project" class="anchor" href="#state-of-the-project"><span class="octicon octicon-link"></span></a>State of the Project</h3>
 
-<p>Some of the most complex work has already been done. The SQL Builder demo is complete, minus actual AJAX requests. A fully fledged wrapper around IndexedDb is in place. Objects are queryable using SQL-like semantics. Raw DOM nodes are wrapped and ready. Much has been done, but much more still remains to do.</p>
+<p>The Dream: Basic HTML and CSS are fully encapsulated in strongly validated OJ classes. Complex forms, layouts and composites are abstracted into thin OJ classes which are extensible with mixins. Entire workflows are simplified into OJ structures which can be defined with just a few lines (or so) of JavaScript code. Layouts are configurable simply by clicking and dragging the form. Validation and data binding come for free.</p>
+
+<p>The Reality: Some of the most complex work has already been done. The SQL Builder demo is complete, minus actual AJAX requests. A fully fledged wrapper around IndexedDb is in place. Objects are queryable using SQL-like semantics. Raw DOM nodes are wrapped and ready. Much has been done, but much more still remains to do.</p>
 
 <h3>
 <a name="todo-priority-1" class="anchor" href="#todo-priority-1"><span class="octicon octicon-link"></span></a>TODO Priority 1</h3>
