@@ -7,8 +7,8 @@ module.exports.app = [
   'app/js/core/definitions/*.js',
   'app/js/core/db/*.js',
   'app/js/dom/metadata/*.js',
-  'app/js/dom/node/*.js',
-  'app/js/dom/node/elements/*.js',
+  'app/js/dom/nodes/*.js',
+  'app/js/dom/nodes/elements/*.js',
   'app/js/legos/**/*.js',
   'app/js/compositions/querybuilder/sql/*.js',
   'app/js/compositions/querybuilder/*.js',
@@ -23,7 +23,7 @@ module.exports.test = [
   'app/js/core/integration/*.js',
   'app/js/core/tools/*.js',
   'app/js/dom/metadata/*.js',
-  'app/js/dom/node/*.js',
-  'app/js/dom/node/elements/*.js',
+  'app/js/dom/nodes/*.js',
+  'app/js/dom/nodes/elements/*.js',
   'app/js/legos/**/*.js'
 ];

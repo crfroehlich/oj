@@ -127,7 +127,11 @@
 
     n$.to.register('vendorDomObject', function (id) {
         var ret = null;
-        var _$el = n$['?']('#' + id);
+        var base = '#';
+        if(id === 'body') {
+            base = '';
+        }
+        var _$el = n$['?'](base + id);
         if (_$el) {
             ret = _$el;
         }

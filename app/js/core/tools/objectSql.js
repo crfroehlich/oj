@@ -95,6 +95,6 @@
         return _query;
     };
 
-    n$.lift('objectSql', query);
+    n$.register('objectSql', query);
 
 }(window.$nameSpace$));
