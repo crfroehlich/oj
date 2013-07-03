@@ -90,11 +90,20 @@
     /*
      * Inserts a parameter into the position of the first argument, shifting all other arguments to "the right" by one position
     */
-    n$.register('shiftRight', function filter(shiftFunc, firstParam, originalArguments, context) {
+    n$.register('shiftRight', function shiftRight(shiftFunc, firstParam, originalArguments, context) {
         context = context || this;
         var args = Array.prototype.slice.call(originalArguments, 0);
 		args.unshift(firstParam);
         return shiftFunc.apply(context, args);
+    });
+
+    /*
+     * Inserts a parameter into the position of the first argument, shifting all other arguments to "the right" by one position
+    */
+    n$.register('apply', function apply(applyFunc, originalArguments, context) {
+        context = context || this;
+        var args = Array.prototype.slice.call(originalArguments, 0);
+    	return applyFunc.apply(context, args);
     });
 
 }(window.$nameSpace$));

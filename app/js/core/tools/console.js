@@ -13,6 +13,7 @@
     var length = methods.length;
     var console = (window.console = window.console || {});
 
+    //stub out any missing methods. If the stubs execute, it's almost certainly in a browser I don't care about.
     while (length--) {
         method = methods[length];
 
@@ -24,79 +25,82 @@
 
     n$.makeSubNameSpace('console');
 
-    n$.console.register('assert', function () {
+    //Begin KLUDGE. What we really want to do is call window.console[methodName].apply(this, arguments); but
+    //but this generates an exception, which is not at all expected. So to kludge these wrappers into being,
+    //Accept a list of parameters from a-p--because who would ever need more than 16 parameters?
+    n$.console.register('assert', function assert(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.assert.apply(this, arguments);
+        window.console.assert(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
-    n$.console.register('count', function () {
+    n$.console.register('count', function count(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.count.apply(this, arguments);
+        window.console.count(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
-    n$.console.register('error', function () {
+    n$.console.register('error', function (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.error.apply(this, arguments);
+        window.console.error(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
-    n$.console.register('group', function () {
+    n$.console.register('group', function (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.group.apply(this, arguments);
+        window.console.group(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
-    n$.console.register('groupCollapsed', function () {
+    n$.console.register('groupCollapsed', function (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.groupCollapsed.apply(this, arguments);
+        window.console.groupCollapsed(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
-    n$.console.register('groupEnd', function (name) {
+    n$.console.register('groupEnd', function (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.groupEnd.apply(this, arguments);
+        window.console.groupEnd(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
-    n$.console.register('info', function (msg) {
+    n$.console.register('info', function (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.info.apply(this, arguments);
+        window.console.info(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
-    n$.console.register('log', function (msg) {
+    n$.console.register('log', function (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.log.apply(this, arguments);
+        window.console.log(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
-    n$.console.register('profile', function (msg) {
+    n$.console.register('profile', function (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.profile.apply(this, arguments);
+        window.console.profile(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
-    n$.console.register('profileEnd', function (msg) {
+    n$.console.register('profileEnd', function (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.profileEnd.apply(this, arguments);
+        window.console.profileEnd(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
-    n$.console.register('table', function (msg) {
+    n$.console.register('table', function (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.table.apply(this, arguments);
+        window.console.table(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
-    n$.console.register('time', function (msg) {
+    n$.console.register('time', function (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.time.apply(this, arguments);
+        window.console.time(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
-    n$.console.register('timeEnd', function (msg) {
+    n$.console.register('timeEnd', function (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.timeEnd.apply(this, arguments);
+        window.console.timeEnd(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
-    n$.console.register('trace', function (msg) {
+    n$.console.register('trace', function (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.trace.apply(this, arguments);
+        window.console.trace(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
-    n$.console.register('warn', function (msg) {
+    n$.console.register('warn', function (a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p) {
         'use strict';
-        window.console.warn.apply(this, arguments);
+        window.console.warn(a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p);
     });
 
 }(window.$nameSpace$));

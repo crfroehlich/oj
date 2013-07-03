@@ -13,7 +13,13 @@
         };
 
         var entity = this;
-
+        
+        Object.defineProperty(entity, 'add', {
+            value: function(name, val) {
+                n$.property(entity, name, val);
+            }
+        });
+        
         Object.defineProperty(entity, 'id', {
             set: function(val) {
                 if (false === n$.is.string(val)) {
@@ -93,16 +99,17 @@
             }
         });
         
-        if (id) {
-            entity.id = id;
+        if(!entity.id) {
+            if (id) {
+                entity.id = id;
+            }
+            else if (el && el.id) {
+                entity.id = el.id;
+            }
+            else if (_$el && _$el.id) {
+                entity.id = _$el.id;
+            }
         }
-        else if (el && el.id) {
-            entity.id = el.id;
-        }
-        else if (_$el && _$el.id) {
-            entity.id = _$el.id;
-        }
-
         return entity;
     };
 

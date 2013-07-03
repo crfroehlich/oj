@@ -2,7 +2,7 @@
 (function _Error(n$){
 
 
-    var AssignmentError = n$.Class('AssignmentError', Error, function _AE(message, fileName, lineNumber) {
+    var AssignmentError = n$.Class('AssignmentError', Error, function _AE(message, fileName, lineNumber, exception) {
         'use strict';
         var error = this;
         
@@ -14,14 +14,15 @@
         if(lineNumber) {
             error.lineNumber= lineNumber;
         }
+        n$.console.error(error, { outerStack: exception.stack, outerMessage: exception.message });
         return error;
     });
 
-    n$.errors.register('AssignmentError', function(message, fileName, lineNumber){
-        return new AssignmentError(message, fileName, lineNumber);
+    n$.errors.register('AssignmentError', function(message, fileName, lineNumber, exception){
+        return new AssignmentError(message, fileName, lineNumber, exception);
     });
 
-    var ClassInheritanceError = n$.Class('ClassInheritanceError', Error, function _CIE(message, fileName, lineNumber) {
+    var ClassInheritanceError = n$.Class('ClassInheritanceError', Error, function _CIE(message, fileName, lineNumber, exception) {
         'use strict';
         var error = this;
         
@@ -33,12 +34,13 @@
         if(lineNumber) {
             error.lineNumber= lineNumber;
         }
+        n$.console.error(error, { outerStack: exception.stack, outerMessage: exception.message });
         return error;
     });
 
-    n$.errors.register('ClassInheritanceError', function(message, fileName, lineNumber){
+    n$.errors.register('ClassInheritanceError', function(message, fileName, lineNumber, exception){
         'use strict';
-        return new ClassInheritanceError(message, fileName, lineNumber);
+        return new ClassInheritanceError(message, fileName, lineNumber, exception);
     });
 
 }(window.$nameSpace$));

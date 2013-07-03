@@ -31,16 +31,16 @@
      *
      * Obviously, this method has very little utility if you are not using protypical inheritance
     */
-    n$.register('Class', function(name, inheritsFrom, callBack) {
+    n$.register('Class', function Class(name, inheritsFrom, callBack) {
         var obj = Object.create(null);
         obj[name] = function() {
             try {
                 if(inheritsFrom ) {
                     inheritsFrom.apply(this, Array.prototype.slice.call(arguments, 0));
                 }
-                callBack.apply(this, Array.prototype.slice.call(arguments, 0));
+                return callBack.apply(this, Array.prototype.slice.call(arguments, 0));
             } catch(e) {
-                n$.errors.ClassInheritanceError('n$ failed to execute all or part of its callback routine for Class: ' + name);
+                n$.errors.ClassInheritanceError(Class.name + ' failed to execute all or part of its callback routine for method ' + name + '().', '', '', e);
             }
         };
         if(inheritsFrom) {

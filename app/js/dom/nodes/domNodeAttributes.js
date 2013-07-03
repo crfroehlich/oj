@@ -2,80 +2,28 @@
 (function(n$) {
 
     var optionsProto = function() {
-        Object.defineProperty(this, 'accesskey', {
-            value: null,
-            enumerable: true,
-            writable: true
-        });
-
-        Object.defineProperty(this, 'class', {
-            value: null,
-            enumerable: true,
-            writable: true
-        });
-
-        Object.defineProperty(this, 'contenteditable', {
-            value: null,
-            enumerable: true,
-            writable: true
-        });
-
-        Object.defineProperty(this, 'contextmenu', {
-            value: null,
-            enumerable: true,
-            writable: true
-        });
-
-        Object.defineProperty(this, 'draggable', {
-            value: null,
-            enumerable: true,
-            writable: true
-        });
-
-        Object.defineProperty(this, 'dropzone', {
-            value: null,
-            enumerable: true,
-            writable: true
-        });
-
-        Object.defineProperty(this, 'hidden', {
-            value: null,
-            enumerable: true,
-            writable: true
-        });
-
-        Object.defineProperty(this, 'spellcheck', {
-            value: null,
-            enumerable: true,
-            writable: true
-        });
-
-        Object.defineProperty(this, 'style', {
-            value: null,
-            enumerable: true,
-            writable: true
-        });
-
-        Object.defineProperty(this, 'tabindex', {
-            value: null,
-            enumerable: true,
-            writable: true
-        });
-
-        Object.defineProperty(this, 'title', {
-            value: null,
-            enumerable: true,
-            writable: true
-        });
+        //n$.property(obj, name, val, writable, configurable, enumerable);
+        
+        n$.property(this, 'accesskey', null, false, true);
+        n$.property(this, 'class', null, false, true);
+        n$.property(this, 'contenteditable', null, false, true);
+        n$.property(this, 'contextmenu', null, false, true);
+        n$.property(this, 'draggable', null, false, true);
+        n$.property(this, 'dropzone', null, false, true);
+        n$.property(this, 'hidden', null, false, true);
+        n$.property(this, 'spellcheck', null, false, true);
+        n$.property(this, 'style', null, false, true);
+        n$.property(this, 'tabindex', null, false, true);
+        n$.property(this, 'title', null, false, true);
 
         return this;
     };
 
     n$.node.register('globalAttributes', function(options) {
-        var globOpts = Object.create(optionsProto);
+        var globOpts = n$.object(optionsProto.prototype);
         var ret = globOpts;
         if(n$.is.plainObject(options)) {
-            Object.defineProperty(options, 'globalAttributes', {value: globOpts });
+            n$.property(options, 'globalAttributes', globOpts);
             ret = options;
         }
         return ret;
