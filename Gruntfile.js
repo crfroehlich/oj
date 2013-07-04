@@ -32,7 +32,7 @@ module.exports = function (grunt) {
         buildPrefix: 'release/NS.' + grunt.template.today("yyyy.m.d") + '.min',
 
         //purges the contents of the release folder
-        clean: ['release', 'temp'],
+        clean: ['release', 'temp', 'docs'],
 
         //This will concatenate the template files together and prepare them for the parser
         concat: {
@@ -102,7 +102,8 @@ module.exports = function (grunt) {
         jsdoc: {
             src: nsAppJsFiles,
             options: {
-                destination: 'jsdocs'
+                configure: '.jsdocrc',
+                destination: 'docs'
             }
         },
 
@@ -249,16 +250,16 @@ module.exports = function (grunt) {
     });
 
     grunt.registerTask('buildDev', function (exhaustive) {
-        grunt.task.run('toHtml:test'); //Generate the HTML file from the template
-        grunt.task.run('toHtml:dev'); //Generate the HTML file from the template
-        grunt.task.run('toHtml:sql'); //Generate the HTML file from the template
+        grunt.task.run('toHtml:test'); //Generate the Unit Test HTML file from the template
+        grunt.task.run('toHtml:dev'); //Generate the plain Dev HTML file from the template
+        grunt.task.run('toHtml:sql'); //Generate the SQL Builder HTML file from the template
 
         if (exhaustive) {
-            grunt.task.run('qunit'); //Unit tests
             grunt.task.run('jshint');
-            grunt.task.run('docco');
+            //grunt.task.run('docco');
             grunt.task.run('jsdoc');
             grunt.task.run('plato');
+            grunt.task.run('qunit'); //Unit tests
         }
     });
 
@@ -306,8 +307,9 @@ module.exports = function (grunt) {
         grunt.task.run('concat:vendorCoreJs');
         grunt.task.run('concat:vendorCss');
         grunt.task.run('toHtml:dev:test'); //Generate the HTML file from the template
-        grunt.task.run('qunit');
+        grunt.task.run('jsdoc');
         grunt.task.run('plato');
+        grunt.task.run('qunit');
     });
 
     grunt.registerTask('default', ['release:dev:true']);
