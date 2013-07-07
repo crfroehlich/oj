@@ -1,6 +1,36 @@
-/*global nameSpaceName:true, jQuery: true, window: true */
-(function (nameSpaceName, domVendor) {
+﻿/*global nameSpaceName:true, jQuery: true, window: true */
 
+/**
+ * @fileOverview Name Space file
+ * @author me
+ * @version: 0.1.1
+ */
+	
+	/**
+     * jQuery definition to anchor JsDoc comments.
+     *  
+     * @see http://jquery.com/
+     * @name jQuery
+     * @namespace jQuery Library
+     */
+ 
+ 
+ /**
+ * OJ IIFE definition to anchor JsDoc comments.
+ * 
+ * @namespace internalNameSpace
+ * @internal
+ * @param {string} nameSpaceName
+ * @param {jQuery} domVendor
+ */
+ (function (nameSpaceName, domVendor) {
+	 
+	/**
+	 * boot strap name method into Object prototype
+	 * @function
+	 * @return {string} Name of the Object
+	 * @memberOf {object}
+	*/
     Object.defineProperties(Object.prototype, {
         getInstanceName: {
             value: function () {
@@ -14,35 +44,31 @@
     /**
      * An internal representation of the namespace tree
      * @internal
+	 * @memberOf internalNameSpace
     */
     var NsTree = {};
 
     /**
-     *    The nameSpaceName  NameSpace, an IIFE
-     *    @namespace
-     *    @export
-     *    @global */ +nameSpaceName + /*
-     *    @return {window.nameSpaceName}
-     */
+	 * OJ NameSpace
+	 * 
+	 * @namespace OJ
+ 	 */
     Object.defineProperty(window, nameSpaceName, {
         value:
-            /**
-             * Intializes the nameSpaceName namespace.
-             * @return {window.nameSpaceName}
-            */
             (function () {
 
                 var nsInternal = {
                     dependents: []
                 };
-
+	
+				/**
+				 * Fetches the registered properties and methods on the namespace and its child namespaces
+				 * @interal
+				 * @return {Array} An array of members defined as strings (e.g. 'namespace.constants.astringcnst')
+				 * @memberOf internalNameSpace
+				*/
                 Object.defineProperty(nsInternal, 'getNsMembers', {
                     value:
-                        /**
-                         * Fetches the registered properties and methods on the namespace and its child namespaces
-                         * @interal
-                         * @return {Array} An array of members defined as strings (e.g. 'namespace.constants.astringcnst')
-                        */
                         function () {
                             var members = [];
 
@@ -70,12 +96,13 @@
                         }
                 });
 
+				/**
+				 * To support dependency management, when a property is lifted onto the namespace, notify dependents to initialize
+				 * @internal
+				 * @memberOf internalNameSpace
+				*/
                 Object.defineProperty(nsInternal, 'alertDependents', {
                     value:
-                        /**
-                         * To support dependency management, when a property is lifted onto the namespace, notify dependents to initialize
-                         * @internal
-                        */
                         function (imports) {
                         var deps = nsInternal.dependents.filter(function (depOn) {
                             return false === depOn(imports);
@@ -89,14 +116,17 @@
                 /**
                  * Internal nameSpaceName method to create new "sub" namespaces on arbitrary child objects.
                  * @internal	
-                 * @param spacename {String} the namespace name
-                 * @param tree {Object} the internal tree representation of the current level of the namespace
-                 * @return namespace {Object} A new namespace
+                 * @param spacename {string} the namespace name
+                 * @param tree {object} the internal tree representation of the current level of the namespace
+                 * @extends OJ
+				 * @memberOf internalNameSpace
                  */
                 function makeNameSpace(spacename, tree) {
                     /**
                      * An internal mechanism to represent the instance of this namespace
                      * @constructor
+					 * @internal
+					 * @memberOf makeNameSpace
                     */
                     var Class = new Function(
                         "return function " + spacename + "(){}"
@@ -105,21 +135,26 @@
                     /**
                      * The derived instance to be constructed
                      * @constructor
+					 * @internal
+					 * @memberOf makeNameSpace
+					 * @return {object}
                     */
                     function Base(nsName) {
                         var proto = this;
                         tree[nsName] = tree[nsName] || {};
                         var nsTree = tree[nsName];
 
+						/**
+						 *	Register (e.g. "Lift") an Object into the prototype of the namespace.
+						 *	This Object will be readable/executable but is otherwise immutable.
+						 *   @name register
+						 *   @param {string} name The name of the object to lift
+						 *   @param {object} obj Any, arbitrary Object to use as the value.
+						 *   @return {object} The value of the new property.
+						 *   @memberOf OJ
+						 */
                         Object.defineProperty(this, 'register', {
                             value:
-                                /**
-                                 *	Register (e.g. "Lift") an Object into the prototype of the namespace.
-                                 *	This Object will be readable/executable but is otherwise immutable.
-                                 *   @param {String} name The name of the object to lift
-                                 *   @param {Object} obj Any, arbitrary Object to use as the value.
-                                 *   @return {Object} The value of the new property.
-                                 */
                                 function (name, obj, enumerable) {
                                     'use strict';
                                     if (!(typeof name === 'string') || name === '') {
@@ -149,12 +184,14 @@
                                 }
                         });
 
+						/**
+						 *	Create a new, static namespace on the current parent (e.g. nsName.to... || nsName.is...)
+						 *   @name makeSubNameSpace
+						 *   @param {string} subNameSpace The name of the new namespace.
+						 *   @return {object} The new namespace.
+						 *   @memberOf OJ
+						 */
                         proto.register('makeSubNameSpace',
-                            /**
-                             *	Create a new, static namespace on the current parent (e.g. nsName.to... || nsName.is...)
-                             *   @param {String} subNameSpace The name of the new namespace.
-                             *   @return {Object} The new namespace.
-                             */
                             function (subNameSpace) {
                                 'use strict';
                                 if (!(typeof subNameSpace === 'string') || subNameSpace === '') {
@@ -190,20 +227,39 @@
                 Object.defineProperties(window, { $nameSpace$: { value: NsOut } });
 
                 //Cache a handle on the vendor (probably jQuery) on the root namespace
-                NsOut.register('?', domVendor, false);
+                /**
+				 *	Cache a handle on the vendor (probably jQuery) on the root namespace
+				 *  @name '?'   
+				 *	@return {jQuery}
+				 *  @memberOf OJ
+				 */
+				NsOut.register('?', domVendor, false);
                 
                 //Cache the tree (useful for documentation/visualization/debugging)
-                NsOut.register('tree', NsTree[nameSpaceName], false);
+                /**
+				 *	Cache the tree (useful for documentation/visualization/debugging)
+				 *  @name 'tree'   
+				 *	@return {NsTree}
+				 *  @memberOf OJ
+				 */
+				NsOut.register('tree', NsTree[nameSpaceName], false);
                 
                 //Cache the name space name
+				/**
+				 *	Cache the name space name
+				 *  @name 'name'   
+				 *	@return {nameSpaceName}
+				 *  @memberOf OJ
+				 */
                 NsOut.register('name', nameSpaceName, false);
 
 
                 /**
-                 *    "Depend" an Object upon another member of this namespace, upon another namespace,
+                 *   "Depend" an Object upon another member of this namespace, upon another namespace,
                  *   or upon a member of another namespace
-                 *   @param (Array) array of dependencies for this method
-                 *   @param (Function) obj Any, arbitrary Object to use as the value
+                 *   @param (array) array of dependencies for this method
+                 *   @param (function) obj Any, arbitrary Object to use as the value
+				 *   @memberOf OJ
                  */
                 function dependsOn(dependencies, callBack, imports) {
                     'use strict';

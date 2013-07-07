@@ -77,43 +77,19 @@ module.exports = function (grunt) {
                 dest: '<%= buildPrefix %>.css'
             }
         },
+		
+		groc: {
+			javascript: nsAppJsFiles,
+			options: {
+			  "out": "groc/"
+			}
+		  },
 
-        //Generate Docco style documentation
-        docco: {
-            src: nsAppJsFiles,
-            options: {
-                output: 'docco/'
-            }
-
-        },
-
-        //Maybe one day, but the HTML is tiny
-
-        //htmlminifier: {
-        //    removeComments: true,
-        //    collapseWhitespace: true,
-        //    collapseBooleanAttributes: false,
-        //    removeRedundantAttributes: false,
-        //    removeEmptyAttributes: false,
-        //    removeOptionalTags: false
-        //},
-
-        //Placeholder for jsdoc docomentation generator
         jsdoc: {
-            src: nsAppJsFiles,
+            src: ['README.md', 'app/**/*.js'],
             options: {
                 configure: '.jsdocrc',
-                destination: 'docs'
-            }
-        },
-
-        jsduck: {
-            src: nsAppJsFiles,
-            dest: 'jsduck',
-            options: {
-                'builtin-classes': true,
-                'warnings': ['-no_doc', '-dup_member', '-link_ambiguous'],
-                'external': ['XMLHttpRequest']
+				destination: 'doc'
             }
         },
 
@@ -230,7 +206,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-docco2');
     grunt.loadNpmTasks('grunt-jsdoc');
     grunt.loadNpmTasks('grunt-jsduck');
-
+	grunt.loadNpmTasks('grunt-groc');
+	grunt.loadNpmTasks('grunt-dox');
+	
     /**ENDREGION: *-contrib tasks */
 
     /**REGION: init tasks */
@@ -258,6 +236,7 @@ module.exports = function (grunt) {
             grunt.task.run('jshint');
             //grunt.task.run('docco');
             grunt.task.run('jsdoc');
+            grunt.task.run('jsduck');
             grunt.task.run('plato');
             grunt.task.run('qunit'); //Unit tests
         }

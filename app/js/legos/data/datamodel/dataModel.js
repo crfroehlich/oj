@@ -12,7 +12,7 @@
     n$.constant(n$.dataModels, 'properties', dataModelProperties);
 
     /**
-     * Private class representing the construnction of a dataModel. It returns a n$.dataModels.dataModel instance with collections for adding columns and subscribers.
+     * Private class representing the construction of a dataModel. It returns a n$.dataModels.dataModel instance with collections for adding columns and subscribers.
      * @internal
      * @constructor
      * @param name {String} The ClassName of the dataModel to associate with ExtJS

@@ -1,4 +1,4 @@
-/* jshint undef: true, unused: true */
+﻿/* jshint undef: true, unused: true */
 /* global window:true, Ext:true, $: true */
 
 (function _dataTypeCollectionIIFE(n$) {
