@@ -78,18 +78,22 @@ module.exports = function (grunt) {
             }
         },
 		
-		groc: {
-			javascript: nsAppJsFiles,
-			options: {
-			  "out": "groc/"
+		githubPages: {
+			target: {
+				options: {
+					// The default commit message for the gh-pages branch
+					commitMessage: 'pushing api docs'
+				},
+				// The folder where your gh-pages repo is
+				src: '_apidocs'
 			}
-		  },
+		},
 
         jsdoc: {
             src: ['README.md', 'app/**/*.js'],
             options: {
                 configure: '.jsdocrc',
-				destination: 'doc'
+				destination: '_apidocs'
             }
         },
 
@@ -205,9 +209,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-plato');
     grunt.loadNpmTasks('grunt-docco2');
     grunt.loadNpmTasks('grunt-jsdoc');
-    grunt.loadNpmTasks('grunt-jsduck');
-	grunt.loadNpmTasks('grunt-groc');
-	grunt.loadNpmTasks('grunt-dox');
+    grunt.loadNpmTasks('grunt-github-pages');
 	
     /**ENDREGION: *-contrib tasks */
 
@@ -234,13 +236,16 @@ module.exports = function (grunt) {
 
         if (exhaustive) {
             grunt.task.run('jshint');
-            //grunt.task.run('docco');
             grunt.task.run('jsdoc');
-            grunt.task.run('jsduck');
             grunt.task.run('plato');
             grunt.task.run('qunit'); //Unit tests
         }
     });
+
+    grunt.registerTask('buildDocs', function () {
+		grunt.task.run('jsdoc');
+		grunt.task.run('githubPages');
+	});
 
     grunt.registerTask('toHtml', function (page) {
         //This needs to be a Grunt task, because we want it to run serially. If executed as a function, its sequence in the execution will be unknown

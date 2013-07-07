@@ -32,12 +32,8 @@
     "clean-css": "latest",
     "express": "latest",
     "grunt-growl": "latest",
-    "grunt-docco2": "latest",
     "grunt-jsdoc": "latest",
-    "grunt-jsduck": "latest",
-    "grunt-docular": "~0.1.1",
-    "grunt-groc": "~0.3.0",
-    "grunt-dox": "~0.4.2"
+    "grunt-github-pages": "0.0.3"
   },
   "keywords": [],
   "engines": {
