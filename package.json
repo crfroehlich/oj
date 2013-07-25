@@ -23,15 +23,17 @@
   ],
   "dependencies": {
     "grunt": "0.4.1",
-    "grunt-contrib": "0.7.0",
-    "grunt-tmplmin": "0.0.2",
-    "html-minifier": "latest"
+    "grunt-contrib-clean": "latest",
+    "grunt-contrib-concat": "latest", 
+    "grunt-contrib-cssmin": "latest", 
+    "grunt-contrib-uglify": "latest"
   },
   "devDependencies": {
+    "grunt-contrib-jshint": "latest", 
+    "grunt-contrib-nodeunit": "latest", 
+    "grunt-contrib-qunit": "latest", 
+    "grunt-contrib-watch": "latest",
     "grunt-plato": "latest",
-    "clean-css": "latest",
-    "express": "latest",
-    "grunt-growl": "latest",
     "grunt-jsdoc": "latest",
     "grunt-github-pages": "0.0.3"
   },
