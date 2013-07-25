@@ -100,6 +100,13 @@ module.exports = function (grunt) {
         //Brutal honesty
         jshint: {
             options: {
+                globals: {
+                    $: true,
+                    $nameSpace$: true,
+                    window: true,
+                    Ext: true
+                },
+                force: true, //Show errors, but don't fail the task.
                 bitwise: true,
                 curly: true,
                 eqeqeq: true,
@@ -118,12 +125,6 @@ module.exports = function (grunt) {
                 globalstrict: false,
                 smarttabs: true,
                 reporterOutput: 'jslint.log'
-            },
-            globals: {
-                $: true,
-                $nameSpace$: true,
-                window: true,
-                Ext: true
             },
             files: nsAppJsFiles
         },
