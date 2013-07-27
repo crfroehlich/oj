@@ -2,7 +2,6 @@
         
 
         <%
-            grunt.log.writeln('Starting JS');
             print('        <script type="text/javascript" src="//extjs.cachefly.net/ext-4.1.1a-gpl/ext-all-debug.js"></script>\n');
             print('        <script type="text/javascript" src="//extjs.cachefly.net/ext-4.1.1a-gpl/examples/ux/CheckColumn.js"></script>\n');
             print('        <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>\n');
@@ -10,11 +9,10 @@
             print('        <script src="../release/vendor.min.js"></script>\n');
 
             var buildMode = grunt.config('buildMode');
-            grunt.log.writeln('Starting JS for: ' + buildMode + '.');
+            grunt.log.writeln('Starting JS for buildMode: ' + buildMode + '.');
             if(buildMode) {
                 
                 var jsFiles = grunt.file.expand(grunt.config('tmpHtml.' + buildMode + '.jsFiles'));
-                grunt.log.writeln('Starting JS files');
                 if(jsFiles) {
                     for(var i = 0, len = jsFiles.length; i < len; i += 1) {
                         print('        <script type="text/javascript" src="../' + jsFiles[i] + '"></script>\n');

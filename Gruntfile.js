@@ -215,7 +215,6 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-plato');
-    grunt.loadNpmTasks('grunt-docco2');
     grunt.loadNpmTasks('grunt-jsdoc');
     grunt.loadNpmTasks('grunt-github-pages');
 	
@@ -242,11 +241,11 @@ module.exports = function (grunt) {
         grunt.task.run('toHtml:dev'); //Generate the plain Dev HTML file from the template
         grunt.task.run('toHtml:sql'); //Generate the SQL Builder HTML file from the template
 
-        if (exhaustive) {
+        if (true == exhaustive) {
             grunt.task.run('jshint');
             grunt.task.run('jsdoc');
             grunt.task.run('plato');
-            grunt.task.run('qunit'); //Unit tests
+            //grunt.task.run('qunit'); //Unit tests
         }
     });
 
@@ -275,6 +274,7 @@ module.exports = function (grunt) {
         if (!mode) {
             throw grunt.task.taskError('Build mode must be supplied');
         }
+        exhaustive = exhaustive || 0;
         switch (mode) {
             case 'dev':
                 grunt.task.run('buildProd');
