@@ -1,5 +1,5 @@
 /* jshint undef: true, unused: true */
-/* global Csw2:true, window:true, Ext:true, $: true */
+/* global n$:true, window:true, Ext:true, $: true */
 
 (function(n$) {
 
