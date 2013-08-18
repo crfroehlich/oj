@@ -1,4 +1,4 @@
-/*global Q:true,Faker:true */
+/*global Q:true */
 
 (function(n$) {
 
