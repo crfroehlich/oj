@@ -241,7 +241,7 @@ module.exports = function (grunt) {
         grunt.task.run('toHtml:dev'); //Generate the plain Dev HTML file from the template
         grunt.task.run('toHtml:sql'); //Generate the SQL Builder HTML file from the template
 
-        if (true == exhaustive) {
+        if (true === exhaustive) {
             grunt.task.run('jshint');
             grunt.task.run('jsdoc');
             grunt.task.run('plato');
