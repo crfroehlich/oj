@@ -2,10 +2,9 @@
 
 (function(n$) {
 
-    (function () {
     'use strict';
     
-    n$.db.register('table', n$.makeNameSpace());
+    n$.db.makeSubNameSpace('table');
     
     /*
      * Private implementation method to create a new table (aka Object Store). 

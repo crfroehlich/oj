@@ -1,9 +1,9 @@
-/*global Q:true,Faker:true,$nameSpace$: true */
+/*global Q:true,Faker:true,$nameSpace$: true,IDBKeyRange */
 
-(function () {
+(function (n$) {
     'use strict';
     
-    n$.db.register('select', n$.makeNameSpace());
+    n$.db.makeSubNameSpace('select');
 
     /*
     * Private implementation method to select all records from a table
@@ -118,4 +118,4 @@
     n$.db.select.register('from', selectFrom);
 
 
-} ());
+} (window.$nameSpace$));

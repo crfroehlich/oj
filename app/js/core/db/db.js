@@ -2,8 +2,8 @@
 
 (function(n$) {
 
-    n$.register('db', n$.makeNameSpace());
-
+    n$.makeSubNameSpace('db');
+    
     /*
      * Instance a DB Manager class which abstracts the mechanics for connecting to and selecting from an IndexedDb database
      */

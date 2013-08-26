@@ -2,7 +2,7 @@
 
 (function(n$) {
 
-      n$.db.register('index', n$.makeNameSpace());
+      n$.db.makeSubNameSpace('index');
 
     /*
       * Private implementation method to create a new index.
