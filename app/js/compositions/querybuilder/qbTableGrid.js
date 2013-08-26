@@ -28,7 +28,7 @@
 
 
         var model;
-        var selModel = n$.dataSelections.selectionModelCheckBox({
+        var selModel = n$.selections.selectionModelCheckBox({
             name: 'qbTableGridSelectionModelCheckBox',
             checkOnly: true,
             onDefine: function(def, that) {

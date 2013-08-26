@@ -2,7 +2,7 @@
 (function(n$) {
     'use strict';
 
-    n$.register('fun', n$.makeNameSpace());
+    n$.makeSubNameSpace('fun');
 
     /*
      * Curry Left method

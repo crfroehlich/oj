@@ -1,4 +1,4 @@
-/* global window:true, Ext:true */
+/*global window:true, Ext:true */
 
 (function(n$) {
 

@@ -1,4 +1,4 @@
-/* global window:true, Ext:true */
+/*global window:true, Ext:true */
 
 (function (n$) {
 
@@ -133,7 +133,7 @@
 
     var showTableAliasEditForm = function (thisView, event, el) {
         var table, header, title, titleId;
-        table = n$.actions.sql.manager.select.tables.getTableById(this.tableId);
+        table = n$.actions.sql.manager.select.tables.getTableById(thisView.tableId);
         header = thisView.getHeader();
         titleId = '#' + header.getId() + '_hd';
         title = thisView.down(titleId);
@@ -145,7 +145,7 @@
             parentTableModel: table,
             initComponent: function () {
 
-                this.setValue(this.parentTableModel.get('tableAlias'));
+                this.setValue(table.get('tableAlias'));
 
                 this.on('render', function (field, event) {
                     // set focus to the textfield Benutzerkennung
