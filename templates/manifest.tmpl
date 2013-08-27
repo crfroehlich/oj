@@ -1,0 +1,83 @@
+CACHE MANIFEST
+
+#Any change to the manifest will instruct the browser to reload all resources; so "version" the next line with every build.
+#version <% print(grunt.template.today('dddd mmmm dS yyyy h:MM:ss TT') + ' \n') %>
+
+CACHE:
+
+#html
+
+<%
+    var htmlFiles = grunt.file.expand(['*.html']);
+    for(var i = 0, len = htmlFiles.length; i < len; i += 1) {
+        print('../' + htmlFiles[i] + ' \n');
+    }
+%> 
+        
+#js
+
+<%
+    //grunt.log.write(JSON.stringify(grunt.config('files')));
+    var releaseMode = grunt.config('releaseMode');
+    if(releaseMode !== 'dev') {
+        print('vendor.min.js \n');
+        print('ChemSW.' + grunt.template.today("yyyy.m.d") + '.min.js \n');
+        print('ChemSW.' + grunt.template.today("yyyy.m.d") + '.min.js.map \n');
+    } else {
+        
+        var jsVendorFiles = grunt.file.expand(grunt.config('files').vendorJs);
+        for(var i = 0, len = jsVendorFiles.length; i < len; i += 1) {
+            print('../' + jsVendorFiles[i] + ' \n');
+        }
+    }
+            
+%>
+       
+#css
+
+<%
+    var releaseMode = grunt.config('releaseMode');
+    if(releaseMode !== 'dev') {
+        print('NS.' + grunt.template.today("yyyy.m.d") + '.min.css \n');
+    }
+
+%>
+
+#images
+
+<%
+    var imageFiles = grunt.file.expand(grunt.config('files').images);
+    for(var i = 0, len = imageFiles.length; i < len; i += 1) {
+        print('../' + imageFiles[i] + ' \n');
+    }
+%>
+
+#Always reload these assets
+NETWORK:
+*
+
+#css
+<%
+    var releaseMode = grunt.config('releaseMode');
+    if(releaseMode === 'dev') {
+        var cssFiles = grunt.file.expand(grunt.config('files').devCss);
+        for(var i = 0, len = cssFiles.length; i < len; i += 1) {
+            print('../' + cssFiles[i] + ' \n');
+        }
+    }
+%>
+
+#js
+
+<%
+    var releaseMode = grunt.config('releaseMode');
+    if(releaseMode === 'dev') {
+        var jsFiles = grunt.file.expand(grunt.config('files').devJs);
+        for(var i = 0, len = jsFiles.length; i < len; i += 1) {
+            print('../' + jsFiles[i] + ' \n');
+        }
+    }
+%>    
+
+#If cache or network fail, what's the fallback?
+FALLBACK:

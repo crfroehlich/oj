@@ -49,3 +49,31 @@
         <![endif]-->
 
       
+
+
+        
+
+        <%
+            print('        <script type="text/javascript" src="//extjs.cachefly.net/ext-4.1.1a-gpl/ext-all-debug.js"></script>\n');
+            print('        <script type="text/javascript" src="//extjs.cachefly.net/ext-4.1.1a-gpl/examples/ux/CheckColumn.js"></script>\n');
+            print('        <script src="//ajax.aspnetcdn.com/ajax/jQuery/jquery-2.0.2.min.js"></script>\n');
+            print('        <script src="//cdnjs.cloudflare.com/ajax/libs/q.js/0.9.2/q.min.js"></script>\n');
+            print('        <script src="../release/vendor.min.js"></script>\n');
+
+            var releaseMode = grunt.config('releaseMode');
+            grunt.log.writeln('Starting JS for releaseMode: ' + releaseMode + '.');
+            if(releaseMode) {
+                
+                var jsFiles = grunt.file.expand(grunt.config('tmpHtml.' + releaseMode + '.jsFiles'));
+                if(jsFiles) {
+                    for(var i = 0, len = jsFiles.length; i < len; i += 1) {
+                        print('        <script type="text/javascript" src="../' + jsFiles[i] + '"></script>\n');
+                    }
+                }
+            }
+        %>
+
+
+
+    </body>
+</html>

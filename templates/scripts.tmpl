@@ -8,11 +8,11 @@
             print('        <script src="//cdnjs.cloudflare.com/ajax/libs/q.js/0.9.2/q.min.js"></script>\n');
             print('        <script src="../release/vendor.min.js"></script>\n');
 
-            var buildMode = grunt.config('buildMode');
-            grunt.log.writeln('Starting JS for buildMode: ' + buildMode + '.');
-            if(buildMode) {
+            var releaseMode = grunt.config('releaseMode');
+            grunt.log.writeln('Starting JS for releaseMode: ' + releaseMode + '.');
+            if(releaseMode) {
                 
-                var jsFiles = grunt.file.expand(grunt.config('tmpHtml.' + buildMode + '.jsFiles'));
+                var jsFiles = grunt.file.expand(grunt.config('tmpHtml.' + releaseMode + '.jsFiles'));
                 if(jsFiles) {
                     for(var i = 0, len = jsFiles.length; i < len; i += 1) {
                         print('        <script type="text/javascript" src="../' + jsFiles[i] + '"></script>\n');

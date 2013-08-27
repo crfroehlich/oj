@@ -1,24 +1,21 @@
+/*jshint undef: true, unused: true */
+/*global  module:false*/
 
-/*global module:false*/
-module.exports = function (grunt) {
+module.exports = function(grunt) {
     var files = require('./files');
-    var nsAppJsFiles = files.app;
-    var nsAppCssFiles = ['app/css/*.css'];
+    var nsAppJsFiles = files.devJs;
+    var nsAppCssFiles = files.devCss;
 
-    var nsTestJsFiles = ['test/*.js', 'test/*/*.js'];
+    var nsTestJsFiles = files.testJs;
 
-    var nsVendorJsMinFiles = ['vendor/js/core/*.js', 'vendor/js/extensions/*.js'];
-    var nsVendorJsFiles = nsVendorJsMinFiles;
-    var nsVendorCssFiles = [];
+    var nsVendorJsMinFiles = files.vendorJs;
+
+    var nsVendorCssFiles = files.vendorCss;
 
     // Project configuration.
     grunt.initConfig({
-        nsAppJsFiles: nsAppJsFiles,
-        nsAppJsTestFiles: files.test,
-        nsAppCssFiles: nsAppCssFiles,
-
-        nsTestJsFiles: nsTestJsFiles,
-        nsVendorJsFiles: nsVendorJsFiles,
+        //Caching these on the Grunt config object makes them easily accessible from templates, but I'm sure this could be functionalized
+        files: files,
 
         pkg: grunt.file.readJSON('package.json'),
 
@@ -28,29 +25,29 @@ module.exports = function (grunt) {
             banner: '/*! <%= pkg.title %> - v <%= pkg.version %> - ' + '<%= grunt.template.today("yyyy-mm-dd") %> */\n'
         },
 
-        buildMode: 'prod',
+        releaseMode: 'prod',
         buildPrefix: 'release/NS.' + grunt.template.today("yyyy.m.d") + '.min',
 
         //purges the contents of the release folder
-        clean: ['release', 'temp', 'docs'],
+        clean: ['release', 'templates/_temp', 'docs'],
 
         //This will concatenate the template files together and prepare them for the parser
         concat: {
             prod: { //index.html
                 src: ['templates/header.tmpl', 'templates/scripts.tmpl', 'templates/end.tmpl'],
-                dest: 'temp/index.tmpl'
+                dest: 'templates/_temp/index.tmpl'
             },
             dev: { //index.html
                 src: ['templates/header.tmpl', 'templates/scripts.tmpl', 'templates/end.tmpl'],
-                dest: 'temp/index.tmpl'
+                dest: 'templates/_temp/index.tmpl'
             },
             sql: { //sql.html
                 src: ['templates/header.tmpl', 'templates/scripts.tmpl', 'templates/end.tmpl'],
-                dest: 'temp/sql.tmpl'
+                dest: 'templates/_temp/sql.tmpl'
             },
             test: { //test.html
                 src: ['templates/header.tmpl', 'templates/scripts.tmpl', 'templates/test.tmpl', 'templates/end.tmpl'],
-                dest: 'temp/test.tmpl'
+                dest: 'templates/_temp/test.tmpl'
             },
             vendorCoreJs: {
                 src: nsVendorJsMinFiles,
@@ -77,23 +74,23 @@ module.exports = function (grunt) {
                 dest: '<%= buildPrefix %>.css'
             }
         },
-		
-		githubPages: {
-			target: {
-				options: {
-					// The default commit message for the gh-pages branch
-					commitMessage: 'pushing api docs'
-				},
-				// The folder where your gh-pages repo is
-				src: '_apidocs'
-			}
-		},
+
+        githubPages: {
+            target: {
+                options: {
+                    // The default commit message for the gh-pages branch
+                    commitMessage: 'pushing api docs'
+                },
+                // The folder where your gh-pages repo is
+                src: '_apidocs'
+            }
+        },
 
         jsdoc: {
             src: ['README.md', 'app/**/*.js'],
             options: {
                 configure: '.jsdocrc',
-				destination: '_apidocs'
+                destination: '_apidocs'
             }
         },
 
@@ -152,33 +149,42 @@ module.exports = function (grunt) {
 
         tmpHtml: {
             prod: {
-                src: 'temp/index.tmpl',
+                src: 'templates/_temp/index.tmpl',
                 dest: 'release/index.html',
                 jsFiles: ['<%= buildPrefix %>.js'],
                 cssFiles: ['<%= buildPrefix %>.css'],
                 title: 'Production Index Page'
             },
             dev: {
-                src: 'temp/index.tmpl',
+                src: 'templates/_temp/index.tmpl',
                 dest: 'app/dev.html',
                 jsFiles: nsAppJsFiles,
                 cssFiles: nsAppCssFiles,
                 title: 'Development Index Page'
             },
             sql: {
-                src: 'temp/sql.tmpl',
+                src: 'templates/_temp/sql.tmpl',
                 dest: 'app/sql.html',
                 jsFiles: nsAppJsFiles,
                 cssFiles: nsAppCssFiles,
                 title: 'SQL Builder'
             },
             test: {
-                src: 'temp/test.tmpl',
+                src: 'templates/_temp/test.tmpl',
                 dest: 'test/Test.html',
                 jsFiles: nsTestJsFiles,
                 cssFiles: ['vendor/test/qunit-1.11.0.css'],
                 title: 'Unit Tests'
+            },
+            manifestP: {
+                src: 'templates/manifest.tmpl',
+                dest: 'release/Prod.appcache'
+            },
+            manifestD: {
+                src: 'templates/manifest.tmpl',
+                dest: 'release/Dev.appcache'
             }
+
         },
 
         uglify: {
@@ -217,7 +223,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-plato');
     grunt.loadNpmTasks('grunt-jsdoc');
     grunt.loadNpmTasks('grunt-github-pages');
-	
+
     /**ENDREGION: *-contrib tasks */
 
     /**REGION: init tasks */
@@ -228,39 +234,47 @@ module.exports = function (grunt) {
 
     /**REGION: register ns tasks */
 
-    grunt.registerTask('buildProd', function () {
+    grunt.registerTask('buildProd', function() {
         grunt.task.run('clean'); //Delete anything in the 'release' folder
         grunt.task.run('cssmin'); //Compile the CSS
         grunt.task.run('concat'); //Assembles the HTML template
         grunt.task.run('uglify'); //Compile the JavaScript
+
+        grunt.config('releaseMode', 'prod');
+        grunt.task.run('toHtml:manifestP'); //Generate the Application Manifest file from the template
         grunt.task.run('toHtml:prod'); //Generate the Main HTML file from the template
     });
 
-    grunt.registerTask('buildDev', function (exhaustive) {
+    grunt.registerTask('buildDev', function(exhaustive) {
+        grunt.config('releaseMode', 'dev');
+        grunt.task.run('toHtml:manifestD'); //Generate the Application Manifest file from the template
         grunt.task.run('toHtml:test'); //Generate the Unit Test HTML file from the template
         grunt.task.run('toHtml:dev'); //Generate the plain Dev HTML file from the template
         grunt.task.run('toHtml:sql'); //Generate the SQL Builder HTML file from the template
 
         if (true === exhaustive) {
             grunt.task.run('jshint');
-            grunt.task.run('jsdoc');
             grunt.task.run('plato');
             //grunt.task.run('qunit'); //Unit tests
+            grunt.task.run('buildDocs');
         }
     });
 
-    grunt.registerTask('buildDocs', function () {
-		grunt.task.run('jsdoc');
-		grunt.task.run('githubPages');
-	});
+    grunt.registerTask('buildDocs', function() {
+        grunt.task.run('jsdoc');
+        grunt.task.run('githubPages');
+    });
 
-    grunt.registerTask('toHtml', function (page) {
+    grunt.registerTask('toHtml', function(page) {
         //This needs to be a Grunt task, because we want it to run serially. If executed as a function, its sequence in the execution will be unknown
-        grunt.log.write('Starting template-to-HTML conversion for ' + page + ' mode.');
-        
-        if (page) {
-            grunt.config('buildMode', page);
+        grunt.log.write('Starting template-to-HTML conversion for page: ' + page + '.');
+
+        var mode = 'prod';
+        if (page !== 'index.html') {
+            mode = 'dev';
         }
+        grunt.config('releaseMode', mode);
+
         var conf = grunt.config('tmpHtml')[page];
         var tmpl = grunt.file.read(conf.src);
 
@@ -270,24 +284,24 @@ module.exports = function (grunt) {
     });
 
     // Plain vanilla build task, which supports two modes: dev and prod. Dev always builds prod. Syntax is `grunt release:dev`
-    grunt.registerTask('release', function (mode, exhaustive) {
+    grunt.registerTask('release', function(mode, exhaustive) {
         if (!mode) {
             throw grunt.task.taskError('Build mode must be supplied');
         }
         exhaustive = exhaustive || 0;
         switch (mode) {
-            case 'dev':
-                grunt.task.run('buildProd');
-                grunt.task.run('buildDev:' + exhaustive);
-                break;
-            case 'prod':
-                grunt.task.run('buildProd');
-                break;
+        case 'dev':
+            grunt.task.run('buildProd');
+            grunt.task.run('buildDev:' + exhaustive);
+            break;
+        case 'prod':
+            grunt.task.run('buildProd');
+            break;
         }
     });
 
     // Run any registered task
-    grunt.registerTask('runArbitraryTask', function (taskName) {
+    grunt.registerTask('runArbitraryTask', function(taskName) {
         if (!taskName) {
             throw grunt.task.taskError('Task Name must be supplied');
         }
@@ -295,7 +309,7 @@ module.exports = function (grunt) {
     });
 
     // Build the Test HTML and execute the QUnit tests
-    grunt.registerTask('runUnitTests', function () {
+    grunt.registerTask('runUnitTests', function() {
         grunt.task.run('concat:vendorCoreJs');
         grunt.task.run('concat:vendorCss');
         grunt.task.run('toHtml:dev:test'); //Generate the HTML file from the template
