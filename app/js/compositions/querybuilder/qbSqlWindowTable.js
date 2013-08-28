@@ -1,14 +1,15 @@
-/*global window:true, Ext:true */
+/*global window:true, Ext:true,Faker */
 
-(function (n$) {
+(function(n$) {
 
-    var getOffset = function (thisView, constrain) {
-        var xy = thisView.dd.getXY(constrain), s = thisView.dd.startXY;
+    var getOffset = function(thisView, constrain) {
+        var xy = thisView.dd.getXY(constrain),
+            s = thisView.dd.startXY;
         // return the the difference between the current and the drag&drop start position
         return [xy[0] - s[0], xy[1] - s[1]];
     };
 
-    var closeSQLTable = function (thisView) {
+    var closeSQLTable = function(thisView) {
         // remove fields / columns from SqlFineTuningStore
         n$.actions.sql.manager.select.fields.removeFieldsByTableId(thisView.tableId);
 
@@ -16,13 +17,17 @@
         n$.actions.sql.manager.select.tables.removeTableById(thisView.tableId);
 
         // unregister mousedown event
-        thisView.getHeader().el.un('mousedown', function _doRegStartDrag() { regStartDrag(thisView); }, thisView);
+        thisView.getHeader().el.un('mousedown', function _doRegStartDrag() {
+            regStartDrag(thisView);
+        }, thisView);
         // unregister mousemove event
-        Ext.EventManager.un(document, 'mousemove', function _doMoveWindow() { moveWindow(thisView); }, thisView);
+        Ext.EventManager.un(document, 'mousemove', function _doMoveWindow() {
+            moveWindow(thisView);
+        }, thisView);
         // remove sprite from surface
         Ext.getCmp('qbTablePanel').down('draw').surface.remove(thisView.shadowSprite, false);
         // remove any connection lines from surface and from array n$.actions.sql.manager.connections
-        n$.actions.sql.manager.connections = Ext.Array.filter(n$.actions.sql.manager.connections, function (connection) {
+        n$.actions.sql.manager.connections = Ext.Array.filter(n$.actions.sql.manager.connections, function(connection) {
             var bRemove = true;
             for (var j = 0, l = this.connectionUUIDs.length; j < l; j++) {
                 if (connection.uuid == this.connectionUUIDs[j]) {
@@ -38,7 +43,7 @@
 
     };
 
-    var initSQLTable = function (thisView) {
+    var initSQLTable = function(thisView) {
         var qbTablePanel, xyParentPos, xyChildPos, childSize, sprite;
 
         // get the main qbTablePanel
@@ -69,7 +74,7 @@
         thisView.shadowSprite = qbTablePanel.down('draw').surface.add(sprite).show(true);
 
         // handle resizeing of sqltabel
-        thisView.resizer.on('resize', function (resizer, width, height, event) {
+        thisView.resizer.on('resize', function(resizer, width, height, event) {
             var thisViewEl = this;
             thisViewEl.shadowSprite.setAttributes({
                 width: width - 6,
@@ -82,19 +87,27 @@
         }, thisView);
 
         // register a function for the mousedown event on the previously added qbSqlWindowTable and bind to thisView scope
-        thisView.getHeader().el.on('mousedown', function _doRegStartDrag() { regStartDrag(thisView); }, thisView);
+        thisView.getHeader().el.on('mousedown', function _doRegStartDrag() {
+            regStartDrag(thisView);
+        }, thisView);
 
-        thisView.getHeader().el.on('contextmenu', function _doShowSqlTable() { showSQLTableCM(thisView); }, thisView);
+        thisView.getHeader().el.on('contextmenu', function _doShowSqlTable() {
+            showSQLTableCM(thisView);
+        }, thisView);
 
-        thisView.getHeader().el.on('dblclick', function _doShowTableAliasEdit() { showTableAliasEditForm(thisView); }, thisView);
+        thisView.getHeader().el.on('dblclick', function _doShowTableAliasEdit() {
+            showTableAliasEditForm(thisView);
+        }, thisView);
 
         thisView.getHeader().origValue = '';
 
         // register method thisView.moveWindow for the mousemove event on the document and bind to thisView scope
-        Ext.EventManager.on(document, 'mousemove', function _doMoveWindow() { moveWindow(thisView); }, thisView);
+        Ext.EventManager.on(document, 'mousemove', function _doMoveWindow() {
+            moveWindow(thisView);
+        }, thisView);
 
         // register a function for the mouseup event on the document and add the thisView scope
-        Ext.EventManager.on(document, 'mouseup', function () {
+        Ext.EventManager.on(document, 'mouseup', function() {
             // save the mousedown state
             thisView.bMouseDown = false;
         }, thisView);
@@ -102,7 +115,7 @@
 
     };
 
-    var showSQLTableCM = function (thisView, event, el) {
+    var showSQLTableCM = function(thisView, event, el) {
         var cm;
         // stop the browsers event bubbling
         event.stopEvent();
@@ -111,13 +124,13 @@
             items: [{
                 text: 'Add/Edit Alias',
                 icon: 'resources/images/document_edit16x16.gif',
-                handler: Ext.Function.bind(function () {
+                handler: Ext.Function.bind(function() {
                     showTableAliasEditForm(this);
                 }, this)
             }, {
                 text: 'Remove Table',
                 icon: 'resources/images/delete.gif',
-                handler: Ext.Function.bind(function () {
+                handler: Ext.Function.bind(function() {
                     // remove the qbSqlWindowTable
                     this.close();
                 }, this)
@@ -131,7 +144,7 @@
         cm.showAt(event.getXY());
     };
 
-    var showTableAliasEditForm = function (thisView, event, el) {
+    var showTableAliasEditForm = function(thisView, event, el) {
         var table, header, title, titleId;
         table = n$.actions.sql.manager.select.tables.getTableById(thisView.tableId);
         header = thisView.getHeader();
@@ -143,16 +156,16 @@
             flex: 0.95,
             parentCmp: header,
             parentTableModel: table,
-            initComponent: function () {
+            initComponent: function() {
 
                 this.setValue(table.get('tableAlias'));
 
-                this.on('render', function (field, event) {
+                this.on('render', function(field, event) {
                     // set focus to the textfield Benutzerkennung
                     field.focus(true, 200);
                 }, this);
 
-                this.on('specialkey', function (field, event) {
+                this.on('specialkey', function(field, event) {
                     if (event.getKey() == event.ENTER) {
                         if (field.getValue() != this.parentCmp.origValue) {
                             this.parentTableModel.set('tableAlias', field.getValue());
@@ -163,7 +176,7 @@
                     }
                 }, this);
 
-                this.on('blur', function (field, event) {
+                this.on('blur', function(field, event) {
                     if (field.getValue() != this.parentCmp.origValue) {
                         this.parentTableModel.set('tableAlias', field.getValue());
                         this.parentCmp.origValue = field.getValue();
@@ -174,17 +187,18 @@
 
                 this.callParent(arguments);
             },
-            removeTextField: function () {
+            removeTextField: function() {
                 var next;
                 next = this.next();
                 this.parentCmp.remove(next);
                 this.parentCmp.remove(this);
             },
-            addTitle: function () {
+            addTitle: function() {
                 var titleText;
                 if (this.parentTableModel.get('tableAlias') != '') {
                     titleText = this.parentTableModel.get('tableAlias') + ' ( ' + this.parentTableModel.get('tableName') + ' )';
-                } else {
+                }
+                else {
                     titleText = this.parentTableModel.get('tableName');
                 }
                 this.parentCmp.insert(0, {
@@ -212,14 +226,14 @@
     };
 
 
-    var regStartDrag = function (thisView) {
+    var regStartDrag = function(thisView) {
         // save the mousedown state
         thisView.bMouseDown = true;
         // start the drag of the sprite
         thisView.shadowSprite.startDrag(thisView.getId());
     };
 
-    var moveWindow = function (thisView, event, domEl, opt) {
+    var moveWindow = function(thisView, event, domEl, opt) {
         var relPosMovement;
         // check mousedown
         if (thisView.bMouseDown) {
@@ -237,8 +251,11 @@
         }
     };
 
-    var getLeftRightCoordinates = function (thisView, obj1, obj2, aBBPos) {
-        var bb1, bb2, p = [], dx, leftBoxConnectionPoint, rightBoxConnectionPoint, dis, columHeight = 21, headerHeight = 46, LeftRightCoordinates = {};
+    var getLeftRightCoordinates = function(thisView, obj1, obj2, aBBPos) {
+        var bb1, bb2, p = [],
+            dx, leftBoxConnectionPoint, rightBoxConnectionPoint, dis, columHeight = 21,
+            headerHeight = 46,
+            LeftRightCoordinates = {};
 
         // Get bounding coordinates for both sprites
 
@@ -260,7 +277,8 @@
                 x: bb1.x + bb1.width + 1, // Point on the right side of the preview column
                 y: bb1.pY
             });
-        } else {
+        }
+        else {
             if (bb1.pY < (bb1.y + 4)) {
                 p.push({
                     x: bb1.x - 1, // Highest point on the left side
@@ -270,7 +288,8 @@
                     x: bb1.x + bb1.width + 1, // Highest point on the right side
                     y: bb1.y + 4
                 });
-            } else {
+            }
+            else {
                 p.push({
                     x: bb1.x - 1, // Lowest point on the left side
                     y: bb1.y + bb1.height - 4
@@ -294,7 +313,8 @@
                 x: bb2.x + bb2.width + 1, // Point on the right side of the preview column
                 y: bb2.pY
             });
-        } else {
+        }
+        else {
             if (bb2.pY < (bb2.y + 4)) {
                 p.push({
                     x: bb2.x - 1, // Highest point on the left side.
@@ -304,7 +324,8 @@
                     x: bb2.x + bb2.width + 1, // Highest point on the right side.
                     y: bb2.y + 4
                 });
-            } else {
+            }
+            else {
                 p.push({
                     x: bb2.x - 1, // Lowest point on the the left side.
                     y: bb2.y + bb2.height - 4
@@ -340,10 +361,10 @@
 
     };
 
-    var connection = function (thisView, obj1, obj2, line, aBBPos) {
+    var connection = function(thisView, obj1, obj2, line, aBBPos) {
         var LeftRightCoordinates, line1, line2, miniLine1, miniLine2, path, surface, color = typeof line == "string" ? line : "#000";
         var ret = n$.object();
-        
+
         if (obj1.line && obj1.from && obj1.to && obj1.aBBPos) {
             line = obj1;
             obj1 = line.from;
@@ -361,7 +382,8 @@
         if (LeftRightCoordinates.leftBoxConnectionPoint.x - LeftRightCoordinates.rightBoxConnectionPoint.x < 0) {
             line1 = 12;
             line2 = 12;
-        } else {
+        }
+        else {
             line1 = -12;
             line2 = -12;
         }
@@ -375,10 +397,9 @@
         //check if it is a new connection or not
         if (line && line.line) {
             // old connection, only change path
-            line.bgLine &&
-                line.bgLine.setAttributes({
-                    path: path
-                }, true);
+            line.bgLine && line.bgLine.setAttributes({
+                path: path
+            }, true);
             line.line.setAttributes({
                 path: path
             }, true);
@@ -388,7 +409,8 @@
             line.miniLine2.setAttributes({
                 path: miniLine2
             }, true);
-        } else {
+        }
+        else {
             // new connction, return new connection object
             return {
                 line: Ext.create('Ext.draw.Sprite', {
@@ -485,7 +507,45 @@
                     root: 'items'
                 }
             },
-            data: { items: [{ "field": "*", "extra": "", "id": "D04A39CB-AF22-A5F3-0246BA11FD51BCD8", "key": "", "tableName": "library", "null": "", "default": "", "type": "" }, { "field": "libraryid", "extra": "auto_increment", "id": "D04A39CC-E436-C0BE-1D51AEF07A7A5AAF", "key": "PRI", "tableName": "library", "null": false, "default": "", "type": "int(11)" }, { "field": "opened", "extra": "", "id": "D04A39CD-E13A-7228-81930472A5FC49AE", "key": "", "tableName": "library", "null": true, "default": "", "type": "datetime" }, { "field": "name", "extra": "", "id": "D04A39CE-04F3-D1CE-A1D72B04F40920C2", "key": "MUL", "tableName": "library", "null": true, "default": "", "type": "varchar(255)" }] }
+            data: {
+                items: [{
+                    "field": "*",
+                    "extra": "",
+                    "id": "D04A39CB-AF22-A5F3-0246BA11FD51BCD8",
+                    "key": "",
+                    "tableName": "library",
+                    "null": "",
+                    "default": "",
+                    "type": ""
+                }, {
+                    field: that.title + 'id',
+                    "extra": "auto_increment",
+                    "id": n$.createUUID(),
+                    "key": "PRI",
+                    "tableName": that.title,
+                    "null": false,
+                    "default": "",
+                    "type": "int(11)"
+                }, {
+                    field: Faker.Company.catchPhrase().replace(' ', '_').replace('-','_'),
+                    "extra": "",
+                    "id": n$.createUUID(),
+                    "key": "",
+                    "tableName": that.title,
+                    "null": true,
+                    "default": "",
+                    "type": "datetime"
+                }, {
+                    field: Faker.Lorem.words()[0],
+                    "extra": "",
+                    "id": n$.createUUID(),
+                    "key": "MUL",
+                    "tableName": that.title,
+                    "null": true,
+                    "default": "",
+                    "type": "varchar(255)"
+                }]
+            }
         });
 
         // add sql table to n$.actions.sql.manager.sqlSelect tables store
@@ -524,8 +584,8 @@
     });
     sheet.subscribers.add(n$.sheets.constants.subscribers.beforeshow, function(thisView, eOpts) {
         var aWin, prev,
-                    //Cascading window offset
-                    offeset = 20;
+        //Cascading window offset
+        offeset = 20;
 
 
         //get all instances from xtype qbSqlWindowTable

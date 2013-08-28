@@ -1,4 +1,4 @@
-/*global window:true, Ext:true */
+/*global window:true, Ext:true,Faker */
 
 (function(n$) {
 
@@ -15,20 +15,25 @@
             });
         };
 
+        var getRandomTableTreeNodes = function() {
+            var ret = [];
+            for(var i=0; i<15; i += 1) {
+                var tableName = Faker.random.catch_phrase_noun().replace(' ', '_').replace('-', '_');
+                ret.push(n$.trees.treeNode({ text: tableName })); 
+            }
+            return ret;
+        };
+        
+
         /**
-         * Define the grid
+         * Define the tree
         */
         var tree = n$.trees.tree({
             id: 'qbTablesTree',
             //TODO: expose
             store: n$.trees.treeStore({
-                rootText: 'Tables',
-                children: [
-                    n$.trees.treeNode({ text: 'library' }),
-                    n$.trees.treeNode({ text: 'shelf' }),
-                    n$.trees.treeNode({ text: 'floor' }),
-                    n$.trees.treeNode({ text: 'room' }),
-                    n$.trees.treeNode({ text: 'book' })]
+                rootText: 'Database Tables',
+                children: getRandomTableTreeNodes()
             })
         });
 
