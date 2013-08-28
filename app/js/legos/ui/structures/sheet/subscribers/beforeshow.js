@@ -19,7 +19,9 @@
               */
               return function (extView, eOpts) {
                   'use strict';
-                  callBack.call(extView, extView, eOpts);
+                  //callBack.call(extView, extView, eOpts);
+                  var args = arguments;
+                  return n$.fun.apply(callBack, args, this);
               };
           }
       });

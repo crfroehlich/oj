@@ -22,7 +22,9 @@
                 */
                 return function drop(node, data, overModel, dropPosition, eOpts) {
                     'use strict';
-                    callBack(node, data, overModel, dropPosition, eOpts);
+                    var args = arguments;
+                    return n$.fun.apply(callBack, args, this);
+                    //callBack.call(this, node, data, overModel, dropPosition, eOpts);
                 };
             }
         });

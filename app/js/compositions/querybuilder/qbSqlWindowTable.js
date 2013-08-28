@@ -351,11 +351,11 @@
             aBBPos = line.aBBPos;
         }
 
-        // set reference to the wright surface
+        // set reference to the right surface
         surface = obj1.surface;
 
         // get coordinates for the left and right box
-        LeftRightCoordinates = getLeftRightCoordinates(thisView, obj1, obj2, aBBPos);
+        LeftRightCoordinates = getLeftRightCoordinates(this, obj1, obj2, aBBPos);
 
         // check if the LeftBox is still on the left side or not
         if (LeftRightCoordinates.leftBoxConnectionPoint.x - LeftRightCoordinates.rightBoxConnectionPoint.x < 0) {
@@ -390,7 +390,7 @@
             }, true);
         } else {
             // new connction, return new connection object
-            ret = {
+            return {
                 line: Ext.create('Ext.draw.Sprite', {
                     type: 'path',
                     path: path,

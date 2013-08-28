@@ -17,13 +17,13 @@
 }
 .x-grid-checkheader {
     background-color: transparent;
-    background-image: url("../Images/sqlbuilder/unchecked.gif");
+    background-image: url("../img/unchecked.gif");
     background-position: 50% -2px;
     background-repeat: no-repeat;
     height: 14px;
 }
 .x-grid-checkheader-checked {
-    background-image: url("../Images/sqlbuilder/checked.gif");
+    background-image: url("../img/checked.gif");
 }
 .x-grid-checkheader-editor .x-form-cb-wrap {
     text-align: center;

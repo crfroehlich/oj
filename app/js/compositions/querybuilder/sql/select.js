@@ -1,54 +1,49 @@
-/* global window:true, Ext:true */
+/*global window:true, Ext:true */
 
 (function(n$) {
-    
-    var select = function() {
-        var ret = n$.object();
-        ret.add('tables', n$.actions.sql.tables(ret));
-        ret.add('fields', n$.actions.sql.fields(ret));
-        ret.add('joins', n$.actions.sql.joins(ret));
 
-        var sortTablesByJoins = function(tables, oUsedTables) {
-            var aTables = [], aJoins = [], oUsedTables = oUsedTables ||
-                {};
-            // loop over tables
-            for (var i = 0, aCondition = [], aJoin, l = tables.length; i < l; i++) {
-                // check if current table is a new one
-                if (!oUsedTables.hasOwnProperty(tables[i].get('id'))) {
-                    // it is a new one
-                    aTables.push(tables[i]);
-                    // mark table as used
-                    oUsedTables[tables[i].get('id')] = true;
-                    // get any joins for the current table
-                    aJoin = ret.joins.getJoinsByTableId(tables[i].get('id'));
-                    // loop over the join tables
-                    for (var j = 0, joinTable, len = aJoin.length; j < len; j++) {
-                        // check if it is a new join
-                        if (!oUsedTables.hasOwnProperty(aJoin[j].get('id'))) {
-                            // mark join as used
-                            oUsedTables[aJoin[j].get('id')] = true;
-                            if (tables[i].get('id') != aJoin[j].get('leftTableId')) {
-                                joinTable = ret.tables.getTableById(aJoin[j].get('leftTableId'));
-                                ret.changeLeftRightOnJoin(aJoin[j]);
-                            } else {
-                                joinTable = ret.tables.getTableById(aJoin[j].get('rightTableId'));
-                            }
-                            oTemp = ret.sortTablesByJoins([joinTable], oUsedTables);
-                            oUsedTables = oTemp.oUsedTables;
-                            aTables = aTables.concat(oTemp.aTables);
+    var sortTablesByJoins = function(ret, tables, oUsedTables) {
+        var aTables = [], oTemp,
+            aJoins = [];
+        oUsedTables = oUsedTables || {};
+        // loop over tables
+        for (var i = 0, aCondition = [], aJoin, l = tables.length; i < l; i++) {
+            // check if current table is a new one
+            if (!oUsedTables.hasOwnProperty(tables[i].get('id'))) {
+                // it is a new one
+                aTables.push(tables[i]);
+                // mark table as used
+                oUsedTables[tables[i].get('id')] = true;
+                // get any joins for the current table
+                aJoin = ret.joins.getJoinsByTableId(tables[i].get('id'));
+                // loop over the join tables
+                for (var j = 0, joinTable, len = aJoin.length; j < len; j++) {
+                    // check if it is a new join
+                    if (!oUsedTables.hasOwnProperty(aJoin[j].get('id'))) {
+                        // mark join as used
+                        oUsedTables[aJoin[j].get('id')] = true;
+                        if (tables[i].get('id') != aJoin[j].get('leftTableId')) {
+                            joinTable = ret.tables.getTableById(aJoin[j].get('leftTableId'));
+                            ret.changeLeftRightOnJoin(aJoin[j]);
                         }
+                        else {
+                            joinTable = ret.tables.getTableById(aJoin[j].get('rightTableId'));
+                        }
+                        oTemp = ret.sortTablesByJoins([joinTable], oUsedTables);
+                        oUsedTables = oTemp.oUsedTables;
+                        aTables = aTables.concat(oTemp.aTables);
                     }
                 }
             }
+        }
 
-            return {
-                aTables: aTables,
-                oUsedTables: oUsedTables
-            };
+        return {
+            aTables: aTables,
+            oUsedTables: oUsedTables
         };
-        ret.add('sortTablesByJoins', sortTablesByJoins);
-        
-        var changeLeftRightOnJoin = function(join) {
+    };
+
+    var changeLeftRightOnJoin = function(ret, join) {
             var leftTable, leftTableField, rightTable, rightTableField, joinCondition = '';
             // prepare new data
             leftTable = ret.tables.getTableById(join.get('rightTableId'));
@@ -59,13 +54,15 @@
             // construct new joinCondition
             if (leftTable.get('tableAlias') != '') {
                 joinCondition = joinCondition + leftTable.get('tableAlias') + '.' + join.get('rightTableField') + '=';
-            } else {
+            }
+            else {
                 joinCondition = joinCondition + leftTable.get('tableName') + '.' + join.get('rightTableField') + '=';
             }
 
             if (rightTable.get('tableAlias') != '') {
                 joinCondition = joinCondition + rightTable.get('tableAlias') + '.' + join.get('leftTableField');
-            } else {
+            }
+            else {
                 joinCondition = joinCondition + rightTable.get('tableName') + '.' + join.get('leftTableField');
             }
 
@@ -84,22 +81,20 @@
             // end transaction
             return;
         };
-        ret.add('changeLeftRightOnJoin', changeLeftRightOnJoin);
 
-        var arrayRemove = function(array, filterProperty, filterValue) {
+    var arrayRemove = function(array, filterProperty, filterValue) {
             var aReturn;
             aReturn = Ext.Array.filter(array, function(item) {
                 var bRemove = true;
-                if (item[filterProperty] == filtervalue) {
+                if (item[filterProperty] == filterValue) {
                     bRemove = false;
                 }
                 return bRemove;
             });
             return aReturn;
         };
-        ret.add('arrayRemove', arrayRemove);
 
-        var updateSQLOutput = function() {
+    var updateSQLOutput = function(ret) {
             var sqlOutput, sqlHTML, sqlQutputPanel;
             sqlOutput = ret.sqlToString();
             sqlHTML = '<pre class="brush: sql">' + sqlOutput + '</pre>';
@@ -107,9 +102,8 @@
 
             sqlQutputPanel.update(sqlHTML);
         };
-        ret.add('updateSQLOutput', updateSQLOutput);
 
-        var sqlToString = function() {
+    var sqlToString = function(ret) {
             var sqlOutput = 'SELECT ',
                 aJoins = [],
                 aOutputFields = [],
@@ -127,7 +121,7 @@
                 fieldSeperator = ', ',
                 joinSQL = '',
                 bFirst = true;
-            
+
             ret.fields.each(function(field) {
                 // should the field be a part of the output
                 if (field.get('output')) {
@@ -164,7 +158,8 @@
             for (var k = 0, aJoin = [], oJoinTables = {}, joinCondition = '', joinType, leftTable, rightTable, l = aTables.length; k < l; k++) {
                 if (k == aTables.length - 1) {
                     fieldSeperator = '';
-                } else {
+                }
+                else {
                     fieldSeperator = ', ';
                 }
 
@@ -203,10 +198,10 @@
                             for (var j = 0, fieldSeperator = '', ln = aJoin.length; j < ln; j++) {
                                 if (j == aJoin.length - 1) {
                                     fieldSeperator = '';
-                                } else {
-                                    fieldSeperator = '\nAND ';
                                 }
-                                ;
+                                else {
+                                    fieldSeperator = '\nAND ';
+                                };
                                 joinType = aJoin[j].get('joinType');
                                 joinCondition = joinCondition + aJoin[j].get('joinCondition') + fieldSeperator;
                             }
@@ -218,10 +213,12 @@
                                 joinSQL = joinSQL + ',\n';
                             }
 
+                            joinType = joinType || 'INNER';
                             if (leftTable.get('tableAlias') != '') {
                                 // we have an leftTable alias
                                 joinSQL = joinSQL + leftTable.get('tableName') + ' ' + leftTable.get('tableAlias') + ' ' + joinType + ' JOIN ';
-                            } else {
+                            }
+                            else {
                                 //no alias
                                 joinSQL = joinSQL + leftTable.get('tableName') + ' ' + joinType + ' JOIN ';
                             }
@@ -229,7 +226,8 @@
                             if (rightTable.get('tableAlias') != '') {
                                 // we have an rightTable alias
                                 joinSQL = joinSQL + rightTable.get('tableName') + ' ' + rightTable.get('tableAlias') + ' ON ' + joinCondition;
-                            } else {
+                            }
+                            else {
                                 //no alias
                                 joinSQL = joinSQL + rightTable.get('tableName') + ' ON ' + joinCondition;
                             }
@@ -237,29 +235,34 @@
                             // clear joinCondition
                             joinCondition = '';
 
-                        } else {
+                        }
+                        else {
                             // no join between aTables[i+1] and the one before
                             bFirst = true;
                             oJoinTables = {};
                             // check for tableAlias
                             if (aTables[k].get('tableAlias') != '') {
                                 fromSQL = aTables[k].get('tableName') + ' ' + aTables[k].get('tableAlias');
-                            } else {
+                            }
+                            else {
                                 fromSQL = aTables[k].get('tableName');
                             }
                             aFromSQL.push(fromSQL);
                         }
-                    } else {
+                    }
+                    else {
                         // its the last and only one in the loop
                         // check for tableAlias
                         if (aTables[k].get('tableAlias') != '') {
                             fromSQL = aTables[k].get('tableName') + ' ' + aTables[k].get('tableAlias');
-                        } else {
+                        }
+                        else {
                             fromSQL = aTables[k].get('tableName');
                         }
                         aFromSQL.push(fromSQL);
                     }
-                } else {
+                }
+                else {
                     // no, it is not the first table
 
                     bFirst = true;
@@ -289,10 +292,10 @@
                             for (var j = 0, fieldSeperator = '', ln = aJoin.length; j < ln; j++) {
                                 if (j == aJoin.length - 1) {
                                     fieldSeperator = '';
-                                } else {
-                                    fieldSeperator = '\nAND ';
                                 }
-                                ;
+                                else {
+                                    fieldSeperator = '\nAND ';
+                                };
                                 joinType = aJoin[j].get('joinType');
                                 joinCondition = joinCondition + aJoin[j].get('joinCondition') + fieldSeperator;
                             }
@@ -305,18 +308,21 @@
                             if (rightTable.get('tableAlias') != '') {
                                 // we have an rightTable alias
                                 joinSQL = joinSQL + '\n' + joinType + ' JOIN ' + rightTable.get('tableName') + ' ' + rightTable.get('tableAlias') + ' ON ' + joinCondition;
-                            } else {
+                            }
+                            else {
                                 //no alias
                                 joinSQL = joinSQL + '\n' + joinType + ' JOIN ' + rightTable.get('tableName') + ' ON ' + joinCondition;
                             }
 
                             // clear joinCondition
                             joinCondition = '';
-                        } else {
+                        }
+                        else {
                             bFirst = true;
                             oJoinTables = {};
                         }
-                    } else {
+                    }
+                    else {
                         // its the last and only one
                         // check for tableAlias
                         oJoinTables = {};
@@ -337,16 +343,17 @@
                 // check if it is the last array member
                 if (iOut == aOutputFields.length - 1) {
                     fieldSeperator = '';
-                } else {
-                    fieldSeperator = ', ';
                 }
-                ;
+                else {
+                    fieldSeperator = ', ';
+                };
                 // yes, output
                 // check alias
                 if (aOutputFields[iOut].get('alias') != '') {
                     // yes, we have an field alias
                     selectFieldsSQL = selectFieldsSQL + aOutputFields[iOut].get('expression') + ' AS ' + aOutputFields[iOut].get('alias') + fieldSeperator;
-                } else {
+                }
+                else {
                     // no field alias
                     selectFieldsSQL = selectFieldsSQL + aOutputFields[iOut].get('expression') + fieldSeperator;
                 }
@@ -356,12 +363,14 @@
             for (var iWhere = 0, l = aCriteriaFields.length; iWhere < l; iWhere += 1) {
                 if (iWhere == 0) {
                     criteriaSQL = criteriaSQL + '\nWHERE ';
-                } else {
+                }
+                else {
                     criteriaSQL = criteriaSQL + 'AND ';
                 }
                 if (iWhere == aCriteriaFields.length - 1) {
                     fieldSeperator = '';
-                } else {
+                }
+                else {
                     fieldSeperator = '\n';
                 }
                 criteriaSQL = criteriaSQL + aCriteriaFields[iWhere].get('expression') + ' ' + aCriteriaFields[iWhere].get('criteria') + fieldSeperator;
@@ -372,7 +381,8 @@
                 // check if it is the last array member
                 if (iGroup == aGroupFields.length - 1) {
                     fieldSeperator = '';
-                } else {
+                }
+                else {
                     fieldSeperator = ', ';
                 }
                 if (iGroup == 0) {
@@ -386,7 +396,8 @@
                 // check if it is the last array member
                 if (iOrder == aOrderFields.length - 1) {
                     fieldSeperator = '';
-                } else {
+                }
+                else {
                     fieldSeperator = ', ';
                 }
             }
@@ -394,11 +405,21 @@
             return sqlOutput + selectFieldsSQL + fromSQL + criteriaSQL + groupBySQL + orderBySQL;
         };
 
-        ret.add('sqlToString', sqlToString);
+    var select = function() {
+        var ret = n$.object();
+        ret.add('tables', n$.actions.sql.tables(ret));
+        ret.add('fields', n$.actions.sql.fields(ret));
+        ret.add('joins', n$.actions.sql.joins(ret));
+
+        ret.add('sortTablesByJoins', n$.fun.curryLeft(sortTablesByJoins, ret));
+        ret.add('changeLeftRightOnJoin', n$.fun.curryLeft(changeLeftRightOnJoin, ret));
+        ret.add('arrayRemove', arrayRemove);
+        ret.add('updateSQLOutput', n$.fun.curryLeft(updateSQLOutput, ret));
+        ret.add('sqlToString', n$.fun.curryLeft(sqlToString, ret));
 
         return ret;
     };
-    
+
     n$.actions.sql.register('select', select);
 
 }(window.$nameSpace$));

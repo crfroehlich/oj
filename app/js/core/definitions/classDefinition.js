@@ -80,7 +80,7 @@
                         func(them);
                     });
                 }
-                them.callParent(arguments);
+                return them.callParent(arguments);
             });
 
             if (subscribers && Object.keys(subscribers).length > 0) {

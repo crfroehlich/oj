@@ -17,7 +17,9 @@
                * @param eOpts {Object} arbitrary Ext props
               */
               return function render(extView, eOpts) {
-                  callBack(extView, eOpts);
+                  var args = arguments;
+                    return n$.fun.apply(callBack, args, this);
+                  //callBack.call(this, extView, eOpts);
               };
           }
       });

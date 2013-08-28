@@ -16,7 +16,8 @@
               */
               return function bodyscroll() {
                   var args = arguments;
-                  callBack.call(this, args);
+                  //callBack.call(this, args);
+                  return n$.fun.apply(callBack, args, this);
               };
           }
       });
