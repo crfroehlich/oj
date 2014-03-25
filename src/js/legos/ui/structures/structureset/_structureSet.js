@@ -31,7 +31,7 @@
         });
         n$.property(that, 'launch', function () {
             Ext.Error.handle = this.errorHandler;
-            // copy application to namespace scope so that app can be used as an application singleton
+            // copy application to namespace scope so that src can be used as an application singleton
             var setApp = Ext.create('Ext.' + n$.name + '.' + name);
             if (onInit) {
                 onInit(that, setApp);

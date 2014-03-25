@@ -20,7 +20,7 @@
         //    },
         //    launch: function() {
         //        Ext.Error.handle = this.errorHandler;
-        //        // copy application to $nameSpace$.sql so that $nameSpace$.sql.app can be used as an application singleton
+        //        // copy application to $nameSpace$.sql so that $nameSpace$.sql.src can be used as an application singleton
         //        var qbWindow = Ext.create('Ext.' + n$.name + '.qbwindow');
         //        qbWindow.show();
         //        Ext.apply(n$.sql, this);

@@ -1,35 +1,35 @@
 module.exports.devJs = [
-  'app/js/nameSpace.js',
-  'app/js/initChildNameSpaces.js',
-  'app/js/core/common/*.js',
-  'app/js/core/integration/*.js',
-  'app/js/core/tools/*.js',
-  'app/js/core/definitions/*.js',
-  'app/js/core/db/*.js',
-  'app/js/dom/metadata/*.js',
-  'app/js/dom/nodes/*.js',
-  'app/js/dom/nodes/elements/*.js',
-  'app/js/legos/**/*.js',
-  'app/js/compositions/querybuilder/sql/*.js',
-  'app/js/compositions/querybuilder/*.js',
-  'app/js/actionlogic/*.js'
+  'src/js/nameSpace.js',
+  'src/js/initChildNameSpaces.js',
+  'src/js/core/common/*.js',
+  'src/js/core/integration/*.js',
+  'src/js/core/tools/*.js',
+  'src/js/core/definitions/*.js',
+  'src/js/core/db/*.js',
+  'src/js/dom/metadata/*.js',
+  'src/js/dom/nodes/*.js',
+  'src/js/dom/nodes/elements/*.js',
+  'src/js/legos/**/*.js',
+  'src/js/compositions/querybuilder/sql/*.js',
+  'src/js/compositions/querybuilder/*.js',
+  'src/js/actionlogic/*.js'
 ];
 
-module.exports.devCss = ['app/css/**/*.css'];
+module.exports.devCss = ['src/css/**/*.css'];
 
-module.exports.images = ['app/img/**/*.*'];
+module.exports.images = ['src/img/**/*.*'];
 
 module.exports.testJs = [
-  'app/js/nameSpace.js',
-  'app/js/initChildNameSpaces.js',
-  'app/js/core/definitions/*.js',
-  'app/js/core/common/*.js',
-  'app/js/core/integration/*.js',
-  'app/js/core/tools/*.js',
-  'app/js/dom/metadata/*.js',
-  'app/js/dom/nodes/*.js',
-  'app/js/dom/nodes/elements/*.js',
-  'app/js/legos/**/*.js',
+  'src/js/nameSpace.js',
+  'src/js/initChildNameSpaces.js',
+  'src/js/core/definitions/*.js',
+  'src/js/core/common/*.js',
+  'src/js/core/integration/*.js',
+  'src/js/core/tools/*.js',
+  'src/js/dom/metadata/*.js',
+  'src/js/dom/nodes/*.js',
+  'src/js/dom/nodes/elements/*.js',
+  'src/js/legos/**/*.js',
   
   'test/*.js', 
   'test/*/*.js'

@@ -26,10 +26,10 @@ module.exports = function(grunt) {
         },
 
         releaseMode: 'prod',
-        buildPrefix: 'release/NS.' + grunt.template.today("yyyy.m.d") + '.min',
+        buildPrefix: 'dist/NS.' + grunt.template.today("yyyy.m.d") + '.min',
 
-        //purges the contents of the release folder
-        clean: ['release', 'templates/_temp', 'docs'],
+        //purges the contents of the dist folder
+        clean: ['dist', 'templates/_temp', 'docs'],
 
         //This will concatenate the template files together and prepare them for the parser
         concat: {
@@ -51,17 +51,17 @@ module.exports = function(grunt) {
             },
             vendorCoreJs: {
                 src: nsVendorJsMinFiles,
-                dest: 'release/vendor.min.js',
+                dest: 'dist/vendor.min.js',
                 separator: ';/* next JS  */\n'
             },
             vendorCss: {
                 src: nsVendorCssFiles,
-                dest: 'release/vendor.min.css',
+                dest: 'dist/vendor.min.css',
                 separator: '/*  next CSS  */'
             },
             nsIntellisense: {
                 src: nsAppJsFiles,
-                dest: 'release/nsApp-vsdoc.js'
+                dest: 'dist/nsApp-vsdoc.js'
             }
         },
 
@@ -87,7 +87,7 @@ module.exports = function(grunt) {
         },
 
         jsdoc: {
-            src: ['README.md', 'app/**/*.js'],
+            src: ['README.md', 'src/**/*.js'],
             options: {
                 configure: '.jsdocrc',
                 destination: '_apidocs'
@@ -150,21 +150,21 @@ module.exports = function(grunt) {
         tmpHtml: {
             prod: {
                 src: 'templates/_temp/index.tmpl',
-                dest: 'release/index.html',
+                dest: 'dist/index.html',
                 jsFiles: ['<%= buildPrefix %>.js'],
                 cssFiles: ['<%= buildPrefix %>.css'],
                 title: 'Production Index Page'
             },
             dev: {
                 src: 'templates/_temp/index.tmpl',
-                dest: 'app/dev.html',
+                dest: 'src/dev.html',
                 jsFiles: nsAppJsFiles,
                 cssFiles: nsAppCssFiles,
                 title: 'Development Index Page'
             },
             sql: {
                 src: 'templates/_temp/sql.tmpl',
-                dest: 'app/sql.html',
+                dest: 'src/sql.html',
                 jsFiles: nsAppJsFiles,
                 cssFiles: nsAppCssFiles,
                 title: 'SQL Builder'
@@ -178,11 +178,11 @@ module.exports = function(grunt) {
             },
             manifestP: {
                 src: 'templates/manifest.tmpl',
-                dest: 'release/Prod.appcache'
+                dest: 'dist/Prod.appcache'
             },
             manifestD: {
                 src: 'templates/manifest.tmpl',
-                dest: 'release/Dev.appcache'
+                dest: 'dist/Dev.appcache'
             }
 
         },
@@ -235,7 +235,7 @@ module.exports = function(grunt) {
     /**REGION: register ns tasks */
 
     grunt.registerTask('buildProd', function() {
-        grunt.task.run('clean'); //Delete anything in the 'release' folder
+        grunt.task.run('clean'); //Delete anything in the 'dist' folder
         grunt.task.run('cssmin'); //Compile the CSS
         grunt.task.run('concat'); //Assembles the HTML template
         grunt.task.run('uglify'); //Compile the JavaScript
@@ -283,7 +283,7 @@ module.exports = function(grunt) {
         grunt.log.writeln('Generated \'' + conf.dest + '\' from \'' + conf.src + '\'');
     });
 
-    // Plain vanilla build task, which supports two modes: dev and prod. Dev always builds prod. Syntax is `grunt release:dev`
+    // Plain vanilla build task, which supports two modes: dev and prod. Dev always builds prod. Syntax is `grunt dist:dev`
     grunt.registerTask('release', function(mode, exhaustive) {
         if (!mode) {
             throw grunt.task.taskError('Build mode must be supplied');
