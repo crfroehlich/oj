@@ -1,2 +1,7 @@
 syntax: glob
 .git
+bower_components
+bin/
+obj/
+.DS_Store
+node_modules

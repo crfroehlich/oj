@@ -1,0 +1,323 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{22133EBC-A761-4D6C-8175-CD31B6144F34}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>oj</RootNamespace>
+    <AssemblyName>oj</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Content Include="dist\404.html" />
+    <Content Include="dist\crossdomain.xml" />
+    <Content Include="dist\release.html" />
+    <Content Include="dist\humans.txt" />
+    <Content Include="dist\robots.txt" />
+    <Content Include="doc_template\fixtures\car.js" />
+    <Content Include="doc_template\fixtures\other.js" />
+    <Content Include="doc_template\fixtures\person.js" />
+    <Content Include="doc_template\Gruntfile.js" />
+    <Content Include="doc_template\template\publish.js" />
+    <Content Include="doc_template\template\static\img\glyphicons-halflings-white.png" />
+    <Content Include="doc_template\template\static\img\glyphicons-halflings.png" />
+    <Content Include="doc_template\template\static\scripts\bootstrap-dropdown.js" />
+    <Content Include="doc_template\template\static\scripts\bootstrap-tab.js" />
+    <Content Include="doc_template\template\static\scripts\jquery.localScroll.js" />
+    <Content Include="doc_template\template\static\scripts\jquery.min.js" />
+    <Content Include="doc_template\template\static\scripts\jquery.scrollTo.js" />
+    <Content Include="doc_template\template\static\scripts\jquery.sunlight.js" />
+    <Content Include="doc_template\template\static\scripts\prettify\Apache-License-2.0.txt" />
+    <Content Include="doc_template\template\static\scripts\prettify\jquery.min.js" />
+    <Content Include="doc_template\template\static\scripts\prettify\lang-css.js" />
+    <Content Include="doc_template\template\static\scripts\prettify\prettify.js" />
+    <Content Include="doc_template\template\static\scripts\sunlight-plugin.doclinks.js" />
+    <Content Include="doc_template\template\static\scripts\sunlight-plugin.linenumbers.js" />
+    <Content Include="doc_template\template\static\scripts\sunlight-plugin.menu.js" />
+    <Content Include="doc_template\template\static\scripts\sunlight.javascript.js" />
+    <Content Include="doc_template\template\static\scripts\sunlight.js" />
+    <Content Include="doc_template\template\static\scripts\toc.js" />
+    <Content Include="doc_template\template\static\scripts\URI.js" />
+    <Content Include="doc_template\template\static\styles\darkstrap.css" />
+    <Content Include="doc_template\template\static\styles\prettify-tomorrow.css" />
+    <Content Include="doc_template\template\static\styles\site.amelia.css" />
+    <Content Include="doc_template\template\static\styles\site.cerulean.css" />
+    <Content Include="doc_template\template\static\styles\site.cosmo.css" />
+    <Content Include="doc_template\template\static\styles\site.cyborg.css" />
+    <Content Include="doc_template\template\static\styles\site.darkstrap.css" />
+    <Content Include="doc_template\template\static\styles\site.flatly.css" />
+    <Content Include="doc_template\template\static\styles\site.journal.css" />
+    <Content Include="doc_template\template\static\styles\site.readable.css" />
+    <Content Include="doc_template\template\static\styles\site.simplex.css" />
+    <Content Include="doc_template\template\static\styles\site.slate.css" />
+    <Content Include="doc_template\template\static\styles\site.spacelab.css" />
+    <Content Include="doc_template\template\static\styles\site.spruce.css" />
+    <Content Include="doc_template\template\static\styles\site.superhero.css" />
+    <Content Include="doc_template\template\static\styles\site.united.css" />
+    <Content Include="doc_template\template\static\styles\sunlight.dark.css" />
+    <Content Include="doc_template\template\static\styles\sunlight.default.css" />
+    <Content Include="gulpfile.js" />
+    <Content Include="src\coffee\common\function.js">
+      <DependentUpon>function.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\oj.js">
+      <DependentUpon>oj.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\ojInit.js">
+      <DependentUpon>ojInit.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\css\main.css" />
+    <Content Include="src\css\nameSpace.css" />
+    <Content Include="src\css\normalize.css" />
+    <Content Include="dist\release.appcache">
+      <DependentUpon>release.html</DependentUpon>
+    </Content>
+    <None Include="src\dev.appcache">
+      <DependentUpon>dev.html</DependentUpon>
+    </None>
+    <Content Include="src\dev.html" />
+    <Content Include="src\img\ajax-loader.gif" />
+    <Content Include="src\img\ajax-loader.png" />
+    <Content Include="src\img\checked.gif" />
+    <Content Include="src\img\cross.gif" />
+    <Content Include="src\img\dirty.gif" />
+    <Content Include="src\img\document_edit16x16.gif" />
+    <Content Include="src\img\down_arrow.gif" />
+    <Content Include="src\img\drop-no.gif" />
+    <Content Include="src\img\drop-yes.gif" />
+    <Content Include="src\img\e-handle.gif" />
+    <Content Include="src\img\elbow-end-minus.gif" />
+    <Content Include="src\img\elbow-end.gif" />
+    <Content Include="src\img\elbow.gif" />
+    <Content Include="src\img\exclamation.gif" />
+    <Content Include="src\img\folder-open.gif" />
+    <Content Include="src\img\grid3-hd-btn.gif" />
+    <Content Include="src\img\icon-save.gif" />
+    <Content Include="src\img\key.gif" />
+    <Content Include="src\img\leaf.gif" />
+    <Content Include="src\img\loading.gif" />
+    <Content Include="src\img\mini-bottom.gif" />
+    <Content Include="src\img\mini-top.gif" />
+    <Content Include="src\img\ne-handle.gif" />
+    <Content Include="src\img\nw-handle.gif" />
+    <Content Include="src\img\remove.gif" />
+    <Content Include="src\img\run.png" />
+    <Content Include="src\img\s-handle.gif" />
+    <Content Include="src\img\se-handle.gif" />
+    <Content Include="src\img\sw-handle.gif" />
+    <Content Include="src\img\text-bg.gif" />
+    <Content Include="src\img\tool-sprites.gif" />
+    <Content Include="src\img\unchecked.gif" />
+    <Content Include="src\img\up_arrow.gif" />
+    <Content Include="src\js\actionlogic\sqlBuilderInit.js" />
+    <Content Include="src\js\compositions\querybuilder\qbFineTuningGrid.js" />
+    <Content Include="src\js\compositions\querybuilder\qbOutputPanel.js" />
+    <Content Include="src\js\compositions\querybuilder\qbSqlWindowTable.js" />
+    <Content Include="src\js\compositions\querybuilder\qbTableGrid.js" />
+    <Content Include="src\js\compositions\querybuilder\qbTablePanel.js" />
+    <Content Include="src\js\compositions\querybuilder\qbTablesTree.js" />
+    <Content Include="src\js\compositions\querybuilder\SqlDragDropTableJoinStore.js" />
+    <Content Include="src\js\compositions\querybuilder\SqlTableJoinSprite.js" />
+    <Content Include="src\js\compositions\querybuilder\SqlTableNameStore.js" />
+    <Content Include="src\js\compositions\querybuilder\sql\fields.js" />
+    <Content Include="src\js\compositions\querybuilder\sql\joins.js" />
+    <Content Include="src\js\compositions\querybuilder\sql\manager.js" />
+    <Content Include="src\js\compositions\querybuilder\sql\select.js" />
+    <Content Include="src\js\compositions\querybuilder\sql\tables.js" />
+    <Content Include="src\js\compositions\querybuilder\_initQbUI.js" />
+    <Content Include="src\js\core\common\function.js" />
+    <Content Include="src\js\core\common\functional.js" />
+    <Content Include="src\js\core\common\is.js" />
+    <Content Include="src\js\core\common\methods.js" />
+    <Content Include="src\js\core\common\number.js" />
+    <Content Include="src\js\core\common\string.js" />
+    <Content Include="src\js\core\common\to.js" />
+    <Content Include="src\js\core\db\db.js" />
+    <Content Include="src\js\core\db\ddl\indexes.js" />
+    <Content Include="src\js\core\db\ddl\tables.js" />
+    <Content Include="src\js\core\db\dml\insert.js" />
+    <Content Include="src\js\core\db\indexedDb.js" />
+    <Content Include="src\js\core\db\select.js" />
+    <Content Include="src\js\core\definitions\class.js" />
+    <Content Include="src\js\core\definitions\classDefinition.js" />
+    <Content Include="src\js\core\definitions\errors.js" />
+    <Content Include="src\js\core\definitions\subscribers.js" />
+    <Content Include="src\js\core\integrations\afterExt.js" />
+    <Content Include="src\js\core\tools\console.js" />
+    <Content Include="src\js\core\tools\constant.js" />
+    <Content Include="src\js\core\tools\each.js" />
+    <Content Include="src\js\core\tools\object.js" />
+    <Content Include="src\js\core\tools\objectSql.js" />
+    <Content Include="src\js\core\tools\property.js" />
+    <Content Include="src\js\core\tools\shims.js" />
+    <Content Include="src\js\core\tools\uuid.js" />
+    <Content Include="src\js\dom\metadata\metaNode.js" />
+    <Content Include="src\js\dom\nodes\domNode.js" />
+    <Content Include="src\js\dom\nodes\domNodeAttributes.js" />
+    <Content Include="src\js\dom\nodes\elements\div.js" />
+    <Content Include="src\js\dom\nodes\elements\input.js" />
+    <Content Include="src\js\dom\nodes\elements\span.js" />
+    <Content Include="src\js\dom\nodes\elements\_element.js" />
+    <Content Include="src\js\dom\nodes\_nodeFactory.js" />
+    <Content Include="src\js\initChildNameSpaces.js" />
+    <Content Include="src\js\legos\data\datamodel\dataModel.js" />
+    <Content Include="src\js\legos\data\datatype\dataType.js" />
+    <Content Include="src\js\legos\data\datatype\dataTypeCollection.js" />
+    <Content Include="src\js\legos\data\selection\selectionModelCheckBox.js" />
+    <Content Include="src\js\legos\data\selection\subscribers\onDeselect.js" />
+    <Content Include="src\js\legos\data\selection\subscribers\onSelect.js" />
+    <Content Include="src\js\legos\data\selection\subscribers\_selectionSubscribers.js" />
+    <Content Include="src\js\legos\data\selection\_selectionModel.js" />
+    <Content Include="src\js\legos\data\stores\proxy.js" />
+    <Content Include="src\js\legos\data\stores\store.js" />
+    <Content Include="src\js\legos\ui\structures\grid\columns\actionColumn.js" />
+    <Content Include="src\js\legos\ui\structures\grid\columns\checkColumn.js" />
+    <Content Include="src\js\legos\ui\structures\grid\columns\column.js" />
+    <Content Include="src\js\legos\ui\structures\grid\columns\columnItem.js" />
+    <Content Include="src\js\legos\ui\structures\grid\columns\columns.js" />
+    <Content Include="src\js\legos\ui\structures\grid\columns\gridColumn.js" />
+    <Content Include="src\js\legos\ui\structures\grid\columns\rendererColumn.js" />
+    <Content Include="src\js\legos\ui\structures\grid\grid.js" />
+    <Content Include="src\js\legos\ui\structures\grid\subscribers\bodyscroll.js" />
+    <Content Include="src\js\legos\ui\structures\grid\subscribers\drop.js" />
+    <Content Include="src\js\legos\ui\structures\grid\subscribers\render.js" />
+    <Content Include="src\js\legos\ui\structures\grid\subscribers\_gridSubscribers.js" />
+    <Content Include="src\js\legos\ui\structures\panel\panel.js" />
+    <Content Include="src\js\legos\ui\structures\panel\subscribers\afterLayout.js" />
+    <Content Include="src\js\legos\ui\structures\panel\subscribers\_panelSubscribers.js" />
+    <Content Include="src\js\legos\ui\structures\sheet\sheet.js" />
+    <Content Include="src\js\legos\ui\structures\sheet\subscribers\beforeclose.js" />
+    <Content Include="src\js\legos\ui\structures\sheet\subscribers\beforeshow.js" />
+    <Content Include="src\js\legos\ui\structures\sheet\subscribers\show.js" />
+    <Content Include="src\js\legos\ui\structures\sheet\subscribers\_sheetSubscribers.js" />
+    <Content Include="src\js\legos\ui\structures\structureset\structureSet.js" />
+    <Content Include="src\js\legos\ui\structures\structureset\_structureSet.js" />
+    <Content Include="src\js\legos\ui\structures\tree\subscribers\afterrender.js" />
+    <Content Include="src\js\legos\ui\structures\tree\subscribers\itemdbclick.js" />
+    <Content Include="src\js\legos\ui\structures\tree\subscribers\_treeSubscribers.js" />
+    <Content Include="src\js\legos\ui\structures\tree\tree.js" />
+    <Content Include="src\js\legos\ui\structures\tree\treeNode.js" />
+    <Content Include="src\js\legos\ui\structures\tree\treeStore.js" />
+    <Content Include="src\js\nameSpace.js" />
+    <Content Include="src\js\workers\webWorkerXHR.js" />
+    <Content Include="src\workers\xhrWorker.js" />
+    <Content Include="test\core\test.indexedDb.js" />
+    <Content Include="test\core\test.is.js" />
+    <Content Include="test\core\test.to.js" />
+    <Content Include="test\node\test.node.js" />
+    <Content Include="test\Test.html" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="doc_template\bower.json" />
+    <Content Include="doc_template\component.json" />
+    <Content Include="doc_template\fixtures\example.conf.json" />
+    <Content Include="doc_template\fixtures\tutorials\Brush Teeth.md" />
+    <Content Include="doc_template\fixtures\tutorials\Drive Car.md" />
+    <Content Include="doc_template\LICENSE.md" />
+    <Content Include="doc_template\package.json" />
+    <Content Include="doc_template\README.md" />
+    <Content Include="doc_template\styles\bootswatch.less" />
+    <Content Include="doc_template\styles\main.less" />
+    <Content Include="doc_template\styles\variables.less" />
+    <Content Include="doc_template\template\jsdoc.conf.json" />
+    <Content Include="doc_template\template\tmpl\container.tmpl" />
+    <Content Include="doc_template\template\tmpl\details.tmpl" />
+    <Content Include="doc_template\template\tmpl\example.tmpl" />
+    <Content Include="doc_template\template\tmpl\examples.tmpl" />
+    <Content Include="doc_template\template\tmpl\exceptions.tmpl" />
+    <Content Include="doc_template\template\tmpl\fires.tmpl" />
+    <Content Include="doc_template\template\tmpl\layout.tmpl" />
+    <Content Include="doc_template\template\tmpl\mainpage.tmpl" />
+    <Content Include="doc_template\template\tmpl\members.tmpl" />
+    <Content Include="doc_template\template\tmpl\method.tmpl" />
+    <Content Include="doc_template\template\tmpl\params.tmpl" />
+    <Content Include="doc_template\template\tmpl\properties.tmpl" />
+    <Content Include="doc_template\template\tmpl\returns.tmpl" />
+    <Content Include="doc_template\template\tmpl\sections.tmpl" />
+    <Content Include="doc_template\template\tmpl\source.tmpl" />
+    <Content Include="doc_template\template\tmpl\tutorial.tmpl" />
+    <Content Include="doc_template\template\tmpl\type.tmpl" />
+    <Content Include="LICENSE" />
+    <Content Include="package.json" />
+    <Content Include="README.md" />
+    <Content Include="src\coffee\oj.coffee" />
+    <Content Include="src\js\dom\Untitled" />
+    <Content Include="src\coffee\ojInit.coffee" />
+    <Content Include="bower.json" />
+    <Content Include="src\coffee\oj.map">
+      <DependentUpon>oj.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\ojInit.map">
+      <DependentUpon>ojInit.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\common\function.coffee" />
+    <Content Include="src\coffee\common\function.map">
+      <DependentUpon>function.coffee</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>2202</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:2202/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

@@ -1,0 +1,457 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="da229945-5898-42ab-968b-3af8e0af0408" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Node_js_Dependencies_for_oj.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/oj.iml" />
+      <change type="DELETED" beforePath="C:\Github\oj\.travis.yml" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\Gruntfile.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\files.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\sandbox\indexeddb.html" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\templates\_temp\index.tmpl" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\templates\_temp\sql.tmpl" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\templates\_temp\test.tmpl" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\templates\end.tmpl" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\templates\header.tmpl" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\templates\manifest.tmpl" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\templates\scripts.tmpl" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\templates\test.tmpl" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\vendor\css\shCore.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\vendor\css\shThemeDefault.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\vendor\js\core\Faker.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\vendor\js\core\SyntaxHighlighter.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\vendor\js\core\modernizr-2.6.2.min.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\vendor\js\core\shims.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\vendor\test\qunit-1.11.0.css" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\vendor\test\qunit-1.11.0.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.hgignore" afterPath="$PROJECT_DIR$/.hgignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/.htaccess" afterPath="$PROJECT_DIR$/dist/.htaccess" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/404.html" afterPath="$PROJECT_DIR$/dist/404.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/SqlDragDropTableJoinStore.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/SqlDragDropTableJoinStore.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/SqlTableJoinSprite.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/SqlTableJoinSprite.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/SqlTableNameStore.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/SqlTableNameStore.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/Test.html" afterPath="$PROJECT_DIR$/test/Test.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/nodes/elements/_element.js" afterPath="$PROJECT_DIR$/src/js/dom/nodes/elements/_element.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/_gridSubscribers.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/_gridSubscribers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/_initQbUI.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/_initQbUI.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/nodes/_nodeFactory.js" afterPath="$PROJECT_DIR$/src/js/dom/nodes/_nodeFactory.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/panel/subscribers/_panelSubscribers.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/panel/subscribers/_panelSubscribers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/selection/_selectionModel.js" afterPath="$PROJECT_DIR$/src/js/legos/data/selection/_selectionModel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/selection/subscribers/_selectionSubscribers.js" afterPath="$PROJECT_DIR$/src/js/legos/data/selection/subscribers/_selectionSubscribers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/_sheetSubscribers.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/_sheetSubscribers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/structureset/_structureSet.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/structureset/_structureSet.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/subscribers/_treeSubscribers.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/subscribers/_treeSubscribers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/actionColumn.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/actionColumn.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/integrations/afterExt.js" afterPath="$PROJECT_DIR$/src/js/core/integrations/afterExt.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/panel/subscribers/afterLayout.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/panel/subscribers/afterLayout.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/subscribers/afterrender.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/subscribers/afterrender.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/beforeclose.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/beforeclose.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/beforeshow.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/beforeshow.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/bodyscroll.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/bodyscroll.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/checkColumn.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/checkColumn.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/definitions/class.js" afterPath="$PROJECT_DIR$/src/js/core/definitions/class.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/definitions/classDefinition.js" afterPath="$PROJECT_DIR$/src/js/core/definitions/classDefinition.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/column.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/column.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/columnItem.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/columnItem.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/columns.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/columns.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/console.js" afterPath="$PROJECT_DIR$/src/js/core/tools/console.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/constant.js" afterPath="$PROJECT_DIR$/src/js/core/tools/constant.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/crossdomain.xml" afterPath="$PROJECT_DIR$/dist/crossdomain.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/datamodel/dataModel.js" afterPath="$PROJECT_DIR$/src/js/legos/data/datamodel/dataModel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/datatype/dataType.js" afterPath="$PROJECT_DIR$/src/js/legos/data/datatype/dataType.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/datatype/dataTypeCollection.js" afterPath="$PROJECT_DIR$/src/js/legos/data/datatype/dataTypeCollection.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/db/db.js" afterPath="$PROJECT_DIR$/src/js/core/db/db.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/nodes/elements/div.js" afterPath="$PROJECT_DIR$/src/js/dom/nodes/elements/div.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/nodes/domNode.js" afterPath="$PROJECT_DIR$/src/js/dom/nodes/domNode.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/nodes/domNodeAttributes.js" afterPath="$PROJECT_DIR$/src/js/dom/nodes/domNodeAttributes.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/drop.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/drop.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/each.js" afterPath="$PROJECT_DIR$/src/js/core/tools/each.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/definitions/errors.js" afterPath="$PROJECT_DIR$/src/js/core/definitions/errors.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/fields.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/fields.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/common/function.js" afterPath="$PROJECT_DIR$/src/js/core/common/function.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/common/functional.js" afterPath="$PROJECT_DIR$/src/js/core/common/functional.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/grid.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/grid.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/gridColumn.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/gridColumn.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/humans.txt" afterPath="$PROJECT_DIR$/dist/humans.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/db/indexedDb.js" afterPath="$PROJECT_DIR$/src/js/core/db/indexedDb.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/db/ddl/indexes.js" afterPath="$PROJECT_DIR$/src/js/core/db/ddl/indexes.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/initChildNameSpaces.js" afterPath="$PROJECT_DIR$/src/js/initChildNameSpaces.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/nodes/elements/input.js" afterPath="$PROJECT_DIR$/src/js/dom/nodes/elements/input.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/db/dml/insert.js" afterPath="$PROJECT_DIR$/src/js/core/db/dml/insert.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/common/is.js" afterPath="$PROJECT_DIR$/src/js/core/common/is.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/subscribers/itemdbclick.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/subscribers/itemdbclick.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/joins.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/joins.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/main.css" afterPath="$PROJECT_DIR$/src/css/main.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/manager.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/manager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/metadata/metaNode.js" afterPath="$PROJECT_DIR$/src/js/dom/metadata/metaNode.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/common/methods.js" afterPath="$PROJECT_DIR$/src/js/core/common/methods.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/nameSpace.css" afterPath="$PROJECT_DIR$/src/css/nameSpace.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/nameSpace.js" afterPath="$PROJECT_DIR$/src/js/nameSpace.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/normalize.css" afterPath="$PROJECT_DIR$/src/css/normalize.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/common/number.js" afterPath="$PROJECT_DIR$/src/js/core/common/number.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/object.js" afterPath="$PROJECT_DIR$/src/js/core/tools/object.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/objectSql.js" afterPath="$PROJECT_DIR$/src/js/core/tools/objectSql.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/selection/subscribers/onDeselect.js" afterPath="$PROJECT_DIR$/src/js/legos/data/selection/subscribers/onDeselect.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/selection/subscribers/onSelect.js" afterPath="$PROJECT_DIR$/src/js/legos/data/selection/subscribers/onSelect.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/panel/panel.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/panel/panel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/property.js" afterPath="$PROJECT_DIR$/src/js/core/tools/property.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/stores/proxy.js" afterPath="$PROJECT_DIR$/src/js/legos/data/stores/proxy.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbFineTuningGrid.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbFineTuningGrid.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbOutputPanel.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbOutputPanel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbSqlWindowTable.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbSqlWindowTable.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbTableGrid.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbTableGrid.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbTablePanel.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbTablePanel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbTablesTree.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbTablesTree.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/render.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/render.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/rendererColumn.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/rendererColumn.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/robots.txt" afterPath="$PROJECT_DIR$/dist/robots.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/select.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/select.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/db/select.js" afterPath="$PROJECT_DIR$/src/js/core/db/select.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/selection/selectionModelCheckBox.js" afterPath="$PROJECT_DIR$/src/js/legos/data/selection/selectionModelCheckBox.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/sheet.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/sheet.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/shims.js" afterPath="$PROJECT_DIR$/src/js/core/tools/shims.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/show.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/show.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/nodes/elements/span.js" afterPath="$PROJECT_DIR$/src/js/dom/nodes/elements/span.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/actionlogic/sqlBuilderInit.js" afterPath="$PROJECT_DIR$/src/js/actionlogic/sqlBuilderInit.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/stores/store.js" afterPath="$PROJECT_DIR$/src/js/legos/data/stores/store.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/common/string.js" afterPath="$PROJECT_DIR$/src/js/core/common/string.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/structureset/structureSet.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/structureset/structureSet.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/definitions/subscribers.js" afterPath="$PROJECT_DIR$/src/js/core/definitions/subscribers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/tables.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/tables.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/db/ddl/tables.js" afterPath="$PROJECT_DIR$/src/js/core/db/ddl/tables.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/common/to.js" afterPath="$PROJECT_DIR$/src/js/core/common/to.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/tree.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/tree.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/treeNode.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/treeNode.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/treeStore.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/treeStore.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/uuid.js" afterPath="$PROJECT_DIR$/src/js/core/tools/uuid.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/workers/webWorkerXHR.js" afterPath="$PROJECT_DIR$/src/js/workers/webWorkerXHR.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/workers/xhrWorker.js" afterPath="$PROJECT_DIR$/src/workers/xhrWorker.js" />
+    </list>
+    <ignored path="oj.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ChangesViewManager" flattened_view="true" show_ignored="false" />
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="DaemonCodeAnalyzer">
+    <disable_hints />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="DocData" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="bower.json" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/bower.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.626151" vertical-offset="0" max-vertical-offset="867">
+              <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="package.json" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/package.json">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-34.68" vertical-offset="0" max-vertical-offset="1207">
+              <caret line="51" column="17" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitLogSettings">
+    <option name="myDateState">
+      <MyDateState />
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/src/coffee/OJ.coffee" />
+        <option value="$PROJECT_DIR$/src/coffee/oj.coffee" />
+        <option value="$PROJECT_DIR$/package.json" />
+        <option value="$PROJECT_DIR$/templates/header.tmpl" />
+        <option value="$PROJECT_DIR$/gulpfile.js" />
+        <option value="$PROJECT_DIR$/bower.json" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds">
+    <option name="x" value="360" />
+    <option name="y" value="66" />
+    <option name="width" value="1400" />
+    <option name="height" value="1000" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="2" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectReloadState">
+    <option name="STATE" value="0" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="bower_components" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="options.splitter.main.proportions" value="0.3" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="recentsLimit" value="5" />
+    <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="FullScreen" value="false" />
+    <property name="options.searchVisible" value="true" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Github\oj\release" />
+    </key>
+  </component>
+  <component name="RunManager" selected="Node.js.oj.coffee">
+    <configuration default="false" name="oj.coffee" type="NodeJSConfigurationType" factoryName="Node.js" temporary="true" path-to-node="C:/Program Files/nodejs/node" path-to-js-file="oj.coffee" working-dir="$PROJECT_DIR$/src/coffee" coffeescript-run="true">
+      <RunnerSettings RunnerId="NodeJS.run" />
+      <ConfigurationWrapper RunnerId="NodeJS.run" />
+      <method />
+    </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
+    <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="name" value="Dart" />
+      <option name="saveOutputToFile" value="false" />
+      <option name="showConsoleOnStdErr" value="false" />
+      <option name="showConsoleOnStdOut" value="false" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
+      <setting name="configLocationType" value="CONFIG_FILE" />
+      <setting name="settingsFile" value="" />
+      <setting name="serverType" value="INTERNAL" />
+      <setting name="preferredDebugBrowser" value="Chrome" />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" working-dir="">
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="Node.js.oj.coffee" />
+    </list>
+    <recent_temporary>
+      <list size="1">
+        <item index="0" class="java.lang.String" itemvalue="Node.js.oj.coffee" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="da229945-5898-42ab-968b-3af8e0af0408" name="Default" comment="" />
+      <created>1395760536673</created>
+      <updated>1395760536673</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="360" y="66" width="1400" height="1000" extended-state="0" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67012686" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32884398" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16955018" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298731" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="myTodoPanelSettings">
+      <TodoPanelSettings />
+    </option>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/coffee/oj.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4114">
+          <caret line="176" column="14" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="454" max-vertical-offset="1122">
+          <caret line="32" column="36" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/oj.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="2912" max-vertical-offset="4131">
+          <caret line="177" column="14" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/gulpfile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.08108108" vertical-offset="1162" max-vertical-offset="1819">
+          <caret line="71" column="32" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-34.68" vertical-offset="0" max-vertical-offset="1207">
+          <caret line="51" column="17" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bower.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.626151" vertical-offset="0" max-vertical-offset="867">
+          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="hg4idea.settings">
+    <option name="CHECK_INCOMING_OUTGOING" value="true" />
+  </component>
+</project>
+

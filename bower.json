@@ -1,0 +1,45 @@
+{
+  "name": "OJ",
+    "version": "0.1.24",
+    "main": ["dist/complete.min.js", "dist/release.html"],
+    "ignore": [".editorconfig", ".hgignore", ".jsdocrc", ".jshintrc", "oj.csproj", "oj.sln"],
+  "dependencies": {
+    "jquery": ">= 2.1.0",
+    "bootstrap": ">= 3.1.1",
+    "jquery-ui": ">= 1.10.4",
+    "modernizr": ">= 2.7.2",
+    "less.js": ">= 1.7.0",
+    "google-code-prettify": ">= 1.0.1",
+    "qunit": ">= 1.14.0",
+    "q": ">= 1.0.0",
+    "ajaxify": "https://github.com/arvgta/ajaxify.git#~4.6.4",
+    "SyntaxHighlighter": ">= 3.0.83",
+    "lodash": ">= 2.4.1",
+    "Faker": ">= 0.7.0",
+    "setimmediate": ">= 1.0.1"
+  },
+    
+  "overrides": {
+    "jquery": {
+      "main": "dist/jquery.js"
+    },
+    "modernizr": {
+      "main": "modernizr.js"
+    },
+    "q": {
+      "main": "q.js"
+    },
+    "jquery.validation": {
+      "main": "jquery.validate.js"
+    },
+    "SyntaxHighlighter": {
+      "main": ["styles/shCore.css", "shThemeDefault.css", "scripts/shCore.js"]
+    }
+  },
+  "devDependencies": {
+    "qunit": "~1.14.0",
+    "qunit-promises": "~0.1.1",
+    "qunit-assert": "~1.0.0",
+    "html5-boilerplate": "~4.3.0"
+  }
+}

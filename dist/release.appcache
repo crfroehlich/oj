@@ -1,4 +1,4 @@
-CACHE MANIFEST
+﻿CACHE MANIFEST
 
 #Any change to the manifest will instruct the browser to reload all resources; so "version" the next line with every build.
 #version <% print(grunt.template.today('dddd mmmm dS yyyy h:MM:ss TT') + ' \n') %>

@@ -3,27 +3,29 @@
 
 (function(n$) {
 
+    var OJ = n$;
+
     //#region CORE 
 
     /**
      * Custom Errors
     */
-    n$.makeSubNameSpace('errors');
+    OJ.makeSubNameSpace('errors');
 
     /**
      * Type checking
     */
-    n$.makeSubNameSpace('is');
+    OJ.makeSubNameSpace('is');
 
     /**
      * To instance check classes
     */
-    n$.makeSubNameSpace('instanceOf');
+    OJ.makeSubNameSpace('instanceOf');
 
     /**
      * Type conversion
     */
-    n$.makeSubNameSpace('to');
+    OJ.makeSubNameSpace('to');
 
     //#endregion CORE 
 
@@ -32,17 +34,17 @@
     /**
      * Actions
     */
-    n$.makeSubNameSpace('actions');
+    OJ.makeSubNameSpace('actions');
 
     /**
      * Query Builder
     */
-    n$.actions.makeSubNameSpace('querybuilder');
+    OJ.actions.makeSubNameSpace('querybuilder');
 
     /**
      * SQL
     */
-    n$.actions.makeSubNameSpace('sql');
+    OJ.actions.makeSubNameSpace('sql');
 
     //#endregion ACTIONS 
 
@@ -51,7 +53,7 @@
     /**
      * The MetaData namespace. Represents the structures of nameSpaceName nodes, elements and properties.
      */
-    n$.makeSubNameSpace('metadata');
+    OJ.makeSubNameSpace('metadata');
 
     /**
      * The node namespace. Represents an nameSpaceName Node and its properties.
@@ -60,7 +62,7 @@
      * [3]: This class validates the execution of these methods (e.g. Is the node still in the DOM; has it been GC'd behind our backs)
      * [4]: Maintaining an im-memory representation of tree with children/parents
      */
-    n$.makeSubNameSpace('node');
+    OJ.makeSubNameSpace('node');
 
     //#endregion DOM
 
@@ -71,58 +73,58 @@
     /**
      * Models
     */
-    n$.makeSubNameSpace('dataModels');
+    OJ.makeSubNameSpace('dataModels');
 
     /**
      *Grids
     */
-    n$.makeSubNameSpace('grids');
+    OJ.makeSubNameSpace('grids');
     
     /**
      * Grids Columns
     */
-    n$.grids.makeSubNameSpace('columns');
+    OJ.grids.makeSubNameSpace('columns');
 
     /**
      * Grids Subscribers
     */
-    n$.grids.makeSubNameSpace('subscribers');
+    OJ.grids.makeSubNameSpace('subscribers');
 
     /**
      * Stores
     */
-    n$.makeSubNameSpace('stores');
+    OJ.makeSubNameSpace('stores');
 
     /**
      * Panels
     */
-    n$.makeSubNameSpace('panels');
+    OJ.makeSubNameSpace('panels');
 
     /**
      * Panel Subscribers
     */
-    n$.panels.makeSubNameSpace('subscribers');
+    OJ.panels.makeSubNameSpace('subscribers');
 
     /**
      * Trees
     */
-    n$.makeSubNameSpace('trees');
+    OJ.makeSubNameSpace('trees');
 
     /**
      * Tree Subscribers
     */
-    n$.trees.makeSubNameSpace('subscribers');
+    OJ.trees.makeSubNameSpace('subscribers');
 
     /**
      * Windows.
      * Aside: Since 'window' cannot be used _and_ since few synonyms of the word conjurre the same meaning, use the Russian: sheet (window), sheets (windows)
     */
-    n$.makeSubNameSpace('sheets');
+    OJ.makeSubNameSpace('sheets');
 
     /**
      * Window subscribers
     */
-    n$.sheets.makeSubNameSpace('subscribers');
+    OJ.sheets.makeSubNameSpace('subscribers');
 
 
     //#endregion EXT
