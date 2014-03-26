@@ -21,7 +21,21 @@ var gulp = require('gulp'),
     coffeelint = require('gulp-coffeelint'),
     debug = require('gulp-debug'),
     inject = require('gulp-inject'),
+    git = require('gulp-git'),
+    bump = require('gulp-bump'),
     server = lr();
+
+var extended = [
+  '/**',
+  ' * <%= pkg.name %> - <%= pkg.description %>',
+  ' * @version v<%= pkg.version %>',
+  ' * @link <%= pkg.homepage %>',
+  ' * @license <%= pkg.license %>',
+  ' */',
+  ''
+].join('\n');
+
+var succint = '// <%= pkg.name %>@v<%= pkg.version %>, <%= pkg.license %> licensed. <%= pkg.homepage %>\n';
 
 var paths = {
     css: './src/css',
@@ -61,6 +75,8 @@ gulp.task('less', function () {
             paths: [path.join('./custom/', 'less', 'includes')],
             sourceMap: true
         }))
+        .pipe(header(extended, { pkg: pkg }))
+        .pipe(gulp.dest('./dist'))
         .pipe(gulp.dest(paths.release))
         .pipe(rename({ suffix: '.min' }))
         .pipe(minifyCss({ processImport: false }))
@@ -87,11 +103,13 @@ gulp.task('inject', function() {
 // Compile and Minify JS
 gulp.task('concat', function() {
     gulp.src(files.coffee)
-        .pipe(coffee({map: true}))
+        .pipe(coffee({ map: true }))
         .pipe(plugins.concat('complete.js'))
+        .pipe(header(extended, { pkg: pkg }))
         .pipe(gulp.dest(paths.release))
         .pipe(rename({ suffix: '.min' }))
         .pipe(plugins.uglify())
+        .pipe(header(succint, { pkg: pkg }))
         .pipe(gulp.dest(paths.release))
         .pipe(notify({ message: 'CoffeeScript to JS compilation complete.' }))
         .on('error', gutil.log);
@@ -116,12 +134,36 @@ gulp.task('inject-bower', function() {
 
 });
 
+gulp.task('bump', function () {
+    gulp.src(['./package.json', './bower.json'])
+      .pipe(bump())
+      .pipe(gulp.dest('./'));
+});
+
+// Tag the repo with a version
+gulp.task('tag', function () {
+    var pkg = require('./package.json');
+    var v = 'v' + pkg.version;
+    var message = 'Release ' + v;
+
+    git.commit(message);
+    git.tag(v, message);
+    git.push('origin', 'master', '--tags');
+});
+
+gulp.task('npm', function (done) {
+    require('child_process').spawn('npm', ['publish'], { stdio: 'inherit' })
+      .on('close', done)
+      .on('error', gutil.log);
+});
+
 // Init watch
 gulp.task('watch', function () {
     gulp.watch(files.js, ['inject']);
         //.pipe(notify({ message: 'Includes updated.' }));
 });
 
+gulp.task('release-version', ['bump', 'tag']);
 gulp.task('init', ['inject-bower']);
 gulp.task('default', ['inject']);
 gulp.task('build', ['concat', 'watch']);

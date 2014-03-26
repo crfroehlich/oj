@@ -2,7 +2,7 @@
   "name": "ojs",
   "title": "JavaScript OJ",
   "description": "A framework for writing zero-template, zero-html, zero-css web apps in pure JavaScript.",
-  "version": "0.1.24",
+  "version": "0.1.32",
   "homepage": "http://somecallmechief.github.io/oj/",
   "author": {
     "name": "Christopher Froehlich",
@@ -52,7 +52,9 @@
     "qunit": "*",
     "gulp-coffee": "^1.4.1",
     "gulp-coffeelint": "^0.3.1",
-    "gulp-debug": "^0.2.0"
+    "gulp-debug": "^0.2.0",
+    "gulp-git": "^0.3.6",
+    "gulp-bump": "^0.1.6"
   },
   "keywords": [],
   "engines": {
