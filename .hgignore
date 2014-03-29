@@ -7,3 +7,5 @@ obj/
 node_modules
 .idea/watcherTasks.xml
 .idea/vcs.xml
+oj.v12.suo
+oj.csproj.user
