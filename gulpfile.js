@@ -23,6 +23,11 @@ var gulp = require('gulp'),
     inject = require('gulp-inject'),
     git = require('gulp-git'),
     bump = require('gulp-bump'),
+    qunit = require('gulp-qunit'),
+    header = require('gulp-header'),
+    watch = require('gulp-watch'),
+    plumber = require('gulp-plumber'),
+    js2coffee = require('gulp-js2coffee'),
     server = lr();
 
 var extended = [
@@ -44,16 +49,19 @@ var paths = {
     lib: './bower_components',
     less: './src/less',
     coffee: './src/coffee',
-    src: './src'
+    src: './src',
+    test: './test'
 };
 
 var files = {
     css: './src/less/**/*.css',
     index: './dist/release.html',
     devIndex: './src/dev.html',
+    testIndex: './test/test.html',
     js: 'src/coffee/**/*.js',
     coffee: './src/coffee/**/*.coffee',
-    less: '.src/less/**/.less'
+    less: '.src/less/**/*.less',
+    test: './test/**/*.coffee*/'
 };
 
 var regex = {
@@ -88,13 +96,19 @@ gulp.task('less', function () {
 // Inject JS & CSS Files
 gulp.task('inject', function() {
     gulp.src(files.devIndex)
-        .pipe(inject(gulp.src([files.js, files.css], { read: false }))) // Not necessary to read the files (will speed up things), we're only after their paths
+        .pipe(inject(gulp.src([files.js, files.css], { read: false }), { addRootSlash: false, addPrefix: '..' })) // Not necessary to read the files (will speed up things), we're only after their paths
         .pipe(gulp.dest(paths.src))
         .pipe(notify({ message: 'dev.html includes dynamically injected.' }))
         .on('error', gutil.log);
 
+    gulp.src(files.testIndex)
+        .pipe(inject(gulp.src([files.coffee, files.test, files.css], { read: false}), { addRootSlash: false, addPrefix: '..' })) // Not necessary to read the files (will speed up things), we're only after their paths
+        .pipe(gulp.dest(paths.test))
+        .pipe(notify({ message: 'test.html includes dynamically injected.' }))
+        .on('error', gutil.log);
+
     gulp.src(files.index)
-        .pipe(inject(gulp.src(['./dist/**/*.min*'], { read: false }))) // Not necessary to read the files (will speed up things), we're only after their paths
+        .pipe(inject(gulp.src(['./dist/**/*.min*'], { read: false }), { addRootSlash: false, addPrefix: '..' })) // Not necessary to read the files (will speed up things), we're only after their paths
         .pipe(gulp.dest(paths.release))
         .pipe(notify({ message: 'release.html includes dynamically injected.' }))
         .on('error', gutil.log);
@@ -102,6 +116,7 @@ gulp.task('inject', function() {
 
 // Compile and Minify JS
 gulp.task('concat', function() {
+    var pkg = require('./package.json');
     gulp.src(files.coffee)
         .pipe(coffee({ map: true }))
         .pipe(plugins.concat('complete.js'))
@@ -119,17 +134,19 @@ gulp.task('inject-bower', function() {
     wiredep({
         directory: './bower_components',
         bowerJson: require('./bower.json'),
-        src: './dist/release.html',
-        ignorePath: './',
-        cssPattern: '<link rel="stylesheet" href="{{filePath}}">'
+        src: './dist/release.html'
     });
 
     wiredep({
         directory: './bower_components',
         bowerJson: require('./bower.json'),
-        src: './src/dev.html',
-        ignorePath: './',
-        cssPattern: '<link rel="stylesheet" href="{{filePath}}">'
+        src: './src/dev.html'
+    });
+
+    wiredep({
+        directory: './bower_components',
+        bowerJson: require('./bower.json'),
+        src: './test/test.html'
     });
 
 });
@@ -159,11 +176,26 @@ gulp.task('npm', function (done) {
 
 // Init watch
 gulp.task('watch', function () {
-    gulp.watch(files.js, ['inject']);
-        //.pipe(notify({ message: 'Includes updated.' }));
+    //gulp.watch(files.js, ['inject']);
+    gulp.src([files.coffee], { read: false })
+        .pipe(watch({}, gulp.task['build']))
+        .pipe(plumber());
+});
+
+gulp.task('test', function () {
+    return gulp.src('./test/test.html')
+        .pipe(qunit());
+});
+
+gulp.task('js2coffee', function () {
+    gulp.src('./src/js/**/*.js')
+        .pipe(js2coffee())
+        //.pipe(plumber())
+        .pipe(gulp.dest('./src'));
 });
 
 gulp.task('release-version', ['bump', 'tag']);
 gulp.task('init', ['inject-bower']);
-gulp.task('default', ['inject']);
-gulp.task('build', ['concat', 'watch']);
+gulp.task('build', ['concat', 'inject', 'watch']);
+
+gulp.task('default', ['build']);
