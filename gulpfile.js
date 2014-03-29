@@ -162,7 +162,7 @@ gulp.task('tag', function () {
     var pkg = require('./package.json');
     var v = 'v' + pkg.version;
     var message = 'Release ' + v;
-
+    git.add();
     git.commit(message);
     git.tag(v, message);
     git.push('origin', 'master', '--tags');
