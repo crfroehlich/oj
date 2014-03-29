@@ -5,3 +5,5 @@ bin/
 obj/
 .DS_Store
 node_modules
+.idea/watcherTasks.xml
+.idea/vcs.xml

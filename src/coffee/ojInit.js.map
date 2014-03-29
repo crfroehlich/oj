@@ -1,0 +1,10 @@
+{
+  "version": 3,
+  "file": "ojInit.js",
+  "sourceRoot": "",
+  "sources": [
+    "ojInit.coffee"
+  ],
+  "names": [],
+  "mappings": "AAAA;CAAA,CAAA,CAAC,MAAC;CAEA,CAAE,EAAF,IAAA,QAAA;CAEA;;;CAFA;CAAA,CAKE,EAAF,YAAA;CAEA;;;CAPA;CAAA,CAUE,EAAF,QAAA,IAAA;CAEA;;;CAZA;CAAA,CAeE,EAAF,YAAA;CAKG,CAAD,KAAF,IAAA,KAAA;AAIM,CA1BR,CAAA,CAAC,CA0B0C,CAAhB,CAAnB,KAAA;CA1BR"
+}
