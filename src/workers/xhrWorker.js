@@ -1,5 +1,5 @@
 /* jshint undef: true, unused: true */
-/* global n$:true, window:true, Ext:true, $: true, Q:true */
+/* global OJ:true, window:true, Ext:true, $: true, Q:true */
 
 (function () {
     var isWebWorker = (!this.document);

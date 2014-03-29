@@ -86,8 +86,42 @@
     <Content Include="doc_template\template\static\styles\sunlight.dark.css" />
     <Content Include="doc_template\template\static\styles\sunlight.default.css" />
     <Content Include="gulpfile.js" />
-    <Content Include="src\coffee\common\function.js">
+    <Content Include="src\coffee\core\common\class.js">
+      <DependentUpon>class.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\common\function.js">
       <DependentUpon>function.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\common\is.js">
+      <DependentUpon>is.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\common\methods.js">
+      <DependentUpon>methods.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\common\number.js">
+      <DependentUpon>number.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\common\string.js">
+      <DependentUpon>string.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\common\to.js">
+      <DependentUpon>to.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\tools\shims.js">
+      <DependentUpon>shims.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\tools\uuid.js">
+      <DependentUpon>uuid.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\common\class.coffee" />
+    <Content Include="src\coffee\core\common\class.map">
+      <DependentUpon>class.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\node.factory.map">
+      <DependentUpon>nodeFactory.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\select.js.map">
+      <DependentUpon>select.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\oj.js">
       <DependentUpon>oj.coffee</DependentUpon>
@@ -95,11 +129,138 @@
     <Content Include="src\coffee\ojInit.js">
       <DependentUpon>ojInit.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\core\common\is.map">
+      <DependentUpon>is.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\common\methods.map">
+      <DependentUpon>methods.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\common\number.map">
+      <DependentUpon>number.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\common\string.map">
+      <DependentUpon>string.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\common\to.map">
+      <DependentUpon>to.coffee</DependentUpon>
+    </Content>
+    <None Include="src\coffee\core\tools\console.coffee" />
+    <Content Include="src\coffee\core\tools\console.js">
+      <DependentUpon>console.coffee</DependentUpon>
+    </Content>
+    <None Include="src\coffee\core\tools\constant.coffee" />
+    <Content Include="src\coffee\core\tools\constant.js">
+      <DependentUpon>constant.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\tools\constant.map">
+      <DependentUpon>constant.coffee</DependentUpon>
+    </Content>
+    <None Include="src\coffee\core\tools\each.coffee" />
+    <Content Include="src\coffee\core\tools\each.js">
+      <DependentUpon>each.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\tools\each.js.map">
+      <DependentUpon>each.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\tools\each.map">
+      <DependentUpon>each.coffee</DependentUpon>
+    </Content>
+    <None Include="src\coffee\core\tools\object.coffee" />
+    <Content Include="src\coffee\core\tools\object.js">
+      <DependentUpon>object.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\tools\object.map">
+      <DependentUpon>object.coffee</DependentUpon>
+    </Content>
+    <None Include="src\coffee\core\tools\objectSql.coffee" />
+    <Content Include="src\coffee\core\tools\objectSql.js">
+      <DependentUpon>objectSql.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\tools\objectSql.map">
+      <DependentUpon>objectSql.coffee</DependentUpon>
+    </Content>
+    <None Include="src\coffee\core\tools\property.coffee" />
+    <Content Include="src\coffee\core\tools\property.js">
+      <DependentUpon>property.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\tools\property.map">
+      <DependentUpon>property.coffee</DependentUpon>
+    </Content>
+    <None Include="src\coffee\core\tools\shims.coffee" />
+    <Content Include="src\coffee\core\tools\shims.map">
+      <DependentUpon>shims.coffee</DependentUpon>
+    </Content>
+    <None Include="src\coffee\core\tools\uuid.coffee" />
     <Content Include="src\css\main.css" />
     <Content Include="src\css\nameSpace.css" />
     <Content Include="src\css\normalize.css" />
     <Content Include="dist\release.appcache">
       <DependentUpon>release.html</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\common\is.coffee" />
+    <Content Include="src\coffee\core\common\methods.coffee" />
+    <Content Include="src\coffee\core\common\number.coffee" />
+    <Content Include="src\coffee\core\common\string.coffee" />
+    <Content Include="src\coffee\core\common\to.coffee" />
+    <Content Include="src\coffee\core\tools\console.map">
+      <DependentUpon>console.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\tools\uuid.map">
+      <DependentUpon>uuid.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\span.js.map">
+      <DependentUpon>span.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\svg.js.map">
+      <DependentUpon>svg.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\textarea.js.map">
+      <DependentUpon>textarea.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\ul.js.map">
+      <DependentUpon>ul.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\table.js.map">
+      <DependentUpon>table.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\fieldset.map">
+      <DependentUpon>fieldset.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\form.map">
+      <DependentUpon>form.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\img.map">
+      <DependentUpon>img.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\input.map">
+      <DependentUpon>input.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\label.map">
+      <DependentUpon>label.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\ol.map">
+      <DependentUpon>ol.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\p.map">
+      <DependentUpon>p.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\select.map">
+      <DependentUpon>select.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\span.map">
+      <DependentUpon>span.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\svg.map">
+      <DependentUpon>svg.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\table.map">
+      <DependentUpon>table.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\textarea.map">
+      <DependentUpon>textarea.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\ul.map">
+      <DependentUpon>ul.coffee</DependentUpon>
     </Content>
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
@@ -138,40 +299,48 @@
     <Content Include="src\img\tool-sprites.gif" />
     <Content Include="src\img\unchecked.gif" />
     <Content Include="src\img\up_arrow.gif" />
-    <Content Include="src\js\actionlogic\sqlBuilderInit.js" />
-    <Content Include="src\js\compositions\querybuilder\qbFineTuningGrid.js" />
-    <Content Include="src\js\compositions\querybuilder\qbOutputPanel.js" />
-    <Content Include="src\js\compositions\querybuilder\qbSqlWindowTable.js" />
-    <Content Include="src\js\compositions\querybuilder\qbTableGrid.js" />
-    <Content Include="src\js\compositions\querybuilder\qbTablePanel.js" />
-    <Content Include="src\js\compositions\querybuilder\qbTablesTree.js" />
-    <Content Include="src\js\compositions\querybuilder\SqlDragDropTableJoinStore.js" />
-    <Content Include="src\js\compositions\querybuilder\SqlTableJoinSprite.js" />
-    <Content Include="src\js\compositions\querybuilder\SqlTableNameStore.js" />
-    <Content Include="src\js\compositions\querybuilder\sql\fields.js" />
-    <Content Include="src\js\compositions\querybuilder\sql\joins.js" />
-    <Content Include="src\js\compositions\querybuilder\sql\manager.js" />
-    <Content Include="src\js\compositions\querybuilder\sql\select.js" />
-    <Content Include="src\js\compositions\querybuilder\sql\tables.js" />
-    <Content Include="src\js\compositions\querybuilder\_initQbUI.js" />
-    <Content Include="src\js\core\common\function.js" />
-    <Content Include="src\js\core\common\functional.js" />
-    <Content Include="src\js\core\common\is.js" />
-    <Content Include="src\js\core\common\methods.js" />
-    <Content Include="src\js\core\common\number.js" />
-    <Content Include="src\js\core\common\string.js" />
-    <Content Include="src\js\core\common\to.js" />
-    <Content Include="src\js\core\db\db.js" />
-    <Content Include="src\js\core\db\ddl\indexes.js" />
-    <Content Include="src\js\core\db\ddl\tables.js" />
-    <Content Include="src\js\core\db\dml\insert.js" />
-    <Content Include="src\js\core\db\indexedDb.js" />
-    <Content Include="src\js\core\db\select.js" />
-    <Content Include="src\js\core\definitions\class.js" />
-    <Content Include="src\js\core\definitions\classDefinition.js" />
-    <Content Include="src\js\core\definitions\errors.js" />
-    <Content Include="src\js\core\definitions\subscribers.js" />
-    <Content Include="src\js\core\integrations\afterExt.js" />
+    <Content Include="src\js\core\common\function.js">
+      <DependentUpon>function.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\functional.js">
+      <DependentUpon>functional.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\is.js">
+      <DependentUpon>is.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\methods.js">
+      <DependentUpon>methods.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\number.js">
+      <DependentUpon>number.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\string.js">
+      <DependentUpon>string.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\to.js">
+      <DependentUpon>to.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\definitions\class.js">
+      <DependentUpon>class.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\definitions\classDefinition.js">
+      <DependentUpon>classDefinition.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\definitions\errors.js">
+      <DependentUpon>errors.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\definitions\subscribers.js">
+      <DependentUpon>subscribers.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\dom.js">
+      <DependentUpon>dom.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\enums.js">
+      <DependentUpon>enums.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\error.js">
+      <DependentUpon>error.coffee</DependentUpon>
+    </Content>
     <Content Include="src\js\core\tools\console.js" />
     <Content Include="src\js\core\tools\constant.js" />
     <Content Include="src\js\core\tools\each.js" />
@@ -180,61 +349,302 @@
     <Content Include="src\js\core\tools\property.js" />
     <Content Include="src\js\core\tools\shims.js" />
     <Content Include="src\js\core\tools\uuid.js" />
-    <Content Include="src\js\dom\metadata\metaNode.js" />
-    <Content Include="src\js\dom\nodes\domNode.js" />
-    <Content Include="src\js\dom\nodes\domNodeAttributes.js" />
-    <Content Include="src\js\dom\nodes\elements\div.js" />
-    <Content Include="src\js\dom\nodes\elements\input.js" />
-    <Content Include="src\js\dom\nodes\elements\span.js" />
-    <Content Include="src\js\dom\nodes\elements\_element.js" />
-    <Content Include="src\js\dom\nodes\_nodeFactory.js" />
-    <Content Include="src\js\initChildNameSpaces.js" />
-    <Content Include="src\js\legos\data\datamodel\dataModel.js" />
-    <Content Include="src\js\legos\data\datatype\dataType.js" />
-    <Content Include="src\js\legos\data\datatype\dataTypeCollection.js" />
-    <Content Include="src\js\legos\data\selection\selectionModelCheckBox.js" />
-    <Content Include="src\js\legos\data\selection\subscribers\onDeselect.js" />
-    <Content Include="src\js\legos\data\selection\subscribers\onSelect.js" />
-    <Content Include="src\js\legos\data\selection\subscribers\_selectionSubscribers.js" />
-    <Content Include="src\js\legos\data\selection\_selectionModel.js" />
-    <Content Include="src\js\legos\data\stores\proxy.js" />
-    <Content Include="src\js\legos\data\stores\store.js" />
-    <Content Include="src\js\legos\ui\structures\grid\columns\actionColumn.js" />
-    <Content Include="src\js\legos\ui\structures\grid\columns\checkColumn.js" />
-    <Content Include="src\js\legos\ui\structures\grid\columns\column.js" />
-    <Content Include="src\js\legos\ui\structures\grid\columns\columnItem.js" />
-    <Content Include="src\js\legos\ui\structures\grid\columns\columns.js" />
-    <Content Include="src\js\legos\ui\structures\grid\columns\gridColumn.js" />
-    <Content Include="src\js\legos\ui\structures\grid\columns\rendererColumn.js" />
-    <Content Include="src\js\legos\ui\structures\grid\grid.js" />
-    <Content Include="src\js\legos\ui\structures\grid\subscribers\bodyscroll.js" />
-    <Content Include="src\js\legos\ui\structures\grid\subscribers\drop.js" />
-    <Content Include="src\js\legos\ui\structures\grid\subscribers\render.js" />
-    <Content Include="src\js\legos\ui\structures\grid\subscribers\_gridSubscribers.js" />
-    <Content Include="src\js\legos\ui\structures\panel\panel.js" />
-    <Content Include="src\js\legos\ui\structures\panel\subscribers\afterLayout.js" />
-    <Content Include="src\js\legos\ui\structures\panel\subscribers\_panelSubscribers.js" />
-    <Content Include="src\js\legos\ui\structures\sheet\sheet.js" />
-    <Content Include="src\js\legos\ui\structures\sheet\subscribers\beforeclose.js" />
-    <Content Include="src\js\legos\ui\structures\sheet\subscribers\beforeshow.js" />
-    <Content Include="src\js\legos\ui\structures\sheet\subscribers\show.js" />
-    <Content Include="src\js\legos\ui\structures\sheet\subscribers\_sheetSubscribers.js" />
-    <Content Include="src\js\legos\ui\structures\structureset\structureSet.js" />
-    <Content Include="src\js\legos\ui\structures\structureset\_structureSet.js" />
-    <Content Include="src\js\legos\ui\structures\tree\subscribers\afterrender.js" />
-    <Content Include="src\js\legos\ui\structures\tree\subscribers\itemdbclick.js" />
-    <Content Include="src\js\legos\ui\structures\tree\subscribers\_treeSubscribers.js" />
-    <Content Include="src\js\legos\ui\structures\tree\tree.js" />
-    <Content Include="src\js\legos\ui\structures\tree\treeNode.js" />
-    <Content Include="src\js\legos\ui\structures\tree\treeStore.js" />
-    <Content Include="src\js\nameSpace.js" />
-    <Content Include="src\js\workers\webWorkerXHR.js" />
+    <Content Include="src\js\db\db.js">
+      <DependentUpon>db.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\db\dbIndex.js">
+      <DependentUpon>dbIndex.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\db\dbInsert.js">
+      <DependentUpon>dbInsert.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\db\dbSelect.js">
+      <DependentUpon>dbSelect.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\db\dbTable.js">
+      <DependentUpon>dbTable.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\db\dbUpdate.js">
+      <DependentUpon>dbUpdate.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\element.js">
+      <DependentUpon>element.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\archive\metadata\metaNode.js">
+      <DependentUpon>metaNode.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\archive\nodes\domNode.js">
+      <DependentUpon>domNode.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\archive\nodes\domNodeAttributes.js">
+      <DependentUpon>domNodeAttributes.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\archive\nodes\elements\div.js">
+      <DependentUpon>div.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\archive\nodes\elements\input.js">
+      <DependentUpon>input.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\archive\nodes\elements\span.js">
+      <DependentUpon>span.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\archive\nodes\elements\_element.js">
+      <DependentUpon>_element.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\archive\nodes\nodeFactory.js">
+      <DependentUpon>nodeFactory.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\node.factory.js">
+      <DependentUpon>nodeFactory.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\a.js">
+      <DependentUpon>a.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\br.js">
+      <DependentUpon>br.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\button.js">
+      <DependentUpon>button.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\div.js">
+      <DependentUpon>div.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\fieldset.js">
+      <DependentUpon>fieldset.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\form.js">
+      <DependentUpon>form.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\form.js.map">
+      <DependentUpon>form.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\img.js">
+      <DependentUpon>img.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\input.js">
+      <DependentUpon>input.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\label.js">
+      <DependentUpon>label.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\legend.js">
+      <DependentUpon>legend.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\li.js">
+      <DependentUpon>li.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\ol.js">
+      <DependentUpon>ol.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\option.js">
+      <DependentUpon>option.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\p.js">
+      <DependentUpon>p.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\select.js">
+      <DependentUpon>select.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\span.js">
+      <DependentUpon>span.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\svg.js">
+      <DependentUpon>svg.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\table.js">
+      <DependentUpon>table.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\textarea.js">
+      <DependentUpon>textarea.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\ul.js">
+      <DependentUpon>ul.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\promises\ajaxCore.js">
+      <DependentUpon>ajaxCore.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\promises\rest.js">
+      <DependentUpon>rest.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\promises\promise.js">
+      <DependentUpon>promise.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\promises\workerXHR.js">
+      <DependentUpon>workerXHR.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\db\clientDb.js">
+      <DependentUpon>clientDb.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\tools\clientdb.js" />
+    <Content Include="src\js\core\tools\cookie.js" />
+    <Content Include="src\js\core\tools\pubsub.js" />
+    <Content Include="src\js\core\tools\querystring.js" />
+    <Content Include="src\js\core\common\array.js">
+      <DependentUpon>array.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\date.js">
+      <DependentUpon>date.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\workers\webWorkerXHR.js">
+      <DependentUpon>webWorkerXHR.coffee</DependentUpon>
+    </Content>
     <Content Include="src\workers\xhrWorker.js" />
     <Content Include="test\core\test.indexedDb.js" />
-    <Content Include="test\core\test.is.js" />
-    <Content Include="test\core\test.to.js" />
-    <Content Include="test\node\test.node.js" />
+    <Content Include="src\coffee\dom\dom.coffee" />
+    <Content Include="src\js\core\enums.coffee" />
+    <Content Include="src\js\core\error.coffee" />
+    <Content Include="src\js\db\clientDb.coffee" />
+    <Content Include="src\js\db\db.coffee" />
+    <Content Include="src\js\db\dbIndex.coffee" />
+    <Content Include="src\js\db\dbInsert.coffee" />
+    <Content Include="src\js\db\dbSelect.coffee" />
+    <Content Include="src\js\db\dbTable.coffee" />
+    <Content Include="src\js\db\dbUpdate.coffee" />
+    <Content Include="src\coffee\dom\archive\metadata\metaNode.coffee" />
+    <Content Include="src\coffee\dom\archive\nodes\domNode.coffee" />
+    <Content Include="src\coffee\dom\archive\nodes\domNodeAttributes.coffee" />
+    <Content Include="src\coffee\dom\archive\nodes\nodeFactory.coffee" />
+    <Content Include="src\coffee\dom\archive\nodes\elements\div.coffee" />
+    <Content Include="src\coffee\dom\archive\nodes\elements\input.coffee" />
+    <Content Include="src\coffee\dom\archive\nodes\elements\span.coffee" />
+    <Content Include="src\coffee\dom\archive\nodes\elements\_element.coffee" />
+    <Content Include="src\coffee\dom\nodes\a.coffee" />
+    <Content Include="src\coffee\dom\nodes\br.coffee" />
+    <Content Include="src\coffee\dom\nodes\button.coffee" />
+    <Content Include="src\coffee\dom\nodes\div.coffee" />
+    <Content Include="src\coffee\dom\nodes\fieldset.coffee" />
+    <Content Include="src\coffee\dom\nodes\form.coffee" />
+    <Content Include="src\coffee\dom\nodes\img.coffee" />
+    <Content Include="src\coffee\dom\nodes\input.coffee" />
+    <Content Include="src\coffee\dom\nodes\label.coffee" />
+    <Content Include="src\coffee\dom\nodeFactory.coffee" />
+    <Content Include="src\coffee\dom\nodes\ol.coffee" />
+    <Content Include="src\coffee\dom\nodes\p.coffee" />
+    <Content Include="src\coffee\dom\nodes\select.coffee" />
+    <Content Include="src\coffee\dom\nodes\span.coffee" />
+    <Content Include="src\coffee\dom\nodes\svg.coffee" />
+    <Content Include="src\coffee\dom\nodes\table.coffee" />
+    <Content Include="src\coffee\dom\nodes\textarea.coffee" />
+    <Content Include="src\coffee\dom\nodes\ul.coffee" />
+    <Content Include="src\js\promises\ajaxCore.coffee" />
+    <Content Include="src\js\promises\promise.coffee" />
+    <Content Include="src\js\promises\rest.coffee" />
+    <Content Include="src\js\promises\workerXHR.coffee" />
+    <Content Include="src\js\workers\webWorkerXHR.coffee" />
+    <Content Include="src\coffee\dom\dom.map">
+      <DependentUpon>dom.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\element.coffee" />
+    <Content Include="src\js\core\common\array.coffee" />
+    <Content Include="src\js\core\common\date.coffee" />
+    <Content Include="src\js\core\common\function.coffee" />
+    <Content Include="src\js\core\common\functional.coffee" />
+    <Content Include="src\js\core\common\is.coffee" />
+    <Content Include="src\js\core\common\methods.coffee" />
+    <Content Include="src\js\core\common\number.coffee" />
+    <Content Include="src\js\core\common\string.coffee" />
+    <Content Include="src\js\core\common\to.coffee" />
+    <Content Include="src\js\core\definitions\class.coffee" />
+    <Content Include="src\js\core\definitions\classDefinition.coffee" />
+    <Content Include="src\js\core\definitions\errors.coffee" />
+    <Content Include="src\js\core\definitions\subscribers.coffee" />
+    <Content Include="src\coffee\dom\element.map">
+      <DependentUpon>element.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\a.map">
+      <DependentUpon>a.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\br.map">
+      <DependentUpon>br.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\button.map">
+      <DependentUpon>button.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\div.map">
+      <DependentUpon>div.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\legend.coffee" />
+    <Content Include="src\coffee\dom\nodes\legend.js.map">
+      <DependentUpon>legend.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\fieldset.js.map">
+      <DependentUpon>fieldset.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\node.factory.js.map">
+      <DependentUpon>nodeFactory.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\img.js.map">
+      <DependentUpon>img.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\enums.js.map">
+      <DependentUpon>enums.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\input.js.map">
+      <DependentUpon>input.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\label.js.map">
+      <DependentUpon>label.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\li.coffee" />
+    <Content Include="src\coffee\dom\nodes\li.js.map">
+      <DependentUpon>li.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\ol.js.map">
+      <DependentUpon>ol.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\p.js.map">
+      <DependentUpon>p.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\option.coffee" />
+    <Content Include="src\coffee\dom\nodes\option.js.map">
+      <DependentUpon>option.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\to.map">
+      <DependentUpon>to.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\string.map">
+      <DependentUpon>string.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\methods.map">
+      <DependentUpon>methods.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\is.map">
+      <DependentUpon>is.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\functional.map">
+      <DependentUpon>functional.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\function.map">
+      <DependentUpon>function.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\date.map">
+      <DependentUpon>date.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\js\core\common\array.map">
+      <DependentUpon>array.coffee</DependentUpon>
+    </Content>
+    <None Include="test\core\test.is.coffee" />
+    <Content Include="test\core\test.is.js">
+      <DependentUpon>test.is.coffee</DependentUpon>
+    </Content>
+    <Content Include="test\core\test.is.map">
+      <DependentUpon>test.is.coffee</DependentUpon>
+    </Content>
+    <None Include="test\core\test.to.coffee" />
+    <Content Include="test\core\test.to.map">
+      <DependentUpon>test.to.coffee</DependentUpon>
+    </Content>
+    <None Include="test\node\test.node.coffee" />
+    <Content Include="test\core\test.to.js">
+      <DependentUpon>test.to.coffee</DependentUpon>
+    </Content>
+    <Content Include="test\node\test.node.js">
+      <DependentUpon>test.node.coffee</DependentUpon>
+    </Content>
     <Content Include="test\Test.html" />
+    <Content Include="test\node\test.node.map">
+      <DependentUpon>test.node.coffee</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -273,7 +683,6 @@
     <Content Include="package.json" />
     <Content Include="README.md" />
     <Content Include="src\coffee\oj.coffee" />
-    <Content Include="src\js\dom\Untitled" />
     <Content Include="src\coffee\ojInit.coffee" />
     <Content Include="bower.json" />
     <Content Include="src\coffee\oj.map">
@@ -282,12 +691,14 @@
     <Content Include="src\coffee\ojInit.map">
       <DependentUpon>ojInit.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\common\function.coffee" />
-    <Content Include="src\coffee\common\function.map">
+    <Content Include="src\coffee\core\common\function.coffee" />
+    <Content Include="src\coffee\core\common\function.map">
       <DependentUpon>function.coffee</DependentUpon>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="src\js\dom\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

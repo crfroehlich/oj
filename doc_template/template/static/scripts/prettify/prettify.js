@@ -104,7 +104,7 @@ window.PR_SHOULD_USE_CONTINUATION = !0;
     var p = l && "pre" === l.substring(0, 3);
     m(a);
     return {
-      a: h.join("").replace(/\n$/, ""),
+      a: h.join("").replace(/\OJ/, ""),
       c: t
     }
   }

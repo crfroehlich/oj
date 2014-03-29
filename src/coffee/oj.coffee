@@ -22,8 +22,8 @@ OJ IIFE definition to anchor JsDoc comments.
 @param {string} nameSpaceName
 @param {jQuery} domVendor
 ###
-thisGlobal = this;
-domVendor = thisGlobal.jQuery
+thisGlobal = (if (typeof global isnt 'undefined' and global) then global else if (typeof window isnt 'undefined') then window else this)
+utilLib = thisGlobal.jQuery
 nameSpaceName = "OJ"
 
 ###
@@ -80,7 +80,7 @@ makeTheJuice = ->
       ###
       Object.defineProperty this, "register",
         value: (name, obj, enumerable) ->
-          "use strict"
+          'use strict'
           throw new Error("Cannot lift a new property without a valid name.")  if (typeof name isnt "string") or name is ""
           throw new Error("Cannot lift a new property without a valid property instance.")  unless obj
           throw new Error("Property named " + name + " is already defined on " + spacename + ".")  if proto[name]
@@ -107,7 +107,7 @@ makeTheJuice = ->
       @memberOf OJ
       ###
       proto.register "makeSubNameSpace", ((subNameSpace) ->
-        "use strict"
+        'use strict'
         throw new Error("Cannot create a new sub namespace without a valid name.")  if (typeof subNameSpace isnt "string") or subNameSpace is ""
         throw new Error("Sub namespace named " + subNameSpace + " is already defined on " + spacename + ".")  if proto.subNameSpace
         nsInternal.alertDependents nsName + "." + subNameSpace
@@ -138,7 +138,7 @@ makeTheJuice = ->
   @memberOf OJ
   ###
   dependsOn = (dependencies, callBack, imports) ->
-    "use strict"
+    'use strict'
     ret = false
     nsMembers = nsInternal.getNsMembers()
     if dependencies and dependencies.length > 0 and callBack
@@ -165,16 +165,16 @@ makeTheJuice = ->
     value: ->
       recurseTree = (key, lastKey) ->
         members.push lastKey + "." + key  if typeof (key) is "string"
-        if domVendor.isPlainObject(key)
+        if utilLib.isPlainObject(key)
           Object.keys(key).forEach (k) ->
             members.push lastKey + "." + k  if typeof (k) is "string"
-            recurseTree key[k], lastKey + "." + k  if domVendor.isPlainObject(key[k])
+            recurseTree key[k], lastKey + "." + k  if utilLib.isPlainObject(key[k])
             return
 
         return
       members = []
       Object.keys(NsTree[nameSpaceName]).forEach (key) ->
-        recurseTree NsTree[nameSpaceName][key], nameSpaceName  if domVendor.isPlainObject(NsTree[nameSpaceName][key])
+        recurseTree NsTree[nameSpaceName][key], nameSpaceName  if utilLib.isPlainObject(NsTree[nameSpaceName][key])
         return
 
       members
@@ -196,10 +196,7 @@ makeTheJuice = ->
   NsTree[nameSpaceName] = {}
   #Define the core namespace and the return of this class
   NsOut = makeNameSpace(nameSpaceName, NsTree[nameSpaceName])
-  Object.defineProperties thisGlobal,
-    $nameSpace$:
-      value: NsOut
-
+  
   #Cache a handle on the vendor (probably jQuery) on the root namespace
   ###
   Cache a handle on the vendor (probably jQuery) on the root namespace
@@ -207,7 +204,7 @@ makeTheJuice = ->
   @return {jQuery}
   @memberOf OJ
   ###
-  NsOut.register "?", domVendor, false
+  NsOut.register "?", utilLib, false
   #Cache the tree (useful for documentation/visualization/debugging)
   ###
   Cache the tree (useful for documentation/visualization/debugging)

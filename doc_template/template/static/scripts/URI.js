@@ -24,7 +24,7 @@
     root.URI = factory(root.punycode, root.IPv6, root.SecondLevelDomains);
   }
 }(this, function(punycode, IPv6, SLD) {
-  "use strict";
+  'use strict';
 
   function URI(url, base) {
     // Allow instantiation without the 'new' keyword

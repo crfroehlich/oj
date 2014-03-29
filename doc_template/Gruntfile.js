@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /**
  * @fileOverview Gruntfile tasks. These tasks are intended to help you when modifying the template. If you are
  * just using the template, don't sweat this stuff. To use these tasks, you must install grunt, if you haven't already,

@@ -26,11 +26,11 @@ OJ IIFE definition to anchor JsDoc comments.
  */
 
 (function() {
-  var NsTree, domVendor, makeTheJuice, nameSpaceName, thisGlobal;
+  var NsTree, makeTheJuice, nameSpaceName, thisGlobal, utilLib;
 
-  thisGlobal = this;
+  thisGlobal = (typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this);
 
-  domVendor = thisGlobal.jQuery;
+  utilLib = thisGlobal.jQuery;
 
   nameSpaceName = "OJ";
 
@@ -104,7 +104,7 @@ OJ IIFE definition to anchor JsDoc comments.
          */
         Object.defineProperty(this, "register", {
           value: function(name, obj, enumerable) {
-            "use strict";
+            'use strict';
             if ((typeof name !== "string") || name === "") {
               throw new Error("Cannot lift a new property without a valid name.");
             }
@@ -136,7 +136,7 @@ OJ IIFE definition to anchor JsDoc comments.
         @memberOf OJ
          */
         proto.register("makeSubNameSpace", (function(subNameSpace) {
-          "use strict";
+          'use strict';
           var newNameSpace;
           if ((typeof subNameSpace !== "string") || subNameSpace === "") {
             throw new Error("Cannot create a new sub namespace without a valid name.");
@@ -173,7 +173,7 @@ OJ IIFE definition to anchor JsDoc comments.
     @memberOf OJ
      */
     dependsOn = function(dependencies, callBack, imports) {
-      "use strict";
+      'use strict';
       var missing, nsMembers, ret;
       ret = false;
       nsMembers = nsInternal.getNsMembers();
@@ -209,12 +209,12 @@ OJ IIFE definition to anchor JsDoc comments.
           if (typeof key === "string") {
             members.push(lastKey + "." + key);
           }
-          if (domVendor.isPlainObject(key)) {
+          if (utilLib.isPlainObject(key)) {
             Object.keys(key).forEach(function(k) {
               if (typeof k === "string") {
                 members.push(lastKey + "." + k);
               }
-              if (domVendor.isPlainObject(key[k])) {
+              if (utilLib.isPlainObject(key[k])) {
                 recurseTree(key[k], lastKey + "." + k);
               }
             });
@@ -222,7 +222,7 @@ OJ IIFE definition to anchor JsDoc comments.
         };
         members = [];
         Object.keys(NsTree[nameSpaceName]).forEach(function(key) {
-          if (domVendor.isPlainObject(NsTree[nameSpaceName][key])) {
+          if (utilLib.isPlainObject(NsTree[nameSpaceName][key])) {
             recurseTree(NsTree[nameSpaceName][key], nameSpaceName);
           }
         });
@@ -248,11 +248,6 @@ OJ IIFE definition to anchor JsDoc comments.
     });
     NsTree[nameSpaceName] = {};
     NsOut = makeNameSpace(nameSpaceName, NsTree[nameSpaceName]);
-    Object.defineProperties(thisGlobal, {
-      $nameSpace$: {
-        value: NsOut
-      }
-    });
 
     /*
     Cache a handle on the vendor (probably jQuery) on the root namespace
@@ -260,7 +255,7 @@ OJ IIFE definition to anchor JsDoc comments.
     @return {jQuery}
     @memberOf OJ
      */
-    NsOut.register("?", domVendor, false);
+    NsOut.register("?", utilLib, false);
 
     /*
     Cache the tree (useful for documentation/visualization/debugging)

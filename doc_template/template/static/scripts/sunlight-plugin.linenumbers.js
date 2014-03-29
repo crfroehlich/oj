@@ -31,7 +31,7 @@
 			return getLastNode(node.lastChild);
 		}(node) || { lastChild: "" };
 		
-		return node.innerHTML.replace(/[^\n]/g, "").length - /\n$/.test(lastTextNode.nodeValue);
+		return node.innerHTML.replace(/[^\n]/g, "").length - /\OJ/.test(lastTextNode.nodeValue);
 	}
 	
 	sunlight.bind("afterHighlightNode", function(context) {

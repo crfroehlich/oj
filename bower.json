@@ -21,12 +21,16 @@
     "less.js": ">= 1.7.0",
     "google-code-prettify": ">= 1.0.1",
     "qunit": ">= 1.14.0",
-    "q": ">= 1.0.0",
+    "q": "~1.0.1",
     "ajaxify": "https://github.com/arvgta/ajaxify.git#~4.6.4",
     "SyntaxHighlighter": ">= 3.0.83",
     "lodash": ">= 2.4.1",
     "Faker": ">= 0.7.0",
-    "setimmediate": ">= 1.0.1"
+    "setimmediate": ">= 1.0.1",
+    "localforage": "~0.2.1",
+    "xregexp": "~2.0.0",
+    "thindom": "~0.0.2",
+    "mousetrap": "~1.4.6"
   },
   "overrides": {
     "jquery": {
@@ -41,10 +45,15 @@
     "jquery.validation": {
       "main": "jquery.validate.js"
     },
+    "xregexp": {
+      "main": [
+        "min/xregexp-min.js"
+      ]
+    },
     "SyntaxHighlighter": {
       "main": [
         "styles/shCore.css",
-        "shThemeDefault.css",
+        "styles/shThemeDefault.css",
         "scripts/shCore.js"
       ]
     }
@@ -53,6 +62,7 @@
     "qunit": "~1.14.0",
     "qunit-promises": "~0.1.1",
     "qunit-assert": "~1.0.0",
-    "html5-boilerplate": "~4.3.0"
+    "html5-boilerplate": "~4.3.0",
+    "coffee-script": "~1.7.1"
   }
 }

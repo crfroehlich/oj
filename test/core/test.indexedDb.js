@@ -1,4 +1,4 @@
-/*global nameSpace:true, QUnit:false, module:false, test:false, asyncTest:false, expect:false*/
+/*global OJ:true, QUnit:false, module:false, test:false, asyncTest:false, expect:false*/
 /*global start:false, stop:false ok:false, equal:false, notEqual:false, deepEqual:false*/
 /*global notDeepEqual:false, strictEqual:false, notStrictEqual:false, raises:false*/
 
@@ -8,11 +8,11 @@
 // as this will make troubleshooting failures easier for anyone who might come behind
 
 // Test the truthiness of the null Type
-(function _nullChecks(n$) {
+(function _nullChecks(OJ) {
 	module("indexedDb");
 	
     var tableName = 'debug', dbName = 'diagnostics14', dbVersion = 1;
-    window.newNuDbReq = n$.db.dbManager();
+    window.newNuDbReq = OJ.db.dbManager();
     window.newNuDbReq.connect(dbName, dbVersion);
     
     //newNuDbReq.ddl.dropTable(tableName);
@@ -31,7 +31,7 @@
     
 
 
-	//#endregion nameSpace.is.number
+	//#endregion OJ.is.number
 
-}(window.$nameSpace$));
+}((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ));
 

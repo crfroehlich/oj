@@ -2,136 +2,136 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da229945-5898-42ab-968b-3af8e0af0408" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Node_js_Dependencies_for_oj.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/oj.iml" />
-      <change type="DELETED" beforePath="C:\Github\oj\.travis.yml" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\Gruntfile.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\files.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\sandbox\indexeddb.html" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\templates\_temp\index.tmpl" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\templates\_temp\sql.tmpl" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\templates\_temp\test.tmpl" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\templates\end.tmpl" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\templates\header.tmpl" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\templates\manifest.tmpl" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\templates\scripts.tmpl" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\templates\test.tmpl" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\vendor\css\shCore.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\vendor\css\shThemeDefault.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\vendor\js\core\Faker.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\vendor\js\core\SyntaxHighlighter.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\vendor\js\core\modernizr-2.6.2.min.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\vendor\js\core\shims.js" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\vendor\test\qunit-1.11.0.css" afterPath="" />
-      <change type="DELETED" beforePath="C:\Github\oj\vendor\test\qunit-1.11.0.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\coffee\common\function.coffee" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\coffee\common\function.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\coffee\common\function.map" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\SqlDragDropTableJoinStore.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\SqlTableJoinSprite.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\SqlTableNameStore.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\_initQbUI.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\qbFineTuningGrid.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\qbOutputPanel.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\qbSqlWindowTable.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\qbTableGrid.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\qbTablePanel.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\qbTablesTree.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\sql\fields.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\sql\joins.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\sql\manager.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\sql\select.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\compositions\querybuilder\sql\tables.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\core\db\db.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\core\db\ddl\indexes.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\core\db\ddl\tables.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\core\db\dml\insert.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\core\db\indexedDb.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\core\db\select.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\core\integrations\afterExt.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\dom\Untitled" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\dom\nodes\_nodeFactory.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\initChildNameSpaces.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\data\datamodel\dataModel.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\data\datatype\dataType.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\data\datatype\dataTypeCollection.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\data\selection\_selectionModel.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\data\selection\selectionModelCheckBox.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\data\selection\subscribers\_selectionSubscribers.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\data\selection\subscribers\onDeselect.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\data\selection\subscribers\onSelect.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\data\stores\proxy.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\data\stores\store.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\grid\columns\actionColumn.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\grid\columns\checkColumn.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\grid\columns\column.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\grid\columns\columnItem.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\grid\columns\columns.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\grid\columns\gridColumn.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\grid\columns\rendererColumn.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\grid\grid.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\grid\subscribers\_gridSubscribers.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\grid\subscribers\bodyscroll.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\grid\subscribers\drop.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\grid\subscribers\render.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\panel\panel.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\panel\subscribers\_panelSubscribers.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\panel\subscribers\afterLayout.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\sheet\sheet.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\sheet\subscribers\_sheetSubscribers.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\sheet\subscribers\beforeclose.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\sheet\subscribers\beforeshow.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\sheet\subscribers\show.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\structureset\_structureSet.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\structureset\structureSet.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\tree\subscribers\_treeSubscribers.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\tree\subscribers\afterrender.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\tree\subscribers\itemdbclick.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\tree\tree.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\tree\treeNode.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\legos\ui\structures\tree\treeStore.js" afterPath="" />
+      <change type="DELETED" beforePath="C:\Github\oj\src\js\nameSpace.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.hgignore" afterPath="$PROJECT_DIR$/.hgignore" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/.htaccess" afterPath="$PROJECT_DIR$/dist/.htaccess" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/404.html" afterPath="$PROJECT_DIR$/dist/404.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/SqlDragDropTableJoinStore.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/SqlDragDropTableJoinStore.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/SqlTableJoinSprite.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/SqlTableJoinSprite.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/SqlTableNameStore.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/SqlTableNameStore.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Node_js_Dependencies_for_oj.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Node_js_Dependencies_for_oj.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/Test.html" afterPath="$PROJECT_DIR$/test/Test.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/nodes/elements/_element.js" afterPath="$PROJECT_DIR$/src/js/dom/nodes/elements/_element.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/_gridSubscribers.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/_gridSubscribers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/_initQbUI.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/_initQbUI.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/nodes/_nodeFactory.js" afterPath="$PROJECT_DIR$/src/js/dom/nodes/_nodeFactory.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/panel/subscribers/_panelSubscribers.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/panel/subscribers/_panelSubscribers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/selection/_selectionModel.js" afterPath="$PROJECT_DIR$/src/js/legos/data/selection/_selectionModel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/selection/subscribers/_selectionSubscribers.js" afterPath="$PROJECT_DIR$/src/js/legos/data/selection/subscribers/_selectionSubscribers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/_sheetSubscribers.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/_sheetSubscribers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/structureset/_structureSet.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/structureset/_structureSet.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/subscribers/_treeSubscribers.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/subscribers/_treeSubscribers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/actionColumn.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/actionColumn.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/integrations/afterExt.js" afterPath="$PROJECT_DIR$/src/js/core/integrations/afterExt.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/panel/subscribers/afterLayout.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/panel/subscribers/afterLayout.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/subscribers/afterrender.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/subscribers/afterrender.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/beforeclose.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/beforeclose.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/beforeshow.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/beforeshow.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/bodyscroll.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/bodyscroll.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/checkColumn.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/checkColumn.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bower.json" afterPath="$PROJECT_DIR$/bower.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/definitions/class.js" afterPath="$PROJECT_DIR$/src/js/core/definitions/class.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/definitions/classDefinition.js" afterPath="$PROJECT_DIR$/src/js/core/definitions/classDefinition.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/column.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/column.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/columnItem.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/columnItem.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/columns.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/columns.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/complete.js" afterPath="$PROJECT_DIR$/dist/complete.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/complete.min.js" afterPath="$PROJECT_DIR$/dist/complete.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/console.js" afterPath="$PROJECT_DIR$/src/js/core/tools/console.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/constant.js" afterPath="$PROJECT_DIR$/src/js/core/tools/constant.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/crossdomain.xml" afterPath="$PROJECT_DIR$/dist/crossdomain.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/datamodel/dataModel.js" afterPath="$PROJECT_DIR$/src/js/legos/data/datamodel/dataModel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/datatype/dataType.js" afterPath="$PROJECT_DIR$/src/js/legos/data/datatype/dataType.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/datatype/dataTypeCollection.js" afterPath="$PROJECT_DIR$/src/js/legos/data/datatype/dataTypeCollection.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/db/db.js" afterPath="$PROJECT_DIR$/src/js/core/db/db.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dev.appcache" afterPath="$PROJECT_DIR$/src/dev.appcache" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dev.html" afterPath="$PROJECT_DIR$/src/dev.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/nodes/elements/div.js" afterPath="$PROJECT_DIR$/src/js/dom/nodes/elements/div.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/nodes/domNode.js" afterPath="$PROJECT_DIR$/src/js/dom/nodes/domNode.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/nodes/domNodeAttributes.js" afterPath="$PROJECT_DIR$/src/js/dom/nodes/domNodeAttributes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/drop.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/drop.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/each.js" afterPath="$PROJECT_DIR$/src/js/core/tools/each.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/definitions/errors.js" afterPath="$PROJECT_DIR$/src/js/core/definitions/errors.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/fields.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/fields.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/common/function.js" afterPath="$PROJECT_DIR$/src/js/core/common/function.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/common/functional.js" afterPath="$PROJECT_DIR$/src/js/core/common/functional.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/grid.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/grid.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/gridColumn.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/gridColumn.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/humans.txt" afterPath="$PROJECT_DIR$/dist/humans.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/db/indexedDb.js" afterPath="$PROJECT_DIR$/src/js/core/db/indexedDb.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/db/ddl/indexes.js" afterPath="$PROJECT_DIR$/src/js/core/db/ddl/indexes.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/initChildNameSpaces.js" afterPath="$PROJECT_DIR$/src/js/initChildNameSpaces.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/nodes/elements/input.js" afterPath="$PROJECT_DIR$/src/js/dom/nodes/elements/input.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/db/dml/insert.js" afterPath="$PROJECT_DIR$/src/js/core/db/dml/insert.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/common/is.js" afterPath="$PROJECT_DIR$/src/js/core/common/is.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/subscribers/itemdbclick.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/subscribers/itemdbclick.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/joins.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/joins.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/main.css" afterPath="$PROJECT_DIR$/src/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/manager.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/manager.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/metadata/metaNode.js" afterPath="$PROJECT_DIR$/src/js/dom/metadata/metaNode.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/common/methods.js" afterPath="$PROJECT_DIR$/src/js/core/common/methods.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/nameSpace.css" afterPath="$PROJECT_DIR$/src/css/nameSpace.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/nameSpace.js" afterPath="$PROJECT_DIR$/src/js/nameSpace.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/css/normalize.css" afterPath="$PROJECT_DIR$/src/css/normalize.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/common/number.js" afterPath="$PROJECT_DIR$/src/js/core/common/number.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/object.js" afterPath="$PROJECT_DIR$/src/js/core/tools/object.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/objectSql.js" afterPath="$PROJECT_DIR$/src/js/core/tools/objectSql.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/selection/subscribers/onDeselect.js" afterPath="$PROJECT_DIR$/src/js/legos/data/selection/subscribers/onDeselect.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/selection/subscribers/onSelect.js" afterPath="$PROJECT_DIR$/src/js/legos/data/selection/subscribers/onSelect.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/oj.coffee" afterPath="$PROJECT_DIR$/src/coffee/oj.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oj.csproj" afterPath="$PROJECT_DIR$/oj.csproj" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/oj.iml" afterPath="$PROJECT_DIR$/.idea/oj.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/oj.js" afterPath="$PROJECT_DIR$/src/coffee/oj.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/oj.map" afterPath="$PROJECT_DIR$/src/coffee/oj.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oj.sln" afterPath="$PROJECT_DIR$/oj.sln" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/ojInit.coffee" afterPath="$PROJECT_DIR$/src/coffee/ojInit.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/ojInit.js" afterPath="$PROJECT_DIR$/src/coffee/ojInit.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/ojInit.map" afterPath="$PROJECT_DIR$/src/coffee/ojInit.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/panel/panel.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/panel/panel.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc_template/template/static/scripts/prettify/prettify.js" afterPath="$PROJECT_DIR$/doc_template/template/static/scripts/prettify/prettify.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/property.js" afterPath="$PROJECT_DIR$/src/js/core/tools/property.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/stores/proxy.js" afterPath="$PROJECT_DIR$/src/js/legos/data/stores/proxy.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbFineTuningGrid.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbFineTuningGrid.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbOutputPanel.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbOutputPanel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbSqlWindowTable.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbSqlWindowTable.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbTableGrid.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbTableGrid.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbTablePanel.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbTablePanel.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbTablesTree.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/qbTablesTree.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/render.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/subscribers/render.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/rendererColumn.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/grid/columns/rendererColumn.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/robots.txt" afterPath="$PROJECT_DIR$/dist/robots.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/select.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/select.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/db/select.js" afterPath="$PROJECT_DIR$/src/js/core/db/select.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/selection/selectionModelCheckBox.js" afterPath="$PROJECT_DIR$/src/js/legos/data/selection/selectionModelCheckBox.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/sheet.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/sheet.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/release.appcache" afterPath="$PROJECT_DIR$/dist/release.appcache" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/release.html" afterPath="$PROJECT_DIR$/dist/release.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/shims.js" afterPath="$PROJECT_DIR$/src/js/core/tools/shims.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/show.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/sheet/subscribers/show.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/dom/nodes/elements/span.js" afterPath="$PROJECT_DIR$/src/js/dom/nodes/elements/span.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/actionlogic/sqlBuilderInit.js" afterPath="$PROJECT_DIR$/src/js/actionlogic/sqlBuilderInit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/data/stores/store.js" afterPath="$PROJECT_DIR$/src/js/legos/data/stores/store.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/common/string.js" afterPath="$PROJECT_DIR$/src/js/core/common/string.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/structureset/structureSet.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/structureset/structureSet.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/definitions/subscribers.js" afterPath="$PROJECT_DIR$/src/js/core/definitions/subscribers.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/tables.js" afterPath="$PROJECT_DIR$/src/js/compositions/querybuilder/sql/tables.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/db/ddl/tables.js" afterPath="$PROJECT_DIR$/src/js/core/db/ddl/tables.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/doc_template/template/static/scripts/sunlight-plugin.linenumbers.js" afterPath="$PROJECT_DIR$/doc_template/template/static/scripts/sunlight-plugin.linenumbers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/core/test.indexedDb.js" afterPath="$PROJECT_DIR$/test/core/test.indexedDb.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/core/test.is.js" afterPath="$PROJECT_DIR$/test/core/test.is.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/node/test.node.js" afterPath="$PROJECT_DIR$/test/node/test.node.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/core/test.to.js" afterPath="$PROJECT_DIR$/test/core/test.to.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/common/to.js" afterPath="$PROJECT_DIR$/src/js/core/common/to.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/tree.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/tree.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/treeNode.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/treeNode.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/treeStore.js" afterPath="$PROJECT_DIR$/src/js/legos/ui/structures/tree/treeStore.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/core/tools/uuid.js" afterPath="$PROJECT_DIR$/src/js/core/tools/uuid.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/js/workers/webWorkerXHR.js" afterPath="$PROJECT_DIR$/src/js/workers/webWorkerXHR.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/workers/xhrWorker.js" afterPath="$PROJECT_DIR$/src/workers/xhrWorker.js" />
     </list>
     <ignored path="oj.iws" />
@@ -155,11 +155,41 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="bower.json" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="bower.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/bower.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.626151" vertical-offset="0" max-vertical-offset="867">
-              <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1241">
+              <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="oj.coffee" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/coffee/oj.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="3523" max-vertical-offset="4080">
+              <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ojInit.js" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1955">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ojInit.coffee" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.coffee">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.3190272" vertical-offset="219" max-vertical-offset="2074">
+              <caret line="26" column="20" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -168,8 +198,8 @@
       <file leaf-file-name="package.json" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/package.json">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-34.68" vertical-offset="0" max-vertical-offset="1207">
-              <caret line="51" column="17" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="952" max-vertical-offset="1326">
+              <caret line="56" column="17" selection-start-line="56" selection-start-column="17" selection-end-line="56" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -194,11 +224,13 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/src/coffee/OJ.coffee" />
-        <option value="$PROJECT_DIR$/src/coffee/oj.coffee" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/templates/header.tmpl" />
         <option value="$PROJECT_DIR$/gulpfile.js" />
         <option value="$PROJECT_DIR$/bower.json" />
+        <option value="$PROJECT_DIR$/src/coffee/oj.coffee" />
+        <option value="$PROJECT_DIR$/src/coffee/ojInit.coffee" />
+        <option value="$PROJECT_DIR$/src/js/Csw.js" />
       </list>
     </option>
   </component>
@@ -234,6 +266,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -262,20 +295,37 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="bower_components" />
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="recentsLimit" value="5" />
-    <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors" />
+    <property name="options.lastSelected" value="vcs.Mercurial" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
     <property name="options.searchVisible" value="true" />
@@ -321,6 +371,12 @@
       <envs />
       <method />
     </configuration>
+    <configuration default="true" type="CucumberJavaScriptRunConfigurationType" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" />
+      <option name="executablePath" />
+      <option name="filePath" />
+      <method />
+    </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
       <method />
     </configuration>
@@ -337,22 +393,8 @@
     </recent_temporary>
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
-  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="all">
-    <option name="USER" value="" />
-    <option name="PASSWORD" value="" />
-    <option name="mySSHConnectionTimeout" value="30000" />
-    <option name="mySSHReadTimeout" value="30000" />
-    <option name="LAST_MERGED_REVISION" />
-    <option name="MERGE_DRY_RUN" value="false" />
-    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
-    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
-    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
-    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
-    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
-    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
-    <option name="FORCE_UPDATE" value="false" />
-    <option name="IGNORE_EXTERNALS" value="false" />
-    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  <component name="SvnConfiguration" myUseAcceleration="nothing">
+    <configuration />
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -364,25 +406,25 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="360" y="66" width="1400" height="1000" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67012686" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67012686" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32884398" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.16955018" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1694725" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.1694725" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298731" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3298731" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -405,6 +447,142 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/bower.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1241">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/oj.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3523" max-vertical-offset="4080">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1955">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="219" max-vertical-offset="2074">
+          <caret line="26" column="20" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="952" max-vertical-offset="1326">
+          <caret line="56" column="17" selection-start-line="56" selection-start-column="17" selection-end-line="56" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bower.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="284" max-vertical-offset="1224">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/oj.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3523" max-vertical-offset="4080">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1955">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="119" max-vertical-offset="2074">
+          <caret line="7" column="26" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="952" max-vertical-offset="1309">
+          <caret line="56" column="17" selection-start-line="56" selection-start-column="17" selection-end-line="56" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bower.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1105">
+          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/oj.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3523" max-vertical-offset="4080">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2635">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="17" max-vertical-offset="2057">
+          <caret line="1" column="7" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="867" max-vertical-offset="1241">
+          <caret line="51" column="17" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/bower.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="340" max-vertical-offset="1105">
+          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="867" max-vertical-offset="1241">
+          <caret line="51" column="17" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/coffee/oj.coffee">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4114">
@@ -419,13 +597,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/coffee/oj.coffee">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="2912" max-vertical-offset="4131">
-          <caret line="177" column="14" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/gulpfile.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.08108108" vertical-offset="1162" max-vertical-offset="1819">
@@ -435,16 +606,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/package.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-34.68" vertical-offset="0" max-vertical-offset="1207">
-          <caret line="51" column="17" selection-start-line="51" selection-start-column="17" selection-end-line="51" selection-end-column="17" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="952" max-vertical-offset="1309">
+          <caret line="56" column="17" selection-start-line="56" selection-start-column="17" selection-end-line="56" selection-end-column="17" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/bower.json">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.626151" vertical-offset="0" max-vertical-offset="867">
-          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="357" max-vertical-offset="1241">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/oj.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="3523" max-vertical-offset="4080">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="2635">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3190272" vertical-offset="219" max-vertical-offset="2074">
+          <caret line="26" column="20" selection-start-line="26" selection-start-column="19" selection-end-line="26" selection-end-column="20" />
           <folding />
         </state>
       </provider>

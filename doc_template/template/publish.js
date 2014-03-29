@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 /**
  * @module template/publish
  * @type {*}
@@ -477,7 +477,7 @@ exports.publish = function ( taffyData, opts, tutorials ) {
 		var url = helper.longnameToUrl[doclet.longname];
 
 		if ( url.indexOf( '#' ) > -1 ) {
-			doclet.id = helper.longnameToUrl[doclet.longname].split( /#/ ).pop();
+			doclet.id = helper.longnameToUrl[doclet.longname].split( /# ).pop();
 		}
 		else {
 			doclet.id = doclet.name;

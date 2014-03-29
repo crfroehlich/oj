@@ -21,8 +21,8 @@ CACHE:
     var releaseMode = grunt.config('releaseMode');
     if(releaseMode !== 'dev') {
         print('vendor.min.js \n');
-        print('ChemSW.' + grunt.template.today("yyyy.m.d") + '.min.js \n');
-        print('ChemSW.' + grunt.template.today("yyyy.m.d") + '.min.js.map \n');
+        print('OJ.' + grunt.template.today("yyyy.m.d") + '.min.js \n');
+        print('OJ.' + grunt.template.today("yyyy.m.d") + '.min.js.map \n');
     } else {
         
         var jsVendorFiles = grunt.file.expand(grunt.config('files').vendorJs);

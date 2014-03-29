@@ -6,13 +6,17 @@
     <head class="x-border-box x-strict">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-        <title>Development Index Page</title>
+        <title>OJ Unit Tests</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width">
-        <link type="text/css" href="../bower_components/qunit/qunit/qunit.css"/>
+        
         <!-- inject:css -->
         <!-- endinject -->
         <!-- bower:css -->
+        <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="../bower_components/SyntaxHighlighter/styles/shCore.css" />
+        <link rel="stylesheet" href="../bower_components/SyntaxHighlighter/styles/shThemeDefault.css" />
+        <link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" />
         <!-- endbower -->
         
     </head>
@@ -21,11 +25,22 @@
             <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> or <a href="http://www.google.com/chromeframe/?redirect=true">activate Google Chrome Frame</a> to improve your experience.</p>
         <![endif]-->
 
-      
-
-        <!-- inject:js -->
-        <!-- endinject -->
         <!-- bower:js -->
+        <script src="../bower_components/modernizr/modernizr.js"></script>
+        <script src="../bower_components/jquery/dist/jquery.js"></script>
+        <script src="../bower_components/bootstrap/dist/js/bootstrap.js"></script>
+        <script src="../bower_components/jquery-ui/ui/jquery-ui.js"></script>
+        <script src="../bower_components/less.js/dist/less-1.7.0.js"></script>
+        <script src="../bower_components/google-code-prettify/src/prettify.js"></script>
+        <script src="../bower_components/q/q.js"></script>
+        <script src="../bower_components/ajaxify/ajaxify.js"></script>
+        <script src="../bower_components/SyntaxHighlighter/scripts/shCore.js"></script>
+        <script src="../bower_components/lodash/dist/lodash.compat.js"></script>
+        <script src="../bower_components/Faker/Faker.js"></script>
+        <script src="../bower_components/setimmediate/setImmediate.js"></script>
+        <script src="../bower_components/es6-promise/promise.js"></script>
+        <script src="../bower_components/localforage/dist/localforage.min.js"></script>
+        <script src="../bower_components/xregexp/min/xregexp-min.js"></script>
         <!-- endbower -->
 
 
@@ -36,8 +51,58 @@
         <div id="qunit-fixture">test markup, will be hidden</div>
 
         <script src="../bower_components/qunit/qunit/qunit.js"></script>
+        <script src="../bower_components/coffee-script/extras/coffee-script.js"></script>
+        
+        <!-- inject:coffee -->
+        <script type="text/coffeescript" src="../src/coffee/oj.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/ojInit.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/dom.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/element.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodeFactory.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/common/class.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/common/function.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/common/is.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/common/methods.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/common/number.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/common/string.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/common/to.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/tools/console.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/tools/constant.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/tools/each.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/tools/object.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/tools/objectSql.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/tools/property.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/tools/shims.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/core/tools/uuid.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/a.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/br.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/button.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/div.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/fieldset.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/form.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/img.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/input.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/label.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/legend.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/li.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/ol.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/option.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/p.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/select.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/span.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/svg.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/table.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/tbody.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/td.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/textarea.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/tr.coffee"></script>
+        <script type="text/coffeescript" src="../src/coffee/dom/nodes/ul.coffee"></script>
+        <script type="text/coffeescript" src="../test/core/test.is.coffee"></script>
+        <script type="text/coffeescript" src="../test/core/test.to.coffee"></script>
+        <script type="text/coffeescript" src="../test/node/test.node.coffee"></script>
+        <!-- endinject -->
 
-        <div id="NsTestingDiv" style-"display: none;"></div>
+        <div id="NsTestingDiv" style="display: none;"></div>
 
 
     </body>
