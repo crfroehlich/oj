@@ -11,7 +11,7 @@
     thisGlobal.onerror = function(msg, url, lineNumber) {
       console.warn("%s\rurl: %s\rline: %d", msg, url, lineNumber);
       if (onError) {
-        onError(arguments_);
+        onError(arguments);
       }
       return false;
     };

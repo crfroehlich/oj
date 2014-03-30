@@ -1,77 +1,77 @@
 (->
 
   nestableNodeNames = [
-    "div" 
-    "span" 
-    "h1" 
-    "h2" 
-    "h3" 
-    "h4" 
-    "h5" 
-    "h6" 
-    "p" 
-    "fieldset" 
-    "select" 
-    "ol" 
-    "ul" 
-    "table"
+    'div' 
+    'span' 
+    'h1' 
+    'h2' 
+    'h3' 
+    'h4' 
+    'h5' 
+    'h6' 
+    'p' 
+    'fieldset' 
+    'select' 
+    'ol' 
+    'ul' 
+    'table'
   ]
       
   #This list is not yet exhaustive, just exclude the obvious
   nonNestableNodes = [
-    "li"
-    "legend"
-    "tr"
-    "td"
-    "option"
-    "body"
-    "head"
-    "source"
-    "tbody"
-    "tfoot"
-    "thead"
-    "link"
-    "script"
+    'li'
+    'legend'
+    'tr'
+    'td'
+    'option'
+    'body'
+    'head'
+    'source'
+    'tbody'
+    'tfoot'
+    'thead'
+    'link'
+    'script'
   ]
     
   isChildNodeTypeAllowed = (parent, tagName) ->
     allowed = false
     switch parent.tagName
-      when "body"
-        allowed = _.contains nestableNodeNames tagName
-      when "div"
-        allowed =  false is _.contains nonNestableNodes tagName
-      when "form"
-        allowed = false is _.contains nonNestableNodes tagName
-      when "label"
-        allowed = false is _.contains nonNestableNodes tagName
-      when "legend"
+      when 'body'
+        allowed = _.contains nestableNodeNames, tagName
+      when 'div'
+        allowed =  false is _.contains nonNestableNodes, tagName
+      when 'form'
+        allowed = false is _.contains nonNestableNodes, tagName
+      when 'label'
+        allowed = false is _.contains nonNestableNodes, tagName
+      when 'legend'
         allowed = false
-      when "fieldset"
-        allowed = tagName is "legend" or false is _.contains nonNestableNodes tagName
-      when "ol"
-        allowed = tagName is "li"
-      when "ul"
-        allowed = tagName is "li"
-      when "li"
-        allowed = false is _.contains nonNestableNodes tagName
-      when "table"
-        allowed = tagName is "td" or tagName is "tr" or tagName is "tbody"
-      when "td"
-        allowed = false is _.contains nonNestableNodes tagName
-      when "select"
-        allowed = tagName is "option"
-      when "option"
+      when 'fieldset'
+        allowed = tagName is 'legend' or false is _.contains nonNestableNodes, tagName
+      when 'ol'
+        allowed = tagName is 'li'
+      when 'ul'
+        allowed = tagName is 'li'
+      when 'li'
+        allowed = false is _.contains nonNestableNodes, tagName
+      when 'table'
+        allowed = tagName is 'td' or tagName is 'tr' or tagName is 'tbody'
+      when 'td'
+        allowed = false is _.contains nonNestableNodes, tagName
+      when 'select'
+        allowed = tagName is 'option'
+      when 'option'
         allowed = false
     allowed
   
 
   controlPostProcessing = (control) ->
-    #OJ.composites.factory node, control.tagName if OJ.isNullOrEmpty(tagName) or tagName is "div" or tagName is "span" or tagName is "p" or tagName is "form" or tagName is "jquery" or tagName is "div" or tagName is "ol" or tagName is "ul" or tagName is "table" or tagName is "label" or tagName is "tabDiv"
+    #OJ.composites.factory node, control.tagName if OJ.is.nullOrEmpty(tagName) or tagName is 'div' or tagName is 'span' or tagName is 'p' or tagName is 'form' or tagName is 'jquery' or tagName is 'div' or tagName is 'ol' or tagName is 'ul' or tagName is 'table' or tagName is 'label' or tagName is 'tabDiv'
     return
 
   # Extends a OJ Control class with basic DOM methods.
-  OJ.nodes.register "factory", (el, parent = OJ.body, count = 0) ->
+  OJ.nodes.register 'factory', (el, parent = OJ.body, count = 0) ->
     
     init = (node) ->
       count += 1

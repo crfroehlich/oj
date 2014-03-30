@@ -36,7 +36,7 @@
     ret.add 'isFormValid', ->
       ret.$.valid() and (not ret.validator.invalidElements() or ret.validator.invalidElements().length is 0)
     
-    if owner then owner.append ret
+    if owner then owner.append ret[0]
     
     if false is calledFromFactory then OJ.nodes.factory ret, owner
 

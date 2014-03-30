@@ -86,6 +86,9 @@
     <Content Include="doc_template\template\static\styles\sunlight.dark.css" />
     <Content Include="doc_template\template\static\styles\sunlight.default.css" />
     <Content Include="gulpfile.js" />
+    <Content Include="src\coffee\core\common\array.map">
+      <DependentUpon>array.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\core\common\class.js">
       <DependentUpon>class.coffee</DependentUpon>
     </Content>
@@ -95,7 +98,13 @@
     <Content Include="src\coffee\core\common\is.js">
       <DependentUpon>is.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\core\common\is.js.map">
+      <DependentUpon>is.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\core\common\methods.js">
+      <DependentUpon>methods.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\common\methods.map">
       <DependentUpon>methods.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\common\number.js">
@@ -107,6 +116,9 @@
     <Content Include="src\coffee\core\common\to.js">
       <DependentUpon>to.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\core\tools\object.map">
+      <DependentUpon>object.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\core\tools\shims.js">
       <DependentUpon>shims.coffee</DependentUpon>
     </Content>
@@ -117,7 +129,7 @@
     <Content Include="src\coffee\core\common\class.map">
       <DependentUpon>class.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\node.factory.map">
+    <Content Include="src\coffee\dom\nodeFactory.js">
       <DependentUpon>nodeFactory.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\nodes\select.js.map">
@@ -141,9 +153,6 @@
     <Content Include="src\coffee\ojInit.js">
       <DependentUpon>ojInit.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\common\methods.map">
-      <DependentUpon>methods.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\core\common\number.map">
       <DependentUpon>number.coffee</DependentUpon>
     </Content>
@@ -153,41 +162,38 @@
     <Content Include="src\coffee\core\common\to.js.map">
       <DependentUpon>to.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\common\is.js.map">
-      <DependentUpon>is.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\core\common\is.map">
-      <DependentUpon>is.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\core\common\to.map">
       <DependentUpon>to.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\core\db\clientDb.map">
-      <DependentUpon>clientDb.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\core\db\db.map">
-      <DependentUpon>db.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\core\db\dbIndex.map">
-      <DependentUpon>dbIndex.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\core\db\dbInsert.map">
-      <DependentUpon>dbInsert.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\core\db\dbSelect.map">
-      <DependentUpon>dbSelect.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\core\db\dbTable.map">
-      <DependentUpon>dbTable.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\db\dbUpdate.map">
       <DependentUpon>dbUpdate.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\enums.map">
-      <DependentUpon>enums.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\core\common\array.js.map">
       <DependentUpon>array.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\archive\core\common\methods.js.map">
+      <DependentUpon>methods.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\common\methods.js.map">
+      <DependentUpon>methods.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\db\clientDb.js.map">
+      <DependentUpon>clientDb.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\db\dbIndex.js.map">
+      <DependentUpon>dbIndex.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\db\dbSelect.js.map">
+      <DependentUpon>dbSelect.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\db\dbInsert.js.map">
+      <DependentUpon>dbInsert.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\db\db.js.map">
+      <DependentUpon>db.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\db\dbTable.js.map">
+      <DependentUpon>dbTable.coffee</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">
@@ -232,7 +238,7 @@
       <DependentUpon>property.coffee</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\shims.coffee" />
-    <Content Include="src\coffee\core\tools\shims.map">
+    <Content Include="src\coffee\core\tools\shims.js.map">
       <DependentUpon>shims.coffee</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\uuid.coffee" />
@@ -319,11 +325,17 @@
     <Content Include="src\coffee\ojInit.js.map">
       <DependentUpon>ojInit.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\ojInit.map">
-      <DependentUpon>ojInit.coffee</DependentUpon>
+    <Content Include="src\coffee\dom\element.js.map">
+      <DependentUpon>element.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\table.map">
-      <DependentUpon>table.coffee</DependentUpon>
+    <Content Include="src\coffee\dom\dom.js.map">
+      <DependentUpon>dom.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodeFactory.js.map">
+      <DependentUpon>nodeFactory.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\a.js.map">
+      <DependentUpon>a.coffee</DependentUpon>
     </Content>
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
@@ -455,9 +467,6 @@
       <DependentUpon>_element.coffee</DependentUpon>
     </Content>
     <Content Include="src\archive\nodes\nodeFactory.js">
-      <DependentUpon>nodeFactory.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\dom\node.factory.js">
       <DependentUpon>nodeFactory.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\nodes\a.js">
@@ -594,9 +603,6 @@
     <Content Include="src\archive\promises\rest.coffee" />
     <Content Include="src\archive\promises\workerXHR.coffee" />
     <Content Include="src\archive\workers\webWorkerXHR.coffee" />
-    <Content Include="src\coffee\dom\dom.map">
-      <DependentUpon>dom.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\dom\element.coffee" />
     <Content Include="src\coffee\core\common\array.coffee" />
     <Content Include="src\coffee\core\common\date.coffee" />
@@ -611,12 +617,6 @@
     <Content Include="src\archive\core\definitions\classDefinition.coffee" />
     <Content Include="src\archive\core\definitions\errors.coffee" />
     <Content Include="src\archive\core\definitions\subscribers.coffee" />
-    <Content Include="src\coffee\dom\element.map">
-      <DependentUpon>element.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\dom\nodes\a.map">
-      <DependentUpon>a.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\dom\nodes\br.map">
       <DependentUpon>br.coffee</DependentUpon>
     </Content>
@@ -632,9 +632,6 @@
     </Content>
     <Content Include="src\coffee\dom\nodes\fieldset.js.map">
       <DependentUpon>fieldset.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\dom\node.factory.js.map">
-      <DependentUpon>nodeFactory.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\nodes\img.js.map">
       <DependentUpon>img.coffee</DependentUpon>
@@ -668,9 +665,6 @@
     <Content Include="src\archive\core\common\string.map">
       <DependentUpon>string.coffee</DependentUpon>
     </Content>
-    <Content Include="src\archive\core\common\methods.map">
-      <DependentUpon>methods.coffee</DependentUpon>
-    </Content>
     <Content Include="src\archive\core\common\is.map">
       <DependentUpon>is.coffee</DependentUpon>
     </Content>
@@ -690,6 +684,9 @@
     <Content Include="test\core\test.is.js.map">
       <DependentUpon>test.is.coffee</DependentUpon>
     </Content>
+    <Content Include="test\core\test.is.map">
+      <DependentUpon>test.is.coffee</DependentUpon>
+    </Content>
     <None Include="test\core\test.to.coffee" />
     <Content Include="test\core\test.to.map">
       <DependentUpon>test.to.coffee</DependentUpon>
@@ -701,10 +698,11 @@
     <Content Include="test\node\test.node.js">
       <DependentUpon>test.node.coffee</DependentUpon>
     </Content>
-    <Content Include="test\Test.html" />
     <Content Include="test\node\test.node.js.map">
       <DependentUpon>test.node.coffee</DependentUpon>
     </Content>
+    <Content Include="test\test.coffee.html" />
+    <Content Include="test\test.html" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

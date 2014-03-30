@@ -22,7 +22,7 @@
       while (i < OJ.number(defaults.number)) {
         ret = OJ.element('br', defaults.props, defaults.styles, defaults.events);
         if (owner) {
-          owner.append(ret);
+          owner.append(ret[0]);
         }
         i += 1;
       }

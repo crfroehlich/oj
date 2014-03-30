@@ -14,9 +14,9 @@
         <!-- endinject -->
         <!-- bower:css -->
         <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
+        <link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" />
         <link rel="stylesheet" href="../bower_components/SyntaxHighlighter/styles/shCore.css" />
         <link rel="stylesheet" href="../bower_components/SyntaxHighlighter/styles/shThemeDefault.css" />
-        <link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" />
         <!-- endbower -->
         
     </head>
@@ -41,6 +41,8 @@
         <script src="../bower_components/es6-promise/promise.js"></script>
         <script src="../bower_components/localforage/dist/localforage.min.js"></script>
         <script src="../bower_components/xregexp/min/xregexp-min.js"></script>
+        <script src="../bower_components/thindom/dist/thinDOM.min.js"></script>
+        <script src="../bower_components/mousetrap/mousetrap.js"></script>
         <!-- endbower -->
 
 
@@ -53,53 +55,124 @@
         <script src="../bower_components/qunit/qunit/qunit.js"></script>
         <script src="../bower_components/coffee-script/extras/coffee-script.js"></script>
         
-        <!-- inject:coffee -->
-        <script type="text/coffeescript" src="../src/coffee/oj.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/ojInit.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/dom.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/element.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodeFactory.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/common/class.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/common/function.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/common/is.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/common/methods.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/common/number.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/common/string.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/common/to.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/tools/console.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/tools/constant.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/tools/each.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/tools/object.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/tools/objectSql.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/tools/property.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/tools/shims.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/core/tools/uuid.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/a.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/br.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/button.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/div.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/fieldset.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/form.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/img.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/input.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/label.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/legend.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/li.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/ol.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/option.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/p.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/select.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/span.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/svg.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/table.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/tbody.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/td.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/textarea.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/tr.coffee"></script>
-        <script type="text/coffeescript" src="../src/coffee/dom/nodes/ul.coffee"></script>
-        <script type="text/coffeescript" src="../test/core/test.is.coffee"></script>
-        <script type="text/coffeescript" src="../test/core/test.to.coffee"></script>
-        <script type="text/coffeescript" src="../test/node/test.node.coffee"></script>
+        <!-- inject:js -->
+        
+        <script src="../src/coffee/oj.js"></script>
+        
+        <script src="../src/coffee/ojInit.js"></script>
+        
+        <script src="../src/coffee/dom/dom.js"></script>
+        
+        <script src="../src/coffee/dom/element.js"></script>
+        
+        <script src="../src/coffee/dom/nodeFactory.js"></script>
+        
+        <script src="../src/coffee/core/enums.js"></script>
+        
+        <script src="../src/coffee/core/db/clientDb.js"></script>
+        
+        <script src="../src/coffee/core/db/db.js"></script>
+        
+        <script src="../src/coffee/core/db/dbIndex.js"></script>
+        
+        <script src="../src/coffee/core/db/dbInsert.js"></script>
+        
+        <script src="../src/coffee/core/db/dbSelect.js"></script>
+        
+        <script src="../src/coffee/core/db/dbTable.js"></script>
+        
+        <script src="../src/coffee/core/db/dbUpdate.js"></script>
+        
+        <script src="../src/coffee/core/tools/console.js"></script>
+        
+        <script src="../src/coffee/core/tools/constant.js"></script>
+        
+        <script src="../src/coffee/core/tools/each.js"></script>
+        
+        <script src="../src/coffee/core/tools/object.js"></script>
+        
+        <script src="../src/coffee/core/tools/objectSql.js"></script>
+        
+        <script src="../src/coffee/core/tools/property.js"></script>
+        
+        <script src="../src/coffee/core/tools/shims.js"></script>
+        
+        <script src="../src/coffee/core/tools/uuid.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/a.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/br.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/button.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/div.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/fieldset.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/form.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/img.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/input.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/label.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/legend.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/li.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/ol.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/option.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/p.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/select.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/span.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/svg.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/table.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/tbody.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/td.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/textarea.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/tr.js"></script>
+        
+        <script src="../src/coffee/dom/nodes/ul.js"></script>
+        
+        <script src="../src/coffee/core/common/array.js"></script>
+        
+        <script src="../src/coffee/core/common/class.js"></script>
+        
+        <script src="../src/coffee/core/common/date.js"></script>
+        
+        <script src="../src/coffee/core/common/function.js"></script>
+        
+        <script src="../src/coffee/core/common/functional.js"></script>
+        
+        <script src="../src/coffee/core/common/is.js"></script>
+        
+        <script src="../src/coffee/core/common/methods.js"></script>
+        
+        <script src="../src/coffee/core/common/number.js"></script>
+        
+        <script src="../src/coffee/core/common/string.js"></script>
+        
+        <script src="../src/coffee/core/common/to.js"></script>
+        
+        <script src="../test/core/test.indexedDb.js"></script>
+        
+        <script src="../test/core/test.is.js"></script>
+        
+        <script src="../test/core/test.to.js"></script>
+        
+        <script src="../test/node/test.node.js"></script>
+        
         <!-- endinject -->
 
         <div id="NsTestingDiv" style="display: none;"></div>

@@ -1,40 +1,39 @@
 ((OJ) ->
   
   #Extend an object with OJ DOM methods and properties
-  #"options" Object defining paramaters for dom construction.
-  #"element" Object to extend
-  #"OJ.dom">Object representing a OJ.dom
-  OJ.register "dom", (el, parent = OJ.body ) ->
+  #'options' Object defining paramaters for dom construction.
+  #'element' Object to extend
+  #'OJ.dom'>Object representing a OJ.dom
+  OJ.register 'dom', (el, parent = OJ.body ) ->
     'use strict'
 
     enabled = true
-    ret = OJ.object()
-
-    ret.add 'isValid', ->
-       ret && ret.node instanceof ThinDOM
+    
+    el.add 'isValid', ->
+       el and el.node and el.node.el instanceof HTMLElement
     
     isControlStillValid = ->
-      valid = false is OJ.isNullOrEmpty(ret) and ret.isValid()
-      OJ.error.throwException "ret is null. Event bindings may not have been GCd."  if false is valid
+      valid = false is OJ.is.nullOrEmpty(el) and el.isValid()
+      OJ.error.throwException 'el is null. Event bindings may not have been GCd.'  if false is valid
       valid
      
     # Add a CSS class to an element
     # An element to add class to
     # The value of the attribute
-    ret.add 'addClass', (name) ->
-      ret.$.addClass name if isControlStillValid()
-      ret
+    el.add 'addClass', (name) ->
+      el.$.addClass name if isControlStillValid()
+      el
 
     # Bind an action to a jQuery element's event.
-    ret.add 'bind', (eventName, event) ->
-      ret.$.bind eventName, event  if isControlStillValid()
-      ret
+    el.add 'bind', (eventName, event) ->
+      el.$.bind eventName, event  if isControlStillValid()
+      el
 
     # Bind an event to a key, when pressed in this control.
     # The OJ object (for chaining)
-    ret.add 'keyboard', (keys, event) ->
-      Mousetrap.bind keys, ret[event]  if isControlStillValid()
-      ret
+    el.add 'keyboard', (keys, event) ->
+      Mousetrap.bind keys, el[event]  if isControlStillValid()
+      el
     
     # 
     # Get the value of a data prop from an Element
@@ -42,7 +41,7 @@
     getData = (propName) ->
       data = null
       if isControlStillValid() and propName
-        data = ret[0].dataset.propName  if ret[0] and ret[0].dataset and ret[0].dataset[propName]
+        data = el[0].dataset.propName  if el[0] and el[0].dataset and el[0].dataset[propName]
       data
 
     # 
@@ -52,19 +51,19 @@
       data = null
       if isControlStillValid() and propName
         data = value
-        ret[0].dataset[propName] = value  if ret[0] and ret[0].dataset
+        el[0].dataset[propName] = value  if el[0] and el[0].dataset
       data
 
     setDataObj = (obj) ->
       OJ.each obj, (val, propName) ->
         setData propName, val
         return
-      ret
+      el
     
     # Store property data on the control.
     # All properties, a single property, or the control if defining a property (for chaining)
-    ret.add 'data', (prop, val) ->
-      data = ""
+    el.add 'data', (prop, val) ->
+      data = ''
       if isControlStillValid()
         if OJ.isPlainObject(prop)
           setDataObj prop
@@ -74,139 +73,139 @@
               data = getData prop
             when 2
               setData prop, val
-              data = ret #for chaining
+              data = el #for chaining
       data
 
     # Disable the element.
     # The OJ object (for chaining)
-    ret.add 'disable', ->
+    el.add 'disable', ->
       if isControlStillValid()
         enabled = false
-        ret.attr 'disabled', 'disabled'
-        ret.addClass 'disabled', 'disabled'
-      ret
+        el.attr 'disabled', 'disabled'
+        el.addClass 'disabled', 'disabled'
+      el
   
     # Empty the element.
     # The OJ object (for chaining) 
-    ret.add 'empty', ->
-      ret.$.empty()  if isControlStillValid()
-      ret
+    el.add 'empty', ->
+      el.$.empty()  if isControlStillValid()
+      el
 
     # Enable the element.
     # The OJ object (for chaining) 
-    ret.add 'enable', ->
+    el.add 'enable', ->
       if isControlStillValid()
         enabled = true
-        ret.removeAttr 'disabled'
-        ret.removeClass 'disabled'
-      ret
+        el.removeAttr 'disabled'
+        el.removeClass 'disabled'
+      el
 
     # Get the DOM Element ID of this object.
-    ret.add 'getId', ->
-      id = ret[0].id  if isControlStillValid()
+    el.add 'getId', ->
+      id = el[0].id  if isControlStillValid()
       id
 
     # Make the element invisible.
-    ret.add 'hide', ->
-      ret.css 'display', 'none'  if isControlStillValid()
-      ret
+    el.add 'hide', ->
+      el.css 'display', 'none'  if isControlStillValid()
+      el
 
     # Get the length of this element.
-    ret.add 'length', ->
+    el.add 'length', ->
       len = 0
-      len = OJ.number(ret.$.length)  if isControlStillValid()
+      len = OJ.number(el.$.length)  if isControlStillValid()
       len
 
     # Reference to the parent as passed in
-    ret.add 'parent', parent
+    el.add 'parent', parent
     
     # Remove the node from the DOM
-    ret.add 'remove', ->
-      if ret and ret.$
-        ret.$.remove()
+    el.add 'remove', ->
+      if el and el.$
+        el.$.remove()
         
-        # Set the value of ret to null to guarantee that isControlStillValid will be correct
-        ret = null
+        # Set the value of el to null to guarantee that isControlStillValid will be correct
+        el = null
       null
 
     # Remove a CSS class from an element.
-    ret.add 'removeClass', (name) ->
-      ret.$.removeClass name  if isControlStillValid()
-      ret
+    el.add 'removeClass', (name) ->
+      el.$.removeClass name  if isControlStillValid()
+      el
 
-    # Remove a property from an element. jQuery distinguishes between "props" and "attr"; hence 2 methods.
-    ret.add 'removeProp', (name) ->
-      ret.$.removeProp name  if isControlStillValid()
-      ret
+    # Remove a property from an element. jQuery distinguishes between 'props' and 'attr'; hence 2 methods.
+    el.add 'removeProp', (name) ->
+      el.$.removeProp name  if isControlStillValid()
+      el
 
-    # Remove a property from an element. jQuery distinguishes between "props" and "attr"; hence 2 methods.
-    ret.add 'removeAttr', (name) ->
-      ret.$.removeAttr name  if isControlStillValid()
-      ret
+    # Remove a property from an element. jQuery distinguishes between 'props' and 'attr'; hence 2 methods.
+    el.add 'removeAttr', (name) ->
+      el.$.removeAttr name  if isControlStillValid()
+      el
 
     # Mark the required status of the element.
-    ret.add 'required', (truthy, addLabel) ->
+    el.add 'required', (truthy, addLabel) ->
       if isControlStillValid()
         switch OJ.bool(truthy)
           when true
-            ret.attr "required", true
-            ret.addClass "required"
+            el.attr 'required', true
+            el.addClass 'required'
           when false
-            ret.removeProp "required"
-            ret.removeClass "required"
-      ret
+            el.removeProp 'required'
+            el.removeClass 'required'
+      el
 
     # reference to the root of the node
-    ret.add 'root', ret.root
+    el.add 'root', el.root
 
     # Make the element visible.
-    ret.add 'show', ->
-      ret.$.show()  if isControlStillValid()
-      ret
+    el.add 'show', ->
+      el.$.show()  if isControlStillValid()
+      el
 
     # Toggle visibility
-    ret.add 'toggle', ->
-      ret.$.toggle()  if isControlStillValid()
-      ret
+    el.add 'toggle', ->
+      el.$.toggle()  if isControlStillValid()
+      el
 
     # Toggle the element's enabled state.
-    ret.add 'toggleEnable', ->
+    el.add 'toggleEnable', ->
       if isControlStillValid()
         if enabled
-          ret.disable()
+          el.disable()
         else
-          ret.enable()
-      ret
+          el.enable()
+      el
 
     # Trigger an event bound to a jQuery element.
-    ret.add 'trigger', (eventName, eventOpts) ->
-      ret.$.trigger eventName, eventOpts  if isControlStillValid()
-      ret
+    el.add 'trigger', (eventName, eventOpts) ->
+      el.$.trigger eventName, eventOpts  if isControlStillValid()
+      el
 
     # Unbind an action from a jQuery element's event.
-    ret.add 'unbind', (eventName, event) ->
-      ret.$.unbind eventName, event  if isControlStillValid()
-      ret
+    el.add 'unbind', (eventName, event) ->
+      el.$.unbind eventName, event  if isControlStillValid()
+      el
 
     # Get the value of the element.
-    ret.add 'val', (value) ->
+    el.add 'val', (value) ->
       if isControlStillValid()
         if arguments_.length is 1 and false is OJ.isNullOrUndefined(value)
-          ret.$.val value
-          ret
+          el.$.val value
+          el
         else
-          OJ.string ret.$.val()
+          OJ.string el.$.val()
 
-    ret.add 'valueOf', ->
-      ret.val()
+    el.add 'valueOf', ->
+      el.val()
 
-    ret.add 'toString', ->
-      ret.val()
+    el.add 'toString', ->
+      el.val()
 
-    ret
+    el
 
   OJ.register 'isElementInDom', (elementId) ->
-    false is OJ.isNullOrEmpty OJ.getElement elementId
+    false is OJ.is.nullOrEmpty OJ.getElement elementId
 
   OJ.register 'getElement', (id) ->
     if typeof document isnt 'undefined' 

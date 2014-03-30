@@ -58,6 +58,7 @@ var files = {
     index: './dist/release.html',
     devIndex: './src/dev.html',
     testIndex: './test/test.html',
+    testIndexCoffee: './test/test.coffee.html',
     js: 'src/coffee/**/*.js',
     coffee: './src/coffee/**/*.coffee',
     less: '.src/less/**/*.less',
@@ -101,12 +102,18 @@ gulp.task('inject', function() {
         .pipe(notify({ message: 'dev.html includes dynamically injected.' }))
         .on('error', gutil.log);
 
-    gulp.src(files.testIndex)
+    gulp.src(files.testIndexCoffee)
         .pipe(inject(gulp.src([files.coffee, files.test, files.css], { read: false}), { addRootSlash: false, addPrefix: '..' })) // Not necessary to read the files (will speed up things), we're only after their paths
         .pipe(gulp.dest(paths.test))
-        .pipe(notify({ message: 'test.html includes dynamically injected.' }))
+        .pipe(notify({ message: 'test.coffee.html includes dynamically injected.' }))
         .on('error', gutil.log);
 
+    gulp.src(files.testIndex)
+        .pipe(inject(gulp.src([files.js, './test/**/*.js*/', files.css], { read: false}), { addRootSlash: false, addPrefix: '..' })) // Not necessary to read the files (will speed up things), we're only after their paths
+        .pipe(gulp.dest(paths.test))
+        .pipe(notify({ message: 'test.html includes dynamically injected.' }))
+        .on('error', gutil.log);	
+        
     gulp.src(files.index)
         .pipe(inject(gulp.src(['./dist/**/*.min*'], { read: false }), { addRootSlash: false, addPrefix: '..' })) // Not necessary to read the files (will speed up things), we're only after their paths
         .pipe(gulp.dest(paths.release))
@@ -149,6 +156,12 @@ gulp.task('inject-bower', function() {
         src: './test/test.html'
     });
 
+    wiredep({
+        directory: './bower_components',
+        bowerJson: require('./bower.json'),
+        src: './test/test.coffee.html'
+    });
+    
 });
 
 gulp.task('bump', function () {
@@ -177,9 +190,10 @@ gulp.task('npm', function (done) {
 // Init watch
 gulp.task('watch', function () {
     //gulp.watch(files.js, ['inject']);
-    gulp.src([files.coffee], { read: false })
-        .pipe(watch({}, gulp.task['build']))
-        .pipe(plumber());
+    gulp.watch(files.coffee, ['concat', 'inject']);
+    gulp.watch(files.test, ['concat', 'inject']);
+    gulp.watch(files.css, ['concat', 'inject']);
+    
 });
 
 gulp.task('test', function () {

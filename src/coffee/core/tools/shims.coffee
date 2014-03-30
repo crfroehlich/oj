@@ -7,7 +7,7 @@
   ###
   thisGlobal.onerror = (msg, url, lineNumber) ->
     console.warn "%s\rurl: %s\rline: %d", msg, url, lineNumber
-    onError arguments_  if onError
+    onError arguments if onError
     false #true means don't propogate the error
 
   unless thisGlobal.setImmediate

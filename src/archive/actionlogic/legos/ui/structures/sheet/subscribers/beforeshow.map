@@ -3,7 +3,7 @@
   "file": "beforeshow.js",
   "sourceRoot": "C:\\Windows",
   "sources": [
-    "\\\\psf\\Source\\Github\\oj\\src\\js\\actionlogic\\legos\\ui\\structures\\sheet\\subscribers\\beforeshow.coffee"
+    "\\\\psf\\Source\\Github\\oj\\src\\archive\\actionlogic\\legos\\ui\\structures\\sheet\\subscribers\\beforeshow.coffee"
   ],
   "names": [],
   "mappings": ";AAGA;AAAA,MAAA,eAAA;;AAAA,EAAA,CAAC,eAAA,GAAkB,SAAC,EAAD,GAAA;AAEjB;AAAA;;OAAA;AAAA,IAGA,EAAE,CAAC,MAAM,CAAC,WAAW,CAAC,QAAtB,CAA+B,YAA/B,EAA6C,SAAC,QAAD,GAAA;AAC3C,MAAA,YAAA,CAAA;AACA,MAAA,IAAG,QAAH;AAIE;AAAA;;;;WAAA;eAKA,SAAC,OAAD,EAAU,KAAV,GAAA;AACE,UAAA,YAAA,CAAA;AAAA,cAAA,IAAA;AAAA,UAGA,IAAA,GAAO,UAHP,CAAA;iBAIA,EAAE,CAAC,GAAG,CAAC,KAAP,CAAa,QAAb,EAAuB,IAAvB,EAA6B,IAA7B,EALF;QAAA,EATF;OAF2C;IAAA,CAA7C,CAHA,CAFiB;EAAA,CAAnB,CAAA,CAwBG,CAAI,MAAA,CAAA,MAAA,KAAmB,WAAnB,IAAmC,MAAtC,GAAkD,MAAlD,GAA+D,CAAI,MAAA,CAAA,MAAA,KAAmB,WAAtB,GAAuC,MAAvC,GAAmD,IAApD,CAAhE,CAA4H,CAAC,EAxBhI,CAAA,CAAA;AAAA"

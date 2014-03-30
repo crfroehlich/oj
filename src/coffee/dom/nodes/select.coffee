@@ -99,7 +99,7 @@
       return
     
     
-    if owner then owner.append ret
+    if owner then owner.append ret[0]
     if defaults.values.length > 0
       ret.addOptions defaults.values
     

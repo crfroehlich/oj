@@ -1,4 +1,4 @@
-(->
+((OJ) ->
   'use strict'
   onError = (eventObj) ->
     OJ.debug.error eventObj.target.error
@@ -44,4 +44,5 @@
 
   OJ.db.register "insert", insert
   return
-)()
+) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
+

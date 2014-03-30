@@ -1,18 +1,15 @@
-(->
+((OJ) ->
   'use strict'
   cacheDbMgr = null
-  thisCustomerId = ""
-  thisUserName = ""
+  thisUserName = ''
   
   ###
   All paramaters are required
   ###
-  validate = (customerId, userName, webServiceName) ->
-    thisCustomerId = customerId or (thisCustomerId = OJ.session.currentAccessId())
-    thisUserName = userName or (thisUserName = OJ.session.currentUserName())
-    throw new Error("Customer ID is required.")  unless thisCustomerId
-    throw new Error("User Name is required.")  unless thisUserName
-    throw new Error("Web Service Name is required.")  unless webServiceName
+  validate = (userName, webServiceName) ->
+    thisUserName = userName or thisUserName
+    throw new Error('User Name is required.')  unless thisUserName
+    throw new Error('Web Service Name is required.')  unless webServiceName
     return
 
   
@@ -23,26 +20,23 @@
     message:
       dateTime: new Date()
       cache:
-        customerId: thisCustomerId
         userName: thisUserName
         webServiceName: webServiceName
 
       data: data
 
-  getCachedWebServiceCall = (webServiceName, customerId, userName) ->
+  getCachedResponse = (webServiceName, userName) ->
     deferred = Q.defer()
     ret = undefined
-    customerId = customerId or thisCustomerId
     userName = userName or thisUserName
     if null is cacheDbMgr
       deferred.resolve OJ.object()
       ret = deferred.promise
     else
-      validate customerId, userName, webServiceName
-      promise = cacheDbMgr.select.from("CachedData", "uniqueCalls", [
+      validate userName, webServiceName
+      promise = cacheDbMgr.select.from('CachedData', 'uniqueCalls', [
         webServiceName
         thisUserName
-        thisCustomerId
       ])
       ret = promise.then((data) ->
         
@@ -53,8 +47,8 @@
       )
     ret
 
-  OJ.register "getCachedWebServiceCall", getCachedWebServiceCall
-  setCachedWebServiceCall = (webServiceName, data, customerId, userName) ->
+  OJ.register 'getCachedResponse', getCachedResponse
+  setCachedWebResponse = (webServiceName, data, customerId, userName) ->
     deferred = Q.defer()
     customerId = customerId or thisCustomerId
     userName = userName or thisUserName
@@ -64,7 +58,7 @@
       ret = deferred.promise
     else
       validate customerId, userName, webServiceName
-      ret = cacheDbMgr.update("CachedData", "uniqueCalls", [
+      ret = cacheDbMgr.update('CachedData', 'uniqueCalls', [
         webServiceName
         thisUserName
         thisCustomerId
@@ -74,34 +68,30 @@
       ret.then (updatedRows) ->
         if not updatedRows or updatedRows.length is 0
           cachedCall = makeCachedCall(webServiceName, data)
-          cacheDbMgr.insert "CachedData", cachedCall
+          cacheDbMgr.insert 'CachedData', cachedCall
 
     ret
 
-  OJ.register "setCachedWebServiceCall", setCachedWebServiceCall
+  OJ.register 'setCachedWebResponse', setCachedWebResponse
   cacheExists = ->
     cacheDbMgr isnt `undefined`
 
-  OJ.register "cacheExists", cacheExists
+  OJ.register 'cacheExists', cacheExists
   
   #Wait until Main is loaded before initing
-  OJ.main.onReady.then ->
-    thisCustomerId = OJ.session.currentAccessId() or "offline"
-    thisUserName = OJ.session.currentUserName() or "offline"
-    if window.Modernizr.indexeddb and false is OJ.browserCompatibility.usingIE10() #case 30642: brutal hack to get around IE 10's partial IndexedDB implementation
-      #Until we need to manage versions, there is only 1. Versioning either happens on connection, or it doesn't.
-      cacheDbMgr = OJ.db.dbManager("OJLive", 1)
+  OJ.register 'initDb', (userName = 'offline') ->
+    thisUserName = userName
+    if window.Modernizr.indexeddb 
+      cacheDbMgr = OJ.db.dbManager('ojdb', 1)
       
       #newDbMgr.ddl.dropTable(tableName);
-      cacheDbMgr.ddl.createTable "CachedData", "CachedDataId", true #true == auto manage primary key
-      cacheDbMgr.ddl.createIndex "CachedData", "customerId", "cache.customerId"
-      cacheDbMgr.ddl.createIndex "CachedData", "dateTimeId", "dateTime"
-      cacheDbMgr.ddl.createIndex "CachedData", "userNameId", "cache.userName"
-      cacheDbMgr.ddl.createIndex "CachedData", "webServiceNameId", "cache.webServiceName"
-      cacheDbMgr.ddl.createIndex "CachedData", "uniqueCalls", [
-        "cache.webServiceName"
-        "cache.userName"
-        "cache.customerId"
+      cacheDbMgr.ddl.createTable 'CachedData', 'CachedDataId', true #true == auto manage primary key
+      cacheDbMgr.ddl.createIndex 'CachedData', 'dateTimeId', 'dateTime'
+      cacheDbMgr.ddl.createIndex 'CachedData', 'userNameId', 'cache.userName'
+      cacheDbMgr.ddl.createIndex 'CachedData', 'webServiceNameId', 'cache.webServiceName'
+      cacheDbMgr.ddl.createIndex 'CachedData', 'uniqueCalls', [
+        'cache.webServiceName'
+        'cache.userName'
       ], true
     return
 
@@ -110,4 +100,5 @@
 #Insert some demo data
 #cacheDbMgr.insert('CachedData', { message: { dateTime: new Date(), cache: { customerId: 'dev', userName: 'admin', webServiceName: 'getDashbaord' }, data: { a: 1, b: 2, c: 3 } } });
 #cacheDbMgr.insert('CachedData', { message: { dateTime: new Date(), cache: { customerId: 'qa', userName: 'bill', webServiceName: 'getWatermark' }, data: { a: 1, b: 2, c: 3 } } });
-)()
+) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
+

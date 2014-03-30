@@ -1,5 +1,7 @@
-(->
+((OJ) ->
   'use strict'
+  
+  OJ.db.makeSubNameSpace 'index'
   
   #
   #     * Private implementation method to create a new index.
@@ -12,7 +14,7 @@
   #    
   createIndexImpl = (dbManager, tableName, columnName, indexName, isUnique) ->
     table = dbManager.tables[tableName]
-    table.createIndex columnName, indexName or columnName + "Idx",
+    table.createIndex columnName, indexName or columnName + 'Idx',
       unique: true is isUnique
 
 
@@ -34,11 +36,11 @@
         deferred.resolve index
       catch e
         console.log e, e.stack
-        deferred.reject new Error("Could not create a new index", e)
+        deferred.reject new Error('Could not create a new index', e)
       dbManager.tables[tableName]
 
     deferred.promise
 
-  OJ.db.index.register "create", createIndex
+  OJ.db.index.register 'create', createIndex
   return
-)()
+) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ

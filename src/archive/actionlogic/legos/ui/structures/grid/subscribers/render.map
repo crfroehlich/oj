@@ -3,7 +3,7 @@
   "file": "render.js",
   "sourceRoot": "C:\\Windows",
   "sources": [
-    "\\\\psf\\Source\\Github\\oj\\src\\js\\actionlogic\\legos\\ui\\structures\\grid\\subscribers\\render.coffee"
+    "\\\\psf\\Source\\Github\\oj\\src\\archive\\actionlogic\\legos\\ui\\structures\\grid\\subscribers\\render.coffee"
   ],
   "names": [],
   "mappings": ";AAGA;AAAA,MAAA,WAAA;;AAAA,EAAA,CAAC,WAAA,GAAc,SAAC,EAAD,GAAA;AAEb;AAAA;;OAAA;AAAA,QAAA,WAAA;AAAA,IAGA,EAAE,CAAC,KAAK,CAAC,WAAW,CAAC,QAArB,CAA8B,QAA9B,EAAwC,WAAA,GAAc,SAAC,QAAD,GAAA;AACpD,UAAA,MAAA;AAAA,MAAA,IAAG,QAAH;AAIE;AAAA;;;;WAAA;eAKA,MAAA,GAAS,SAAC,OAAD,EAAU,KAAV,GAAA;AACP,cAAA,IAAA;AAAA,UAAA,IAAA,GAAO,UAAP,CAAA;iBACA,EAAE,CAAC,GAAG,CAAC,KAAP,CAAa,QAAb,EAAuB,IAAvB,EAA6B,IAA7B,EAFO;QAAA,EATX;OADoD;IAAA,CAAtD,CAHA,CAFa;EAAA,CAAf,CAAA,CAsBG,CAAI,MAAA,CAAA,MAAA,KAAmB,WAAnB,IAAmC,MAAtC,GAAkD,MAAlD,GAA+D,CAAI,MAAA,CAAA,MAAA,KAAmB,WAAtB,GAAuC,MAAvC,GAAmD,IAApD,CAAhE,CAA4H,CAAC,EAtBhI,CAAA,CAAA;AAAA"

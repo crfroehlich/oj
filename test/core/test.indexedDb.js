@@ -9,18 +9,18 @@
 
 // Test the truthiness of the null Type
 (function _nullChecks(OJ) {
-	module("indexedDb");
-	
-    var tableName = 'debug', dbName = 'diagnostics14', dbVersion = 1;
-    window.newNuDbReq = OJ.db.dbManager();
-    window.newNuDbReq.connect(dbName, dbVersion);
+    module("indexedDb");
     
-    //newNuDbReq.ddl.dropTable(tableName);
-    window.newNuDbReq.ddl.createTable(tableName, 'messageid', true);
     
-    window.newNuDbReq.ddl.createIndex(tableName, 'subjectid', 'text.subject');
-    window.newNuDbReq.ddl.createIndex(tableName, 'timeid', 'time');
-    window.newNuDbReq.ddl.createIndex(tableName, 'usernameid', 'user.name');
+
+
+    var cacheDbMgr = OJ.db.dbManager('ojdb', 1);
+    cacheDbMgr.ddl.createTable('CachedData', 'CachedDataId', true);
+    cacheDbMgr.ddl.createIndex('CachedData', 'dateTimeId', 'dateTime');
+    cacheDbMgr.ddl.createIndex('CachedData', 'userNameId', 'cache.userName');
+    cacheDbMgr.ddl.createIndex('CachedData', 'webServiceNameId', 'cache.webServiceName');
+    cacheDbMgr.ddl.createIndex('CachedData', 'uniqueCalls', ['cache.webServiceName', 'cache.userName'], true);
+
     
     /*console.info('Starting data load...');
     console.time('Inserting 100,000 records'); 
@@ -31,7 +31,6 @@
     
 
 
-	//#endregion OJ.is.number
-
+    
 }((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ));
 

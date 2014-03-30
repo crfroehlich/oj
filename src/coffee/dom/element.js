@@ -7,7 +7,7 @@
     /*
      Bind all event handlers
      */
-    var bindEvents, body, element;
+    var bindEvents, body, element, thinBody;
     bindEvents = function(el, events) {
       if (el.node) {
         return _.forOwn(events, function(val, key) {
@@ -30,10 +30,10 @@
      */
     element = function(tag, props, styles, events) {
       var ret;
-      ret = OJ.object;
+      ret = OJ.object();
       ret.add('node', new ThinDOM(tag, props));
       ret.add('tagName', tag);
-      ret.node(css, styles);
+      ret.node.css(styles);
       ret.add('css', ret.node.css);
       ret.add('append', ret.node.append);
       ret.add('html', ret.node.html);
@@ -54,7 +54,11 @@
     } else {
       body = null;
     }
-    OJ.register('body', body);
+    thinBody = new ThinDOM(null, null, body);
+    thinBody.getId = function() {
+      return 'body';
+    };
+    OJ.register('body', thinBody);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);

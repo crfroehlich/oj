@@ -20,7 +20,7 @@
     localOffset = undefined
     arr = undefined
     ret = OJ.dateTimeMinValue
-    if false is OJ.isNullOrEmpty(dnDateStr)
+    if false is OJ.is.nullOrEmpty(dnDateStr)
       dnDateStr = dnDateStr.replace("/", "")
       dnDateStr = dnDateStr.replace("Date", "")
       dnDateStr = dnDateStr.replace("(", "")

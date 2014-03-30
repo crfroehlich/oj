@@ -46,7 +46,7 @@
       OJ.nodes.factory cell, row
       cell  
     
-    if owner then owner.append ret
+    if owner then owner.append ret[0]
     
     if false is calledFromFactory then OJ.nodes.factory ret, owner
 

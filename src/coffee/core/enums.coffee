@@ -1,11 +1,12 @@
-(_ojEnums = ->
+((OJ) ->
   'use strict'
-  OJ.enums.constants.register 'unknownEnum', 'unknown'
+  OJ.enums.register 'unknown', 'unknown'
+
+    
+  # Try to fetch an enum based on a string value. 
   OJ.enums.register 'tryParse', (OJEnum, enumMember, caseSensitive) ->
     'use strict'
-    
-    #   Try to fetch an enum based on a string value. 
-    ret = OJ.enums.constants.unknownEnum
+    ret = OJ.enums.unknown
     if OJ.contains(OJEnum, enumMember)
       ret = OJEnum[enumMember]
     else if false is caseSensitive
@@ -299,17 +300,11 @@
     YearlyByDate: 'YearlyByDate'
 
   OJ.enums.register 'domElementEvent',
-    click:
-      name: 'click'
-
-    change:
-      name: 'change'
-
-    vclick:
-      name: 'vclick'
-
-    tap:
-      name: 'tap'
+    click: 'click'
+    change: 'change'
+    vclick: 'vclick'
+    tap: 'tap'
 
   return
-)()
+) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
+

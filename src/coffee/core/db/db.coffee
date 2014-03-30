@@ -1,4 +1,4 @@
-(->
+((OJ) ->
   'use strict'
   
   #
@@ -72,27 +72,27 @@
     ret.add "tables", OJ.object()
     ret.add "ddl",
       createTable: (tableName, tablePkColumnName, autoIncrement) ->
-        OJ.fun.shiftRight OJ.db.table.create, ret, arguments_, this
+        OJ.fun.shiftRight OJ.db.table.create, ret, arguments, this
 
       dropTable: (tableName) ->
-        OJ.fun.shiftRight OJ.db.index.drop, ret, arguments_, this
+        OJ.fun.shiftRight OJ.db.index.drop, ret, arguments, this
 
       createIndex: (tableName, columnName, indexName, isUnique) ->
-        OJ.fun.shiftRight OJ.db.index.create, ret, arguments_, this
+        OJ.fun.shiftRight OJ.db.index.create, ret, arguments, this
 
     ret.add "insert", ->
-      OJ.fun.shiftRight OJ.db.insert, ret, arguments_, this
+      OJ.fun.shiftRight OJ.db.insert, ret, arguments, this
 
     ret.add "update", ->
-      OJ.fun.shiftRight OJ.db.update, ret, arguments_, this
+      OJ.fun.shiftRight OJ.db.update, ret, arguments, this
 
     select = OJ.object()
     ret.add "select", select
     select.add "all", ->
-      OJ.fun.shiftRight OJ.db.select.all, ret, arguments_, this
+      OJ.fun.shiftRight OJ.db.select.all, ret, arguments, this
 
     select.add "from", ->
-      OJ.fun.shiftRight OJ.db.select.from, ret, arguments_, this
+      OJ.fun.shiftRight OJ.db.select.from, ret, arguments, this
 
     
     #Connect to the DB automatically
@@ -101,4 +101,5 @@
 
   OJ.db.register "dbManager", dbManager
   return
-)()
+) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
+

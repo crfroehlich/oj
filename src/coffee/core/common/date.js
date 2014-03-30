@@ -11,7 +11,7 @@
       localOffset = void 0;
       arr = void 0;
       ret = OJ.dateTimeMinValue;
-      if (false === OJ.isNullOrEmpty(dnDateStr)) {
+      if (false === OJ.is.nullOrEmpty(dnDateStr)) {
         dnDateStr = dnDateStr.replace("/", "");
         dnDateStr = dnDateStr.replace("Date", "");
         dnDateStr = dnDateStr.replace("(", "");

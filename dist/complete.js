@@ -1,6 +1,6 @@
 /**
  * ojs - A framework for writing zero-template, zero-html, zero-css web apps in pure JavaScript.
- * @version v0.1.32
+ * @version v0.1.33
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -297,71 +297,373 @@ OJ IIFE definition to anchor JsDoc comments.
 (function() {
   (function(OJ) {
     OJ.makeSubNameSpace("errors");
-
-    /*
-    To check assigned type
-     */
+    OJ.makeSubNameSpace("enums");
     OJ.makeSubNameSpace("is");
-
-    /*
-    To instance check classes
-     */
     OJ.makeSubNameSpace("instanceOf");
-
-    /*
-    Type conversion
-     */
     OJ.makeSubNameSpace("to");
-    return OJ.makeSubNameSpace("nodes");
+    OJ.makeSubNameSpace("nodes");
+    return OJ.makeSubNameSpace("db");
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);
 
 (function() {
   (function(OJ) {
-    OJ.register("dom", function(el, parent) {
-      var enabled, getData, isControlStillValid, ret, setData, setDataObj;
+    'use strict';
+    OJ.enums.register('unknown', 'unknown');
+    OJ.enums.register('tryParse', function(OJEnum, enumMember, caseSensitive) {
+      'use strict';
+      var ret;
+      ret = OJ.enums.unknown;
+      if (OJ.contains(OJEnum, enumMember)) {
+        ret = OJEnum[enumMember];
+      } else if (false === caseSensitive) {
+        OJ.each(OJEnum, function(member) {
+          if (OJ.contains(OJEnum, member) && OJ.string(member).toLowerCase() === OJ.string(enumMember).toLowerCase()) {
+            ret = member;
+          }
+        });
+      }
+      return ret;
+    });
+    OJ.enums.register('inputTypes', {
+      button: {
+        id: 0,
+        name: 'button',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      checkbox: {
+        id: 1,
+        name: 'checkbox',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: true,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      color: {
+        id: 2,
+        name: 'color',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      date: {
+        id: 3,
+        name: 'date',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      datetime: {
+        id: 4,
+        name: 'datetime',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      'datetime-local': {
+        id: 5,
+        name: 'datetime-local',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      email: {
+        id: 6,
+        name: 'email',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      file: {
+        id: 7,
+        name: 'file',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: false
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      hidden: {
+        id: 8,
+        name: 'hidden',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      image: {
+        id: 9,
+        name: 'image',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      month: {
+        id: 10,
+        name: 'month',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      number: {
+        id: 11,
+        name: 'number',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      password: {
+        id: 12,
+        name: 'password',
+        placeholder: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      radio: {
+        id: 13,
+        name: 'radio',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: true,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      range: {
+        id: 14,
+        name: 'range',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      reset: {
+        id: 15,
+        name: 'reset',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      search: {
+        id: 16,
+        name: 'search',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      submit: {
+        id: 17,
+        name: 'submit',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      tel: {
+        id: 18,
+        name: 'button',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      text: {
+        id: 19,
+        name: 'text',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      time: {
+        id: 20,
+        name: 'time',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      url: {
+        id: 21,
+        name: 'url',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      week: {
+        id: 22,
+        name: 'week',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      }
+    });
+    OJ.enums.register('rateIntervalTypes', {
+      Hourly: 'Hourly',
+      WeeklyByDay: 'WeeklyByDay',
+      MonthlyByDate: 'MonthlyByDate',
+      MonthlyByWeekAndDay: 'MonthlyByWeekAndDay',
+      YearlyByDate: 'YearlyByDate'
+    });
+    OJ.enums.register('domElementEvent', {
+      click: 'click',
+      change: 'change',
+      vclick: 'vclick',
+      tap: 'tap'
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.register('dom', function(el, parent) {
+      var enabled, getData, isControlStillValid, setData, setDataObj;
       if (parent == null) {
         parent = OJ.body;
       }
       'use strict';
       enabled = true;
-      ret = OJ.object();
-      ret.add('isValid', function() {
-        return ret && ret.node instanceof ThinDOM;
+      el.add('isValid', function() {
+        return el && el.node && el.node.el instanceof HTMLElement;
       });
       isControlStillValid = function() {
         var valid;
-        valid = false === OJ.isNullOrEmpty(ret) && ret.isValid();
+        valid = false === OJ.is.nullOrEmpty(el) && el.isValid();
         if (false === valid) {
-          OJ.error.throwException("ret is null. Event bindings may not have been GCd.");
+          OJ.error.throwException('el is null. Event bindings may not have been GCd.');
         }
         return valid;
       };
-      ret.add('addClass', function(name) {
+      el.add('addClass', function(name) {
         if (isControlStillValid()) {
-          ret.$.addClass(name);
+          el.$.addClass(name);
         }
-        return ret;
+        return el;
       });
-      ret.add('bind', function(eventName, event) {
+      el.add('bind', function(eventName, event) {
         if (isControlStillValid()) {
-          ret.$.bind(eventName, event);
+          el.$.bind(eventName, event);
         }
-        return ret;
+        return el;
       });
-      ret.add('keyboard', function(keys, event) {
+      el.add('keyboard', function(keys, event) {
         if (isControlStillValid()) {
-          Mousetrap.bind(keys, ret[event]);
+          Mousetrap.bind(keys, el[event]);
         }
-        return ret;
+        return el;
       });
       getData = function(propName) {
         var data;
         data = null;
         if (isControlStillValid() && propName) {
-          if (ret[0] && ret[0].dataset && ret[0].dataset[propName]) {
-            data = ret[0].dataset.propName;
+          if (el[0] && el[0].dataset && el[0].dataset[propName]) {
+            data = el[0].dataset.propName;
           }
         }
         return data;
@@ -371,8 +673,8 @@ OJ IIFE definition to anchor JsDoc comments.
         data = null;
         if (isControlStillValid() && propName) {
           data = value;
-          if (ret[0] && ret[0].dataset) {
-            ret[0].dataset[propName] = value;
+          if (el[0] && el[0].dataset) {
+            el[0].dataset[propName] = value;
           }
         }
         return data;
@@ -381,11 +683,11 @@ OJ IIFE definition to anchor JsDoc comments.
         OJ.each(obj, function(val, propName) {
           setData(propName, val);
         });
-        return ret;
+        return el;
       };
-      ret.add('data', function(prop, val) {
+      el.add('data', function(prop, val) {
         var data;
-        data = "";
+        data = '';
         if (isControlStillValid()) {
           if (OJ.isPlainObject(prop)) {
             setDataObj(prop);
@@ -396,150 +698,150 @@ OJ IIFE definition to anchor JsDoc comments.
                 break;
               case 2:
                 setData(prop, val);
-                data = ret;
+                data = el;
             }
           }
         }
         return data;
       });
-      ret.add('disable', function() {
+      el.add('disable', function() {
         if (isControlStillValid()) {
           enabled = false;
-          ret.attr('disabled', 'disabled');
-          ret.addClass('disabled', 'disabled');
+          el.attr('disabled', 'disabled');
+          el.addClass('disabled', 'disabled');
         }
-        return ret;
+        return el;
       });
-      ret.add('empty', function() {
+      el.add('empty', function() {
         if (isControlStillValid()) {
-          ret.$.empty();
+          el.$.empty();
         }
-        return ret;
+        return el;
       });
-      ret.add('enable', function() {
+      el.add('enable', function() {
         if (isControlStillValid()) {
           enabled = true;
-          ret.removeAttr('disabled');
-          ret.removeClass('disabled');
+          el.removeAttr('disabled');
+          el.removeClass('disabled');
         }
-        return ret;
+        return el;
       });
-      ret.add('getId', function() {
+      el.add('getId', function() {
         var id;
         if (isControlStillValid()) {
-          id = ret[0].id;
+          id = el[0].id;
         }
         return id;
       });
-      ret.add('hide', function() {
+      el.add('hide', function() {
         if (isControlStillValid()) {
-          ret.css('display', 'none');
+          el.css('display', 'none');
         }
-        return ret;
+        return el;
       });
-      ret.add('length', function() {
+      el.add('length', function() {
         var len;
         len = 0;
         if (isControlStillValid()) {
-          len = OJ.number(ret.$.length);
+          len = OJ.number(el.$.length);
         }
         return len;
       });
-      ret.add('parent', parent);
-      ret.add('remove', function() {
-        if (ret && ret.$) {
-          ret.$.remove();
-          ret = null;
+      el.add('parent', parent);
+      el.add('remove', function() {
+        if (el && el.$) {
+          el.$.remove();
+          el = null;
         }
         return null;
       });
-      ret.add('removeClass', function(name) {
+      el.add('removeClass', function(name) {
         if (isControlStillValid()) {
-          ret.$.removeClass(name);
+          el.$.removeClass(name);
         }
-        return ret;
+        return el;
       });
-      ret.add('removeProp', function(name) {
+      el.add('removeProp', function(name) {
         if (isControlStillValid()) {
-          ret.$.removeProp(name);
+          el.$.removeProp(name);
         }
-        return ret;
+        return el;
       });
-      ret.add('removeAttr', function(name) {
+      el.add('removeAttr', function(name) {
         if (isControlStillValid()) {
-          ret.$.removeAttr(name);
+          el.$.removeAttr(name);
         }
-        return ret;
+        return el;
       });
-      ret.add('required', function(truthy, addLabel) {
+      el.add('required', function(truthy, addLabel) {
         if (isControlStillValid()) {
           switch (OJ.bool(truthy)) {
             case true:
-              ret.attr("required", true);
-              ret.addClass("required");
+              el.attr('required', true);
+              el.addClass('required');
               break;
             case false:
-              ret.removeProp("required");
-              ret.removeClass("required");
+              el.removeProp('required');
+              el.removeClass('required');
           }
         }
-        return ret;
+        return el;
       });
-      ret.add('root', ret.root);
-      ret.add('show', function() {
+      el.add('root', el.root);
+      el.add('show', function() {
         if (isControlStillValid()) {
-          ret.$.show();
+          el.$.show();
         }
-        return ret;
+        return el;
       });
-      ret.add('toggle', function() {
+      el.add('toggle', function() {
         if (isControlStillValid()) {
-          ret.$.toggle();
+          el.$.toggle();
         }
-        return ret;
+        return el;
       });
-      ret.add('toggleEnable', function() {
+      el.add('toggleEnable', function() {
         if (isControlStillValid()) {
           if (enabled) {
-            ret.disable();
+            el.disable();
           } else {
-            ret.enable();
+            el.enable();
           }
         }
-        return ret;
+        return el;
       });
-      ret.add('trigger', function(eventName, eventOpts) {
+      el.add('trigger', function(eventName, eventOpts) {
         if (isControlStillValid()) {
-          ret.$.trigger(eventName, eventOpts);
+          el.$.trigger(eventName, eventOpts);
         }
-        return ret;
+        return el;
       });
-      ret.add('unbind', function(eventName, event) {
+      el.add('unbind', function(eventName, event) {
         if (isControlStillValid()) {
-          ret.$.unbind(eventName, event);
+          el.$.unbind(eventName, event);
         }
-        return ret;
+        return el;
       });
-      ret.add('val', function(value) {
+      el.add('val', function(value) {
         if (isControlStillValid()) {
           if (arguments_.length === 1 && false === OJ.isNullOrUndefined(value)) {
-            ret.$.val(value);
-            return ret;
+            el.$.val(value);
+            return el;
           } else {
-            return OJ.string(ret.$.val());
+            return OJ.string(el.$.val());
           }
         }
       });
-      ret.add('valueOf', function() {
-        return ret.val();
+      el.add('valueOf', function() {
+        return el.val();
       });
-      ret.add('toString', function() {
-        return ret.val();
+      el.add('toString', function() {
+        return el.val();
       });
-      return ret;
+      return el;
     });
     OJ.register('isElementInDom', function(elementId) {
-      return false === OJ.isNullOrEmpty(OJ.getElement(elementId));
+      return false === OJ.is.nullOrEmpty(OJ.getElement(elementId));
     });
     OJ.register('getElement', function(id) {
       if (typeof document !== 'undefined') {
@@ -560,7 +862,7 @@ OJ IIFE definition to anchor JsDoc comments.
     /*
      Bind all event handlers
      */
-    var bindEvents, body, element;
+    var bindEvents, body, element, thinBody;
     bindEvents = function(el, events) {
       if (el.node) {
         return _.forOwn(events, function(val, key) {
@@ -583,10 +885,10 @@ OJ IIFE definition to anchor JsDoc comments.
      */
     element = function(tag, props, styles, events) {
       var ret;
-      ret = OJ.object;
+      ret = OJ.object();
       ret.add('node', new ThinDOM(tag, props));
       ret.add('tagName', tag);
-      ret.node(css, styles);
+      ret.node.css(styles);
       ret.add('css', ret.node.css);
       ret.add('append', ret.node.append);
       ret.add('html', ret.node.html);
@@ -607,7 +909,11 @@ OJ IIFE definition to anchor JsDoc comments.
     } else {
       body = null;
     }
-    OJ.register('body', body);
+    thinBody = new ThinDOM(null, null, body);
+    thinBody.getId = function() {
+      return 'body';
+    };
+    OJ.register('body', thinBody);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
@@ -615,55 +921,55 @@ OJ IIFE definition to anchor JsDoc comments.
 (function() {
   (function() {
     var controlPostProcessing, isChildNodeTypeAllowed, nestableNodeNames, nonNestableNodes;
-    nestableNodeNames = ["div", "span", "h1", "h2", "h3", "h4", "h5", "h6", "p", "fieldset", "select", "ol", "ul", "table"];
-    nonNestableNodes = ["li", "legend", "tr", "td", "option", "body", "head", "source", "tbody", "tfoot", "thead", "link", "script"];
+    nestableNodeNames = ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'fieldset', 'select', 'ol', 'ul', 'table'];
+    nonNestableNodes = ['li', 'legend', 'tr', 'td', 'option', 'body', 'head', 'source', 'tbody', 'tfoot', 'thead', 'link', 'script'];
     isChildNodeTypeAllowed = function(parent, tagName) {
       var allowed;
       allowed = false;
       switch (parent.tagName) {
-        case "body":
-          allowed = _.contains(nestableNodeNames(tagName));
+        case 'body':
+          allowed = _.contains(nestableNodeNames, tagName);
           break;
-        case "div":
-          allowed = false === _.contains(nonNestableNodes(tagName));
+        case 'div':
+          allowed = false === _.contains(nonNestableNodes, tagName);
           break;
-        case "form":
-          allowed = false === _.contains(nonNestableNodes(tagName));
+        case 'form':
+          allowed = false === _.contains(nonNestableNodes, tagName);
           break;
-        case "label":
-          allowed = false === _.contains(nonNestableNodes(tagName));
+        case 'label':
+          allowed = false === _.contains(nonNestableNodes, tagName);
           break;
-        case "legend":
+        case 'legend':
           allowed = false;
           break;
-        case "fieldset":
-          allowed = tagName === "legend" || false === _.contains(nonNestableNodes(tagName));
+        case 'fieldset':
+          allowed = tagName === 'legend' || false === _.contains(nonNestableNodes, tagName);
           break;
-        case "ol":
-          allowed = tagName === "li";
+        case 'ol':
+          allowed = tagName === 'li';
           break;
-        case "ul":
-          allowed = tagName === "li";
+        case 'ul':
+          allowed = tagName === 'li';
           break;
-        case "li":
-          allowed = false === _.contains(nonNestableNodes(tagName));
+        case 'li':
+          allowed = false === _.contains(nonNestableNodes, tagName);
           break;
-        case "table":
-          allowed = tagName === "td" || tagName === "tr" || tagName === "tbody";
+        case 'table':
+          allowed = tagName === 'td' || tagName === 'tr' || tagName === 'tbody';
           break;
-        case "td":
-          allowed = false === _.contains(nonNestableNodes(tagName));
+        case 'td':
+          allowed = false === _.contains(nonNestableNodes, tagName);
           break;
-        case "select":
-          allowed = tagName === "option";
+        case 'select':
+          allowed = tagName === 'option';
           break;
-        case "option":
+        case 'option':
           allowed = false;
       }
       return allowed;
     };
     controlPostProcessing = function(control) {};
-    OJ.nodes.register("factory", function(el, parent, count) {
+    OJ.nodes.register('factory', function(el, parent, count) {
       var init, ret;
       if (parent == null) {
         parent = OJ.body;
@@ -921,57 +1227,101 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
+    'use strict';
+    var cacheDbMgr, cacheExists, getCachedResponse, makeCachedCall, setCachedWebResponse, thisUserName, validate;
+    cacheDbMgr = null;
+    thisUserName = '';
 
     /*
-    Method to create a Class with optional inheritance.
-    Generally, I oppose this semantic in JS:
-    partly because of the ineffability of the 'this' operator,
-    and partly because of the difficulty in grokking this.
-    What we're really saying here (through the wonders of functional programming) is this:
-    
-    var MyClass1 = function(param1) {
-    var ret = this;
-    ret.id = param1;
-    return ret;
-    };
-    
-    var MyClass2 = function(param1, param2) {
-    var ret = this;
-    MyClass1.apply(this, Array.prototype.slice.call(arguments, 0));
-    ret.name = param2;
-    return ret;
-    };
-    
-    MyClass2.prototype = new MyClass1;
-    MyClass2.prototype.constructor = MyClass1;
-    MyClass2.prototype.parent = MyClass1.prototype;
-    
-    I find this whole mode of operation as dull as it is stupid.
-    Nonetheless, there are occassions when the convention is suitable for type checking,
-    as you'll come to see in metadata.
-    
-    Obviously, this method has very little utility if you are not using protypical inheritance
+    All paramaters are required
      */
-    var Class;
-    OJ.register("Class", Class = function(name, inheritsFrom, callBack) {
-      var obj;
-      obj = Object.create(null);
-      obj[name] = function() {
-        var e;
-        try {
-          if (inheritsFrom) {
-            inheritsFrom.apply(this, Array.prototype.slice.call(arguments, 0));
-          }
-          return callBack.apply(this, Array.prototype.slice.call(arguments, 0));
-        } catch (_error) {
-          e = _error;
-          OJ.errors.ClassInheritanceError(Class.name + " failed to execute all or part of its callback routine for method " + name + "().", "", "", e);
+    validate = function(userName, webServiceName) {
+      thisUserName = userName || thisUserName;
+      if (!thisUserName) {
+        throw new Error('User Name is required.');
+      }
+      if (!webServiceName) {
+        throw new Error('Web Service Name is required.');
+      }
+    };
+
+    /*
+    Make a cached call for insert
+     */
+    makeCachedCall = function(webServiceName, data) {
+      return {
+        message: {
+          dateTime: new Date(),
+          cache: {
+            userName: thisUserName,
+            webServiceName: webServiceName
+          },
+          data: data
         }
       };
-      if (inheritsFrom) {
-        obj[name].inheritsFrom(inheritsFrom);
+    };
+    getCachedResponse = function(webServiceName, userName) {
+      var deferred, promise, ret;
+      deferred = Q.defer();
+      ret = void 0;
+      userName = userName || thisUserName;
+      if (null === cacheDbMgr) {
+        deferred.resolve(OJ.object());
+        ret = deferred.promise;
+      } else {
+        validate(userName, webServiceName);
+        promise = cacheDbMgr.select.from('CachedData', 'uniqueCalls', [webServiceName, thisUserName]);
+        ret = promise.then(function(data) {
+          if (data && data.length > 0) {
+            return data[0].data;
+          }
+        });
       }
-      return obj[name];
+      return ret;
+    };
+    OJ.register('getCachedResponse', getCachedResponse);
+    setCachedWebResponse = function(webServiceName, data, customerId, userName) {
+      var deferred, ret;
+      deferred = Q.defer();
+      customerId = customerId || thisCustomerId;
+      userName = userName || thisUserName;
+      ret = void 0;
+      if (null === cacheDbMgr) {
+        deferred.resolve(OJ.object());
+        ret = deferred.promise;
+      } else {
+        validate(customerId, userName, webServiceName);
+        ret = cacheDbMgr.update('CachedData', 'uniqueCalls', [webServiceName, thisUserName, thisCustomerId], {
+          data: data
+        });
+        ret.then(function(updatedRows) {
+          var cachedCall;
+          if (!updatedRows || updatedRows.length === 0) {
+            cachedCall = makeCachedCall(webServiceName, data);
+            return cacheDbMgr.insert('CachedData', cachedCall);
+          }
+        });
+      }
+      return ret;
+    };
+    OJ.register('setCachedWebResponse', setCachedWebResponse);
+    cacheExists = function() {
+      return cacheDbMgr !== undefined;
+    };
+    OJ.register('cacheExists', cacheExists);
+    OJ.register('initDb', function(userName) {
+      if (userName == null) {
+        userName = 'offline';
+      }
+      thisUserName = userName;
+      if (window.Modernizr.indexeddb) {
+        cacheDbMgr = OJ.db.dbManager('ojdb', 1);
+        cacheDbMgr.ddl.createTable('CachedData', 'CachedDataId', true);
+        cacheDbMgr.ddl.createIndex('CachedData', 'dateTimeId', 'dateTime');
+        cacheDbMgr.ddl.createIndex('CachedData', 'userNameId', 'cache.userName');
+        cacheDbMgr.ddl.createIndex('CachedData', 'webServiceNameId', 'cache.webServiceName');
+        cacheDbMgr.ddl.createIndex('CachedData', 'uniqueCalls', ['cache.webServiceName', 'cache.userName'], true);
+      }
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
@@ -979,553 +1329,1474 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-    var method, tryExec;
-    OJ.register("tryExec", tryExec = function(tryFunc) {
-      'use strict';
-      var exception, ret, that;
-      ret = false;
-      that = this;
-      try {
-        if (OJ.is.func(tryFunc)) {
-          ret = tryFunc.apply(that, Array.prototype.slice.call(arguments_, 1));
-        }
-      } catch (_error) {
-        exception = _error;
-        if ((exception.name === "TypeError" || exception.type === "called_non_callable") && exception.type === "non_object_property_load") {
-          OJ.console.info("Ignoring exception: ", exception);
-        } else {
-          OJ.console.error(exception);
-        }
-      } finally {
-
-      }
-      return ret;
-    });
-    OJ.register("method", method = function(tryFunc) {
-      'use strict';
-      var that;
-      that = this;
-      return function() {
-        var args;
-        args = Array.prototype.slice.call(arguments_, 0);
-        args.unshift(tryFunc);
-        return OJ.tryExec.apply(that, args);
-      };
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.is.register("bool", function(boolean) {
-      'use strict';
-      return _.isBoolean(boolean);
-    });
-    OJ.is.register("arrayNullOrEmpty", function(arr) {
-      'use strict';
-      return !Array.isArray(arr) || !arr || !arr.length || arr.length === 0 || !arr.push;
-    });
-    OJ.is.register("stringNullOrEmpty", function(str) {
-      'use strict';
-      return str && (!str.length || str.length === 0 || !str.trim || !str.trim());
-    });
-    OJ.is.register("numberNullOrEmpty", function(num) {
-      'use strict';
-      return !num || isNaN(num) || !num.toPrecision;
-    });
-    OJ.is.register("dateNullOrEmpty", function(dt) {
-      'use strict';
-      return !dt || !dt.getTime;
-    });
-    OJ.is.register("objectNullOrEmpty", function(obj) {
-      'use strict';
-      return _.isEmpty(obj || !Object.keys(obj) || Object.keys(obj).length === 0);
-    });
-    OJ.is.register("plainObject", function(obj) {
-      'use strict';
-      return _.isPlainObject;
-    });
-    OJ.is.register("date", function(dt) {
-      return _.isDate(dt);
-    });
-
-    /*
-    Determines if a value is an instance of a Number and not NaN*
-     */
-    OJ.is.register("number", function(num) {
-      return typeof num === "number" && false === (OJ.number.isNaN(num) || false === OJ.number.isFinite(num) || OJ.number.MAX_VALUE === num || OJ.number.MIN_VALUE === num);
-    });
-
-    /*
-    Determines if a value is convertable to a Number
-     */
-    OJ.is.register("numeric", function(num) {
-      var nuNum, ret;
-      ret = OJ.is.number(num);
-      if (!ret) {
-        nuNum = OJ.to.number(num);
-        ret = OJ.is.number(nuNum);
-      }
-      return ret;
-    });
-    OJ.is.register("vendorObject", function(obj) {
-      'use strict';
-      var ret;
-      ret = obj instanceof OJ["?"];
-      return ret;
-    });
-    OJ.is.register("elementInDom", function(elementId) {
-      return false === OJ.is.nullOrEmpty(document.getElementById(elementId));
-    });
-    OJ.is.register("generic", function(obj) {
-      'use strict';
-      var ret;
-      ret = false === OJ.is["function"](obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
-      return ret;
-    });
-    OJ.is.register("array", function(obj) {
-      return _.isArray(obj);
-    });
-    OJ.is.register("string", function(str) {
-      return _.isString(str);
-    });
-    OJ.is.register("true", function(obj) {
-      'use strict';
-      return obj === true || obj === "true" || obj === 1 || obj === "1";
-    });
-    OJ.is.register("false", function(obj) {
-      'use strict';
-      return obj === false || obj === "false" || obj === 0 || obj === "0";
-    });
-    OJ.is.register("trueOrFalse", function(obj) {
-      'use strict';
-      return OJ.is["true"](obj || OJ.is["false"](obj));
-    });
-    OJ.is.register("nullOrEmpty", function(obj, checkLength) {
-      'use strict';
-      return _.isEmpty(obj || _.isUndefined(obj || _.isNull(obj || _.isNaN(obj))));
-    });
-    OJ.is.register("instanceof", function(name, obj) {
-      'use strict';
-      return obj.type === name || obj instanceof name;
-    });
-    OJ.is.register("func", function(obj) {
-      'use strict';
-      return _.isFunction(obj);
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    True if the Object has an Array-like length property
-     */
-    var contains, deserialize, extend, hasLength, params, serialize;
-    OJ.register("hasLength", hasLength = function(obj) {
-      'use strict';
-      var ret;
-      ret = OJ.is.array(obj) || OJ.is.jQuery(obj);
-      return ret;
-    });
-    OJ.register("contains", contains = function(object, index) {
-      'use strict';
-      var ret;
-      ret = false;
-      if (false === OJ.is.nullOrUndefined(object)) {
-        if (OJ.is.array(object)) {
-          ret = object.indexOf(index) !== -1;
-        }
-        if (false === ret && object.hasOwnProperty(index)) {
-          ret = true;
-        }
-      }
-      return ret;
-    });
-
-    /*
-    Convert an Object to a String to an Object to get a dereferenced copy.
-     */
-    OJ.register("clone", function(data) {
-      'use strict';
-      return OJ.deserialize(OJ.serialize(data));
-    });
-
-    /*
-    Convert an Object to a String
-     */
-    OJ.register("serialize", serialize = function(data) {
-      'use strict';
-      var ret;
-      ret = "";
-      OJ.tryExec(function() {
-        ret = JSON.stringify(data);
-      });
-      return ret;
-    });
-
-    /*
-    Convert a string into an Object
-     */
-    OJ.register("deserialize", deserialize = function(data) {
-      'use strict';
-      var ret;
-      ret = {};
-      OJ.tryExec(function() {
-        ret = OJ["?"].parseJSON(data);
-      });
-      if (OJ.is.nullOrEmpty(ret)) {
-        ret = {};
-      }
-      return ret;
-    });
-
-    /*
-    Convert an Object into a serialized parameter string
-     */
-    OJ.register("params", params = function(data, delimiter) {
-      'use strict';
-      var ret;
-      ret = "";
-      delimiter = delimiter || "&";
-      if (delimiter === "&") {
-        OJ.tryExec(function() {
-          ret = OJ["?"].param(data);
-        });
-      } else {
-        OJ.each(data, function(val, key) {
-          if (ret.length > 0) {
-            ret += delimiter;
-          }
-          ret += key + "=" + val;
-        });
-      }
-      return OJ.string(ret);
-    });
-
-    /*
-    Extend the properties of one object with the properties of another. Deep copy to recurse and preserve references.
-     */
-    OJ.register("extend", extend = function(destObj, srcObj, deepCopy) {
-      'use strict';
-      var ret;
-      ret = destObj || {};
-      if (arguments_.length === 3) {
-        ret = window.$.extend(OJ.bool(deepCopy), ret, srcObj);
-      } else {
-        ret = window.$.extend(ret, srcObj);
-      }
-      return ret;
-    });
-
-    /*
-    Take an arguments object and convert it into an Array
-     */
-    OJ.register("getArguments", function(args, sliceAt) {
-      'use strict';
-      var ret, slice;
-      slice = Array.prototype.slice;
-      sliceAt = sliceAt || 0;
-      ret = slice.call(args, sliceAt);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var number;
-    number = Object.create(null);
-    Object.defineProperty(number, "isNaN", {
-      value: (Number && Number.isNaN ? Number.isNaN : isNaN)
-    });
-    Object.defineProperty(number, "isFinite", {
-      value: (Number && Number.isFinite ? Number.isFinite : isFinite)
-    });
-    Object.defineProperty(number, "MAX_VALUE", {
-      value: (Number && Number.MAX_VALUE ? Number.MAX_VALUE : 1.7976931348623157e+308)
-    });
-    Object.defineProperty(number, "MIN_VALUE", {
-      value: (Number && Number.MIN_VALUE ? Number.MIN_VALUE : 5e-324)
-    });
-    OJ.register("number", number);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.register("delimitedString", function(string, opts) {
-      var nsInternal, nsRet;
-      nsInternal = {
-        newLineToDelimiter: true,
-        spaceToDelimiter: true,
-        removeDuplicates: true,
-        delimiter: ",",
-        initString: OJ.to.string(string)
-      };
-      nsRet = {
-        array: [],
-        delimited: function() {
-          return nsRet.array.join(nsInternal.delimiter);
-        },
-        string: function(delimiter) {
-          var ret;
-          delimiter = delimiter || nsInternal.delimiter;
-          ret = "";
-          OJ.each(nsRet.array, function(val) {
-            if (ret.length > 0) {
-              ret += delimiter;
-            }
-            ret += val;
-          });
-          return ret;
-        },
-        toString: function() {
-          return nsRet.string();
-        },
-        add: function(str) {
-          nsRet.array.push(nsInternal.parse(str));
-          nsInternal.deleteDuplicates();
-          return nsRet;
-        },
-        remove: function(str) {
-          var remove;
-          remove = function(array) {
-            return array.filter(function(item) {
-              if (item !== str) {
-                return true;
-              }
-            });
+    'use strict';
+    var dbManager;
+    dbManager = function(name, version) {
+      var connect, disconnect, isNewConnectionRequired, ret, schemaScripts, select;
+      ret = OJ.object();
+      ret.add("promises", OJ.object());
+      isNewConnectionRequired = false;
+      schemaScripts = [];
+      connect = function(dbName, dbVersion, dbOnUpgrade) {
+        var deferred, request;
+        isNewConnectionRequired = !ret.promises.connect || dbName !== name || dbVersion !== version;
+        if (isNewConnectionRequired) {
+          deferred = Q.defer();
+          ret.promises.connect = deferred.promise;
+          version = dbVersion || 1;
+          name = dbName;
+          dbOnUpgrade = dbOnUpgrade || function() {};
+          request = window.indexedDB.open(name, version);
+          request.onblocked = function(event) {
+            ret.IDB.close();
+            alert("A new version of this page is ready. Please reload!");
           };
-          nsRet.array = remove(nsRet.array);
-          return nsRet;
-        },
-        count: function() {
-          return nsRet.array.length;
-        },
-        contains: function(str, caseSensitive) {
-          var isCaseSensitive, match;
-          isCaseSensitive = OJ.to.bool(caseSensitive);
-          str = OJ.string(str).trim();
-          if (false === isCaseSensitive) {
-            str = str.toLowerCase();
-          }
-          match = nsRet.array.filter(function(matStr) {
-            return (isCaseSensitive && OJ.to.string(matStr).trim() === str) || OJ.to.string(matStr).trim().toLowerCase() === str;
-          });
-          return match.length > 0;
-        },
-        each: function(callBack) {
-          return nsRet.array.forEach(callBack);
-        }
-      };
-      nsInternal.parse = function(str) {
-        var ret;
-        ret = OJ.to.string(str);
-        if (nsInternal.newLineToDelimiter) {
-          while (ret.indexOf("\n") !== -1) {
-            ret = ret.replace(/\n/g, nsInternal.delimiter);
-          }
-        }
-        if (nsInternal.spaceToDelimiter) {
-          while (ret.indexOf(" ") !== -1) {
-            ret = ret.replace(RegExp(" ", "g"), nsInternal.delimiter);
-          }
-        }
-        while (ret.indexOf(",,") !== -1) {
-          ret = ret.replace(/,,/g, nsInternal.delimiter);
-        }
-        return ret;
-      };
-      nsInternal.deleteDuplicates = function() {
-        if (nsInternal.removeDuplicates) {
-          (function() {
-            var unique;
-            unique = function(array) {
-              var seen;
-              seen = new Set();
-              return array.filter(function(item) {
-                if (false === seen.has(item)) {
-                  seen.add(item);
-                  return true;
-                }
-              });
-            };
-            nsRet.array = unique(nsRet.array);
-          })();
-        }
-      };
-      (function(a) {
-        var delimitedString;
-        if (a.length > 1 && false === OJ.is.plainObject(opts)) {
-          OJ.each(a, function(val) {
-            if (false === OJ.is.nullOrEmpty(val)) {
-              nsRet.array.push(val);
+          request.onerror = function(event) {
+            deferred.reject(new Error("Database error: " + event.target.errorCode));
+            if (ret.IDB) {
+              ret.IDB.close();
             }
-          });
-        } else if (string && string.length > 0) {
-          OJ.extend(nsInternal, opts);
-          delimitedString = nsInternal.parse(string);
-          nsInternal.initString = delimitedString;
-          nsRet.array = delimitedString.split(nsInternal.delimiter);
+          };
+          request.onsuccess = function(event) {
+            ret.IDB = ret.IDB || request.result;
+            deferred.resolve(ret.IDB);
+          };
+          request.onupgradeneeded = function(event) {
+            ret.IDB = ret.IDB || request.result;
+            if (schemaScripts.length > 0) {
+              OJ.each(schemaScripts, function(script) {
+                script(ret.IDB);
+              });
+            }
+            dbOnUpgrade(ret.IDB);
+          };
         }
-        nsInternal.deleteDuplicates();
-      })(arguments_);
-      return nsRet;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+        return ret.promises.connect;
+      };
+      disconnect = function() {
+        if (ret.promises.connect.isFulfilled()) {
+          ret.IDB.close();
+        } else {
+          if (ret.IDB) {
+            ret.promises.connect.done(ret.IDB.close);
+          }
+        }
+      };
+      ret.add("connect", connect);
+      ret.add("disconnect", disconnect);
+      ret.add("getDb", function() {
+        return ret.IDB;
+      });
+      ret.add("schemaScripts", schemaScripts);
+      ret.add("tables", OJ.object());
+      ret.add("ddl", {
+        createTable: function(tableName, tablePkColumnName, autoIncrement) {
+          return OJ.fun.shiftRight(OJ.db.table.create, ret, arguments, this);
+        },
+        dropTable: function(tableName) {
+          return OJ.fun.shiftRight(OJ.db.index.drop, ret, arguments, this);
+        },
+        createIndex: function(tableName, columnName, indexName, isUnique) {
+          return OJ.fun.shiftRight(OJ.db.index.create, ret, arguments, this);
+        }
+      });
+      ret.add("insert", function() {
+        return OJ.fun.shiftRight(OJ.db.insert, ret, arguments, this);
+      });
+      ret.add("update", function() {
+        return OJ.fun.shiftRight(OJ.db.update, ret, arguments, this);
+      });
+      select = OJ.object();
+      ret.add("select", select);
+      select.add("all", function() {
+        return OJ.fun.shiftRight(OJ.db.select.all, ret, arguments, this);
+      });
+      select.add("from", function() {
+        return OJ.fun.shiftRight(OJ.db.select.from, ret, arguments, this);
+      });
+      ret.connect(name, version);
+      return ret;
+    };
+    OJ.db.register("dbManager", dbManager);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
 (function() {
   (function(OJ) {
-    var bool;
-    OJ.to.register("bool", bool = function(str) {
-      var retBool;
-      retBool = OJ.is["true"](str);
-      if (retBool === false || retBool !== true) {
-        retBool = false;
-      }
-      return retBool;
-    });
-    OJ.to.register("ES5_ToBool", function(val) {
-      return val !== false && val !== 0 && val !== "" && val !== null && val !== undefined && (typeof val !== "number" || !isNaN(val));
-    });
-    OJ.to.register("dateFromTicks", function(tickStr) {
-      var arr, localOffset, offset, ret, ticks, ticsDateTime;
-      ticsDateTime = OJ.string(tickStr);
-      ret = void 0;
-      ticks = void 0;
-      offset = void 0;
-      localOffset = void 0;
-      arr = void 0;
-      if (false === OJ.is.nullOrEmpty(ticsDateTime)) {
-        ticsDateTime = ticsDateTime.replace("/", "");
-        ticsDateTime = ticsDateTime.replace("Date", "");
-        ticsDateTime = ticsDateTime.replace("(", "");
-        ticsDateTime = ticsDateTime.replace(")", "");
-        arr = ticsDateTime.split("-");
-        if (arr.length > 1) {
-          ticks = OJ.number(arr[0]);
-          offset = OJ.number(arr[1]);
-          localOffset = new Date().getTimezoneOffset();
-          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
-        } else if (arr.length === 1) {
-          ticks = OJ.number(arr[0]);
-          ret = new Date(ticks);
+    'use strict';
+    var createIndex, createIndexImpl;
+    OJ.db.makeSubNameSpace('index');
+    createIndexImpl = function(dbManager, tableName, columnName, indexName, isUnique) {
+      var table;
+      table = dbManager.tables[tableName];
+      return table.createIndex(columnName, indexName || columnName + 'Idx', {
+        unique: true === isUnique
+      });
+    };
+    createIndex = function(dbManager, tableName, columnName, indexName, isUnique) {
+      var deferred;
+      deferred = Q.defer();
+      dbManager.schemaScripts.push(function() {
+        var e, index;
+        try {
+          index = createIndexImpl(dbManager, tableName, columnName, indexName, isUnique);
+          deferred.resolve(index);
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error('Could not create a new index', e));
         }
-      }
-      return ret;
-    });
-    OJ.to.register("binary", function(obj) {
-      var ret;
-      ret = NaN;
-      if (obj === 0 || obj === "0" || obj === "" || obj === false || OJ.to.string(obj).toLowerCase().trim() === "false") {
-        ret = 0;
-      } else {
-        if (obj === 1 || obj === "1" || obj === true || OJ.to.string(obj).toLowerCase().trim() === "true") {
-          ret = 1;
-        }
-      }
-      return ret;
-    });
+        return dbManager.tables[tableName];
+      });
+      return deferred.promise;
+    };
+    OJ.db.index.register('create', createIndex);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
-    /*
-    Attempts to converts an arbitrary value to a Number.
-    Loose falsy values are converted to 0.
-    Loose truthy values are converted to 1.
-    All other values are parsed as Integers.
-    Failures return as NaN.
-     */
-    OJ.to.register("number", function(inputNum, defaultNum) {
-      var retVal, tryGetNumber;
-      tryGetNumber = function(val) {
-        var ret, tryGet;
-        ret = NaN;
-        if (OJ.is.number(val)) {
-          ret = val;
-        } else if (OJ.is.string(val) || OJ.is.bool(val)) {
-          tryGet = (function(value) {
-            var num;
-            num = OJ.to.binary(value);
-            if (!OJ.is.number(num) && value) {
-              num = +value;
-            }
-            if (!OJ.is.number(num)) {
-              num = parseInt(value, 0);
-            }
-            return num;
-          }, val)();
-          if (OJ.is.number(tryGet)) {
-            ret = tryGet;
-          }
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var insert, insertImpl, onError;
+    onError = function(eventObj) {
+      OJ.debug.error(eventObj.target.error);
+      return new Error(eventObj.target.error);
+    };
+    insertImpl = function(dbManager, tableName, records) {
+      var deferred, doInsert;
+      deferred = Q.defer();
+      doInsert = function() {
+        var e, objectStore, transaction;
+        try {
+          transaction = dbManager.getDb().transaction([tableName], "readwrite");
+          objectStore = transaction.objectStore(tableName);
+          OJ.each(records, function(rec) {
+            objectStore.add(rec);
+          });
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error("Could not insert records", e));
         }
-        return ret;
+        return deferred.resolve(true);
       };
-      retVal = tryGetNumber(inputNum);
-      if (!OJ.is.number(retVal)) {
-        retVal = tryGetNumber(defaultNum);
-        if (!OJ.is.number(retVal)) {
-          retVal = Number.NaN;
+      dbManager.promises.connect.then(doInsert, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+    insert = function(dbWrapper, tableName, records) {
+      return insertImpl(dbWrapper, tableName, records);
+    };
+    OJ.db.register("insert", insert);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var onError, selectAll, selectAllImpl, selectFrom, selectFromImpl;
+    OJ.db.makeSubNameSpace('select');
+    onError = function(eventObj) {
+      OJ.debug.error(eventObj.target.error);
+      return new Error(eventObj.target.error);
+    };
+    selectAllImpl = function(dbManager, tableName, ret) {
+      var deferred, doSelect;
+      deferred = Q.defer();
+      doSelect = function() {
+        var e, objectStore, selRequest, transaction;
+        try {
+          transaction = dbManager.getDb().transaction([tableName]);
+          objectStore = transaction.objectStore(tableName);
+          ret = ret || [];
+          selRequest = objectStore.openCursor();
+          selRequest.onsuccess = function(event) {
+            var cursor;
+            cursor = event.target.result;
+            if (cursor) {
+              ret.push(cursor.value);
+              cursor['continue']();
+            } else {
+              deferred.resolve(ret);
+            }
+          };
+          selRequest.onerror = function(eventObj) {
+            deferred.reject(onError(eventObj));
+          };
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error('Could not select records', e));
         }
-      }
-      return retVal;
+        return deferred.promise;
+      };
+      dbManager.promises.connect.then(doSelect, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+    selectAll = function(dbWrapper, tableName) {
+      var promise, ret;
+      ret = [];
+      promise = selectAllImpl(dbWrapper, tableName, ret);
+      promise['return'] = ret;
+      return promise;
+    };
+    OJ.db.select.register('all', selectAll);
+    selectFromImpl = function(dbManager, tableName, indexName, indexVal, ret) {
+      var deferred, doSelect;
+      deferred = Q.defer();
+      doSelect = function() {
+        var e, index, keyRange, objectStore, selRequest, transaction;
+        try {
+          transaction = dbManager.getDb().transaction([tableName]);
+          objectStore = transaction.objectStore(tableName);
+          index = objectStore.index(indexName);
+          ret = ret || [];
+          keyRange = void 0;
+          if (indexVal) {
+            keyRange = IDBKeyRange.only(indexVal);
+          }
+          selRequest = index.openCursor(keyRange);
+          selRequest.onsuccess = function(event) {
+            var cursor;
+            cursor = event.target.result;
+            if (cursor) {
+              ret.push(cursor.value);
+              cursor['continue']();
+            } else {
+              deferred.resolve(ret);
+            }
+          };
+          selRequest.onerror = function(eventObj) {
+            deferred.reject(onError(eventObj));
+          };
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error('Could not select records', e));
+        }
+        return deferred.promise;
+      };
+      dbManager.promises.connect.then(doSelect, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+    OJ.db.select.register('from', selectFrom = function(dbWrapper, tableName, indexName, indexVal) {
+      var promise, ret;
+      ret = [];
+      promise = selectFromImpl(dbWrapper, tableName, indexName, indexVal, ret);
+      promise['return'] = ret;
+      return promise;
     });
-    OJ.to.register("string", function(inputStr, defaultStr) {
-      var ret1, ret2, retVal, tryGetString;
-      tryGetString = function(str) {
-        var ret;
-        ret = void 0;
-        if (OJ.is.string(str)) {
-          ret = str;
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var createTable, createTableImpl, dropTable, dropTableImpl;
+    OJ.db.makeSubNameSpace('table');
+    createTableImpl = function(deferred, dbManager, tableName, tablePkColumnName, autoIncrement) {
+
+      /*
+      @param db {IDBDatabase} An IDBDatabase instance
+       */
+      dbManager.schemaScripts.push(function(db) {
+        var e, table;
+        try {
+          table = db.createObjectStore(tableName, {
+            keyPath: tablePkColumnName,
+            autoIncrement: false !== autoIncrement
+          });
+          dbManager.tables.add(tableName, table);
+          deferred.resolve(table);
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error("Could not create a new table", e));
+        }
+        return dbManager.tables[tableName];
+      });
+      return deferred.promise;
+    };
+    createTable = function(dbManager, tableName, tablePkColumnName, autoIncrement) {
+      var deferred;
+      deferred = Q.defer();
+      return createTableImpl(deferred, dbManager, tableName, tablePkColumnName, autoIncrement);
+    };
+    OJ.db.table.register("create", createTable);
+    dropTableImpl = function(deferred, dbManager, tableName) {
+
+      /*
+      @param db {IDBDatabase} An IDBDatabase instance
+       */
+      dbManager.schemaScripts.push(function(db) {
+        var e;
+        try {
+          db.deleteObjectStore(tableName);
+          delete dbManager.schema[tableName];
+          deferred.resolve();
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error("Could not create a new table", e));
+        }
+        return true;
+      });
+      return deferred.promise;
+    };
+    dropTable = function(dbManager, tableName) {
+      var deferred;
+      deferred = Q.defer();
+      return dropTableImpl(deferred, dbManager, tableName);
+    };
+    OJ.db.table.register("drop", dropTable);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
+    var onError, update, updateImpl;
+    onError = function(eventObj) {
+      OJ.debug.error(eventObj.target.error);
+      return new Error(eventObj.target.error);
+    };
+    updateImpl = function(dbManager, tableName, indexName, indexVal, ret, record) {
+      var deferred, doUpdate;
+      deferred = Q.defer();
+      doUpdate = function() {
+        var e, index, keyRange, objectStore, selRequest, transaction;
+        try {
+          transaction = dbManager.getDb().transaction([tableName], "readwrite");
+          objectStore = transaction.objectStore(tableName);
+          index = objectStore.index(indexName);
+          ret = ret || [];
+          keyRange = IDBKeyRange.only(indexVal);
+          selRequest = index.openCursor(keyRange);
+          selRequest.onsuccess = function(event) {
+            var cursor, newRec, updtRequest, val;
+            cursor = event.target.result;
+            if (cursor) {
+              val = cursor.value;
+              newRec = OJ.extend(val, record);
+              updtRequest = cursor.update(newRec);
+              updtRequest.onerror = onError;
+            } else {
+              deferred.resolve(ret);
+            }
+          };
+          selRequest.onerror = function(e) {
+            deferred.reject(onError(e));
+          };
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error("Could not select records", e));
+        }
+        return deferred.promise;
+      };
+      dbManager.promises.connect.then(doUpdate, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+    OJ.db.register("update", update = function(dbWrapper, tableName, indexName, indexVal, record) {
+      var ret;
+      ret = [];
+      return updateImpl(dbWrapper, tableName, indexName, indexVal, ret, record);
+    });
+  })();
+
+}).call(this);
+
+(function() {
+  var __slice = [].slice;
+
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('a', function(options, owner, calledFromFactory) {
+      var click, defaults, newClick, ret, toggle;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {
+          id: '',
+          "class": '',
+          text: '',
+          href: '#',
+          type: '',
+          title: '',
+          rel: '',
+          media: '',
+          target: ''
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret.toggleState = 'off';
+      toggle = function() {
+        if (ret.toggleState === 'on') {
+          ret.toggleState = 'off';
         } else {
-          ret = "";
-          if (OJ.is.bool(str) || OJ.is.number(str) || OJ.is.date(str)) {
-            ret = str.toString();
+          if (ret.toggleState === 'off') {
+            ret.toggleState = 'on';
+          }
+        }
+      };
+      if (defaults.events.click !== _.noop) {
+        click = defaults.events.click;
+        newClick = function() {
+          var event, ret;
+          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+          toggle;
+          ret = click.apply(null, event);
+          if (defaults.href === '#') {
+            return false;
+          } else {
+            return retval;
+          }
+        };
+        defaults.events.click = newClick;
+      } else {
+        defaults.events.click = toggle;
+      }
+      ret = OJ.element('a', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('br', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        },
+        number: 1
+      };
+      OJ.extend(defaults, options);
+      while (i < OJ.number(defaults.number)) {
+        ret = OJ.element('br', defaults.props, defaults.styles, defaults.events);
+        if (owner) {
+          owner.append(ret[0]);
+        }
+        i += 1;
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('button', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('button', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('div', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('div', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('fieldset', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {
+          form: '',
+          disabled: '',
+          name: ''
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('fieldset', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('form', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {
+          action: '',
+          method: '',
+          name: ''
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('form', defaults.props, defaults.styles, defaults.events);
+      ret.add('validator', ret.$.validate({
+        highlight: function(element) {
+          var $elm;
+          $elm = $(element);
+          $elm.attr('OJ_invalid', '1');
+          $elm.animate({
+            backgroundColor: 'red'
+          });
+        },
+        unhighlight: function(element) {
+          var $elm;
+          $elm = $(element);
+          if ($elm.attr('OJ_invalid') === '1') {
+            $elm.css('background-color', 'yellow');
+            $elm.attr('OJ_invalid', '0');
+            setTimeout((function() {
+              $elm.animate({
+                backgroundColor: 'transparent'
+              });
+            }), 500);
+          }
+        }
+      }));
+      ret.add('isFormValid', function() {
+        return ret.$.valid() && (!ret.validator.invalidElements() || ret.validator.invalidElements().length === 0);
+      });
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('img', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {
+          src: "",
+          alt: "",
+          title: "",
+          height: "",
+          ismap: "",
+          usemap: "",
+          border: 0,
+          width: ""
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('img', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  var __slice = [].slice;
+
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('input', function(options, owner, calledFromFactory) {
+      var change, click, defaults, newChange, newClick, ret, syncValue, value;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {
+          type: OJ.enums.inputTypes.text,
+          placeholder: "",
+          value: "",
+          size: "",
+          maxlength: "",
+          autofocus: false,
+          autocomplete: "on",
+          checked: false
+        },
+        styles: {},
+        events: {
+          click: _.noop,
+          change: _.noop,
+          keyenter: _.noop,
+          keyup: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      value = defaults.props.value;
+      syncValue = function() {
+        switch (defaults.props.type) {
+          case OJ.enums.inputTypes.checkbox:
+            return value = ret.$.is(":checked");
+          case OJ.enums.inputTypes.radio:
+            return value = ret.$.find(":checked").val();
+          default:
+            return value = ret.val();
+        }
+      };
+      if (defaults.events.click !== _.noop) {
+        click = defaults.events.click;
+        newClick = function() {
+          var event, retval;
+          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+          retval = click.apply(null, event);
+          syncValue();
+          return retval;
+        };
+        defaults.events.click = newClick;
+      }
+      if (defaults.events.change !== _.noop) {
+        change = defaults.events.change;
+        newChange = function() {
+          var event, retval;
+          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+          retval = change.apply(null, event);
+          syncValue();
+          return retval;
+        };
+        defaults.events.change = newChange;
+      }
+      ret = OJ.element('input', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('label', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {
+          forAttr: "",
+          form: "",
+          text: ""
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('label', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('legend', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {
+          form: '',
+          disabled: ''
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('legend', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('li', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('li', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('ol', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('ol', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('option', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {
+          value: '',
+          text: '',
+          selected: '',
+          disabled: ''
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('option', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('p', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('p', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  var __slice = [].slice;
+
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('select', function(options, owner, calledFromFactory) {
+      var change, click, defaults, hasEmpty, newChange, newClick, ret, syncValue, value, values;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {
+          selected: '',
+          multiple: false
+        },
+        styles: {},
+        values: [],
+        events: {
+          click: _.noop,
+          change: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      value = '';
+      values = [];
+      hasEmpty = false;
+      syncValue = function() {
+        return value = ret.val();
+      };
+      if (defaults.events.click !== _.noop) {
+        click = defaults.events.click;
+        newClick = function() {
+          var event, retval;
+          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+          retval = click.apply(null, event);
+          syncValue();
+          return retval;
+        };
+        defaults.events.click = newClick;
+      }
+      if (defaults.events.change !== _.noop) {
+        change = defaults.events.change;
+        newChange = function() {
+          var event, retval;
+          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+          retval = change.apply(null, event);
+          syncValue();
+          return retval;
+        };
+        defaults.events.change = newChange;
+      }
+      ret = OJ.element('select', defaults.props, defaults.styles, defaults.events);
+      ret.add('selectedData', function(propName) {
+        var dataset;
+        ret = '';
+        if (ret.$.find('option:selected') && ret.$.find('option:selected')[0]) {
+          dataset = ret.$.find('option:selected')[0].dataset;
+          if (dataset) {
+            ret = dataset[propName];
           }
         }
         return ret;
+      });
+      ret.add('selectedText', function() {
+        return ret.$.find('option:selected').text();
+      });
+      ret.add('selectedVal', function() {
+        value = ret.val();
+        return value;
+      });
+      ret.add('addOption', function(value, text, selected, disabled) {
+        var add, isEmpty, option, val;
+        if (selected == null) {
+          selected = false;
+        }
+        if (disabled == null) {
+          disabled = false;
+        }
+        isEmpty = _.isEmpty(value);
+        add = false;
+        if (isEmpty && false === hasEmpty) {
+          hasEmpty = true;
+          add = true;
+        }
+        if (false === add && false === isEmpty) {
+          add = true;
+        }
+        if (add) {
+          val = {
+            props: {
+              value: value,
+              text: text,
+              selected: selected,
+              disabled: disabled
+            }
+          };
+          option = ret.option(val);
+          return option;
+        }
+      });
+      ret.add('addOptions', function(options) {
+        values = _.union(values, options);
+        OJ.each(options, (function(val) {
+          value = ret.addOption(val);
+          values.push(value);
+        }), false);
+        return values;
+      });
+      ret.add('resetOptions', function(values) {
+        ret.empty();
+        values = values;
+        return ret.addOptions(values);
+      });
+      OJ.tryExec(ojInternal.onComplete, ret.selectedVal());
+      ret;
+      ret.add('removeOption', function(valueToRemove) {
+        var i, selectControl;
+        values.splice(values.indexOf(valueToRemove), 1);
+        selectControl = ret[0];
+        i = 0;
+        while (i < selectControl.length) {
+          if (selectControl.options[i].value === valueToRemove) {
+            selectControl.remove(i);
+          }
+          i++;
+        }
+      });
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (defaults.values.length > 0) {
+        ret.addOptions(defaults.values);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('span', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        }
       };
-      ret1 = tryGetString(inputStr);
-      ret2 = tryGetString(defaultStr);
-      retVal = "";
-      if (ret1.length !== 0) {
-        retVal = ret1;
-      } else if (ret1 === ret2 || ret2.length === 0) {
-        retVal = ret1;
-      } else {
-        retVal = ret2;
+      OJ.extend(defaults, options);
+      ret = OJ.element('span', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
       }
-      return retVal;
-    });
-    OJ.to.register("vendorDomObject", function(id) {
-      var base, ret, _$el;
-      ret = null;
-      base = "#";
-      if (id === "body") {
-        base = "";
-      }
-      _$el = OJ["?"](base + id);
-      if (_$el) {
-        ret = _$el;
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
       }
       return ret;
     });
-    OJ.to.register("vendorDomObjFromString", function(html) {
-      var ret, _$el;
-      ret = null;
-      _$el = OJ["?"](html);
-      if (_$el) {
-        ret = _$el;
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('svg', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('svg', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
       }
       return ret;
     });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('table', function(options, owner, calledFromFactory) {
+      var defaults, firstRow, ret, rows, tbody;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {
+          cellpadding: 0,
+          cellspacing: 0,
+          align: "",
+          width: "",
+          cellalign: "left",
+          cellvalign: "top"
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        },
+        cells: {
+          "class": "",
+          align: '',
+          'vertical-align': '',
+          cellpadding: '',
+          margin: ''
+        },
+        firstAlignRight: false,
+        oddAlignRight: false
+      };
+      rows = [];
+      OJ.extend(defaults, options);
+      ret = OJ.element('table', defaults.props, defaults.styles, defaults.events);
+      tbody = OJ.nodes.tbody({}, ret, false);
+      firstRow = OJ.node.tr({}, tbody, false);
+      rows.push(firstRow);
+      ret.add('cell', function(row, col) {
+        var cell;
+        row = rows[row];
+        if (!row) {
+          while (rows.length < row) {
+            row = OJ.node.tr({}, tbody, false);
+            rows.push(row);
+          }
+        }
+        cell = row.cells[col];
+        if (!cell) {
+          while (rows.cells.length < col) {
+            cell = OJ.node.td({
+              props: defaults.cells
+            }, row, false);
+          }
+        }
+        OJ.nodes.factory(cell, row);
+        return cell;
+      });
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('tbody', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('tbody', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('td', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('td', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  var __slice = [].slice;
+
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('textarea', function(options, owner, calledFromFactory) {
+      var change, click, defaults, newChange, newClick, ret, syncValue, value;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {
+          name: "",
+          placeholder: "",
+          value: "",
+          text: "",
+          maxlength: "",
+          autofocus: false,
+          isRequired: false,
+          rows: 3,
+          cols: 25,
+          disabled: false,
+          readonly: false,
+          form: "",
+          wrap: ""
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      value = defaults.props.value;
+      syncValue = function() {
+        switch (defaults.props.type) {
+          case OJ.enums.inputTypes.checkbox:
+            return value = ret.$.is(":checked");
+          case OJ.enums.inputTypes.radio:
+            return value = ret.$.find(":checked").val();
+          default:
+            return value = ret.val();
+        }
+      };
+      if (defaults.events.click !== _.noop) {
+        click = defaults.events.click;
+        newClick = function() {
+          var event, retval;
+          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+          retval = click.apply(null, event);
+          syncValue();
+          return retval;
+        };
+        defaults.events.click = newClick;
+      }
+      if (defaults.events.change !== _.noop) {
+        change = defaults.events.change;
+        newChange = function() {
+          var event, retval;
+          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+          retval = change.apply(null, event);
+          syncValue();
+          return retval;
+        };
+        defaults.events.change = newChange;
+      }
+      ret = OJ.element('textarea', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('tr', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('tr', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('ul', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('ul', defaults.props, defaults.styles, defaults.events);
+      if (owner) {
+        owner.append(ret[0]);
+      }
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -1723,12 +2994,83 @@ OJ IIFE definition to anchor JsDoc comments.
       /*
       Add a property to the object and return it
        */
-      OJ.property(obj, "add", (function(name, val, writable, configurable, enumerable) {
+      OJ.property(obj, 'add', (function(name, val, writable, configurable, enumerable) {
         return OJ.property(obj, name, val, writable, configurable, enumerable);
       }), false, false, false);
       return obj;
     };
-    OJ.register("object", object);
+    OJ.register('object', object);
+    OJ.register('isInstanceOf', function(name, obj) {
+      return OJ.contains(name, obj) && OJ.bool(obj[name]);
+    });
+    OJ.register('contains', function(object, index) {
+      var ret;
+      ret = false;
+      if (false === OJ.isNullOrUndefined(object)) {
+        if (OJ.isArray(object)) {
+          ret = object.indexOf(index) !== -1;
+        }
+        if (false === ret && object.hasOwnProperty(index)) {
+          ret = true;
+        }
+      }
+      return ret;
+    });
+    OJ.register('compare', function(obj1, obj2) {
+      return _.isEqual(obj1(obj2));
+    });
+    OJ.register('clone', function(data) {
+      return _.cloneDeep(data(true));
+    });
+    OJ.register('serialize', function(data) {
+      var ret;
+      ret = '';
+      OJ.tryExec(function() {
+        ret = JSON.stringify(data);
+      });
+      return ret || '';
+    });
+    OJ.register('deserialize', function(data) {
+      var ret;
+      ret = {};
+      if (data) {
+        OJ.tryExec(function() {
+          ret = window.$.parseJSON(data);
+        });
+        if (OJ.is.nullOrEmpty(ret)) {
+          ret = {};
+        }
+      }
+      return ret;
+    });
+    OJ.register('params', function(data, delimiter) {
+      var ret;
+      ret = '';
+      delimiter = delimiter || '&';
+      if (delimiter === '&') {
+        OJ.tryExec(function() {
+          ret = $.param(data);
+        });
+      } else {
+        OJ.each(data, function(val, key) {
+          if (ret.length > 0) {
+            ret += delimiter;
+          }
+          ret += key + '=' + val;
+        });
+      }
+      return OJ.string(ret);
+    });
+    OJ.register('extend', function(destObj, srcObj, deepCopy) {
+      var ret;
+      ret = destObj || {};
+      if (arguments.length === 3) {
+        ret = $.extend(OJ.bool(deepCopy), ret, srcObj);
+      } else {
+        ret = $.extend(ret, srcObj);
+      }
+      return ret;
+    });
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);
@@ -1874,7 +3216,7 @@ OJ IIFE definition to anchor JsDoc comments.
     thisGlobal.onerror = function(msg, url, lineNumber) {
       console.warn("%s\rurl: %s\rline: %d", msg, url, lineNumber);
       if (onError) {
-        onError(arguments_);
+        onError(arguments);
       }
       return false;
     };
@@ -1945,269 +3287,209 @@ OJ IIFE definition to anchor JsDoc comments.
 }).call(this);
 
 (function() {
-  var __slice = [].slice;
+  (function() {
+    var makeSequentialArray;
+    makeSequentialArray = function(start, end) {
+      var i, ret;
+      ret = array();
+      i = void 0;
+      end = +end;
+      if (OJ.isNumber(start) && OJ.isNumber(end)) {
+        i = +start;
+        while (i <= end) {
+          ret.push(i);
+          i += 1;
+        }
+      }
+      return ret;
+    };
+    OJ.register("makeSequentialArray", makeSequentialArray);
+  })();
 
+}).call(this);
+
+(function() {
   (function(OJ) {
-    'use strict';
-    OJ.nodes.register('a', function(options, owner, calledFromFactory) {
-      var click, defaults, newClick, ret, toggle;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          id: '',
-          "class": '',
-          text: '',
-          href: '#',
-          type: '',
-          title: '',
-          rel: '',
-          media: '',
-          target: ''
-        },
-        styles: {},
-        events: {
-          click: _.noop
+
+    /*
+    Method to create a Class with optional inheritance.
+    Generally, I oppose this semantic in JS:
+    partly because of the ineffability of the 'this' operator,
+    and partly because of the difficulty in grokking this.
+    What we're really saying here (through the wonders of functional programming) is this:
+    
+    var MyClass1 = function(param1) {
+    var ret = this;
+    ret.id = param1;
+    return ret;
+    };
+    
+    var MyClass2 = function(param1, param2) {
+    var ret = this;
+    MyClass1.apply(this, Array.prototype.slice.call(arguments, 0));
+    ret.name = param2;
+    return ret;
+    };
+    
+    MyClass2.prototype = new MyClass1;
+    MyClass2.prototype.constructor = MyClass1;
+    MyClass2.prototype.parent = MyClass1.prototype;
+    
+    I find this whole mode of operation as dull as it is stupid.
+    Nonetheless, there are occassions when the convention is suitable for type checking,
+    as you'll come to see in metadata.
+    
+    Obviously, this method has very little utility if you are not using protypical inheritance
+     */
+    var Class;
+    OJ.register("Class", Class = function(name, inheritsFrom, callBack) {
+      var obj;
+      obj = Object.create(null);
+      obj[name] = function() {
+        var e;
+        try {
+          if (inheritsFrom) {
+            inheritsFrom.apply(this, Array.prototype.slice.call(arguments, 0));
+          }
+          return callBack.apply(this, Array.prototype.slice.call(arguments, 0));
+        } catch (_error) {
+          e = _error;
+          OJ.errors.ClassInheritanceError(Class.name + " failed to execute all or part of its callback routine for method " + name + "().", "", "", e);
         }
       };
-      OJ.extend(defaults, options);
-      ret.toggleState = 'off';
-      toggle = function() {
-        if (ret.toggleState === 'on') {
-          ret.toggleState = 'off';
+      if (inheritsFrom) {
+        obj[name].inheritsFrom(inheritsFrom);
+      }
+      return obj[name];
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
+    OJ.register("getDateFromDnJson", function(dnDate) {
+      var arr, dnDateStr, localOffset, offset, ret, ticks;
+      dnDateStr = OJ.string(dnDate);
+      ret = void 0;
+      ticks = void 0;
+      offset = void 0;
+      localOffset = void 0;
+      arr = void 0;
+      ret = OJ.dateTimeMinValue;
+      if (false === OJ.is.nullOrEmpty(dnDateStr)) {
+        dnDateStr = dnDateStr.replace("/", "");
+        dnDateStr = dnDateStr.replace("Date", "");
+        dnDateStr = dnDateStr.replace("(", "");
+        dnDateStr = dnDateStr.replace(")", "");
+        arr = dnDateStr.split("-");
+        if (arr.length > 1) {
+          ticks = OJ.number(arr[0]);
+          offset = OJ.number(arr[1]);
+          localOffset = new Date().getTimezoneOffset();
+          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
+        } else if (arr.length === 1) {
+          ticks = OJ.number(arr[0]);
+          ret = new Date(ticks);
+        }
+      }
+      return ret;
+    });
+  })();
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var method, tryExec;
+    OJ.register("tryExec", tryExec = function(tryFunc) {
+      'use strict';
+      var exception, ret, that;
+      ret = false;
+      that = this;
+      try {
+        if (OJ.is.func(tryFunc)) {
+          ret = tryFunc.apply(that, Array.prototype.slice.call(arguments_, 1));
+        }
+      } catch (_error) {
+        exception = _error;
+        if ((exception.name === "TypeError" || exception.type === "called_non_callable") && exception.type === "non_object_property_load") {
+          OJ.console.info("Ignoring exception: ", exception);
         } else {
-          if (ret.toggleState === 'off') {
-            ret.toggleState = 'on';
-          }
+          OJ.console.error(exception);
         }
-      };
-      if (defaults.events.click !== _.noop) {
-        click = defaults.events.click;
-        newClick = function() {
-          var event, ret;
-          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-          toggle;
-          ret = click.apply(null, event);
-          if (defaults.href === '#') {
-            return false;
-          } else {
-            return retval;
-          }
-        };
-        defaults.events.click = newClick;
-      } else {
-        defaults.events.click = toggle;
-      }
-      ret = OJ.element('a', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
+      } finally {
+
       }
       return ret;
     });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+    OJ.register("method", method = function(tryFunc) {
+      'use strict';
+      var that;
+      that = this;
+      return function() {
+        var args;
+        args = Array.prototype.slice.call(arguments_, 0);
+        args.unshift(tryFunc);
+        return OJ.tryExec.apply(that, args);
+      };
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);
 
 (function() {
   (function(OJ) {
     'use strict';
-    OJ.nodes.register('br', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: _.noop
-        },
-        number: 1
+    var apply, curryLeft, filter, foldLeft, map, shiftRight;
+    OJ.makeSubNameSpace("fun");
+    OJ.fun.register("curryLeft", curryLeft = function(func) {
+      var args, slice;
+      slice = Array.prototype.slice;
+      args = slice.call(arguments_, 1);
+      return function() {
+        return func.apply(this, args.concat(slice.call(arguments_, 0)));
       };
-      OJ.extend(defaults, options);
-      while (i < OJ.number(defaults.number)) {
-        ret = OJ.element('br', defaults.props, defaults.styles, defaults.events);
-        if (owner) {
-          owner.append(ret);
-        }
-        i += 1;
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
     });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('button', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('button', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('div', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('div', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('fieldset', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          form: '',
-          disabled: '',
-          name: ''
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('fieldset', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('form', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          action: '',
-          method: '',
-          name: ''
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('form', defaults.props, defaults.styles, defaults.events);
-      ret.add('validator', ret.$.validate({
-        highlight: function(element) {
-          var $elm;
-          $elm = $(element);
-          $elm.attr('OJ_invalid', '1');
-          $elm.animate({
-            backgroundColor: 'red'
-          });
-        },
-        unhighlight: function(element) {
-          var $elm;
-          $elm = $(element);
-          if ($elm.attr('OJ_invalid') === '1') {
-            $elm.css('background-color', 'yellow');
-            $elm.attr('OJ_invalid', '0');
-            setTimeout((function() {
-              $elm.animate({
-                backgroundColor: 'transparent'
-              });
-            }), 500);
-          }
-        }
-      }));
-      ret.add('isFormValid', function() {
-        return ret.$.valid() && (!ret.validator.invalidElements() || ret.validator.invalidElements().length === 0);
+    OJ.fun.register("foldLeft", foldLeft = function(func, newArray, oldArray) {
+      var accumulation;
+      accumulation = newArray;
+      OJ.each(oldArray, function(val) {
+        accumulation = func(accumulation, val);
       });
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
+      return accumulation;
+    });
+    OJ.fun.register("map", map = function(func, array) {
+      var onIteration;
+      onIteration = function(accumulation, val) {
+        return accumulation.concat(func(val));
+      };
+      return OJ.fun.foldLeft(onIteration, [], array);
+    });
+    OJ.fun.register("filter", filter = function(func, array) {
+      var onIteration;
+      onIteration = function(accumulation, val) {
+        if (func(val)) {
+          return accumulation.concat(val);
+        } else {
+          return accumulation;
+        }
+      };
+      return OJ.fun.foldLeft(onIteration, [], array);
+    });
+    OJ.fun.register("shiftRight", shiftRight = function(shiftFunc, firstParam, originalArguments, context) {
+      var args;
+      context = context || this;
+      args = Array.prototype.slice.call(originalArguments, 0);
+      args.unshift(firstParam);
+      return shiftFunc.apply(context, args);
+    });
+    OJ.fun.register("apply", apply = function(applyFunc, originalArguments, context) {
+      var args;
+      context = context || this;
+      args = Array.prototype.slice.call(originalArguments, 0);
+      return applyFunc.apply(context, args);
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
@@ -2215,814 +3497,411 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-    'use strict';
-    OJ.nodes.register('img', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
+    OJ.is.register('bool', function(boolean) {
+      'use strict';
+      return _.isBoolean(boolean);
+    });
+    OJ.is.register('arrayNullOrEmpty', function(arr) {
+      'use strict';
+      return !Array.isArray(arr) || !arr || !arr.length || arr.length === 0 || !arr.push;
+    });
+    OJ.is.register('stringNullOrEmpty', function(str) {
+      'use strict';
+      return str && (!str.length || str.length === 0 || !str.trim || !str.trim());
+    });
+    OJ.is.register('numberNullOrEmpty', function(num) {
+      'use strict';
+      return !num || isNaN(num) || !num.toPrecision;
+    });
+    OJ.is.register('dateNullOrEmpty', function(dt) {
+      'use strict';
+      return !dt || !dt.getTime;
+    });
+    OJ.is.register('objectNullOrEmpty', function(obj) {
+      'use strict';
+      return _.isEmpty(obj || !Object.keys(obj) || Object.keys(obj).length === 0);
+    });
+    OJ.is.register('plainObject', function(obj) {
+      'use strict';
+      return _.isPlainObject(obj);
+    });
+    OJ.is.register('date', function(dt) {
+      return _.isDate(dt);
+    });
+
+    /*
+    Determines if a value is an instance of a Number and not NaN*
+     */
+    OJ.is.register('number', function(num) {
+      return typeof num === 'number' && false === (OJ.number.isNaN(num) || false === OJ.number.isFinite(num) || OJ.number.MAX_VALUE === num || OJ.number.MIN_VALUE === num);
+    });
+
+    /*
+    Determines if a value is convertable to a Number
+     */
+    OJ.is.register('numeric', function(num) {
+      var nuNum, ret;
+      ret = OJ.is.number(num);
+      if (!ret) {
+        nuNum = OJ.to.number(num);
+        ret = OJ.is.number(nuNum);
       }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          src: "",
-          alt: "",
-          title: "",
-          height: "",
-          ismap: "",
-          usemap: "",
-          border: 0,
-          width: ""
+      return ret;
+    });
+    OJ.is.register('vendorObject', function(obj) {
+      'use strict';
+      var ret;
+      ret = obj instanceof OJ['?'];
+      return ret;
+    });
+    OJ.is.register('elementInDom', function(elementId) {
+      return false === OJ.is.nullOrEmpty(document.getElementById(elementId));
+    });
+    OJ.is.register('generic', function(obj) {
+      'use strict';
+      var ret;
+      ret = false === OJ.is['function'](obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
+      return ret;
+    });
+    OJ.is.register('array', function(obj) {
+      return _.isArray(obj);
+    });
+    OJ.is.register('string', function(str) {
+      return _.isString(str);
+    });
+    OJ.is.register('true', function(obj) {
+      'use strict';
+      return obj === true || obj === 'true' || obj === 1 || obj === '1';
+    });
+    OJ.is.register('false', function(obj) {
+      'use strict';
+      return obj === false || obj === 'false' || obj === 0 || obj === '0';
+    });
+    OJ.is.register('trueOrFalse', function(obj) {
+      'use strict';
+      return OJ.is["true"](obj || OJ.is["false"](obj));
+    });
+    OJ.is.register('nullOrEmpty', function(obj, checkLength) {
+      'use strict';
+      return _.isEmpty(obj || _.isUndefined(obj || _.isNull(obj || _.isNaN(obj))));
+    });
+    OJ.is.register('instanceof', function(name, obj) {
+      'use strict';
+      return obj.type === name || obj instanceof name;
+    });
+    OJ.is.register('func', function(obj) {
+      'use strict';
+      return _.isFunction(obj);
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var slice;
+    slice = Array.prototype.slice;
+
+    /*
+    Take an arguments object and convert it into an Array
+     */
+    OJ.register("getArguments", function(args, sliceAt) {
+      'use strict';
+      var ret;
+      sliceAt = sliceAt || 0;
+      ret = slice.call(args, sliceAt);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var number;
+    number = Object.create(null);
+    Object.defineProperty(number, "isNaN", {
+      value: (Number && Number.isNaN ? Number.isNaN : isNaN)
+    });
+    Object.defineProperty(number, "isFinite", {
+      value: (Number && Number.isFinite ? Number.isFinite : isFinite)
+    });
+    Object.defineProperty(number, "MAX_VALUE", {
+      value: (Number && Number.MAX_VALUE ? Number.MAX_VALUE : 1.7976931348623157e+308)
+    });
+    Object.defineProperty(number, "MIN_VALUE", {
+      value: (Number && Number.MIN_VALUE ? Number.MIN_VALUE : 5e-324)
+    });
+    OJ.register("number", number);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.register("delimitedString", function(string, opts) {
+      var nsInternal, nsRet;
+      nsInternal = {
+        newLineToDelimiter: true,
+        spaceToDelimiter: true,
+        removeDuplicates: true,
+        delimiter: ",",
+        initString: OJ.to.string(string)
+      };
+      nsRet = {
+        array: [],
+        delimited: function() {
+          return nsRet.array.join(nsInternal.delimiter);
         },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('img', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  var __slice = [].slice;
-
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('input', function(options, owner, calledFromFactory) {
-      var change, click, defaults, newChange, newClick, ret, syncValue, value;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          type: OJ.enums.inputTypes.text,
-          placeholder: "",
-          value: "",
-          size: "",
-          maxlength: "",
-          autofocus: false,
-          autocomplete: "on",
-          checked: false
+        string: function(delimiter) {
+          var ret;
+          delimiter = delimiter || nsInternal.delimiter;
+          ret = "";
+          OJ.each(nsRet.array, function(val) {
+            if (ret.length > 0) {
+              ret += delimiter;
+            }
+            ret += val;
+          });
+          return ret;
         },
-        styles: {},
-        events: {
-          click: _.noop,
-          change: _.noop,
-          keyenter: _.noop,
-          keyup: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      value = defaults.props.value;
-      syncValue = function() {
-        switch (defaults.props.type) {
-          case OJ.enums.inputTypes.checkbox:
-            return value = ret.$.is(":checked");
-          case OJ.enums.inputTypes.radio:
-            return value = ret.$.find(":checked").val();
-          default:
-            return value = ret.val();
-        }
-      };
-      if (defaults.events.click !== _.noop) {
-        click = defaults.events.click;
-        newClick = function() {
-          var event, retval;
-          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-          retval = click.apply(null, event);
-          syncValue();
-          return retval;
-        };
-        defaults.events.click = newClick;
-      }
-      if (defaults.events.change !== _.noop) {
-        change = defaults.events.change;
-        newChange = function() {
-          var event, retval;
-          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-          retval = change.apply(null, event);
-          syncValue();
-          return retval;
-        };
-        defaults.events.change = newChange;
-      }
-      ret = OJ.element('input', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('label', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          forAttr: "",
-          form: "",
-          text: ""
+        toString: function() {
+          return nsRet.string();
         },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('label', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('legend', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          form: '',
-          disabled: ''
+        add: function(str) {
+          nsRet.array.push(nsInternal.parse(str));
+          nsInternal.deleteDuplicates();
+          return nsRet;
         },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('legend', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('li', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('li', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('ol', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('ol', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('option', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          value: '',
-          text: '',
-          selected: '',
-          disabled: ''
+        remove: function(str) {
+          var remove;
+          remove = function(array) {
+            return array.filter(function(item) {
+              if (item !== str) {
+                return true;
+              }
+            });
+          };
+          nsRet.array = remove(nsRet.array);
+          return nsRet;
         },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('option', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('p', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('p', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  var __slice = [].slice;
-
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('select', function(options, owner, calledFromFactory) {
-      var change, click, defaults, hasEmpty, newChange, newClick, ret, syncValue, value, values;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          selected: '',
-          multiple: false
+        count: function() {
+          return nsRet.array.length;
         },
-        styles: {},
-        values: [],
-        events: {
-          click: _.noop,
-          change: _.noop
+        contains: function(str, caseSensitive) {
+          var isCaseSensitive, match;
+          isCaseSensitive = OJ.to.bool(caseSensitive);
+          str = OJ.string(str).trim();
+          if (false === isCaseSensitive) {
+            str = str.toLowerCase();
+          }
+          match = nsRet.array.filter(function(matStr) {
+            return (isCaseSensitive && OJ.to.string(matStr).trim() === str) || OJ.to.string(matStr).trim().toLowerCase() === str;
+          });
+          return match.length > 0;
+        },
+        each: function(callBack) {
+          return nsRet.array.forEach(callBack);
         }
       };
-      OJ.extend(defaults, options);
-      value = '';
-      values = [];
-      hasEmpty = false;
-      syncValue = function() {
-        return value = ret.val();
+      nsInternal.parse = function(str) {
+        var ret;
+        ret = OJ.to.string(str);
+        if (nsInternal.newLineToDelimiter) {
+          while (ret.indexOf("\n") !== -1) {
+            ret = ret.replace(/\n/g, nsInternal.delimiter);
+          }
+        }
+        if (nsInternal.spaceToDelimiter) {
+          while (ret.indexOf(" ") !== -1) {
+            ret = ret.replace(RegExp(" ", "g"), nsInternal.delimiter);
+          }
+        }
+        while (ret.indexOf(",,") !== -1) {
+          ret = ret.replace(/,,/g, nsInternal.delimiter);
+        }
+        return ret;
       };
-      if (defaults.events.click !== _.noop) {
-        click = defaults.events.click;
-        newClick = function() {
-          var event, retval;
-          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-          retval = click.apply(null, event);
-          syncValue();
-          return retval;
-        };
-        defaults.events.click = newClick;
+      nsInternal.deleteDuplicates = function() {
+        if (nsInternal.removeDuplicates) {
+          (function() {
+            var unique;
+            unique = function(array) {
+              var seen;
+              seen = new Set();
+              return array.filter(function(item) {
+                if (false === seen.has(item)) {
+                  seen.add(item);
+                  return true;
+                }
+              });
+            };
+            nsRet.array = unique(nsRet.array);
+          })();
+        }
+      };
+      (function(a) {
+        var delimitedString;
+        if (a.length > 1 && false === OJ.is.plainObject(opts)) {
+          OJ.each(a, function(val) {
+            if (false === OJ.is.nullOrEmpty(val)) {
+              nsRet.array.push(val);
+            }
+          });
+        } else if (string && string.length > 0) {
+          OJ.extend(nsInternal, opts);
+          delimitedString = nsInternal.parse(string);
+          nsInternal.initString = delimitedString;
+          nsRet.array = delimitedString.split(nsInternal.delimiter);
+        }
+        nsInternal.deleteDuplicates();
+      })(arguments_);
+      return nsRet;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.to.register("bool", function(str) {
+      var retBool;
+      retBool = OJ.is["true"](str);
+      if (retBool === false || retBool !== true) {
+        retBool = false;
       }
-      if (defaults.events.change !== _.noop) {
-        change = defaults.events.change;
-        newChange = function() {
-          var event, retval;
-          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-          retval = change.apply(null, event);
-          syncValue();
-          return retval;
-        };
-        defaults.events.change = newChange;
+      return retBool;
+    });
+    OJ.to.register("ES5_ToBool", function(val) {
+      return val !== false && val !== 0 && val !== "" && val !== null && val !== undefined && (typeof val !== "number" || !isNaN(val));
+    });
+    OJ.to.register("dateFromTicks", function(tickStr) {
+      var arr, localOffset, offset, ret, ticks, ticsDateTime;
+      ticsDateTime = OJ.string(tickStr);
+      ret = void 0;
+      ticks = void 0;
+      offset = void 0;
+      localOffset = void 0;
+      arr = void 0;
+      if (false === OJ.is.nullOrEmpty(ticsDateTime)) {
+        ticsDateTime = ticsDateTime.replace("/", "");
+        ticsDateTime = ticsDateTime.replace("Date", "");
+        ticsDateTime = ticsDateTime.replace("(", "");
+        ticsDateTime = ticsDateTime.replace(")", "");
+        arr = ticsDateTime.split("-");
+        if (arr.length > 1) {
+          ticks = OJ.number(arr[0]);
+          offset = OJ.number(arr[1]);
+          localOffset = new Date().getTimezoneOffset();
+          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
+        } else if (arr.length === 1) {
+          ticks = OJ.number(arr[0]);
+          ret = new Date(ticks);
+        }
       }
-      ret = OJ.element('select', defaults.props, defaults.styles, defaults.events);
-      ret.add('selectedData', function(propName) {
-        var dataset;
-        ret = '';
-        if (ret.$.find('option:selected') && ret.$.find('option:selected')[0]) {
-          dataset = ret.$.find('option:selected')[0].dataset;
-          if (dataset) {
-            ret = dataset[propName];
+      return ret;
+    });
+    OJ.to.register("binary", function(obj) {
+      var ret;
+      ret = NaN;
+      if (obj === 0 || obj === "0" || obj === "" || obj === false || OJ.to.string(obj).toLowerCase().trim() === "false") {
+        ret = 0;
+      } else {
+        if (obj === 1 || obj === "1" || obj === true || OJ.to.string(obj).toLowerCase().trim() === "true") {
+          ret = 1;
+        }
+      }
+      return ret;
+    });
+
+    /*
+    Attempts to converts an arbitrary value to a Number.
+    Loose falsy values are converted to 0.
+    Loose truthy values are converted to 1.
+    All other values are parsed as Integers.
+    Failures return as NaN.
+     */
+    OJ.to.register("number", function(inputNum, defaultNum) {
+      var retVal, tryGetNumber;
+      tryGetNumber = function(val) {
+        var ret, tryGet;
+        ret = NaN;
+        if (OJ.is.number(val)) {
+          ret = val;
+        } else if (OJ.is.string(val) || OJ.is.bool(val)) {
+          tryGet = function(value) {
+            var num;
+            num = OJ.to.binary(value);
+            if (!OJ.is.number(num) && value) {
+              num = +value;
+            }
+            if (!OJ.is.number(num)) {
+              num = _.parseInt(value, 0);
+            }
+            return num;
+          };
+          ret = tryGet(val);
+        }
+        return ret;
+      };
+      retVal = tryGetNumber(inputNum);
+      if (!OJ.is.number(retVal)) {
+        retVal = tryGetNumber(defaultNum);
+        if (!OJ.is.number(retVal)) {
+          retVal = Number.NaN;
+        }
+      }
+      return retVal;
+    });
+    OJ.to.register("string", function(inputStr, defaultStr) {
+      var ret1, ret2, retVal, tryGetString;
+      tryGetString = function(str) {
+        var ret;
+        ret = void 0;
+        if (OJ.is.string(str)) {
+          ret = str;
+        } else {
+          ret = "";
+          if (OJ.is.bool(str) || OJ.is.number(str) || OJ.is.date(str)) {
+            ret = str.toString();
           }
         }
         return ret;
-      });
-      ret.add('selectedText', function() {
-        return ret.$.find('option:selected').text();
-      });
-      ret.add('selectedVal', function() {
-        value = ret.val();
-        return value;
-      });
-      ret.add('addOption', function(value, text, selected, disabled) {
-        var add, isEmpty, option, val;
-        if (selected == null) {
-          selected = false;
-        }
-        if (disabled == null) {
-          disabled = false;
-        }
-        isEmpty = _.isEmpty(value);
-        add = false;
-        if (isEmpty && false === hasEmpty) {
-          hasEmpty = true;
-          add = true;
-        }
-        if (false === add && false === isEmpty) {
-          add = true;
-        }
-        if (add) {
-          val = {
-            props: {
-              value: value,
-              text: text,
-              selected: selected,
-              disabled: disabled
-            }
-          };
-          option = ret.option(val);
-          return option;
-        }
-      });
-      ret.add('addOptions', function(options) {
-        values = _.union(values, options);
-        OJ.each(options, (function(val) {
-          value = ret.addOption(val);
-          values.push(value);
-        }), false);
-        return values;
-      });
-      ret.add('resetOptions', function(values) {
-        ret.empty();
-        values = values;
-        return ret.addOptions(values);
-      });
-      OJ.tryExec(ojInternal.onComplete, ret.selectedVal());
-      ret;
-      ret.add('removeOption', function(valueToRemove) {
-        var i, selectControl;
-        values.splice(values.indexOf(valueToRemove), 1);
-        selectControl = ret[0];
-        i = 0;
-        while (i < selectControl.length) {
-          if (selectControl.options[i].value === valueToRemove) {
-            selectControl.remove(i);
-          }
-          i++;
-        }
-      });
-      if (owner) {
-        owner.append(ret);
+      };
+      ret1 = tryGetString(inputStr);
+      ret2 = tryGetString(defaultStr);
+      retVal = "";
+      if (ret1.length !== 0) {
+        retVal = ret1;
+      } else if (ret1 === ret2 || ret2.length === 0) {
+        retVal = ret1;
+      } else {
+        retVal = ret2;
       }
-      if (defaults.values.length > 0) {
-        ret.addOptions(defaults.values);
+      return retVal;
+    });
+    OJ.to.register("vendorDomObject", function(id) {
+      var base, ret, _$el;
+      ret = null;
+      base = "#";
+      if (id === "body") {
+        base = "";
       }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
+      _$el = OJ["?"](base + id);
+      if (_$el) {
+        ret = _$el;
       }
       return ret;
     });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('span', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('span', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
+    OJ.to.register("vendorDomObjFromString", function(html) {
+      var ret, _$el;
+      ret = null;
+      _$el = OJ["?"](html);
+      if (_$el) {
+        ret = _$el;
       }
       return ret;
     });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('svg', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('svg', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('table', function(options, owner, calledFromFactory) {
-      var defaults, firstRow, ret, rows, tbody;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          cellpadding: 0,
-          cellspacing: 0,
-          align: "",
-          width: "",
-          cellalign: "left",
-          cellvalign: "top"
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        },
-        cells: {
-          "class": "",
-          align: '',
-          'vertical-align': '',
-          cellpadding: '',
-          margin: ''
-        },
-        firstAlignRight: false,
-        oddAlignRight: false
-      };
-      rows = [];
-      OJ.extend(defaults, options);
-      ret = OJ.element('table', defaults.props, defaults.styles, defaults.events);
-      tbody = OJ.nodes.tbody({}, ret, false);
-      firstRow = OJ.node.tr({}, tbody, false);
-      rows.push(firstRow);
-      ret.add('cell', function(row, col) {
-        var cell;
-        row = rows[row];
-        if (!row) {
-          while (rows.length < row) {
-            row = OJ.node.tr({}, tbody, false);
-            rows.push(row);
-          }
-        }
-        cell = row.cells[col];
-        if (!cell) {
-          while (rows.cells.length < col) {
-            cell = OJ.node.td({
-              props: defaults.cells
-            }, row, false);
-          }
-        }
-        OJ.nodes.factory(cell, row);
-        return cell;
-      });
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('tbody', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('tbody', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('td', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('td', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  var __slice = [].slice;
-
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('textarea', function(options, owner, calledFromFactory) {
-      var change, click, defaults, newChange, newClick, ret, syncValue, value;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          name: "",
-          placeholder: "",
-          value: "",
-          text: "",
-          maxlength: "",
-          autofocus: false,
-          isRequired: false,
-          rows: 3,
-          cols: 25,
-          disabled: false,
-          readonly: false,
-          form: "",
-          wrap: ""
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      value = defaults.props.value;
-      syncValue = function() {
-        switch (defaults.props.type) {
-          case OJ.enums.inputTypes.checkbox:
-            return value = ret.$.is(":checked");
-          case OJ.enums.inputTypes.radio:
-            return value = ret.$.find(":checked").val();
-          default:
-            return value = ret.val();
-        }
-      };
-      if (defaults.events.click !== _.noop) {
-        click = defaults.events.click;
-        newClick = function() {
-          var event, retval;
-          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-          retval = click.apply(null, event);
-          syncValue();
-          return retval;
-        };
-        defaults.events.click = newClick;
-      }
-      if (defaults.events.change !== _.noop) {
-        change = defaults.events.change;
-        newChange = function() {
-          var event, retval;
-          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-          retval = change.apply(null, event);
-          syncValue();
-          return retval;
-        };
-        defaults.events.change = newChange;
-      }
-      ret = OJ.element('textarea', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('tr', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('tr', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.nodes.register('ul', function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.element('ul', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret);
-      }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);

@@ -50,7 +50,7 @@
         ret = window.$.parseJSON(data)
         return
 
-      ret = {}  if OJ.isNullOrEmpty(ret)
+      ret = {}  if OJ.is.nullOrEmpty(ret)
     ret
 
   OJ.register 'params', (data, delimiter) ->
@@ -71,7 +71,7 @@
 
   OJ.register 'extend', (destObj, srcObj, deepCopy) ->
     ret = destObj or {}
-    if arguments_.length is 3
+    if arguments.length is 3
       ret = $.extend(OJ.bool(deepCopy), ret, srcObj)
     else
       ret = $.extend(ret, srcObj)

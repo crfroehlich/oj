@@ -13,7 +13,7 @@
     while i < OJ.number defaults.number
       # In the case of multiple brs, it is desirable to only get the last one out
       ret = OJ.element 'br', defaults.props, defaults.styles, defaults.events
-      if owner then owner.append ret
+      if owner then owner.append ret[0]
       i += 1
 
     if false is calledFromFactory then OJ.nodes.factory ret, owner
