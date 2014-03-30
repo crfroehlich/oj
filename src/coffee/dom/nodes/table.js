@@ -3,7 +3,7 @@
   (function(OJ) {
     'use strict';
     OJ.nodes.register('table', function(options, owner, calledFromFactory) {
-      var defaults, firstRow, ret, rows, tbody;
+      var defaults, init, isInit, ret, rows, tbody;
       if (owner == null) {
         owner = OJ.body;
       }
@@ -36,27 +36,42 @@
       rows = [];
       OJ.extend(defaults, options);
       ret = OJ.element('table', defaults.props, defaults.styles, defaults.events);
-      tbody = OJ.nodes.tbody({}, ret, false);
-      firstRow = OJ.nodes.tr({}, tbody, false);
-      rows.push(firstRow);
-      ret.add('cell', function(row, col) {
-        var cell;
-        row = rows[row];
+      tbody = null;
+      isInit = false;
+      init = function() {
+        tbody = OJ.nodes.tbody({}, ret, false);
+        rows.push(OJ.nodes.tr({}, tbody, false));
+      };
+      ret.add('cell', function(rowNo, colNo) {
+        var cell, row;
+        if (false === isInit) {
+          init();
+          isInit = true;
+        }
+        if (rowNo < 1) {
+          rowNo = 1;
+        }
+        if (colNo < 1) {
+          colNo = 1;
+        }
+        row = rows[rowNo];
         if (!row) {
-          while (rows.length < row) {
+          while (rows.length < rowNo) {
             row = OJ.nodes.tr({}, tbody, false);
             rows.push(row);
           }
         }
-        cell = row.cells[col];
+        cell = row[0].cells[colNo];
         if (!cell) {
-          while (rows.cells.length < col) {
+          while (row[0].cells.length < colNo) {
             cell = OJ.nodes.td({
               props: defaults.cells
             }, row, false);
           }
         }
-        OJ.nodes.factory(cell, row);
+        if (!cell.isValid) {
+          OJ.nodes.factory(cell, row, rowNo + colNo);
+        }
         return cell;
       });
       if (owner) {
