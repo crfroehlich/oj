@@ -39,6 +39,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="dist\404.html" />
+    <Content Include="dist\complete.js" />
+    <Content Include="dist\complete.min.js" />
     <Content Include="dist\crossdomain.xml" />
     <Content Include="dist\release.html" />
     <Content Include="dist\humans.txt" />
@@ -85,7 +87,9 @@
     <Content Include="doc_template\template\static\styles\site.united.css" />
     <Content Include="doc_template\template\static\styles\sunlight.dark.css" />
     <Content Include="doc_template\template\static\styles\sunlight.default.css" />
-    <Content Include="gulpfile.js" />
+    <Content Include="gulpfile.js">
+      <DependentUpon>gulpfile.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\core\common\array.map">
       <DependentUpon>array.coffee</DependentUpon>
     </Content>
@@ -194,6 +198,10 @@
     </Content>
     <Content Include="src\coffee\core\db\dbTable.js.map">
       <DependentUpon>dbTable.coffee</DependentUpon>
+    </Content>
+    <Content Include="gulpfile.coffee" />
+    <Content Include="gulpfile.map">
+      <DependentUpon>gulpfile.coffee</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">
@@ -597,7 +605,6 @@
       <DependentUpon>webWorkerXHR.coffee</DependentUpon>
     </Content>
     <Content Include="src\workers\xhrWorker.js" />
-    <Content Include="test\core\test.indexedDb.js" />
     <Content Include="src\coffee\dom\dom.coffee" />
     <Content Include="src\coffee\core\enums.coffee" />
     <Content Include="src\archive\core\error.coffee" />
@@ -742,6 +749,13 @@
     <Content Include="test\node\test.node.map">
       <DependentUpon>test.node.coffee</DependentUpon>
     </Content>
+    <Content Include="web.config" />
+    <None Include="web.Debug.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
+    <None Include="web.Release.config">
+      <DependentUpon>web.config</DependentUpon>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

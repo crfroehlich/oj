@@ -19,6 +19,16 @@ cell11 = div.table()
 span = cell11.span().text 'Aloha! Ahoy! Hola! Prevet!'
 ...
 div.loginDialog { pass: loadMainPage, fail: div.loginDialog }
+```coffee
+div = OJ.node.make "body"
+  .div()
+  .text "Aloha! Ahoy! Hola! Prevet!"
+cell11 = div.table()
+  .cell 1, 1
+  .text 'Ahoy, column 1, row 1!'
+span = cell11.span().text 'Aloha! Ahoy! Hola! Prevet!'
+...
+div.loginDialog { pass: loadMainPage, fail: div.loginDialog }
 ```
 
 OJ is written in CoffeeScript. The distribution folder has the complete CS and JS for the project. 
@@ -32,7 +42,7 @@ By design, OJ handles the generation of unique element IDs for every DOM node au
 This provides faster lookups in the internal API and encourages you to reference nodes in memory as opposed to relying on "truth in DOM". 
 For example, while you might write something like the following in jQuery:
 
-```
+```coffee
 jQuery '#myHolaDiv'
   .append '<div id="leavingDiv">Leaving...</div>'
 jQuery '#myHolaDiv'
@@ -43,7 +53,7 @@ jQuery '#myHolaDiv'
 
 And at some point later fetch the node from the DOM:
 
-```
+```coffee
 leaving = jQuery '#leavingDiv' 
   .hide();
 ```
@@ -51,7 +61,7 @@ leaving = jQuery '#leavingDiv'
 In OJ, this is generally discouraged. Node lookups by ID are possible (if you maintain a reference to the ID), 
 but it is usually better to chain in memory, preserving a reference to the object:
 
-```
+```coffee
 myHolaDiv = OJ.nodes.div();
 myHolaDiv.div()
   .text 'Leaving...'
@@ -67,7 +77,7 @@ In OJ, every node wrapper represents a specific type of DOM node (e.g. DIV, SPAN
 that you might get from the jQuery API but also a highly constrained, strongly validated superset of methods 
 that are specific to the type of the node. For example, nothing (apart from reason) prevents one from writing this in jQuery:
 
-```
+```coffee
 table = jQuery '<table></table>'
 div = jQuery '<div></div>'
 table.append div
@@ -75,7 +85,7 @@ table.append div
 
 In OJ, the div method does not exist on the table class and thus will generate an exception:
 
-```
+```coffee
 table = OJ.nodes.table()
 table.div() #throws new TypeError: Object [object global] has no method 'div'
 ```

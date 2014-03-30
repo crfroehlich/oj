@@ -2,159 +2,159 @@
 (function() {
   var autoprefixer, bump, cache, clean, coffee, coffeelint, concat, debug, extended, files, git, gulp, gulpBowerFiles, gutil, header, imagemin, inject, js2coffee, jshint, less, livereload, lr, minifyCss, notify, path, paths, plugins, plumber, qunit, rename, server, succint, uglify, watch, wiredep;
 
-  gulp = require("gulp");
+  gulp = require('gulp');
 
-  less = require("gulp-less");
+  less = require('gulp-less');
 
-  autoprefixer = require("gulp-autoprefixer");
+  autoprefixer = require('gulp-autoprefixer');
 
-  minifyCss = require("gulp-minify-css");
+  minifyCss = require('gulp-minify-css');
 
-  jshint = require("gulp-jshint");
+  jshint = require('gulp-jshint');
 
-  uglify = require("gulp-uglify");
+  uglify = require('gulp-uglify');
 
-  gutil = require("gulp-util");
+  gutil = require('gulp-util');
 
-  imagemin = require("gulp-imagemin");
+  imagemin = require('gulp-imagemin');
 
-  rename = require("gulp-rename");
+  rename = require('gulp-rename');
 
-  clean = require("gulp-clean");
+  clean = require('gulp-clean');
 
-  concat = require("gulp-concat");
+  concat = require('gulp-concat');
 
-  notify = require("gulp-notify");
+  notify = require('gulp-notify');
 
-  cache = require("gulp-cache");
+  cache = require('gulp-cache');
 
-  livereload = require("gulp-livereload");
+  livereload = require('gulp-livereload');
 
-  lr = require("tiny-lr");
+  lr = require('tiny-lr');
 
-  plugins = require("gulp-load-plugins")();
+  plugins = require('gulp-load-plugins')();
 
-  path = require("path");
+  path = require('path');
 
-  gulpBowerFiles = require("gulp-bower-files");
+  gulpBowerFiles = require('gulp-bower-files');
 
-  wiredep = require("wiredep");
+  wiredep = require('wiredep');
 
-  coffee = require("gulp-coffee");
+  coffee = require('gulp-coffee');
 
-  coffeelint = require("gulp-coffeelint");
+  coffeelint = require('gulp-coffeelint');
 
-  debug = require("gulp-debug");
+  debug = require('gulp-debug');
 
-  inject = require("gulp-inject");
+  inject = require('gulp-inject');
 
-  git = require("gulp-git");
+  git = require('gulp-git');
 
-  bump = require("gulp-bump");
+  bump = require('gulp-bump');
 
-  qunit = require("gulp-qunit");
+  qunit = require('gulp-qunit');
 
-  header = require("gulp-header");
+  header = require('gulp-header');
 
-  watch = require("gulp-watch");
+  watch = require('gulp-watch');
 
-  plumber = require("gulp-plumber");
+  plumber = require('gulp-plumber');
 
-  js2coffee = require("gulp-js2coffee");
+  js2coffee = require('gulp-js2coffee');
 
   server = lr();
 
-  extended = ["/**", " * <%= pkg.name %> - <%= pkg.description %>", " * @version v<%= pkg.version %>", " * @link <%= pkg.homepage %>", " * @license <%= pkg.license %>", " */", ""].join("\n");
+  extended = ['/**', ' * <%= pkg.name %> - <%= pkg.description %>', ' * @version v<%= pkg.version %>', ' * @link <%= pkg.homepage %>', ' * @license <%= pkg.license %>', ' */', ''].join('\n');
 
-  succint = "// <%= pkg.name %>@v<%= pkg.version %>, <%= pkg.license %> licensed. <%= pkg.homepage %>\n";
+  succint = '// <%= pkg.name %>@v<%= pkg.version %>, <%= pkg.license %> licensed. <%= pkg.homepage %>\n';
 
   paths = {
-    css: "./src/css",
-    js: "./src/coffee",
-    release: "./dist",
-    lib: "./bower_components",
-    less: "./src/less",
-    coffee: "./src/coffee",
-    src: "./src",
-    test: "./test"
+    css: './src/css',
+    js: './src/coffee',
+    release: './dist',
+    lib: './bower_components',
+    less: './src/less',
+    coffee: './src/coffee',
+    src: './src',
+    test: './test'
   };
 
   files = {
-    css: "./src/less/**/*.css",
-    index: "./dist/release.html",
-    devIndex: "./src/dev.html",
-    testIndex: "./test/test.html",
-    testIndexCoffee: "./test/test.coffee.html",
-    js: "src/coffee/**/*.js",
-    coffee: "./src/coffee/**/*.coffee",
-    less: ".src/less/**/*.less",
-    test: "./test/**/*.coffee*/"
+    css: './src/less/**/*.css',
+    index: './dist/release.html',
+    devIndex: './src/dev.html',
+    testIndex: './test/test.html',
+    testIndexCoffee: './test/test.coffee.html',
+    js: 'src/coffee/**/*.js',
+    coffee: './src/coffee/**/*.coffee',
+    less: '.src/less/**/*.less',
+    test: './test/**/*.coffee*/'
   };
 
-  gulp.task("less", function() {
-    gulp.src("./less/**/*.less").pipe(less({
-      paths: [path.join("./custom/", "less", "includes")],
+  gulp.task('less', function() {
+    gulp.src('./less/**/*.less').pipe(less({
+      paths: [path.join('./custom/', 'less', 'includes')],
       sourceMap: true
     })).pipe(header(extended, {
       pkg: pkg
-    })).pipe(gulp.dest("./dist")).pipe(gulp.dest(paths.release)).pipe(rename({
-      suffix: ".min"
+    })).pipe(gulp.dest('./dist')).pipe(gulp.dest(paths.release)).pipe(rename({
+      suffix: '.min'
     })).pipe(minifyCss({
       processImport: false
     })).pipe(gulp.dest(paths.release)).pipe(notify({
-      message: "LESS to CSS conversion complete."
-    })).on("error", gutil.log);
+      message: 'LESS to CSS conversion complete.'
+    })).on('error', gutil.log);
   });
 
-  gulp.task("inject", function() {
+  gulp.task('inject', function() {
     gulp.src(files.devIndex).pipe(inject(gulp.src([files.js, files.css], {
       read: false
     }), {
       addRootSlash: false,
-      addPrefix: ".."
+      addPrefix: '..'
     })).pipe(gulp.dest(paths.src)).pipe(notify({
-      message: "dev.html includes dynamically injected."
-    })).on("error", gutil.log);
+      message: 'dev.html includes dynamically injected.'
+    })).on('error', gutil.log);
     gulp.src(files.testIndexCoffee).pipe(inject(gulp.src([files.coffee, files.test, files.css], {
       read: false
     }), {
       addRootSlash: false,
-      addPrefix: ".."
+      addPrefix: '..'
     })).pipe(gulp.dest(paths.test)).pipe(notify({
-      message: "test.coffee.html includes dynamically injected."
-    })).on("error", gutil.log);
-    gulp.src(files.testIndex).pipe(inject(gulp.src([files.js, "./test/**/*.js*/", files.css], {
+      message: 'test.coffee.html includes dynamically injected.'
+    })).on('error', gutil.log);
+    gulp.src(files.testIndex).pipe(inject(gulp.src([files.js, './test/**/*.js*/', files.css], {
       read: false
     }), {
       addRootSlash: false,
-      addPrefix: ".."
+      addPrefix: '..'
     })).pipe(gulp.dest(paths.test)).pipe(notify({
-      message: "test.html includes dynamically injected."
-    })).on("error", gutil.log);
-    gulp.src(files.index).pipe(inject(gulp.src(["./dist/**/*.min*"], {
+      message: 'test.html includes dynamically injected.'
+    })).on('error', gutil.log);
+    gulp.src(files.index).pipe(inject(gulp.src(['./dist/**/*.min*'], {
       read: false
     }), {
       addRootSlash: false,
-      addPrefix: ".."
+      addPrefix: '..'
     })).pipe(gulp.dest(paths.release)).pipe(notify({
-      message: "release.html includes dynamically injected."
-    })).on("error", gutil.log);
+      message: 'release.html includes dynamically injected.'
+    })).on('error', gutil.log);
   });
 
-  gulp.task("concat", function() {
+  gulp.task('concat', function() {
     var pkg;
-    pkg = require("./package.json");
+    pkg = require('./package.json');
     gulp.src(files.coffee).pipe(coffee({
       map: true
-    })).pipe(plugins.concat("complete.js")).pipe(header(extended, {
+    })).pipe(plugins.concat('complete.js')).pipe(header(extended, {
       pkg: pkg
     })).pipe(gulp.dest(paths.release)).pipe(rename({
-      suffix: ".min"
+      suffix: '.min'
     })).pipe(plugins.uglify()).pipe(header(succint, {
       pkg: pkg
     })).pipe(gulp.dest(paths.release)).pipe(notify({
-      message: "CoffeeScript to JS compilation complete."
-    })).on("error", gutil.log);
+      message: 'CoffeeScript to JS compilation complete.'
+    })).on('error', gutil.log);
   });
 
 
@@ -162,26 +162,26 @@
   Inject bower dependencies
    */
 
-  gulp.task("inject-bower", function() {
+  gulp.task('inject-bower', function() {
     wiredep({
-      directory: "./bower_components",
-      bowerJson: require("./bower.json"),
-      src: "./dist/release.html"
+      directory: './bower_components',
+      bowerJson: require('./bower.json'),
+      src: './dist/release.html'
     });
     wiredep({
-      directory: "./bower_components",
-      bowerJson: require("./bower.json"),
-      src: "./src/dev.html"
+      directory: './bower_components',
+      bowerJson: require('./bower.json'),
+      src: './src/dev.html'
     });
     wiredep({
-      directory: "./bower_components",
-      bowerJson: require("./bower.json"),
-      src: "./test/test.html"
+      directory: './bower_components',
+      bowerJson: require('./bower.json'),
+      src: './test/test.html'
     });
     wiredep({
-      directory: "./bower_components",
-      bowerJson: require("./bower.json"),
-      src: "./test/test.coffee.html"
+      directory: './bower_components',
+      bowerJson: require('./bower.json'),
+      src: './test/test.coffee.html'
     });
   });
 
@@ -190,8 +190,8 @@
    Bump the version in bower and package json
    */
 
-  gulp.task("bump", function() {
-    gulp.src(["./package.json", "./bower.json"]).pipe(bump()).pipe(gulp.dest("./"));
+  gulp.task('bumpVersion', function() {
+    gulp.src(['./package.json', './bower.json']).pipe(bump()).pipe(gulp.dest('./'));
   });
 
 
@@ -199,44 +199,42 @@
    Tag the repo with a version
    */
 
-  gulp.task("tag", function() {
+  gulp.task('tag', function() {
     var message, pkg, v;
-    pkg = require("./package.json");
-    v = "v" + pkg.version;
-    message = "Release " + v;
+    pkg = require('./package.json');
+    v = 'v' + pkg.version;
+    message = 'Release ' + v;
     git.add();
     git.commit(message);
     git.tag(v, message);
-    git.push("origin", "master", "--tags");
+    git.push('origin', 'master');
   });
 
-  gulp.task("npm", function(done) {
-    require("child_process").spawn("npm", ["publish"], {
-      stdio: "inherit"
-    }).on("close", done).on("error", gutil.log);
+  gulp.task('npm', function(done) {
+    require('child_process').spawn('npm', ['publish'], {
+      stdio: 'inherit'
+    }).on('close', done).on('error', gutil.log);
   });
 
-  gulp.task("watch", function() {
-    gulp.watch(files.coffee, ["concat", "inject"]);
-    gulp.watch(files.test, ["concat", "inject"]);
-    gulp.watch(files.css, ["concat", "inject"]);
+  gulp.task('watch', function() {
+    gulp.watch(files.coffee, ['concat', 'inject']);
+    gulp.watch(files.test, ['concat', 'inject']);
+    gulp.watch(files.css, ['concat', 'inject']);
   });
 
-  gulp.task("test", function() {
-    return gulp.src("./test/test.html").pipe(qunit());
+  gulp.task('test', function() {
+    return gulp.src('./test/test.html').pipe(qunit());
   });
 
-  gulp.task("js2coffee", function() {
-    gulp.src("./src/js/**/*.js").pipe(js2coffee()).pipe(gulp.dest("./src"));
-  });
+  gulp.task('release-version', ['bump', 'tag']);
 
-  gulp.task("release-version", ["bump", "tag"]);
+  gulp.task('init', ['inject-bower']);
 
-  gulp.task("init", ["inject-bower"]);
+  gulp.task('build', ['concat', 'inject', 'watch']);
 
-  gulp.task("build", ["concat", "inject", "watch"]);
+  gulp.task('default', ['build']);
 
-  gulp.task("default", ["build"]);
+  gulp.task('bump', ['bumpVersion', 'concat', 'inject', 'tag', 'npm']);
 
 }).call(this);
 
