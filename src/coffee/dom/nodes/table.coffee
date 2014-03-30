@@ -28,22 +28,37 @@
     OJ.extend defaults, options
     ret = OJ.element 'table', defaults.props, defaults.styles, defaults.events
     
+    tbody = null
+    isInit = false
     
-    tbody = OJ.nodes.tbody {}, ret, false 
-    firstRow = OJ.nodes.tr {}, tbody, false
-    rows.push firstRow
-    
-    ret.add 'cell', (row, col) ->
-      row = rows[row]
+    init = ->
+      tbody = OJ.nodes.tbody {}, ret, false 
+      rows.push OJ.nodes.tr {}, tbody, false
+      return
+      
+    ret.add 'cell', (rowNo, colNo) ->
+      if false is isInit
+        init()
+        isInit = true
+      
+      if rowNo < 1 then rowNo = 1
+      if colNo < 1 then colNo = 1
+          
+      row = rows[rowNo]
+      
       if not row
-        while rows.length < row
+        while rows.length < rowNo
           row = OJ.nodes.tr {}, tbody, false
           rows.push row
-      cell = row.cells[col]
+      
+      cell = row[0].cells[colNo]
+      
       if not cell
-        while rows.cells.length < col
+        while row[0].cells.length < colNo
           cell = OJ.nodes.td props: defaults.cells, row, false
-      OJ.nodes.factory cell, row
+      
+      if not cell.isValid
+        OJ.nodes.factory cell, row, rowNo + colNo
       cell  
     
     if owner then owner.append ret[0]
