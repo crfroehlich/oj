@@ -1,57 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="da229945-5898-42ab-968b-3af8e0af0408" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/core/test.indexedDb.js" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Properties/AssemblyInfo.cs" afterPath="$PROJECT_DIR$/Properties/AssemblyInfo.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/a.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/a.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/array.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/common/array.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/clientDb.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/db/clientDb.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/clientDb.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/clientDb.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/db.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/db/db.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/db.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/db.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/db.js" afterPath="$PROJECT_DIR$/src/coffee/core/db/db.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbIndex.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbIndex.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbIndex.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbIndex.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbInsert.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbInsert.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbSelect.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbSelect.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbSelect.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbSelect.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbTable.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbTable.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbTable.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbTable.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dev.html" afterPath="$PROJECT_DIR$/src/dev.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/dom.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/dom.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/element.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/element.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/element.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/element.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/enums.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/enums.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/enums.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/enums.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/is.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/common/is.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/metadata/metaNode.js.map" afterPath="$PROJECT_DIR$/src/archive/metadata/metaNode.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/methods.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/common/methods.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/methods.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/common/methods.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/nodes/nodeFactory.coffee" afterPath="$PROJECT_DIR$/src/archive/nodes/nodeFactory.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/object.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/tools/object.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oj.csproj" afterPath="$PROJECT_DIR$/oj.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/ojInit.js.map" afterPath="$PROJECT_DIR$/src/coffee/ojInit.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/release.html" afterPath="$PROJECT_DIR$/dist/release.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/select.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/select.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/select.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/select.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/select.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/select.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/shims.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/tools/shims.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/table.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/table.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/table.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/table.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/table.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/table.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/table.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/table.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/node/test.node.coffee" afterPath="$PROJECT_DIR$/test/node/test.node.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/node/test.node.js.map" afterPath="$PROJECT_DIR$/test/node/test.node.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/node/test.node.js" afterPath="$PROJECT_DIR$/test/node/test.node.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/node/test.node.map" afterPath="$PROJECT_DIR$/test/node/test.node.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-    </list>
+    <list default="true" id="da229945-5898-42ab-968b-3af8e0af0408" name="Default" comment="" />
     <ignored path="oj.iws" />
     <ignored path=".idea/workspace.xml" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -299,7 +249,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="116" y="22" width="1400" height="963" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />

@@ -1,6 +1,6 @@
 /**
  * ojs - A framework for writing zero-template, zero-html, zero-css web apps in pure JavaScript.
- * @version v0.1.33
+ * @version v0.2.1
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -304,6 +304,619 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ.makeSubNameSpace("nodes");
     return OJ.makeSubNameSpace("db");
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.register('dom', function(el, parent) {
+      var enabled, getData, isControlStillValid, setData, setDataObj;
+      if (parent == null) {
+        parent = OJ.body;
+      }
+      'use strict';
+      enabled = true;
+      el.add('isValid', function() {
+        return el && el.node && el.node.el instanceof HTMLElement;
+      });
+      isControlStillValid = function() {
+        var valid;
+        valid = false === OJ.is.nullOrEmpty(el) && el.isValid();
+        if (false === valid) {
+          OJ.error.throwException('el is null. Event bindings may not have been GCd.');
+        }
+        return valid;
+      };
+      el.add('addClass', function(name) {
+        if (isControlStillValid()) {
+          el.$.addClass(name);
+        }
+        return el;
+      });
+      el.add('bind', function(eventName, event) {
+        if (isControlStillValid()) {
+          el.$.bind(eventName, event);
+        }
+        return el;
+      });
+      el.add('keyboard', function(keys, event) {
+        if (isControlStillValid()) {
+          Mousetrap.bind(keys, el[event]);
+        }
+        return el;
+      });
+      getData = function(propName) {
+        var data;
+        data = null;
+        if (isControlStillValid() && propName) {
+          if (el[0] && el[0].dataset && el[0].dataset[propName]) {
+            data = el[0].dataset.propName;
+          }
+        }
+        return data;
+      };
+      setData = function(propName, value) {
+        var data;
+        data = null;
+        if (isControlStillValid() && propName) {
+          data = value;
+          if (el[0] && el[0].dataset) {
+            el[0].dataset[propName] = value;
+          }
+        }
+        return data;
+      };
+      setDataObj = function(obj) {
+        OJ.each(obj, function(val, propName) {
+          setData(propName, val);
+        });
+        return el;
+      };
+      el.add('data', function(prop, val) {
+        var data;
+        data = '';
+        if (isControlStillValid()) {
+          if (OJ.isPlainObject(prop)) {
+            setDataObj(prop);
+          } else {
+            switch (arguments_.length) {
+              case 1:
+                data = getData(prop);
+                break;
+              case 2:
+                setData(prop, val);
+                data = el;
+            }
+          }
+        }
+        return data;
+      });
+      el.add('disable', function() {
+        if (isControlStillValid()) {
+          enabled = false;
+          el.attr('disabled', 'disabled');
+          el.addClass('disabled', 'disabled');
+        }
+        return el;
+      });
+      el.add('empty', function() {
+        if (isControlStillValid()) {
+          el.$.empty();
+        }
+        return el;
+      });
+      el.add('enable', function() {
+        if (isControlStillValid()) {
+          enabled = true;
+          el.removeAttr('disabled');
+          el.removeClass('disabled');
+        }
+        return el;
+      });
+      el.add('getId', function() {
+        var id;
+        if (isControlStillValid()) {
+          id = el[0].id;
+        }
+        return id;
+      });
+      el.add('hide', function() {
+        if (isControlStillValid()) {
+          el.css('display', 'none');
+        }
+        return el;
+      });
+      el.add('length', function() {
+        var len;
+        len = 0;
+        if (isControlStillValid()) {
+          len = OJ.number(el.$.length);
+        }
+        return len;
+      });
+      el.add('parent', parent);
+      el.add('remove', function() {
+        if (el && el.$) {
+          el.$.remove();
+          el = null;
+        }
+        return null;
+      });
+      el.add('removeClass', function(name) {
+        if (isControlStillValid()) {
+          el.$.removeClass(name);
+        }
+        return el;
+      });
+      el.add('removeProp', function(name) {
+        if (isControlStillValid()) {
+          el.$.removeProp(name);
+        }
+        return el;
+      });
+      el.add('removeAttr', function(name) {
+        if (isControlStillValid()) {
+          el.$.removeAttr(name);
+        }
+        return el;
+      });
+      el.add('required', function(truthy, addLabel) {
+        if (isControlStillValid()) {
+          switch (OJ.bool(truthy)) {
+            case true:
+              el.attr('required', true);
+              el.addClass('required');
+              break;
+            case false:
+              el.removeProp('required');
+              el.removeClass('required');
+          }
+        }
+        return el;
+      });
+      el.add('root', el.root);
+      el.add('show', function() {
+        if (isControlStillValid()) {
+          el.$.show();
+        }
+        return el;
+      });
+      el.add('toggle', function() {
+        if (isControlStillValid()) {
+          el.$.toggle();
+        }
+        return el;
+      });
+      el.add('toggleEnable', function() {
+        if (isControlStillValid()) {
+          if (enabled) {
+            el.disable();
+          } else {
+            el.enable();
+          }
+        }
+        return el;
+      });
+      el.add('trigger', function(eventName, eventOpts) {
+        if (isControlStillValid()) {
+          el.$.trigger(eventName, eventOpts);
+        }
+        return el;
+      });
+      el.add('unbind', function(eventName, event) {
+        if (isControlStillValid()) {
+          el.$.unbind(eventName, event);
+        }
+        return el;
+      });
+      el.add('val', function(value) {
+        if (isControlStillValid()) {
+          if (arguments_.length === 1 && false === OJ.isNullOrUndefined(value)) {
+            el.$.val(value);
+            return el;
+          } else {
+            return OJ.string(el.$.val());
+          }
+        }
+      });
+      el.add('valueOf', function() {
+        return el.val();
+      });
+      el.add('toString', function() {
+        return el.val();
+      });
+      return el;
+    });
+    OJ.register('isElementInDom', function(elementId) {
+      return false === OJ.is.nullOrEmpty(OJ.getElement(elementId));
+    });
+    OJ.register('getElement', function(id) {
+      if (typeof document !== 'undefined') {
+        return document.getElementById(id);
+      } else {
+        return void 0;
+      }
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  var __slice = [].slice;
+
+  (function(OJ) {
+
+    /*
+     Bind all event handlers
+     */
+    var bindEvents, body, element, thinBody;
+    bindEvents = function(el, events) {
+      if (el.node) {
+        return _.forOwn(events, function(val, key) {
+          var callback;
+          if (_.isFunction(val && val !== _.noop)) {
+            callback = function() {
+              var event;
+              event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+              return val.apply(null, event);
+            };
+            el.$.bind(key, callback);
+            el.add(key, callback);
+          }
+        });
+      }
+    };
+
+    /*
+    Create an HTML Element through ThinDom
+     */
+    element = function(tag, props, styles, events) {
+      var ret;
+      ret = OJ.object();
+      ret.add('node', new ThinDOM(tag, props));
+      ret.add('tagName', tag);
+      ret.node.css(styles);
+      ret.add('css', ret.node.css);
+      ret.add('append', ret.node.append);
+      ret.add('html', ret.node.html);
+      ret.add('text', ret.node.text);
+      ret.add('attr', ret.node.attr);
+      ret.add('$', $(ret.node.get()));
+      ret.add('0', ret.node.get());
+      bindEvents(ret, events);
+      return ret;
+    };
+    OJ.register('element', element);
+
+    /*
+    Persist a handle on the body ode
+     */
+    if (typeof document !== 'undefined') {
+      body = document.body;
+    } else {
+      body = null;
+    }
+    thinBody = new ThinDOM(null, null, body);
+    thinBody.getId = function() {
+      return 'body';
+    };
+    OJ.register('body', thinBody);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function() {
+    var controlPostProcessing, isChildNodeTypeAllowed, nestableNodeNames, nonNestableNodes;
+    nestableNodeNames = ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'fieldset', 'select', 'ol', 'ul', 'table'];
+    nonNestableNodes = ['li', 'legend', 'tr', 'td', 'option', 'body', 'head', 'source', 'tbody', 'tfoot', 'thead', 'link', 'script'];
+    isChildNodeTypeAllowed = function(parent, tagName) {
+      var allowed;
+      switch (parent.tagName) {
+        case 'body':
+          allowed = _.contains(nestableNodeNames, tagName);
+          break;
+        case 'div':
+          allowed = false === _.contains(nonNestableNodes, tagName);
+          break;
+        case 'form':
+          allowed = false === _.contains(nonNestableNodes, tagName);
+          break;
+        case 'label':
+          allowed = false === _.contains(nonNestableNodes, tagName);
+          break;
+        case 'legend':
+          allowed = false;
+          break;
+        case 'fieldset':
+          allowed = tagName === 'legend' || false === _.contains(nonNestableNodes, tagName);
+          break;
+        case 'ol':
+          allowed = tagName === 'li';
+          break;
+        case 'ul':
+          allowed = tagName === 'li';
+          break;
+        case 'li':
+          allowed = false === _.contains(nonNestableNodes, tagName);
+          break;
+        case 'table':
+          allowed = tagName === 'td' || tagName === 'tr' || tagName === 'tbody';
+          break;
+        case 'td':
+          allowed = false === _.contains(nonNestableNodes, tagName);
+          break;
+        case 'select':
+          allowed = tagName === 'option';
+          break;
+        case 'option':
+          allowed = false;
+          break;
+        case 'span':
+          allowed = false === _.contains(nonNestableNodes, tagName);
+          break;
+        case 'p':
+          allowed = false === _.contains(nonNestableNodes, tagName);
+          break;
+        default:
+          allowed = false;
+      }
+      return allowed;
+    };
+    controlPostProcessing = function(control) {};
+    OJ.nodes.register('factory', function(el, parent, count) {
+      var init, ret;
+      if (parent == null) {
+        parent = OJ.body;
+      }
+      if (count == null) {
+        count = 0;
+      }
+      init = function(node) {
+        var control, id;
+        count += 1;
+        control = OJ.dom(node, parent);
+        id = parent.getId();
+        id += control.tagName + count;
+        control.attr('id', id);
+        controlPostProcessing(control);
+        return control;
+      };
+      ret = init(el);
+
+      /*
+      An <a> node
+       */
+      if (isChildNodeTypeAllowed(el, 'a')) {
+        ret.add('a', function(opts) {
+          var nu;
+          nu = OJ.nodes.a(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <b> node
+       */
+      if (isChildNodeTypeAllowed(el, 'b')) {
+        ret.add('b', function(opts) {
+          var nu;
+          nu = OJ.nodes.b(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <br> node
+       */
+      if (isChildNodeTypeAllowed(el, 'br')) {
+        ret.add('br', function(opts) {
+          var nu;
+          nu = OJ.nodes.br(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <button> node
+       */
+      if (isChildNodeTypeAllowed(el, 'button')) {
+        ret.add('button', function(opts) {
+          var nu;
+          nu = OJ.nodes.button(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <div> node
+       */
+      if (isChildNodeTypeAllowed(el, 'div')) {
+        ret.add('div', function(opts) {
+          var nu;
+          nu = OJ.nodes.div(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <fieldset> node
+       */
+      if (isChildNodeTypeAllowed(el, 'fieldset')) {
+        ret.add('fieldset', function(opts) {
+          var nu;
+          nu = OJ.nodes.fieldset(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <form> node
+       */
+      if (isChildNodeTypeAllowed(el, 'form')) {
+        ret.add('form', function(opts) {
+          var nu;
+          nu = OJ.nodes.form(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      An <img> node
+       */
+      if (isChildNodeTypeAllowed(el, 'img')) {
+        ret.add('img', function(opts) {
+          var nu;
+          nu = OJ.nodes.img(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      An <input> node
+       */
+      if (isChildNodeTypeAllowed(el, 'input')) {
+        ret.add('input', function(opts) {
+          var nu;
+          nu = OJ.nodes.input(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <label> node
+       */
+      if (isChildNodeTypeAllowed(el, 'label')) {
+        ret.add('label', function(opts) {
+          var nu;
+          nu = OJ.nodes.label(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <legend> node
+       */
+      if (isChildNodeTypeAllowed(el, 'legend')) {
+        ret.add('legend', function(opts) {
+          var nu;
+          nu = OJ.nodes.legend(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <li> node
+       */
+      if (isChildNodeTypeAllowed(el, 'li')) {
+        ret.add('li', function(opts) {
+          var nu;
+          nu = OJ.nodes.li(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      An <ol> node
+       */
+      if (isChildNodeTypeAllowed(el, 'ol')) {
+        ret.add('ol', function(opts) {
+          var nu;
+          nu = OJ.nodes.ol(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      An <option> node
+       */
+      if (isChildNodeTypeAllowed(el, 'option')) {
+        ret.add('option', function(opts) {
+          var nu;
+          nu = OJ.nodes.option(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <p> node
+       */
+      if (isChildNodeTypeAllowed(el, 'p')) {
+        ret.add('p', function(opts) {
+          var nu;
+          nu = OJ.nodes.p(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <select> node
+       */
+      if (isChildNodeTypeAllowed(el, 'select')) {
+        ret.add('select', function(opts) {
+          var nu;
+          nu = OJ.nodes.select(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <span> node
+       */
+      if (isChildNodeTypeAllowed(el, 'span')) {
+        ret.add('span', function(opts) {
+          var nu;
+          nu = OJ.nodes.span(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <svg> node
+       */
+      if (isChildNodeTypeAllowed(el, 'svg')) {
+        ret.add('svg', function(opts) {
+          var nu;
+          nu = OJ.nodes.svg(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <table> node
+       */
+      if (isChildNodeTypeAllowed(el, 'table')) {
+        ret.add('table', function(opts) {
+          var nu;
+          nu = OJ.nodes.table(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <textarea> node
+       */
+      if (isChildNodeTypeAllowed(el, 'textarea')) {
+        ret.add('textarea', function(opts) {
+          var nu;
+          nu = OJ.nodes.textarea(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+
+      /*
+      A <ul> node
+       */
+      if (isChildNodeTypeAllowed(el, 'ul')) {
+        ret.add('ul', function(opts) {
+          var nu;
+          nu = OJ.nodes.ul(opts, el, true);
+          return OJ.nodes.factory(nu, el, count);
+        });
+      }
+      return ret;
+    });
+  })();
 
 }).call(this);
 
@@ -622,611 +1235,6 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-    OJ.register('dom', function(el, parent) {
-      var enabled, getData, isControlStillValid, setData, setDataObj;
-      if (parent == null) {
-        parent = OJ.body;
-      }
-      'use strict';
-      enabled = true;
-      el.add('isValid', function() {
-        return el && el.node && el.node.el instanceof HTMLElement;
-      });
-      isControlStillValid = function() {
-        var valid;
-        valid = false === OJ.is.nullOrEmpty(el) && el.isValid();
-        if (false === valid) {
-          OJ.error.throwException('el is null. Event bindings may not have been GCd.');
-        }
-        return valid;
-      };
-      el.add('addClass', function(name) {
-        if (isControlStillValid()) {
-          el.$.addClass(name);
-        }
-        return el;
-      });
-      el.add('bind', function(eventName, event) {
-        if (isControlStillValid()) {
-          el.$.bind(eventName, event);
-        }
-        return el;
-      });
-      el.add('keyboard', function(keys, event) {
-        if (isControlStillValid()) {
-          Mousetrap.bind(keys, el[event]);
-        }
-        return el;
-      });
-      getData = function(propName) {
-        var data;
-        data = null;
-        if (isControlStillValid() && propName) {
-          if (el[0] && el[0].dataset && el[0].dataset[propName]) {
-            data = el[0].dataset.propName;
-          }
-        }
-        return data;
-      };
-      setData = function(propName, value) {
-        var data;
-        data = null;
-        if (isControlStillValid() && propName) {
-          data = value;
-          if (el[0] && el[0].dataset) {
-            el[0].dataset[propName] = value;
-          }
-        }
-        return data;
-      };
-      setDataObj = function(obj) {
-        OJ.each(obj, function(val, propName) {
-          setData(propName, val);
-        });
-        return el;
-      };
-      el.add('data', function(prop, val) {
-        var data;
-        data = '';
-        if (isControlStillValid()) {
-          if (OJ.isPlainObject(prop)) {
-            setDataObj(prop);
-          } else {
-            switch (arguments_.length) {
-              case 1:
-                data = getData(prop);
-                break;
-              case 2:
-                setData(prop, val);
-                data = el;
-            }
-          }
-        }
-        return data;
-      });
-      el.add('disable', function() {
-        if (isControlStillValid()) {
-          enabled = false;
-          el.attr('disabled', 'disabled');
-          el.addClass('disabled', 'disabled');
-        }
-        return el;
-      });
-      el.add('empty', function() {
-        if (isControlStillValid()) {
-          el.$.empty();
-        }
-        return el;
-      });
-      el.add('enable', function() {
-        if (isControlStillValid()) {
-          enabled = true;
-          el.removeAttr('disabled');
-          el.removeClass('disabled');
-        }
-        return el;
-      });
-      el.add('getId', function() {
-        var id;
-        if (isControlStillValid()) {
-          id = el[0].id;
-        }
-        return id;
-      });
-      el.add('hide', function() {
-        if (isControlStillValid()) {
-          el.css('display', 'none');
-        }
-        return el;
-      });
-      el.add('length', function() {
-        var len;
-        len = 0;
-        if (isControlStillValid()) {
-          len = OJ.number(el.$.length);
-        }
-        return len;
-      });
-      el.add('parent', parent);
-      el.add('remove', function() {
-        if (el && el.$) {
-          el.$.remove();
-          el = null;
-        }
-        return null;
-      });
-      el.add('removeClass', function(name) {
-        if (isControlStillValid()) {
-          el.$.removeClass(name);
-        }
-        return el;
-      });
-      el.add('removeProp', function(name) {
-        if (isControlStillValid()) {
-          el.$.removeProp(name);
-        }
-        return el;
-      });
-      el.add('removeAttr', function(name) {
-        if (isControlStillValid()) {
-          el.$.removeAttr(name);
-        }
-        return el;
-      });
-      el.add('required', function(truthy, addLabel) {
-        if (isControlStillValid()) {
-          switch (OJ.bool(truthy)) {
-            case true:
-              el.attr('required', true);
-              el.addClass('required');
-              break;
-            case false:
-              el.removeProp('required');
-              el.removeClass('required');
-          }
-        }
-        return el;
-      });
-      el.add('root', el.root);
-      el.add('show', function() {
-        if (isControlStillValid()) {
-          el.$.show();
-        }
-        return el;
-      });
-      el.add('toggle', function() {
-        if (isControlStillValid()) {
-          el.$.toggle();
-        }
-        return el;
-      });
-      el.add('toggleEnable', function() {
-        if (isControlStillValid()) {
-          if (enabled) {
-            el.disable();
-          } else {
-            el.enable();
-          }
-        }
-        return el;
-      });
-      el.add('trigger', function(eventName, eventOpts) {
-        if (isControlStillValid()) {
-          el.$.trigger(eventName, eventOpts);
-        }
-        return el;
-      });
-      el.add('unbind', function(eventName, event) {
-        if (isControlStillValid()) {
-          el.$.unbind(eventName, event);
-        }
-        return el;
-      });
-      el.add('val', function(value) {
-        if (isControlStillValid()) {
-          if (arguments_.length === 1 && false === OJ.isNullOrUndefined(value)) {
-            el.$.val(value);
-            return el;
-          } else {
-            return OJ.string(el.$.val());
-          }
-        }
-      });
-      el.add('valueOf', function() {
-        return el.val();
-      });
-      el.add('toString', function() {
-        return el.val();
-      });
-      return el;
-    });
-    OJ.register('isElementInDom', function(elementId) {
-      return false === OJ.is.nullOrEmpty(OJ.getElement(elementId));
-    });
-    OJ.register('getElement', function(id) {
-      if (typeof document !== 'undefined') {
-        return document.getElementById(id);
-      } else {
-        return void 0;
-      }
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  var __slice = [].slice;
-
-  (function(OJ) {
-
-    /*
-     Bind all event handlers
-     */
-    var bindEvents, body, element, thinBody;
-    bindEvents = function(el, events) {
-      if (el.node) {
-        return _.forOwn(events, function(val, key) {
-          var callback;
-          if (_.isFunction(val && val !== _.noop)) {
-            callback = function() {
-              var event;
-              event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-              return val.apply(null, event);
-            };
-            el.$.bind(key, callback);
-            el.add(key, callback);
-          }
-        });
-      }
-    };
-
-    /*
-    Create an HTML Element through ThinDom
-     */
-    element = function(tag, props, styles, events) {
-      var ret;
-      ret = OJ.object();
-      ret.add('node', new ThinDOM(tag, props));
-      ret.add('tagName', tag);
-      ret.node.css(styles);
-      ret.add('css', ret.node.css);
-      ret.add('append', ret.node.append);
-      ret.add('html', ret.node.html);
-      ret.add('text', ret.node.text);
-      ret.add('attr', ret.node.attr);
-      ret.add('$', $(ret.node.get()));
-      ret.add('0', ret.node.get());
-      bindEvents(ret, events);
-      return ret;
-    };
-    OJ.register('element', element);
-
-    /*
-    Persist a handle on the body ode
-     */
-    if (typeof document !== 'undefined') {
-      body = document.body;
-    } else {
-      body = null;
-    }
-    thinBody = new ThinDOM(null, null, body);
-    thinBody.getId = function() {
-      return 'body';
-    };
-    OJ.register('body', thinBody);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function() {
-    var controlPostProcessing, isChildNodeTypeAllowed, nestableNodeNames, nonNestableNodes;
-    nestableNodeNames = ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'fieldset', 'select', 'ol', 'ul', 'table'];
-    nonNestableNodes = ['li', 'legend', 'tr', 'td', 'option', 'body', 'head', 'source', 'tbody', 'tfoot', 'thead', 'link', 'script'];
-    isChildNodeTypeAllowed = function(parent, tagName) {
-      var allowed;
-      allowed = false;
-      switch (parent.tagName) {
-        case 'body':
-          allowed = _.contains(nestableNodeNames, tagName);
-          break;
-        case 'div':
-          allowed = false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'form':
-          allowed = false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'label':
-          allowed = false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'legend':
-          allowed = false;
-          break;
-        case 'fieldset':
-          allowed = tagName === 'legend' || false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'ol':
-          allowed = tagName === 'li';
-          break;
-        case 'ul':
-          allowed = tagName === 'li';
-          break;
-        case 'li':
-          allowed = false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'table':
-          allowed = tagName === 'td' || tagName === 'tr' || tagName === 'tbody';
-          break;
-        case 'td':
-          allowed = false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'select':
-          allowed = tagName === 'option';
-          break;
-        case 'option':
-          allowed = false;
-      }
-      return allowed;
-    };
-    controlPostProcessing = function(control) {};
-    OJ.nodes.register('factory', function(el, parent, count) {
-      var init, ret;
-      if (parent == null) {
-        parent = OJ.body;
-      }
-      if (count == null) {
-        count = 0;
-      }
-      init = function(node) {
-        var control, id;
-        count += 1;
-        control = OJ.dom(node, parent);
-        id = parent.getId();
-        id += control.tagName + count;
-        control.attr('id', id);
-        controlPostProcessing(control);
-        return control;
-      };
-      ret = init(el);
-
-      /*
-      An <a> node
-       */
-      if (isChildNodeTypeAllowed(el, 'a')) {
-        ret.add('a', function(opts) {
-          var nu;
-          nu = OJ.nodes.a(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <b> node
-       */
-      if (isChildNodeTypeAllowed(el, 'b')) {
-        ret.add('b', function(opts) {
-          var nu;
-          nu = OJ.nodes.b(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <br> node
-       */
-      if (isChildNodeTypeAllowed(el, 'br')) {
-        ret.add('br', function(opts) {
-          var nu;
-          nu = OJ.nodes.br(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <button> node
-       */
-      if (isChildNodeTypeAllowed(el, 'button')) {
-        ret.add('button', function(opts) {
-          var nu;
-          nu = OJ.nodes.button(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <div> node
-       */
-      if (isChildNodeTypeAllowed(el, 'div')) {
-        ret.add('div', function(opts) {
-          var nu;
-          nu = OJ.nodes.div(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <fieldset> node
-       */
-      if (isChildNodeTypeAllowed(el, 'fieldset')) {
-        ret.add('fieldset', function(opts) {
-          var nu;
-          nu = OJ.nodes.fieldset(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <form> node
-       */
-      if (isChildNodeTypeAllowed(el, 'form')) {
-        ret.add('form', function(opts) {
-          var nu;
-          nu = OJ.nodes.form(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      An <img> node
-       */
-      if (isChildNodeTypeAllowed(el, 'img')) {
-        ret.add('img', function(opts) {
-          var nu;
-          nu = OJ.nodes.img(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      An <input> node
-       */
-      if (isChildNodeTypeAllowed(el, 'input')) {
-        ret.add('input', function(opts) {
-          var nu;
-          nu = OJ.nodes.input(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <label> node
-       */
-      if (isChildNodeTypeAllowed(el, 'label')) {
-        ret.add('label', function(opts) {
-          var nu;
-          nu = OJ.nodes.label(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <legend> node
-       */
-      if (isChildNodeTypeAllowed(el, 'legend')) {
-        ret.add('legend', function(opts) {
-          var nu;
-          nu = OJ.nodes.legend(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <li> node
-       */
-      if (isChildNodeTypeAllowed(el, 'li')) {
-        ret.add('li', function(opts) {
-          var nu;
-          nu = OJ.nodes.li(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      An <ol> node
-       */
-      if (isChildNodeTypeAllowed(el, 'ol')) {
-        ret.add('ol', function(opts) {
-          var nu;
-          nu = OJ.nodes.ol(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      An <option> node
-       */
-      if (isChildNodeTypeAllowed(el, 'option')) {
-        ret.add('option', function(opts) {
-          var nu;
-          nu = OJ.nodes.option(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <p> node
-       */
-      if (isChildNodeTypeAllowed(el, 'p')) {
-        ret.add('p', function(opts) {
-          var nu;
-          nu = OJ.nodes.p(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <select> node
-       */
-      if (isChildNodeTypeAllowed(el, 'select')) {
-        ret.add('select', function(opts) {
-          var nu;
-          nu = OJ.nodes.select(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <span> node
-       */
-      if (isChildNodeTypeAllowed(el, 'span')) {
-        ret.add('span', function(opts) {
-          var nu;
-          nu = OJ.nodes.span(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <svg> node
-       */
-      if (isChildNodeTypeAllowed(el, 'svg')) {
-        ret.add('svg', function(opts) {
-          var nu;
-          nu = OJ.nodes.svg(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <table> node
-       */
-      if (isChildNodeTypeAllowed(el, 'table')) {
-        ret.add('table', function(opts) {
-          var nu;
-          nu = OJ.nodes.table(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <textarea> node
-       */
-      if (isChildNodeTypeAllowed(el, 'textarea')) {
-        ret.add('textarea', function(opts) {
-          var nu;
-          nu = OJ.nodes.textarea(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-
-      /*
-      A <ul> node
-       */
-      if (isChildNodeTypeAllowed(el, 'ul')) {
-        ret.add('ul', function(opts) {
-          var nu;
-          nu = OJ.nodes.ul(opts, el, true);
-          return OJ.nodes.factory(nu, el, count);
-        });
-      }
-      return ret;
-    });
-  })();
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
     'use strict';
     var cacheDbMgr, cacheExists, getCachedResponse, makeCachedCall, setCachedWebResponse, thisUserName, validate;
     cacheDbMgr = null;
@@ -1334,7 +1342,7 @@ OJ IIFE definition to anchor JsDoc comments.
     dbManager = function(name, version) {
       var connect, disconnect, isNewConnectionRequired, ret, schemaScripts, select;
       ret = OJ.object();
-      ret.add("promises", OJ.object());
+      ret.add('promises', OJ.object());
       isNewConnectionRequired = false;
       schemaScripts = [];
       connect = function(dbName, dbVersion, dbOnUpgrade) {
@@ -1349,10 +1357,10 @@ OJ IIFE definition to anchor JsDoc comments.
           request = window.indexedDB.open(name, version);
           request.onblocked = function(event) {
             ret.IDB.close();
-            alert("A new version of this page is ready. Please reload!");
+            alert('A new version of this page is ready. Please reload!');
           };
           request.onerror = function(event) {
-            deferred.reject(new Error("Database error: " + event.target.errorCode));
+            deferred.reject(new Error('Database error: ' + event.target.errorCode));
             if (ret.IDB) {
               ret.IDB.close();
             }
@@ -1382,14 +1390,14 @@ OJ IIFE definition to anchor JsDoc comments.
           }
         }
       };
-      ret.add("connect", connect);
-      ret.add("disconnect", disconnect);
-      ret.add("getDb", function() {
+      ret.add('connect', connect);
+      ret.add('disconnect', disconnect);
+      ret.add('getDb', function() {
         return ret.IDB;
       });
-      ret.add("schemaScripts", schemaScripts);
-      ret.add("tables", OJ.object());
-      ret.add("ddl", {
+      ret.add('schemaScripts', schemaScripts);
+      ret.add('tables', OJ.object());
+      ret.add('ddl', {
         createTable: function(tableName, tablePkColumnName, autoIncrement) {
           return OJ.fun.shiftRight(OJ.db.table.create, ret, arguments, this);
         },
@@ -1400,24 +1408,24 @@ OJ IIFE definition to anchor JsDoc comments.
           return OJ.fun.shiftRight(OJ.db.index.create, ret, arguments, this);
         }
       });
-      ret.add("insert", function() {
+      ret.add('insert', function() {
         return OJ.fun.shiftRight(OJ.db.insert, ret, arguments, this);
       });
-      ret.add("update", function() {
+      ret.add('update', function() {
         return OJ.fun.shiftRight(OJ.db.update, ret, arguments, this);
       });
       select = OJ.object();
-      ret.add("select", select);
-      select.add("all", function() {
+      ret.add('select', select);
+      select.add('all', function() {
         return OJ.fun.shiftRight(OJ.db.select.all, ret, arguments, this);
       });
-      select.add("from", function() {
+      select.add('from', function() {
         return OJ.fun.shiftRight(OJ.db.select.from, ret, arguments, this);
       });
       ret.connect(name, version);
       return ret;
     };
-    OJ.db.register("dbManager", dbManager);
+    OJ.db.register('dbManager', dbManager);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
@@ -1714,6 +1722,1112 @@ OJ IIFE definition to anchor JsDoc comments.
       return updateImpl(dbWrapper, tableName, indexName, indexVal, ret, record);
     });
   })();
+
+}).call(this);
+
+(function() {
+  (function() {
+    var makeSequentialArray;
+    makeSequentialArray = function(start, end) {
+      var i, ret;
+      ret = array();
+      i = void 0;
+      end = +end;
+      if (OJ.isNumber(start) && OJ.isNumber(end)) {
+        i = +start;
+        while (i <= end) {
+          ret.push(i);
+          i += 1;
+        }
+      }
+      return ret;
+    };
+    OJ.register("makeSequentialArray", makeSequentialArray);
+  })();
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Method to create a Class with optional inheritance.
+    Generally, I oppose this semantic in JS:
+    partly because of the ineffability of the 'this' operator,
+    and partly because of the difficulty in grokking this.
+    What we're really saying here (through the wonders of functional programming) is this:
+    
+    var MyClass1 = function(param1) {
+    var ret = this;
+    ret.id = param1;
+    return ret;
+    };
+    
+    var MyClass2 = function(param1, param2) {
+    var ret = this;
+    MyClass1.apply(this, Array.prototype.slice.call(arguments, 0));
+    ret.name = param2;
+    return ret;
+    };
+    
+    MyClass2.prototype = new MyClass1;
+    MyClass2.prototype.constructor = MyClass1;
+    MyClass2.prototype.parent = MyClass1.prototype;
+    
+    I find this whole mode of operation as dull as it is stupid.
+    Nonetheless, there are occassions when the convention is suitable for type checking,
+    as you'll come to see in metadata.
+    
+    Obviously, this method has very little utility if you are not using protypical inheritance
+     */
+    var Class;
+    OJ.register("Class", Class = function(name, inheritsFrom, callBack) {
+      var obj;
+      obj = Object.create(null);
+      obj[name] = function() {
+        var e;
+        try {
+          if (inheritsFrom) {
+            inheritsFrom.apply(this, Array.prototype.slice.call(arguments, 0));
+          }
+          return callBack.apply(this, Array.prototype.slice.call(arguments, 0));
+        } catch (_error) {
+          e = _error;
+          OJ.errors.ClassInheritanceError(Class.name + " failed to execute all or part of its callback routine for method " + name + "().", "", "", e);
+        }
+      };
+      if (inheritsFrom) {
+        obj[name].inheritsFrom(inheritsFrom);
+      }
+      return obj[name];
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
+    OJ.register("getDateFromDnJson", function(dnDate) {
+      var arr, dnDateStr, localOffset, offset, ret, ticks;
+      dnDateStr = OJ.string(dnDate);
+      ret = void 0;
+      ticks = void 0;
+      offset = void 0;
+      localOffset = void 0;
+      arr = void 0;
+      ret = OJ.dateTimeMinValue;
+      if (false === OJ.is.nullOrEmpty(dnDateStr)) {
+        dnDateStr = dnDateStr.replace("/", "");
+        dnDateStr = dnDateStr.replace("Date", "");
+        dnDateStr = dnDateStr.replace("(", "");
+        dnDateStr = dnDateStr.replace(")", "");
+        arr = dnDateStr.split("-");
+        if (arr.length > 1) {
+          ticks = OJ.number(arr[0]);
+          offset = OJ.number(arr[1]);
+          localOffset = new Date().getTimezoneOffset();
+          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
+        } else if (arr.length === 1) {
+          ticks = OJ.number(arr[0]);
+          ret = new Date(ticks);
+        }
+      }
+      return ret;
+    });
+  })();
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var method, tryExec;
+    OJ.register("tryExec", tryExec = function(tryFunc) {
+      'use strict';
+      var exception, ret, that;
+      ret = false;
+      that = this;
+      try {
+        if (OJ.is.func(tryFunc)) {
+          ret = tryFunc.apply(that, Array.prototype.slice.call(arguments_, 1));
+        }
+      } catch (_error) {
+        exception = _error;
+        if ((exception.name === "TypeError" || exception.type === "called_non_callable") && exception.type === "non_object_property_load") {
+          OJ.console.info("Ignoring exception: ", exception);
+        } else {
+          OJ.console.error(exception);
+        }
+      } finally {
+
+      }
+      return ret;
+    });
+    OJ.register("method", method = function(tryFunc) {
+      'use strict';
+      var that;
+      that = this;
+      return function() {
+        var args;
+        args = Array.prototype.slice.call(arguments_, 0);
+        args.unshift(tryFunc);
+        return OJ.tryExec.apply(that, args);
+      };
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var apply, curryLeft, filter, foldLeft, map, shiftRight;
+    OJ.makeSubNameSpace("fun");
+    OJ.fun.register("curryLeft", curryLeft = function(func) {
+      var args, slice;
+      slice = Array.prototype.slice;
+      args = slice.call(arguments_, 1);
+      return function() {
+        return func.apply(this, args.concat(slice.call(arguments_, 0)));
+      };
+    });
+    OJ.fun.register("foldLeft", foldLeft = function(func, newArray, oldArray) {
+      var accumulation;
+      accumulation = newArray;
+      OJ.each(oldArray, function(val) {
+        accumulation = func(accumulation, val);
+      });
+      return accumulation;
+    });
+    OJ.fun.register("map", map = function(func, array) {
+      var onIteration;
+      onIteration = function(accumulation, val) {
+        return accumulation.concat(func(val));
+      };
+      return OJ.fun.foldLeft(onIteration, [], array);
+    });
+    OJ.fun.register("filter", filter = function(func, array) {
+      var onIteration;
+      onIteration = function(accumulation, val) {
+        if (func(val)) {
+          return accumulation.concat(val);
+        } else {
+          return accumulation;
+        }
+      };
+      return OJ.fun.foldLeft(onIteration, [], array);
+    });
+    OJ.fun.register("shiftRight", shiftRight = function(shiftFunc, firstParam, originalArguments, context) {
+      var args;
+      context = context || this;
+      args = Array.prototype.slice.call(originalArguments, 0);
+      args.unshift(firstParam);
+      return shiftFunc.apply(context, args);
+    });
+    OJ.fun.register("apply", apply = function(applyFunc, originalArguments, context) {
+      var args;
+      context = context || this;
+      args = Array.prototype.slice.call(originalArguments, 0);
+      return applyFunc.apply(context, args);
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.is.register('bool', function(boolean) {
+      'use strict';
+      return _.isBoolean(boolean);
+    });
+    OJ.is.register('arrayNullOrEmpty', function(arr) {
+      'use strict';
+      return !Array.isArray(arr) || !arr || !arr.length || arr.length === 0 || !arr.push;
+    });
+    OJ.is.register('stringNullOrEmpty', function(str) {
+      'use strict';
+      return str && (!str.length || str.length === 0 || !str.trim || !str.trim());
+    });
+    OJ.is.register('numberNullOrEmpty', function(num) {
+      'use strict';
+      return !num || isNaN(num) || !num.toPrecision;
+    });
+    OJ.is.register('dateNullOrEmpty', function(dt) {
+      'use strict';
+      return !dt || !dt.getTime;
+    });
+    OJ.is.register('objectNullOrEmpty', function(obj) {
+      'use strict';
+      return _.isEmpty(obj || !Object.keys(obj) || Object.keys(obj).length === 0);
+    });
+    OJ.is.register('plainObject', function(obj) {
+      'use strict';
+      return _.isPlainObject(obj);
+    });
+    OJ.is.register('date', function(dt) {
+      return _.isDate(dt);
+    });
+
+    /*
+    Determines if a value is an instance of a Number and not NaN*
+     */
+    OJ.is.register('number', function(num) {
+      return typeof num === 'number' && false === (OJ.number.isNaN(num) || false === OJ.number.isFinite(num) || OJ.number.MAX_VALUE === num || OJ.number.MIN_VALUE === num);
+    });
+
+    /*
+    Determines if a value is convertable to a Number
+     */
+    OJ.is.register('numeric', function(num) {
+      var nuNum, ret;
+      ret = OJ.is.number(num);
+      if (!ret) {
+        nuNum = OJ.to.number(num);
+        ret = OJ.is.number(nuNum);
+      }
+      return ret;
+    });
+    OJ.is.register('vendorObject', function(obj) {
+      'use strict';
+      var ret;
+      ret = obj instanceof OJ['?'];
+      return ret;
+    });
+    OJ.is.register('elementInDom', function(elementId) {
+      return false === OJ.is.nullOrEmpty(document.getElementById(elementId));
+    });
+    OJ.is.register('generic', function(obj) {
+      'use strict';
+      var ret;
+      ret = false === OJ.is['function'](obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
+      return ret;
+    });
+    OJ.is.register('array', function(obj) {
+      return _.isArray(obj);
+    });
+    OJ.is.register('string', function(str) {
+      return _.isString(str);
+    });
+    OJ.is.register('true', function(obj) {
+      'use strict';
+      return obj === true || obj === 'true' || obj === 1 || obj === '1';
+    });
+    OJ.is.register('false', function(obj) {
+      'use strict';
+      return obj === false || obj === 'false' || obj === 0 || obj === '0';
+    });
+    OJ.is.register('trueOrFalse', function(obj) {
+      'use strict';
+      return OJ.is["true"](obj || OJ.is["false"](obj));
+    });
+    OJ.is.register('nullOrEmpty', function(obj, checkLength) {
+      'use strict';
+      return _.isEmpty(obj || _.isUndefined(obj || _.isNull(obj || _.isNaN(obj))));
+    });
+    OJ.is.register('instanceof', function(name, obj) {
+      'use strict';
+      return obj.type === name || obj instanceof name;
+    });
+    OJ.is.register('func', function(obj) {
+      'use strict';
+      return _.isFunction(obj);
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var slice;
+    slice = Array.prototype.slice;
+
+    /*
+    Take an arguments object and convert it into an Array
+     */
+    OJ.register("getArguments", function(args, sliceAt) {
+      'use strict';
+      var ret;
+      sliceAt = sliceAt || 0;
+      ret = slice.call(args, sliceAt);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var number;
+    number = Object.create(null);
+    Object.defineProperty(number, "isNaN", {
+      value: (Number && Number.isNaN ? Number.isNaN : isNaN)
+    });
+    Object.defineProperty(number, "isFinite", {
+      value: (Number && Number.isFinite ? Number.isFinite : isFinite)
+    });
+    Object.defineProperty(number, "MAX_VALUE", {
+      value: (Number && Number.MAX_VALUE ? Number.MAX_VALUE : 1.7976931348623157e+308)
+    });
+    Object.defineProperty(number, "MIN_VALUE", {
+      value: (Number && Number.MIN_VALUE ? Number.MIN_VALUE : 5e-324)
+    });
+    OJ.register("number", number);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.register("delimitedString", function(string, opts) {
+      var nsInternal, nsRet;
+      nsInternal = {
+        newLineToDelimiter: true,
+        spaceToDelimiter: true,
+        removeDuplicates: true,
+        delimiter: ",",
+        initString: OJ.to.string(string)
+      };
+      nsRet = {
+        array: [],
+        delimited: function() {
+          return nsRet.array.join(nsInternal.delimiter);
+        },
+        string: function(delimiter) {
+          var ret;
+          delimiter = delimiter || nsInternal.delimiter;
+          ret = "";
+          OJ.each(nsRet.array, function(val) {
+            if (ret.length > 0) {
+              ret += delimiter;
+            }
+            ret += val;
+          });
+          return ret;
+        },
+        toString: function() {
+          return nsRet.string();
+        },
+        add: function(str) {
+          nsRet.array.push(nsInternal.parse(str));
+          nsInternal.deleteDuplicates();
+          return nsRet;
+        },
+        remove: function(str) {
+          var remove;
+          remove = function(array) {
+            return array.filter(function(item) {
+              if (item !== str) {
+                return true;
+              }
+            });
+          };
+          nsRet.array = remove(nsRet.array);
+          return nsRet;
+        },
+        count: function() {
+          return nsRet.array.length;
+        },
+        contains: function(str, caseSensitive) {
+          var isCaseSensitive, match;
+          isCaseSensitive = OJ.to.bool(caseSensitive);
+          str = OJ.string(str).trim();
+          if (false === isCaseSensitive) {
+            str = str.toLowerCase();
+          }
+          match = nsRet.array.filter(function(matStr) {
+            return (isCaseSensitive && OJ.to.string(matStr).trim() === str) || OJ.to.string(matStr).trim().toLowerCase() === str;
+          });
+          return match.length > 0;
+        },
+        each: function(callBack) {
+          return nsRet.array.forEach(callBack);
+        }
+      };
+      nsInternal.parse = function(str) {
+        var ret;
+        ret = OJ.to.string(str);
+        if (nsInternal.newLineToDelimiter) {
+          while (ret.indexOf("\n") !== -1) {
+            ret = ret.replace(/\n/g, nsInternal.delimiter);
+          }
+        }
+        if (nsInternal.spaceToDelimiter) {
+          while (ret.indexOf(" ") !== -1) {
+            ret = ret.replace(RegExp(" ", "g"), nsInternal.delimiter);
+          }
+        }
+        while (ret.indexOf(",,") !== -1) {
+          ret = ret.replace(/,,/g, nsInternal.delimiter);
+        }
+        return ret;
+      };
+      nsInternal.deleteDuplicates = function() {
+        if (nsInternal.removeDuplicates) {
+          (function() {
+            var unique;
+            unique = function(array) {
+              var seen;
+              seen = new Set();
+              return array.filter(function(item) {
+                if (false === seen.has(item)) {
+                  seen.add(item);
+                  return true;
+                }
+              });
+            };
+            nsRet.array = unique(nsRet.array);
+          })();
+        }
+      };
+      (function(a) {
+        var delimitedString;
+        if (a.length > 1 && false === OJ.is.plainObject(opts)) {
+          OJ.each(a, function(val) {
+            if (false === OJ.is.nullOrEmpty(val)) {
+              nsRet.array.push(val);
+            }
+          });
+        } else if (string && string.length > 0) {
+          OJ.extend(nsInternal, opts);
+          delimitedString = nsInternal.parse(string);
+          nsInternal.initString = delimitedString;
+          nsRet.array = delimitedString.split(nsInternal.delimiter);
+        }
+        nsInternal.deleteDuplicates();
+      })(arguments_);
+      return nsRet;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.to.register("bool", function(str) {
+      var retBool;
+      retBool = OJ.is["true"](str);
+      if (retBool === false || retBool !== true) {
+        retBool = false;
+      }
+      return retBool;
+    });
+    OJ.to.register("ES5_ToBool", function(val) {
+      return val !== false && val !== 0 && val !== "" && val !== null && val !== undefined && (typeof val !== "number" || !isNaN(val));
+    });
+    OJ.to.register("dateFromTicks", function(tickStr) {
+      var arr, localOffset, offset, ret, ticks, ticsDateTime;
+      ticsDateTime = OJ.string(tickStr);
+      ret = void 0;
+      ticks = void 0;
+      offset = void 0;
+      localOffset = void 0;
+      arr = void 0;
+      if (false === OJ.is.nullOrEmpty(ticsDateTime)) {
+        ticsDateTime = ticsDateTime.replace("/", "");
+        ticsDateTime = ticsDateTime.replace("Date", "");
+        ticsDateTime = ticsDateTime.replace("(", "");
+        ticsDateTime = ticsDateTime.replace(")", "");
+        arr = ticsDateTime.split("-");
+        if (arr.length > 1) {
+          ticks = OJ.number(arr[0]);
+          offset = OJ.number(arr[1]);
+          localOffset = new Date().getTimezoneOffset();
+          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
+        } else if (arr.length === 1) {
+          ticks = OJ.number(arr[0]);
+          ret = new Date(ticks);
+        }
+      }
+      return ret;
+    });
+    OJ.to.register("binary", function(obj) {
+      var ret;
+      ret = NaN;
+      if (obj === 0 || obj === "0" || obj === "" || obj === false || OJ.to.string(obj).toLowerCase().trim() === "false") {
+        ret = 0;
+      } else {
+        if (obj === 1 || obj === "1" || obj === true || OJ.to.string(obj).toLowerCase().trim() === "true") {
+          ret = 1;
+        }
+      }
+      return ret;
+    });
+
+    /*
+    Attempts to converts an arbitrary value to a Number.
+    Loose falsy values are converted to 0.
+    Loose truthy values are converted to 1.
+    All other values are parsed as Integers.
+    Failures return as NaN.
+     */
+    OJ.to.register("number", function(inputNum, defaultNum) {
+      var retVal, tryGetNumber;
+      tryGetNumber = function(val) {
+        var ret, tryGet;
+        ret = NaN;
+        if (OJ.is.number(val)) {
+          ret = val;
+        } else if (OJ.is.string(val) || OJ.is.bool(val)) {
+          tryGet = function(value) {
+            var num;
+            num = OJ.to.binary(value);
+            if (!OJ.is.number(num) && value) {
+              num = +value;
+            }
+            if (!OJ.is.number(num)) {
+              num = _.parseInt(value, 0);
+            }
+            return num;
+          };
+          ret = tryGet(val);
+        }
+        return ret;
+      };
+      retVal = tryGetNumber(inputNum);
+      if (!OJ.is.number(retVal)) {
+        retVal = tryGetNumber(defaultNum);
+        if (!OJ.is.number(retVal)) {
+          retVal = Number.NaN;
+        }
+      }
+      return retVal;
+    });
+    OJ.to.register("string", function(inputStr, defaultStr) {
+      var ret1, ret2, retVal, tryGetString;
+      tryGetString = function(str) {
+        var ret;
+        ret = void 0;
+        if (OJ.is.string(str)) {
+          ret = str;
+        } else {
+          ret = "";
+          if (OJ.is.bool(str) || OJ.is.number(str) || OJ.is.date(str)) {
+            ret = str.toString();
+          }
+        }
+        return ret;
+      };
+      ret1 = tryGetString(inputStr);
+      ret2 = tryGetString(defaultStr);
+      retVal = "";
+      if (ret1.length !== 0) {
+        retVal = ret1;
+      } else if (ret1 === ret2 || ret2.length === 0) {
+        retVal = ret1;
+      } else {
+        retVal = ret2;
+      }
+      return retVal;
+    });
+    OJ.to.register("vendorDomObject", function(id) {
+      var base, ret, _$el;
+      ret = null;
+      base = "#";
+      if (id === "body") {
+        base = "";
+      }
+      _$el = OJ["?"](base + id);
+      if (_$el) {
+        ret = _$el;
+      }
+      return ret;
+    });
+    OJ.to.register("vendorDomObjFromString", function(html) {
+      var ret, _$el;
+      ret = null;
+      _$el = OJ["?"](html);
+      if (_$el) {
+        ret = _$el;
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var assert, console, count, length, method, methods, noop, thisGlobal;
+    method = void 0;
+    noop = function() {};
+    methods = ["assert", "clear", "count", "debug", "dir", "dirxml", "error", "exception", "group", "groupCollapsed", "groupEnd", "info", "log", "markTimeline", "profile", "profileEnd", "table", "time", "timeEnd", "timeStamp", "trace", "warn"];
+    length = methods.length;
+    thisGlobal = (typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this);
+    console = (thisGlobal.console = thisGlobal.console || {});
+    while (length--) {
+      method = methods[length];
+      if (!console[method]) {
+        console[method] = noop;
+      }
+    }
+    OJ.makeSubNameSpace("console");
+    OJ.console.register("assert", assert = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.assert(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("count", count = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.count(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("error", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.error(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("group", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.group(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("groupCollapsed", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.groupCollapsed(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("groupEnd", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.groupEnd(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("info", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.info(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("log", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.log(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("profile", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.profile(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("profileEnd", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.profileEnd(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("table", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.table(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("time", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.time(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("timeEnd", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.timeEnd(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("trace", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.trace(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("warn", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.warn(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Create a new object with constant properties..
+    @param props {Object} an object represent the enun members
+     */
+    var Constant;
+    Constant = function(props) {
+      var keys, that;
+      that = null;
+      keys = [];
+      if (props) {
+        that = this;
+
+        /*
+        Assert that the provided key is a member of the enum
+        @param key {String} enum property name
+         */
+        OJ.property(that, "has", function(key) {
+          return keys.indexOf(key) !== -1;
+        });
+        OJ.each(props, function(propVal, propName) {
+          keys.push(propVal);
+          Object.defineProperty(that, propName, {
+            value: propVal
+          });
+        });
+      }
+      return that;
+    };
+
+    /*
+    Create a new enum on the constants namespace.
+    Enums are objects consisting of read-only, non-configurable, non-enumerable properties.
+    @param name {String} the name of the enum
+    @param props {Object} the properties of the enum
+     */
+    OJ.register("constant", function(OJ, name, props) {
+      var ret;
+      ret = new Constant(props);
+      OJ = OJ || OJ;
+      if (ret && OJ.constants && OJ.constants.register && name) {
+        OJ.constants.register(name, ret);
+        Object.seal(ret);
+        Object.freeze(ret);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    True if the object is a true Object or Array
+    @param obj {Object}
+     */
+    var canEach, each;
+    canEach = function(obj) {
+      return obj && (typeof obj === "object" || Array.isArray(obj));
+    };
+
+    /*
+    Iterate an object with optional callBack and recursion
+    @param obj {Object} an Object to iterate
+    @param onEach {Function} [onEach=undefined] call back to exec
+    @param recursive {Boolean} if true, recurse the object
+     */
+    each = function(obj, onEach, recursive) {
+      if (canEach(obj)) {
+        _.forEach(obj, function(val, key) {
+          var quit;
+          if (onEach && key) {
+            quit = onEach(val, key);
+            if (false === quit) {
+              return false;
+            }
+          }
+          if (true === recursive) {
+            each(val, onEach, true);
+          }
+        });
+      }
+    };
+    OJ.register("each", each);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Create an instance of Object
+    @param properties {Object} [properties={}] properties to define on the Object
+    @param inheritsFromPrototype {Prototype} [inheritsFromPrototype=null] The prototype to inherit from
+     */
+    var object;
+    object = function(properties, inheritsFromPrototype) {
+      var obj;
+      if (!inheritsFromPrototype) {
+        inheritsFromPrototype = null;
+      }
+      if (!properties) {
+        properties = {};
+      }
+      obj = Object.create(inheritsFromPrototype, properties);
+
+      /*
+      Add a property to the object and return it
+       */
+      OJ.property(obj, 'add', (function(name, val, writable, configurable, enumerable) {
+        return OJ.property(obj, name, val, writable, configurable, enumerable);
+      }), false, false, false);
+      return obj;
+    };
+    OJ.register('object', object);
+    OJ.register('isInstanceOf', function(name, obj) {
+      return OJ.contains(name, obj) && OJ.bool(obj[name]);
+    });
+    OJ.register('contains', function(object, index) {
+      var ret;
+      ret = false;
+      if (false === OJ.isNullOrUndefined(object)) {
+        if (OJ.isArray(object)) {
+          ret = object.indexOf(index) !== -1;
+        }
+        if (false === ret && object.hasOwnProperty(index)) {
+          ret = true;
+        }
+      }
+      return ret;
+    });
+    OJ.register('compare', function(obj1, obj2) {
+      return _.isEqual(obj1(obj2));
+    });
+    OJ.register('clone', function(data) {
+      return _.cloneDeep(data(true));
+    });
+    OJ.register('serialize', function(data) {
+      var ret;
+      ret = '';
+      OJ.tryExec(function() {
+        ret = JSON.stringify(data);
+      });
+      return ret || '';
+    });
+    OJ.register('deserialize', function(data) {
+      var ret;
+      ret = {};
+      if (data) {
+        OJ.tryExec(function() {
+          ret = window.$.parseJSON(data);
+        });
+        if (OJ.is.nullOrEmpty(ret)) {
+          ret = {};
+        }
+      }
+      return ret;
+    });
+    OJ.register('params', function(data, delimiter) {
+      var ret;
+      ret = '';
+      delimiter = delimiter || '&';
+      if (delimiter === '&') {
+        OJ.tryExec(function() {
+          ret = $.param(data);
+        });
+      } else {
+        OJ.each(data, function(val, key) {
+          if (ret.length > 0) {
+            ret += delimiter;
+          }
+          ret += key + '=' + val;
+        });
+      }
+      return OJ.string(ret);
+    });
+    OJ.register('extend', function(destObj, srcObj, deepCopy) {
+      var ret;
+      ret = destObj || {};
+      if (arguments.length === 3) {
+        ret = $.extend(OJ.bool(deepCopy), ret, srcObj);
+      } else {
+        ret = $.extend(ret, srcObj);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var from, query, run, select;
+    select = function() {
+      var args, query, slice;
+      query = this;
+      slice = Array.prototype.slice;
+      args = slice.call(arguments_, 0);
+      query.columns = query.columns || [];
+      OJ.each(args, function(argumentValue) {
+        query.columns.push(argumentValue);
+      });
+      return query;
+    };
+    run = function() {
+      var firstResult, query, results, ret, returnRows;
+      query = this;
+      ret = [];
+      if (query.columns.length > 0) {
+        results = [];
+        OJ.each(query.columns, function(columnName) {
+          OJ.each(query.tables, (function(tbl) {
+            var res, val;
+            if (Array.isArray(tbl)) {
+              res = {};
+              val = tbl._select(function(val) {
+                return val[columnName];
+              });
+              if (val) {
+                res[columnName] = val;
+                results.push(res);
+              }
+            }
+          }), true);
+        });
+        returnRows = [];
+        if (results && results.length > 0) {
+          firstResult = results[0];
+          OJ.each(firstResult, (function(val, key) {
+            OJ.each(val, (function(cell) {
+              var row;
+              row = {};
+              row[key] = cell;
+              OJ.each(results.slice(1), (function(result) {
+                OJ.each(result, (function(v, k) {
+                  OJ.each(v, function(c) {
+                    row[k] = c;
+                  });
+                }), true);
+              }), true);
+              returnRows.push(row);
+            }), true);
+          }), true);
+        }
+      }
+      return returnRows;
+    };
+    from = function(array) {
+      var query;
+      query = this;
+      query.tables.push(array);
+      return query;
+    };
+    Object.defineProperties(Array.prototype, {
+      _where: {
+        value: function(func) {
+          return OJ.filter(func, this);
+        }
+      },
+      _select: {
+        value: function(func) {
+          return OJ.map(func, this);
+        }
+      }
+    });
+    query = function(array) {
+      var tables, _query;
+      tables = [];
+      tables.push(array);
+      _query = {
+        tables: tables,
+        from: from,
+        select: select,
+        run: run
+      };
+      return _query;
+    };
+    OJ.register("objectSql", query);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Add a property to an object
+    @param obj {Object} an Object onto which to add a property
+    @param name {String} the property name
+    @param value {Object} the value of the property. Can be any type.
+    @param writable {Boolean} [writable=true] True if the property can be modified
+    @param configurable {Boolean} [configurable=true] True if the property can be removed
+    @param enumerable {Boolean} [enumerable=true] True if the property can be enumerated and is listed in Object.keys
+     */
+    var property;
+    property = function(obj, name, value, writable, configurable, enumerable) {
+      var isConfigurable, isEnumerable, isWritable;
+      if (!obj) {
+        throw new Error("Cannot define a property without an Object.");
+      }
+      if (typeof name !== "string") {
+        throw new Error("Cannot create a property without a valid property name.");
+      }
+      isWritable = writable !== false;
+      isConfigurable = configurable !== false;
+      isEnumerable = enumerable !== false;
+      Object.defineProperty(obj, name, {
+        value: value,
+        writable: isWritable,
+        configurable: isConfigurable,
+        enumerable: isEnumerable
+      });
+      return obj;
+    };
+    OJ.register("property", property);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inheritsFrom, onError, thisGlobal;
+    thisGlobal = (typeof global !== 'undefined' && global ? global : (typeof thisGlobal !== 'undefined' ? thisGlobal : this));
+    onError = thisGlobal.onerror;
+
+    /*
+    Log errors to the console
+     */
+    thisGlobal.onerror = function(msg, url, lineNumber) {
+      console.warn("%s\rurl: %s\rline: %d", msg, url, lineNumber);
+      if (onError) {
+        onError(arguments);
+      }
+      return false;
+    };
+    if (!thisGlobal.setImmediate) {
+
+      /*
+      Shim for setImmediate
+       */
+      thisGlobal.setImmediate = function(func, args) {
+        return thisGlobal.setTimeout(func, 0, args);
+      };
+      thisGlobal.clearImmediate = thisGlobal.clearTimeout;
+    }
+    if (!Function.prototype.inheritsFrom) {
+      Object.defineProperties(Function.prototype, {
+        inheritsFrom: {
+
+          /*
+          Easy inheritance by prototype
+           */
+          value: inheritsFrom = function(parentClassOrObject) {
+            if (parentClassOrObject.constructor === Function) {
+              this.prototype = new parentClassOrObject;
+              this.prototype.constructor = this;
+              this.prototype.parent = parentClassOrObject.prototype;
+            } else {
+              this.prototype = parentClassOrObject;
+              this.prototype.constructor = this;
+              this.prototype.parent = parentClassOrObject;
+            }
+            return this;
+          }
+        }
+      });
+    }
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Generates a random string that complies to the RFC 4122 specification for GUID/UUID.
+    (e.g. 'B42A153F-1D9A-4F92-9903-92C11DD684D2')
+    While not a true UUID, for the purposes of this application, it should be sufficient.
+     */
+    var createFauxUUID;
+    createFauxUUID = function() {
+      var hexDigits, i, s, uuid;
+      s = [];
+      s.length = 36;
+      hexDigits = "0123456789abcdef";
+      i = 0;
+      while (i < 36) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        i += 1;
+      }
+      s[14] = "4";
+      s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+      s[8] = s[13] = s[18] = s[23] = "-";
+      uuid = s.join("");
+      return uuid;
+    };
+    OJ.register("createUUID", createFauxUUID);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -2410,6 +3524,7 @@ OJ IIFE definition to anchor JsDoc comments.
             }
           };
           option = ret.option(val);
+          option.text(text);
           return option;
         }
       });
@@ -2424,10 +3539,9 @@ OJ IIFE definition to anchor JsDoc comments.
       ret.add('resetOptions', function(values) {
         ret.empty();
         values = values;
-        return ret.addOptions(values);
+        ret.addOptions(values);
+        return ret;
       });
-      OJ.tryExec(ojInternal.onComplete, ret.selectedVal());
-      ret;
       ret.add('removeOption', function(valueToRemove) {
         var i, selectControl;
         values.splice(values.indexOf(valueToRemove), 1);
@@ -2557,21 +3671,21 @@ OJ IIFE definition to anchor JsDoc comments.
       OJ.extend(defaults, options);
       ret = OJ.element('table', defaults.props, defaults.styles, defaults.events);
       tbody = OJ.nodes.tbody({}, ret, false);
-      firstRow = OJ.node.tr({}, tbody, false);
+      firstRow = OJ.nodes.tr({}, tbody, false);
       rows.push(firstRow);
       ret.add('cell', function(row, col) {
         var cell;
         row = rows[row];
         if (!row) {
           while (rows.length < row) {
-            row = OJ.node.tr({}, tbody, false);
+            row = OJ.nodes.tr({}, tbody, false);
             rows.push(row);
           }
         }
         cell = row.cells[col];
         if (!cell) {
           while (rows.cells.length < col) {
-            cell = OJ.node.td({
+            cell = OJ.nodes.td({
               props: defaults.cells
             }, row, false);
           }
@@ -2797,1111 +3911,5 @@ OJ IIFE definition to anchor JsDoc comments.
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var assert, console, count, length, method, methods, noop, thisGlobal;
-    method = void 0;
-    noop = function() {};
-    methods = ["assert", "clear", "count", "debug", "dir", "dirxml", "error", "exception", "group", "groupCollapsed", "groupEnd", "info", "log", "markTimeline", "profile", "profileEnd", "table", "time", "timeEnd", "timeStamp", "trace", "warn"];
-    length = methods.length;
-    thisGlobal = (typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this);
-    console = (thisGlobal.console = thisGlobal.console || {});
-    while (length--) {
-      method = methods[length];
-      if (!console[method]) {
-        console[method] = noop;
-      }
-    }
-    OJ.makeSubNameSpace("console");
-    OJ.console.register("assert", assert = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.assert(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("count", count = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.count(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("error", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.error(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("group", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.group(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("groupCollapsed", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.groupCollapsed(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("groupEnd", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.groupEnd(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("info", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.info(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("log", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.log(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("profile", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.profile(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("profileEnd", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.profileEnd(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("table", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.table(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("time", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.time(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("timeEnd", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.timeEnd(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("trace", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.trace(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("warn", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.warn(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    Create a new object with constant properties..
-    @param props {Object} an object represent the enun members
-     */
-    var Constant;
-    Constant = function(props) {
-      var keys, that;
-      that = null;
-      keys = [];
-      if (props) {
-        that = this;
-
-        /*
-        Assert that the provided key is a member of the enum
-        @param key {String} enum property name
-         */
-        OJ.property(that, "has", function(key) {
-          return keys.indexOf(key) !== -1;
-        });
-        OJ.each(props, function(propVal, propName) {
-          keys.push(propVal);
-          Object.defineProperty(that, propName, {
-            value: propVal
-          });
-        });
-      }
-      return that;
-    };
-
-    /*
-    Create a new enum on the constants namespace.
-    Enums are objects consisting of read-only, non-configurable, non-enumerable properties.
-    @param name {String} the name of the enum
-    @param props {Object} the properties of the enum
-     */
-    OJ.register("constant", function(OJ, name, props) {
-      var ret;
-      ret = new Constant(props);
-      OJ = OJ || OJ;
-      if (ret && OJ.constants && OJ.constants.register && name) {
-        OJ.constants.register(name, ret);
-        Object.seal(ret);
-        Object.freeze(ret);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    True if the object is a true Object or Array
-    @param obj {Object}
-     */
-    var canEach, each;
-    canEach = function(obj) {
-      return obj && (typeof obj === "object" || Array.isArray(obj));
-    };
-
-    /*
-    Iterate an object with optional callBack and recursion
-    @param obj {Object} an Object to iterate
-    @param onEach {Function} [onEach=undefined] call back to exec
-    @param recursive {Boolean} if true, recurse the object
-     */
-    each = function(obj, onEach, recursive) {
-      if (canEach(obj)) {
-        _.forEach(obj, function(val, key) {
-          var quit;
-          if (onEach && key) {
-            quit = onEach(val, key);
-            if (false === quit) {
-              return false;
-            }
-          }
-          if (true === recursive) {
-            each(val, onEach, true);
-          }
-        });
-      }
-    };
-    OJ.register("each", each);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    Create an instance of Object
-    @param properties {Object} [properties={}] properties to define on the Object
-    @param inheritsFromPrototype {Prototype} [inheritsFromPrototype=null] The prototype to inherit from
-     */
-    var object;
-    object = function(properties, inheritsFromPrototype) {
-      var obj;
-      if (!inheritsFromPrototype) {
-        inheritsFromPrototype = null;
-      }
-      if (!properties) {
-        properties = {};
-      }
-      obj = Object.create(inheritsFromPrototype, properties);
-
-      /*
-      Add a property to the object and return it
-       */
-      OJ.property(obj, 'add', (function(name, val, writable, configurable, enumerable) {
-        return OJ.property(obj, name, val, writable, configurable, enumerable);
-      }), false, false, false);
-      return obj;
-    };
-    OJ.register('object', object);
-    OJ.register('isInstanceOf', function(name, obj) {
-      return OJ.contains(name, obj) && OJ.bool(obj[name]);
-    });
-    OJ.register('contains', function(object, index) {
-      var ret;
-      ret = false;
-      if (false === OJ.isNullOrUndefined(object)) {
-        if (OJ.isArray(object)) {
-          ret = object.indexOf(index) !== -1;
-        }
-        if (false === ret && object.hasOwnProperty(index)) {
-          ret = true;
-        }
-      }
-      return ret;
-    });
-    OJ.register('compare', function(obj1, obj2) {
-      return _.isEqual(obj1(obj2));
-    });
-    OJ.register('clone', function(data) {
-      return _.cloneDeep(data(true));
-    });
-    OJ.register('serialize', function(data) {
-      var ret;
-      ret = '';
-      OJ.tryExec(function() {
-        ret = JSON.stringify(data);
-      });
-      return ret || '';
-    });
-    OJ.register('deserialize', function(data) {
-      var ret;
-      ret = {};
-      if (data) {
-        OJ.tryExec(function() {
-          ret = window.$.parseJSON(data);
-        });
-        if (OJ.is.nullOrEmpty(ret)) {
-          ret = {};
-        }
-      }
-      return ret;
-    });
-    OJ.register('params', function(data, delimiter) {
-      var ret;
-      ret = '';
-      delimiter = delimiter || '&';
-      if (delimiter === '&') {
-        OJ.tryExec(function() {
-          ret = $.param(data);
-        });
-      } else {
-        OJ.each(data, function(val, key) {
-          if (ret.length > 0) {
-            ret += delimiter;
-          }
-          ret += key + '=' + val;
-        });
-      }
-      return OJ.string(ret);
-    });
-    OJ.register('extend', function(destObj, srcObj, deepCopy) {
-      var ret;
-      ret = destObj || {};
-      if (arguments.length === 3) {
-        ret = $.extend(OJ.bool(deepCopy), ret, srcObj);
-      } else {
-        ret = $.extend(ret, srcObj);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var from, query, run, select;
-    select = function() {
-      var args, query, slice;
-      query = this;
-      slice = Array.prototype.slice;
-      args = slice.call(arguments_, 0);
-      query.columns = query.columns || [];
-      OJ.each(args, function(argumentValue) {
-        query.columns.push(argumentValue);
-      });
-      return query;
-    };
-    run = function() {
-      var firstResult, query, results, ret, returnRows;
-      query = this;
-      ret = [];
-      if (query.columns.length > 0) {
-        results = [];
-        OJ.each(query.columns, function(columnName) {
-          OJ.each(query.tables, (function(tbl) {
-            var res, val;
-            if (Array.isArray(tbl)) {
-              res = {};
-              val = tbl._select(function(val) {
-                return val[columnName];
-              });
-              if (val) {
-                res[columnName] = val;
-                results.push(res);
-              }
-            }
-          }), true);
-        });
-        returnRows = [];
-        if (results && results.length > 0) {
-          firstResult = results[0];
-          OJ.each(firstResult, (function(val, key) {
-            OJ.each(val, (function(cell) {
-              var row;
-              row = {};
-              row[key] = cell;
-              OJ.each(results.slice(1), (function(result) {
-                OJ.each(result, (function(v, k) {
-                  OJ.each(v, function(c) {
-                    row[k] = c;
-                  });
-                }), true);
-              }), true);
-              returnRows.push(row);
-            }), true);
-          }), true);
-        }
-      }
-      return returnRows;
-    };
-    from = function(array) {
-      var query;
-      query = this;
-      query.tables.push(array);
-      return query;
-    };
-    Object.defineProperties(Array.prototype, {
-      _where: {
-        value: function(func) {
-          return OJ.filter(func, this);
-        }
-      },
-      _select: {
-        value: function(func) {
-          return OJ.map(func, this);
-        }
-      }
-    });
-    query = function(array) {
-      var tables, _query;
-      tables = [];
-      tables.push(array);
-      _query = {
-        tables: tables,
-        from: from,
-        select: select,
-        run: run
-      };
-      return _query;
-    };
-    OJ.register("objectSql", query);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    Add a property to an object
-    @param obj {Object} an Object onto which to add a property
-    @param name {String} the property name
-    @param value {Object} the value of the property. Can be any type.
-    @param writable {Boolean} [writable=true] True if the property can be modified
-    @param configurable {Boolean} [configurable=true] True if the property can be removed
-    @param enumerable {Boolean} [enumerable=true] True if the property can be enumerated and is listed in Object.keys
-     */
-    var property;
-    property = function(obj, name, value, writable, configurable, enumerable) {
-      var isConfigurable, isEnumerable, isWritable;
-      if (!obj) {
-        throw new Error("Cannot define a property without an Object.");
-      }
-      if (typeof name !== "string") {
-        throw new Error("Cannot create a property without a valid property name.");
-      }
-      isWritable = writable !== false;
-      isConfigurable = configurable !== false;
-      isEnumerable = enumerable !== false;
-      Object.defineProperty(obj, name, {
-        value: value,
-        writable: isWritable,
-        configurable: isConfigurable,
-        enumerable: isEnumerable
-      });
-      return obj;
-    };
-    OJ.register("property", property);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inheritsFrom, onError, thisGlobal;
-    thisGlobal = (typeof global !== 'undefined' && global ? global : (typeof thisGlobal !== 'undefined' ? thisGlobal : this));
-    onError = thisGlobal.onerror;
-
-    /*
-    Log errors to the console
-     */
-    thisGlobal.onerror = function(msg, url, lineNumber) {
-      console.warn("%s\rurl: %s\rline: %d", msg, url, lineNumber);
-      if (onError) {
-        onError(arguments);
-      }
-      return false;
-    };
-    if (!thisGlobal.setImmediate) {
-
-      /*
-      Shim for setImmediate
-       */
-      thisGlobal.setImmediate = function(func, args) {
-        return thisGlobal.setTimeout(func, 0, args);
-      };
-      thisGlobal.clearImmediate = thisGlobal.clearTimeout;
-    }
-    if (!Function.prototype.inheritsFrom) {
-      Object.defineProperties(Function.prototype, {
-        inheritsFrom: {
-
-          /*
-          Easy inheritance by prototype
-           */
-          value: inheritsFrom = function(parentClassOrObject) {
-            if (parentClassOrObject.constructor === Function) {
-              this.prototype = new parentClassOrObject;
-              this.prototype.constructor = this;
-              this.prototype.parent = parentClassOrObject.prototype;
-            } else {
-              this.prototype = parentClassOrObject;
-              this.prototype.constructor = this;
-              this.prototype.parent = parentClassOrObject;
-            }
-            return this;
-          }
-        }
-      });
-    }
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    Generates a random string that complies to the RFC 4122 specification for GUID/UUID.
-    (e.g. 'B42A153F-1D9A-4F92-9903-92C11DD684D2')
-    While not a true UUID, for the purposes of this application, it should be sufficient.
-     */
-    var createFauxUUID;
-    createFauxUUID = function() {
-      var hexDigits, i, s, uuid;
-      s = [];
-      s.length = 36;
-      hexDigits = "0123456789abcdef";
-      i = 0;
-      while (i < 36) {
-        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
-        i += 1;
-      }
-      s[14] = "4";
-      s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
-      s[8] = s[13] = s[18] = s[23] = "-";
-      uuid = s.join("");
-      return uuid;
-    };
-    OJ.register("createUUID", createFauxUUID);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function() {
-    var makeSequentialArray;
-    makeSequentialArray = function(start, end) {
-      var i, ret;
-      ret = array();
-      i = void 0;
-      end = +end;
-      if (OJ.isNumber(start) && OJ.isNumber(end)) {
-        i = +start;
-        while (i <= end) {
-          ret.push(i);
-          i += 1;
-        }
-      }
-      return ret;
-    };
-    OJ.register("makeSequentialArray", makeSequentialArray);
-  })();
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    Method to create a Class with optional inheritance.
-    Generally, I oppose this semantic in JS:
-    partly because of the ineffability of the 'this' operator,
-    and partly because of the difficulty in grokking this.
-    What we're really saying here (through the wonders of functional programming) is this:
-    
-    var MyClass1 = function(param1) {
-    var ret = this;
-    ret.id = param1;
-    return ret;
-    };
-    
-    var MyClass2 = function(param1, param2) {
-    var ret = this;
-    MyClass1.apply(this, Array.prototype.slice.call(arguments, 0));
-    ret.name = param2;
-    return ret;
-    };
-    
-    MyClass2.prototype = new MyClass1;
-    MyClass2.prototype.constructor = MyClass1;
-    MyClass2.prototype.parent = MyClass1.prototype;
-    
-    I find this whole mode of operation as dull as it is stupid.
-    Nonetheless, there are occassions when the convention is suitable for type checking,
-    as you'll come to see in metadata.
-    
-    Obviously, this method has very little utility if you are not using protypical inheritance
-     */
-    var Class;
-    OJ.register("Class", Class = function(name, inheritsFrom, callBack) {
-      var obj;
-      obj = Object.create(null);
-      obj[name] = function() {
-        var e;
-        try {
-          if (inheritsFrom) {
-            inheritsFrom.apply(this, Array.prototype.slice.call(arguments, 0));
-          }
-          return callBack.apply(this, Array.prototype.slice.call(arguments, 0));
-        } catch (_error) {
-          e = _error;
-          OJ.errors.ClassInheritanceError(Class.name + " failed to execute all or part of its callback routine for method " + name + "().", "", "", e);
-        }
-      };
-      if (inheritsFrom) {
-        obj[name].inheritsFrom(inheritsFrom);
-      }
-      return obj[name];
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function() {
-    'use strict';
-    OJ.register("getDateFromDnJson", function(dnDate) {
-      var arr, dnDateStr, localOffset, offset, ret, ticks;
-      dnDateStr = OJ.string(dnDate);
-      ret = void 0;
-      ticks = void 0;
-      offset = void 0;
-      localOffset = void 0;
-      arr = void 0;
-      ret = OJ.dateTimeMinValue;
-      if (false === OJ.is.nullOrEmpty(dnDateStr)) {
-        dnDateStr = dnDateStr.replace("/", "");
-        dnDateStr = dnDateStr.replace("Date", "");
-        dnDateStr = dnDateStr.replace("(", "");
-        dnDateStr = dnDateStr.replace(")", "");
-        arr = dnDateStr.split("-");
-        if (arr.length > 1) {
-          ticks = OJ.number(arr[0]);
-          offset = OJ.number(arr[1]);
-          localOffset = new Date().getTimezoneOffset();
-          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
-        } else if (arr.length === 1) {
-          ticks = OJ.number(arr[0]);
-          ret = new Date(ticks);
-        }
-      }
-      return ret;
-    });
-  })();
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var method, tryExec;
-    OJ.register("tryExec", tryExec = function(tryFunc) {
-      'use strict';
-      var exception, ret, that;
-      ret = false;
-      that = this;
-      try {
-        if (OJ.is.func(tryFunc)) {
-          ret = tryFunc.apply(that, Array.prototype.slice.call(arguments_, 1));
-        }
-      } catch (_error) {
-        exception = _error;
-        if ((exception.name === "TypeError" || exception.type === "called_non_callable") && exception.type === "non_object_property_load") {
-          OJ.console.info("Ignoring exception: ", exception);
-        } else {
-          OJ.console.error(exception);
-        }
-      } finally {
-
-      }
-      return ret;
-    });
-    OJ.register("method", method = function(tryFunc) {
-      'use strict';
-      var that;
-      that = this;
-      return function() {
-        var args;
-        args = Array.prototype.slice.call(arguments_, 0);
-        args.unshift(tryFunc);
-        return OJ.tryExec.apply(that, args);
-      };
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var apply, curryLeft, filter, foldLeft, map, shiftRight;
-    OJ.makeSubNameSpace("fun");
-    OJ.fun.register("curryLeft", curryLeft = function(func) {
-      var args, slice;
-      slice = Array.prototype.slice;
-      args = slice.call(arguments_, 1);
-      return function() {
-        return func.apply(this, args.concat(slice.call(arguments_, 0)));
-      };
-    });
-    OJ.fun.register("foldLeft", foldLeft = function(func, newArray, oldArray) {
-      var accumulation;
-      accumulation = newArray;
-      OJ.each(oldArray, function(val) {
-        accumulation = func(accumulation, val);
-      });
-      return accumulation;
-    });
-    OJ.fun.register("map", map = function(func, array) {
-      var onIteration;
-      onIteration = function(accumulation, val) {
-        return accumulation.concat(func(val));
-      };
-      return OJ.fun.foldLeft(onIteration, [], array);
-    });
-    OJ.fun.register("filter", filter = function(func, array) {
-      var onIteration;
-      onIteration = function(accumulation, val) {
-        if (func(val)) {
-          return accumulation.concat(val);
-        } else {
-          return accumulation;
-        }
-      };
-      return OJ.fun.foldLeft(onIteration, [], array);
-    });
-    OJ.fun.register("shiftRight", shiftRight = function(shiftFunc, firstParam, originalArguments, context) {
-      var args;
-      context = context || this;
-      args = Array.prototype.slice.call(originalArguments, 0);
-      args.unshift(firstParam);
-      return shiftFunc.apply(context, args);
-    });
-    OJ.fun.register("apply", apply = function(applyFunc, originalArguments, context) {
-      var args;
-      context = context || this;
-      args = Array.prototype.slice.call(originalArguments, 0);
-      return applyFunc.apply(context, args);
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.is.register('bool', function(boolean) {
-      'use strict';
-      return _.isBoolean(boolean);
-    });
-    OJ.is.register('arrayNullOrEmpty', function(arr) {
-      'use strict';
-      return !Array.isArray(arr) || !arr || !arr.length || arr.length === 0 || !arr.push;
-    });
-    OJ.is.register('stringNullOrEmpty', function(str) {
-      'use strict';
-      return str && (!str.length || str.length === 0 || !str.trim || !str.trim());
-    });
-    OJ.is.register('numberNullOrEmpty', function(num) {
-      'use strict';
-      return !num || isNaN(num) || !num.toPrecision;
-    });
-    OJ.is.register('dateNullOrEmpty', function(dt) {
-      'use strict';
-      return !dt || !dt.getTime;
-    });
-    OJ.is.register('objectNullOrEmpty', function(obj) {
-      'use strict';
-      return _.isEmpty(obj || !Object.keys(obj) || Object.keys(obj).length === 0);
-    });
-    OJ.is.register('plainObject', function(obj) {
-      'use strict';
-      return _.isPlainObject(obj);
-    });
-    OJ.is.register('date', function(dt) {
-      return _.isDate(dt);
-    });
-
-    /*
-    Determines if a value is an instance of a Number and not NaN*
-     */
-    OJ.is.register('number', function(num) {
-      return typeof num === 'number' && false === (OJ.number.isNaN(num) || false === OJ.number.isFinite(num) || OJ.number.MAX_VALUE === num || OJ.number.MIN_VALUE === num);
-    });
-
-    /*
-    Determines if a value is convertable to a Number
-     */
-    OJ.is.register('numeric', function(num) {
-      var nuNum, ret;
-      ret = OJ.is.number(num);
-      if (!ret) {
-        nuNum = OJ.to.number(num);
-        ret = OJ.is.number(nuNum);
-      }
-      return ret;
-    });
-    OJ.is.register('vendorObject', function(obj) {
-      'use strict';
-      var ret;
-      ret = obj instanceof OJ['?'];
-      return ret;
-    });
-    OJ.is.register('elementInDom', function(elementId) {
-      return false === OJ.is.nullOrEmpty(document.getElementById(elementId));
-    });
-    OJ.is.register('generic', function(obj) {
-      'use strict';
-      var ret;
-      ret = false === OJ.is['function'](obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
-      return ret;
-    });
-    OJ.is.register('array', function(obj) {
-      return _.isArray(obj);
-    });
-    OJ.is.register('string', function(str) {
-      return _.isString(str);
-    });
-    OJ.is.register('true', function(obj) {
-      'use strict';
-      return obj === true || obj === 'true' || obj === 1 || obj === '1';
-    });
-    OJ.is.register('false', function(obj) {
-      'use strict';
-      return obj === false || obj === 'false' || obj === 0 || obj === '0';
-    });
-    OJ.is.register('trueOrFalse', function(obj) {
-      'use strict';
-      return OJ.is["true"](obj || OJ.is["false"](obj));
-    });
-    OJ.is.register('nullOrEmpty', function(obj, checkLength) {
-      'use strict';
-      return _.isEmpty(obj || _.isUndefined(obj || _.isNull(obj || _.isNaN(obj))));
-    });
-    OJ.is.register('instanceof', function(name, obj) {
-      'use strict';
-      return obj.type === name || obj instanceof name;
-    });
-    OJ.is.register('func', function(obj) {
-      'use strict';
-      return _.isFunction(obj);
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var slice;
-    slice = Array.prototype.slice;
-
-    /*
-    Take an arguments object and convert it into an Array
-     */
-    OJ.register("getArguments", function(args, sliceAt) {
-      'use strict';
-      var ret;
-      sliceAt = sliceAt || 0;
-      ret = slice.call(args, sliceAt);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var number;
-    number = Object.create(null);
-    Object.defineProperty(number, "isNaN", {
-      value: (Number && Number.isNaN ? Number.isNaN : isNaN)
-    });
-    Object.defineProperty(number, "isFinite", {
-      value: (Number && Number.isFinite ? Number.isFinite : isFinite)
-    });
-    Object.defineProperty(number, "MAX_VALUE", {
-      value: (Number && Number.MAX_VALUE ? Number.MAX_VALUE : 1.7976931348623157e+308)
-    });
-    Object.defineProperty(number, "MIN_VALUE", {
-      value: (Number && Number.MIN_VALUE ? Number.MIN_VALUE : 5e-324)
-    });
-    OJ.register("number", number);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.register("delimitedString", function(string, opts) {
-      var nsInternal, nsRet;
-      nsInternal = {
-        newLineToDelimiter: true,
-        spaceToDelimiter: true,
-        removeDuplicates: true,
-        delimiter: ",",
-        initString: OJ.to.string(string)
-      };
-      nsRet = {
-        array: [],
-        delimited: function() {
-          return nsRet.array.join(nsInternal.delimiter);
-        },
-        string: function(delimiter) {
-          var ret;
-          delimiter = delimiter || nsInternal.delimiter;
-          ret = "";
-          OJ.each(nsRet.array, function(val) {
-            if (ret.length > 0) {
-              ret += delimiter;
-            }
-            ret += val;
-          });
-          return ret;
-        },
-        toString: function() {
-          return nsRet.string();
-        },
-        add: function(str) {
-          nsRet.array.push(nsInternal.parse(str));
-          nsInternal.deleteDuplicates();
-          return nsRet;
-        },
-        remove: function(str) {
-          var remove;
-          remove = function(array) {
-            return array.filter(function(item) {
-              if (item !== str) {
-                return true;
-              }
-            });
-          };
-          nsRet.array = remove(nsRet.array);
-          return nsRet;
-        },
-        count: function() {
-          return nsRet.array.length;
-        },
-        contains: function(str, caseSensitive) {
-          var isCaseSensitive, match;
-          isCaseSensitive = OJ.to.bool(caseSensitive);
-          str = OJ.string(str).trim();
-          if (false === isCaseSensitive) {
-            str = str.toLowerCase();
-          }
-          match = nsRet.array.filter(function(matStr) {
-            return (isCaseSensitive && OJ.to.string(matStr).trim() === str) || OJ.to.string(matStr).trim().toLowerCase() === str;
-          });
-          return match.length > 0;
-        },
-        each: function(callBack) {
-          return nsRet.array.forEach(callBack);
-        }
-      };
-      nsInternal.parse = function(str) {
-        var ret;
-        ret = OJ.to.string(str);
-        if (nsInternal.newLineToDelimiter) {
-          while (ret.indexOf("\n") !== -1) {
-            ret = ret.replace(/\n/g, nsInternal.delimiter);
-          }
-        }
-        if (nsInternal.spaceToDelimiter) {
-          while (ret.indexOf(" ") !== -1) {
-            ret = ret.replace(RegExp(" ", "g"), nsInternal.delimiter);
-          }
-        }
-        while (ret.indexOf(",,") !== -1) {
-          ret = ret.replace(/,,/g, nsInternal.delimiter);
-        }
-        return ret;
-      };
-      nsInternal.deleteDuplicates = function() {
-        if (nsInternal.removeDuplicates) {
-          (function() {
-            var unique;
-            unique = function(array) {
-              var seen;
-              seen = new Set();
-              return array.filter(function(item) {
-                if (false === seen.has(item)) {
-                  seen.add(item);
-                  return true;
-                }
-              });
-            };
-            nsRet.array = unique(nsRet.array);
-          })();
-        }
-      };
-      (function(a) {
-        var delimitedString;
-        if (a.length > 1 && false === OJ.is.plainObject(opts)) {
-          OJ.each(a, function(val) {
-            if (false === OJ.is.nullOrEmpty(val)) {
-              nsRet.array.push(val);
-            }
-          });
-        } else if (string && string.length > 0) {
-          OJ.extend(nsInternal, opts);
-          delimitedString = nsInternal.parse(string);
-          nsInternal.initString = delimitedString;
-          nsRet.array = delimitedString.split(nsInternal.delimiter);
-        }
-        nsInternal.deleteDuplicates();
-      })(arguments_);
-      return nsRet;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.to.register("bool", function(str) {
-      var retBool;
-      retBool = OJ.is["true"](str);
-      if (retBool === false || retBool !== true) {
-        retBool = false;
-      }
-      return retBool;
-    });
-    OJ.to.register("ES5_ToBool", function(val) {
-      return val !== false && val !== 0 && val !== "" && val !== null && val !== undefined && (typeof val !== "number" || !isNaN(val));
-    });
-    OJ.to.register("dateFromTicks", function(tickStr) {
-      var arr, localOffset, offset, ret, ticks, ticsDateTime;
-      ticsDateTime = OJ.string(tickStr);
-      ret = void 0;
-      ticks = void 0;
-      offset = void 0;
-      localOffset = void 0;
-      arr = void 0;
-      if (false === OJ.is.nullOrEmpty(ticsDateTime)) {
-        ticsDateTime = ticsDateTime.replace("/", "");
-        ticsDateTime = ticsDateTime.replace("Date", "");
-        ticsDateTime = ticsDateTime.replace("(", "");
-        ticsDateTime = ticsDateTime.replace(")", "");
-        arr = ticsDateTime.split("-");
-        if (arr.length > 1) {
-          ticks = OJ.number(arr[0]);
-          offset = OJ.number(arr[1]);
-          localOffset = new Date().getTimezoneOffset();
-          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
-        } else if (arr.length === 1) {
-          ticks = OJ.number(arr[0]);
-          ret = new Date(ticks);
-        }
-      }
-      return ret;
-    });
-    OJ.to.register("binary", function(obj) {
-      var ret;
-      ret = NaN;
-      if (obj === 0 || obj === "0" || obj === "" || obj === false || OJ.to.string(obj).toLowerCase().trim() === "false") {
-        ret = 0;
-      } else {
-        if (obj === 1 || obj === "1" || obj === true || OJ.to.string(obj).toLowerCase().trim() === "true") {
-          ret = 1;
-        }
-      }
-      return ret;
-    });
-
-    /*
-    Attempts to converts an arbitrary value to a Number.
-    Loose falsy values are converted to 0.
-    Loose truthy values are converted to 1.
-    All other values are parsed as Integers.
-    Failures return as NaN.
-     */
-    OJ.to.register("number", function(inputNum, defaultNum) {
-      var retVal, tryGetNumber;
-      tryGetNumber = function(val) {
-        var ret, tryGet;
-        ret = NaN;
-        if (OJ.is.number(val)) {
-          ret = val;
-        } else if (OJ.is.string(val) || OJ.is.bool(val)) {
-          tryGet = function(value) {
-            var num;
-            num = OJ.to.binary(value);
-            if (!OJ.is.number(num) && value) {
-              num = +value;
-            }
-            if (!OJ.is.number(num)) {
-              num = _.parseInt(value, 0);
-            }
-            return num;
-          };
-          ret = tryGet(val);
-        }
-        return ret;
-      };
-      retVal = tryGetNumber(inputNum);
-      if (!OJ.is.number(retVal)) {
-        retVal = tryGetNumber(defaultNum);
-        if (!OJ.is.number(retVal)) {
-          retVal = Number.NaN;
-        }
-      }
-      return retVal;
-    });
-    OJ.to.register("string", function(inputStr, defaultStr) {
-      var ret1, ret2, retVal, tryGetString;
-      tryGetString = function(str) {
-        var ret;
-        ret = void 0;
-        if (OJ.is.string(str)) {
-          ret = str;
-        } else {
-          ret = "";
-          if (OJ.is.bool(str) || OJ.is.number(str) || OJ.is.date(str)) {
-            ret = str.toString();
-          }
-        }
-        return ret;
-      };
-      ret1 = tryGetString(inputStr);
-      ret2 = tryGetString(defaultStr);
-      retVal = "";
-      if (ret1.length !== 0) {
-        retVal = ret1;
-      } else if (ret1 === ret2 || ret2.length === 0) {
-        retVal = ret1;
-      } else {
-        retVal = ret2;
-      }
-      return retVal;
-    });
-    OJ.to.register("vendorDomObject", function(id) {
-      var base, ret, _$el;
-      ret = null;
-      base = "#";
-      if (id === "body") {
-        base = "";
-      }
-      _$el = OJ["?"](base + id);
-      if (_$el) {
-        ret = _$el;
-      }
-      return ret;
-    });
-    OJ.to.register("vendorDomObjFromString", function(html) {
-      var ret, _$el;
-      ret = null;
-      _$el = OJ["?"](html);
-      if (_$el) {
-        ret = _$el;
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);
