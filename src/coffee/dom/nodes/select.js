@@ -99,6 +99,7 @@
             }
           };
           option = ret.option(val);
+          option.text(text);
           return option;
         }
       });
@@ -113,10 +114,9 @@
       ret.add('resetOptions', function(values) {
         ret.empty();
         values = values;
-        return ret.addOptions(values);
+        ret.addOptions(values);
+        return ret;
       });
-      OJ.tryExec(ojInternal.onComplete, ret.selectedVal());
-      ret;
       ret.add('removeOption', function(valueToRemove) {
         var i, selectControl;
         values.splice(values.indexOf(valueToRemove), 1);

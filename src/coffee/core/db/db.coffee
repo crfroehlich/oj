@@ -6,7 +6,7 @@
   #   
   dbManager = (name, version) ->
     ret = OJ.object()
-    ret.add "promises", OJ.object()
+    ret.add 'promises', OJ.object()
     isNewConnectionRequired = false
     schemaScripts = []
     
@@ -25,11 +25,11 @@
         request = window.indexedDB.open(name, version)
         request.onblocked = (event) ->
           ret.IDB.close()
-          alert "A new version of this page is ready. Please reload!"
+          alert 'A new version of this page is ready. Please reload!'
           return
 
         request.onerror = (event) ->
-          deferred.reject new Error("Database error: " + event.target.errorCode)
+          deferred.reject new Error('Database error: ' + event.target.errorCode)
           ret.IDB.close()  if ret.IDB
           return
 
@@ -63,14 +63,14 @@
 
     
     #Collect the methods into an API:
-    ret.add "connect", connect
-    ret.add "disconnect", disconnect
-    ret.add "getDb", ->
+    ret.add 'connect', connect
+    ret.add 'disconnect', disconnect
+    ret.add 'getDb', ->
       ret.IDB
 
-    ret.add "schemaScripts", schemaScripts
-    ret.add "tables", OJ.object()
-    ret.add "ddl",
+    ret.add 'schemaScripts', schemaScripts
+    ret.add 'tables', OJ.object()
+    ret.add 'ddl',
       createTable: (tableName, tablePkColumnName, autoIncrement) ->
         OJ.fun.shiftRight OJ.db.table.create, ret, arguments, this
 
@@ -80,18 +80,18 @@
       createIndex: (tableName, columnName, indexName, isUnique) ->
         OJ.fun.shiftRight OJ.db.index.create, ret, arguments, this
 
-    ret.add "insert", ->
+    ret.add 'insert', ->
       OJ.fun.shiftRight OJ.db.insert, ret, arguments, this
 
-    ret.add "update", ->
+    ret.add 'update', ->
       OJ.fun.shiftRight OJ.db.update, ret, arguments, this
 
     select = OJ.object()
-    ret.add "select", select
-    select.add "all", ->
+    ret.add 'select', select
+    select.add 'all', ->
       OJ.fun.shiftRight OJ.db.select.all, ret, arguments, this
 
-    select.add "from", ->
+    select.add 'from', ->
       OJ.fun.shiftRight OJ.db.select.from, ret, arguments, this
 
     
@@ -99,7 +99,7 @@
     ret.connect name, version
     ret
 
-  OJ.db.register "dbManager", dbManager
+  OJ.db.register 'dbManager', dbManager
   return
 ) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
 

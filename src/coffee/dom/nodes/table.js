@@ -37,21 +37,21 @@
       OJ.extend(defaults, options);
       ret = OJ.element('table', defaults.props, defaults.styles, defaults.events);
       tbody = OJ.nodes.tbody({}, ret, false);
-      firstRow = OJ.node.tr({}, tbody, false);
+      firstRow = OJ.nodes.tr({}, tbody, false);
       rows.push(firstRow);
       ret.add('cell', function(row, col) {
         var cell;
         row = rows[row];
         if (!row) {
           while (rows.length < row) {
-            row = OJ.node.tr({}, tbody, false);
+            row = OJ.nodes.tr({}, tbody, false);
             rows.push(row);
           }
         }
         cell = row.cells[col];
         if (!cell) {
           while (rows.cells.length < col) {
-            cell = OJ.node.td({
+            cell = OJ.nodes.td({
               props: defaults.cells
             }, row, false);
           }

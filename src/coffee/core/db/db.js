@@ -6,7 +6,7 @@
     dbManager = function(name, version) {
       var connect, disconnect, isNewConnectionRequired, ret, schemaScripts, select;
       ret = OJ.object();
-      ret.add("promises", OJ.object());
+      ret.add('promises', OJ.object());
       isNewConnectionRequired = false;
       schemaScripts = [];
       connect = function(dbName, dbVersion, dbOnUpgrade) {
@@ -21,10 +21,10 @@
           request = window.indexedDB.open(name, version);
           request.onblocked = function(event) {
             ret.IDB.close();
-            alert("A new version of this page is ready. Please reload!");
+            alert('A new version of this page is ready. Please reload!');
           };
           request.onerror = function(event) {
-            deferred.reject(new Error("Database error: " + event.target.errorCode));
+            deferred.reject(new Error('Database error: ' + event.target.errorCode));
             if (ret.IDB) {
               ret.IDB.close();
             }
@@ -54,14 +54,14 @@
           }
         }
       };
-      ret.add("connect", connect);
-      ret.add("disconnect", disconnect);
-      ret.add("getDb", function() {
+      ret.add('connect', connect);
+      ret.add('disconnect', disconnect);
+      ret.add('getDb', function() {
         return ret.IDB;
       });
-      ret.add("schemaScripts", schemaScripts);
-      ret.add("tables", OJ.object());
-      ret.add("ddl", {
+      ret.add('schemaScripts', schemaScripts);
+      ret.add('tables', OJ.object());
+      ret.add('ddl', {
         createTable: function(tableName, tablePkColumnName, autoIncrement) {
           return OJ.fun.shiftRight(OJ.db.table.create, ret, arguments, this);
         },
@@ -72,24 +72,24 @@
           return OJ.fun.shiftRight(OJ.db.index.create, ret, arguments, this);
         }
       });
-      ret.add("insert", function() {
+      ret.add('insert', function() {
         return OJ.fun.shiftRight(OJ.db.insert, ret, arguments, this);
       });
-      ret.add("update", function() {
+      ret.add('update', function() {
         return OJ.fun.shiftRight(OJ.db.update, ret, arguments, this);
       });
       select = OJ.object();
-      ret.add("select", select);
-      select.add("all", function() {
+      ret.add('select', select);
+      select.add('all', function() {
         return OJ.fun.shiftRight(OJ.db.select.all, ret, arguments, this);
       });
-      select.add("from", function() {
+      select.add('from', function() {
         return OJ.fun.shiftRight(OJ.db.select.from, ret, arguments, this);
       });
       ret.connect(name, version);
       return ret;
     };
-    OJ.db.register("dbManager", dbManager);
+    OJ.db.register('dbManager', dbManager);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);

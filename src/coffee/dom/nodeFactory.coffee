@@ -35,7 +35,6 @@
   ]
     
   isChildNodeTypeAllowed = (parent, tagName) ->
-    allowed = false
     switch parent.tagName
       when 'body'
         allowed = _.contains nestableNodeNames, tagName
@@ -63,6 +62,12 @@
         allowed = tagName is 'option'
       when 'option'
         allowed = false
+      when 'span'
+        allowed = false is _.contains nonNestableNodes, tagName  
+      when 'p'
+        allowed = false is _.contains nonNestableNodes, tagName 
+      else
+        allowed = false 
     allowed
   
 

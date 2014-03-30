@@ -30,19 +30,19 @@
     
     
     tbody = OJ.nodes.tbody {}, ret, false 
-    firstRow = OJ.node.tr {}, tbody, false
+    firstRow = OJ.nodes.tr {}, tbody, false
     rows.push firstRow
     
     ret.add 'cell', (row, col) ->
       row = rows[row]
       if not row
         while rows.length < row
-          row = OJ.node.tr {}, tbody, false
+          row = OJ.nodes.tr {}, tbody, false
           rows.push row
       cell = row.cells[col]
       if not cell
         while rows.cells.length < col
-          cell = OJ.node.td props: defaults.cells, row, false
+          cell = OJ.nodes.td props: defaults.cells, row, false
       OJ.nodes.factory cell, row
       cell  
     

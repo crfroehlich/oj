@@ -739,6 +739,9 @@
     </Content>
     <Content Include="test\test.coffee.html" />
     <Content Include="test\test.html" />
+    <Content Include="test\node\test.node.map">
+      <DependentUpon>test.node.coffee</DependentUpon>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />

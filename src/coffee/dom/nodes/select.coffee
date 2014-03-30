@@ -69,6 +69,7 @@
             selected: selected
             disabled: disabled
           option = ret.option val
+          option.text text
           option
 
     ret.add 'addOptions', (options) ->
@@ -81,11 +82,9 @@
       values
 
     ret.add 'resetOptions', (values) ->
-        ret.empty()
-        values = values;
-        ret.addOptions values
-
-      OJ.tryExec ojInternal.onComplete, ret.selectedVal()
+      ret.empty()
+      values = values;
+      ret.addOptions values
       ret
 
     ret.add 'removeOption', (valueToRemove) ->

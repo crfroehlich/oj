@@ -2,257 +2,54 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="da229945-5898-42ab-968b-3af8e0af0408" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/coffee/dom/node.factory.js" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/coffee/dom/node.factory.js.map" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/coffee/dom/node.factory.map" afterPath="" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/test/test.html" afterPath="$PROJECT_DIR$/test/test.html" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/test/core/test.indexedDb.js" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Properties/AssemblyInfo.cs" afterPath="$PROJECT_DIR$/Properties/AssemblyInfo.cs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Generated_files.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/Node_js_Dependencies_for_oj.xml" afterPath="$PROJECT_DIR$/.idea/libraries/Node_js_Dependencies_for_oj.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/SqlDragDropTableJoinStore.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/SqlDragDropTableJoinStore.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/SqlTableJoinSprite.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/SqlTableJoinSprite.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/SqlTableNameStore.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/SqlTableNameStore.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/nodes/elements/_element.map" afterPath="$PROJECT_DIR$/src/archive/nodes/elements/_element.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/subscribers/_gridSubscribers.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/subscribers/_gridSubscribers.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/_initQbUI.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/_initQbUI.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/panel/subscribers/_panelSubscribers.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/panel/subscribers/_panelSubscribers.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/selection/_selectionModel.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/selection/_selectionModel.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/selection/subscribers/_selectionSubscribers.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/selection/subscribers/_selectionSubscribers.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/sheet/subscribers/_sheetSubscribers.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/sheet/subscribers/_sheetSubscribers.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/tree/subscribers/_treeSubscribers.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/tree/subscribers/_treeSubscribers.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/a.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/a.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/a.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/a.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/a.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/a.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/columns/actionColumn.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/columns/actionColumn.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/panel/subscribers/afterLayout.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/panel/subscribers/afterLayout.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/tree/subscribers/afterrender.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/tree/subscribers/afterrender.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/a.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/a.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/array.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/common/array.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/array.js" afterPath="$PROJECT_DIR$/src/coffee/core/common/array.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/array.map" afterPath="$PROJECT_DIR$/src/coffee/core/common/array.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/sheet/subscribers/beforeclose.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/sheet/subscribers/beforeclose.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/sheet/subscribers/beforeshow.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/sheet/subscribers/beforeshow.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/subscribers/bodyscroll.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/subscribers/bodyscroll.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bower.json" afterPath="$PROJECT_DIR$/bower.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/br.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/br.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/br.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/br.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/br.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/br.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/button.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/button.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/button.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/button.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/button.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/button.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/columns/checkColumn.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/columns/checkColumn.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/class.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/common/class.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/clientDb.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/db/clientDb.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/clientDb.js" afterPath="$PROJECT_DIR$/src/coffee/core/db/clientDb.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/clientDb.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/clientDb.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/columns/column.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/columns/column.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/columns/columnItem.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/columns/columnItem.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/columns/columns.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/columns/columns.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/complete.js" afterPath="$PROJECT_DIR$/dist/complete.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/complete.min.js" afterPath="$PROJECT_DIR$/dist/complete.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/console.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/tools/console.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/constant.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/tools/constant.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/datamodel/dataModel.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/datamodel/dataModel.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/datatype/dataType.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/datatype/dataType.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/datatype/dataTypeCollection.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/datatype/dataTypeCollection.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/date.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/common/date.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/date.js" afterPath="$PROJECT_DIR$/src/coffee/core/common/date.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/date.map" afterPath="$PROJECT_DIR$/src/coffee/core/common/date.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/clientDb.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/clientDb.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/db.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/db/db.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/db.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/db.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/db.js" afterPath="$PROJECT_DIR$/src/coffee/core/db/db.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/db.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/db.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbIndex.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbIndex.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbIndex.js" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbIndex.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbIndex.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbIndex.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbInsert.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbInsert.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbInsert.js" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbInsert.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbInsert.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbInsert.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbIndex.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbIndex.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbInsert.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbInsert.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbSelect.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbSelect.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbSelect.js" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbSelect.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbSelect.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbSelect.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbSelect.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbSelect.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbTable.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbTable.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbTable.js" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbTable.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbTable.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbTable.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbUpdate.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbUpdate.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/deployment.xml" afterPath="$PROJECT_DIR$/.idea/deployment.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/db/dbTable.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/db/dbTable.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/dev.html" afterPath="$PROJECT_DIR$/src/dev.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/div.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/div.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/div.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/div.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/nodes/elements/div.map" afterPath="$PROJECT_DIR$/src/archive/nodes/elements/div.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/div.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/div.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/dom.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/dom.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/dom.js" afterPath="$PROJECT_DIR$/src/coffee/dom/dom.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/dom.map" afterPath="$PROJECT_DIR$/src/coffee/dom/dom.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/nodes/domNode.map" afterPath="$PROJECT_DIR$/src/archive/nodes/domNode.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/nodes/domNodeAttributes.map" afterPath="$PROJECT_DIR$/src/archive/nodes/domNodeAttributes.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/subscribers/drop.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/subscribers/drop.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/each.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/tools/each.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/each.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/tools/each.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/each.js" afterPath="$PROJECT_DIR$/src/coffee/core/tools/each.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/each.map" afterPath="$PROJECT_DIR$/src/coffee/core/tools/each.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/dom.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/dom.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/element.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/element.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/element.js" afterPath="$PROJECT_DIR$/src/coffee/dom/element.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/element.map" afterPath="$PROJECT_DIR$/src/coffee/dom/element.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/encodings.xml" afterPath="$PROJECT_DIR$/.idea/encodings.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/element.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/element.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/enums.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/enums.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/enums.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/enums.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/enums.js" afterPath="$PROJECT_DIR$/src/coffee/core/enums.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/enums.map" afterPath="$PROJECT_DIR$/src/coffee/core/enums.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/sql/fields.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/sql/fields.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/fieldset.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/fieldset.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/fieldset.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/fieldset.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/fieldset.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/fieldset.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/fieldset.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/fieldset.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/form.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/form.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/form.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/form.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/form.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/form.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/form.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/form.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/function.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/common/function.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/functional.map" afterPath="$PROJECT_DIR$/src/coffee/core/common/functional.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/grid.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/grid.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/columns/gridColumn.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/columns/gridColumn.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gulpfile.js" afterPath="$PROJECT_DIR$/gulpfile.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/img.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/img.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/img.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/img.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/img.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/img.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/img.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/img.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/input.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/input.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/input.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/input.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/input.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/input.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/nodes/elements/input.map" afterPath="$PROJECT_DIR$/src/archive/nodes/elements/input.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/input.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/input.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/is.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/common/is.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/is.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/common/is.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/is.js" afterPath="$PROJECT_DIR$/src/coffee/core/common/is.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/is.map" afterPath="$PROJECT_DIR$/src/coffee/core/common/is.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/tree/subscribers/itemdbclick.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/tree/subscribers/itemdbclick.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/sql/joins.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/sql/joins.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/label.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/label.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/label.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/label.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/label.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/label.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/label.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/label.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/legend.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/legend.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/legend.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/legend.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/legend.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/legend.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/li.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/li.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/li.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/li.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/li.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/li.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/metadata/metaNode.js.map" afterPath="$PROJECT_DIR$/src/archive/metadata/metaNode.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/metadata/metaNode.js" afterPath="$PROJECT_DIR$/src/archive/metadata/metaNode.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/methods.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/common/methods.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/methods.js" afterPath="$PROJECT_DIR$/src/coffee/core/common/methods.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/methods.map" afterPath="$PROJECT_DIR$/src/coffee/core/common/methods.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/methods.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/common/methods.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/nodes/nodeFactory.coffee" afterPath="$PROJECT_DIR$/src/archive/nodes/nodeFactory.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/nodes/nodeFactory.map" afterPath="$PROJECT_DIR$/src/archive/nodes/nodeFactory.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/number.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/common/number.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/object.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/tools/object.coffee" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.js.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodeFactory.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/object.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/tools/object.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/object.js" afterPath="$PROJECT_DIR$/src/coffee/core/tools/object.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/object.map" afterPath="$PROJECT_DIR$/src/coffee/core/tools/object.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/objectSql.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/tools/objectSql.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/oj.coffee" afterPath="$PROJECT_DIR$/src/coffee/oj.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oj.csproj" afterPath="$PROJECT_DIR$/oj.csproj" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/oj.iml" afterPath="$PROJECT_DIR$/.idea/oj.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/oj.sln" afterPath="$PROJECT_DIR$/oj.sln" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/ojInit.coffee" afterPath="$PROJECT_DIR$/src/coffee/ojInit.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/ojInit.js.map" afterPath="$PROJECT_DIR$/src/coffee/ojInit.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/ojInit.js" afterPath="$PROJECT_DIR$/src/coffee/ojInit.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/ojInit.map" afterPath="$PROJECT_DIR$/src/coffee/ojInit.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/ol.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/ol.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/ol.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/ol.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/ol.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/ol.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/ol.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/ol.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/selection/subscribers/onDeselect.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/selection/subscribers/onDeselect.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/selection/subscribers/onSelect.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/selection/subscribers/onSelect.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/option.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/option.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/option.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/option.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/option.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/option.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/p.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/p.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/p.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/p.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/p.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/p.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/p.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/p.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/package.json" afterPath="$PROJECT_DIR$/package.json" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/panel/panel.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/panel/panel.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/property.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/tools/property.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/stores/proxy.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/stores/proxy.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/qbFineTuningGrid.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/qbFineTuningGrid.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/qbOutputPanel.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/qbOutputPanel.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/qbSqlWindowTable.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/qbSqlWindowTable.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/qbTablePanel.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/qbTablePanel.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/qbTablesTree.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/qbTablesTree.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dist/release.html" afterPath="$PROJECT_DIR$/dist/release.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/subscribers/render.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/subscribers/render.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/columns/rendererColumn.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/grid/columns/rendererColumn.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" afterPath="$PROJECT_DIR$/.idea/scopes/scope_settings.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/select.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/select.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/select.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/select.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/select.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/select.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/sql/select.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/sql/select.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/select.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/select.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/selection/selectionModelCheckBox.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/selection/selectionModelCheckBox.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/sheet/sheet.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/sheet/sheet.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/shims.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/tools/shims.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/shims.js" afterPath="$PROJECT_DIR$/src/coffee/core/tools/shims.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/shims.map" afterPath="$PROJECT_DIR$/src/coffee/core/tools/shims.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/sheet/subscribers/show.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/sheet/subscribers/show.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/span.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/span.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/span.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/span.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/span.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/span.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/nodes/elements/span.map" afterPath="$PROJECT_DIR$/src/archive/nodes/elements/span.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/span.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/span.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/sqlBuilderInit.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/sqlBuilderInit.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/stores/store.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/data/stores/store.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/string.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/common/string.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/structureset/structureSet.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/structureset/structureSet.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/svg.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/svg.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/svg.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/svg.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/svg.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/svg.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/svg.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/svg.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/shims.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/tools/shims.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/table.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/table.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/table.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/table.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/table.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/table.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/table.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/table.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/sql/tables.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/compositions/querybuilder/sql/tables.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/tbody.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/tbody.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/tbody.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/tbody.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/tbody.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/tbody.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/td.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/td.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/td.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/td.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/td.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/td.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/core/test.indexedDb.js" afterPath="$PROJECT_DIR$/test/core/test.indexedDb.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/core/test.is.coffee" afterPath="$PROJECT_DIR$/test/core/test.is.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/core/test.is.js.map" afterPath="$PROJECT_DIR$/test/core/test.is.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/core/test.is.js" afterPath="$PROJECT_DIR$/test/core/test.is.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/core/test.is.map" afterPath="$PROJECT_DIR$/test/core/test.is.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/node/test.node.coffee" afterPath="$PROJECT_DIR$/test/node/test.node.coffee" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/node/test.node.js.map" afterPath="$PROJECT_DIR$/test/node/test.node.js.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/node/test.node.js" afterPath="$PROJECT_DIR$/test/node/test.node.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/node/test.node.map" afterPath="$PROJECT_DIR$/test/node/test.node.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/test/core/test.to.coffee" afterPath="$PROJECT_DIR$/test/core/test.to.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/textarea.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/textarea.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/textarea.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/textarea.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/textarea.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/textarea.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/textarea.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/textarea.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/to.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/common/to.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/to.js.map" afterPath="$PROJECT_DIR$/src/coffee/core/common/to.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/to.js" afterPath="$PROJECT_DIR$/src/coffee/core/common/to.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/common/to.map" afterPath="$PROJECT_DIR$/src/coffee/core/common/to.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/tr.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/tr.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/tr.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/tr.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/tr.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/tr.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/tree/tree.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/tree/tree.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/tree/treeNode.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/tree/treeNode.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/tree/treeStore.map" afterPath="$PROJECT_DIR$/src/archive/actionlogic/legos/ui/structures/tree/treeStore.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/ul.coffee" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/ul.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/ul.js.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/ul.js.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/ul.js" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/ul.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/dom/nodes/ul.map" afterPath="$PROJECT_DIR$/src/coffee/dom/nodes/ul.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/coffee/core/tools/uuid.coffee" afterPath="$PROJECT_DIR$/src/coffee/core/tools/uuid.coffee" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/web.config" afterPath="$PROJECT_DIR$/web.config" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/archive/workers/webWorkerXHR.map" afterPath="$PROJECT_DIR$/src/archive/workers/webWorkerXHR.map" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="oj.iws" />
@@ -276,51 +73,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="bower.json" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bower.json">
+      <file leaf-file-name="test.node.coffee" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/test/node/test.node.coffee">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1110">
-              <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="oj.coffee" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/coffee/oj.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="3600">
-              <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ojInit.js" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ojInit.coffee" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.coffee">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.16783217" vertical-offset="0" max-vertical-offset="715">
-              <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="package.json" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/package.json">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="840" max-vertical-offset="1170">
-              <caret line="56" column="17" selection-start-line="56" selection-start-column="17" selection-end-line="56" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.14685315" vertical-offset="15" max-vertical-offset="1110">
+              <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
               <folding />
             </state>
           </provider>
@@ -352,6 +109,7 @@
         <option value="$PROJECT_DIR$/src/coffee/oj.coffee" />
         <option value="$PROJECT_DIR$/src/js/Csw.js" />
         <option value="$PROJECT_DIR$/src/coffee/ojInit.coffee" />
+        <option value="$PROJECT_DIR$/test/node/test.node.coffee" />
       </list>
     </option>
   </component>
@@ -416,6 +174,38 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="test" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="node" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="oj" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -445,6 +235,14 @@
       <ConfigurationWrapper RunnerId="NodeJS.run" />
       <method />
     </configuration>
+    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
+      <option name="VMOptions" />
+      <option name="arguments" />
+      <option name="filePath" />
+      <option name="scope" value="ALL" />
+      <option name="testName" />
+      <method />
+    </configuration>
     <configuration default="true" type="DartCommandLineRunConfigurationType" factoryName="Dart Command Line Application">
       <option name="VMOptions" />
       <option name="arguments" />
@@ -455,29 +253,21 @@
       <option name="showConsoleOnStdOut" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="DartUnitRunConfigurationType" factoryName="DartUnit">
-      <option name="VMOptions" />
-      <option name="arguments" />
-      <option name="filePath" />
-      <option name="scope" value="ALL" />
-      <option name="testName" />
-      <method />
-    </configuration>
-    <configuration default="true" type="CucumberJavaScriptRunConfigurationType" factoryName="Cucumber.js">
-      <option name="cucumberJsArguments" />
-      <option name="executablePath" />
-      <option name="filePath" />
+    <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
+      <setting name="configLocationType" value="CONFIG_FILE" />
+      <setting name="settingsFile" value="" />
+      <setting name="serverType" value="INTERNAL" />
+      <setting name="preferredDebugBrowser" value="Chrome" />
       <method />
     </configuration>
     <configuration default="true" type="JavaScriptTestRunnerKarma" factoryName="Karma" config-file="">
       <envs />
       <method />
     </configuration>
-    <configuration default="true" type="JSTestDriver:ConfigurationType" factoryName="JsTestDriver">
-      <setting name="configLocationType" value="CONFIG_FILE" />
-      <setting name="settingsFile" value="" />
-      <setting name="serverType" value="INTERNAL" />
-      <setting name="preferredDebugBrowser" value="Chrome" />
+    <configuration default="true" type="CucumberJavaScriptRunConfigurationType" factoryName="Cucumber.js">
+      <option name="cucumberJsArguments" />
+      <option name="executablePath" />
+      <option name="filePath" />
       <method />
     </configuration>
     <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
@@ -515,7 +305,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67012686" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.67012686" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1689038" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -550,6 +340,46 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/bower.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="315" max-vertical-offset="1110">
+          <caret line="21" column="4" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/oj.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="375" max-vertical-offset="3600">
+          <caret line="25" column="7" selection-start-line="25" selection-start-column="7" selection-end-line="25" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="315">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="120" max-vertical-offset="255">
+          <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/package.json">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="840" max-vertical-offset="1170">
+          <caret line="56" column="17" selection-start-line="56" selection-start-column="17" selection-end-line="56" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/bower.json">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="1095">
@@ -781,8 +611,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/coffee/ojInit.coffee">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.16783217" vertical-offset="0" max-vertical-offset="715">
+        <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="255">
           <caret line="8" column="20" selection-start-line="8" selection-start-column="20" selection-end-line="8" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/test/node/test.node.coffee">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.14685315" vertical-offset="15" max-vertical-offset="1110">
+          <caret line="8" column="4" selection-start-line="8" selection-start-column="4" selection-end-line="8" selection-end-column="4" />
           <folding />
         </state>
       </provider>

@@ -6,7 +6,6 @@
     nonNestableNodes = ['li', 'legend', 'tr', 'td', 'option', 'body', 'head', 'source', 'tbody', 'tfoot', 'thead', 'link', 'script'];
     isChildNodeTypeAllowed = function(parent, tagName) {
       var allowed;
-      allowed = false;
       switch (parent.tagName) {
         case 'body':
           allowed = _.contains(nestableNodeNames, tagName);
@@ -45,6 +44,15 @@
           allowed = tagName === 'option';
           break;
         case 'option':
+          allowed = false;
+          break;
+        case 'span':
+          allowed = false === _.contains(nonNestableNodes, tagName);
+          break;
+        case 'p':
+          allowed = false === _.contains(nonNestableNodes, tagName);
+          break;
+        default:
           allowed = false;
       }
       return allowed;
