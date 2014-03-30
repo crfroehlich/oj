@@ -337,6 +337,42 @@
     <Content Include="src\coffee\dom\nodes\a.js.map">
       <DependentUpon>a.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\dom\nodes\a.map">
+      <DependentUpon>a.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\legend.map">
+      <DependentUpon>legend.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\li.map">
+      <DependentUpon>li.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\option.map">
+      <DependentUpon>option.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\table.map">
+      <DependentUpon>table.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\tbody.map">
+      <DependentUpon>tbody.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\td.map">
+      <DependentUpon>td.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\tr.map">
+      <DependentUpon>tr.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\dom.map">
+      <DependentUpon>dom.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\element.map">
+      <DependentUpon>element.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodeFactory.map">
+      <DependentUpon>nodeFactory.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\ojInit.map">
+      <DependentUpon>ojInit.coffee</DependentUpon>
+    </Content>
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
     </None>
