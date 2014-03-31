@@ -308,6 +308,11 @@ OJ IIFE definition to anchor JsDoc comments.
 }).call(this);
 
 (function() {
+
+
+}).call(this);
+
+(function() {
   (function(OJ) {
     'use strict';
     OJ.enums.register('unknown', 'unknown');
@@ -919,13 +924,16 @@ OJ IIFE definition to anchor JsDoc comments.
 }).call(this);
 
 (function() {
-  (function() {
+  (function(OJ) {
     var controlPostProcessing, isChildNodeTypeAllowed, nestableNodeNames, nonNestableNodes;
     nestableNodeNames = ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'fieldset', 'select', 'ol', 'ul', 'table'];
     nonNestableNodes = ['li', 'legend', 'tr', 'td', 'option', 'body', 'head', 'source', 'tbody', 'tfoot', 'thead', 'link', 'script'];
     isChildNodeTypeAllowed = function(parent, tagName) {
       var allowed;
       switch (parent.tagName) {
+        case 'a':
+          allowed = false === _.contains(nonNestableNodes, tagName);
+          break;
         case 'body':
           allowed = _.contains(nestableNodeNames, tagName);
           break;
@@ -989,9 +997,11 @@ OJ IIFE definition to anchor JsDoc comments.
         var control, id;
         count += 1;
         control = OJ.dom(node, parent);
-        id = parent.getId();
-        id += control.tagName + count;
-        control.attr('id', id);
+        if (!node.id) {
+          id = parent.getId();
+          id += control.tagName + count;
+          control.attr('id', id);
+        }
         controlPostProcessing(control);
         return control;
       };
@@ -1229,7 +1239,7 @@ OJ IIFE definition to anchor JsDoc comments.
       }
       return ret;
     });
-  })();
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
