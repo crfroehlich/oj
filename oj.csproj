@@ -48,7 +48,7 @@
     <Content Include="gulpfile.js">
       <DependentUpon>gulpfile.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\components\component.js">
+    <Content Include="src\coffee\dom\component.js">
       <DependentUpon>component.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\common\array.map">
@@ -164,7 +164,7 @@
     <Content Include="gulpfile.map">
       <DependentUpon>gulpfile.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\components\component.coffee" />
+    <Content Include="src\coffee\dom\component.coffee" />
     <Content Include="src\coffee\core\common\is.map">
       <DependentUpon>is.coffee</DependentUpon>
     </Content>
@@ -748,6 +748,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\archive\dom\" />
+    <Folder Include="src\coffee\components\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
