@@ -77,7 +77,7 @@ gulp.task 'less', ->
 # Inject JS & CSS Files
 gulp.task 'inject', ->
   
-  gulp.src files.devIndex.pipe(inject(gulp.src([
+  gulp.src(files.devIndex).pipe(inject(gulp.src([
     files.js
     files.css
   ],
@@ -211,15 +211,14 @@ gulp.task 'watch', ->
 gulp.task 'test', ->
   gulp.src('./test/test.html').pipe qunit()
 
-gulp.task 'release-version', [
-  'bump'
-  'tag'
-]
-
-
-gulp.task 'build', [
+gulp.task 'compile', [
   'concat'
   'inject'
+  'init'
+]
+
+gulp.task 'build', [
+  'compile'
   'watch'
 ]
 
@@ -227,8 +226,5 @@ gulp.task 'default', ['build']
 
 gulp.task 'bump', [
   'bumpVersion'
-  'concat'
-  'inject'
-  'tag'
-  'npm'
+  'compile' 
 ]

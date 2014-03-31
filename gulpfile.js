@@ -162,7 +162,7 @@
   Inject bower dependencies
    */
 
-  gulp.task('inject-bower', function() {
+  gulp.task('init', function() {
     wiredep({
       directory: './bower_components',
       bowerJson: require('./bower.json'),
@@ -226,15 +226,13 @@
     return gulp.src('./test/test.html').pipe(qunit());
   });
 
-  gulp.task('release-version', ['bump', 'tag']);
+  gulp.task('compile', ['concat', 'inject', 'init']);
 
-  gulp.task('init', ['inject-bower']);
-
-  gulp.task('build', ['concat', 'inject', 'watch']);
+  gulp.task('build', ['compile', 'watch']);
 
   gulp.task('default', ['build']);
 
-  gulp.task('bump', ['bumpVersion', 'concat', 'inject', 'tag', 'npm']);
+  gulp.task('bump', ['bumpVersion', 'compile']);
 
 }).call(this);
 

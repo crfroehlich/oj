@@ -2,7 +2,7 @@
   "name": "ojs",
   "title": "JavaScript OJ",
   "description": "A framework for writing zero-template, zero-html, zero-css web apps in pure JavaScript.",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "homepage": "http://somecallmechief.github.io/oj/",
   "author": {
     "name": "Christopher Froehlich",
