@@ -76,8 +76,10 @@
     allowed
   
 
-  controlPostProcessing = (control) ->
-    #OJ.composites.factory node, control.tagName if OJ.is.nullOrEmpty(tagName) or tagName is 'div' or tagName is 'span' or tagName is 'p' or tagName is 'form' or tagName is 'jquery' or tagName is 'div' or tagName is 'ol' or tagName is 'ul' or tagName is 'table' or tagName is 'label' or tagName is 'tabDiv'
+  controlPostProcessing = (parent, child, count) ->
+    if _.contains ['div','span','td','p','body','form'], parent.tagName
+    OJ.each OJ.components.members, (val) ->
+      extendChain val, parent, child, count
     return
 
   ###
@@ -112,7 +114,7 @@
           control.attr 'id', id
         parent.append control[0]  
       
-      controlPostProcessing control
+      controlPostProcessing el, ret, count
       control
 
     ret = init el
