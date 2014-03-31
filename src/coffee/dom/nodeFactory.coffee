@@ -67,7 +67,10 @@
       when 'p'
         allowed = false is _.contains nonNestableNodes, tagName 
       else
-        allowed = false 
+        if parent.tagName.startsWith 'x-'
+          allowed = false is _.contains nonNestableNodes, tagName
+        else
+          allowed = false
     allowed
   
 

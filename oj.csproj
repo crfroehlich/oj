@@ -735,6 +735,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\archive\dom\" />
+    <Folder Include="src\coffee\components\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

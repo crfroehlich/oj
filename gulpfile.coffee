@@ -77,7 +77,7 @@ gulp.task 'less', ->
 # Inject JS & CSS Files
 gulp.task 'inject', ->
   
-  gulp.src(files.devIndex).pipe(inject(gulp.src([
+  gulp.src files.devIndex.pipe(inject(gulp.src([
     files.js
     files.css
   ],
@@ -132,7 +132,7 @@ gulp.task 'concat', ->
 ###
 Inject bower dependencies
 ###
-gulp.task 'inject-bower', ->
+gulp.task 'init', ->
   wiredep
     directory: './bower_components'
     bowerJson: require('./bower.json')
@@ -215,7 +215,7 @@ gulp.task 'release-version', [
   'bump'
   'tag'
 ]
-gulp.task 'init', ['inject-bower']
+
 
 gulp.task 'build', [
   'concat'
