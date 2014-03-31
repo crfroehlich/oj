@@ -4,26 +4,18 @@
 
     /*
     Create an instance of Object
-    @param properties {Object} [properties={}] properties to define on the Object
-    @param inheritsFromPrototype {Prototype} [inheritsFromPrototype=null] The prototype to inherit from
      */
     var object;
-    object = function(properties, inheritsFromPrototype) {
+    object = function() {
       var obj;
-      if (!inheritsFromPrototype) {
-        inheritsFromPrototype = null;
-      }
-      if (!properties) {
-        properties = {};
-      }
-      obj = Object.create(inheritsFromPrototype, properties);
+      obj = {};
 
       /*
       Add a property to the object and return it
        */
-      OJ.property(obj, 'add', (function(name, val, writable, configurable, enumerable) {
-        return OJ.property(obj, name, val, writable, configurable, enumerable);
-      }), false, false, false);
+      obj.add = function(name, val) {
+        return OJ.property(obj, name, val);
+      };
       return obj;
     };
     OJ.register('object', object);

@@ -4,27 +4,22 @@
    Bind all event handlers
   ###
   bindEvents = (el, events) ->
-    if el.node then _.forOwn events, (val, key) ->
+    if el then _.forOwn events, (val, key) ->
       if _.isFunction val and val isnt _.noop  
         callback = (event...) -> val event...
         el.$.bind key, callback
         el.add key, callback
         return
+  
   ###
   Create an HTML Element through ThinDom
   ###
   element = (tag, props, styles, events) ->
-    ret = OJ.object()
-    ret.add 'node', new ThinDOM tag, props
+    ret = ThinDOM tag, props
     ret.add 'tagName', tag
-    ret.node.css styles
-    ret.add 'css', ret.node.css
-    ret.add 'append', ret.node.append
-    ret.add 'html', ret.node.html
-    ret.add 'text', ret.node.text
-    ret.add 'attr', ret.node.attr
-    ret.add '$', $(ret.node.get())
-    ret.add '0', ret.node.get()
+    ret.css styles
+    ret.add '$', $(ret.get())
+    ret.add '0', ret.get()
     
     bindEvents ret, events
     ret
@@ -38,6 +33,7 @@
   thinBody = new ThinDOM null, null, body
   thinBody.getId = ->
     'body'
+  
   OJ.register 'body', thinBody 
           
   return

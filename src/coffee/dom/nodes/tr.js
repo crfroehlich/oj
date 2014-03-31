@@ -19,9 +19,6 @@
       };
       OJ.extend(defaults, options);
       ret = OJ.element('tr', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret[0]);
-      }
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }

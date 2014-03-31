@@ -29,17 +29,14 @@
     ret = OJ.element 'table', defaults.props, defaults.styles, defaults.events
     
     tbody = null
-    isInit = false
     
-    init = ->
+    init = _.once ->
       tbody = OJ.nodes.tbody {}, ret, false 
       rows.push OJ.nodes.tr {}, tbody, false
       return
       
     ret.add 'cell', (rowNo, colNo) ->
-      if false is isInit
-        init()
-        isInit = true
+      init()
       
       if rowNo < 1 then rowNo = 1
       if colNo < 1 then colNo = 1
@@ -61,7 +58,7 @@
         OJ.nodes.factory cell, row, rowNo + colNo
       cell  
     
-    if owner then owner.append ret[0]
+    #if owner then owner.append ret[0]
     
     if false is calledFromFactory then OJ.nodes.factory ret, owner
 

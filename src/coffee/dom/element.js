@@ -9,7 +9,7 @@
      */
     var bindEvents, body, element, thinBody;
     bindEvents = function(el, events) {
-      if (el.node) {
+      if (el) {
         return _.forOwn(events, function(val, key) {
           var callback;
           if (_.isFunction(val && val !== _.noop)) {
@@ -30,17 +30,11 @@
      */
     element = function(tag, props, styles, events) {
       var ret;
-      ret = OJ.object();
-      ret.add('node', new ThinDOM(tag, props));
+      ret = ThinDOM(tag, props);
       ret.add('tagName', tag);
-      ret.node.css(styles);
-      ret.add('css', ret.node.css);
-      ret.add('append', ret.node.append);
-      ret.add('html', ret.node.html);
-      ret.add('text', ret.node.text);
-      ret.add('attr', ret.node.attr);
-      ret.add('$', $(ret.node.get()));
-      ret.add('0', ret.node.get());
+      ret.css(styles);
+      ret.add('$', $(ret.get()));
+      ret.add('0', ret.get());
       bindEvents(ret, events);
       return ret;
     };

@@ -58,9 +58,6 @@
         defaults.events.click = toggle;
       }
       ret = OJ.element('a', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret[0]);
-      }
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }

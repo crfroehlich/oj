@@ -10,7 +10,7 @@
     
     OJ.extend defaults, options
     ret = OJ.element 'svg', defaults.props, defaults.styles, defaults.events
-    if owner then owner.append ret[0]
+    #if owner then owner.append ret[0]
     
     if false is calledFromFactory then OJ.nodes.factory ret, owner
 

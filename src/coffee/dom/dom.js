@@ -9,7 +9,7 @@
       'use strict';
       enabled = true;
       el.add('isValid', function() {
-        return el && el.node && el.node.el instanceof HTMLElement;
+        return el && el.el instanceof HTMLElement;
       });
       isControlStillValid = function() {
         var valid;
@@ -166,7 +166,7 @@
         }
         return el;
       });
-      el.add('root', el.root);
+      el.add('root', el.root || parent);
       el.add('show', function() {
         if (isControlStillValid()) {
           el.$.show();

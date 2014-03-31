@@ -10,7 +10,7 @@
     enabled = true
     
     el.add 'isValid', ->
-       el and el.node and el.node.el instanceof HTMLElement
+       el and el.el instanceof HTMLElement
     
     isControlStillValid = ->
       valid = false is OJ.is.nullOrEmpty(el) and el.isValid()
@@ -156,7 +156,7 @@
       el
 
     # reference to the root of the node
-    el.add 'root', el.root
+    el.add 'root', el.root or parent
 
     # Make the element visible.
     el.add 'show', ->

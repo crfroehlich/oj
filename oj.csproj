@@ -48,6 +48,9 @@
     <Content Include="gulpfile.js">
       <DependentUpon>gulpfile.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\components\component.js">
+      <DependentUpon>component.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\core\common\array.map">
       <DependentUpon>array.coffee</DependentUpon>
     </Content>
@@ -161,6 +164,13 @@
     <Content Include="gulpfile.map">
       <DependentUpon>gulpfile.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\components\component.coffee" />
+    <Content Include="src\coffee\core\common\is.map">
+      <DependentUpon>is.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\enums.map">
+      <DependentUpon>enums.coffee</DependentUpon>
+    </Content>
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">
       <DependentUpon>console.coffee</DependentUpon>
@@ -205,6 +215,9 @@
     </Content>
     <None Include="src\coffee\core\tools\shims.coffee" />
     <Content Include="src\coffee\core\tools\shims.js.map">
+      <DependentUpon>shims.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\tools\shims.map">
       <DependentUpon>shims.coffee</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\uuid.coffee" />
@@ -735,7 +748,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\archive\dom\" />
-    <Folder Include="src\coffee\components\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

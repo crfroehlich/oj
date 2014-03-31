@@ -13,22 +13,13 @@
      */
     var property;
     property = function(obj, name, value, writable, configurable, enumerable) {
-      var isConfigurable, isEnumerable, isWritable;
       if (!obj) {
         throw new Error("Cannot define a property without an Object.");
       }
-      if (typeof name !== "string") {
+      if (!name) {
         throw new Error("Cannot create a property without a valid property name.");
       }
-      isWritable = writable !== false;
-      isConfigurable = configurable !== false;
-      isEnumerable = enumerable !== false;
-      Object.defineProperty(obj, name, {
-        value: value,
-        writable: isWritable,
-        configurable: isConfigurable,
-        enumerable: isEnumerable
-      });
+      obj[name] = value;
       return obj;
     };
     OJ.register("property", property);

@@ -3,7 +3,7 @@
   (function(OJ) {
     'use strict';
     OJ.nodes.register('table', function(options, owner, calledFromFactory) {
-      var defaults, init, isInit, ret, rows, tbody;
+      var defaults, init, ret, rows, tbody;
       if (owner == null) {
         owner = OJ.body;
       }
@@ -37,17 +37,13 @@
       OJ.extend(defaults, options);
       ret = OJ.element('table', defaults.props, defaults.styles, defaults.events);
       tbody = null;
-      isInit = false;
-      init = function() {
+      init = _.once(function() {
         tbody = OJ.nodes.tbody({}, ret, false);
         rows.push(OJ.nodes.tr({}, tbody, false));
-      };
+      });
       ret.add('cell', function(rowNo, colNo) {
         var cell, row;
-        if (false === isInit) {
-          init();
-          isInit = true;
-        }
+        init();
         if (rowNo < 1) {
           rowNo = 1;
         }
@@ -74,9 +70,6 @@
         }
         return cell;
       });
-      if (owner) {
-        owner.append(ret[0]);
-      }
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }
