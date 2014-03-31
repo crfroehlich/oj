@@ -1,4 +1,4 @@
-﻿gulp = require('gulp')
+gulp = require('gulp')
 less = require('gulp-less')
 autoprefixer = require('gulp-autoprefixer')
 minifyCss = require('gulp-minify-css')

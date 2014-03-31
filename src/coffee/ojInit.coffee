@@ -1,4 +1,4 @@
-﻿((OJ) ->
+((OJ) ->
   
   OJ.makeSubNameSpace "errors"
   OJ.makeSubNameSpace "enums"

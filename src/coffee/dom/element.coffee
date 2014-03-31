@@ -1,4 +1,4 @@
-﻿((OJ) ->
+((OJ) ->
 
   ###
    Bind all event handlers

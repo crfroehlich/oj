@@ -1,4 +1,4 @@
-(->
+((OJ)->
 
   nestableNodeNames = [
     'div' 
@@ -36,6 +36,8 @@
     
   isChildNodeTypeAllowed = (parent, tagName) ->
     switch parent.tagName
+      when 'a'
+        allowed = false is _.contains nonNestableNodes, tagName
       when 'body'
         allowed = _.contains nestableNodeNames, tagName
       when 'div'
@@ -67,7 +69,10 @@
       when 'p'
         allowed = false is _.contains nonNestableNodes, tagName 
       else
-        allowed = false 
+        if parent.tagName.startsWith 'x-'
+          allowed = false is _.contains nonNestableNodes, tagName
+        else
+          allowed = false 
     allowed
   
 
@@ -81,9 +86,10 @@
     init = (node) ->
       count += 1
       control = OJ.dom(node, parent)
-      id = parent.getId()
-      id += control.tagName + count
-      control.attr 'id', id
+      unless node.id
+        id = parent.getId()
+        id += control.tagName + count
+        control.attr 'id', id
       controlPostProcessing(control)
       control
 
@@ -260,4 +266,5 @@
     ret
 
   return
-)()
+) ((if typeof global isnt 'undefined' and global then global else ((if typeof window isnt 'undefined' then window else this)))).OJ
+
