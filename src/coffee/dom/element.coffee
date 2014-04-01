@@ -10,27 +10,46 @@
         el.$.bind key, callback
         el.add key, callback
         return
-  
+
   ###
-  Create an HTML Element through ThinDom
+  Finalize the ThimDOM node
   ###
-  element = (tag, props, styles, events) ->
-    ret = ThinDOM tag, props
+  finalize = (ret, tag, props, styles, events) ->
     ret.add 'tagName', tag
     ret.css styles
     ret.add '$', $(ret.get())
     ret.add '0', ret.get()
     
     bindEvents ret, events
+    ret   
+      
+  ###
+  Create an HTML Element through ThinDom
+  ###
+  OJ.register 'element', (tag, props, styles, events) ->
+    ret = ThinDOM tag, props
+    finalize ret, tag, props, styles, events
     ret
-    
-  OJ.register 'element', element
+  
+
+  ###
+  Restore an HTML Element through ThinDom
+  ###
+  OJ.register 'restoreElement', (tag, el) ->
+    ret = ThinDOM null, null, el
+    finalize ret, tag   
+    ret               
+   
   
   ###
   Persist a handle on the body ode
   ###
   if typeof document isnt 'undefined' then body = document.body else body = null  
-  thinBody = new ThinDOM null, null, body
+  initBody = (el) ->  
+    ret = ThinDOM null, id: 'body', el
+    finalize ret, 'body'
+  
+  thinBody = initBody body
   thinBody.getId = ->
     'body'
   

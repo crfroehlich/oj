@@ -7,7 +7,7 @@
     /*
      Bind all event handlers
      */
-    var bindEvents, body, element, thinBody;
+    var bindEvents, body, finalize, initBody, thinBody;
     bindEvents = function(el, events) {
       if (el) {
         return _.forOwn(events, function(val, key) {
@@ -26,11 +26,9 @@
     };
 
     /*
-    Create an HTML Element through ThinDom
+    Finalize the ThimDOM node
      */
-    element = function(tag, props, styles, events) {
-      var ret;
-      ret = ThinDOM(tag, props);
+    finalize = function(ret, tag, props, styles, events) {
       ret.add('tagName', tag);
       ret.css(styles);
       ret.add('$', $(ret.get()));
@@ -38,7 +36,26 @@
       bindEvents(ret, events);
       return ret;
     };
-    OJ.register('element', element);
+
+    /*
+    Create an HTML Element through ThinDom
+     */
+    OJ.register('element', function(tag, props, styles, events) {
+      var ret;
+      ret = ThinDOM(tag, props);
+      finalize(ret, tag, props, styles, events);
+      return ret;
+    });
+
+    /*
+    Restore an HTML Element through ThinDom
+     */
+    OJ.register('restoreElement', function(tag, el) {
+      var ret;
+      ret = ThinDOM(null, null, el);
+      finalize(ret, tag);
+      return ret;
+    });
 
     /*
     Persist a handle on the body ode
@@ -48,7 +65,14 @@
     } else {
       body = null;
     }
-    thinBody = new ThinDOM(null, null, body);
+    initBody = function(el) {
+      var ret;
+      ret = ThinDOM(null, {
+        id: 'body'
+      }, el);
+      return finalize(ret, 'body');
+    };
+    thinBody = initBody(body);
     thinBody.getId = function() {
       return 'body';
     };

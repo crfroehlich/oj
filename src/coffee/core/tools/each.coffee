@@ -5,7 +5,7 @@
   @param obj {Object}
   ###
   canEach = (obj) ->
-    obj and (typeof obj is "object" or Array.isArray(obj))
+    (_.isPlainObject obj) or _.isArray obj
 
   
   ###
@@ -15,10 +15,10 @@
   @param recursive {Boolean} if true, recurse the object
   ###
   each = (obj, onEach, recursive) ->
-    if canEach(obj)
+    if canEach obj
       _.forEach obj, (val, key) ->
-        if onEach and key
-          quit = onEach(val, key)
+        if onEach and (val or key)
+          quit = onEach val, key
           return false  if false is quit
         each val, onEach, true  if true is recursive
         return

@@ -8,7 +8,7 @@
      */
     var canEach, each;
     canEach = function(obj) {
-      return obj && (typeof obj === "object" || Array.isArray(obj));
+      return (_.isPlainObject(obj)) || _.isArray(obj);
     };
 
     /*
@@ -21,7 +21,7 @@
       if (canEach(obj)) {
         _.forEach(obj, function(val, key) {
           var quit;
-          if (onEach && key) {
+          if (onEach && (val || key)) {
             quit = onEach(val, key);
             if (false === quit) {
               return false;

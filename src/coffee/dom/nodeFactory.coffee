@@ -76,18 +76,18 @@
     allowed
   
 
-  controlPostProcessing = (parent, child, count) ->
+  controlPostProcessing = (parent, count) ->
     if _.contains ['div','span','td','p','body','form'], parent.tagName
-    OJ.each OJ.components.members, (val) ->
-      extendChain val, parent, child, count
+      OJ.each OJ.components.members, (val) ->
+        extendChain val, parent, count
     return
 
   ###
   Extend the chain, if permitted
   ###
-  extendChain = (tagName, parent, child, count) ->
+  extendChain = (tagName, parent, count) ->
     if isChildNodeTypeAllowed parent, tagName
-      child.add tagName, (opts) ->
+      parent.add tagName, (opts) ->
         if OJ.nodes[tagName]
           nu = OJ.nodes[tagName] opts, parent, true
         else
@@ -95,51 +95,58 @@
         #parent.append child  
         OJ.nodes.factory nu, parent, count
 
+  ###
+  Init the body for chaining the first time it's seen
+  ###
+  initBody = _.once (body) ->
+    body.count = 0
+    OJ.nodes.factory body, null, 0
+  
+  isBodyDefined = false
+
   # Extends a OJ Control class with basic DOM methods.
   OJ.nodes.register 'factory', (el, parent = OJ.body, count = parent.count or 0) ->
     
-    init = (node) ->
-      count += 1
-      if el.tagName is 'body'
-        el.count = count
-        parent = null
-        el.root = null
-        control = OJ.dom node, parent
-      else
-        parent.count = count
-        control = OJ.dom node, parent
-        unless node.id
-          id = parent.getId()
-          id += control.tagName + count
-          control.attr 'id', id
-        parent.append control[0]  
-      
-      controlPostProcessing el, ret, count
-      control
-
-    ret = init el
+    initBody OJ.body
     
-    extendChain 'a', el, ret, count
-    extendChain 'b', el, ret, count
-    extendChain 'br', el, ret, count
-    extendChain 'button', el, ret, count
-    extendChain 'div', el, ret, count
-    extendChain 'fieldset', el, ret, count
-    extendChain 'form', el, ret, count
-    extendChain 'img', el, ret, count
-    extendChain 'input', el, ret, count
-    extendChain 'label', el, ret, count
-    extendChain 'legend', el, ret, count
-    extendChain 'li', el, ret, count
-    extendChain 'ol', el, ret, count
-    extendChain 'option', el, ret, count
-    extendChain 'p', el, ret, count
-    extendChain 'select', el, ret, count
-    extendChain 'span', el, ret, count
-    extendChain 'svg', el, ret, count
-    extendChain 'table', el, ret, count
-    extendChain 'textarea', el, ret, count
-    extendChain 'ul', el, ret, count
+    count += 1
+    if el.tagName is 'body' and not isBodyDefined
+      parent = null
+      el.root = null
+      ret = OJ.dom el, null
+      controlPostProcessing ret, 0
+      isBodyDefined = true 
+    else
+      parent.count = count
+      ret = OJ.dom el, parent
+      unless el.id
+        id = parent.getId()
+        id += ret.tagName + count
+        ret.attr 'id', id
+      parent.append ret[0]
+      controlPostProcessing ret, count  
+    
+    extendChain 'a', ret, count
+    extendChain 'b', ret, count
+    extendChain 'br', ret, count
+    extendChain 'button', ret, count
+    extendChain 'div', ret, count
+    extendChain 'fieldset', ret, count
+    extendChain 'form', ret, count
+    extendChain 'img', ret, count
+    extendChain 'input', ret, count
+    extendChain 'label', ret, count
+    extendChain 'legend', ret, count
+    extendChain 'li', ret, count
+    extendChain 'ol', ret, count
+    extendChain 'option', ret, count
+    extendChain 'p', ret, count
+    extendChain 'select', ret, count
+    extendChain 'span', ret, count
+    extendChain 'svg', ret, count
+    extendChain 'table', ret, count
+    extendChain 'textarea', ret, count
+    extendChain 'ul', ret, count
     
     ret
 

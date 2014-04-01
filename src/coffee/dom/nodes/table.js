@@ -3,7 +3,7 @@
   (function(OJ) {
     'use strict';
     OJ.nodes.register('table', function(options, owner, calledFromFactory) {
-      var defaults, init, ret, rows, tbody;
+      var cells, defaults, init, ret, rows, tbody;
       if (owner == null) {
         owner = OJ.body;
       }
@@ -34,6 +34,7 @@
         oddAlignRight: false
       };
       rows = [];
+      cells = {};
       OJ.extend(defaults, options);
       ret = OJ.element('table', defaults.props, defaults.styles, defaults.events);
       tbody = null;
@@ -42,7 +43,7 @@
         rows.push(OJ.nodes.tr({}, tbody, false));
       });
       ret.add('cell', function(rowNo, colNo) {
-        var cell, row;
+        var cell, idx, row, td;
         init();
         if (rowNo < 1) {
           rowNo = 1;
@@ -50,19 +51,28 @@
         if (colNo < 1) {
           colNo = 1;
         }
-        row = rows[rowNo];
+        row = rows[rowNo - 1];
         if (!row) {
           while (rows.length < rowNo) {
             row = OJ.nodes.tr({}, tbody, false);
             rows.push(row);
           }
         }
-        cell = row[0].cells[colNo];
-        if (!cell) {
+        td = row[0].cells[colNo];
+        if (td) {
+          cell = OJ.restoreElement('td', td);
+        }
+        if (!td) {
           while (row[0].cells.length < colNo) {
-            cell = OJ.nodes.td({
-              props: defaults.cells
-            }, row, false);
+            idx = row[0].cells.length;
+            td = row[0].cells[idx - 1];
+            if (td && idx === colNo) {
+              cell = OJ.restoreElement('td', td);
+            } else {
+              cell = OJ.nodes.td({
+                props: defaults.cells
+              }, row, false);
+            }
           }
         }
         if (!cell.isValid) {

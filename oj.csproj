@@ -48,6 +48,9 @@
     <Content Include="gulpfile.js">
       <DependentUpon>gulpfile.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\components\subnav.js">
+      <DependentUpon>subnav.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\dom\component.js">
       <DependentUpon>component.coffee</DependentUpon>
     </Content>
@@ -170,6 +173,10 @@
     </Content>
     <Content Include="src\coffee\core\enums.map">
       <DependentUpon>enums.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\components\subnav.coffee" />
+    <Content Include="src\coffee\components\subnav.map">
+      <DependentUpon>subnav.coffee</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">
@@ -352,6 +359,10 @@
     <Content Include="src\coffee\ojInit.map">
       <DependentUpon>ojInit.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\dom\component.map">
+      <DependentUpon>component.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\_templ" />
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
     </None>
@@ -748,7 +759,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="src\archive\dom\" />
-    <Folder Include="src\coffee\components\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
