@@ -20,12 +20,12 @@
     
     OJ.extend defaults, options
     
-    ret.toggleState = 'off'
+    toggleState = 'off'
     
     toggle = ->
-      if ret.toggleState is 'on'
-        ret.toggleState = 'off'
-      else ret.toggleState = 'on'  if ret.toggleState is 'off'
+      if toggleState is 'on'
+        toggleState = 'off'
+      else toggleState = 'on'  if toggleState is 'off'
       return
     
     # Click binding

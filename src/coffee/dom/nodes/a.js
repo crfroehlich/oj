@@ -5,7 +5,7 @@
   (function(OJ) {
     'use strict';
     OJ.nodes.register('a', function(options, owner, calledFromFactory) {
-      var click, defaults, newClick, ret, toggle;
+      var click, defaults, newClick, ret, toggle, toggleState;
       if (owner == null) {
         owner = OJ.body;
       }
@@ -30,13 +30,13 @@
         }
       };
       OJ.extend(defaults, options);
-      ret.toggleState = 'off';
+      toggleState = 'off';
       toggle = function() {
-        if (ret.toggleState === 'on') {
-          ret.toggleState = 'off';
+        if (toggleState === 'on') {
+          toggleState = 'off';
         } else {
-          if (ret.toggleState === 'off') {
-            ret.toggleState = 'on';
+          if (toggleState === 'off') {
+            toggleState = 'on';
           }
         }
       };

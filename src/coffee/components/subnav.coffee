@@ -1,6 +1,6 @@
 ((OJ) ->
-  OJ.components.members.push 'subnav'
-  OJ.components.register 'subnav', (owner, props) ->
+  OJ.components.members['x-sub-nav'] = 'subnav'
+  OJ.components.register 'subnav', (options, owner) ->
     defaults =
       active: ''
       menu: [
@@ -8,8 +8,8 @@
         href: ''
       ]
 
-    OJ.extend defaults, props
-    ret = OJ.component(owner, 'sidebar-subnav')
+    OJ.extend defaults, options
+    ret = OJ.component(defaults, owner, 'x-sub-nav')
     ul = ret.ul(attr:
       class: 'active'
     )

@@ -304,15 +304,15 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ.makeSubNameSpace('nodes');
     OJ.makeSubNameSpace('db');
     OJ.makeSubNameSpace('components');
-    return OJ.components.register('members', []);
+    return OJ.components.register('members', {});
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);
 
 (function() {
   (function(OJ) {
-    OJ.components.members.push('subnav');
-    OJ.components.register('subnav', function(owner, props) {
+    OJ.components.members['x-sub-nav'] = 'subnav';
+    OJ.components.register('subnav', function(options, owner) {
       var defaults, ret, ul;
       defaults = {
         active: '',
@@ -323,8 +323,8 @@ OJ IIFE definition to anchor JsDoc comments.
           }
         ]
       };
-      OJ.extend(defaults, props);
-      ret = OJ.component(owner, 'sidebar-subnav');
+      OJ.extend(defaults, options);
+      ret = OJ.component(defaults, owner, 'x-sub-nav');
       ul = ret.ul({
         attr: {
           "class": 'active'
@@ -671,13 +671,16 @@ OJ IIFE definition to anchor JsDoc comments.
     Create an HTML Element through ThinDom
      */
     var component;
-    component = function(tag, owner, opt) {
+    component = function(options, owner, tagName) {
       var ret;
-      if (!tag.startsWith('x-')) {
-        tag = 'x-' + tag;
+      if (options == null) {
+        options = OJ.object();
       }
-      ret = OJ.element(tag, opt.props, opt.styles);
-      return OJ.nodeFactory(ret, owner);
+      if (!tagName.startsWith('x-')) {
+        tagName = 'x-' + tagName;
+      }
+      ret = OJ.element(tagName, options.props, options.styles);
+      return OJ.nodes.factory(ret, owner);
     };
     OJ.register('component', component);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -1002,7 +1005,9 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-    var controlPostProcessing, extendChain, initBody, isBodyDefined, isChildNodeTypeAllowed, nestableNodeNames, nonNestableNodes;
+    var addComponents, closed, controlPostProcessing, extendChain, initBody, isBodyDefined, isChildNodeTypeAllowed, nestableNodeNames, nonNestableNodes, open;
+    closed = 'a abbr acronym address applet article aside audio b bdo big blockquote body button canvas caption center cite code colgroup command datalist dd del details dfn dir div dl dt em embed fieldset figcaption figure font footer form frameset h1 h2 h3 h4 h5 h6 head header hgroup html i iframe ins keygen kbd label legend li map mark menu meter nav noframes noscript object ol optgroup option output p pre progress q rp rt ruby s samp script section select small source span strike strong style sub summary sup table tbody td textarea tfoot th thead time title tr tt u ul var video wbr xmp'.split(' ');
+    open = 'area base br col command css !DOCTYPE embed hr img input keygen link meta param source track wbr'.split(' ');
     nestableNodeNames = ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'fieldset', 'select', 'ol', 'ul', 'table'];
     nonNestableNodes = ['li', 'legend', 'tr', 'td', 'option', 'body', 'head', 'source', 'tbody', 'tfoot', 'thead', 'link', 'script'];
     isChildNodeTypeAllowed = function(parent, tagName) {
@@ -1012,7 +1017,7 @@ OJ IIFE definition to anchor JsDoc comments.
           allowed = false === _.contains(nonNestableNodes, tagName);
           break;
         case 'body':
-          allowed = _.contains(nestableNodeNames, tagName);
+          allowed = (tagName.startsWith('x-')) || _.contains(nestableNodeNames, tagName);
           break;
         case 'div':
           allowed = false === _.contains(nonNestableNodes, tagName);
@@ -1065,10 +1070,33 @@ OJ IIFE definition to anchor JsDoc comments.
       }
       return allowed;
     };
+
+    /*
+    Add components to the chain, if permitted
+    @tagName is the web component compatible node name (e.g. x-widget)
+    @className is the internal, developer friendly name (e.g widget)
+     */
+    addComponents = function(tagName, parent, count, className) {
+      if (isChildNodeTypeAllowed(parent, tagName)) {
+        return parent.add(className, function(opts) {
+          var nu;
+          if (OJ.components[className]) {
+            nu = OJ.components[className](opts, parent, true);
+          } else {
+            nu = OJ.component(className, parent);
+          }
+          return nu;
+        });
+      }
+    };
+
+    /*
+    Determine which components to add to chain, if any
+     */
     controlPostProcessing = function(parent, count) {
       if (_.contains(['div', 'span', 'td', 'p', 'body', 'form'], parent.tagName)) {
-        OJ.each(OJ.components.members, function(val) {
-          return extendChain(val, parent, count);
+        OJ.each(OJ.components.members, function(className, tagName) {
+          return addComponents(tagName, parent, count, className);
         });
       }
     };
@@ -1082,8 +1110,8 @@ OJ IIFE definition to anchor JsDoc comments.
           var nu;
           if (OJ.nodes[tagName]) {
             nu = OJ.nodes[tagName](opts, parent, true);
-          } else {
-            nu = OJ.custom(tagName, parent);
+          } else if ((_.contains(closed, tagName)) || _.contains(open, tagName)) {
+            nu = OJ.element(tagName, parent);
           }
           return OJ.nodes.factory(nu, parent, count);
         });
@@ -2739,7 +2767,7 @@ OJ IIFE definition to anchor JsDoc comments.
   (function(OJ) {
     'use strict';
     OJ.nodes.register('a', function(options, owner, calledFromFactory) {
-      var click, defaults, newClick, ret, toggle;
+      var click, defaults, newClick, ret, toggle, toggleState;
       if (owner == null) {
         owner = OJ.body;
       }
@@ -2764,13 +2792,13 @@ OJ IIFE definition to anchor JsDoc comments.
         }
       };
       OJ.extend(defaults, options);
-      ret.toggleState = 'off';
+      toggleState = 'off';
       toggle = function() {
-        if (ret.toggleState === 'on') {
-          ret.toggleState = 'off';
+        if (toggleState === 'on') {
+          toggleState = 'off';
         } else {
-          if (ret.toggleState === 'off') {
-            ret.toggleState = 'on';
+          if (toggleState === 'off') {
+            toggleState = 'on';
           }
         }
       };
@@ -3528,7 +3556,7 @@ OJ IIFE definition to anchor JsDoc comments.
         rows.push(OJ.nodes.tr({}, tbody, false));
       });
       ret.add('cell', function(rowNo, colNo) {
-        var cell, e, idx, row, td;
+        var cell, idx, row, td;
         init();
         if (rowNo < 1) {
           rowNo = 1;
@@ -3543,12 +3571,7 @@ OJ IIFE definition to anchor JsDoc comments.
             rows.push(row);
           }
         }
-        try {
-          td = row[0].cells[colNo];
-        } catch (_error) {
-          e = _error;
-          console.log(e);
-        }
+        td = row[0].cells[colNo];
         if (td) {
           cell = OJ.restoreElement('td', td);
         }
@@ -3565,15 +3588,8 @@ OJ IIFE definition to anchor JsDoc comments.
             }
           }
         }
-        try {
-          if (!cell.isValid) {
-            OJ.nodes.factory(cell, row, rowNo + colNo);
-          }
-        } catch (_error) {
-          e = _error;
-          console.log(e);
-          console.log('row:' + rowNo);
-          console.log('col:' + colNo);
+        if (!cell.isValid) {
+          OJ.nodes.factory(cell, row, rowNo + colNo);
         }
         return cell;
       });

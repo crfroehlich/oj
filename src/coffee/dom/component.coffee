@@ -3,10 +3,10 @@
   ###
   Create an HTML Element through ThinDom
   ###
-  component = (tag, owner, opt) ->
-    if not tag.startsWith 'x-' then tag = 'x-' + tag
-    ret = OJ.element tag, opt.props, opt.styles
-    OJ.nodeFactory ret, owner
+  component = (options = OJ.object(), owner, tagName) ->
+    if not tagName.startsWith 'x-' then tagName = 'x-' + tagName
+    ret = OJ.element tagName, options.props, options.styles
+    OJ.nodes.factory ret, owner
     
   OJ.register 'component', component
 

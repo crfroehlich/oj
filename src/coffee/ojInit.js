@@ -9,7 +9,7 @@
     OJ.makeSubNameSpace('nodes');
     OJ.makeSubNameSpace('db');
     OJ.makeSubNameSpace('components');
-    return OJ.components.register('members', []);
+    return OJ.components.register('members', {});
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);

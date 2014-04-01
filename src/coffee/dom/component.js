@@ -6,13 +6,16 @@
     Create an HTML Element through ThinDom
      */
     var component;
-    component = function(tag, owner, opt) {
+    component = function(options, owner, tagName) {
       var ret;
-      if (!tag.startsWith('x-')) {
-        tag = 'x-' + tag;
+      if (options == null) {
+        options = OJ.object();
       }
-      ret = OJ.element(tag, opt.props, opt.styles);
-      return OJ.nodeFactory(ret, owner);
+      if (!tagName.startsWith('x-')) {
+        tagName = 'x-' + tagName;
+      }
+      ret = OJ.element(tagName, options.props, options.styles);
+      return OJ.nodes.factory(ret, owner);
     };
     OJ.register('component', component);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

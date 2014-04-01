@@ -1,5 +1,8 @@
 ((OJ)->
 
+  closed = 'a abbr acronym address applet article aside audio b bdo big blockquote body button canvas caption center cite code colgroup command datalist dd del details dfn dir div dl dt em embed fieldset figcaption figure font footer form frameset h1 h2 h3 h4 h5 h6 head header hgroup html i iframe ins keygen kbd label legend li map mark menu meter nav noframes noscript object ol optgroup option output p pre progress q rp rt ruby s samp script section select small source span strike strong style sub summary sup table tbody td textarea tfoot th thead time title tr tt u ul var video wbr xmp'.split ' '
+  open = 'area base br col command css !DOCTYPE embed hr img input keygen link meta param source track wbr'.split ' '
+  
   nestableNodeNames = [
     'div' 
     'span' 
@@ -39,7 +42,7 @@
       when 'a'
         allowed = false is _.contains nonNestableNodes, tagName
       when 'body'
-        allowed = _.contains nestableNodeNames, tagName
+        allowed = (tagName.startsWith 'x-') or _.contains nestableNodeNames, tagName
       when 'div'
         allowed =  false is _.contains nonNestableNodes, tagName
       when 'form'
@@ -75,11 +78,27 @@
           allowed = false 
     allowed
   
+  ###
+  Add components to the chain, if permitted
+  @tagName is the web component compatible node name (e.g. x-widget)
+  @className is the internal, developer friendly name (e.g widget)
+  ###
+  addComponents = (tagName, parent, count, className) ->
+    if isChildNodeTypeAllowed parent, tagName
+      parent.add className, (opts) ->
+        if OJ.components[className]
+          nu = OJ.components[className] opts, parent, true
+        else 
+          nu = OJ.component className, parent
+        nu
 
+  ###
+  Determine which components to add to chain, if any
+  ###
   controlPostProcessing = (parent, count) ->
     if _.contains ['div','span','td','p','body','form'], parent.tagName
-      OJ.each OJ.components.members, (val) ->
-        extendChain val, parent, count
+      OJ.each OJ.components.members, (className, tagName) ->
+        addComponents tagName, parent, count, className
     return
 
   ###
@@ -90,9 +109,8 @@
       parent.add tagName, (opts) ->
         if OJ.nodes[tagName]
           nu = OJ.nodes[tagName] opts, parent, true
-        else
-          nu = OJ.custom tagName, parent
-        #parent.append child  
+        else if (_.contains closed, tagName) or _.contains open, tagName
+          nu = OJ.element tagName, parent
         OJ.nodes.factory nu, parent, count
 
   ###
