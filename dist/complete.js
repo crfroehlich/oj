@@ -1,6 +1,6 @@
 /**
  * ojs - A framework for writing zero-template, zero-html, zero-css web apps in pure JavaScript.
- * @version v0.2.6
+ * @version v0.2.7
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -306,48 +306,6 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ.makeSubNameSpace('components');
     return OJ.components.register('members', {});
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.components.members['x-sub-nav'] = 'subnav';
-    OJ.components.register('subnav', function(options, owner) {
-      var defaults, ret, ul;
-      defaults = {
-        active: '',
-        menu: [
-          {
-            name: '',
-            href: ''
-          }
-        ]
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, 'x-sub-nav');
-      ul = ret.ul({
-        attr: {
-          "class": 'active'
-        }
-      });
-      OJ.each(defaults.menu, function(val, key) {
-        var li;
-        if (val.name === defaults.active) {
-          li = ul.li({
-            attr: {
-              "class": 'active'
-            }
-          });
-        } else {
-          li = ul.li();
-        }
-        li.a({
-          attr: val
-        });
-      });
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -659,6 +617,48 @@ OJ IIFE definition to anchor JsDoc comments.
       change: 'change',
       vclick: 'vclick',
       tap: 'tap'
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.components.members['x-sub-nav'] = 'subnav';
+    OJ.components.register('subnav', function(options, owner) {
+      var defaults, ret, ul;
+      defaults = {
+        active: '',
+        menu: [
+          {
+            name: '',
+            href: ''
+          }
+        ]
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.component(defaults, owner, 'x-sub-nav');
+      ul = ret.ul({
+        attr: {
+          "class": 'active'
+        }
+      });
+      OJ.each(defaults.menu, function(val, key) {
+        var li;
+        if (val.name === defaults.active) {
+          li = ul.li({
+            attr: {
+              "class": 'active'
+            }
+          });
+        } else {
+          li = ul.li();
+        }
+        li.a({
+          attr: val
+        });
+      });
+      return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 

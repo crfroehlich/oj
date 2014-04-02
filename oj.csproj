@@ -51,29 +51,23 @@
     <Content Include="src\coffee\components\subnav.js">
       <DependentUpon>subnav.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\core\tools\error.js">
+      <DependentUpon>error.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\dom\component.js">
       <DependentUpon>component.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\common\array.map">
       <DependentUpon>array.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\common\class.js">
-      <DependentUpon>class.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\core\common\function.js">
       <DependentUpon>function.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\common\is.js">
+    <Content Include="src\coffee\core\tools\is.js">
       <DependentUpon>is.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\common\is.js.map">
+    <Content Include="src\coffee\core\tools\is.js.map">
       <DependentUpon>is.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\core\common\methods.js">
-      <DependentUpon>methods.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\core\common\methods.map">
-      <DependentUpon>methods.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\common\number.js">
       <DependentUpon>number.coffee</DependentUpon>
@@ -81,21 +75,17 @@
     <Content Include="src\coffee\core\common\string.js">
       <DependentUpon>string.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\common\to.js">
+    <Content Include="src\coffee\core\tools\to.js">
       <DependentUpon>to.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\tools\object.map">
+    <Content Include="src\coffee\core\common\object.map">
       <DependentUpon>object.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\core\tools\shims.js">
-      <DependentUpon>shims.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\tools\uuid.js">
       <DependentUpon>uuid.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\common\class.coffee" />
-    <Content Include="src\coffee\core\common\class.map">
-      <DependentUpon>class.coffee</DependentUpon>
+    <Content Include="src\coffee\dom\custom.js">
+      <DependentUpon>custom.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\nodeFactory.js">
       <DependentUpon>nodeFactory.coffee</DependentUpon>
@@ -127,10 +117,10 @@
     <Content Include="src\coffee\core\common\string.map">
       <DependentUpon>string.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\common\to.js.map">
+    <Content Include="src\coffee\core\tools\to.js.map">
       <DependentUpon>to.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\common\to.map">
+    <Content Include="src\coffee\core\tools\to.map">
       <DependentUpon>to.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\db\dbUpdate.map">
@@ -140,9 +130,6 @@
       <DependentUpon>array.coffee</DependentUpon>
     </Content>
     <Content Include="src\archive\core\common\methods.js.map">
-      <DependentUpon>methods.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\core\common\methods.js.map">
       <DependentUpon>methods.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\db\clientDb.js.map">
@@ -168,10 +155,10 @@
       <DependentUpon>gulpfile.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\component.coffee" />
-    <Content Include="src\coffee\core\common\is.map">
+    <Content Include="src\coffee\core\tools\is.map">
       <DependentUpon>is.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\enums.map">
+    <Content Include="src\coffee\core\tools\enums.map">
       <DependentUpon>enums.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\components\subnav.coffee" />
@@ -181,13 +168,6 @@
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">
       <DependentUpon>console.coffee</DependentUpon>
-    </Content>
-    <None Include="src\coffee\core\tools\constant.coffee" />
-    <Content Include="src\coffee\core\tools\constant.js">
-      <DependentUpon>constant.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\core\tools\constant.map">
-      <DependentUpon>constant.coffee</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\each.coffee" />
     <Content Include="src\coffee\core\tools\each.js">
@@ -199,34 +179,21 @@
     <Content Include="src\coffee\core\tools\each.map">
       <DependentUpon>each.coffee</DependentUpon>
     </Content>
-    <None Include="src\coffee\core\tools\object.coffee" />
-    <Content Include="src\coffee\core\tools\object.js">
+    <None Include="src\coffee\core\common\object.coffee" />
+    <Content Include="src\coffee\core\common\object.js">
       <DependentUpon>object.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\tools\object.js.map">
+    <Content Include="src\coffee\core\common\object.js.map">
       <DependentUpon>object.coffee</DependentUpon>
     </Content>
-    <None Include="src\coffee\core\tools\objectSql.coffee" />
-    <Content Include="src\coffee\core\tools\objectSql.js">
-      <DependentUpon>objectSql.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\core\tools\objectSql.map">
-      <DependentUpon>objectSql.coffee</DependentUpon>
-    </Content>
-    <None Include="src\coffee\core\tools\property.coffee" />
-    <Content Include="src\coffee\core\tools\property.js">
+    <None Include="src\coffee\core\common\property.coffee" />
+    <Content Include="src\coffee\core\common\property.js">
       <DependentUpon>property.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\tools\property.map">
+    <Content Include="src\coffee\core\common\property.map">
       <DependentUpon>property.coffee</DependentUpon>
     </Content>
-    <None Include="src\coffee\core\tools\shims.coffee" />
-    <Content Include="src\coffee\core\tools\shims.js.map">
-      <DependentUpon>shims.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\core\tools\shims.map">
-      <DependentUpon>shims.coffee</DependentUpon>
-    </Content>
+    <None Include="src\coffee\core\tools\error.coffee" />
     <None Include="src\coffee\core\tools\uuid.coffee" />
     <Content Include="src\css\main.css" />
     <Content Include="src\css\nameSpace.css" />
@@ -234,11 +201,10 @@
     <Content Include="dist\release.appcache">
       <DependentUpon>release.html</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\common\is.coffee" />
-    <Content Include="src\coffee\core\common\methods.coffee" />
+    <Content Include="src\coffee\core\tools\is.coffee" />
     <Content Include="src\coffee\core\common\number.coffee" />
     <Content Include="src\coffee\core\common\string.coffee" />
-    <Content Include="src\coffee\core\common\to.coffee" />
+    <Content Include="src\coffee\core\tools\to.coffee" />
     <Content Include="src\coffee\core\tools\console.map">
       <DependentUpon>console.coffee</DependentUpon>
     </Content>
@@ -363,6 +329,7 @@
       <DependentUpon>component.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\_templ" />
+    <Content Include="src\coffee\dom\custom.coffee" />
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
     </None>
@@ -403,7 +370,7 @@
     <Content Include="src\archive\core\common\function.js">
       <DependentUpon>function.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\common\functional.js">
+    <Content Include="src\coffee\core\tools\functional.js">
       <DependentUpon>functional.coffee</DependentUpon>
     </Content>
     <Content Include="src\archive\core\common\is.js">
@@ -436,7 +403,7 @@
     <Content Include="src\coffee\dom\dom.js">
       <DependentUpon>dom.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\enums.js">
+    <Content Include="src\coffee\core\tools\enums.js">
       <DependentUpon>enums.coffee</DependentUpon>
     </Content>
     <Content Include="src\archive\core\error.js">
@@ -588,7 +555,7 @@
     </Content>
     <Content Include="src\workers\xhrWorker.js" />
     <Content Include="src\coffee\dom\dom.coffee" />
-    <Content Include="src\coffee\core\enums.coffee" />
+    <Content Include="src\coffee\core\tools\enums.coffee" />
     <Content Include="src\archive\core\error.coffee" />
     <Content Include="src\coffee\core\db\clientDb.coffee" />
     <Content Include="src\coffee\core\db\db.coffee" />
@@ -632,7 +599,7 @@
     <Content Include="src\coffee\core\common\array.coffee" />
     <Content Include="src\coffee\core\common\date.coffee" />
     <Content Include="src\archive\core\common\function.coffee" />
-    <Content Include="src\coffee\core\common\functional.coffee" />
+    <Content Include="src\coffee\core\tools\functional.coffee" />
     <Content Include="src\archive\core\common\is.coffee" />
     <Content Include="src\archive\core\common\methods.coffee" />
     <Content Include="src\archive\core\common\number.coffee" />
@@ -661,7 +628,7 @@
     <Content Include="src\coffee\dom\nodes\img.js.map">
       <DependentUpon>img.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\enums.js.map">
+    <Content Include="src\coffee\core\tools\enums.js.map">
       <DependentUpon>enums.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\nodes\input.js.map">
@@ -693,7 +660,7 @@
     <Content Include="src\archive\core\common\is.map">
       <DependentUpon>is.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\common\functional.map">
+    <Content Include="src\coffee\core\tools\functional.map">
       <DependentUpon>functional.coffee</DependentUpon>
     </Content>
     <Content Include="src\archive\core\common\function.map">
