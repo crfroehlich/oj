@@ -93,6 +93,12 @@
     <Content Include="src\coffee\dom\nodeFactory.js">
       <DependentUpon>nodeFactory.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\dom\nodes\em.js">
+      <DependentUpon>em.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\i.js">
+      <DependentUpon>i.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\dom\nodes\select.js.map">
       <DependentUpon>select.coffee</DependentUpon>
     </Content>
@@ -337,6 +343,14 @@
     </Content>
     <Content Include="src\coffee\_templ" />
     <Content Include="src\coffee\dom\custom.coffee" />
+    <Content Include="src\coffee\dom\nodes\i.coffee" />
+    <Content Include="src\coffee\dom\nodes\em.coffee" />
+    <Content Include="src\coffee\dom\nodes\i.map">
+      <DependentUpon>i.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\custom.map">
+      <DependentUpon>custom.coffee</DependentUpon>
+    </Content>
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
     </None>
