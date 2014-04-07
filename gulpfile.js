@@ -176,7 +176,8 @@
     wiredep({
       directory: './bower_components',
       bowerJson: require('./bower.json'),
-      src: './test/test.html'
+      src: './test/test.html',
+      devDependencies: true
     });
     wiredep({
       directory: './bower_components',

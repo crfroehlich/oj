@@ -55,7 +55,7 @@
       value = ret.val()
       value
 
-    ret.add 'addOption', (value, text, selected = false, disabled = false) ->
+    ret.add 'addOption', (value, text = value, selected = false, disabled = false) ->
       isEmpty = _.isEmpty value
       add = false
       if isEmpty and false is hasEmpty 

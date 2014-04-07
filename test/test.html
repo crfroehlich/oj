@@ -1,8 +1,11 @@
 ﻿<!DOCTYPE html manifest="release/Dev.appcache">
+
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> 
+<html lang="en" class="no-js">
+     <!--<![endif]-->
     <head class="x-border-box x-strict">
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -15,6 +18,8 @@
         <!-- bower:css -->
         <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" />
+        <link rel="stylesheet" href="../bower_components/qunit-assert/css/tests.css" />
+        <link rel="stylesheet" href="../bower_components/formbuilder/dist/formbuilder-min.css" />
         <!-- endbower -->
         
     </head>
@@ -31,7 +36,7 @@
         <script src="../bower_components/less.js/dist/less-1.7.0.js"></script>
         <script src="../bower_components/google-code-prettify/src/prettify.js"></script>
         <script src="../bower_components/q/q.js"></script>
-        
+        <script src="../bower_components/ajaxify/ajaxify.js"></script>
         <script src="../bower_components/lodash/dist/lodash.compat.js"></script>
         <script src="../bower_components/Faker/Faker.js"></script>
         <script src="../bower_components/setimmediate/setImmediate.js"></script>
@@ -40,6 +45,11 @@
         <script src="../bower_components/thindom/dist/thinDOM.min.js"></script>
         <script src="../bower_components/mousetrap/mousetrap.js"></script>
         <script src="../bower_components/es6-shim/es6-shim.js"></script>
+        <script src="../bower_components/qunit-promises/qunit-promises.js"></script>
+        <script src="../bower_components/qunit-assert/lib/assert.js"></script>
+        <script src="../bower_components/qunit-assert/lib/TestRunner.js"></script>
+        <script src="../bower_components/jquery.scrollWindowTo/index.js"></script>
+       
         <!-- endbower -->
 
 
@@ -58,11 +68,13 @@
         
         <script src="../src/coffee/ojInit.js"></script>
         
-        <script src="../src/coffee/components/subnav.js"></script>
+        <script src="../src/coffee/components/address.js"></script>
         
-        <script src="../src/coffee/core/enums.js"></script>
+        <script src="../src/coffee/components/price.js"></script>
         
         <script src="../src/coffee/dom/component.js"></script>
+        
+        <script src="../src/coffee/dom/custom.js"></script>
         
         <script src="../src/coffee/dom/dom.js"></script>
         
@@ -72,23 +84,33 @@
         
         <script src="../src/coffee/core/common/array.js"></script>
         
-        <script src="../src/coffee/core/common/class.js"></script>
-        
         <script src="../src/coffee/core/common/date.js"></script>
         
         <script src="../src/coffee/core/common/function.js"></script>
         
-        <script src="../src/coffee/core/common/functional.js"></script>
-        
-        <script src="../src/coffee/core/common/is.js"></script>
-        
-        <script src="../src/coffee/core/common/methods.js"></script>
-        
         <script src="../src/coffee/core/common/number.js"></script>
+        
+        <script src="../src/coffee/core/common/object.js"></script>
+        
+        <script src="../src/coffee/core/common/property.js"></script>
         
         <script src="../src/coffee/core/common/string.js"></script>
         
-        <script src="../src/coffee/core/common/to.js"></script>
+        <script src="../src/coffee/core/tools/console.js"></script>
+        
+        <script src="../src/coffee/core/tools/each.js"></script>
+        
+        <script src="../src/coffee/core/tools/enums.js"></script>
+        
+        <script src="../src/coffee/core/tools/error.js"></script>
+        
+        <script src="../src/coffee/core/tools/functional.js"></script>
+        
+        <script src="../src/coffee/core/tools/is.js"></script>
+        
+        <script src="../src/coffee/core/tools/to.js"></script>
+        
+        <script src="../src/coffee/core/tools/uuid.js"></script>
         
         <script src="../src/coffee/core/db/clientDb.js"></script>
         
@@ -103,22 +125,6 @@
         <script src="../src/coffee/core/db/dbTable.js"></script>
         
         <script src="../src/coffee/core/db/dbUpdate.js"></script>
-        
-        <script src="../src/coffee/core/tools/console.js"></script>
-        
-        <script src="../src/coffee/core/tools/constant.js"></script>
-        
-        <script src="../src/coffee/core/tools/each.js"></script>
-        
-        <script src="../src/coffee/core/tools/object.js"></script>
-        
-        <script src="../src/coffee/core/tools/objectSql.js"></script>
-        
-        <script src="../src/coffee/core/tools/property.js"></script>
-        
-        <script src="../src/coffee/core/tools/shims.js"></script>
-        
-        <script src="../src/coffee/core/tools/uuid.js"></script>
         
         <script src="../src/coffee/dom/nodes/a.js"></script>
         
@@ -166,11 +172,13 @@
         
         <script src="../src/coffee/dom/nodes/ul.js"></script>
         
+        <script src="../test/components/test.components.js"></script>
+        
         <script src="../test/core/test.is.js"></script>
         
         <script src="../test/core/test.to.js"></script>
         
-        <script src="../test/node/test.node.js"></script>
+        <script src="../test/nodes/test.nodes.js"></script>
         
         <!-- endinject -->
 

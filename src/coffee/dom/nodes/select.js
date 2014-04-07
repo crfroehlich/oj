@@ -74,6 +74,9 @@
       });
       ret.add('addOption', function(value, text, selected, disabled) {
         var add, isEmpty, option, val;
+        if (text == null) {
+          text = value;
+        }
         if (selected == null) {
           selected = false;
         }

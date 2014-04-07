@@ -15,20 +15,16 @@
   ],
   "dependencies": {
     "jquery": ">= 2.1.0",
-    "bootstrap": "~3.1.1",
+    "bootstrap": ">= 3.1.1",
     "jquery-ui": ">= 1.10.4",
     "modernizr": ">= 2.7.2",
     "less.js": ">= 1.7.0",
     "google-code-prettify": ">= 1.0.1",
     "qunit": ">= 1.14.0",
     "q": "~1.0.1",
-    "ajaxify": "https://github.com/arvgta/ajaxify.git#~4.6.4",
-    "SyntaxHighlighter": ">= 3.0.83",
     "lodash": ">= 2.4.1",
-    "Faker": ">= 0.7.0",
     "setimmediate": ">= 1.0.1",
     "localforage": ">=0.2.1",
-    "xregexp": "~2.0.0",
     "thindom": ">=0.0.10",
     "mousetrap": ">=1.4.6",
     "es6-shim": ">=0.10.1"
@@ -45,13 +41,19 @@
     },
     "jquery.validation": {
       "main": "jquery.validate.js"
+    },
+    "formbuilder": {
+        "main": ["dist/formbuilder-min.css"]
     }
   },
   "devDependencies": {
-    "qunit": "~1.14.0",
-    "qunit-promises": "~0.1.1",
-    "qunit-assert": "~1.0.0",
-    "html5-boilerplate": "~4.3.0",
-    "coffee-script": "~1.7.1"
+    "qunit": ">= 1.14.0",
+    "coffee-script": ">= 1.7.1",
+    "formbuilder": ">= 0.2.0",
+    "Faker": ">= 0.7.0"
+  },
+  "resolutions": {
+    "jquery": ">= 2.1.0",
+    "bootstrap": ">= 3.1.1"
   }
 }

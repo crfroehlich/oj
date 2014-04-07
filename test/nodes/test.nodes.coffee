@@ -1,5 +1,5 @@
 ((OJ) ->
-  module OJ.name + 'nodes'
+  module 'nodes'
   test 'Test the Div node', ->
     expect 7
     node = OJ.nodes.div()

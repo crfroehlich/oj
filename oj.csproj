@@ -48,8 +48,11 @@
     <Content Include="gulpfile.js">
       <DependentUpon>gulpfile.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\components\subnav.js">
-      <DependentUpon>subnav.coffee</DependentUpon>
+    <Content Include="src\coffee\components\address.js">
+      <DependentUpon>address.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\components\price.js">
+      <DependentUpon>price.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\tools\error.js">
       <DependentUpon>error.coffee</DependentUpon>
@@ -161,10 +164,11 @@
     <Content Include="src\coffee\core\tools\enums.map">
       <DependentUpon>enums.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\components\subnav.coffee" />
-    <Content Include="src\coffee\components\subnav.map">
-      <DependentUpon>subnav.coffee</DependentUpon>
+    <Content Include="src\coffee\components\address.coffee" />
+    <Content Include="src\coffee\components\address.map">
+      <DependentUpon>address.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\components\price.coffee" />
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">
       <DependentUpon>console.coffee</DependentUpon>
@@ -194,6 +198,9 @@
       <DependentUpon>property.coffee</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\error.coffee" />
+    <Content Include="src\coffee\core\tools\error.map">
+      <DependentUpon>error.coffee</DependentUpon>
+    </Content>
     <None Include="src\coffee\core\tools\uuid.coffee" />
     <Content Include="src\css\main.css" />
     <Content Include="src\css\nameSpace.css" />
@@ -669,7 +676,14 @@
     <Content Include="src\coffee\core\common\date.map">
       <DependentUpon>date.coffee</DependentUpon>
     </Content>
+    <Content Include="test\components\test.components.coffee" />
+    <Content Include="test\components\test.components.map">
+      <DependentUpon>test.components.coffee</DependentUpon>
+    </Content>
     <None Include="test\core\test.is.coffee" />
+    <Content Include="test\components\test.components.js">
+      <DependentUpon>test.components.coffee</DependentUpon>
+    </Content>
     <Content Include="test\core\test.is.js">
       <DependentUpon>test.is.coffee</DependentUpon>
     </Content>
@@ -683,22 +697,19 @@
     <Content Include="test\core\test.to.map">
       <DependentUpon>test.to.coffee</DependentUpon>
     </Content>
-    <None Include="test\node\test.node.coffee" />
+    <None Include="test\nodes\test.nodes.coffee" />
     <Content Include="test\core\test.to.js">
       <DependentUpon>test.to.coffee</DependentUpon>
     </Content>
-    <Content Include="test\node\test.node.js">
-      <DependentUpon>test.node.coffee</DependentUpon>
-    </Content>
-    <Content Include="test\node\test.node.js.map">
-      <DependentUpon>test.node.coffee</DependentUpon>
+    <Content Include="test\nodes\test.nodes.js">
+      <DependentUpon>test.nodes.coffee</DependentUpon>
     </Content>
     <Content Include="test\test.coffee.html" />
     <Content Include="test\test.html" />
-    <Content Include="test\node\test.node.map">
-      <DependentUpon>test.node.coffee</DependentUpon>
-    </Content>
     <Content Include="web.config" />
+    <Content Include="test\nodes\test.nodes.map">
+      <DependentUpon>test.nodes.coffee</DependentUpon>
+    </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
     </None>

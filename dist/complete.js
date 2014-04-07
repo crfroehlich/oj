@@ -311,312 +311,77 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-    'use strict';
-    OJ.enums.register('unknown', 'unknown');
-    OJ.enums.register('tryParse', function(OJEnum, enumMember, caseSensitive) {
-      'use strict';
-      var ret;
-      ret = OJ.enums.unknown;
-      if (OJ.contains(OJEnum, enumMember)) {
-        ret = OJEnum[enumMember];
-      } else if (false === caseSensitive) {
-        OJ.each(OJEnum, function(member) {
-          if (OJ.contains(OJEnum, member) && OJ.string(member).toLowerCase() === OJ.string(enumMember).toLowerCase()) {
-            ret = member;
-          }
-        });
-      }
+    OJ.components.members['x-address'] = 'address';
+    OJ.components.register('address', function(options, owner) {
+      var city, cityState, country, defaults, ret, state, street, zip, zipCountry;
+      defaults = {};
+      OJ.extend(defaults, options);
+      ret = OJ.component(defaults, owner, 'x-address');
+      street = ret.div({
+        props: {
+          "class": 'input-line'
+        }
+      }).span({
+        props: {
+          "class": 'street'
+        }
+      });
+      street.input({
+        props: {
+          type: 'text'
+        }
+      });
+      street.label().text('Address');
+      cityState = ret.div({
+        props: {
+          "class": 'input-line'
+        }
+      });
+      city = cityState.span({
+        props: {
+          "class": 'city'
+        }
+      });
+      city.input({
+        props: {
+          type: 'text'
+        }
+      });
+      city.label().text('City');
+      state = cityState.span({
+        props: {
+          "class": 'state'
+        }
+      });
+      state.input({
+        props: {
+          type: 'text'
+        }
+      });
+      state.label().text('State');
+      zipCountry = ret.div({
+        props: {
+          "class": 'input-line'
+        }
+      });
+      zip = zipCountry.span({
+        props: {
+          "class": 'zip'
+        }
+      });
+      zip.input({
+        props: {
+          type: 'text'
+        }
+      });
+      zip.label('Zipcode');
+      country = zipCountry.span({
+        props: {
+          "class": 'country'
+        }
+      });
+      country.select().addOption('United States');
       return ret;
-    });
-    OJ.enums.register('inputTypes', {
-      button: {
-        id: 0,
-        name: 'button',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      checkbox: {
-        id: 1,
-        name: 'checkbox',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: true,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      color: {
-        id: 2,
-        name: 'color',
-        placeholder: false,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      date: {
-        id: 3,
-        name: 'date',
-        placeholder: false,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      datetime: {
-        id: 4,
-        name: 'datetime',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      'datetime-local': {
-        id: 5,
-        name: 'datetime-local',
-        placeholder: false,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      email: {
-        id: 6,
-        name: 'email',
-        placeholder: true,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      file: {
-        id: 7,
-        name: 'file',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: false
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      hidden: {
-        id: 8,
-        name: 'hidden',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      image: {
-        id: 9,
-        name: 'image',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      month: {
-        id: 10,
-        name: 'month',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      number: {
-        id: 11,
-        name: 'number',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      password: {
-        id: 12,
-        name: 'password',
-        placeholder: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      radio: {
-        id: 13,
-        name: 'radio',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: true,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      range: {
-        id: 14,
-        name: 'range',
-        placeholder: false,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      reset: {
-        id: 15,
-        name: 'reset',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      search: {
-        id: 16,
-        name: 'search',
-        placeholder: true,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      submit: {
-        id: 17,
-        name: 'submit',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      tel: {
-        id: 18,
-        name: 'button',
-        placeholder: true,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      text: {
-        id: 19,
-        name: 'text',
-        placeholder: true,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      time: {
-        id: 20,
-        name: 'time',
-        placeholder: false,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      url: {
-        id: 21,
-        name: 'url',
-        placeholder: true,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      week: {
-        id: 22,
-        name: 'week',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      }
-    });
-    OJ.enums.register('rateIntervalTypes', {
-      Hourly: 'Hourly',
-      WeeklyByDay: 'WeeklyByDay',
-      MonthlyByDate: 'MonthlyByDate',
-      MonthlyByWeekAndDay: 'MonthlyByWeekAndDay',
-      YearlyByDate: 'YearlyByDate'
-    });
-    OJ.enums.register('domElementEvent', {
-      click: 'click',
-      change: 'change',
-      vclick: 'vclick',
-      tap: 'tap'
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
@@ -624,40 +389,49 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-    OJ.components.members['x-sub-nav'] = 'subnav';
-    OJ.components.register('subnav', function(options, owner) {
-      var defaults, ret, ul;
-      defaults = {
-        active: '',
-        menu: [
-          {
-            name: '',
-            href: ''
-          }
-        ]
-      };
+    OJ.components.members['x-price'] = 'price';
+    OJ.components.register('price', function(options, owner) {
+      var cents, defaults, dollars, price, ret;
+      defaults = {};
       OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, 'x-sub-nav');
-      ul = ret.ul({
-        attr: {
-          "class": 'active'
+      ret = OJ.component(defaults, owner, 'x-price');
+      price = ret.div({
+        props: {
+          "class": 'input-line'
         }
       });
-      OJ.each(defaults.menu, function(val, key) {
-        var li;
-        if (val.name === defaults.active) {
-          li = ul.li({
-            attr: {
-              "class": 'active'
-            }
-          });
-        } else {
-          li = ul.li();
+      price.span({
+        props: {
+          "class": 'above-line'
         }
-        li.a({
-          attr: val
-        });
+      }).text('$');
+      dollars = price.span({
+        props: {
+          "class": 'dollars'
+        }
       });
+      dollars.input({
+        props: {
+          type: 'text'
+        }
+      });
+      dollars.label().text('Dollars');
+      price.span({
+        props: {
+          "class": 'above-line'
+        }
+      }).text('.');
+      cents = price.span({
+        props: {
+          "class": 'cents'
+        }
+      });
+      cents.input({
+        props: {
+          type: 'text'
+        }
+      });
+      cents.label().text('Cents');
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -683,6 +457,36 @@ OJ IIFE definition to anchor JsDoc comments.
       return OJ.nodes.factory(ret, owner);
     };
     OJ.register('component', component);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.nodes.register('custom', function(tagName, options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        },
+        number: 1
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element(tagName, defaults.props, defaults.styles, defaults.events);
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
@@ -1203,64 +1007,6 @@ OJ IIFE definition to anchor JsDoc comments.
 }).call(this);
 
 (function() {
-  (function(OJ) {
-
-    /*
-    Method to create a Class with optional inheritance.
-    Generally, I oppose this semantic in JS:
-    partly because of the ineffability of the 'this' operator,
-    and partly because of the difficulty in grokking this.
-    What we're really saying here (through the wonders of functional programming) is this:
-    
-    var MyClass1 = function(param1) {
-    var ret = this;
-    ret.id = param1;
-    return ret;
-    };
-    
-    var MyClass2 = function(param1, param2) {
-    var ret = this;
-    MyClass1.apply(this, Array.prototype.slice.call(arguments, 0));
-    ret.name = param2;
-    return ret;
-    };
-    
-    MyClass2.prototype = new MyClass1;
-    MyClass2.prototype.constructor = MyClass1;
-    MyClass2.prototype.parent = MyClass1.prototype;
-    
-    I find this whole mode of operation as dull as it is stupid.
-    Nonetheless, there are occassions when the convention is suitable for type checking,
-    as you'll come to see in metadata.
-    
-    Obviously, this method has very little utility if you are not using protypical inheritance
-     */
-    var Class;
-    OJ.register("Class", Class = function(name, inheritsFrom, callBack) {
-      var obj;
-      obj = Object.create(null);
-      obj[name] = function() {
-        var e;
-        try {
-          if (inheritsFrom) {
-            inheritsFrom.apply(this, Array.prototype.slice.call(arguments, 0));
-          }
-          return callBack.apply(this, Array.prototype.slice.call(arguments, 0));
-        } catch (_error) {
-          e = _error;
-          OJ.errors.ClassInheritanceError(Class.name + " failed to execute all or part of its callback routine for method " + name + "().", "", "", e);
-        }
-      };
-      if (inheritsFrom) {
-        obj[name].inheritsFrom(inheritsFrom);
-      }
-      return obj[name];
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
   (function() {
     'use strict';
     OJ.register("getDateFromDnJson", function(dnDate) {
@@ -1335,183 +1081,6 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-    'use strict';
-    var apply, curryLeft, filter, foldLeft, map, shiftRight;
-    OJ.makeSubNameSpace("fun");
-    OJ.fun.register("curryLeft", curryLeft = function(func) {
-      var args, slice;
-      slice = Array.prototype.slice;
-      args = slice.call(arguments_, 1);
-      return function() {
-        return func.apply(this, args.concat(slice.call(arguments_, 0)));
-      };
-    });
-    OJ.fun.register("foldLeft", foldLeft = function(func, newArray, oldArray) {
-      var accumulation;
-      accumulation = newArray;
-      OJ.each(oldArray, function(val) {
-        accumulation = func(accumulation, val);
-      });
-      return accumulation;
-    });
-    OJ.fun.register("map", map = function(func, array) {
-      var onIteration;
-      onIteration = function(accumulation, val) {
-        return accumulation.concat(func(val));
-      };
-      return OJ.fun.foldLeft(onIteration, [], array);
-    });
-    OJ.fun.register("filter", filter = function(func, array) {
-      var onIteration;
-      onIteration = function(accumulation, val) {
-        if (func(val)) {
-          return accumulation.concat(val);
-        } else {
-          return accumulation;
-        }
-      };
-      return OJ.fun.foldLeft(onIteration, [], array);
-    });
-    OJ.fun.register("shiftRight", shiftRight = function(shiftFunc, firstParam, originalArguments, context) {
-      var args;
-      context = context || this;
-      args = Array.prototype.slice.call(originalArguments, 0);
-      args.unshift(firstParam);
-      return shiftFunc.apply(context, args);
-    });
-    OJ.fun.register("apply", apply = function(applyFunc, originalArguments, context) {
-      var args;
-      context = context || this;
-      args = Array.prototype.slice.call(originalArguments, 0);
-      return applyFunc.apply(context, args);
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.is.register('bool', function(boolean) {
-      'use strict';
-      return _.isBoolean(boolean);
-    });
-    OJ.is.register('arrayNullOrEmpty', function(arr) {
-      'use strict';
-      return !Array.isArray(arr) || !arr || !arr.length || arr.length === 0 || !arr.push;
-    });
-    OJ.is.register('stringNullOrEmpty', function(str) {
-      'use strict';
-      return str && (!str.length || str.length === 0 || !str.trim || !str.trim());
-    });
-    OJ.is.register('numberNullOrEmpty', function(num) {
-      'use strict';
-      return !num || isNaN(num) || !num.toPrecision;
-    });
-    OJ.is.register('dateNullOrEmpty', function(dt) {
-      'use strict';
-      return !dt || !dt.getTime;
-    });
-    OJ.is.register('objectNullOrEmpty', function(obj) {
-      'use strict';
-      return _.isEmpty(obj || !Object.keys(obj) || Object.keys(obj).length === 0);
-    });
-    OJ.is.register('plainObject', function(obj) {
-      'use strict';
-      return _.isPlainObject(obj);
-    });
-    OJ.is.register('date', function(dt) {
-      return _.isDate(dt);
-    });
-
-    /*
-    Determines if a value is an instance of a Number and not NaN*
-     */
-    OJ.is.register('number', function(num) {
-      return typeof num === 'number' && false === (OJ.number.isNaN(num) || false === OJ.number.isFinite(num) || OJ.number.MAX_VALUE === num || OJ.number.MIN_VALUE === num);
-    });
-
-    /*
-    Determines if a value is convertable to a Number
-     */
-    OJ.is.register('numeric', function(num) {
-      var nuNum, ret;
-      ret = OJ.is.number(num);
-      if (!ret) {
-        nuNum = OJ.to.number(num);
-        ret = OJ.is.number(nuNum);
-      }
-      return ret;
-    });
-    OJ.is.register('vendorObject', function(obj) {
-      'use strict';
-      var ret;
-      ret = obj instanceof OJ['?'];
-      return ret;
-    });
-    OJ.is.register('elementInDom', function(elementId) {
-      return false === OJ.is.nullOrEmpty(document.getElementById(elementId));
-    });
-    OJ.is.register('generic', function(obj) {
-      'use strict';
-      var ret;
-      ret = false === OJ.is['function'](obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
-      return ret;
-    });
-    OJ.is.register('array', function(obj) {
-      return _.isArray(obj);
-    });
-    OJ.is.register('string', function(str) {
-      return _.isString(str);
-    });
-    OJ.is.register('true', function(obj) {
-      'use strict';
-      return obj === true || obj === 'true' || obj === 1 || obj === '1';
-    });
-    OJ.is.register('false', function(obj) {
-      'use strict';
-      return obj === false || obj === 'false' || obj === 0 || obj === '0';
-    });
-    OJ.is.register('trueOrFalse', function(obj) {
-      'use strict';
-      return OJ.is["true"](obj || OJ.is["false"](obj));
-    });
-    OJ.is.register('nullOrEmpty', function(obj, checkLength) {
-      'use strict';
-      return _.isEmpty(obj || _.isUndefined(obj || _.isNull(obj || _.isNaN(obj))));
-    });
-    OJ.is.register('instanceof', function(name, obj) {
-      'use strict';
-      return obj.type === name || obj instanceof name;
-    });
-    OJ.is.register('func', function(obj) {
-      'use strict';
-      return _.isFunction(obj);
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var slice;
-    slice = Array.prototype.slice;
-
-    /*
-    Take an arguments object and convert it into an Array
-     */
-    OJ.register("getArguments", function(args, sliceAt) {
-      'use strict';
-      var ret;
-      sliceAt = sliceAt || 0;
-      ret = slice.call(args, sliceAt);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
     var number;
     number = Object.create(null);
     Object.defineProperty(number, "isNaN", {
@@ -1527,6 +1096,129 @@ OJ IIFE definition to anchor JsDoc comments.
       value: (Number && Number.MIN_VALUE ? Number.MIN_VALUE : 5e-324)
     });
     OJ.register("number", number);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Create an instance of Object
+     */
+    var object;
+    object = function() {
+      var obj;
+      obj = {};
+
+      /*
+      Add a property to the object and return it
+       */
+      obj.add = function(name, val) {
+        return OJ.property(obj, name, val);
+      };
+      return obj;
+    };
+    OJ.register('object', object);
+    OJ.register('isInstanceOf', function(name, obj) {
+      return OJ.contains(name, obj) && OJ.bool(obj[name]);
+    });
+    OJ.register('contains', function(object, index) {
+      var ret;
+      ret = false;
+      if (false === OJ.isNullOrUndefined(object)) {
+        if (OJ.isArray(object)) {
+          ret = object.indexOf(index) !== -1;
+        }
+        if (false === ret && object.hasOwnProperty(index)) {
+          ret = true;
+        }
+      }
+      return ret;
+    });
+    OJ.register('compare', function(obj1, obj2) {
+      return _.isEqual(obj1(obj2));
+    });
+    OJ.register('clone', function(data) {
+      return _.cloneDeep(data(true));
+    });
+    OJ.register('serialize', function(data) {
+      var ret;
+      ret = '';
+      OJ.tryExec(function() {
+        ret = JSON.stringify(data);
+      });
+      return ret || '';
+    });
+    OJ.register('deserialize', function(data) {
+      var ret;
+      ret = {};
+      if (data) {
+        OJ.tryExec(function() {
+          ret = window.$.parseJSON(data);
+        });
+        if (OJ.is.nullOrEmpty(ret)) {
+          ret = {};
+        }
+      }
+      return ret;
+    });
+    OJ.register('params', function(data, delimiter) {
+      var ret;
+      ret = '';
+      delimiter = delimiter || '&';
+      if (delimiter === '&') {
+        OJ.tryExec(function() {
+          ret = $.param(data);
+        });
+      } else {
+        OJ.each(data, function(val, key) {
+          if (ret.length > 0) {
+            ret += delimiter;
+          }
+          ret += key + '=' + val;
+        });
+      }
+      return OJ.string(ret);
+    });
+    OJ.register('extend', function(destObj, srcObj, deepCopy) {
+      var ret;
+      ret = destObj || {};
+      if (arguments.length === 3) {
+        ret = $.extend(OJ.bool(deepCopy), ret, srcObj);
+      } else {
+        ret = $.extend(ret, srcObj);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Add a property to an object
+    @param obj {Object} an Object onto which to add a property
+    @param name {String} the property name
+    @param value {Object} the value of the property. Can be any type.
+    @param writable {Boolean} [writable=true] True if the property can be modified
+    @param configurable {Boolean} [configurable=true] True if the property can be removed
+    @param enumerable {Boolean} [enumerable=true] True if the property can be enumerated and is listed in Object.keys
+     */
+    var property;
+    property = function(obj, name, value, writable, configurable, enumerable) {
+      if (!obj) {
+        throw new Error("Cannot define a property without an Object.");
+      }
+      if (!name) {
+        throw new Error("Cannot create a property without a valid property name.");
+      }
+      obj[name] = value;
+      return obj;
+    };
+    OJ.register("property", property);
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);
@@ -1651,150 +1343,6 @@ OJ IIFE definition to anchor JsDoc comments.
         nsInternal.deleteDuplicates();
       })(arguments_);
       return nsRet;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.to.register("bool", function(str) {
-      var retBool;
-      retBool = OJ.is["true"](str);
-      if (retBool === false || retBool !== true) {
-        retBool = false;
-      }
-      return retBool;
-    });
-    OJ.to.register("ES5_ToBool", function(val) {
-      return val !== false && val !== 0 && val !== "" && val !== null && val !== undefined && (typeof val !== "number" || !isNaN(val));
-    });
-    OJ.to.register("dateFromTicks", function(tickStr) {
-      var arr, localOffset, offset, ret, ticks, ticsDateTime;
-      ticsDateTime = OJ.string(tickStr);
-      ret = void 0;
-      ticks = void 0;
-      offset = void 0;
-      localOffset = void 0;
-      arr = void 0;
-      if (false === OJ.is.nullOrEmpty(ticsDateTime)) {
-        ticsDateTime = ticsDateTime.replace("/", "");
-        ticsDateTime = ticsDateTime.replace("Date", "");
-        ticsDateTime = ticsDateTime.replace("(", "");
-        ticsDateTime = ticsDateTime.replace(")", "");
-        arr = ticsDateTime.split("-");
-        if (arr.length > 1) {
-          ticks = OJ.number(arr[0]);
-          offset = OJ.number(arr[1]);
-          localOffset = new Date().getTimezoneOffset();
-          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
-        } else if (arr.length === 1) {
-          ticks = OJ.number(arr[0]);
-          ret = new Date(ticks);
-        }
-      }
-      return ret;
-    });
-    OJ.to.register("binary", function(obj) {
-      var ret;
-      ret = NaN;
-      if (obj === 0 || obj === "0" || obj === "" || obj === false || OJ.to.string(obj).toLowerCase().trim() === "false") {
-        ret = 0;
-      } else {
-        if (obj === 1 || obj === "1" || obj === true || OJ.to.string(obj).toLowerCase().trim() === "true") {
-          ret = 1;
-        }
-      }
-      return ret;
-    });
-
-    /*
-    Attempts to converts an arbitrary value to a Number.
-    Loose falsy values are converted to 0.
-    Loose truthy values are converted to 1.
-    All other values are parsed as Integers.
-    Failures return as NaN.
-     */
-    OJ.to.register("number", function(inputNum, defaultNum) {
-      var retVal, tryGetNumber;
-      tryGetNumber = function(val) {
-        var ret, tryGet;
-        ret = NaN;
-        if (OJ.is.number(val)) {
-          ret = val;
-        } else if (OJ.is.string(val) || OJ.is.bool(val)) {
-          tryGet = function(value) {
-            var num;
-            num = OJ.to.binary(value);
-            if (!OJ.is.number(num) && value) {
-              num = +value;
-            }
-            if (!OJ.is.number(num)) {
-              num = _.parseInt(value, 0);
-            }
-            return num;
-          };
-          ret = tryGet(val);
-        }
-        return ret;
-      };
-      retVal = tryGetNumber(inputNum);
-      if (!OJ.is.number(retVal)) {
-        retVal = tryGetNumber(defaultNum);
-        if (!OJ.is.number(retVal)) {
-          retVal = Number.NaN;
-        }
-      }
-      return retVal;
-    });
-    OJ.to.register("string", function(inputStr, defaultStr) {
-      var ret1, ret2, retVal, tryGetString;
-      tryGetString = function(str) {
-        var ret;
-        ret = void 0;
-        if (OJ.is.string(str)) {
-          ret = str;
-        } else {
-          ret = "";
-          if (OJ.is.bool(str) || OJ.is.number(str) || OJ.is.date(str)) {
-            ret = str.toString();
-          }
-        }
-        return ret;
-      };
-      ret1 = tryGetString(inputStr);
-      ret2 = tryGetString(defaultStr);
-      retVal = "";
-      if (ret1.length !== 0) {
-        retVal = ret1;
-      } else if (ret1 === ret2 || ret2.length === 0) {
-        retVal = ret1;
-      } else {
-        retVal = ret2;
-      }
-      return retVal;
-    });
-    OJ.to.register("vendorDomObject", function(id) {
-      var base, ret, _$el;
-      ret = null;
-      base = "#";
-      if (id === "body") {
-        base = "";
-      }
-      _$el = OJ["?"](base + id);
-      if (_$el) {
-        ret = _$el;
-      }
-      return ret;
-    });
-    OJ.to.register("vendorDomObjFromString", function(html) {
-      var ret, _$el;
-      ret = null;
-      _$el = OJ["?"](html);
-      if (_$el) {
-        ret = _$el;
-      }
-      return ret;
     });
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
@@ -2376,59 +1924,6 @@ OJ IIFE definition to anchor JsDoc comments.
   (function(OJ) {
 
     /*
-    Create a new object with constant properties..
-    @param props {Object} an object represent the enun members
-     */
-    var Constant;
-    Constant = function(props) {
-      var keys, that;
-      that = null;
-      keys = [];
-      if (props) {
-        that = this;
-
-        /*
-        Assert that the provided key is a member of the enum
-        @param key {String} enum property name
-         */
-        OJ.property(that, "has", function(key) {
-          return keys.indexOf(key) !== -1;
-        });
-        OJ.each(props, function(propVal, propName) {
-          keys.push(propVal);
-          Object.defineProperty(that, propName, {
-            value: propVal
-          });
-        });
-      }
-      return that;
-    };
-
-    /*
-    Create a new enum on the constants namespace.
-    Enums are objects consisting of read-only, non-configurable, non-enumerable properties.
-    @param name {String} the name of the enum
-    @param props {Object} the properties of the enum
-     */
-    OJ.register("constant", function(OJ, name, props) {
-      var ret;
-      ret = new Constant(props);
-      OJ = OJ || OJ;
-      if (ret && OJ.constants && OJ.constants.register && name) {
-        OJ.constants.register(name, ret);
-        Object.seal(ret);
-        Object.freeze(ret);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
     True if the object is a true Object or Array
     @param obj {Object}
      */
@@ -2466,223 +1961,321 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-
-    /*
-    Create an instance of Object
-     */
-    var object;
-    object = function() {
-      var obj;
-      obj = {};
-
-      /*
-      Add a property to the object and return it
-       */
-      obj.add = function(name, val) {
-        return OJ.property(obj, name, val);
-      };
-      return obj;
-    };
-    OJ.register('object', object);
-    OJ.register('isInstanceOf', function(name, obj) {
-      return OJ.contains(name, obj) && OJ.bool(obj[name]);
-    });
-    OJ.register('contains', function(object, index) {
+    'use strict';
+    OJ.enums.register('unknown', 'unknown');
+    OJ.enums.register('tryParse', function(OJEnum, enumMember, caseSensitive) {
+      'use strict';
       var ret;
-      ret = false;
-      if (false === OJ.isNullOrUndefined(object)) {
-        if (OJ.isArray(object)) {
-          ret = object.indexOf(index) !== -1;
-        }
-        if (false === ret && object.hasOwnProperty(index)) {
-          ret = true;
-        }
-      }
-      return ret;
-    });
-    OJ.register('compare', function(obj1, obj2) {
-      return _.isEqual(obj1(obj2));
-    });
-    OJ.register('clone', function(data) {
-      return _.cloneDeep(data(true));
-    });
-    OJ.register('serialize', function(data) {
-      var ret;
-      ret = '';
-      OJ.tryExec(function() {
-        ret = JSON.stringify(data);
-      });
-      return ret || '';
-    });
-    OJ.register('deserialize', function(data) {
-      var ret;
-      ret = {};
-      if (data) {
-        OJ.tryExec(function() {
-          ret = window.$.parseJSON(data);
-        });
-        if (OJ.is.nullOrEmpty(ret)) {
-          ret = {};
-        }
-      }
-      return ret;
-    });
-    OJ.register('params', function(data, delimiter) {
-      var ret;
-      ret = '';
-      delimiter = delimiter || '&';
-      if (delimiter === '&') {
-        OJ.tryExec(function() {
-          ret = $.param(data);
-        });
-      } else {
-        OJ.each(data, function(val, key) {
-          if (ret.length > 0) {
-            ret += delimiter;
+      ret = OJ.enums.unknown;
+      if (OJ.contains(OJEnum, enumMember)) {
+        ret = OJEnum[enumMember];
+      } else if (false === caseSensitive) {
+        OJ.each(OJEnum, function(member) {
+          if (OJ.contains(OJEnum, member) && OJ.string(member).toLowerCase() === OJ.string(enumMember).toLowerCase()) {
+            ret = member;
           }
-          ret += key + '=' + val;
         });
-      }
-      return OJ.string(ret);
-    });
-    OJ.register('extend', function(destObj, srcObj, deepCopy) {
-      var ret;
-      ret = destObj || {};
-      if (arguments.length === 3) {
-        ret = $.extend(OJ.bool(deepCopy), ret, srcObj);
-      } else {
-        ret = $.extend(ret, srcObj);
       }
       return ret;
     });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var from, query, run, select;
-    select = function() {
-      var args, query, slice;
-      query = this;
-      slice = Array.prototype.slice;
-      args = slice.call(arguments_, 0);
-      query.columns = query.columns || [];
-      OJ.each(args, function(argumentValue) {
-        query.columns.push(argumentValue);
-      });
-      return query;
-    };
-    run = function() {
-      var firstResult, query, results, ret, returnRows;
-      query = this;
-      ret = [];
-      if (query.columns.length > 0) {
-        results = [];
-        OJ.each(query.columns, function(columnName) {
-          OJ.each(query.tables, (function(tbl) {
-            var res, val;
-            if (Array.isArray(tbl)) {
-              res = {};
-              val = tbl._select(function(val) {
-                return val[columnName];
-              });
-              if (val) {
-                res[columnName] = val;
-                results.push(res);
-              }
-            }
-          }), true);
-        });
-        returnRows = [];
-        if (results && results.length > 0) {
-          firstResult = results[0];
-          OJ.each(firstResult, (function(val, key) {
-            OJ.each(val, (function(cell) {
-              var row;
-              row = {};
-              row[key] = cell;
-              OJ.each(results.slice(1), (function(result) {
-                OJ.each(result, (function(v, k) {
-                  OJ.each(v, function(c) {
-                    row[k] = c;
-                  });
-                }), true);
-              }), true);
-              returnRows.push(row);
-            }), true);
-          }), true);
-        }
-      }
-      return returnRows;
-    };
-    from = function(array) {
-      var query;
-      query = this;
-      query.tables.push(array);
-      return query;
-    };
-    Object.defineProperties(Array.prototype, {
-      _where: {
-        value: function(func) {
-          return OJ.filter(func, this);
-        }
+    OJ.enums.register('inputTypes', {
+      button: {
+        id: 0,
+        name: 'button',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
       },
-      _select: {
-        value: function(func) {
-          return OJ.map(func, this);
-        }
+      checkbox: {
+        id: 1,
+        name: 'checkbox',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: true,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      color: {
+        id: 2,
+        name: 'color',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      date: {
+        id: 3,
+        name: 'date',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      datetime: {
+        id: 4,
+        name: 'datetime',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      'datetime-local': {
+        id: 5,
+        name: 'datetime-local',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      email: {
+        id: 6,
+        name: 'email',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      file: {
+        id: 7,
+        name: 'file',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: false
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      hidden: {
+        id: 8,
+        name: 'hidden',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      image: {
+        id: 9,
+        name: 'image',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      month: {
+        id: 10,
+        name: 'month',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      number: {
+        id: 11,
+        name: 'number',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      password: {
+        id: 12,
+        name: 'password',
+        placeholder: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      radio: {
+        id: 13,
+        name: 'radio',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: true,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      range: {
+        id: 14,
+        name: 'range',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      reset: {
+        id: 15,
+        name: 'reset',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      search: {
+        id: 16,
+        name: 'search',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      submit: {
+        id: 17,
+        name: 'submit',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      tel: {
+        id: 18,
+        name: 'button',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      text: {
+        id: 19,
+        name: 'text',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      time: {
+        id: 20,
+        name: 'time',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      url: {
+        id: 21,
+        name: 'url',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      week: {
+        id: 22,
+        name: 'week',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
       }
     });
-    query = function(array) {
-      var tables, _query;
-      tables = [];
-      tables.push(array);
-      _query = {
-        tables: tables,
-        from: from,
-        select: select,
-        run: run
-      };
-      return _query;
-    };
-    OJ.register("objectSql", query);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+    OJ.enums.register('rateIntervalTypes', {
+      Hourly: 'Hourly',
+      WeeklyByDay: 'WeeklyByDay',
+      MonthlyByDate: 'MonthlyByDate',
+      MonthlyByWeekAndDay: 'MonthlyByWeekAndDay',
+      YearlyByDate: 'YearlyByDate'
+    });
+    OJ.enums.register('domElementEvent', {
+      click: 'click',
+      change: 'change',
+      vclick: 'vclick',
+      tap: 'tap'
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
 (function() {
   (function(OJ) {
-
-    /*
-    Add a property to an object
-    @param obj {Object} an Object onto which to add a property
-    @param name {String} the property name
-    @param value {Object} the value of the property. Can be any type.
-    @param writable {Boolean} [writable=true] True if the property can be modified
-    @param configurable {Boolean} [configurable=true] True if the property can be removed
-    @param enumerable {Boolean} [enumerable=true] True if the property can be enumerated and is listed in Object.keys
-     */
-    var property;
-    property = function(obj, name, value, writable, configurable, enumerable) {
-      if (!obj) {
-        throw new Error("Cannot define a property without an Object.");
-      }
-      if (!name) {
-        throw new Error("Cannot create a property without a valid property name.");
-      }
-      obj[name] = value;
-      return obj;
-    };
-    OJ.register("property", property);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inheritsFrom, onError, thisGlobal;
-    thisGlobal = (typeof global !== 'undefined' && global ? global : (typeof thisGlobal !== 'undefined' ? thisGlobal : this));
+    var onError, thisGlobal;
+    thisGlobal = (typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this));
     onError = thisGlobal.onerror;
 
     /*
@@ -2695,39 +2288,309 @@ OJ IIFE definition to anchor JsDoc comments.
       }
       return false;
     };
-    if (!thisGlobal.setImmediate) {
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
-      /*
-      Shim for setImmediate
-       */
-      thisGlobal.setImmediate = function(func, args) {
-        return thisGlobal.setTimeout(func, 0, args);
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var apply, curryLeft, filter, foldLeft, map, shiftRight;
+    OJ.makeSubNameSpace("fun");
+    OJ.fun.register("curryLeft", curryLeft = function(func) {
+      var args, slice;
+      slice = Array.prototype.slice;
+      args = slice.call(arguments_, 1);
+      return function() {
+        return func.apply(this, args.concat(slice.call(arguments_, 0)));
       };
-      thisGlobal.clearImmediate = thisGlobal.clearTimeout;
-    }
-    if (!Function.prototype.inheritsFrom) {
-      Object.defineProperties(Function.prototype, {
-        inheritsFrom: {
+    });
+    OJ.fun.register("foldLeft", foldLeft = function(func, newArray, oldArray) {
+      var accumulation;
+      accumulation = newArray;
+      OJ.each(oldArray, function(val) {
+        accumulation = func(accumulation, val);
+      });
+      return accumulation;
+    });
+    OJ.fun.register("map", map = function(func, array) {
+      var onIteration;
+      onIteration = function(accumulation, val) {
+        return accumulation.concat(func(val));
+      };
+      return OJ.fun.foldLeft(onIteration, [], array);
+    });
+    OJ.fun.register("filter", filter = function(func, array) {
+      var onIteration;
+      onIteration = function(accumulation, val) {
+        if (func(val)) {
+          return accumulation.concat(val);
+        } else {
+          return accumulation;
+        }
+      };
+      return OJ.fun.foldLeft(onIteration, [], array);
+    });
+    OJ.fun.register("shiftRight", shiftRight = function(shiftFunc, firstParam, originalArguments, context) {
+      var args;
+      context = context || this;
+      args = Array.prototype.slice.call(originalArguments, 0);
+      args.unshift(firstParam);
+      return shiftFunc.apply(context, args);
+    });
+    OJ.fun.register("apply", apply = function(applyFunc, originalArguments, context) {
+      var args;
+      context = context || this;
+      args = Array.prototype.slice.call(originalArguments, 0);
+      return applyFunc.apply(context, args);
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
-          /*
-          Easy inheritance by prototype
-           */
-          value: inheritsFrom = function(parentClassOrObject) {
-            if (parentClassOrObject.constructor === Function) {
-              this.prototype = new parentClassOrObject;
-              this.prototype.constructor = this;
-              this.prototype.parent = parentClassOrObject.prototype;
-            } else {
-              this.prototype = parentClassOrObject;
-              this.prototype.constructor = this;
-              this.prototype.parent = parentClassOrObject;
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.is.register('bool', function(boolean) {
+      'use strict';
+      return _.isBoolean(boolean);
+    });
+    OJ.is.register('arrayNullOrEmpty', function(arr) {
+      'use strict';
+      return !Array.isArray(arr) || !arr || !arr.length || arr.length === 0 || !arr.push;
+    });
+    OJ.is.register('stringNullOrEmpty', function(str) {
+      'use strict';
+      return str && (!str.length || str.length === 0 || !str.trim || !str.trim());
+    });
+    OJ.is.register('numberNullOrEmpty', function(num) {
+      'use strict';
+      return !num || isNaN(num) || !num.toPrecision;
+    });
+    OJ.is.register('dateNullOrEmpty', function(dt) {
+      'use strict';
+      return !dt || !dt.getTime;
+    });
+    OJ.is.register('objectNullOrEmpty', function(obj) {
+      'use strict';
+      return _.isEmpty(obj || !Object.keys(obj) || Object.keys(obj).length === 0);
+    });
+    OJ.is.register('plainObject', function(obj) {
+      'use strict';
+      return _.isPlainObject(obj);
+    });
+    OJ.is.register('date', function(dt) {
+      return _.isDate(dt);
+    });
+
+    /*
+    Determines if a value is an instance of a Number and not NaN*
+     */
+    OJ.is.register('number', function(num) {
+      return typeof num === 'number' && false === (OJ.number.isNaN(num) || false === OJ.number.isFinite(num) || OJ.number.MAX_VALUE === num || OJ.number.MIN_VALUE === num);
+    });
+
+    /*
+    Determines if a value is convertable to a Number
+     */
+    OJ.is.register('numeric', function(num) {
+      var nuNum, ret;
+      ret = OJ.is.number(num);
+      if (!ret) {
+        nuNum = OJ.to.number(num);
+        ret = OJ.is.number(nuNum);
+      }
+      return ret;
+    });
+    OJ.is.register('vendorObject', function(obj) {
+      'use strict';
+      var ret;
+      ret = obj instanceof OJ['?'];
+      return ret;
+    });
+    OJ.is.register('elementInDom', function(elementId) {
+      return false === OJ.is.nullOrEmpty(document.getElementById(elementId));
+    });
+    OJ.is.register('generic', function(obj) {
+      'use strict';
+      var ret;
+      ret = false === OJ.is['function'](obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
+      return ret;
+    });
+    OJ.is.register('array', function(obj) {
+      return _.isArray(obj);
+    });
+    OJ.is.register('string', function(str) {
+      return _.isString(str);
+    });
+    OJ.is.register('true', function(obj) {
+      'use strict';
+      return obj === true || obj === 'true' || obj === 1 || obj === '1';
+    });
+    OJ.is.register('false', function(obj) {
+      'use strict';
+      return obj === false || obj === 'false' || obj === 0 || obj === '0';
+    });
+    OJ.is.register('trueOrFalse', function(obj) {
+      'use strict';
+      return OJ.is["true"](obj || OJ.is["false"](obj));
+    });
+    OJ.is.register('nullOrEmpty', function(obj, checkLength) {
+      'use strict';
+      return _.isEmpty(obj || _.isUndefined(obj || _.isNull(obj || _.isNaN(obj))));
+    });
+    OJ.is.register('instanceof', function(name, obj) {
+      'use strict';
+      return obj.type === name || obj instanceof name;
+    });
+    OJ.is.register('func', function(obj) {
+      'use strict';
+      return _.isFunction(obj);
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.to.register("bool", function(str) {
+      var retBool;
+      retBool = OJ.is["true"](str);
+      if (retBool === false || retBool !== true) {
+        retBool = false;
+      }
+      return retBool;
+    });
+    OJ.to.register("ES5_ToBool", function(val) {
+      return val !== false && val !== 0 && val !== "" && val !== null && val !== undefined && (typeof val !== "number" || !isNaN(val));
+    });
+    OJ.to.register("dateFromTicks", function(tickStr) {
+      var arr, localOffset, offset, ret, ticks, ticsDateTime;
+      ticsDateTime = OJ.string(tickStr);
+      ret = void 0;
+      ticks = void 0;
+      offset = void 0;
+      localOffset = void 0;
+      arr = void 0;
+      if (false === OJ.is.nullOrEmpty(ticsDateTime)) {
+        ticsDateTime = ticsDateTime.replace("/", "");
+        ticsDateTime = ticsDateTime.replace("Date", "");
+        ticsDateTime = ticsDateTime.replace("(", "");
+        ticsDateTime = ticsDateTime.replace(")", "");
+        arr = ticsDateTime.split("-");
+        if (arr.length > 1) {
+          ticks = OJ.number(arr[0]);
+          offset = OJ.number(arr[1]);
+          localOffset = new Date().getTimezoneOffset();
+          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
+        } else if (arr.length === 1) {
+          ticks = OJ.number(arr[0]);
+          ret = new Date(ticks);
+        }
+      }
+      return ret;
+    });
+    OJ.to.register("binary", function(obj) {
+      var ret;
+      ret = NaN;
+      if (obj === 0 || obj === "0" || obj === "" || obj === false || OJ.to.string(obj).toLowerCase().trim() === "false") {
+        ret = 0;
+      } else {
+        if (obj === 1 || obj === "1" || obj === true || OJ.to.string(obj).toLowerCase().trim() === "true") {
+          ret = 1;
+        }
+      }
+      return ret;
+    });
+
+    /*
+    Attempts to converts an arbitrary value to a Number.
+    Loose falsy values are converted to 0.
+    Loose truthy values are converted to 1.
+    All other values are parsed as Integers.
+    Failures return as NaN.
+     */
+    OJ.to.register("number", function(inputNum, defaultNum) {
+      var retVal, tryGetNumber;
+      tryGetNumber = function(val) {
+        var ret, tryGet;
+        ret = NaN;
+        if (OJ.is.number(val)) {
+          ret = val;
+        } else if (OJ.is.string(val) || OJ.is.bool(val)) {
+          tryGet = function(value) {
+            var num;
+            num = OJ.to.binary(value);
+            if (!OJ.is.number(num) && value) {
+              num = +value;
             }
-            return this;
+            if (!OJ.is.number(num)) {
+              num = _.parseInt(value, 0);
+            }
+            return num;
+          };
+          ret = tryGet(val);
+        }
+        return ret;
+      };
+      retVal = tryGetNumber(inputNum);
+      if (!OJ.is.number(retVal)) {
+        retVal = tryGetNumber(defaultNum);
+        if (!OJ.is.number(retVal)) {
+          retVal = Number.NaN;
+        }
+      }
+      return retVal;
+    });
+    OJ.to.register("string", function(inputStr, defaultStr) {
+      var ret1, ret2, retVal, tryGetString;
+      tryGetString = function(str) {
+        var ret;
+        ret = void 0;
+        if (OJ.is.string(str)) {
+          ret = str;
+        } else {
+          ret = "";
+          if (OJ.is.bool(str) || OJ.is.number(str) || OJ.is.date(str)) {
+            ret = str.toString();
           }
         }
-      });
-    }
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+        return ret;
+      };
+      ret1 = tryGetString(inputStr);
+      ret2 = tryGetString(defaultStr);
+      retVal = "";
+      if (ret1.length !== 0) {
+        retVal = ret1;
+      } else if (ret1 === ret2 || ret2.length === 0) {
+        retVal = ret1;
+      } else {
+        retVal = ret2;
+      }
+      return retVal;
+    });
+    OJ.to.register("vendorDomObject", function(id) {
+      var base, ret, _$el;
+      ret = null;
+      base = "#";
+      if (id === "body") {
+        base = "";
+      }
+      _$el = OJ["?"](base + id);
+      if (_$el) {
+        ret = _$el;
+      }
+      return ret;
+    });
+    OJ.to.register("vendorDomObjFromString", function(html) {
+      var ret, _$el;
+      ret = null;
+      _$el = OJ["?"](html);
+      if (_$el) {
+        ret = _$el;
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);
 
@@ -3387,6 +3250,9 @@ OJ IIFE definition to anchor JsDoc comments.
       });
       ret.add('addOption', function(value, text, selected, disabled) {
         var add, isEmpty, option, val;
+        if (text == null) {
+          text = value;
+        }
         if (selected == null) {
           selected = false;
         }
