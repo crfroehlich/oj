@@ -1,6 +1,6 @@
 {
   "name": "OJ",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "main": [
     "dist/complete.min.js",
     "dist/release.html"
@@ -43,7 +43,9 @@
       "main": "jquery.validate.js"
     },
     "formbuilder": {
-        "main": ["dist/formbuilder-min.css"]
+      "main": [
+        "dist/formbuilder-min.css"
+      ]
     }
   },
   "devDependencies": {

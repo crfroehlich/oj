@@ -18,7 +18,6 @@
         <!-- bower:css -->
         <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" />
-        <link rel="stylesheet" href="../bower_components/qunit-assert/css/tests.css" />
         <link rel="stylesheet" href="../bower_components/formbuilder/dist/formbuilder-min.css" />
         <!-- endbower -->
         
@@ -36,20 +35,18 @@
         <script src="../bower_components/less.js/dist/less-1.7.0.js"></script>
         <script src="../bower_components/google-code-prettify/src/prettify.js"></script>
         <script src="../bower_components/q/q.js"></script>
-        <script src="../bower_components/ajaxify/ajaxify.js"></script>
         <script src="../bower_components/lodash/dist/lodash.compat.js"></script>
-        <script src="../bower_components/Faker/Faker.js"></script>
         <script src="../bower_components/setimmediate/setImmediate.js"></script>
         <script src="../bower_components/es6-promise/promise.js"></script>
         <script src="../bower_components/localforage/dist/localforage.min.js"></script>
+        <script src="../bower_components/Faker/Faker.js"></script>
         <script src="../bower_components/thindom/dist/thinDOM.min.js"></script>
         <script src="../bower_components/mousetrap/mousetrap.js"></script>
         <script src="../bower_components/es6-shim/es6-shim.js"></script>
-        <script src="../bower_components/qunit-promises/qunit-promises.js"></script>
-        <script src="../bower_components/qunit-assert/lib/assert.js"></script>
-        <script src="../bower_components/qunit-assert/lib/TestRunner.js"></script>
         <script src="../bower_components/jquery.scrollWindowTo/index.js"></script>
-       
+        <script src="../bower_components/underscore/underscore.js"></script>
+        <script src="../bower_components/underscore.mixin.deepExtend/index.js"></script>
+        <script src="../bower_components/backbone/backbone.js"></script>
         <!-- endbower -->
 
 
@@ -82,6 +79,20 @@
         
         <script src="../src/coffee/dom/nodeFactory.js"></script>
         
+        <script src="../src/coffee/core/db/clientDb.js"></script>
+        
+        <script src="../src/coffee/core/db/db.js"></script>
+        
+        <script src="../src/coffee/core/db/dbIndex.js"></script>
+        
+        <script src="../src/coffee/core/db/dbInsert.js"></script>
+        
+        <script src="../src/coffee/core/db/dbSelect.js"></script>
+        
+        <script src="../src/coffee/core/db/dbTable.js"></script>
+        
+        <script src="../src/coffee/core/db/dbUpdate.js"></script>
+        
         <script src="../src/coffee/core/common/array.js"></script>
         
         <script src="../src/coffee/core/common/date.js"></script>
@@ -111,20 +122,6 @@
         <script src="../src/coffee/core/tools/to.js"></script>
         
         <script src="../src/coffee/core/tools/uuid.js"></script>
-        
-        <script src="../src/coffee/core/db/clientDb.js"></script>
-        
-        <script src="../src/coffee/core/db/db.js"></script>
-        
-        <script src="../src/coffee/core/db/dbIndex.js"></script>
-        
-        <script src="../src/coffee/core/db/dbInsert.js"></script>
-        
-        <script src="../src/coffee/core/db/dbSelect.js"></script>
-        
-        <script src="../src/coffee/core/db/dbTable.js"></script>
-        
-        <script src="../src/coffee/core/db/dbUpdate.js"></script>
         
         <script src="../src/coffee/dom/nodes/a.js"></script>
         
@@ -172,11 +169,11 @@
         
         <script src="../src/coffee/dom/nodes/ul.js"></script>
         
-        <script src="../test/components/test.components.js"></script>
-        
         <script src="../test/core/test.is.js"></script>
         
         <script src="../test/core/test.to.js"></script>
+        
+        <script src="../test/components/test.components.js"></script>
         
         <script src="../test/nodes/test.nodes.js"></script>
         
