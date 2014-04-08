@@ -1,6 +1,6 @@
 /**
  * ojs - A framework for writing zero-template, zero-html, zero-css web apps in pure JavaScript.
- * @version v0.2.12
+ * @version v0.2.13
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -915,7 +915,7 @@ OJ IIFE definition to anchor JsDoc comments.
     Determine which components to add to chain, if any
      */
     controlPostProcessing = function(parent, count) {
-      if (_.contains(['div', 'span', 'td', 'p', 'body', 'form'], parent.tagName)) {
+      if (_.contains(['div', 'span', 'td', 'p', 'body', 'form', 'li'], parent.tagName)) {
         OJ.each(OJ.components.members, function(className, tagName) {
           return addComponents(tagName, parent, count, className);
         });
@@ -1023,366 +1023,494 @@ OJ IIFE definition to anchor JsDoc comments.
 }).call(this);
 
 (function() {
-  (function() {
-    var makeSequentialArray;
-    makeSequentialArray = function(start, end) {
-      var i, ret;
-      ret = array();
-      i = void 0;
-      end = +end;
-      if (OJ.isNumber(start) && OJ.isNumber(end)) {
-        i = +start;
-        while (i <= end) {
-          ret.push(i);
-          i += 1;
+  (function(OJ) {
+    'use strict';
+    var cacheDbMgr, cacheExists, getCachedResponse, makeCachedCall, setCachedWebResponse, thisUserName, validate;
+    cacheDbMgr = null;
+    thisUserName = '';
+
+    /*
+    All paramaters are required
+     */
+    validate = function(userName, webServiceName) {
+      thisUserName = userName || thisUserName;
+      if (!thisUserName) {
+        throw new Error('User Name is required.');
+      }
+      if (!webServiceName) {
+        throw new Error('Web Service Name is required.');
+      }
+    };
+
+    /*
+    Make a cached call for insert
+     */
+    makeCachedCall = function(webServiceName, data) {
+      return {
+        message: {
+          dateTime: new Date(),
+          cache: {
+            userName: thisUserName,
+            webServiceName: webServiceName
+          },
+          data: data
         }
+      };
+    };
+    getCachedResponse = function(webServiceName, userName) {
+      var deferred, promise, ret;
+      deferred = Q.defer();
+      ret = void 0;
+      userName = userName || thisUserName;
+      if (null === cacheDbMgr) {
+        deferred.resolve(OJ.object());
+        ret = deferred.promise;
+      } else {
+        validate(userName, webServiceName);
+        promise = cacheDbMgr.select.from('CachedData', 'uniqueCalls', [webServiceName, thisUserName]);
+        ret = promise.then(function(data) {
+          if (data && data.length > 0) {
+            return data[0].data;
+          }
+        });
       }
       return ret;
     };
-    OJ.register("makeSequentialArray", makeSequentialArray);
-  })();
+    OJ.register('getCachedResponse', getCachedResponse);
+    setCachedWebResponse = function(webServiceName, data, customerId, userName) {
+      var deferred, ret;
+      deferred = Q.defer();
+      customerId = customerId || thisCustomerId;
+      userName = userName || thisUserName;
+      ret = void 0;
+      if (null === cacheDbMgr) {
+        deferred.resolve(OJ.object());
+        ret = deferred.promise;
+      } else {
+        validate(customerId, userName, webServiceName);
+        ret = cacheDbMgr.update('CachedData', 'uniqueCalls', [webServiceName, thisUserName, thisCustomerId], {
+          data: data
+        });
+        ret.then(function(updatedRows) {
+          var cachedCall;
+          if (!updatedRows || updatedRows.length === 0) {
+            cachedCall = makeCachedCall(webServiceName, data);
+            return cacheDbMgr.insert('CachedData', cachedCall);
+          }
+        });
+      }
+      return ret;
+    };
+    OJ.register('setCachedWebResponse', setCachedWebResponse);
+    cacheExists = function() {
+      return cacheDbMgr !== undefined;
+    };
+    OJ.register('cacheExists', cacheExists);
+    OJ.register('initDb', function(userName) {
+      if (userName == null) {
+        userName = 'offline';
+      }
+      thisUserName = userName;
+      if (window.Modernizr.indexeddb) {
+        cacheDbMgr = OJ.db.dbManager('ojdb', 1);
+        cacheDbMgr.ddl.createTable('CachedData', 'CachedDataId', true);
+        cacheDbMgr.ddl.createIndex('CachedData', 'dateTimeId', 'dateTime');
+        cacheDbMgr.ddl.createIndex('CachedData', 'userNameId', 'cache.userName');
+        cacheDbMgr.ddl.createIndex('CachedData', 'webServiceNameId', 'cache.webServiceName');
+        cacheDbMgr.ddl.createIndex('CachedData', 'uniqueCalls', ['cache.webServiceName', 'cache.userName'], true);
+      }
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var dbManager;
+    dbManager = function(name, version) {
+      var connect, disconnect, isNewConnectionRequired, ret, schemaScripts, select;
+      ret = OJ.object();
+      ret.add('promises', OJ.object());
+      isNewConnectionRequired = false;
+      schemaScripts = [];
+      connect = function(dbName, dbVersion, dbOnUpgrade) {
+        var deferred, request;
+        isNewConnectionRequired = !ret.promises.connect || dbName !== name || dbVersion !== version;
+        if (isNewConnectionRequired) {
+          deferred = Q.defer();
+          ret.promises.connect = deferred.promise;
+          version = dbVersion || 1;
+          name = dbName;
+          dbOnUpgrade = dbOnUpgrade || function() {};
+          request = window.indexedDB.open(name, version);
+          request.onblocked = function(event) {
+            ret.IDB.close();
+            alert('A new version of this page is ready. Please reload!');
+          };
+          request.onerror = function(event) {
+            deferred.reject(new Error('Database error: ' + event.target.errorCode));
+            if (ret.IDB) {
+              ret.IDB.close();
+            }
+          };
+          request.onsuccess = function(event) {
+            ret.IDB = ret.IDB || request.result;
+            deferred.resolve(ret.IDB);
+          };
+          request.onupgradeneeded = function(event) {
+            ret.IDB = ret.IDB || request.result;
+            if (schemaScripts.length > 0) {
+              OJ.each(schemaScripts, function(script) {
+                script(ret.IDB);
+              });
+            }
+            dbOnUpgrade(ret.IDB);
+          };
+        }
+        return ret.promises.connect;
+      };
+      disconnect = function() {
+        if (ret.promises.connect.isFulfilled()) {
+          ret.IDB.close();
+        } else {
+          if (ret.IDB) {
+            ret.promises.connect.done(ret.IDB.close);
+          }
+        }
+      };
+      ret.add('connect', connect);
+      ret.add('disconnect', disconnect);
+      ret.add('getDb', function() {
+        return ret.IDB;
+      });
+      ret.add('schemaScripts', schemaScripts);
+      ret.add('tables', OJ.object());
+      ret.add('ddl', {
+        createTable: function(tableName, tablePkColumnName, autoIncrement) {
+          return OJ.fun.shiftRight(OJ.db.table.create, ret, arguments, this);
+        },
+        dropTable: function(tableName) {
+          return OJ.fun.shiftRight(OJ.db.index.drop, ret, arguments, this);
+        },
+        createIndex: function(tableName, columnName, indexName, isUnique) {
+          return OJ.fun.shiftRight(OJ.db.index.create, ret, arguments, this);
+        }
+      });
+      ret.add('insert', function() {
+        return OJ.fun.shiftRight(OJ.db.insert, ret, arguments, this);
+      });
+      ret.add('update', function() {
+        return OJ.fun.shiftRight(OJ.db.update, ret, arguments, this);
+      });
+      select = OJ.object();
+      ret.add('select', select);
+      select.add('all', function() {
+        return OJ.fun.shiftRight(OJ.db.select.all, ret, arguments, this);
+      });
+      select.add('from', function() {
+        return OJ.fun.shiftRight(OJ.db.select.from, ret, arguments, this);
+      });
+      ret.connect(name, version);
+      return ret;
+    };
+    OJ.db.register('dbManager', dbManager);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var createIndex, createIndexImpl;
+    OJ.db.makeSubNameSpace('index');
+    createIndexImpl = function(dbManager, tableName, columnName, indexName, isUnique) {
+      var table;
+      table = dbManager.tables[tableName];
+      return table.createIndex(columnName, indexName || columnName + 'Idx', {
+        unique: true === isUnique
+      });
+    };
+    createIndex = function(dbManager, tableName, columnName, indexName, isUnique) {
+      var deferred;
+      deferred = Q.defer();
+      dbManager.schemaScripts.push(function() {
+        var e, index;
+        try {
+          index = createIndexImpl(dbManager, tableName, columnName, indexName, isUnique);
+          deferred.resolve(index);
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error('Could not create a new index', e));
+        }
+        return dbManager.tables[tableName];
+      });
+      return deferred.promise;
+    };
+    OJ.db.index.register('create', createIndex);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var insert, insertImpl, onError;
+    onError = function(eventObj) {
+      OJ.debug.error(eventObj.target.error);
+      return new Error(eventObj.target.error);
+    };
+    insertImpl = function(dbManager, tableName, records) {
+      var deferred, doInsert;
+      deferred = Q.defer();
+      doInsert = function() {
+        var e, objectStore, transaction;
+        try {
+          transaction = dbManager.getDb().transaction([tableName], "readwrite");
+          objectStore = transaction.objectStore(tableName);
+          OJ.each(records, function(rec) {
+            objectStore.add(rec);
+          });
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error("Could not insert records", e));
+        }
+        return deferred.resolve(true);
+      };
+      dbManager.promises.connect.then(doInsert, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+    insert = function(dbWrapper, tableName, records) {
+      return insertImpl(dbWrapper, tableName, records);
+    };
+    OJ.db.register("insert", insert);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var onError, selectAll, selectAllImpl, selectFrom, selectFromImpl;
+    OJ.db.makeSubNameSpace('select');
+    onError = function(eventObj) {
+      OJ.debug.error(eventObj.target.error);
+      return new Error(eventObj.target.error);
+    };
+    selectAllImpl = function(dbManager, tableName, ret) {
+      var deferred, doSelect;
+      deferred = Q.defer();
+      doSelect = function() {
+        var e, objectStore, selRequest, transaction;
+        try {
+          transaction = dbManager.getDb().transaction([tableName]);
+          objectStore = transaction.objectStore(tableName);
+          ret = ret || [];
+          selRequest = objectStore.openCursor();
+          selRequest.onsuccess = function(event) {
+            var cursor;
+            cursor = event.target.result;
+            if (cursor) {
+              ret.push(cursor.value);
+              cursor['continue']();
+            } else {
+              deferred.resolve(ret);
+            }
+          };
+          selRequest.onerror = function(eventObj) {
+            deferred.reject(onError(eventObj));
+          };
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error('Could not select records', e));
+        }
+        return deferred.promise;
+      };
+      dbManager.promises.connect.then(doSelect, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+    selectAll = function(dbWrapper, tableName) {
+      var promise, ret;
+      ret = [];
+      promise = selectAllImpl(dbWrapper, tableName, ret);
+      promise['return'] = ret;
+      return promise;
+    };
+    OJ.db.select.register('all', selectAll);
+    selectFromImpl = function(dbManager, tableName, indexName, indexVal, ret) {
+      var deferred, doSelect;
+      deferred = Q.defer();
+      doSelect = function() {
+        var e, index, keyRange, objectStore, selRequest, transaction;
+        try {
+          transaction = dbManager.getDb().transaction([tableName]);
+          objectStore = transaction.objectStore(tableName);
+          index = objectStore.index(indexName);
+          ret = ret || [];
+          keyRange = void 0;
+          if (indexVal) {
+            keyRange = IDBKeyRange.only(indexVal);
+          }
+          selRequest = index.openCursor(keyRange);
+          selRequest.onsuccess = function(event) {
+            var cursor;
+            cursor = event.target.result;
+            if (cursor) {
+              ret.push(cursor.value);
+              cursor['continue']();
+            } else {
+              deferred.resolve(ret);
+            }
+          };
+          selRequest.onerror = function(eventObj) {
+            deferred.reject(onError(eventObj));
+          };
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error('Could not select records', e));
+        }
+        return deferred.promise;
+      };
+      dbManager.promises.connect.then(doSelect, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+    OJ.db.select.register('from', selectFrom = function(dbWrapper, tableName, indexName, indexVal) {
+      var promise, ret;
+      ret = [];
+      promise = selectFromImpl(dbWrapper, tableName, indexName, indexVal, ret);
+      promise['return'] = ret;
+      return promise;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var createTable, createTableImpl, dropTable, dropTableImpl;
+    OJ.db.makeSubNameSpace('table');
+    createTableImpl = function(deferred, dbManager, tableName, tablePkColumnName, autoIncrement) {
+
+      /*
+      @param db {IDBDatabase} An IDBDatabase instance
+       */
+      dbManager.schemaScripts.push(function(db) {
+        var e, table;
+        try {
+          table = db.createObjectStore(tableName, {
+            keyPath: tablePkColumnName,
+            autoIncrement: false !== autoIncrement
+          });
+          dbManager.tables.add(tableName, table);
+          deferred.resolve(table);
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error("Could not create a new table", e));
+        }
+        return dbManager.tables[tableName];
+      });
+      return deferred.promise;
+    };
+    createTable = function(dbManager, tableName, tablePkColumnName, autoIncrement) {
+      var deferred;
+      deferred = Q.defer();
+      return createTableImpl(deferred, dbManager, tableName, tablePkColumnName, autoIncrement);
+    };
+    OJ.db.table.register("create", createTable);
+    dropTableImpl = function(deferred, dbManager, tableName) {
+
+      /*
+      @param db {IDBDatabase} An IDBDatabase instance
+       */
+      dbManager.schemaScripts.push(function(db) {
+        var e;
+        try {
+          db.deleteObjectStore(tableName);
+          delete dbManager.schema[tableName];
+          deferred.resolve();
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error("Could not create a new table", e));
+        }
+        return true;
+      });
+      return deferred.promise;
+    };
+    dropTable = function(dbManager, tableName) {
+      var deferred;
+      deferred = Q.defer();
+      return dropTableImpl(deferred, dbManager, tableName);
+    };
+    OJ.db.table.register("drop", dropTable);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
 (function() {
   (function() {
     'use strict';
-    OJ.register("getDateFromDnJson", function(dnDate) {
-      var arr, dnDateStr, localOffset, offset, ret, ticks;
-      dnDateStr = OJ.string(dnDate);
-      ret = void 0;
-      ticks = void 0;
-      offset = void 0;
-      localOffset = void 0;
-      arr = void 0;
-      ret = OJ.dateTimeMinValue;
-      if (false === OJ.is.nullOrEmpty(dnDateStr)) {
-        dnDateStr = dnDateStr.replace("/", "");
-        dnDateStr = dnDateStr.replace("Date", "");
-        dnDateStr = dnDateStr.replace("(", "");
-        dnDateStr = dnDateStr.replace(")", "");
-        arr = dnDateStr.split("-");
-        if (arr.length > 1) {
-          ticks = OJ.number(arr[0]);
-          offset = OJ.number(arr[1]);
-          localOffset = new Date().getTimezoneOffset();
-          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
-        } else if (arr.length === 1) {
-          ticks = OJ.number(arr[0]);
-          ret = new Date(ticks);
+    var onError, update, updateImpl;
+    onError = function(eventObj) {
+      OJ.debug.error(eventObj.target.error);
+      return new Error(eventObj.target.error);
+    };
+    updateImpl = function(dbManager, tableName, indexName, indexVal, ret, record) {
+      var deferred, doUpdate;
+      deferred = Q.defer();
+      doUpdate = function() {
+        var e, index, keyRange, objectStore, selRequest, transaction;
+        try {
+          transaction = dbManager.getDb().transaction([tableName], "readwrite");
+          objectStore = transaction.objectStore(tableName);
+          index = objectStore.index(indexName);
+          ret = ret || [];
+          keyRange = IDBKeyRange.only(indexVal);
+          selRequest = index.openCursor(keyRange);
+          selRequest.onsuccess = function(event) {
+            var cursor, newRec, updtRequest, val;
+            cursor = event.target.result;
+            if (cursor) {
+              val = cursor.value;
+              newRec = OJ.extend(val, record);
+              updtRequest = cursor.update(newRec);
+              updtRequest.onerror = onError;
+            } else {
+              deferred.resolve(ret);
+            }
+          };
+          selRequest.onerror = function(e) {
+            deferred.reject(onError(e));
+          };
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error("Could not select records", e));
         }
-      }
-      return ret;
+        return deferred.promise;
+      };
+      dbManager.promises.connect.then(doUpdate, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+    OJ.db.register("update", update = function(dbWrapper, tableName, indexName, indexVal, record) {
+      var ret;
+      ret = [];
+      return updateImpl(dbWrapper, tableName, indexName, indexVal, ret, record);
     });
   })();
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var method, tryExec;
-    OJ.register("tryExec", tryExec = function(tryFunc) {
-      'use strict';
-      var exception, ret, that;
-      ret = false;
-      that = this;
-      try {
-        if (OJ.is.func(tryFunc)) {
-          ret = tryFunc.apply(that, Array.prototype.slice.call(arguments_, 1));
-        }
-      } catch (_error) {
-        exception = _error;
-        if ((exception.name === "TypeError" || exception.type === "called_non_callable") && exception.type === "non_object_property_load") {
-          OJ.console.info("Ignoring exception: ", exception);
-        } else {
-          OJ.console.error(exception);
-        }
-      } finally {
-
-      }
-      return ret;
-    });
-    OJ.register("method", method = function(tryFunc) {
-      'use strict';
-      var that;
-      that = this;
-      return function() {
-        var args;
-        args = Array.prototype.slice.call(arguments_, 0);
-        args.unshift(tryFunc);
-        return OJ.tryExec.apply(that, args);
-      };
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var number;
-    number = Object.create(null);
-    Object.defineProperty(number, "isNaN", {
-      value: (Number && Number.isNaN ? Number.isNaN : isNaN)
-    });
-    Object.defineProperty(number, "isFinite", {
-      value: (Number && Number.isFinite ? Number.isFinite : isFinite)
-    });
-    Object.defineProperty(number, "MAX_VALUE", {
-      value: (Number && Number.MAX_VALUE ? Number.MAX_VALUE : 1.7976931348623157e+308)
-    });
-    Object.defineProperty(number, "MIN_VALUE", {
-      value: (Number && Number.MIN_VALUE ? Number.MIN_VALUE : 5e-324)
-    });
-    OJ.register("number", number);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    Create an instance of Object
-     */
-    var object;
-    object = function() {
-      var obj;
-      obj = {};
-
-      /*
-      Add a property to the object and return it
-       */
-      obj.add = function(name, val) {
-        return OJ.property(obj, name, val);
-      };
-      return obj;
-    };
-    OJ.register('object', object);
-    OJ.register('isInstanceOf', function(name, obj) {
-      return OJ.contains(name, obj) && OJ.bool(obj[name]);
-    });
-    OJ.register('contains', function(object, index) {
-      var ret;
-      ret = false;
-      if (false === OJ.isNullOrUndefined(object)) {
-        if (OJ.isArray(object)) {
-          ret = object.indexOf(index) !== -1;
-        }
-        if (false === ret && object.hasOwnProperty(index)) {
-          ret = true;
-        }
-      }
-      return ret;
-    });
-    OJ.register('compare', function(obj1, obj2) {
-      return _.isEqual(obj1(obj2));
-    });
-    OJ.register('clone', function(data) {
-      return _.cloneDeep(data(true));
-    });
-    OJ.register('serialize', function(data) {
-      var ret;
-      ret = '';
-      OJ.tryExec(function() {
-        ret = JSON.stringify(data);
-      });
-      return ret || '';
-    });
-    OJ.register('deserialize', function(data) {
-      var ret;
-      ret = {};
-      if (data) {
-        OJ.tryExec(function() {
-          ret = window.$.parseJSON(data);
-        });
-        if (OJ.is.nullOrEmpty(ret)) {
-          ret = {};
-        }
-      }
-      return ret;
-    });
-    OJ.register('params', function(data, delimiter) {
-      var ret;
-      ret = '';
-      delimiter = delimiter || '&';
-      if (delimiter === '&') {
-        OJ.tryExec(function() {
-          ret = $.param(data);
-        });
-      } else {
-        OJ.each(data, function(val, key) {
-          if (ret.length > 0) {
-            ret += delimiter;
-          }
-          ret += key + '=' + val;
-        });
-      }
-      return OJ.string(ret);
-    });
-    OJ.register('extend', function(destObj, srcObj, deepCopy) {
-      var ret;
-      ret = destObj || {};
-      if (arguments.length === 3) {
-        ret = $.extend(OJ.bool(deepCopy), ret, srcObj);
-      } else {
-        ret = $.extend(ret, srcObj);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    Add a property to an object
-    @param obj {Object} an Object onto which to add a property
-    @param name {String} the property name
-    @param value {Object} the value of the property. Can be any type.
-    @param writable {Boolean} [writable=true] True if the property can be modified
-    @param configurable {Boolean} [configurable=true] True if the property can be removed
-    @param enumerable {Boolean} [enumerable=true] True if the property can be enumerated and is listed in Object.keys
-     */
-    var property;
-    property = function(obj, name, value, writable, configurable, enumerable) {
-      if (!obj) {
-        throw new Error("Cannot define a property without an Object.");
-      }
-      if (!name) {
-        throw new Error("Cannot create a property without a valid property name.");
-      }
-      obj[name] = value;
-      return obj;
-    };
-    OJ.register("property", property);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.register("delimitedString", function(string, opts) {
-      var nsInternal, nsRet;
-      nsInternal = {
-        newLineToDelimiter: true,
-        spaceToDelimiter: true,
-        removeDuplicates: true,
-        delimiter: ",",
-        initString: OJ.to.string(string)
-      };
-      nsRet = {
-        array: [],
-        delimited: function() {
-          return nsRet.array.join(nsInternal.delimiter);
-        },
-        string: function(delimiter) {
-          var ret;
-          delimiter = delimiter || nsInternal.delimiter;
-          ret = "";
-          OJ.each(nsRet.array, function(val) {
-            if (ret.length > 0) {
-              ret += delimiter;
-            }
-            ret += val;
-          });
-          return ret;
-        },
-        toString: function() {
-          return nsRet.string();
-        },
-        add: function(str) {
-          nsRet.array.push(nsInternal.parse(str));
-          nsInternal.deleteDuplicates();
-          return nsRet;
-        },
-        remove: function(str) {
-          var remove;
-          remove = function(array) {
-            return array.filter(function(item) {
-              if (item !== str) {
-                return true;
-              }
-            });
-          };
-          nsRet.array = remove(nsRet.array);
-          return nsRet;
-        },
-        count: function() {
-          return nsRet.array.length;
-        },
-        contains: function(str, caseSensitive) {
-          var isCaseSensitive, match;
-          isCaseSensitive = OJ.to.bool(caseSensitive);
-          str = OJ.string(str).trim();
-          if (false === isCaseSensitive) {
-            str = str.toLowerCase();
-          }
-          match = nsRet.array.filter(function(matStr) {
-            return (isCaseSensitive && OJ.to.string(matStr).trim() === str) || OJ.to.string(matStr).trim().toLowerCase() === str;
-          });
-          return match.length > 0;
-        },
-        each: function(callBack) {
-          return nsRet.array.forEach(callBack);
-        }
-      };
-      nsInternal.parse = function(str) {
-        var ret;
-        ret = OJ.to.string(str);
-        if (nsInternal.newLineToDelimiter) {
-          while (ret.indexOf("\n") !== -1) {
-            ret = ret.replace(/\n/g, nsInternal.delimiter);
-          }
-        }
-        if (nsInternal.spaceToDelimiter) {
-          while (ret.indexOf(" ") !== -1) {
-            ret = ret.replace(RegExp(" ", "g"), nsInternal.delimiter);
-          }
-        }
-        while (ret.indexOf(",,") !== -1) {
-          ret = ret.replace(/,,/g, nsInternal.delimiter);
-        }
-        return ret;
-      };
-      nsInternal.deleteDuplicates = function() {
-        if (nsInternal.removeDuplicates) {
-          (function() {
-            var unique;
-            unique = function(array) {
-              var seen;
-              seen = new Set();
-              return array.filter(function(item) {
-                if (false === seen.has(item)) {
-                  seen.add(item);
-                  return true;
-                }
-              });
-            };
-            nsRet.array = unique(nsRet.array);
-          })();
-        }
-      };
-      (function(a) {
-        var delimitedString;
-        if (a.length > 1 && false === OJ.is.plainObject(opts)) {
-          OJ.each(a, function(val) {
-            if (false === OJ.is.nullOrEmpty(val)) {
-              nsRet.array.push(val);
-            }
-          });
-        } else if (string && string.length > 0) {
-          OJ.extend(nsInternal, opts);
-          delimitedString = nsInternal.parse(string);
-          nsInternal.initString = delimitedString;
-          nsRet.array = delimitedString.split(nsInternal.delimiter);
-        }
-        nsInternal.deleteDuplicates();
-      })(arguments_);
-      return nsRet;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);
 
@@ -2171,494 +2299,366 @@ OJ IIFE definition to anchor JsDoc comments.
 }).call(this);
 
 (function() {
-  (function(OJ) {
-    'use strict';
-    var cacheDbMgr, cacheExists, getCachedResponse, makeCachedCall, setCachedWebResponse, thisUserName, validate;
-    cacheDbMgr = null;
-    thisUserName = '';
-
-    /*
-    All paramaters are required
-     */
-    validate = function(userName, webServiceName) {
-      thisUserName = userName || thisUserName;
-      if (!thisUserName) {
-        throw new Error('User Name is required.');
-      }
-      if (!webServiceName) {
-        throw new Error('Web Service Name is required.');
-      }
-    };
-
-    /*
-    Make a cached call for insert
-     */
-    makeCachedCall = function(webServiceName, data) {
-      return {
-        message: {
-          dateTime: new Date(),
-          cache: {
-            userName: thisUserName,
-            webServiceName: webServiceName
-          },
-          data: data
+  (function() {
+    var makeSequentialArray;
+    makeSequentialArray = function(start, end) {
+      var i, ret;
+      ret = array();
+      i = void 0;
+      end = +end;
+      if (OJ.isNumber(start) && OJ.isNumber(end)) {
+        i = +start;
+        while (i <= end) {
+          ret.push(i);
+          i += 1;
         }
-      };
-    };
-    getCachedResponse = function(webServiceName, userName) {
-      var deferred, promise, ret;
-      deferred = Q.defer();
-      ret = void 0;
-      userName = userName || thisUserName;
-      if (null === cacheDbMgr) {
-        deferred.resolve(OJ.object());
-        ret = deferred.promise;
-      } else {
-        validate(userName, webServiceName);
-        promise = cacheDbMgr.select.from('CachedData', 'uniqueCalls', [webServiceName, thisUserName]);
-        ret = promise.then(function(data) {
-          if (data && data.length > 0) {
-            return data[0].data;
-          }
-        });
       }
       return ret;
     };
-    OJ.register('getCachedResponse', getCachedResponse);
-    setCachedWebResponse = function(webServiceName, data, customerId, userName) {
-      var deferred, ret;
-      deferred = Q.defer();
-      customerId = customerId || thisCustomerId;
-      userName = userName || thisUserName;
-      ret = void 0;
-      if (null === cacheDbMgr) {
-        deferred.resolve(OJ.object());
-        ret = deferred.promise;
-      } else {
-        validate(customerId, userName, webServiceName);
-        ret = cacheDbMgr.update('CachedData', 'uniqueCalls', [webServiceName, thisUserName, thisCustomerId], {
-          data: data
-        });
-        ret.then(function(updatedRows) {
-          var cachedCall;
-          if (!updatedRows || updatedRows.length === 0) {
-            cachedCall = makeCachedCall(webServiceName, data);
-            return cacheDbMgr.insert('CachedData', cachedCall);
-          }
-        });
-      }
-      return ret;
-    };
-    OJ.register('setCachedWebResponse', setCachedWebResponse);
-    cacheExists = function() {
-      return cacheDbMgr !== undefined;
-    };
-    OJ.register('cacheExists', cacheExists);
-    OJ.register('initDb', function(userName) {
-      if (userName == null) {
-        userName = 'offline';
-      }
-      thisUserName = userName;
-      if (window.Modernizr.indexeddb) {
-        cacheDbMgr = OJ.db.dbManager('ojdb', 1);
-        cacheDbMgr.ddl.createTable('CachedData', 'CachedDataId', true);
-        cacheDbMgr.ddl.createIndex('CachedData', 'dateTimeId', 'dateTime');
-        cacheDbMgr.ddl.createIndex('CachedData', 'userNameId', 'cache.userName');
-        cacheDbMgr.ddl.createIndex('CachedData', 'webServiceNameId', 'cache.webServiceName');
-        cacheDbMgr.ddl.createIndex('CachedData', 'uniqueCalls', ['cache.webServiceName', 'cache.userName'], true);
-      }
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var dbManager;
-    dbManager = function(name, version) {
-      var connect, disconnect, isNewConnectionRequired, ret, schemaScripts, select;
-      ret = OJ.object();
-      ret.add('promises', OJ.object());
-      isNewConnectionRequired = false;
-      schemaScripts = [];
-      connect = function(dbName, dbVersion, dbOnUpgrade) {
-        var deferred, request;
-        isNewConnectionRequired = !ret.promises.connect || dbName !== name || dbVersion !== version;
-        if (isNewConnectionRequired) {
-          deferred = Q.defer();
-          ret.promises.connect = deferred.promise;
-          version = dbVersion || 1;
-          name = dbName;
-          dbOnUpgrade = dbOnUpgrade || function() {};
-          request = window.indexedDB.open(name, version);
-          request.onblocked = function(event) {
-            ret.IDB.close();
-            alert('A new version of this page is ready. Please reload!');
-          };
-          request.onerror = function(event) {
-            deferred.reject(new Error('Database error: ' + event.target.errorCode));
-            if (ret.IDB) {
-              ret.IDB.close();
-            }
-          };
-          request.onsuccess = function(event) {
-            ret.IDB = ret.IDB || request.result;
-            deferred.resolve(ret.IDB);
-          };
-          request.onupgradeneeded = function(event) {
-            ret.IDB = ret.IDB || request.result;
-            if (schemaScripts.length > 0) {
-              OJ.each(schemaScripts, function(script) {
-                script(ret.IDB);
-              });
-            }
-            dbOnUpgrade(ret.IDB);
-          };
-        }
-        return ret.promises.connect;
-      };
-      disconnect = function() {
-        if (ret.promises.connect.isFulfilled()) {
-          ret.IDB.close();
-        } else {
-          if (ret.IDB) {
-            ret.promises.connect.done(ret.IDB.close);
-          }
-        }
-      };
-      ret.add('connect', connect);
-      ret.add('disconnect', disconnect);
-      ret.add('getDb', function() {
-        return ret.IDB;
-      });
-      ret.add('schemaScripts', schemaScripts);
-      ret.add('tables', OJ.object());
-      ret.add('ddl', {
-        createTable: function(tableName, tablePkColumnName, autoIncrement) {
-          return OJ.fun.shiftRight(OJ.db.table.create, ret, arguments, this);
-        },
-        dropTable: function(tableName) {
-          return OJ.fun.shiftRight(OJ.db.index.drop, ret, arguments, this);
-        },
-        createIndex: function(tableName, columnName, indexName, isUnique) {
-          return OJ.fun.shiftRight(OJ.db.index.create, ret, arguments, this);
-        }
-      });
-      ret.add('insert', function() {
-        return OJ.fun.shiftRight(OJ.db.insert, ret, arguments, this);
-      });
-      ret.add('update', function() {
-        return OJ.fun.shiftRight(OJ.db.update, ret, arguments, this);
-      });
-      select = OJ.object();
-      ret.add('select', select);
-      select.add('all', function() {
-        return OJ.fun.shiftRight(OJ.db.select.all, ret, arguments, this);
-      });
-      select.add('from', function() {
-        return OJ.fun.shiftRight(OJ.db.select.from, ret, arguments, this);
-      });
-      ret.connect(name, version);
-      return ret;
-    };
-    OJ.db.register('dbManager', dbManager);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var createIndex, createIndexImpl;
-    OJ.db.makeSubNameSpace('index');
-    createIndexImpl = function(dbManager, tableName, columnName, indexName, isUnique) {
-      var table;
-      table = dbManager.tables[tableName];
-      return table.createIndex(columnName, indexName || columnName + 'Idx', {
-        unique: true === isUnique
-      });
-    };
-    createIndex = function(dbManager, tableName, columnName, indexName, isUnique) {
-      var deferred;
-      deferred = Q.defer();
-      dbManager.schemaScripts.push(function() {
-        var e, index;
-        try {
-          index = createIndexImpl(dbManager, tableName, columnName, indexName, isUnique);
-          deferred.resolve(index);
-        } catch (_error) {
-          e = _error;
-          console.log(e, e.stack);
-          deferred.reject(new Error('Could not create a new index', e));
-        }
-        return dbManager.tables[tableName];
-      });
-      return deferred.promise;
-    };
-    OJ.db.index.register('create', createIndex);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var insert, insertImpl, onError;
-    onError = function(eventObj) {
-      OJ.debug.error(eventObj.target.error);
-      return new Error(eventObj.target.error);
-    };
-    insertImpl = function(dbManager, tableName, records) {
-      var deferred, doInsert;
-      deferred = Q.defer();
-      doInsert = function() {
-        var e, objectStore, transaction;
-        try {
-          transaction = dbManager.getDb().transaction([tableName], "readwrite");
-          objectStore = transaction.objectStore(tableName);
-          OJ.each(records, function(rec) {
-            objectStore.add(rec);
-          });
-        } catch (_error) {
-          e = _error;
-          console.log(e, e.stack);
-          deferred.reject(new Error("Could not insert records", e));
-        }
-        return deferred.resolve(true);
-      };
-      dbManager.promises.connect.then(doInsert, function() {
-        deferred.reject();
-      });
-      return deferred.promise;
-    };
-    insert = function(dbWrapper, tableName, records) {
-      return insertImpl(dbWrapper, tableName, records);
-    };
-    OJ.db.register("insert", insert);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var onError, selectAll, selectAllImpl, selectFrom, selectFromImpl;
-    OJ.db.makeSubNameSpace('select');
-    onError = function(eventObj) {
-      OJ.debug.error(eventObj.target.error);
-      return new Error(eventObj.target.error);
-    };
-    selectAllImpl = function(dbManager, tableName, ret) {
-      var deferred, doSelect;
-      deferred = Q.defer();
-      doSelect = function() {
-        var e, objectStore, selRequest, transaction;
-        try {
-          transaction = dbManager.getDb().transaction([tableName]);
-          objectStore = transaction.objectStore(tableName);
-          ret = ret || [];
-          selRequest = objectStore.openCursor();
-          selRequest.onsuccess = function(event) {
-            var cursor;
-            cursor = event.target.result;
-            if (cursor) {
-              ret.push(cursor.value);
-              cursor['continue']();
-            } else {
-              deferred.resolve(ret);
-            }
-          };
-          selRequest.onerror = function(eventObj) {
-            deferred.reject(onError(eventObj));
-          };
-        } catch (_error) {
-          e = _error;
-          console.log(e, e.stack);
-          deferred.reject(new Error('Could not select records', e));
-        }
-        return deferred.promise;
-      };
-      dbManager.promises.connect.then(doSelect, function() {
-        deferred.reject();
-      });
-      return deferred.promise;
-    };
-    selectAll = function(dbWrapper, tableName) {
-      var promise, ret;
-      ret = [];
-      promise = selectAllImpl(dbWrapper, tableName, ret);
-      promise['return'] = ret;
-      return promise;
-    };
-    OJ.db.select.register('all', selectAll);
-    selectFromImpl = function(dbManager, tableName, indexName, indexVal, ret) {
-      var deferred, doSelect;
-      deferred = Q.defer();
-      doSelect = function() {
-        var e, index, keyRange, objectStore, selRequest, transaction;
-        try {
-          transaction = dbManager.getDb().transaction([tableName]);
-          objectStore = transaction.objectStore(tableName);
-          index = objectStore.index(indexName);
-          ret = ret || [];
-          keyRange = void 0;
-          if (indexVal) {
-            keyRange = IDBKeyRange.only(indexVal);
-          }
-          selRequest = index.openCursor(keyRange);
-          selRequest.onsuccess = function(event) {
-            var cursor;
-            cursor = event.target.result;
-            if (cursor) {
-              ret.push(cursor.value);
-              cursor['continue']();
-            } else {
-              deferred.resolve(ret);
-            }
-          };
-          selRequest.onerror = function(eventObj) {
-            deferred.reject(onError(eventObj));
-          };
-        } catch (_error) {
-          e = _error;
-          console.log(e, e.stack);
-          deferred.reject(new Error('Could not select records', e));
-        }
-        return deferred.promise;
-      };
-      dbManager.promises.connect.then(doSelect, function() {
-        deferred.reject();
-      });
-      return deferred.promise;
-    };
-    OJ.db.select.register('from', selectFrom = function(dbWrapper, tableName, indexName, indexVal) {
-      var promise, ret;
-      ret = [];
-      promise = selectFromImpl(dbWrapper, tableName, indexName, indexVal, ret);
-      promise['return'] = ret;
-      return promise;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var createTable, createTableImpl, dropTable, dropTableImpl;
-    OJ.db.makeSubNameSpace('table');
-    createTableImpl = function(deferred, dbManager, tableName, tablePkColumnName, autoIncrement) {
-
-      /*
-      @param db {IDBDatabase} An IDBDatabase instance
-       */
-      dbManager.schemaScripts.push(function(db) {
-        var e, table;
-        try {
-          table = db.createObjectStore(tableName, {
-            keyPath: tablePkColumnName,
-            autoIncrement: false !== autoIncrement
-          });
-          dbManager.tables.add(tableName, table);
-          deferred.resolve(table);
-        } catch (_error) {
-          e = _error;
-          console.log(e, e.stack);
-          deferred.reject(new Error("Could not create a new table", e));
-        }
-        return dbManager.tables[tableName];
-      });
-      return deferred.promise;
-    };
-    createTable = function(dbManager, tableName, tablePkColumnName, autoIncrement) {
-      var deferred;
-      deferred = Q.defer();
-      return createTableImpl(deferred, dbManager, tableName, tablePkColumnName, autoIncrement);
-    };
-    OJ.db.table.register("create", createTable);
-    dropTableImpl = function(deferred, dbManager, tableName) {
-
-      /*
-      @param db {IDBDatabase} An IDBDatabase instance
-       */
-      dbManager.schemaScripts.push(function(db) {
-        var e;
-        try {
-          db.deleteObjectStore(tableName);
-          delete dbManager.schema[tableName];
-          deferred.resolve();
-        } catch (_error) {
-          e = _error;
-          console.log(e, e.stack);
-          deferred.reject(new Error("Could not create a new table", e));
-        }
-        return true;
-      });
-      return deferred.promise;
-    };
-    dropTable = function(dbManager, tableName) {
-      var deferred;
-      deferred = Q.defer();
-      return dropTableImpl(deferred, dbManager, tableName);
-    };
-    OJ.db.table.register("drop", dropTable);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+    OJ.register("makeSequentialArray", makeSequentialArray);
+  })();
 
 }).call(this);
 
 (function() {
   (function() {
     'use strict';
-    var onError, update, updateImpl;
-    onError = function(eventObj) {
-      OJ.debug.error(eventObj.target.error);
-      return new Error(eventObj.target.error);
-    };
-    updateImpl = function(dbManager, tableName, indexName, indexVal, ret, record) {
-      var deferred, doUpdate;
-      deferred = Q.defer();
-      doUpdate = function() {
-        var e, index, keyRange, objectStore, selRequest, transaction;
-        try {
-          transaction = dbManager.getDb().transaction([tableName], "readwrite");
-          objectStore = transaction.objectStore(tableName);
-          index = objectStore.index(indexName);
-          ret = ret || [];
-          keyRange = IDBKeyRange.only(indexVal);
-          selRequest = index.openCursor(keyRange);
-          selRequest.onsuccess = function(event) {
-            var cursor, newRec, updtRequest, val;
-            cursor = event.target.result;
-            if (cursor) {
-              val = cursor.value;
-              newRec = OJ.extend(val, record);
-              updtRequest = cursor.update(newRec);
-              updtRequest.onerror = onError;
-            } else {
-              deferred.resolve(ret);
-            }
-          };
-          selRequest.onerror = function(e) {
-            deferred.reject(onError(e));
-          };
-        } catch (_error) {
-          e = _error;
-          console.log(e, e.stack);
-          deferred.reject(new Error("Could not select records", e));
+    OJ.register("getDateFromDnJson", function(dnDate) {
+      var arr, dnDateStr, localOffset, offset, ret, ticks;
+      dnDateStr = OJ.string(dnDate);
+      ret = void 0;
+      ticks = void 0;
+      offset = void 0;
+      localOffset = void 0;
+      arr = void 0;
+      ret = OJ.dateTimeMinValue;
+      if (false === OJ.is.nullOrEmpty(dnDateStr)) {
+        dnDateStr = dnDateStr.replace("/", "");
+        dnDateStr = dnDateStr.replace("Date", "");
+        dnDateStr = dnDateStr.replace("(", "");
+        dnDateStr = dnDateStr.replace(")", "");
+        arr = dnDateStr.split("-");
+        if (arr.length > 1) {
+          ticks = OJ.number(arr[0]);
+          offset = OJ.number(arr[1]);
+          localOffset = new Date().getTimezoneOffset();
+          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
+        } else if (arr.length === 1) {
+          ticks = OJ.number(arr[0]);
+          ret = new Date(ticks);
         }
-        return deferred.promise;
-      };
-      dbManager.promises.connect.then(doUpdate, function() {
-        deferred.reject();
-      });
-      return deferred.promise;
-    };
-    OJ.db.register("update", update = function(dbWrapper, tableName, indexName, indexVal, record) {
-      var ret;
-      ret = [];
-      return updateImpl(dbWrapper, tableName, indexName, indexVal, ret, record);
+      }
+      return ret;
     });
   })();
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var method, tryExec;
+    OJ.register("tryExec", tryExec = function(tryFunc) {
+      'use strict';
+      var exception, ret, that;
+      ret = false;
+      that = this;
+      try {
+        if (OJ.is.func(tryFunc)) {
+          ret = tryFunc.apply(that, Array.prototype.slice.call(arguments_, 1));
+        }
+      } catch (_error) {
+        exception = _error;
+        if ((exception.name === "TypeError" || exception.type === "called_non_callable") && exception.type === "non_object_property_load") {
+          OJ.console.info("Ignoring exception: ", exception);
+        } else {
+          OJ.console.error(exception);
+        }
+      } finally {
+
+      }
+      return ret;
+    });
+    OJ.register("method", method = function(tryFunc) {
+      'use strict';
+      var that;
+      that = this;
+      return function() {
+        var args;
+        args = Array.prototype.slice.call(arguments_, 0);
+        args.unshift(tryFunc);
+        return OJ.tryExec.apply(that, args);
+      };
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var number;
+    number = Object.create(null);
+    Object.defineProperty(number, "isNaN", {
+      value: (Number && Number.isNaN ? Number.isNaN : isNaN)
+    });
+    Object.defineProperty(number, "isFinite", {
+      value: (Number && Number.isFinite ? Number.isFinite : isFinite)
+    });
+    Object.defineProperty(number, "MAX_VALUE", {
+      value: (Number && Number.MAX_VALUE ? Number.MAX_VALUE : 1.7976931348623157e+308)
+    });
+    Object.defineProperty(number, "MIN_VALUE", {
+      value: (Number && Number.MIN_VALUE ? Number.MIN_VALUE : 5e-324)
+    });
+    OJ.register("number", number);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Create an instance of Object
+     */
+    var object;
+    object = function() {
+      var obj;
+      obj = {};
+
+      /*
+      Add a property to the object and return it
+       */
+      obj.add = function(name, val) {
+        return OJ.property(obj, name, val);
+      };
+      return obj;
+    };
+    OJ.register('object', object);
+    OJ.register('isInstanceOf', function(name, obj) {
+      return OJ.contains(name, obj) && OJ.bool(obj[name]);
+    });
+    OJ.register('contains', function(object, index) {
+      var ret;
+      ret = false;
+      if (false === OJ.isNullOrUndefined(object)) {
+        if (OJ.isArray(object)) {
+          ret = object.indexOf(index) !== -1;
+        }
+        if (false === ret && object.hasOwnProperty(index)) {
+          ret = true;
+        }
+      }
+      return ret;
+    });
+    OJ.register('compare', function(obj1, obj2) {
+      return _.isEqual(obj1(obj2));
+    });
+    OJ.register('clone', function(data) {
+      return _.cloneDeep(data(true));
+    });
+    OJ.register('serialize', function(data) {
+      var ret;
+      ret = '';
+      OJ.tryExec(function() {
+        ret = JSON.stringify(data);
+      });
+      return ret || '';
+    });
+    OJ.register('deserialize', function(data) {
+      var ret;
+      ret = {};
+      if (data) {
+        OJ.tryExec(function() {
+          ret = window.$.parseJSON(data);
+        });
+        if (OJ.is.nullOrEmpty(ret)) {
+          ret = {};
+        }
+      }
+      return ret;
+    });
+    OJ.register('params', function(data, delimiter) {
+      var ret;
+      ret = '';
+      delimiter = delimiter || '&';
+      if (delimiter === '&') {
+        OJ.tryExec(function() {
+          ret = $.param(data);
+        });
+      } else {
+        OJ.each(data, function(val, key) {
+          if (ret.length > 0) {
+            ret += delimiter;
+          }
+          ret += key + '=' + val;
+        });
+      }
+      return OJ.string(ret);
+    });
+    OJ.register('extend', function(destObj, srcObj, deepCopy) {
+      var ret;
+      ret = destObj || {};
+      if (arguments.length === 3) {
+        ret = $.extend(OJ.bool(deepCopy), ret, srcObj);
+      } else {
+        ret = $.extend(ret, srcObj);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Add a property to an object
+    @param obj {Object} an Object onto which to add a property
+    @param name {String} the property name
+    @param value {Object} the value of the property. Can be any type.
+    @param writable {Boolean} [writable=true] True if the property can be modified
+    @param configurable {Boolean} [configurable=true] True if the property can be removed
+    @param enumerable {Boolean} [enumerable=true] True if the property can be enumerated and is listed in Object.keys
+     */
+    var property;
+    property = function(obj, name, value, writable, configurable, enumerable) {
+      if (!obj) {
+        throw new Error("Cannot define a property without an Object.");
+      }
+      if (!name) {
+        throw new Error("Cannot create a property without a valid property name.");
+      }
+      obj[name] = value;
+      return obj;
+    };
+    OJ.register("property", property);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.register("delimitedString", function(string, opts) {
+      var nsInternal, nsRet;
+      nsInternal = {
+        newLineToDelimiter: true,
+        spaceToDelimiter: true,
+        removeDuplicates: true,
+        delimiter: ",",
+        initString: OJ.to.string(string)
+      };
+      nsRet = {
+        array: [],
+        delimited: function() {
+          return nsRet.array.join(nsInternal.delimiter);
+        },
+        string: function(delimiter) {
+          var ret;
+          delimiter = delimiter || nsInternal.delimiter;
+          ret = "";
+          OJ.each(nsRet.array, function(val) {
+            if (ret.length > 0) {
+              ret += delimiter;
+            }
+            ret += val;
+          });
+          return ret;
+        },
+        toString: function() {
+          return nsRet.string();
+        },
+        add: function(str) {
+          nsRet.array.push(nsInternal.parse(str));
+          nsInternal.deleteDuplicates();
+          return nsRet;
+        },
+        remove: function(str) {
+          var remove;
+          remove = function(array) {
+            return array.filter(function(item) {
+              if (item !== str) {
+                return true;
+              }
+            });
+          };
+          nsRet.array = remove(nsRet.array);
+          return nsRet;
+        },
+        count: function() {
+          return nsRet.array.length;
+        },
+        contains: function(str, caseSensitive) {
+          var isCaseSensitive, match;
+          isCaseSensitive = OJ.to.bool(caseSensitive);
+          str = OJ.string(str).trim();
+          if (false === isCaseSensitive) {
+            str = str.toLowerCase();
+          }
+          match = nsRet.array.filter(function(matStr) {
+            return (isCaseSensitive && OJ.to.string(matStr).trim() === str) || OJ.to.string(matStr).trim().toLowerCase() === str;
+          });
+          return match.length > 0;
+        },
+        each: function(callBack) {
+          return nsRet.array.forEach(callBack);
+        }
+      };
+      nsInternal.parse = function(str) {
+        var ret;
+        ret = OJ.to.string(str);
+        if (nsInternal.newLineToDelimiter) {
+          while (ret.indexOf("\n") !== -1) {
+            ret = ret.replace(/\n/g, nsInternal.delimiter);
+          }
+        }
+        if (nsInternal.spaceToDelimiter) {
+          while (ret.indexOf(" ") !== -1) {
+            ret = ret.replace(RegExp(" ", "g"), nsInternal.delimiter);
+          }
+        }
+        while (ret.indexOf(",,") !== -1) {
+          ret = ret.replace(/,,/g, nsInternal.delimiter);
+        }
+        return ret;
+      };
+      nsInternal.deleteDuplicates = function() {
+        if (nsInternal.removeDuplicates) {
+          (function() {
+            var unique;
+            unique = function(array) {
+              var seen;
+              seen = new Set();
+              return array.filter(function(item) {
+                if (false === seen.has(item)) {
+                  seen.add(item);
+                  return true;
+                }
+              });
+            };
+            nsRet.array = unique(nsRet.array);
+          })();
+        }
+      };
+      (function(a) {
+        var delimitedString;
+        if (a.length > 1 && false === OJ.is.plainObject(opts)) {
+          OJ.each(a, function(val) {
+            if (false === OJ.is.nullOrEmpty(val)) {
+              nsRet.array.push(val);
+            }
+          });
+        } else if (string && string.length > 0) {
+          OJ.extend(nsInternal, opts);
+          delimitedString = nsInternal.parse(string);
+          nsInternal.initString = delimitedString;
+          nsRet.array = delimitedString.split(nsInternal.delimiter);
+        }
+        nsInternal.deleteDuplicates();
+      })(arguments_);
+      return nsRet;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);
 
