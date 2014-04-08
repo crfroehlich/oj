@@ -96,11 +96,38 @@
     <Content Include="src\coffee\dom\nodes\em.js">
       <DependentUpon>em.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\dom\nodes\h1.js">
+      <DependentUpon>h1.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\h2.js">
+      <DependentUpon>h2.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\h3.js">
+      <DependentUpon>h3.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\h4.js">
+      <DependentUpon>h4.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\h5.js">
+      <DependentUpon>h5.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\h6.js">
+      <DependentUpon>h6.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\dom\nodes\i.js">
       <DependentUpon>i.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\dom\nodes\nav.js">
+      <DependentUpon>nav.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\dom\nodes\select.js.map">
       <DependentUpon>select.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\strong.js">
+      <DependentUpon>strong.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\sup.js">
+      <DependentUpon>sup.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\nodes\table.js.map">
       <DependentUpon>table.coffee</DependentUpon>
@@ -110,6 +137,9 @@
     </Content>
     <Content Include="src\coffee\dom\nodes\td.js">
       <DependentUpon>td.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\thead.js">
+      <DependentUpon>thead.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\nodes\tr.js">
       <DependentUpon>tr.coffee</DependentUpon>
@@ -350,6 +380,49 @@
     </Content>
     <Content Include="src\coffee\dom\custom.map">
       <DependentUpon>custom.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\strong.coffee" />
+    <Content Include="src\coffee\dom\nodes\em.map">
+      <DependentUpon>em.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\h1.coffee" />
+    <Content Include="src\coffee\dom\nodes\h2.coffee" />
+    <Content Include="src\coffee\dom\nodes\h3.coffee" />
+    <Content Include="src\coffee\dom\nodes\h4.coffee" />
+    <Content Include="src\coffee\dom\nodes\h5.coffee" />
+    <Content Include="src\coffee\dom\nodes\h6.coffee" />
+    <Content Include="src\coffee\dom\nodes\nav.coffee" />
+    <Content Include="src\coffee\dom\nodes\sup.coffee" />
+    <Content Include="src\coffee\dom\nodes\thead.coffee" />
+    <Content Include="src\coffee\dom\nodes\h1.map">
+      <DependentUpon>h1.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\h2.map">
+      <DependentUpon>h2.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\h3.map">
+      <DependentUpon>h3.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\h4.map">
+      <DependentUpon>h4.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\h5.map">
+      <DependentUpon>h5.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\h6.map">
+      <DependentUpon>h6.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\nav.map">
+      <DependentUpon>nav.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\strong.map">
+      <DependentUpon>strong.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\sup.map">
+      <DependentUpon>sup.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\thead.map">
+      <DependentUpon>thead.coffee</DependentUpon>
     </Content>
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
@@ -694,6 +767,8 @@
     <Content Include="test\components\test.components.map">
       <DependentUpon>test.components.coffee</DependentUpon>
     </Content>
+    <Content Include="src\templates\closedNodes.json" />
+    <Content Include="src\templates\openNodes.json" />
     <None Include="test\core\test.is.coffee" />
     <Content Include="test\components\test.components.js">
       <DependentUpon>test.components.coffee</DependentUpon>

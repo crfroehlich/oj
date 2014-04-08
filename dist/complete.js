@@ -1,6 +1,6 @@
 /**
  * ojs - A framework for writing zero-template, zero-html, zero-css web apps in pure JavaScript.
- * @version v0.2.8
+ * @version v0.2.9
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -306,150 +306,6 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ.makeSubNameSpace('components');
     return OJ.components.register('members', {});
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.components.members['x-address'] = 'address';
-    OJ.components.register('address', function(options, owner) {
-      var city, cityState, country, defaults, ret, root, state, street, zip, zipCountry;
-      defaults = {
-        props: {
-          "class": 'fb-field-wrapper response-field-address'
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, 'x-address');
-      root = ret.div({
-        props: {
-          "class": 'subtemplate-wrapper'
-        }
-      });
-      root.div({
-        props: {
-          "class": 'cover'
-        }
-      });
-      street = root.div({
-        props: {
-          "class": 'input-line'
-        }
-      }).span({
-        props: {
-          "class": 'street'
-        }
-      });
-      street.input({
-        props: {
-          type: 'text'
-        }
-      });
-      street.label().text('Address');
-      cityState = root.div({
-        props: {
-          "class": 'input-line'
-        }
-      });
-      city = cityState.span({
-        props: {
-          "class": 'city'
-        }
-      });
-      city.input({
-        props: {
-          type: 'text'
-        }
-      });
-      city.label().text('City');
-      state = cityState.span({
-        props: {
-          "class": 'state'
-        }
-      });
-      state.input({
-        props: {
-          type: 'text'
-        }
-      });
-      state.label().text('State');
-      zipCountry = root.div({
-        props: {
-          "class": 'input-line'
-        }
-      });
-      zip = zipCountry.span({
-        props: {
-          "class": 'zip'
-        }
-      });
-      zip.input({
-        props: {
-          type: 'text'
-        }
-      });
-      zip.label().text('Zipcode');
-      country = zipCountry.span({
-        props: {
-          "class": 'country'
-        }
-      });
-      country.select().addOption('United States');
-      country.label().text('Country');
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.components.members['x-price'] = 'price';
-    OJ.components.register('price', function(options, owner) {
-      var cents, defaults, dollars, price, ret;
-      defaults = {};
-      OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, 'x-price');
-      price = ret.div({
-        props: {
-          "class": 'input-line'
-        }
-      });
-      price.span({
-        props: {
-          "class": 'above-line'
-        }
-      }).text('$');
-      dollars = price.span({
-        props: {
-          "class": 'dollars'
-        }
-      });
-      dollars.input({
-        props: {
-          type: 'text'
-        }
-      });
-      dollars.label().text('Dollars');
-      price.span({
-        props: {
-          "class": 'above-line'
-        }
-      }).text('.');
-      cents = price.span({
-        props: {
-          "class": 'cents'
-        }
-      });
-      cents.input({
-        props: {
-          type: 'text'
-        }
-      });
-      cents.label().text('Cents');
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -977,21 +833,36 @@ OJ IIFE definition to anchor JsDoc comments.
       extendChain('br', ret, count);
       extendChain('button', ret, count);
       extendChain('div', ret, count);
+      extendChain('em', ret, count);
       extendChain('fieldset', ret, count);
       extendChain('form', ret, count);
+      extendChain('h1', ret, count);
+      extendChain('h2', ret, count);
+      extendChain('h3', ret, count);
+      extendChain('h4', ret, count);
+      extendChain('h5', ret, count);
+      extendChain('h6', ret, count);
+      extendChain('i', ret, count);
       extendChain('img', ret, count);
       extendChain('input', ret, count);
       extendChain('label', ret, count);
       extendChain('legend', ret, count);
       extendChain('li', ret, count);
+      extendChain('nav', ret, count);
       extendChain('ol', ret, count);
       extendChain('option', ret, count);
       extendChain('p', ret, count);
       extendChain('select', ret, count);
       extendChain('span', ret, count);
+      extendChain('strong', ret, count);
+      extendChain('sup', ret, count);
       extendChain('svg', ret, count);
       extendChain('table', ret, count);
+      extendChain('tbody', ret, count);
+      extendChain('td', ret, count);
       extendChain('textarea', ret, count);
+      extendChain('thead', ret, count);
+      extendChain('tr', ret, count);
       extendChain('ul', ret, count);
       return ret;
     });
@@ -1000,366 +871,146 @@ OJ IIFE definition to anchor JsDoc comments.
 }).call(this);
 
 (function() {
-  (function() {
-    var makeSequentialArray;
-    makeSequentialArray = function(start, end) {
-      var i, ret;
-      ret = array();
-      i = void 0;
-      end = +end;
-      if (OJ.isNumber(start) && OJ.isNumber(end)) {
-        i = +start;
-        while (i <= end) {
-          ret.push(i);
-          i += 1;
-        }
-      }
-      return ret;
-    };
-    OJ.register("makeSequentialArray", makeSequentialArray);
-  })();
-
-}).call(this);
-
-(function() {
-  (function() {
-    'use strict';
-    OJ.register("getDateFromDnJson", function(dnDate) {
-      var arr, dnDateStr, localOffset, offset, ret, ticks;
-      dnDateStr = OJ.string(dnDate);
-      ret = void 0;
-      ticks = void 0;
-      offset = void 0;
-      localOffset = void 0;
-      arr = void 0;
-      ret = OJ.dateTimeMinValue;
-      if (false === OJ.is.nullOrEmpty(dnDateStr)) {
-        dnDateStr = dnDateStr.replace("/", "");
-        dnDateStr = dnDateStr.replace("Date", "");
-        dnDateStr = dnDateStr.replace("(", "");
-        dnDateStr = dnDateStr.replace(")", "");
-        arr = dnDateStr.split("-");
-        if (arr.length > 1) {
-          ticks = OJ.number(arr[0]);
-          offset = OJ.number(arr[1]);
-          localOffset = new Date().getTimezoneOffset();
-          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
-        } else if (arr.length === 1) {
-          ticks = OJ.number(arr[0]);
-          ret = new Date(ticks);
-        }
-      }
-      return ret;
-    });
-  })();
-
-}).call(this);
-
-(function() {
   (function(OJ) {
-    var method, tryExec;
-    OJ.register("tryExec", tryExec = function(tryFunc) {
-      'use strict';
-      var exception, ret, that;
-      ret = false;
-      that = this;
-      try {
-        if (OJ.is.func(tryFunc)) {
-          ret = tryFunc.apply(that, Array.prototype.slice.call(arguments_, 1));
+    OJ.components.members['x-address'] = 'address';
+    OJ.components.register('address', function(options, owner) {
+      var city, cityState, country, defaults, ret, root, state, street, zip, zipCountry;
+      defaults = {
+        props: {
+          "class": 'fb-field-wrapper response-field-address'
         }
-      } catch (_error) {
-        exception = _error;
-        if ((exception.name === "TypeError" || exception.type === "called_non_callable") && exception.type === "non_object_property_load") {
-          OJ.console.info("Ignoring exception: ", exception);
-        } else {
-          OJ.console.error(exception);
-        }
-      } finally {
-
-      }
-      return ret;
-    });
-    OJ.register("method", method = function(tryFunc) {
-      'use strict';
-      var that;
-      that = this;
-      return function() {
-        var args;
-        args = Array.prototype.slice.call(arguments_, 0);
-        args.unshift(tryFunc);
-        return OJ.tryExec.apply(that, args);
       };
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var number;
-    number = Object.create(null);
-    Object.defineProperty(number, "isNaN", {
-      value: (Number && Number.isNaN ? Number.isNaN : isNaN)
-    });
-    Object.defineProperty(number, "isFinite", {
-      value: (Number && Number.isFinite ? Number.isFinite : isFinite)
-    });
-    Object.defineProperty(number, "MAX_VALUE", {
-      value: (Number && Number.MAX_VALUE ? Number.MAX_VALUE : 1.7976931348623157e+308)
-    });
-    Object.defineProperty(number, "MIN_VALUE", {
-      value: (Number && Number.MIN_VALUE ? Number.MIN_VALUE : 5e-324)
-    });
-    OJ.register("number", number);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    Create an instance of Object
-     */
-    var object;
-    object = function() {
-      var obj;
-      obj = {};
-
-      /*
-      Add a property to the object and return it
-       */
-      obj.add = function(name, val) {
-        return OJ.property(obj, name, val);
-      };
-      return obj;
-    };
-    OJ.register('object', object);
-    OJ.register('isInstanceOf', function(name, obj) {
-      return OJ.contains(name, obj) && OJ.bool(obj[name]);
-    });
-    OJ.register('contains', function(object, index) {
-      var ret;
-      ret = false;
-      if (false === OJ.isNullOrUndefined(object)) {
-        if (OJ.isArray(object)) {
-          ret = object.indexOf(index) !== -1;
+      OJ.extend(defaults, options);
+      ret = OJ.component(defaults, owner, 'x-address');
+      root = ret.div({
+        props: {
+          "class": 'subtemplate-wrapper'
         }
-        if (false === ret && object.hasOwnProperty(index)) {
-          ret = true;
-        }
-      }
-      return ret;
-    });
-    OJ.register('compare', function(obj1, obj2) {
-      return _.isEqual(obj1(obj2));
-    });
-    OJ.register('clone', function(data) {
-      return _.cloneDeep(data(true));
-    });
-    OJ.register('serialize', function(data) {
-      var ret;
-      ret = '';
-      OJ.tryExec(function() {
-        ret = JSON.stringify(data);
       });
-      return ret || '';
-    });
-    OJ.register('deserialize', function(data) {
-      var ret;
-      ret = {};
-      if (data) {
-        OJ.tryExec(function() {
-          ret = window.$.parseJSON(data);
-        });
-        if (OJ.is.nullOrEmpty(ret)) {
-          ret = {};
+      root.div({
+        props: {
+          "class": 'cover'
         }
-      }
+      });
+      street = root.div({
+        props: {
+          "class": 'input-line'
+        }
+      }).span({
+        props: {
+          "class": 'street'
+        }
+      });
+      street.input({
+        props: {
+          type: 'text'
+        }
+      });
+      street.label().text('Address');
+      cityState = root.div({
+        props: {
+          "class": 'input-line'
+        }
+      });
+      city = cityState.span({
+        props: {
+          "class": 'city'
+        }
+      });
+      city.input({
+        props: {
+          type: 'text'
+        }
+      });
+      city.label().text('City');
+      state = cityState.span({
+        props: {
+          "class": 'state'
+        }
+      });
+      state.input({
+        props: {
+          type: 'text'
+        }
+      });
+      state.label().text('State');
+      zipCountry = root.div({
+        props: {
+          "class": 'input-line'
+        }
+      });
+      zip = zipCountry.span({
+        props: {
+          "class": 'zip'
+        }
+      });
+      zip.input({
+        props: {
+          type: 'text'
+        }
+      });
+      zip.label().text('Zipcode');
+      country = zipCountry.span({
+        props: {
+          "class": 'country'
+        }
+      });
+      country.select().addOption('United States');
+      country.label().text('Country');
       return ret;
     });
-    OJ.register('params', function(data, delimiter) {
-      var ret;
-      ret = '';
-      delimiter = delimiter || '&';
-      if (delimiter === '&') {
-        OJ.tryExec(function() {
-          ret = $.param(data);
-        });
-      } else {
-        OJ.each(data, function(val, key) {
-          if (ret.length > 0) {
-            ret += delimiter;
-          }
-          ret += key + '=' + val;
-        });
-      }
-      return OJ.string(ret);
-    });
-    OJ.register('extend', function(destObj, srcObj, deepCopy) {
-      var ret;
-      ret = destObj || {};
-      if (arguments.length === 3) {
-        ret = $.extend(OJ.bool(deepCopy), ret, srcObj);
-      } else {
-        ret = $.extend(ret, srcObj);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
 (function() {
   (function(OJ) {
-
-    /*
-    Add a property to an object
-    @param obj {Object} an Object onto which to add a property
-    @param name {String} the property name
-    @param value {Object} the value of the property. Can be any type.
-    @param writable {Boolean} [writable=true] True if the property can be modified
-    @param configurable {Boolean} [configurable=true] True if the property can be removed
-    @param enumerable {Boolean} [enumerable=true] True if the property can be enumerated and is listed in Object.keys
-     */
-    var property;
-    property = function(obj, name, value, writable, configurable, enumerable) {
-      if (!obj) {
-        throw new Error("Cannot define a property without an Object.");
-      }
-      if (!name) {
-        throw new Error("Cannot create a property without a valid property name.");
-      }
-      obj[name] = value;
-      return obj;
-    };
-    OJ.register("property", property);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.register("delimitedString", function(string, opts) {
-      var nsInternal, nsRet;
-      nsInternal = {
-        newLineToDelimiter: true,
-        spaceToDelimiter: true,
-        removeDuplicates: true,
-        delimiter: ",",
-        initString: OJ.to.string(string)
-      };
-      nsRet = {
-        array: [],
-        delimited: function() {
-          return nsRet.array.join(nsInternal.delimiter);
-        },
-        string: function(delimiter) {
-          var ret;
-          delimiter = delimiter || nsInternal.delimiter;
-          ret = "";
-          OJ.each(nsRet.array, function(val) {
-            if (ret.length > 0) {
-              ret += delimiter;
-            }
-            ret += val;
-          });
-          return ret;
-        },
-        toString: function() {
-          return nsRet.string();
-        },
-        add: function(str) {
-          nsRet.array.push(nsInternal.parse(str));
-          nsInternal.deleteDuplicates();
-          return nsRet;
-        },
-        remove: function(str) {
-          var remove;
-          remove = function(array) {
-            return array.filter(function(item) {
-              if (item !== str) {
-                return true;
-              }
-            });
-          };
-          nsRet.array = remove(nsRet.array);
-          return nsRet;
-        },
-        count: function() {
-          return nsRet.array.length;
-        },
-        contains: function(str, caseSensitive) {
-          var isCaseSensitive, match;
-          isCaseSensitive = OJ.to.bool(caseSensitive);
-          str = OJ.string(str).trim();
-          if (false === isCaseSensitive) {
-            str = str.toLowerCase();
-          }
-          match = nsRet.array.filter(function(matStr) {
-            return (isCaseSensitive && OJ.to.string(matStr).trim() === str) || OJ.to.string(matStr).trim().toLowerCase() === str;
-          });
-          return match.length > 0;
-        },
-        each: function(callBack) {
-          return nsRet.array.forEach(callBack);
+    OJ.components.members['x-price'] = 'price';
+    OJ.components.register('price', function(options, owner) {
+      var cents, defaults, dollars, price, ret;
+      defaults = {};
+      OJ.extend(defaults, options);
+      ret = OJ.component(defaults, owner, 'x-price');
+      price = ret.div({
+        props: {
+          "class": 'input-line'
         }
-      };
-      nsInternal.parse = function(str) {
-        var ret;
-        ret = OJ.to.string(str);
-        if (nsInternal.newLineToDelimiter) {
-          while (ret.indexOf("\n") !== -1) {
-            ret = ret.replace(/\n/g, nsInternal.delimiter);
-          }
+      });
+      price.span({
+        props: {
+          "class": 'above-line'
         }
-        if (nsInternal.spaceToDelimiter) {
-          while (ret.indexOf(" ") !== -1) {
-            ret = ret.replace(RegExp(" ", "g"), nsInternal.delimiter);
-          }
+      }).text('$');
+      dollars = price.span({
+        props: {
+          "class": 'dollars'
         }
-        while (ret.indexOf(",,") !== -1) {
-          ret = ret.replace(/,,/g, nsInternal.delimiter);
+      });
+      dollars.input({
+        props: {
+          type: 'text'
         }
-        return ret;
-      };
-      nsInternal.deleteDuplicates = function() {
-        if (nsInternal.removeDuplicates) {
-          (function() {
-            var unique;
-            unique = function(array) {
-              var seen;
-              seen = new Set();
-              return array.filter(function(item) {
-                if (false === seen.has(item)) {
-                  seen.add(item);
-                  return true;
-                }
-              });
-            };
-            nsRet.array = unique(nsRet.array);
-          })();
+      });
+      dollars.label().text('Dollars');
+      price.span({
+        props: {
+          "class": 'above-line'
         }
-      };
-      (function(a) {
-        var delimitedString;
-        if (a.length > 1 && false === OJ.is.plainObject(opts)) {
-          OJ.each(a, function(val) {
-            if (false === OJ.is.nullOrEmpty(val)) {
-              nsRet.array.push(val);
-            }
-          });
-        } else if (string && string.length > 0) {
-          OJ.extend(nsInternal, opts);
-          delimitedString = nsInternal.parse(string);
-          nsInternal.initString = delimitedString;
-          nsRet.array = delimitedString.split(nsInternal.delimiter);
+      }).text('.');
+      cents = price.span({
+        props: {
+          "class": 'cents'
         }
-        nsInternal.deleteDuplicates();
-      })(arguments_);
-      return nsRet;
+      });
+      cents.input({
+        props: {
+          type: 'text'
+        }
+      });
+      cents.label().text('Cents');
+      return ret;
     });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -1852,6 +1503,370 @@ OJ IIFE definition to anchor JsDoc comments.
       return updateImpl(dbWrapper, tableName, indexName, indexVal, ret, record);
     });
   })();
+
+}).call(this);
+
+(function() {
+  (function() {
+    var makeSequentialArray;
+    makeSequentialArray = function(start, end) {
+      var i, ret;
+      ret = array();
+      i = void 0;
+      end = +end;
+      if (OJ.isNumber(start) && OJ.isNumber(end)) {
+        i = +start;
+        while (i <= end) {
+          ret.push(i);
+          i += 1;
+        }
+      }
+      return ret;
+    };
+    OJ.register("makeSequentialArray", makeSequentialArray);
+  })();
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
+    OJ.register("getDateFromDnJson", function(dnDate) {
+      var arr, dnDateStr, localOffset, offset, ret, ticks;
+      dnDateStr = OJ.string(dnDate);
+      ret = void 0;
+      ticks = void 0;
+      offset = void 0;
+      localOffset = void 0;
+      arr = void 0;
+      ret = OJ.dateTimeMinValue;
+      if (false === OJ.is.nullOrEmpty(dnDateStr)) {
+        dnDateStr = dnDateStr.replace("/", "");
+        dnDateStr = dnDateStr.replace("Date", "");
+        dnDateStr = dnDateStr.replace("(", "");
+        dnDateStr = dnDateStr.replace(")", "");
+        arr = dnDateStr.split("-");
+        if (arr.length > 1) {
+          ticks = OJ.number(arr[0]);
+          offset = OJ.number(arr[1]);
+          localOffset = new Date().getTimezoneOffset();
+          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
+        } else if (arr.length === 1) {
+          ticks = OJ.number(arr[0]);
+          ret = new Date(ticks);
+        }
+      }
+      return ret;
+    });
+  })();
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var method, tryExec;
+    OJ.register("tryExec", tryExec = function(tryFunc) {
+      'use strict';
+      var exception, ret, that;
+      ret = false;
+      that = this;
+      try {
+        if (OJ.is.func(tryFunc)) {
+          ret = tryFunc.apply(that, Array.prototype.slice.call(arguments_, 1));
+        }
+      } catch (_error) {
+        exception = _error;
+        if ((exception.name === "TypeError" || exception.type === "called_non_callable") && exception.type === "non_object_property_load") {
+          OJ.console.info("Ignoring exception: ", exception);
+        } else {
+          OJ.console.error(exception);
+        }
+      } finally {
+
+      }
+      return ret;
+    });
+    OJ.register("method", method = function(tryFunc) {
+      'use strict';
+      var that;
+      that = this;
+      return function() {
+        var args;
+        args = Array.prototype.slice.call(arguments_, 0);
+        args.unshift(tryFunc);
+        return OJ.tryExec.apply(that, args);
+      };
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var number;
+    number = Object.create(null);
+    Object.defineProperty(number, "isNaN", {
+      value: (Number && Number.isNaN ? Number.isNaN : isNaN)
+    });
+    Object.defineProperty(number, "isFinite", {
+      value: (Number && Number.isFinite ? Number.isFinite : isFinite)
+    });
+    Object.defineProperty(number, "MAX_VALUE", {
+      value: (Number && Number.MAX_VALUE ? Number.MAX_VALUE : 1.7976931348623157e+308)
+    });
+    Object.defineProperty(number, "MIN_VALUE", {
+      value: (Number && Number.MIN_VALUE ? Number.MIN_VALUE : 5e-324)
+    });
+    OJ.register("number", number);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Create an instance of Object
+     */
+    var object;
+    object = function() {
+      var obj;
+      obj = {};
+
+      /*
+      Add a property to the object and return it
+       */
+      obj.add = function(name, val) {
+        return OJ.property(obj, name, val);
+      };
+      return obj;
+    };
+    OJ.register('object', object);
+    OJ.register('isInstanceOf', function(name, obj) {
+      return OJ.contains(name, obj) && OJ.bool(obj[name]);
+    });
+    OJ.register('contains', function(object, index) {
+      var ret;
+      ret = false;
+      if (false === OJ.isNullOrUndefined(object)) {
+        if (OJ.isArray(object)) {
+          ret = object.indexOf(index) !== -1;
+        }
+        if (false === ret && object.hasOwnProperty(index)) {
+          ret = true;
+        }
+      }
+      return ret;
+    });
+    OJ.register('compare', function(obj1, obj2) {
+      return _.isEqual(obj1(obj2));
+    });
+    OJ.register('clone', function(data) {
+      return _.cloneDeep(data(true));
+    });
+    OJ.register('serialize', function(data) {
+      var ret;
+      ret = '';
+      OJ.tryExec(function() {
+        ret = JSON.stringify(data);
+      });
+      return ret || '';
+    });
+    OJ.register('deserialize', function(data) {
+      var ret;
+      ret = {};
+      if (data) {
+        OJ.tryExec(function() {
+          ret = window.$.parseJSON(data);
+        });
+        if (OJ.is.nullOrEmpty(ret)) {
+          ret = {};
+        }
+      }
+      return ret;
+    });
+    OJ.register('params', function(data, delimiter) {
+      var ret;
+      ret = '';
+      delimiter = delimiter || '&';
+      if (delimiter === '&') {
+        OJ.tryExec(function() {
+          ret = $.param(data);
+        });
+      } else {
+        OJ.each(data, function(val, key) {
+          if (ret.length > 0) {
+            ret += delimiter;
+          }
+          ret += key + '=' + val;
+        });
+      }
+      return OJ.string(ret);
+    });
+    OJ.register('extend', function(destObj, srcObj, deepCopy) {
+      var ret;
+      ret = destObj || {};
+      if (arguments.length === 3) {
+        ret = $.extend(OJ.bool(deepCopy), ret, srcObj);
+      } else {
+        ret = $.extend(ret, srcObj);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Add a property to an object
+    @param obj {Object} an Object onto which to add a property
+    @param name {String} the property name
+    @param value {Object} the value of the property. Can be any type.
+    @param writable {Boolean} [writable=true] True if the property can be modified
+    @param configurable {Boolean} [configurable=true] True if the property can be removed
+    @param enumerable {Boolean} [enumerable=true] True if the property can be enumerated and is listed in Object.keys
+     */
+    var property;
+    property = function(obj, name, value, writable, configurable, enumerable) {
+      if (!obj) {
+        throw new Error("Cannot define a property without an Object.");
+      }
+      if (!name) {
+        throw new Error("Cannot create a property without a valid property name.");
+      }
+      obj[name] = value;
+      return obj;
+    };
+    OJ.register("property", property);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.register("delimitedString", function(string, opts) {
+      var nsInternal, nsRet;
+      nsInternal = {
+        newLineToDelimiter: true,
+        spaceToDelimiter: true,
+        removeDuplicates: true,
+        delimiter: ",",
+        initString: OJ.to.string(string)
+      };
+      nsRet = {
+        array: [],
+        delimited: function() {
+          return nsRet.array.join(nsInternal.delimiter);
+        },
+        string: function(delimiter) {
+          var ret;
+          delimiter = delimiter || nsInternal.delimiter;
+          ret = "";
+          OJ.each(nsRet.array, function(val) {
+            if (ret.length > 0) {
+              ret += delimiter;
+            }
+            ret += val;
+          });
+          return ret;
+        },
+        toString: function() {
+          return nsRet.string();
+        },
+        add: function(str) {
+          nsRet.array.push(nsInternal.parse(str));
+          nsInternal.deleteDuplicates();
+          return nsRet;
+        },
+        remove: function(str) {
+          var remove;
+          remove = function(array) {
+            return array.filter(function(item) {
+              if (item !== str) {
+                return true;
+              }
+            });
+          };
+          nsRet.array = remove(nsRet.array);
+          return nsRet;
+        },
+        count: function() {
+          return nsRet.array.length;
+        },
+        contains: function(str, caseSensitive) {
+          var isCaseSensitive, match;
+          isCaseSensitive = OJ.to.bool(caseSensitive);
+          str = OJ.string(str).trim();
+          if (false === isCaseSensitive) {
+            str = str.toLowerCase();
+          }
+          match = nsRet.array.filter(function(matStr) {
+            return (isCaseSensitive && OJ.to.string(matStr).trim() === str) || OJ.to.string(matStr).trim().toLowerCase() === str;
+          });
+          return match.length > 0;
+        },
+        each: function(callBack) {
+          return nsRet.array.forEach(callBack);
+        }
+      };
+      nsInternal.parse = function(str) {
+        var ret;
+        ret = OJ.to.string(str);
+        if (nsInternal.newLineToDelimiter) {
+          while (ret.indexOf("\n") !== -1) {
+            ret = ret.replace(/\n/g, nsInternal.delimiter);
+          }
+        }
+        if (nsInternal.spaceToDelimiter) {
+          while (ret.indexOf(" ") !== -1) {
+            ret = ret.replace(RegExp(" ", "g"), nsInternal.delimiter);
+          }
+        }
+        while (ret.indexOf(",,") !== -1) {
+          ret = ret.replace(/,,/g, nsInternal.delimiter);
+        }
+        return ret;
+      };
+      nsInternal.deleteDuplicates = function() {
+        if (nsInternal.removeDuplicates) {
+          (function() {
+            var unique;
+            unique = function(array) {
+              var seen;
+              seen = new Set();
+              return array.filter(function(item) {
+                if (false === seen.has(item)) {
+                  seen.add(item);
+                  return true;
+                }
+              });
+            };
+            nsRet.array = unique(nsRet.array);
+          })();
+        }
+      };
+      (function(a) {
+        var delimitedString;
+        if (a.length > 1 && false === OJ.is.plainObject(opts)) {
+          OJ.each(a, function(val) {
+            if (false === OJ.is.nullOrEmpty(val)) {
+              nsRet.array.push(val);
+            }
+          });
+        } else if (string && string.length > 0) {
+          OJ.extend(nsInternal, opts);
+          delimitedString = nsInternal.parse(string);
+          nsInternal.initString = delimitedString;
+          nsRet.array = delimitedString.split(nsInternal.delimiter);
+        }
+        nsInternal.deleteDuplicates();
+      })(arguments_);
+      return nsRet;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);
 
@@ -2710,6 +2725,38 @@ OJ IIFE definition to anchor JsDoc comments.
 (function() {
   (function(OJ) {
     'use strict';
+    var nodeName;
+    nodeName = 'b';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        },
+        number: 1
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events);
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
     OJ.nodes.register('br', function(options, owner, calledFromFactory) {
       var defaults, ret;
       if (owner == null) {
@@ -2911,6 +2958,198 @@ OJ IIFE definition to anchor JsDoc comments.
       ret.add('isFormValid', function() {
         return ret.$.valid() && (!ret.validator.invalidElements() || ret.validator.invalidElements().length === 0);
       });
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var nodeName;
+    nodeName = 'h1';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        },
+        number: 1
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events);
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var nodeName;
+    nodeName = 'h2';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        },
+        number: 1
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events);
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var nodeName;
+    nodeName = 'h3';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        },
+        number: 1
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events);
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var nodeName;
+    nodeName = 'h4';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        },
+        number: 1
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events);
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var nodeName;
+    nodeName = 'h5';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        },
+        number: 1
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events);
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var nodeName;
+    nodeName = 'h6';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        },
+        number: 1
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events);
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }
@@ -3149,6 +3388,38 @@ OJ IIFE definition to anchor JsDoc comments.
       };
       OJ.extend(defaults, options);
       ret = OJ.element('li', defaults.props, defaults.styles, defaults.events);
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var nodeName;
+    nodeName = 'nav';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        },
+        number: 1
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events);
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }
@@ -3427,6 +3698,68 @@ OJ IIFE definition to anchor JsDoc comments.
 (function() {
   (function(OJ) {
     'use strict';
+    OJ.nodes.register('strong', function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        },
+        number: 1
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element('strong', defaults.props, defaults.styles, defaults.events);
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var nodeName;
+    nodeName = 'sup';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        },
+        number: 1
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events);
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
     OJ.nodes.register('svg', function(options, owner, calledFromFactory) {
       var defaults, ret;
       if (owner == null) {
@@ -3673,6 +4006,78 @@ OJ IIFE definition to anchor JsDoc comments.
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var nodeName;
+    nodeName = 'thead';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
+      var cells, defaults, ret, rows;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      if (calledFromFactory == null) {
+        calledFromFactory = false;
+      }
+      defaults = {
+        props: {},
+        styles: {},
+        events: {
+          click: _.noop
+        },
+        number: 1
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events);
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
+      rows = [];
+      cells = {};
+      ret.add('cell', function(rowNo, colNo) {
+        var cell, idx, row, td;
+        init();
+        if (rowNo < 1) {
+          rowNo = 1;
+        }
+        if (colNo < 1) {
+          colNo = 1;
+        }
+        row = rows[rowNo - 1];
+        if (!row) {
+          while (rows.length < rowNo) {
+            row = OJ.nodes.tr({}, tbody, false);
+            rows.push(row);
+          }
+        }
+        td = row[0].cells[colNo];
+        if (td) {
+          cell = OJ.restoreElement('td', td);
+        }
+        if (!td) {
+          while (row[0].cells.length < colNo) {
+            idx = row[0].cells.length;
+            td = row[0].cells[idx - 1];
+            if (td && idx === colNo) {
+              cell = OJ.restoreElement('td', td);
+            } else {
+              cell = OJ.nodes.td({
+                props: defaults.cells
+              }, row, false);
+            }
+          }
+        }
+        if (!cell.isValid) {
+          OJ.nodes.factory(cell, row, rowNo + colNo);
+        }
+        return cell;
+      });
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

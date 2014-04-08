@@ -149,21 +149,36 @@
     extendChain 'br', ret, count
     extendChain 'button', ret, count
     extendChain 'div', ret, count
+    extendChain 'em', ret, count
     extendChain 'fieldset', ret, count
     extendChain 'form', ret, count
+    extendChain 'h1', ret, count
+    extendChain 'h2', ret, count
+    extendChain 'h3', ret, count
+    extendChain 'h4', ret, count
+    extendChain 'h5', ret, count
+    extendChain 'h6', ret, count
+    extendChain 'i', ret, count
     extendChain 'img', ret, count
     extendChain 'input', ret, count
     extendChain 'label', ret, count
     extendChain 'legend', ret, count
     extendChain 'li', ret, count
+    extendChain 'nav', ret, count
     extendChain 'ol', ret, count
     extendChain 'option', ret, count
     extendChain 'p', ret, count
     extendChain 'select', ret, count
     extendChain 'span', ret, count
+    extendChain 'strong', ret, count
+    extendChain 'sup', ret, count
     extendChain 'svg', ret, count
     extendChain 'table', ret, count
+    extendChain 'tbody', ret, count
+    extendChain 'td', ret, count
     extendChain 'textarea', ret, count
+    extendChain 'thead', ret, count
+    extendChain 'tr', ret, count
     extendChain 'ul', ret, count
     
     ret

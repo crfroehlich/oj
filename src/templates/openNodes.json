@@ -1,0 +1,20 @@
+﻿{
+    "area": "area",
+    "base": "base",
+    "br": "br",
+    "col": "col",
+    "command": "command",
+    "css": "css",
+    "!DOCTYPE": "!DOCTYPE",
+    "embed": "embed",
+    "hr": "hr",
+    "img": "img",
+    "input": "input",
+    "keygen": "keygen",
+    "link": "link",
+    "meta": "meta",
+    "param": "param",
+    "source": "source",
+    "track": "track",
+    "wbr": "wbr"
+}
