@@ -129,31 +129,22 @@ gulp.task 'concat', ->
   )).pipe(gulp.dest(paths.release)).pipe(notify(message: 'CoffeeScript to JS compilation complete.')).on 'error', gutil.log
   return
 
+injectDependencies = (outputFile, includeDev = false) ->
+  wiredep
+    directory: './bower_components'
+    bowerJson: require('./bower.json')
+    src: outputFile
+    exclude: [/backbone/, /underscore/] #these will break Lo-Dash
+    devDependencies: includeDev
+
 ###
 Inject bower dependencies
 ###
 gulp.task 'init', ->
-  wiredep
-    directory: './bower_components'
-    bowerJson: require('./bower.json')
-    src: './dist/release.html'
-
-  wiredep
-    directory: './bower_components'
-    bowerJson: require('./bower.json')
-    src: './src/dev.html'
-
-  wiredep
-    directory: './bower_components'
-    bowerJson: require('./bower.json')
-    src: './test/test.html'
-    devDependencies: true
-
-  wiredep
-    directory: './bower_components'
-    bowerJson: require('./bower.json')
-    src: './test/test.coffee.html'
-
+  injectDependencies './dist/release.html'
+  injectDependencies './src/dev.html'
+  injectDependencies './test/test.html', true
+  injectDependencies './test/test.coffee.html'
   return
 
 ###
