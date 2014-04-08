@@ -125,61 +125,66 @@
   # Extends a OJ Control class with basic DOM methods.
   OJ.nodes.register 'factory', (el, parent = OJ.body, count = parent.count or 0) ->
     
-    initBody OJ.body
+    if not el.isFullyInit
+      initBody OJ.body
     
-    count += 1
-    if el.tagName is 'body' and not isBodyDefined
-      parent = null
-      el.root = null
-      ret = OJ.dom el, null
-      controlPostProcessing ret, 0
-      isBodyDefined = true 
-    else
-      parent.count = count
-      ret = OJ.dom el, parent
-      unless el.id
-        id = parent.getId()
-        id += ret.tagName + count
-        ret.attr 'id', id
-      parent.append ret[0]
-      controlPostProcessing ret, count  
+      count += 1
+      if el.tagName is 'body' and not isBodyDefined
+        parent = null
+        el.root = null
+        ret = OJ.dom el, null
+        controlPostProcessing ret, 0
+        isBodyDefined = true 
+      else
+        parent.count = count
+        ret = OJ.dom el, parent
+        if not ret.isInDOM
+          unless ret.getId()
+            id = parent.getId()
+            id += ret.tagName + count
+            ret.attr 'id', id
+          parent.append ret[0]
+          ret.isInDOM = true
+        controlPostProcessing ret, count
+      
+      ret.isFullyInit = true      
     
-    extendChain 'a', ret, count
-    extendChain 'b', ret, count
-    extendChain 'br', ret, count
-    extendChain 'button', ret, count
-    extendChain 'div', ret, count
-    extendChain 'em', ret, count
-    extendChain 'fieldset', ret, count
-    extendChain 'form', ret, count
-    extendChain 'h1', ret, count
-    extendChain 'h2', ret, count
-    extendChain 'h3', ret, count
-    extendChain 'h4', ret, count
-    extendChain 'h5', ret, count
-    extendChain 'h6', ret, count
-    extendChain 'i', ret, count
-    extendChain 'img', ret, count
-    extendChain 'input', ret, count
-    extendChain 'label', ret, count
-    extendChain 'legend', ret, count
-    extendChain 'li', ret, count
-    extendChain 'nav', ret, count
-    extendChain 'ol', ret, count
-    extendChain 'option', ret, count
-    extendChain 'p', ret, count
-    extendChain 'select', ret, count
-    extendChain 'span', ret, count
-    extendChain 'strong', ret, count
-    extendChain 'sup', ret, count
-    extendChain 'svg', ret, count
-    extendChain 'table', ret, count
-    extendChain 'tbody', ret, count
-    extendChain 'td', ret, count
-    extendChain 'textarea', ret, count
-    extendChain 'thead', ret, count
-    extendChain 'tr', ret, count
-    extendChain 'ul', ret, count
+      extendChain 'a', ret, count
+      extendChain 'b', ret, count
+      extendChain 'br', ret, count
+      extendChain 'button', ret, count
+      extendChain 'div', ret, count
+      extendChain 'em', ret, count
+      extendChain 'fieldset', ret, count
+      extendChain 'form', ret, count
+      extendChain 'h1', ret, count
+      extendChain 'h2', ret, count
+      extendChain 'h3', ret, count
+      extendChain 'h4', ret, count
+      extendChain 'h5', ret, count
+      extendChain 'h6', ret, count
+      extendChain 'i', ret, count
+      extendChain 'img', ret, count
+      extendChain 'input', ret, count
+      extendChain 'label', ret, count
+      extendChain 'legend', ret, count
+      extendChain 'li', ret, count
+      extendChain 'nav', ret, count
+      extendChain 'ol', ret, count
+      extendChain 'option', ret, count
+      extendChain 'p', ret, count
+      extendChain 'select', ret, count
+      extendChain 'span', ret, count
+      extendChain 'strong', ret, count
+      extendChain 'sup', ret, count
+      extendChain 'svg', ret, count
+      extendChain 'table', ret, count
+      extendChain 'tbody', ret, count
+      extendChain 'td', ret, count
+      extendChain 'textarea', ret, count
+      extendChain 'thead', ret, count
+      extendChain 'tr', ret, count
+      extendChain 'ul', ret, count
     
     ret
 

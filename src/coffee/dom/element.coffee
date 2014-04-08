@@ -37,7 +37,8 @@
   ###
   OJ.register 'restoreElement', (tag, el) ->
     ret = ThinDOM null, null, el
-    finalize ret, tag   
+    finalize ret, tag
+    ret.add 'isInDOM', true   
     ret               
    
   
@@ -47,6 +48,7 @@
   if typeof document isnt 'undefined' then body = document.body else body = null  
   initBody = (el) ->  
     ret = ThinDOM null, id: 'body', el
+    ret.isInDOM = true
     finalize ret, 'body'
   
   thinBody = initBody body

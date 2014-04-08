@@ -9,7 +9,7 @@
     Log errors to the console
      */
     thisGlobal.onerror = function(msg, url, lineNumber) {
-      console.warn("%s\rurl: %s\rline: %d", msg, url, lineNumber);
+      console.warn("%s\r url: %s\r line: %d", msg, url, lineNumber);
       if (onError) {
         onError(arguments);
       }

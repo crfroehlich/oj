@@ -54,6 +54,7 @@
       var ret;
       ret = ThinDOM(null, null, el);
       finalize(ret, tag);
+      ret.add('isInDOM', true);
       return ret;
     });
 
@@ -70,6 +71,7 @@
       ret = ThinDOM(null, {
         id: 'body'
       }, el);
+      ret.isInDOM = true;
       return finalize(ret, 'body');
     };
     thinBody = initBody(body);
