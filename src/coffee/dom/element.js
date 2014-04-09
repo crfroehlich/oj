@@ -12,7 +12,7 @@
       if (el) {
         return _.forOwn(events, function(val, key) {
           var callback;
-          if (_.isFunction(val && val !== _.noop)) {
+          if (val !== _.noop && _.isFunction(val)) {
             callback = function() {
               var event;
               event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];

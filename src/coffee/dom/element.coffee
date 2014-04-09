@@ -5,7 +5,7 @@
   ###
   bindEvents = (el, events) ->
     if el then _.forOwn events, (val, key) ->
-      if _.isFunction val and val isnt _.noop  
+      if val isnt _.noop and _.isFunction val
         callback = (event...) -> val event...
         el.$.bind key, callback
         el.add key, callback
