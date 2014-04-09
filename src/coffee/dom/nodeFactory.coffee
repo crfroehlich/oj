@@ -60,7 +60,7 @@
       when 'li'
         allowed = false is _.contains nonNestableNodes, tagName
       when 'table'
-        allowed = tagName is 'td' or tagName is 'tr' or tagName is 'tbody'
+        allowed = tagName is 'td' or tagName is 'tr' or tagName is 'tbody' or tagName is 'thead'
       when 'td'
         allowed = false is _.contains nonNestableNodes, tagName
       when 'select'
@@ -71,6 +71,8 @@
         allowed = false is _.contains nonNestableNodes, tagName  
       when 'p'
         allowed = false is _.contains nonNestableNodes, tagName 
+      when 'nav'
+        allowed = false is _.contains nonNestableNodes, tagName   
       else
         if parent.tagName.startsWith 'x-'
           allowed = false is _.contains nonNestableNodes, tagName

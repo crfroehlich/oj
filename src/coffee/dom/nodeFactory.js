@@ -40,7 +40,7 @@
           allowed = false === _.contains(nonNestableNodes, tagName);
           break;
         case 'table':
-          allowed = tagName === 'td' || tagName === 'tr' || tagName === 'tbody';
+          allowed = tagName === 'td' || tagName === 'tr' || tagName === 'tbody' || tagName === 'thead';
           break;
         case 'td':
           allowed = false === _.contains(nonNestableNodes, tagName);
@@ -55,6 +55,9 @@
           allowed = false === _.contains(nonNestableNodes, tagName);
           break;
         case 'p':
+          allowed = false === _.contains(nonNestableNodes, tagName);
+          break;
+        case 'nav':
           allowed = false === _.contains(nonNestableNodes, tagName);
           break;
         default:
