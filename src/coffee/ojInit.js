@@ -9,7 +9,8 @@
     OJ.makeSubNameSpace('nodes');
     OJ.makeSubNameSpace('db');
     OJ.makeSubNameSpace('components');
-    return OJ.components.register('members', {});
+    OJ.components.register('members', {});
+    OJ.add('GENERATE_UNIQUE_IDS', true);
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);

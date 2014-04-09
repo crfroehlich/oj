@@ -143,10 +143,12 @@
           parent.count = count;
           ret = OJ.dom(el, parent);
           if (!ret.isInDOM) {
-            if (!ret.getId()) {
-              id = parent.getId();
-              id += ret.tagName + count;
-              ret.attr('id', id);
+            if (OJ.GENERATE_UNIQUE_IDS) {
+              if (!ret.getId()) {
+                id = parent.getId();
+                id += ret.tagName + count;
+                ret.attr('id', id);
+              }
             }
             parent.append(ret[0]);
             ret.isInDOM = true;

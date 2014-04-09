@@ -139,10 +139,11 @@
         parent.count = count
         ret = OJ.dom el, parent
         if not ret.isInDOM
-          unless ret.getId()
-            id = parent.getId()
-            id += ret.tagName + count
-            ret.attr 'id', id
+          if OJ.GENERATE_UNIQUE_IDS
+            unless ret.getId()
+              id = parent.getId()
+              id += ret.tagName + count
+              ret.attr 'id', id
           parent.append ret[0]
           ret.isInDOM = true
         controlPostProcessing ret, count
