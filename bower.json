@@ -1,6 +1,6 @@
 {
   "name": "OJ",
-  "version": "0.2.18",
+  "version": "0.2.19",
   "main": [
     "dist/complete.min.js",
     "dist/release.html"
@@ -27,7 +27,8 @@
     "localforage": ">=0.2.1",
     "thindom": ">=0.0.10",
     "mousetrap": ">=1.4.6",
-    "es6-shim": ">=0.10.1"
+    "es6-shim": ">=0.10.1",
+    "kapusta-jquery.sparkline": "~2.1.3"
   },
   "overrides": {
     "jquery": {

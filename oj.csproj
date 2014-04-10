@@ -53,8 +53,17 @@
     <Content Include="src\coffee\components\address.js">
       <DependentUpon>address.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\components\grid.js">
+      <DependentUpon>grid.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\components\price.js">
       <DependentUpon>price.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\components\sparkline.js">
+      <DependentUpon>sparkline.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\components\tile.js">
+      <DependentUpon>tile.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\tools\error.js">
       <DependentUpon>error.coffee</DependentUpon>
@@ -212,6 +221,18 @@
     <Content Include="src\coffee\components\price.coffee" />
     <Content Include="dist\complete.min.js.map">
       <DependentUpon>complete.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\components\price.map">
+      <DependentUpon>price.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\components\grid.coffee" />
+    <Content Include="src\coffee\components\sparkline.coffee" />
+    <Content Include="src\coffee\components\tile.coffee" />
+    <Content Include="src\coffee\components\sparkline.map">
+      <DependentUpon>sparkline.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\components\grid.map">
+      <DependentUpon>grid.coffee</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">

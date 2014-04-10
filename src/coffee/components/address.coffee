@@ -1,12 +1,16 @@
 ﻿((OJ) ->
-  OJ.components.members['x-address'] = 'address'
-  OJ.components.register 'address', (options, owner) ->
+  nodeName = 'x-address'
+  className = 'address'
+  
+  OJ.components.members[nodeName] = className
+  
+  OJ.components.register className, (options, owner) ->
     defaults = 
       props:
         class: 'fb-field-wrapper response-field-address'
     
     OJ.extend defaults, options
-    ret = OJ.component defaults, owner, 'x-address' 
+    ret = OJ.component defaults, owner, nodeName 
     
     root = ret.div props: class: 'subtemplate-wrapper'
     root.div props: class: 'cover'

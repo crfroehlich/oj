@@ -1,10 +1,13 @@
 ﻿((OJ) ->
-  OJ.components.members['x-price'] = 'price'
-  OJ.components.register 'price', (options, owner) ->
+  nodeName = 'x-price'
+  className = 'price'
+  
+  OJ.components.members[nodeName] = className
+  OJ.components.register className, (options, owner) ->
     defaults = {}
     
     OJ.extend defaults, options
-    ret = OJ.component defaults, owner, 'x-price' 
+    ret = OJ.component defaults, owner, nodeName
     
     price = ret.div props: class: 'input-line'
     price.span  props: class: 'above-line'
