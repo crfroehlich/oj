@@ -124,7 +124,23 @@
   
   isBodyDefined = false
 
-  # Extends a OJ Control class with basic DOM methods.
+  ###
+  Fetch a node from the DOM and return an OJ'fied instance of the element
+  ###
+  OJ.nodes.register 'get', (id, tagName = 'div') ->
+    ret = null
+    el = document.getElementById id
+    if el
+      thinEl = OJ.restoreElement tagName, el
+    if thinEl
+      ret = OJ.nodes.factory thinEl, null, 0
+    
+    ret
+  
+
+  ###
+  Extends a OJ Control class with all the (permitted) methods on the factory
+  ###
   OJ.nodes.register 'factory', (el, parent = OJ.body, count = parent.count or 0) ->
     
     if not el.isFullyInit

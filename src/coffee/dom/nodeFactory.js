@@ -125,6 +125,29 @@
       return OJ.nodes.factory(body, null, 0);
     });
     isBodyDefined = false;
+
+    /*
+    Fetch a node from the DOM and return an OJ'fied instance of the element
+     */
+    OJ.nodes.register('get', function(id, tagName) {
+      var el, ret, thinEl;
+      if (tagName == null) {
+        tagName = 'div';
+      }
+      ret = null;
+      el = document.getElementById(id);
+      if (el) {
+        thinEl = OJ.restoreElement(tagName, el);
+      }
+      if (thinEl) {
+        ret = OJ.nodes.factory(thinEl, null, 0);
+      }
+      return ret;
+    });
+
+    /*
+    Extends a OJ Control class with all the (permitted) methods on the factory
+     */
     OJ.nodes.register('factory', function(el, parent, count) {
       var id, ret;
       if (parent == null) {

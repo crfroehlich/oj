@@ -1,6 +1,6 @@
 {
   "name": "OJ",
-  "version": "0.2.19",
+  "version": "0.2.20",
   "main": [
     "dist/complete.min.js",
     "dist/release.html"
