@@ -2,22 +2,26 @@
 (function() {
   (function(OJ) {
     var className, nodeName;
-    nodeName = 'x-tile';
-    className = 'tile';
+    nodeName = 'x-flotchart';
+    className = 'flotchart';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var defaults, ret;
+      var defaults, flot, flotchart, ret;
       defaults = {
+        config: {},
+        data: [],
         props: {
-          "class": 'tile'
+          "class": 'flotchart'
         }
       };
       OJ.extend(defaults, options);
       ret = OJ.component(defaults, owner, nodeName);
+      flotchart = ret.div(defaults);
+      flot = $.plot(flotchart.$, defaults.data, defaults.config);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
-//# sourceMappingURL=tile.map
+//# sourceMappingURL=flotchart.map

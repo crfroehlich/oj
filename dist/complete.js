@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.2.19
+ * @version v0.2.20
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -409,6 +409,38 @@ OJ IIFE definition to anchor JsDoc comments.
 (function() {
   (function(OJ) {
     var className, nodeName;
+    nodeName = 'x-easypie';
+    className = 'easypie';
+    OJ.components.members[nodeName] = className;
+    OJ.components.register(className, function(options, owner) {
+      var defaults, easypie, ret;
+      defaults = {
+        config: {
+          percent: '50',
+          size: '95',
+          lineWidth: '',
+          trackColor: '#efefef',
+          scaleColor: 'false'
+        },
+        data: [],
+        props: {
+          "class": 'easy-pie inline-block primary'
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.component(defaults, owner, nodeName);
+      defaults.props['data-percent'] = defaults.config.percent;
+      easypie = ret.div(defaults);
+      easypie.$.easypie(defaults.config);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var className, nodeName;
     nodeName = 'x-grid';
     className = 'grid';
     OJ.components.members[nodeName] = className;
@@ -505,27 +537,6 @@ OJ IIFE definition to anchor JsDoc comments.
       ret = OJ.component(defaults, owner, nodeName);
       sparkline = ret.div(defaults);
       sparkline.$.sparkline(defaults.data, defaults.config);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var className, nodeName;
-    nodeName = 'x-tile';
-    className = 'tile';
-    OJ.components.members[nodeName] = className;
-    OJ.components.register(className, function(options, owner) {
-      var defaults, ret;
-      defaults = {
-        props: {
-          "class": 'tile'
-        }
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, nodeName);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
