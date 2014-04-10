@@ -1,6 +1,6 @@
 ((OJ) ->
   method = undefined
-  noop = ->
+  noop = _.noop
 
   methods = [
     "assert"

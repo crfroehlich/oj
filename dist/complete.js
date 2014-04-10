@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.2.20
+ * @version v0.2.21
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -441,11 +441,36 @@ OJ IIFE definition to anchor JsDoc comments.
 (function() {
   (function(OJ) {
     var className, nodeName;
+    nodeName = 'x-flotchart';
+    className = 'flotchart';
+    OJ.components.members[nodeName] = className;
+    OJ.components.register(className, function(options, owner) {
+      var defaults, flot, flotchart, ret;
+      defaults = {
+        config: {},
+        data: [],
+        props: {
+          "class": 'flotchart'
+        }
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.component(defaults, owner, nodeName);
+      flotchart = ret.div(defaults);
+      flot = $.plot(flotchart.$, defaults.data, defaults.config);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var className, nodeName;
     nodeName = 'x-grid';
     className = 'grid';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var defaults, ret;
+      var defaults, fillMissing, ret, rows, tiles;
       defaults = {
         props: {
           "class": 'grid'
@@ -453,6 +478,58 @@ OJ IIFE definition to anchor JsDoc comments.
       };
       OJ.extend(defaults, options);
       ret = OJ.component(defaults, owner, nodeName);
+      rows = [];
+      tiles = OJ.array2D();
+      fillMissing = function() {
+        return tiles.each(function(rowNo, colNo, val) {
+          var nuTile, row;
+          if (!val) {
+            row = ret.row(rowNo);
+            nuTile = OJ.components.tile({}, row);
+            return tiles.set(rowNo, colNo, nuTile);
+          }
+        });
+      };
+      ret.add('row', function(rowNo) {
+        var nuRow;
+        if (rowNo == null) {
+          rowNo = rows.length - 1 || 1;
+        }
+        nuRow = rows[rowNo - 1];
+        if (!nuRow) {
+          while (rows.length < rowNo) {
+            nuRow = ret.div({
+              props: {
+                "class": 'row'
+              }
+            });
+            rows.push(nuRow);
+          }
+          nuRow.add('tile', function(colNo, opts) {
+            return ret.tile(rowNo, colNo, opts);
+          });
+        }
+        return nuRow;
+      });
+      ret.add('tile', function(rowNo, colNo, opts) {
+        var row, tile;
+        if (!rowNo || rowNo < 1) {
+          rowNo = 1;
+        }
+        if (!colNo || colNo < 1) {
+          colNo = 1;
+        }
+        row = rows[rowNo - 1];
+        if (!row) {
+          ret.row(rowNo);
+        }
+        tile = tiles.get(rowNo - 1, colNo - 1);
+        if (!tile) {
+          fillMissing();
+        }
+        tile = tiles.get(rowNo - 1, colNo - 1);
+        return tile;
+      });
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -537,6 +614,40 @@ OJ IIFE definition to anchor JsDoc comments.
       ret = OJ.component(defaults, owner, nodeName);
       sparkline = ret.div(defaults);
       sparkline.$.sparkline(defaults.data, defaults.config);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var className, nodeName;
+    nodeName = 'x-tile';
+    className = 'tile';
+    OJ.components.members[nodeName] = className;
+    OJ.components.register(className, function(options, owner) {
+      var defaults, ret;
+      defaults = {
+        smallSpan: '',
+        mediumSpan: '4',
+        largeSpan: '',
+        props: {
+          "class": 'tile'
+        }
+      };
+      OJ.extend(defaults, options);
+      if (defaults.spallSpan) {
+        defaults.props["class"] += ' col-xs-' + defaults.spallSpan;
+      }
+      if (defaults.mediumSpan) {
+        defaults.props["class"] += ' col-md-' + defaults.mediumSpan;
+      }
+      if (defaults.largeSpan) {
+        defaults.props["class"] += ' col-lg-' + defaults.largeSpan;
+      }
+      ret = OJ.component(defaults, owner, nodeName);
+      ret.div(defaults);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -1998,9 +2109,79 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
+    var array2D;
+    array2D = function(initLength, initWidth) {
+      var array, extend, maxLength, maxWidth, ret;
+      array = [];
+      maxLength = 0;
+      maxWidth = 0;
+      ret = {
+        get: function(rowNo, colNo) {
+          return extend(rowNo, colNo);
+        },
+        set: function(rowNo, colNo, val) {
+          ret.get(rowNo, colNo);
+          return array[rowNo - 1][colNo - 1] = val;
+        },
+        each: function(callBack) {
+          return _.each(array, function(columns, row) {
+            return _.each(array[row], function(val, col) {
+              return callBack(row + 1, col + 1, val);
+            });
+          });
+        }
+      };
+
+      /*
+      Guarantee that the dimensions of the array are always backed by values at every position
+       */
+      extend = function(length, width) {
+        var i, tryRow;
+        if (!length || length < 1) {
+          length = 1;
+        }
+        if (!width || width < 1) {
+          width = 1;
+        }
+        if (maxLength < length) {
+          maxLength = length;
+        }
+        if (array.length > maxLength) {
+          maxLength = array.length;
+        }
+        if (maxWidth < width) {
+          maxWidth = width;
+        }
+        i = 0;
+        while (i < maxLength) {
+          tryRow = array[i];
+          if (!tryRow) {
+            tryRow = [];
+            array.push(tryRow);
+          }
+          if (maxWidth < tryRow.length) {
+            maxWidth = tryRow.length;
+          }
+          if (tryRow.length < maxWidth) {
+            tryRow.length = maxWidth;
+          }
+          i += 1;
+        }
+        return array[length - 1][width - 1];
+      };
+      extend(initLength, initWidth);
+      return ret;
+    };
+    OJ.register('array2D', array2D);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
     var assert, console, count, length, method, methods, noop, thisGlobal;
     method = void 0;
-    noop = function() {};
+    noop = _.noop;
     methods = ["assert", "clear", "count", "debug", "dir", "dirxml", "error", "exception", "group", "groupCollapsed", "groupEnd", "info", "log", "markTimeline", "profile", "profileEnd", "table", "time", "timeEnd", "timeStamp", "trace", "warn"];
     length = methods.length;
     thisGlobal = (typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this);

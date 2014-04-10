@@ -134,7 +134,7 @@ injectDependencies = (outputFile, includeDev = false) ->
     directory: './bower_components'
     bowerJson: require('./bower.json')
     src: outputFile
-    exclude: [/backbone/, /underscore/] #these will break Lo-Dash
+    exclude: [/backbone/, /underscore/, /require/] #these will break Lo-Dash
     devDependencies: includeDev
 
 ###

@@ -68,6 +68,12 @@
     <Content Include="src\coffee\components\sparkline.js">
       <DependentUpon>sparkline.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\components\tile.js">
+      <DependentUpon>tile.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\tools\array2D.js">
+      <DependentUpon>array2D.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\core\tools\error.js">
       <DependentUpon>error.coffee</DependentUpon>
     </Content>
@@ -240,6 +246,17 @@
     <Content Include="src\coffee\components\flotchart.coffee" />
     <Content Include="src\coffee\components\easypie.map">
       <DependentUpon>easypie.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\components\tile.coffee" />
+    <Content Include="src\coffee\components\flotchart.map">
+      <DependentUpon>flotchart.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\tools\array2D.coffee" />
+    <Content Include="src\coffee\components\tile.map">
+      <DependentUpon>tile.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\core\tools\array2D.map">
+      <DependentUpon>array2D.coffee</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">
@@ -460,6 +477,9 @@
       <DependentUpon>thead.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\nodes\b.coffee" />
+    <Content Include="src\coffee\dom\nodes\b.map">
+      <DependentUpon>b.coffee</DependentUpon>
+    </Content>
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
     </None>
