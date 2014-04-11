@@ -9,6 +9,7 @@
       var defaults, easypie, ret;
       defaults = {
         config: {
+          barColor: '#efefef',
           percent: '50',
           size: '95',
           lineWidth: '',
@@ -17,14 +18,14 @@
         },
         data: [],
         props: {
-          "class": 'easy-pie inline-block primary'
+          "class": 'chart easy-pie inline-block primary'
         }
       };
       OJ.extend(defaults, options);
       ret = OJ.component(defaults, owner, nodeName);
       defaults.props['data-percent'] = defaults.config.percent;
       easypie = ret.div(defaults);
-      easypie.$.easypie(defaults.config);
+      easypie.$.easyPieChart(defaults.config);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

@@ -16,7 +16,7 @@
     
     flotchart = ret.div defaults
     
-    flot = $.plot flotchart.$, defaults.data, defaults.config 
+    ret.flot = $.plot flotchart.$, defaults.data, defaults.config 
 
     ret
 

@@ -6,6 +6,7 @@
   OJ.components.register className, (options, owner) ->
     defaults = 
       config:
+        barColor: '#efefef'
         percent: '50'
         size: '95'
         lineWidth: ''
@@ -13,7 +14,7 @@
         scaleColor: 'false'
       data: []
       props: 
-        class: 'easy-pie inline-block primary'
+        class: 'chart easy-pie inline-block primary'
     
     OJ.extend defaults, options
     ret = OJ.component defaults, owner, nodeName 
@@ -21,7 +22,7 @@
     
     easypie = ret.div defaults
     
-    easypie.$.easypie defaults.config
+    easypie.$.easyPieChart defaults.config
     
     ret
 
