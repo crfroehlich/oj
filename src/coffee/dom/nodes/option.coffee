@@ -1,6 +1,9 @@
 ((OJ)->
   'use strict'
-  OJ.nodes.register 'option', (options, owner = OJ.body, calledFromFactory = false) ->
+  
+  nodeName = 'option'
+  
+  OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
     
     defaults =
       props: 
@@ -13,8 +16,8 @@
         click: _.noop
     
     OJ.extend defaults, options
-    ret = OJ.element 'option', defaults.props, defaults.styles, defaults.events
-    #if owner then owner.append ret[0]
+    ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+    
     
     if false is calledFromFactory then OJ.nodes.factory ret, owner
 

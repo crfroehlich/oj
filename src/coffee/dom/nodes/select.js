@@ -4,7 +4,9 @@
 
   (function(OJ) {
     'use strict';
-    OJ.nodes.register('select', function(options, owner, calledFromFactory) {
+    var nodeName;
+    nodeName = 'select';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
       var change, click, defaults, hasEmpty, newChange, newClick, ret, syncValue, value, values;
       if (owner == null) {
         owner = OJ.body;
@@ -53,7 +55,7 @@
         };
         defaults.events.change = newChange;
       }
-      ret = OJ.element('select', defaults.props, defaults.styles, defaults.events);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
       ret.add('selectedData', function(propName) {
         var dataset;
         ret = '';

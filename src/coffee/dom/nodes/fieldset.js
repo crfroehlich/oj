@@ -2,7 +2,9 @@
 (function() {
   (function(OJ) {
     'use strict';
-    OJ.nodes.register('fieldset', function(options, owner, calledFromFactory) {
+    var nodeName;
+    nodeName = 'fieldset';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
       var defaults, ret;
       if (owner == null) {
         owner = OJ.body;
@@ -22,10 +24,7 @@
         }
       };
       OJ.extend(defaults, options);
-      ret = OJ.element('fieldset', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret[0]);
-      }
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }

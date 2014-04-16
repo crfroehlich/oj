@@ -10,7 +10,7 @@
     OJ.makeSubNameSpace('db');
     OJ.makeSubNameSpace('components');
     OJ.components.register('members', {});
-    OJ['GENERATE_UNIQUE_IDS'] = true;
+    OJ['GENERATE_UNIQUE_IDS'] = false;
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);

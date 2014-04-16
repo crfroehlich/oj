@@ -1,6 +1,9 @@
 ((OJ)->
   'use strict'
-  OJ.nodes.register 'strong', (options, owner = OJ.body, calledFromFactory = false) ->
+  
+  nodeName = 'strong'
+  
+  OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
     
    defaults =
       props: {}
@@ -11,7 +14,7 @@
     
     OJ.extend defaults, options
     
-    ret = OJ.element 'strong', defaults.props, defaults.styles, defaults.events
+    ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
     
     if false is calledFromFactory then OJ.nodes.factory ret, owner
 

@@ -2,7 +2,9 @@
 (function() {
   (function(OJ) {
     'use strict';
-    OJ.nodes.register('br', function(options, owner, calledFromFactory) {
+    var nodeName;
+    nodeName = 'br';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
       var defaults, ret;
       if (owner == null) {
         owner = OJ.body;
@@ -20,10 +22,7 @@
       };
       OJ.extend(defaults, options);
       while (i < OJ.number(defaults.number)) {
-        ret = OJ.element('br', defaults.props, defaults.styles, defaults.events);
-        if (owner) {
-          owner.append(ret[0]);
-        }
+        ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
         i += 1;
       }
       if (false === calledFromFactory) {

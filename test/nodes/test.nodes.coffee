@@ -1,8 +1,11 @@
 ((OJ) ->
-  module 'nodes'
+  module 'nodes', setup: ->
+    OJ['GENERATE_UNIQUE_IDS'] = true
+    OJ.nodes.div()
+    
   test 'Test the Div node', ->
     expect 7
-    node = OJ.nodes.div()
+    node = OJ.body.div()
     node.text 'Hi I\'m some text'
     
     # Test 1: tagName is div
@@ -36,7 +39,7 @@
 
   test 'Test the Span node', ->
     expect 7
-    node = OJ.nodes.span()
+    node = OJ.body.span()
     node.text 'Hi I\'m some text'
     
     # Test 1: tagName is span
@@ -66,7 +69,7 @@
 
   test 'Test the Table node', ->
     expect 25
-    node = OJ.nodes.table()
+    node = OJ.body.table()
     
     # Test 1: tagName is table
     deepEqual node.tagName is 'table', true, 'Node is a table'

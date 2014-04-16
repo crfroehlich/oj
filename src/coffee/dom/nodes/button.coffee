@@ -1,6 +1,9 @@
 ((OJ)->
   'use strict'
-  OJ.nodes.register 'button', (options, owner = OJ.body, calledFromFactory = false) ->
+  
+  nodeName = 'button'
+  
+  OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
     
     defaults =
       props: {}
@@ -10,8 +13,8 @@
     
     OJ.extend defaults, options
 
-    ret = OJ.element 'button', defaults.props, defaults.styles, defaults.events
-    #if owner then owner.append ret[0]
+    ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+    
 
     if false is calledFromFactory then OJ.nodes.factory ret, owner
 

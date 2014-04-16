@@ -28,9 +28,12 @@
     /*
     Finalize the ThimDOM node
      */
-    finalize = function(ret, tag, props, styles, events) {
+    finalize = function(ret, tag, props, styles, events, text) {
       ret.add('tagName', tag);
       ret.css(styles);
+      if (text) {
+        ret.text(text);
+      }
       ret.add('$', $(ret.get()));
       ret.add('0', ret.get());
       bindEvents(ret, events);
@@ -40,10 +43,10 @@
     /*
     Create an HTML Element through ThinDom
      */
-    OJ.register('element', function(tag, props, styles, events) {
+    OJ.register('element', function(tag, props, styles, events, text) {
       var ret;
       ret = ThinDOM(tag, props);
-      finalize(ret, tag, props, styles, events);
+      finalize(ret, tag, props, styles, events, text);
       return ret;
     });
 

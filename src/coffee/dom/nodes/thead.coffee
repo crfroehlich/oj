@@ -14,7 +14,7 @@
     
     OJ.extend defaults, options
     
-    ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events
+    ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
     
     if false is calledFromFactory then OJ.nodes.factory ret, owner
 

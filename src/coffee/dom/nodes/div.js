@@ -2,7 +2,9 @@
 (function() {
   (function(OJ) {
     'use strict';
-    OJ.nodes.register('div', function(options, owner, calledFromFactory) {
+    var nodeName;
+    nodeName = 'div';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
       var defaults, ret;
       if (owner == null) {
         owner = OJ.body;
@@ -18,7 +20,7 @@
         }
       };
       OJ.extend(defaults, options);
-      ret = OJ.element('div', defaults.props, defaults.styles, defaults.events);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }

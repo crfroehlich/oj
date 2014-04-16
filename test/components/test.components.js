@@ -3,6 +3,7 @@
   (function(OJ) {
     module('components', {
       setup: function() {
+        OJ['GENERATE_UNIQUE_IDS'] = true;
         return OJ.nodes.div();
       }
     });

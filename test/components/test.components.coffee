@@ -1,5 +1,6 @@
 ((OJ) ->
   module 'components', setup: ->
+    OJ['GENERATE_UNIQUE_IDS'] = true
     OJ.nodes.div()
   
   test 'Test the address component', ->

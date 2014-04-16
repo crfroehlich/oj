@@ -2,7 +2,9 @@
 (function() {
   (function(OJ) {
     'use strict';
-    OJ.nodes.register('form', function(options, owner, calledFromFactory) {
+    var nodeName;
+    nodeName = 'form';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
       var defaults, ret;
       if (owner == null) {
         owner = OJ.body;
@@ -22,7 +24,7 @@
         }
       };
       OJ.extend(defaults, options);
-      ret = OJ.element('form', defaults.props, defaults.styles, defaults.events);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
       ret.add('validator', ret.$.validate({
         highlight: function(element) {
           var $elm;
@@ -49,9 +51,6 @@
       ret.add('isFormValid', function() {
         return ret.$.valid() && (!ret.validator.invalidElements() || ret.validator.invalidElements().length === 0);
       });
-      if (owner) {
-        owner.append(ret[0]);
-      }
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }

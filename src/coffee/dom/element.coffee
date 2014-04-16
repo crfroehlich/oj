@@ -14,9 +14,10 @@
   ###
   Finalize the ThimDOM node
   ###
-  finalize = (ret, tag, props, styles, events) ->
+  finalize = (ret, tag, props, styles, events, text) ->
     ret.add 'tagName', tag
     ret.css styles
+    if text then ret.text text
     ret.add '$', $(ret.get())
     ret.add '0', ret.get()
     
@@ -26,9 +27,9 @@
   ###
   Create an HTML Element through ThinDom
   ###
-  OJ.register 'element', (tag, props, styles, events) ->
+  OJ.register 'element', (tag, props, styles, events, text) ->
     ret = ThinDOM tag, props
-    finalize ret, tag, props, styles, events
+    finalize ret, tag, props, styles, events, text
     ret
   
 

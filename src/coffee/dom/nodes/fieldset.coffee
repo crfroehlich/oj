@@ -1,6 +1,9 @@
 ((OJ)->
   'use strict'
-  OJ.nodes.register 'fieldset', (options, owner = OJ.body, calledFromFactory = false) ->
+  
+  nodeName = 'fieldset'
+  
+  OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
     
     defaults =
       props: 
@@ -12,9 +15,9 @@
         click: _.noop
     
     OJ.extend defaults, options
-    ret = OJ.element 'fieldset', defaults.props, defaults.styles, defaults.events
+    ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
     
-    #if owner then owner.append ret[0]
+    
     
     if false is calledFromFactory then OJ.nodes.factory ret, owner
 

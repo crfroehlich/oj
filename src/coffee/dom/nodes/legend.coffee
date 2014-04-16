@@ -1,6 +1,9 @@
 ((OJ)->
   'use strict'
-  OJ.nodes.register 'legend', (options, owner = OJ.body, calledFromFactory = false) ->
+  
+  nodeName = 'legend'
+  
+  OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
     
     defaults =
       props:
@@ -11,8 +14,8 @@
         click: _.noop
     
     OJ.extend defaults, options
-    ret = OJ.element 'legend', defaults.props, defaults.styles, defaults.events
-    #if owner then owner.append ret[0]
+    ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+    
     
     if false is calledFromFactory then OJ.nodes.factory ret, owner
 

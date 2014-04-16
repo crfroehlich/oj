@@ -1,6 +1,9 @@
 ((OJ)->
   'use strict'
-  OJ.nodes.register 'select', (options, owner = OJ.body, calledFromFactory = false) ->
+  
+  nodeName = 'select'
+  
+  OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
     
     defaults =
       props: 
@@ -39,7 +42,7 @@
         retval
       defaults.events.change = newChange
     
-    ret = OJ.element 'select', defaults.props, defaults.styles, defaults.events
+    ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
     
     ret.add 'selectedData', (propName) ->
       ret = ''
@@ -98,7 +101,7 @@
       return
     
     
-    #if owner then owner.append ret[0]
+    
     if defaults.values.length > 0
       ret.addOptions defaults.values
     
