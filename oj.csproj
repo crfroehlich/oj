@@ -62,6 +62,9 @@
     <Content Include="src\coffee\components\grid.js">
       <DependentUpon>grid.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\components\inputgroup.js">
+      <DependentUpon>inputgroup.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\components\price.js">
       <DependentUpon>price.coffee</DependentUpon>
     </Content>
@@ -262,6 +265,10 @@
       <DependentUpon>array2D.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\tools\async.coffee" />
+    <Content Include="src\coffee\components\inputgroup.coffee" />
+    <Content Include="src\coffee\components\inputgroup.map">
+      <DependentUpon>inputgroup.coffee</DependentUpon>
+    </Content>
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">
       <DependentUpon>console.coffee</DependentUpon>
