@@ -9,7 +9,7 @@
   OJ.makeSubNameSpace 'db'
   OJ.makeSubNameSpace 'components'
   OJ.components.register 'members', {}
-  OJ['GENERATE_UNIQUE_IDS'] = true
+  OJ['GENERATE_UNIQUE_IDS'] = false
   return
   
 )  (if (typeof global isnt 'undefined' and global) then global else if (typeof window isnt 'undefined') then window else this).OJ

@@ -2,7 +2,9 @@
 (function() {
   (function(OJ) {
     'use strict';
-    OJ.nodes.register('table', function(options, owner, calledFromFactory) {
+    var nodeName;
+    nodeName = 'table';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
       var cells, defaults, init, ret, rows, tbody;
       if (owner == null) {
         owner = OJ.body;
@@ -36,7 +38,7 @@
       rows = [];
       cells = {};
       OJ.extend(defaults, options);
-      ret = OJ.element('table', defaults.props, defaults.styles, defaults.events);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
       tbody = null;
       init = _.once(function() {
         tbody = OJ.nodes.tbody({}, ret, false);

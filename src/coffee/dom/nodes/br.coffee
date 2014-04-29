@@ -1,6 +1,9 @@
 ((OJ)->
   'use strict'
-  OJ.nodes.register 'br', (options, owner = OJ.body, calledFromFactory = false) ->
+  
+  nodeName = 'br'
+  
+  OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
     
     defaults =
       props: {}
@@ -12,8 +15,8 @@
     OJ.extend defaults, options
     while i < OJ.number defaults.number
       # In the case of multiple brs, it is desirable to only get the last one out
-      ret = OJ.element 'br', defaults.props, defaults.styles, defaults.events
-      #if owner then owner.append ret[0]
+      ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+      
       i += 1
 
     if false is calledFromFactory then OJ.nodes.factory ret, owner

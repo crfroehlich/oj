@@ -74,6 +74,9 @@
     <Content Include="src\coffee\core\tools\array2D.js">
       <DependentUpon>array2D.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\core\tools\async.js">
+      <DependentUpon>async.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\core\tools\error.js">
       <DependentUpon>error.coffee</DependentUpon>
     </Content>
@@ -258,6 +261,7 @@
     <Content Include="src\coffee\core\tools\array2D.map">
       <DependentUpon>array2D.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\core\tools\async.coffee" />
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">
       <DependentUpon>console.coffee</DependentUpon>

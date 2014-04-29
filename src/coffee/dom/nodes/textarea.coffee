@@ -1,6 +1,9 @@
 ((OJ)->
   'use strict'
-  OJ.nodes.register 'textarea', (options, owner = OJ.body, calledFromFactory = false) ->
+  
+  nodeName = 'textarea'
+  
+  OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
     
     defaults =
       props:
@@ -52,8 +55,8 @@
         retval
       defaults.events.change = newChange
     
-    ret = OJ.element 'textarea', defaults.props, defaults.styles, defaults.events
-    #if owner then owner.append ret[0]
+    ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+    
     
     if false is calledFromFactory then OJ.nodes.factory ret, owner
 

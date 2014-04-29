@@ -1,6 +1,9 @@
 ((OJ)->
   'use strict'
-  OJ.nodes.register 'form', (options, owner = OJ.body, calledFromFactory = false) ->
+  
+  nodeName = 'form'
+  
+  OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
     
     defaults =
       props: 
@@ -12,7 +15,7 @@
         click: _.noop
     
     OJ.extend defaults, options
-    ret = OJ.element 'form', defaults.props, defaults.styles, defaults.events
+    ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
     
     ret.add 'validator', ret.$.validate(
       highlight: (element) ->
@@ -36,7 +39,7 @@
     ret.add 'isFormValid', ->
       ret.$.valid() and (not ret.validator.invalidElements() or ret.validator.invalidElements().length is 0)
     
-    #if owner then owner.append ret[0]
+    
     
     if false is calledFromFactory then OJ.nodes.factory ret, owner
 

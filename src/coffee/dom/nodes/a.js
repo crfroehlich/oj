@@ -4,7 +4,9 @@
 
   (function(OJ) {
     'use strict';
-    OJ.nodes.register('a', function(options, owner, calledFromFactory) {
+    var nodeName;
+    nodeName = 'a';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
       var click, defaults, newClick, ret, toggle, toggleState;
       if (owner == null) {
         owner = OJ.body;
@@ -57,7 +59,7 @@
       } else {
         defaults.events.click = toggle;
       }
-      ret = OJ.element('a', defaults.props, defaults.styles, defaults.events);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }

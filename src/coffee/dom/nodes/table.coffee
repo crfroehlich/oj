@@ -1,6 +1,9 @@
 ((OJ)->
   'use strict'
-  OJ.nodes.register 'table', (options, owner = OJ.body, calledFromFactory = false) ->
+  
+  nodeName = 'table'
+  
+  OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
     
     defaults =
       props: 
@@ -27,7 +30,7 @@
     cells = {}
     
     OJ.extend defaults, options
-    ret = OJ.element 'table', defaults.props, defaults.styles, defaults.events
+    ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
     
     tbody = null
     
@@ -66,7 +69,7 @@
             
       cell  
     
-    #if owner then owner.append ret[0]
+    
     
     if false is calledFromFactory then OJ.nodes.factory ret, owner
 

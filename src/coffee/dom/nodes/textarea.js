@@ -4,7 +4,9 @@
 
   (function(OJ) {
     'use strict';
-    OJ.nodes.register('textarea', function(options, owner, calledFromFactory) {
+    var nodeName;
+    nodeName = 'textarea';
+    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
       var change, click, defaults, newChange, newClick, ret, syncValue, value;
       if (owner == null) {
         owner = OJ.body;
@@ -67,10 +69,7 @@
         };
         defaults.events.change = newChange;
       }
-      ret = OJ.element('textarea', defaults.props, defaults.styles, defaults.events);
-      if (owner) {
-        owner.append(ret[0]);
-      }
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }
