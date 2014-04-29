@@ -11,7 +11,7 @@
         props: {
           "class": 'form-group'
         },
-        "for": OJ.uuid(),
+        "for": OJ.createUUID(),
         labelText: '',
         inputType: 'text',
         placeholder: ''
