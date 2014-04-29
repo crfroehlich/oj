@@ -38,46 +38,31 @@
   ]
     
   isChildNodeTypeAllowed = (parent, tagName) ->
-    switch parent.tagName
-      when 'a'
-        allowed = false is _.contains nonNestableNodes, tagName
-      when 'body'
-        allowed = (tagName.startsWith 'x-') or _.contains nestableNodeNames, tagName
-      when 'div'
-        allowed =  false is _.contains nonNestableNodes, tagName
-      when 'form'
-        allowed = false is _.contains nonNestableNodes, tagName
-      when 'label'
-        allowed = false is _.contains nonNestableNodes, tagName
-      when 'legend'
-        allowed = false
-      when 'fieldset'
-        allowed = tagName is 'legend' or false is _.contains nonNestableNodes, tagName
-      when 'ol'
-        allowed = tagName is 'li'
-      when 'ul'
-        allowed = tagName is 'li'
-      when 'li'
-        allowed = false is _.contains nonNestableNodes, tagName
-      when 'table'
-        allowed = tagName is 'td' or tagName is 'tr' or tagName is 'tbody' or tagName is 'thead'
-      when 'td'
-        allowed = false is _.contains nonNestableNodes, tagName
-      when 'select'
-        allowed = tagName is 'option'
-      when 'option'
-        allowed = false
-      when 'span'
-        allowed = false is _.contains nonNestableNodes, tagName  
-      when 'p'
-        allowed = false is _.contains nonNestableNodes, tagName 
-      when 'nav'
-        allowed = false is _.contains nonNestableNodes, tagName   
-      else
-        if parent.tagName.startsWith 'x-'
-          allowed = false is _.contains nonNestableNodes, tagName
+    if -1 isnt ['a','div','form','label', 'li', 'td', 'span', 'p', 'nav', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf parent.tagName
+      allowed = false is _.contains nonNestableNodes, tagName
+    else   
+      switch parent.tagName
+        when 'body'
+          allowed = (tagName.startsWith 'x-') or _.contains nestableNodeNames, tagName
+        when 'legend'
+          allowed = false
+        when 'fieldset'
+          allowed = tagName is 'legend' or false is _.contains nonNestableNodes, tagName
+        when 'ol'
+          allowed = tagName is 'li'
+        when 'ul'
+          allowed = tagName is 'li'
+        when 'table'
+          allowed = tagName is 'td' or tagName is 'tr' or tagName is 'tbody' or tagName is 'thead'
+        when 'select'
+          allowed = tagName is 'option'
+        when 'option'
+          allowed = false
         else
-          allowed = false 
+          if parent.tagName.startsWith 'x-'
+            allowed = false is _.contains nonNestableNodes, tagName
+          else
+            allowed = false 
     allowed
   
   ###

@@ -8,64 +8,41 @@
     nonNestableNodes = ['li', 'legend', 'tr', 'td', 'option', 'body', 'head', 'source', 'tbody', 'tfoot', 'thead', 'link', 'script'];
     isChildNodeTypeAllowed = function(parent, tagName) {
       var allowed;
-      switch (parent.tagName) {
-        case 'a':
-          allowed = false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'body':
-          allowed = (tagName.startsWith('x-')) || _.contains(nestableNodeNames, tagName);
-          break;
-        case 'div':
-          allowed = false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'form':
-          allowed = false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'label':
-          allowed = false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'legend':
-          allowed = false;
-          break;
-        case 'fieldset':
-          allowed = tagName === 'legend' || false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'ol':
-          allowed = tagName === 'li';
-          break;
-        case 'ul':
-          allowed = tagName === 'li';
-          break;
-        case 'li':
-          allowed = false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'table':
-          allowed = tagName === 'td' || tagName === 'tr' || tagName === 'tbody' || tagName === 'thead';
-          break;
-        case 'td':
-          allowed = false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'select':
-          allowed = tagName === 'option';
-          break;
-        case 'option':
-          allowed = false;
-          break;
-        case 'span':
-          allowed = false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'p':
-          allowed = false === _.contains(nonNestableNodes, tagName);
-          break;
-        case 'nav':
-          allowed = false === _.contains(nonNestableNodes, tagName);
-          break;
-        default:
-          if (parent.tagName.startsWith('x-')) {
-            allowed = false === _.contains(nonNestableNodes, tagName);
-          } else {
+      if (-1 !== ['a', 'div', 'form', 'label', 'li', 'td', 'span', 'p', 'nav', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(parent.tagName)) {
+        allowed = false === _.contains(nonNestableNodes, tagName);
+      } else {
+        switch (parent.tagName) {
+          case 'body':
+            allowed = (tagName.startsWith('x-')) || _.contains(nestableNodeNames, tagName);
+            break;
+          case 'legend':
             allowed = false;
-          }
+            break;
+          case 'fieldset':
+            allowed = tagName === 'legend' || false === _.contains(nonNestableNodes, tagName);
+            break;
+          case 'ol':
+            allowed = tagName === 'li';
+            break;
+          case 'ul':
+            allowed = tagName === 'li';
+            break;
+          case 'table':
+            allowed = tagName === 'td' || tagName === 'tr' || tagName === 'tbody' || tagName === 'thead';
+            break;
+          case 'select':
+            allowed = tagName === 'option';
+            break;
+          case 'option':
+            allowed = false;
+            break;
+          default:
+            if (parent.tagName.startsWith('x-')) {
+              allowed = false === _.contains(nonNestableNodes, tagName);
+            } else {
+              allowed = false;
+            }
+        }
       }
       return allowed;
     };
