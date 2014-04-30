@@ -25,7 +25,7 @@
       if (defaults.largeSpan) {
         defaults.props["class"] += ' col-lg-' + defaults.largeSpan;
       }
-      ret = OJ.component(defaults, owner, nodeName);
+      ret = OJ.component({}, owner, nodeName);
       ret.div(defaults);
       return ret;
     });

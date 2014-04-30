@@ -13,7 +13,9 @@
         calledFromFactory = false;
       }
       defaults = {
-        props: {},
+        props: {
+          type: 'button'
+        },
         styles: {},
         events: {
           click: _.noop

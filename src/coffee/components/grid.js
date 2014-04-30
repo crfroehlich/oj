@@ -61,9 +61,10 @@
         }
         tile = tiles.get(rowNo - 1, colNo - 1);
         if (!tile) {
-          fillMissing();
+          tile = OJ.components.tile(opts, row);
+          tiles.set(rowNo - 1, colNo - 1);
         }
-        tile = tiles.get(rowNo - 1, colNo - 1);
+        fillMissing();
         return tile;
       });
       return ret;

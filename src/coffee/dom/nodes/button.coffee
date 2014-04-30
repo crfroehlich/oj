@@ -6,7 +6,8 @@
   OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
     
     defaults =
-      props: {}
+      props: 
+        type: 'button'
       styles: {}
       events:
         click: _.noop
