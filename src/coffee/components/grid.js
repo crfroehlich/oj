@@ -62,7 +62,7 @@
         tile = tiles.get(rowNo - 1, colNo - 1);
         if (!tile) {
           tile = OJ.components.tile(opts, row);
-          tiles.set(rowNo - 1, colNo - 1);
+          tiles.set(rowNo, colNo);
         }
         fillMissing();
         return tile;

@@ -44,7 +44,7 @@
       
       if not tile
         tile = OJ.components.tile opts, row
-        tiles.set rowNo-1, colNo-1
+        tiles.set rowNo, colNo
       
       fillMissing()
       tile      
