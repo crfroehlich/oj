@@ -18,11 +18,10 @@
       tiles = OJ.array2D();
       fillMissing = function() {
         return tiles.each(function(rowNo, colNo, val) {
-          var nuTile, row;
+          var row;
           if (!val) {
             row = ret.row(rowNo);
-            nuTile = OJ.components.tile({}, row);
-            return tiles.set(rowNo, colNo, nuTile);
+            return row.tile(colNo, {});
           }
         });
       };
@@ -42,7 +41,7 @@
             rows.push(nuRow);
           }
           nuRow.add('tile', function(colNo, opts) {
-            return ret.tile(rowNo, colNo, opts);
+            return tiles.set(rowNo, colNo, OJ.components.tile(opts, nuRow));
           });
         }
         return nuRow;
@@ -55,14 +54,10 @@
         if (!colNo || colNo < 1) {
           colNo = 1;
         }
-        row = rows[rowNo - 1];
-        if (!row) {
-          ret.row(rowNo);
-        }
-        tile = tiles.get(rowNo - 1, colNo - 1);
+        row = ret.row(rowNo);
+        tile = tiles.get(rowNo, colNo);
         if (!tile) {
-          tile = OJ.components.tile(opts, row);
-          tiles.set(rowNo, colNo);
+          row.tile(colNo, opts);
         }
         fillMissing();
         return tile;

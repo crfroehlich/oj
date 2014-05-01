@@ -12,13 +12,19 @@
           return extend(rowNo, colNo);
         },
         set: function(rowNo, colNo, val) {
+          var colIdx, rowIdx;
           ret.get(rowNo, colNo);
-          return array[rowNo - 1][colNo - 1] = val;
+          rowIdx = rowNo - 1;
+          colIdx = colNo - 1;
+          return array[rowIdx][colIdx] = val;
         },
         each: function(callBack) {
           return _.each(array, function(columns, row) {
             return _.each(array[row], function(val, col) {
-              return callBack(row + 1, col + 1, val);
+              var colIdx, rowIdx;
+              rowIdx = row + 1;
+              colIdx = col + 1;
+              return callBack(rowIdx, colIdx, val);
             });
           });
         }

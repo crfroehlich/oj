@@ -45,15 +45,14 @@
       if (defaults.events.click !== _.noop) {
         click = defaults.events.click;
         newClick = function() {
-          var event, ret;
+          var event, retVal;
           event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
           toggle;
-          ret = click.apply(null, event);
+          retVal = click.apply(null, event);
           if (defaults.href === '#') {
-            return false;
-          } else {
-            return retval;
+            retVal = false;
           }
+          return retVal;
         };
         defaults.events.click = newClick;
       } else {

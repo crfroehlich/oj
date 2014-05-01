@@ -10,11 +10,15 @@
         extend rowNo, colNo
       set: (rowNo, colNo, val) ->
         ret.get rowNo, colNo
-        array[rowNo-1][colNo-1] = val
+        rowIdx = rowNo-1
+        colIdx = colNo-1
+        array[rowIdx][colIdx] = val
       each: (callBack) ->
         _.each array, (columns, row) ->
           _.each array[row], (val, col) ->
-            callBack row+1, col+1, val
+            rowIdx = row+1
+            colIdx = col+1
+            callBack rowIdx, colIdx, val
          
     ###
     Guarantee that the dimensions of the array are always backed by values at every position

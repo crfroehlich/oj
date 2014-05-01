@@ -36,11 +36,9 @@
       click = defaults.events.click
       newClick = (event...) ->
         toggle
-        ret = click event...
-        if defaults.href is '#'
-          false
-        else
-          retval
+        retVal = click event...
+        if defaults.href is '#' then retVal = false
+        retVal
       defaults.events.click = newClick
     else
       defaults.events.click = toggle    
