@@ -47,7 +47,7 @@
         newClick = function() {
           var event, retVal;
           event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-          toggle;
+          toggle();
           retVal = click.apply(null, event);
           if (defaults.href === '#') {
             retVal = false;

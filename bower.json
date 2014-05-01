@@ -1,6 +1,6 @@
 {
   "name": "OJ",
-  "version": "0.2.31",
+  "version": "0.2.32",
   "main": [
     "dist/complete.min.js",
     "dist/release.html"
@@ -25,12 +25,13 @@
     "lodash": ">= 2.4.1",
     "setimmediate": ">= 1.0.1",
     "localforage": ">=0.2.1",
-    "thindom": ">=0.0.10",
+    "thindom": ">=0.0.12",
     "mousetrap": ">=1.4.6",
     "es6-shim": ">=0.10.1",
     "kapusta-jquery.sparkline": "~2.1.3",
     "jquery.easy-pie-chart": "~2.1.4",
-    "flot": "~0.8.2"
+    "flot": "~0.8.2",
+    "fontawesome": "~4.0.3"
   },
   "overrides": {
     "jquery": {
@@ -56,14 +57,16 @@
       "main": [
         "dist/formbuilder-min.css"
       ]
+    },
+    "fontawesome": {
+      "main": [
+        "css/font-awesome.min.css"
+      ]
     }
   },
   "devDependencies": {
     "qunit": ">= 1.14.0",
     "coffee-script": ">= 1.7.1",
     "Faker": ">= 0.7.0"
-  },
-  "resolutions": {
-    "jquery": ">= 2.1.0"
   }
 }

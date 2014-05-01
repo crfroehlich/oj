@@ -35,7 +35,7 @@
     if defaults.events.click isnt _.noop
       click = defaults.events.click
       newClick = (event...) ->
-        toggle
+        toggle()
         retVal = click event...
         if defaults.href is '#' then retVal = false
         retVal

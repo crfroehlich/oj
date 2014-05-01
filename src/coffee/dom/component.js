@@ -14,7 +14,7 @@
       if (!tagName.startsWith('x-')) {
         tagName = 'x-' + tagName;
       }
-      ret = OJ.element(tagName, options.props, options.styles);
+      ret = OJ.element(tagName, options.props, options.styles, options.events, options.text);
       return OJ.nodes.factory(ret, owner);
     };
     OJ.register('component', component);
