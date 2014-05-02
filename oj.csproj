@@ -62,6 +62,9 @@
     <Content Include="src\coffee\components\grid.js">
       <DependentUpon>grid.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\components\infograph.js">
+      <DependentUpon>infograph.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\components\inputgroup.js">
       <DependentUpon>inputgroup.coffee</DependentUpon>
     </Content>
@@ -271,6 +274,10 @@
     </Content>
     <Content Include="src\coffee\core\tools\async.map">
       <DependentUpon>async.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\components\infograph.coffee" />
+    <Content Include="src\coffee\components\infograph.map">
+      <DependentUpon>infograph.coffee</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">

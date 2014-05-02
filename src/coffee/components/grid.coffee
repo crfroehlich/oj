@@ -27,7 +27,9 @@
           nuRow = ret.div props: class: 'row'
           rows.push nuRow
         nuRow.add 'tile', (colNo, opts) ->
-          tiles.set rowNo, colNo, OJ.components.tile opts, nuRow
+          nuTile = OJ.components.tile opts, nuRow
+          tiles.set rowNo, colNo, nuTile
+          nuTile
       nuRow  
                       
     ret.add 'tile', (rowNo, colNo, opts) ->

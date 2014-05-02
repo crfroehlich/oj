@@ -41,7 +41,10 @@
             rows.push(nuRow);
           }
           nuRow.add('tile', function(colNo, opts) {
-            return tiles.set(rowNo, colNo, OJ.components.tile(opts, nuRow));
+            var nuTile;
+            nuTile = OJ.components.tile(opts, nuRow);
+            tiles.set(rowNo, colNo, nuTile);
+            return nuTile;
           });
         }
         return nuRow;
