@@ -40,7 +40,7 @@
       tile = tiles.get rowNo, colNo
       
       if not tile
-        row.tile colNo, opts
+        tile = row.tile colNo, opts
       
       fillMissing()
       tile      

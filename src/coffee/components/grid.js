@@ -60,7 +60,7 @@
         row = ret.row(rowNo);
         tile = tiles.get(rowNo, colNo);
         if (!tile) {
-          row.tile(colNo, opts);
+          tile = row.tile(colNo, opts);
         }
         fillMissing();
         return tile;
