@@ -6,7 +6,7 @@
     className = 'easypie';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var defaults, easypie, ret;
+      var cmpnt, defaults, ret;
       defaults = {
         config: {
           barColor: '#efefef',
@@ -22,10 +22,10 @@
         }
       };
       OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, nodeName);
+      cmpnt = OJ.component(defaults, owner, nodeName);
       defaults.props['data-percent'] = defaults.config.percent;
-      easypie = ret.div(defaults);
-      easypie.$.easyPieChart(defaults.config);
+      ret = cmpnt.div(defaults);
+      ret.$.easyPieChart(defaults.config);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

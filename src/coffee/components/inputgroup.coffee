@@ -14,11 +14,11 @@
       placeholder: ''
     
     OJ.extend defaults, options
-    ret = OJ.component defaults, owner, nodeName 
+    cmpnt = OJ.component defaults, owner, nodeName 
     
-    root = ret.div props: class: 'form-group'
-    root.label props: { for: defaults.for }, text: defaults.labelText
-    root.input props: 
+    ret = cmpnt.div props: class: 'form-group'
+    ret.label props: { for: defaults.for }, text: defaults.labelText
+    ret.input props: 
       id: defaults.for, 
       type: OJ.enums.inputTypes[defaults.inputType].name, 
       class: 'form-control', 

@@ -18,8 +18,9 @@
         color: '#4193d0'
     
     OJ.extend defaults, options
-    ret = OJ.component defaults, owner, nodeName 
-
+    cmpnt = OJ.component defaults, owner, nodeName 
+    ret = cmpnt.div()
+    
     table = ret.table defaults
     
     count = defaults.width * defaults.height
@@ -34,9 +35,8 @@
     for rowNum in [defaults.height..1]
       for colNum in [defaults.width..1]
         icon = 'fa fa-fw fa-' + defaults.icon + ' text-' + defaults.icon
-        if active > 0
-          active -= 1
-        else if inactive > 0
+        
+        if inactive > 0
           inactive -= 1
           icon += '-light'
         else if disabled > 0
@@ -45,6 +45,8 @@
         else if unknown > 0
           unknown -= 1  
           icon += ' text-warning'  
+        else if active > 0
+          active -= 1
         table.cell rowNum, colNum  
           .i props: class: icon              
                

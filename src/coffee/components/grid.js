@@ -6,14 +6,15 @@
     className = 'grid';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var defaults, fillMissing, ret, rows, tiles;
+      var cmpnt, defaults, fillMissing, ret, rows, tiles;
       defaults = {
         props: {
           "class": 'grid'
         }
       };
       OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, nodeName);
+      cmpnt = OJ.component(defaults, owner, nodeName);
+      ret = cmpnt.div();
       rows = [];
       tiles = OJ.array2D();
       fillMissing = function() {

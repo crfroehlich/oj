@@ -6,7 +6,7 @@
     className = 'infograph';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var active, colNum, count, defaults, disabled, icon, inactive, ret, rowNum, table, total, unknown, _i, _j, _ref, _ref1;
+      var active, cmpnt, colNum, count, defaults, disabled, icon, inactive, ret, rowNum, table, total, unknown, _i, _j, _ref, _ref1;
       defaults = {
         icon: 'male',
         height: 10,
@@ -23,7 +23,8 @@
         }
       };
       OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, nodeName);
+      cmpnt = OJ.component(defaults, owner, nodeName);
+      ret = cmpnt.div();
       table = ret.table(defaults);
       count = defaults.width * defaults.height;
       total = defaults.active + defaults.inactive + defaults.disabled + defaults.unknown;
@@ -37,9 +38,7 @@
       for (rowNum = _i = _ref = defaults.height; _ref <= 1 ? _i <= 1 : _i >= 1; rowNum = _ref <= 1 ? ++_i : --_i) {
         for (colNum = _j = _ref1 = defaults.width; _ref1 <= 1 ? _j <= 1 : _j >= 1; colNum = _ref1 <= 1 ? ++_j : --_j) {
           icon = 'fa fa-fw fa-' + defaults.icon + ' text-' + defaults.icon;
-          if (active > 0) {
-            active -= 1;
-          } else if (inactive > 0) {
+          if (inactive > 0) {
             inactive -= 1;
             icon += '-light';
           } else if (disabled > 0) {
@@ -48,6 +47,8 @@
           } else if (unknown > 0) {
             unknown -= 1;
             icon += ' text-warning';
+          } else if (active > 0) {
+            active -= 1;
           }
           table.cell(rowNum, colNum).i({
             props: {

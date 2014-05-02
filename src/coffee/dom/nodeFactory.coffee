@@ -83,7 +83,7 @@
   Determine which components to add to chain, if any
   ###
   controlPostProcessing = (parent, count) ->
-    if parent.tagName.startsWith('x-') or _.contains ['div','span','td','p','body','form', 'li'], parent.tagName
+    if _.contains ['div','span','td','p','body','form', 'li'], parent.tagName
       OJ.each OJ.components.members, (className, tagName) ->
         addComponents tagName, parent, count, className
     return

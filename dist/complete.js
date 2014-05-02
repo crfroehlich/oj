@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.2.34
+ * @version v0.2.35
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -317,25 +317,25 @@ OJ IIFE definition to anchor JsDoc comments.
     className = 'address';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var city, cityState, country, defaults, ret, root, state, street, zip, zipCountry;
+      var city, cityState, cmpnt, country, defaults, ret, state, street, zip, zipCountry;
       defaults = {
         props: {
           "class": 'fb-field-wrapper response-field-address'
         }
       };
       OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, nodeName);
-      root = ret.div({
+      cmpnt = OJ.component(defaults, owner, nodeName);
+      ret = cmpnt.div({
         props: {
           "class": 'subtemplate-wrapper'
         }
       });
-      root.div({
+      ret.div({
         props: {
           "class": 'cover'
         }
       });
-      street = root.div({
+      street = ret.div({
         props: {
           "class": 'input-line'
         }
@@ -350,7 +350,7 @@ OJ IIFE definition to anchor JsDoc comments.
         }
       });
       street.label().text('Address');
-      cityState = root.div({
+      cityState = ret.div({
         props: {
           "class": 'input-line'
         }
@@ -377,7 +377,7 @@ OJ IIFE definition to anchor JsDoc comments.
         }
       });
       state.label().text('State');
-      zipCountry = root.div({
+      zipCountry = ret.div({
         props: {
           "class": 'input-line'
         }
@@ -413,7 +413,7 @@ OJ IIFE definition to anchor JsDoc comments.
     className = 'easypie';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var defaults, easypie, ret;
+      var cmpnt, defaults, ret;
       defaults = {
         config: {
           barColor: '#efefef',
@@ -429,10 +429,10 @@ OJ IIFE definition to anchor JsDoc comments.
         }
       };
       OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, nodeName);
+      cmpnt = OJ.component(defaults, owner, nodeName);
       defaults.props['data-percent'] = defaults.config.percent;
-      easypie = ret.div(defaults);
-      easypie.$.easyPieChart(defaults.config);
+      ret = cmpnt.div(defaults);
+      ret.$.easyPieChart(defaults.config);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -446,7 +446,7 @@ OJ IIFE definition to anchor JsDoc comments.
     className = 'flotchart';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var defaults, flotchart, ret;
+      var cmpnt, defaults, ret;
       defaults = {
         config: {},
         data: [],
@@ -455,9 +455,9 @@ OJ IIFE definition to anchor JsDoc comments.
         }
       };
       OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, nodeName);
-      flotchart = ret.div(defaults);
-      ret.flot = $.plot(flotchart.$, defaults.data, defaults.config);
+      cmpnt = OJ.component(defaults, owner, nodeName);
+      ret = cmpnt.div(defaults);
+      ret.flot = $.plot(ret.$, defaults.data, defaults.config);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -471,14 +471,15 @@ OJ IIFE definition to anchor JsDoc comments.
     className = 'grid';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var defaults, fillMissing, ret, rows, tiles;
+      var cmpnt, defaults, fillMissing, ret, rows, tiles;
       defaults = {
         props: {
           "class": 'grid'
         }
       };
       OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, nodeName);
+      cmpnt = OJ.component(defaults, owner, nodeName);
+      ret = cmpnt.div();
       rows = [];
       tiles = OJ.array2D();
       fillMissing = function() {
@@ -543,7 +544,7 @@ OJ IIFE definition to anchor JsDoc comments.
     className = 'infograph';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var active, colNum, count, defaults, disabled, icon, inactive, ret, rowNum, table, total, unknown, _i, _j, _ref, _ref1;
+      var active, cmpnt, colNum, count, defaults, disabled, icon, inactive, ret, rowNum, table, total, unknown, _i, _j, _ref, _ref1;
       defaults = {
         icon: 'male',
         height: 10,
@@ -560,7 +561,8 @@ OJ IIFE definition to anchor JsDoc comments.
         }
       };
       OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, nodeName);
+      cmpnt = OJ.component(defaults, owner, nodeName);
+      ret = cmpnt.div();
       table = ret.table(defaults);
       count = defaults.width * defaults.height;
       total = defaults.active + defaults.inactive + defaults.disabled + defaults.unknown;
@@ -574,9 +576,7 @@ OJ IIFE definition to anchor JsDoc comments.
       for (rowNum = _i = _ref = defaults.height; _ref <= 1 ? _i <= 1 : _i >= 1; rowNum = _ref <= 1 ? ++_i : --_i) {
         for (colNum = _j = _ref1 = defaults.width; _ref1 <= 1 ? _j <= 1 : _j >= 1; colNum = _ref1 <= 1 ? ++_j : --_j) {
           icon = 'fa fa-fw fa-' + defaults.icon + ' text-' + defaults.icon;
-          if (active > 0) {
-            active -= 1;
-          } else if (inactive > 0) {
+          if (inactive > 0) {
             inactive -= 1;
             icon += '-light';
           } else if (disabled > 0) {
@@ -585,6 +585,8 @@ OJ IIFE definition to anchor JsDoc comments.
           } else if (unknown > 0) {
             unknown -= 1;
             icon += ' text-warning';
+          } else if (active > 0) {
+            active -= 1;
           }
           table.cell(rowNum, colNum).i({
             props: {
@@ -606,7 +608,7 @@ OJ IIFE definition to anchor JsDoc comments.
     className = 'inputgroup';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var defaults, ret, root;
+      var cmpnt, defaults, ret;
       defaults = {
         props: {
           "class": 'form-group'
@@ -617,19 +619,19 @@ OJ IIFE definition to anchor JsDoc comments.
         placeholder: ''
       };
       OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, nodeName);
-      root = ret.div({
+      cmpnt = OJ.component(defaults, owner, nodeName);
+      ret = cmpnt.div({
         props: {
           "class": 'form-group'
         }
       });
-      root.label({
+      ret.label({
         props: {
           "for": defaults["for"]
         },
         text: defaults.labelText
       });
-      root.input({
+      ret.input({
         props: {
           id: defaults["for"],
           type: OJ.enums.inputTypes[defaults.inputType].name,
@@ -650,10 +652,11 @@ OJ IIFE definition to anchor JsDoc comments.
     className = 'price';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var cents, defaults, dollars, price, ret;
+      var cents, cmpnt, defaults, dollars, price, ret;
       defaults = {};
       OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, nodeName);
+      cmpnt = OJ.component(defaults, owner, nodeName);
+      ret = cmpnt.div();
       price = ret.div({
         props: {
           "class": 'input-line'
@@ -704,7 +707,7 @@ OJ IIFE definition to anchor JsDoc comments.
     className = 'sparkline';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var defaults, ret, sparkline;
+      var cmpnt, defaults, ret;
       defaults = {
         config: {
           type: 'line',
@@ -718,9 +721,9 @@ OJ IIFE definition to anchor JsDoc comments.
         }
       };
       OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, nodeName);
-      sparkline = ret.div(defaults);
-      sparkline.$.sparkline(defaults.data, defaults.config);
+      cmpnt = OJ.component(defaults, owner, nodeName);
+      ret = cmpnt.div(defaults);
+      ret.$.sparkline(defaults.data, defaults.config);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -734,7 +737,7 @@ OJ IIFE definition to anchor JsDoc comments.
     className = 'tile';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var defaults, ret;
+      var cmpnt, defaults, ret;
       defaults = {
         smallSpan: '',
         mediumSpan: '4',
@@ -753,8 +756,8 @@ OJ IIFE definition to anchor JsDoc comments.
       if (defaults.largeSpan) {
         defaults.props["class"] += ' col-lg-' + defaults.largeSpan;
       }
-      ret = OJ.component({}, owner, nodeName);
-      ret.div(defaults);
+      cmpnt = OJ.component({}, owner, nodeName);
+      ret = cmpnt.div(defaults);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -769,15 +772,16 @@ OJ IIFE definition to anchor JsDoc comments.
      */
     var component;
     component = function(options, owner, tagName) {
-      var ret;
+      var widget;
       if (options == null) {
         options = OJ.object();
       }
       if (!tagName.startsWith('x-')) {
         tagName = 'x-' + tagName;
       }
-      ret = OJ.element(tagName, options.props, options.styles, options.events, options.text);
-      return OJ.nodes.factory(ret, owner);
+      widget = OJ.element(tagName, options.props, options.styles, options.events, options.text);
+      OJ.nodes.factory(widget, owner);
+      return widget.div();
     };
     OJ.register('component', component);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -1206,7 +1210,7 @@ OJ IIFE definition to anchor JsDoc comments.
     Determine which components to add to chain, if any
      */
     controlPostProcessing = function(parent, count) {
-      if (parent.tagName.startsWith('x-') || _.contains(['div', 'span', 'td', 'p', 'body', 'form', 'li'], parent.tagName)) {
+      if (_.contains(['div', 'span', 'td', 'p', 'body', 'form', 'li'], parent.tagName)) {
         OJ.each(OJ.components.members, function(className, tagName) {
           return addComponents(tagName, parent, count, className);
         });
@@ -2191,879 +2195,6 @@ OJ IIFE definition to anchor JsDoc comments.
       return updateImpl(dbWrapper, tableName, indexName, indexVal, ret, record);
     });
   })();
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var array2D;
-    array2D = function(initLength, initWidth) {
-      var array, extend, maxLength, maxWidth, ret;
-      array = [];
-      maxLength = 0;
-      maxWidth = 0;
-      ret = {
-        get: function(rowNo, colNo) {
-          return extend(rowNo, colNo);
-        },
-        set: function(rowNo, colNo, val) {
-          var colIdx, rowIdx;
-          ret.get(rowNo, colNo);
-          rowIdx = rowNo - 1;
-          colIdx = colNo - 1;
-          return array[rowIdx][colIdx] = val;
-        },
-        each: function(callBack) {
-          return _.each(array, function(columns, row) {
-            return _.each(array[row], function(val, col) {
-              var colIdx, rowIdx;
-              rowIdx = row + 1;
-              colIdx = col + 1;
-              return callBack(rowIdx, colIdx, val);
-            });
-          });
-        }
-      };
-
-      /*
-      Guarantee that the dimensions of the array are always backed by values at every position
-       */
-      extend = function(length, width) {
-        var i, tryRow;
-        if (!length || length < 1) {
-          length = 1;
-        }
-        if (!width || width < 1) {
-          width = 1;
-        }
-        if (maxLength < length) {
-          maxLength = length;
-        }
-        if (array.length > maxLength) {
-          maxLength = array.length;
-        }
-        if (maxWidth < width) {
-          maxWidth = width;
-        }
-        i = 0;
-        while (i < maxLength) {
-          tryRow = array[i];
-          if (!tryRow) {
-            tryRow = [];
-            array.push(tryRow);
-          }
-          if (maxWidth < tryRow.length) {
-            maxWidth = tryRow.length;
-          }
-          if (tryRow.length < maxWidth) {
-            tryRow.length = maxWidth;
-          }
-          i += 1;
-        }
-        return array[length - 1][width - 1];
-      };
-      extend(initLength, initWidth);
-      return ret;
-    };
-    OJ.register('array2D', array2D);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var defer;
-    defer = function(method, waitMs) {
-      if (setTimeout) {
-        return setTimeout(method, waitMs);
-      }
-    };
-    OJ.register('defer', defer);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var assert, console, count, length, method, methods, noop, thisGlobal;
-    method = void 0;
-    noop = _.noop;
-    methods = ["assert", "clear", "count", "debug", "dir", "dirxml", "error", "exception", "group", "groupCollapsed", "groupEnd", "info", "log", "markTimeline", "profile", "profileEnd", "table", "time", "timeEnd", "timeStamp", "trace", "warn"];
-    length = methods.length;
-    thisGlobal = (typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this);
-    console = (thisGlobal.console = thisGlobal.console || {});
-    while (length--) {
-      method = methods[length];
-      if (!console[method]) {
-        console[method] = noop;
-      }
-    }
-    OJ.makeSubNameSpace("console");
-    OJ.console.register("assert", assert = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.assert(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("count", count = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.count(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("error", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.error(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("group", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.group(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("groupCollapsed", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.groupCollapsed(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("groupEnd", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.groupEnd(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("info", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.info(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("log", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.log(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("profile", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.profile(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("profileEnd", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.profileEnd(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("table", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.table(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("time", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.time(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("timeEnd", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.timeEnd(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("trace", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.trace(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-    OJ.console.register("warn", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
-      'use strict';
-      console.warn(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    True if the object is a true Object or Array
-    @param obj {Object}
-     */
-    var canEach, each;
-    canEach = function(obj) {
-      return (_.isPlainObject(obj)) || _.isArray(obj);
-    };
-
-    /*
-    Iterate an object with optional callBack and recursion
-    @param obj {Object} an Object to iterate
-    @param onEach {Function} [onEach=undefined] call back to exec
-    @param recursive {Boolean} if true, recurse the object
-     */
-    each = function(obj, onEach, recursive) {
-      if (canEach(obj)) {
-        _.forEach(obj, function(val, key) {
-          var quit;
-          if (onEach && (val || key)) {
-            quit = onEach(val, key);
-            if (false === quit) {
-              return false;
-            }
-          }
-          if (true === recursive) {
-            each(val, onEach, true);
-          }
-        });
-      }
-    };
-    OJ.register("each", each);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    OJ.enums.register('unknown', 'unknown');
-    OJ.enums.register('tryParse', function(OJEnum, enumMember, caseSensitive) {
-      'use strict';
-      var ret;
-      ret = OJ.enums.unknown;
-      if (OJ.contains(OJEnum, enumMember)) {
-        ret = OJEnum[enumMember];
-      } else if (false === caseSensitive) {
-        OJ.each(OJEnum, function(member) {
-          if (OJ.contains(OJEnum, member) && OJ.string(member).toLowerCase() === OJ.string(enumMember).toLowerCase()) {
-            ret = member;
-          }
-        });
-      }
-      return ret;
-    });
-    OJ.enums.register('inputTypes', {
-      button: {
-        id: 0,
-        name: 'button',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      checkbox: {
-        id: 1,
-        name: 'checkbox',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: true,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      color: {
-        id: 2,
-        name: 'color',
-        placeholder: false,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      date: {
-        id: 3,
-        name: 'date',
-        placeholder: false,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      datetime: {
-        id: 4,
-        name: 'datetime',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      'datetime-local': {
-        id: 5,
-        name: 'datetime-local',
-        placeholder: false,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      email: {
-        id: 6,
-        name: 'email',
-        placeholder: true,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      file: {
-        id: 7,
-        name: 'file',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: false
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      hidden: {
-        id: 8,
-        name: 'hidden',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      image: {
-        id: 9,
-        name: 'image',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      month: {
-        id: 10,
-        name: 'month',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      number: {
-        id: 11,
-        name: 'number',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      password: {
-        id: 12,
-        name: 'password',
-        placeholder: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      radio: {
-        id: 13,
-        name: 'radio',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: true,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      range: {
-        id: 14,
-        name: 'range',
-        placeholder: false,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      reset: {
-        id: 15,
-        name: 'reset',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      search: {
-        id: 16,
-        name: 'search',
-        placeholder: true,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      submit: {
-        id: 17,
-        name: 'submit',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      tel: {
-        id: 18,
-        name: 'button',
-        placeholder: true,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      },
-      text: {
-        id: 19,
-        name: 'text',
-        placeholder: true,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      time: {
-        id: 20,
-        name: 'time',
-        placeholder: false,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      url: {
-        id: 21,
-        name: 'url',
-        placeholder: true,
-        autocomplete: true,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '200px',
-        defaultsize: '25'
-      },
-      week: {
-        id: 22,
-        name: 'week',
-        placeholder: false,
-        autocomplete: false,
-        value: {
-          required: false,
-          allowed: true
-        },
-        defaultwidth: '',
-        defaultsize: '25'
-      }
-    });
-    OJ.enums.register('rateIntervalTypes', {
-      Hourly: 'Hourly',
-      WeeklyByDay: 'WeeklyByDay',
-      MonthlyByDate: 'MonthlyByDate',
-      MonthlyByWeekAndDay: 'MonthlyByWeekAndDay',
-      YearlyByDate: 'YearlyByDate'
-    });
-    OJ.enums.register('domElementEvent', {
-      click: 'click',
-      change: 'change',
-      vclick: 'vclick',
-      tap: 'tap'
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var onError, thisGlobal;
-    thisGlobal = (typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this));
-    onError = thisGlobal.onerror;
-
-    /*
-    Log errors to the console
-     */
-    thisGlobal.onerror = function(msg, url, lineNumber) {
-      console.warn("%s\r url: %s\r line: %d", msg, url, lineNumber);
-      if (onError) {
-        onError(arguments);
-      }
-      return false;
-    };
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var apply, curryLeft, filter, foldLeft, map, shiftRight;
-    OJ.makeSubNameSpace("fun");
-    OJ.fun.register("curryLeft", curryLeft = function(func) {
-      var args, slice;
-      slice = Array.prototype.slice;
-      args = slice.call(arguments_, 1);
-      return function() {
-        return func.apply(this, args.concat(slice.call(arguments_, 0)));
-      };
-    });
-    OJ.fun.register("foldLeft", foldLeft = function(func, newArray, oldArray) {
-      var accumulation;
-      accumulation = newArray;
-      OJ.each(oldArray, function(val) {
-        accumulation = func(accumulation, val);
-      });
-      return accumulation;
-    });
-    OJ.fun.register("map", map = function(func, array) {
-      var onIteration;
-      onIteration = function(accumulation, val) {
-        return accumulation.concat(func(val));
-      };
-      return OJ.fun.foldLeft(onIteration, [], array);
-    });
-    OJ.fun.register("filter", filter = function(func, array) {
-      var onIteration;
-      onIteration = function(accumulation, val) {
-        if (func(val)) {
-          return accumulation.concat(val);
-        } else {
-          return accumulation;
-        }
-      };
-      return OJ.fun.foldLeft(onIteration, [], array);
-    });
-    OJ.fun.register("shiftRight", shiftRight = function(shiftFunc, firstParam, originalArguments, context) {
-      var args;
-      context = context || this;
-      args = Array.prototype.slice.call(originalArguments, 0);
-      args.unshift(firstParam);
-      return shiftFunc.apply(context, args);
-    });
-    OJ.fun.register("apply", apply = function(applyFunc, originalArguments, context) {
-      var args;
-      context = context || this;
-      args = Array.prototype.slice.call(originalArguments, 0);
-      return applyFunc.apply(context, args);
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.is.register('bool', function(boolean) {
-      'use strict';
-      return _.isBoolean(boolean);
-    });
-    OJ.is.register('arrayNullOrEmpty', function(arr) {
-      'use strict';
-      return !Array.isArray(arr) || !arr || !arr.length || arr.length === 0 || !arr.push;
-    });
-    OJ.is.register('stringNullOrEmpty', function(str) {
-      'use strict';
-      return str && (!str.length || str.length === 0 || !str.trim || !str.trim());
-    });
-    OJ.is.register('numberNullOrEmpty', function(num) {
-      'use strict';
-      return !num || isNaN(num) || !num.toPrecision;
-    });
-    OJ.is.register('dateNullOrEmpty', function(dt) {
-      'use strict';
-      return !dt || !dt.getTime;
-    });
-    OJ.is.register('objectNullOrEmpty', function(obj) {
-      'use strict';
-      return _.isEmpty(obj || !Object.keys(obj) || Object.keys(obj).length === 0);
-    });
-    OJ.is.register('plainObject', function(obj) {
-      'use strict';
-      return _.isPlainObject(obj);
-    });
-    OJ.is.register('date', function(dt) {
-      return _.isDate(dt);
-    });
-
-    /*
-    Determines if a value is an instance of a Number and not NaN*
-     */
-    OJ.is.register('number', function(num) {
-      return typeof num === 'number' && false === (OJ.number.isNaN(num) || false === OJ.number.isFinite(num) || OJ.number.MAX_VALUE === num || OJ.number.MIN_VALUE === num);
-    });
-
-    /*
-    Determines if a value is convertable to a Number
-     */
-    OJ.is.register('numeric', function(num) {
-      var nuNum, ret;
-      ret = OJ.is.number(num);
-      if (!ret) {
-        nuNum = OJ.to.number(num);
-        ret = OJ.is.number(nuNum);
-      }
-      return ret;
-    });
-    OJ.is.register('vendorObject', function(obj) {
-      'use strict';
-      var ret;
-      ret = obj instanceof OJ['?'];
-      return ret;
-    });
-    OJ.is.register('elementInDom', function(elementId) {
-      return false === OJ.is.nullOrEmpty(document.getElementById(elementId));
-    });
-    OJ.is.register('generic', function(obj) {
-      'use strict';
-      var ret;
-      ret = false === OJ.is['function'](obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
-      return ret;
-    });
-    OJ.is.register('array', function(obj) {
-      return _.isArray(obj);
-    });
-    OJ.is.register('string', function(str) {
-      return _.isString(str);
-    });
-    OJ.is.register('true', function(obj) {
-      'use strict';
-      return obj === true || obj === 'true' || obj === 1 || obj === '1';
-    });
-    OJ.is.register('false', function(obj) {
-      'use strict';
-      return obj === false || obj === 'false' || obj === 0 || obj === '0';
-    });
-    OJ.is.register('trueOrFalse', function(obj) {
-      'use strict';
-      return OJ.is["true"](obj || OJ.is["false"](obj));
-    });
-    OJ.is.register('nullOrEmpty', function(obj, checkLength) {
-      'use strict';
-      return _.isEmpty(obj || _.isUndefined(obj || _.isNull(obj || _.isNaN(obj))));
-    });
-    OJ.is.register('instanceof', function(name, obj) {
-      'use strict';
-      return obj.type === name || obj instanceof name;
-    });
-    OJ.is.register('func', function(obj) {
-      'use strict';
-      return _.isFunction(obj);
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.to.register("bool", function(str) {
-      var retBool;
-      retBool = OJ.is["true"](str);
-      if (retBool === false || retBool !== true) {
-        retBool = false;
-      }
-      return retBool;
-    });
-    OJ.to.register("ES5_ToBool", function(val) {
-      return val !== false && val !== 0 && val !== "" && val !== null && val !== undefined && (typeof val !== "number" || !isNaN(val));
-    });
-    OJ.to.register("dateFromTicks", function(tickStr) {
-      var arr, localOffset, offset, ret, ticks, ticsDateTime;
-      ticsDateTime = OJ.string(tickStr);
-      ret = void 0;
-      ticks = void 0;
-      offset = void 0;
-      localOffset = void 0;
-      arr = void 0;
-      if (false === OJ.is.nullOrEmpty(ticsDateTime)) {
-        ticsDateTime = ticsDateTime.replace("/", "");
-        ticsDateTime = ticsDateTime.replace("Date", "");
-        ticsDateTime = ticsDateTime.replace("(", "");
-        ticsDateTime = ticsDateTime.replace(")", "");
-        arr = ticsDateTime.split("-");
-        if (arr.length > 1) {
-          ticks = OJ.number(arr[0]);
-          offset = OJ.number(arr[1]);
-          localOffset = new Date().getTimezoneOffset();
-          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
-        } else if (arr.length === 1) {
-          ticks = OJ.number(arr[0]);
-          ret = new Date(ticks);
-        }
-      }
-      return ret;
-    });
-    OJ.to.register("binary", function(obj) {
-      var ret;
-      ret = NaN;
-      if (obj === 0 || obj === "0" || obj === "" || obj === false || OJ.to.string(obj).toLowerCase().trim() === "false") {
-        ret = 0;
-      } else {
-        if (obj === 1 || obj === "1" || obj === true || OJ.to.string(obj).toLowerCase().trim() === "true") {
-          ret = 1;
-        }
-      }
-      return ret;
-    });
-
-    /*
-    Attempts to converts an arbitrary value to a Number.
-    Loose falsy values are converted to 0.
-    Loose truthy values are converted to 1.
-    All other values are parsed as Integers.
-    Failures return as NaN.
-     */
-    OJ.to.register("number", function(inputNum, defaultNum) {
-      var retVal, tryGetNumber;
-      tryGetNumber = function(val) {
-        var ret, tryGet;
-        ret = NaN;
-        if (OJ.is.number(val)) {
-          ret = val;
-        } else if (OJ.is.string(val) || OJ.is.bool(val)) {
-          tryGet = function(value) {
-            var num;
-            num = OJ.to.binary(value);
-            if (!OJ.is.number(num) && value) {
-              num = +value;
-            }
-            if (!OJ.is.number(num)) {
-              num = _.parseInt(value, 0);
-            }
-            return num;
-          };
-          ret = tryGet(val);
-        }
-        return ret;
-      };
-      retVal = tryGetNumber(inputNum);
-      if (!OJ.is.number(retVal)) {
-        retVal = tryGetNumber(defaultNum);
-        if (!OJ.is.number(retVal)) {
-          retVal = Number.NaN;
-        }
-      }
-      return retVal;
-    });
-    OJ.to.register("string", function(inputStr, defaultStr) {
-      var ret1, ret2, retVal, tryGetString;
-      tryGetString = function(str) {
-        var ret;
-        ret = void 0;
-        if (OJ.is.string(str)) {
-          ret = str;
-        } else {
-          ret = "";
-          if (OJ.is.bool(str) || OJ.is.number(str) || OJ.is.date(str)) {
-            ret = str.toString();
-          }
-        }
-        return ret;
-      };
-      ret1 = tryGetString(inputStr);
-      ret2 = tryGetString(defaultStr);
-      retVal = "";
-      if (ret1.length !== 0) {
-        retVal = ret1;
-      } else if (ret1 === ret2 || ret2.length === 0) {
-        retVal = ret1;
-      } else {
-        retVal = ret2;
-      }
-      return retVal;
-    });
-    OJ.to.register("vendorDomObject", function(id) {
-      var base, ret, _$el;
-      ret = null;
-      base = "#";
-      if (id === "body") {
-        base = "";
-      }
-      _$el = OJ["?"](base + id);
-      if (_$el) {
-        ret = _$el;
-      }
-      return ret;
-    });
-    OJ.to.register("vendorDomObjFromString", function(html) {
-      var ret, _$el;
-      ret = null;
-      _$el = OJ["?"](html);
-      if (_$el) {
-        ret = _$el;
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    Generates a random string that complies to the RFC 4122 specification for GUID/UUID.
-    (e.g. 'B42A153F-1D9A-4F92-9903-92C11DD684D2')
-    While not a true UUID, for the purposes of this application, it should be sufficient.
-     */
-    var createFauxUUID;
-    createFauxUUID = function() {
-      var hexDigits, i, s, uuid;
-      s = [];
-      s.length = 36;
-      hexDigits = "0123456789abcdef";
-      i = 0;
-      while (i < 36) {
-        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
-        i += 1;
-      }
-      s[14] = "4";
-      s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
-      s[8] = s[13] = s[18] = s[23] = "-";
-      uuid = s.join("");
-      return uuid;
-    };
-    OJ.register("createUUID", createFauxUUID);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -4604,6 +3735,879 @@ OJ IIFE definition to anchor JsDoc comments.
       }
       return ret;
     });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var array2D;
+    array2D = function(initLength, initWidth) {
+      var array, extend, maxLength, maxWidth, ret;
+      array = [];
+      maxLength = 0;
+      maxWidth = 0;
+      ret = {
+        get: function(rowNo, colNo) {
+          return extend(rowNo, colNo);
+        },
+        set: function(rowNo, colNo, val) {
+          var colIdx, rowIdx;
+          ret.get(rowNo, colNo);
+          rowIdx = rowNo - 1;
+          colIdx = colNo - 1;
+          return array[rowIdx][colIdx] = val;
+        },
+        each: function(callBack) {
+          return _.each(array, function(columns, row) {
+            return _.each(array[row], function(val, col) {
+              var colIdx, rowIdx;
+              rowIdx = row + 1;
+              colIdx = col + 1;
+              return callBack(rowIdx, colIdx, val);
+            });
+          });
+        }
+      };
+
+      /*
+      Guarantee that the dimensions of the array are always backed by values at every position
+       */
+      extend = function(length, width) {
+        var i, tryRow;
+        if (!length || length < 1) {
+          length = 1;
+        }
+        if (!width || width < 1) {
+          width = 1;
+        }
+        if (maxLength < length) {
+          maxLength = length;
+        }
+        if (array.length > maxLength) {
+          maxLength = array.length;
+        }
+        if (maxWidth < width) {
+          maxWidth = width;
+        }
+        i = 0;
+        while (i < maxLength) {
+          tryRow = array[i];
+          if (!tryRow) {
+            tryRow = [];
+            array.push(tryRow);
+          }
+          if (maxWidth < tryRow.length) {
+            maxWidth = tryRow.length;
+          }
+          if (tryRow.length < maxWidth) {
+            tryRow.length = maxWidth;
+          }
+          i += 1;
+        }
+        return array[length - 1][width - 1];
+      };
+      extend(initLength, initWidth);
+      return ret;
+    };
+    OJ.register('array2D', array2D);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var defer;
+    defer = function(method, waitMs) {
+      if (setTimeout) {
+        return setTimeout(method, waitMs);
+      }
+    };
+    OJ.register('defer', defer);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var assert, console, count, length, method, methods, noop, thisGlobal;
+    method = void 0;
+    noop = _.noop;
+    methods = ["assert", "clear", "count", "debug", "dir", "dirxml", "error", "exception", "group", "groupCollapsed", "groupEnd", "info", "log", "markTimeline", "profile", "profileEnd", "table", "time", "timeEnd", "timeStamp", "trace", "warn"];
+    length = methods.length;
+    thisGlobal = (typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this);
+    console = (thisGlobal.console = thisGlobal.console || {});
+    while (length--) {
+      method = methods[length];
+      if (!console[method]) {
+        console[method] = noop;
+      }
+    }
+    OJ.makeSubNameSpace("console");
+    OJ.console.register("assert", assert = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.assert(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("count", count = function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.count(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("error", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.error(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("group", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.group(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("groupCollapsed", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.groupCollapsed(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("groupEnd", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.groupEnd(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("info", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.info(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("log", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.log(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("profile", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.profile(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("profileEnd", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.profileEnd(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("table", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.table(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("time", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.time(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("timeEnd", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.timeEnd(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("trace", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.trace(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+    OJ.console.register("warn", function(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) {
+      'use strict';
+      console.warn(a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p);
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    True if the object is a true Object or Array
+    @param obj {Object}
+     */
+    var canEach, each;
+    canEach = function(obj) {
+      return (_.isPlainObject(obj)) || _.isArray(obj);
+    };
+
+    /*
+    Iterate an object with optional callBack and recursion
+    @param obj {Object} an Object to iterate
+    @param onEach {Function} [onEach=undefined] call back to exec
+    @param recursive {Boolean} if true, recurse the object
+     */
+    each = function(obj, onEach, recursive) {
+      if (canEach(obj)) {
+        _.forEach(obj, function(val, key) {
+          var quit;
+          if (onEach && (val || key)) {
+            quit = onEach(val, key);
+            if (false === quit) {
+              return false;
+            }
+          }
+          if (true === recursive) {
+            each(val, onEach, true);
+          }
+        });
+      }
+    };
+    OJ.register("each", each);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    OJ.enums.register('unknown', 'unknown');
+    OJ.enums.register('tryParse', function(OJEnum, enumMember, caseSensitive) {
+      'use strict';
+      var ret;
+      ret = OJ.enums.unknown;
+      if (OJ.contains(OJEnum, enumMember)) {
+        ret = OJEnum[enumMember];
+      } else if (false === caseSensitive) {
+        OJ.each(OJEnum, function(member) {
+          if (OJ.contains(OJEnum, member) && OJ.string(member).toLowerCase() === OJ.string(enumMember).toLowerCase()) {
+            ret = member;
+          }
+        });
+      }
+      return ret;
+    });
+    OJ.enums.register('inputTypes', {
+      button: {
+        id: 0,
+        name: 'button',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      checkbox: {
+        id: 1,
+        name: 'checkbox',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: true,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      color: {
+        id: 2,
+        name: 'color',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      date: {
+        id: 3,
+        name: 'date',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      datetime: {
+        id: 4,
+        name: 'datetime',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      'datetime-local': {
+        id: 5,
+        name: 'datetime-local',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      email: {
+        id: 6,
+        name: 'email',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      file: {
+        id: 7,
+        name: 'file',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: false
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      hidden: {
+        id: 8,
+        name: 'hidden',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      image: {
+        id: 9,
+        name: 'image',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      month: {
+        id: 10,
+        name: 'month',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      number: {
+        id: 11,
+        name: 'number',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      password: {
+        id: 12,
+        name: 'password',
+        placeholder: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      radio: {
+        id: 13,
+        name: 'radio',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: true,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      range: {
+        id: 14,
+        name: 'range',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      reset: {
+        id: 15,
+        name: 'reset',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      search: {
+        id: 16,
+        name: 'search',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      submit: {
+        id: 17,
+        name: 'submit',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      tel: {
+        id: 18,
+        name: 'button',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      },
+      text: {
+        id: 19,
+        name: 'text',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      time: {
+        id: 20,
+        name: 'time',
+        placeholder: false,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      url: {
+        id: 21,
+        name: 'url',
+        placeholder: true,
+        autocomplete: true,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '200px',
+        defaultsize: '25'
+      },
+      week: {
+        id: 22,
+        name: 'week',
+        placeholder: false,
+        autocomplete: false,
+        value: {
+          required: false,
+          allowed: true
+        },
+        defaultwidth: '',
+        defaultsize: '25'
+      }
+    });
+    OJ.enums.register('rateIntervalTypes', {
+      Hourly: 'Hourly',
+      WeeklyByDay: 'WeeklyByDay',
+      MonthlyByDate: 'MonthlyByDate',
+      MonthlyByWeekAndDay: 'MonthlyByWeekAndDay',
+      YearlyByDate: 'YearlyByDate'
+    });
+    OJ.enums.register('domElementEvent', {
+      click: 'click',
+      change: 'change',
+      vclick: 'vclick',
+      tap: 'tap'
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var onError, thisGlobal;
+    thisGlobal = (typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this));
+    onError = thisGlobal.onerror;
+
+    /*
+    Log errors to the console
+     */
+    thisGlobal.onerror = function(msg, url, lineNumber) {
+      console.warn("%s\r url: %s\r line: %d", msg, url, lineNumber);
+      if (onError) {
+        onError(arguments);
+      }
+      return false;
+    };
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var apply, curryLeft, filter, foldLeft, map, shiftRight;
+    OJ.makeSubNameSpace("fun");
+    OJ.fun.register("curryLeft", curryLeft = function(func) {
+      var args, slice;
+      slice = Array.prototype.slice;
+      args = slice.call(arguments_, 1);
+      return function() {
+        return func.apply(this, args.concat(slice.call(arguments_, 0)));
+      };
+    });
+    OJ.fun.register("foldLeft", foldLeft = function(func, newArray, oldArray) {
+      var accumulation;
+      accumulation = newArray;
+      OJ.each(oldArray, function(val) {
+        accumulation = func(accumulation, val);
+      });
+      return accumulation;
+    });
+    OJ.fun.register("map", map = function(func, array) {
+      var onIteration;
+      onIteration = function(accumulation, val) {
+        return accumulation.concat(func(val));
+      };
+      return OJ.fun.foldLeft(onIteration, [], array);
+    });
+    OJ.fun.register("filter", filter = function(func, array) {
+      var onIteration;
+      onIteration = function(accumulation, val) {
+        if (func(val)) {
+          return accumulation.concat(val);
+        } else {
+          return accumulation;
+        }
+      };
+      return OJ.fun.foldLeft(onIteration, [], array);
+    });
+    OJ.fun.register("shiftRight", shiftRight = function(shiftFunc, firstParam, originalArguments, context) {
+      var args;
+      context = context || this;
+      args = Array.prototype.slice.call(originalArguments, 0);
+      args.unshift(firstParam);
+      return shiftFunc.apply(context, args);
+    });
+    OJ.fun.register("apply", apply = function(applyFunc, originalArguments, context) {
+      var args;
+      context = context || this;
+      args = Array.prototype.slice.call(originalArguments, 0);
+      return applyFunc.apply(context, args);
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.is.register('bool', function(boolean) {
+      'use strict';
+      return _.isBoolean(boolean);
+    });
+    OJ.is.register('arrayNullOrEmpty', function(arr) {
+      'use strict';
+      return !Array.isArray(arr) || !arr || !arr.length || arr.length === 0 || !arr.push;
+    });
+    OJ.is.register('stringNullOrEmpty', function(str) {
+      'use strict';
+      return str && (!str.length || str.length === 0 || !str.trim || !str.trim());
+    });
+    OJ.is.register('numberNullOrEmpty', function(num) {
+      'use strict';
+      return !num || isNaN(num) || !num.toPrecision;
+    });
+    OJ.is.register('dateNullOrEmpty', function(dt) {
+      'use strict';
+      return !dt || !dt.getTime;
+    });
+    OJ.is.register('objectNullOrEmpty', function(obj) {
+      'use strict';
+      return _.isEmpty(obj || !Object.keys(obj) || Object.keys(obj).length === 0);
+    });
+    OJ.is.register('plainObject', function(obj) {
+      'use strict';
+      return _.isPlainObject(obj);
+    });
+    OJ.is.register('date', function(dt) {
+      return _.isDate(dt);
+    });
+
+    /*
+    Determines if a value is an instance of a Number and not NaN*
+     */
+    OJ.is.register('number', function(num) {
+      return typeof num === 'number' && false === (OJ.number.isNaN(num) || false === OJ.number.isFinite(num) || OJ.number.MAX_VALUE === num || OJ.number.MIN_VALUE === num);
+    });
+
+    /*
+    Determines if a value is convertable to a Number
+     */
+    OJ.is.register('numeric', function(num) {
+      var nuNum, ret;
+      ret = OJ.is.number(num);
+      if (!ret) {
+        nuNum = OJ.to.number(num);
+        ret = OJ.is.number(nuNum);
+      }
+      return ret;
+    });
+    OJ.is.register('vendorObject', function(obj) {
+      'use strict';
+      var ret;
+      ret = obj instanceof OJ['?'];
+      return ret;
+    });
+    OJ.is.register('elementInDom', function(elementId) {
+      return false === OJ.is.nullOrEmpty(document.getElementById(elementId));
+    });
+    OJ.is.register('generic', function(obj) {
+      'use strict';
+      var ret;
+      ret = false === OJ.is['function'](obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
+      return ret;
+    });
+    OJ.is.register('array', function(obj) {
+      return _.isArray(obj);
+    });
+    OJ.is.register('string', function(str) {
+      return _.isString(str);
+    });
+    OJ.is.register('true', function(obj) {
+      'use strict';
+      return obj === true || obj === 'true' || obj === 1 || obj === '1';
+    });
+    OJ.is.register('false', function(obj) {
+      'use strict';
+      return obj === false || obj === 'false' || obj === 0 || obj === '0';
+    });
+    OJ.is.register('trueOrFalse', function(obj) {
+      'use strict';
+      return OJ.is["true"](obj || OJ.is["false"](obj));
+    });
+    OJ.is.register('nullOrEmpty', function(obj, checkLength) {
+      'use strict';
+      return _.isEmpty(obj || _.isUndefined(obj || _.isNull(obj || _.isNaN(obj))));
+    });
+    OJ.is.register('instanceof', function(name, obj) {
+      'use strict';
+      return obj.type === name || obj instanceof name;
+    });
+    OJ.is.register('func', function(obj) {
+      'use strict';
+      return _.isFunction(obj);
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.to.register("bool", function(str) {
+      var retBool;
+      retBool = OJ.is["true"](str);
+      if (retBool === false || retBool !== true) {
+        retBool = false;
+      }
+      return retBool;
+    });
+    OJ.to.register("ES5_ToBool", function(val) {
+      return val !== false && val !== 0 && val !== "" && val !== null && val !== undefined && (typeof val !== "number" || !isNaN(val));
+    });
+    OJ.to.register("dateFromTicks", function(tickStr) {
+      var arr, localOffset, offset, ret, ticks, ticsDateTime;
+      ticsDateTime = OJ.string(tickStr);
+      ret = void 0;
+      ticks = void 0;
+      offset = void 0;
+      localOffset = void 0;
+      arr = void 0;
+      if (false === OJ.is.nullOrEmpty(ticsDateTime)) {
+        ticsDateTime = ticsDateTime.replace("/", "");
+        ticsDateTime = ticsDateTime.replace("Date", "");
+        ticsDateTime = ticsDateTime.replace("(", "");
+        ticsDateTime = ticsDateTime.replace(")", "");
+        arr = ticsDateTime.split("-");
+        if (arr.length > 1) {
+          ticks = OJ.number(arr[0]);
+          offset = OJ.number(arr[1]);
+          localOffset = new Date().getTimezoneOffset();
+          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
+        } else if (arr.length === 1) {
+          ticks = OJ.number(arr[0]);
+          ret = new Date(ticks);
+        }
+      }
+      return ret;
+    });
+    OJ.to.register("binary", function(obj) {
+      var ret;
+      ret = NaN;
+      if (obj === 0 || obj === "0" || obj === "" || obj === false || OJ.to.string(obj).toLowerCase().trim() === "false") {
+        ret = 0;
+      } else {
+        if (obj === 1 || obj === "1" || obj === true || OJ.to.string(obj).toLowerCase().trim() === "true") {
+          ret = 1;
+        }
+      }
+      return ret;
+    });
+
+    /*
+    Attempts to converts an arbitrary value to a Number.
+    Loose falsy values are converted to 0.
+    Loose truthy values are converted to 1.
+    All other values are parsed as Integers.
+    Failures return as NaN.
+     */
+    OJ.to.register("number", function(inputNum, defaultNum) {
+      var retVal, tryGetNumber;
+      tryGetNumber = function(val) {
+        var ret, tryGet;
+        ret = NaN;
+        if (OJ.is.number(val)) {
+          ret = val;
+        } else if (OJ.is.string(val) || OJ.is.bool(val)) {
+          tryGet = function(value) {
+            var num;
+            num = OJ.to.binary(value);
+            if (!OJ.is.number(num) && value) {
+              num = +value;
+            }
+            if (!OJ.is.number(num)) {
+              num = _.parseInt(value, 0);
+            }
+            return num;
+          };
+          ret = tryGet(val);
+        }
+        return ret;
+      };
+      retVal = tryGetNumber(inputNum);
+      if (!OJ.is.number(retVal)) {
+        retVal = tryGetNumber(defaultNum);
+        if (!OJ.is.number(retVal)) {
+          retVal = Number.NaN;
+        }
+      }
+      return retVal;
+    });
+    OJ.to.register("string", function(inputStr, defaultStr) {
+      var ret1, ret2, retVal, tryGetString;
+      tryGetString = function(str) {
+        var ret;
+        ret = void 0;
+        if (OJ.is.string(str)) {
+          ret = str;
+        } else {
+          ret = "";
+          if (OJ.is.bool(str) || OJ.is.number(str) || OJ.is.date(str)) {
+            ret = str.toString();
+          }
+        }
+        return ret;
+      };
+      ret1 = tryGetString(inputStr);
+      ret2 = tryGetString(defaultStr);
+      retVal = "";
+      if (ret1.length !== 0) {
+        retVal = ret1;
+      } else if (ret1 === ret2 || ret2.length === 0) {
+        retVal = ret1;
+      } else {
+        retVal = ret2;
+      }
+      return retVal;
+    });
+    OJ.to.register("vendorDomObject", function(id) {
+      var base, ret, _$el;
+      ret = null;
+      base = "#";
+      if (id === "body") {
+        base = "";
+      }
+      _$el = OJ["?"](base + id);
+      if (_$el) {
+        ret = _$el;
+      }
+      return ret;
+    });
+    OJ.to.register("vendorDomObjFromString", function(html) {
+      var ret, _$el;
+      ret = null;
+      _$el = OJ["?"](html);
+      if (_$el) {
+        ret = _$el;
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Generates a random string that complies to the RFC 4122 specification for GUID/UUID.
+    (e.g. 'B42A153F-1D9A-4F92-9903-92C11DD684D2')
+    While not a true UUID, for the purposes of this application, it should be sufficient.
+     */
+    var createFauxUUID;
+    createFauxUUID = function() {
+      var hexDigits, i, s, uuid;
+      s = [];
+      s.length = 36;
+      hexDigits = "0123456789abcdef";
+      i = 0;
+      while (i < 36) {
+        s[i] = hexDigits.substr(Math.floor(Math.random() * 0x10), 1);
+        i += 1;
+      }
+      s[14] = "4";
+      s[19] = hexDigits.substr((s[19] & 0x3) | 0x8, 1);
+      s[8] = s[13] = s[18] = s[23] = "-";
+      uuid = s.join("");
+      return uuid;
+    };
+    OJ.register("createUUID", createFauxUUID);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);

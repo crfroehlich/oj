@@ -7,7 +7,8 @@
     defaults = {}
     
     OJ.extend defaults, options
-    ret = OJ.component defaults, owner, nodeName
+    cmpnt = OJ.component defaults, owner, nodeName
+    ret = cmpnt.div()
     
     price = ret.div props: class: 'input-line'
     price.span  props: class: 'above-line'

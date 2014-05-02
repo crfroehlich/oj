@@ -6,25 +6,25 @@
     className = 'address';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var city, cityState, country, defaults, ret, root, state, street, zip, zipCountry;
+      var city, cityState, cmpnt, country, defaults, ret, state, street, zip, zipCountry;
       defaults = {
         props: {
           "class": 'fb-field-wrapper response-field-address'
         }
       };
       OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, nodeName);
-      root = ret.div({
+      cmpnt = OJ.component(defaults, owner, nodeName);
+      ret = cmpnt.div({
         props: {
           "class": 'subtemplate-wrapper'
         }
       });
-      root.div({
+      ret.div({
         props: {
           "class": 'cover'
         }
       });
-      street = root.div({
+      street = ret.div({
         props: {
           "class": 'input-line'
         }
@@ -39,7 +39,7 @@
         }
       });
       street.label().text('Address');
-      cityState = root.div({
+      cityState = ret.div({
         props: {
           "class": 'input-line'
         }
@@ -66,7 +66,7 @@
         }
       });
       state.label().text('State');
-      zipCountry = root.div({
+      zipCountry = ret.div({
         props: {
           "class": 'input-line'
         }

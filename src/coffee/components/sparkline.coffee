@@ -15,11 +15,11 @@
         class: 'sparkline'
     
     OJ.extend defaults, options
-    ret = OJ.component defaults, owner, nodeName 
+    cmpnt = OJ.component defaults, owner, nodeName 
     
-    sparkline = ret.div defaults
+    ret = cmpnt.div defaults
     
-    sparkline.$.sparkline defaults.data, defaults.config
+    ret.$.sparkline defaults.data, defaults.config
     
     ret
 

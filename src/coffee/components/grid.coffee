@@ -9,7 +9,8 @@
         class: 'grid'
     
     OJ.extend defaults, options
-    ret = OJ.component defaults, owner, nodeName 
+    cmpnt = OJ.component defaults, owner, nodeName 
+    ret = cmpnt.div()
 
     rows = []
     tiles = OJ.array2D()

@@ -7,15 +7,16 @@
      */
     var component;
     component = function(options, owner, tagName) {
-      var ret;
+      var widget;
       if (options == null) {
         options = OJ.object();
       }
       if (!tagName.startsWith('x-')) {
         tagName = 'x-' + tagName;
       }
-      ret = OJ.element(tagName, options.props, options.styles, options.events, options.text);
-      return OJ.nodes.factory(ret, owner);
+      widget = OJ.element(tagName, options.props, options.styles, options.events, options.text);
+      OJ.nodes.factory(widget, owner);
+      return widget.div();
     };
     OJ.register('component', component);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

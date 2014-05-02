@@ -6,7 +6,7 @@
     className = 'inputgroup';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var defaults, ret, root;
+      var cmpnt, defaults, ret;
       defaults = {
         props: {
           "class": 'form-group'
@@ -17,19 +17,19 @@
         placeholder: ''
       };
       OJ.extend(defaults, options);
-      ret = OJ.component(defaults, owner, nodeName);
-      root = ret.div({
+      cmpnt = OJ.component(defaults, owner, nodeName);
+      ret = cmpnt.div({
         props: {
           "class": 'form-group'
         }
       });
-      root.label({
+      ret.label({
         props: {
           "for": defaults["for"]
         },
         text: defaults.labelText
       });
-      root.input({
+      ret.input({
         props: {
           id: defaults["for"],
           type: OJ.enums.inputTypes[defaults.inputType].name,
