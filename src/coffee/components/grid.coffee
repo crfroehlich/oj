@@ -44,12 +44,13 @@
         i = 0
         while i <= colNo
           i += 1
-          tile = tiles.get rowNo, i
-          if i is colNo
-            tile = row.tile colNo, opts
-          else if not tile
-            row.tile i
-      
+          tryTile = tiles.get rowNo, i
+          if not tryTile
+            if i is colNo
+              tile = row.tile colNo, opts
+            else if not tile
+              row.tile i
+          
       fillMissing()
       tile      
             

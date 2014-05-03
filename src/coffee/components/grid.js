@@ -51,7 +51,7 @@
         return nuRow;
       });
       ret.add('tile', function(rowNo, colNo, opts) {
-        var i, row, tile;
+        var i, row, tile, tryTile;
         if (!rowNo || rowNo < 1) {
           rowNo = 1;
         }
@@ -64,11 +64,13 @@
           i = 0;
           while (i <= colNo) {
             i += 1;
-            tile = tiles.get(rowNo, i);
-            if (i === colNo) {
-              tile = row.tile(colNo, opts);
-            } else if (!tile) {
-              row.tile(i);
+            tryTile = tiles.get(rowNo, i);
+            if (!tryTile) {
+              if (i === colNo) {
+                tile = row.tile(colNo, opts);
+              } else if (!tile) {
+                row.tile(i);
+              }
             }
           }
         }
