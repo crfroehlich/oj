@@ -25,8 +25,8 @@
       if (defaults.largeSpan) {
         defaults.props["class"] += ' col-lg-' + defaults.largeSpan;
       }
-      cmpnt = OJ.component({}, owner, nodeName);
-      ret = cmpnt.div(defaults);
+      ret = OJ.component({}, owner, nodeName);
+      cmpnt = ret.div(defaults);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

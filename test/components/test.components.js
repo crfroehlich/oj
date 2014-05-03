@@ -11,7 +11,7 @@
       var address, dNode, nodeId;
       expect(4);
       address = OJ.body.address();
-      deepEqual(address.tagName === 'x-address', true, 'Component is an address');
+      deepEqual(address.componentName === 'x-address', true, 'Component is an address');
       nodeId = address.getId();
       dNode = document.getElementById(nodeId);
       ok(dNode, 'Node is in the DOM');
@@ -23,7 +23,7 @@
       var dNode, nodeId, price;
       expect(4);
       price = OJ.body.price();
-      deepEqual(price.tagName === 'x-price', true, 'Component is a price');
+      deepEqual(price.componentName === 'x-price', true, 'Component is a price');
       nodeId = price.getId();
       dNode = document.getElementById(nodeId);
       ok(dNode, 'Node is in the DOM');

@@ -22,10 +22,10 @@
         }
       };
       OJ.extend(defaults, options);
-      cmpnt = OJ.component(defaults, owner, nodeName);
+      ret = OJ.component(defaults, owner, nodeName);
       defaults.props['data-percent'] = defaults.config.percent;
-      ret = cmpnt.div(defaults);
-      ret.$.easyPieChart(defaults.config);
+      cmpnt = ret.div(defaults);
+      cmpnt.$.easyPieChart(defaults.config);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

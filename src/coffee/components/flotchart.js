@@ -15,9 +15,9 @@
         }
       };
       OJ.extend(defaults, options);
-      cmpnt = OJ.component(defaults, owner, nodeName);
-      ret = cmpnt.div(defaults);
-      ret.flot = $.plot(ret.$, defaults.data, defaults.config);
+      ret = OJ.component(defaults, owner, nodeName);
+      cmpnt = ret.div(defaults);
+      cmpnt.flot = $.plot(cmpnt.$, defaults.data, defaults.config);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

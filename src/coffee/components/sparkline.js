@@ -20,9 +20,9 @@
         }
       };
       OJ.extend(defaults, options);
-      cmpnt = OJ.component(defaults, owner, nodeName);
-      ret = cmpnt.div(defaults);
-      ret.$.sparkline(defaults.data, defaults.config);
+      ret = OJ.component(defaults, owner, nodeName);
+      cmpnt = ret.div(defaults);
+      cmpnt.$.sparkline(defaults.data, defaults.config);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

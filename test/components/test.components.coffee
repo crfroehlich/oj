@@ -9,8 +9,8 @@
     address = OJ.body.address()
     
     
-    # Test 1: tagName is div
-    deepEqual address.tagName is 'x-address', true, 'Component is an address'
+    # Test 1: componentName is address
+    deepEqual address.componentName is 'x-address', true, 'Component is an address'
     
     nodeId = address.getId() 
     dNode = document.getElementById nodeId
@@ -32,8 +32,8 @@
     price = OJ.body.price()
     
     
-    # Test 1: tagName is div
-    deepEqual price.tagName is 'x-price', true, 'Component is a price'
+    # Test 1: componentName is address
+    deepEqual price.componentName is 'x-price', true, 'Component is a price'
     
     nodeId = price.getId() 
     dNode = document.getElementById nodeId

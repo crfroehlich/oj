@@ -10,17 +10,17 @@
         class: 'fb-field-wrapper response-field-address'
     
     OJ.extend defaults, options
-    cmpnt = OJ.component defaults, owner, nodeName 
+    ret = OJ.component defaults, owner, nodeName 
     
-    ret = cmpnt.div props: class: 'subtemplate-wrapper'
-    ret.div props: class: 'cover'
+    wrapper = ret.div props: class: 'subtemplate-wrapper'
+    wrapper.div props: class: 'cover'
     
-    street = ret.div props: class: 'input-line'
+    street = wrapper.div props: class: 'input-line'
       .span  props: class: 'street'
     street.input props: type: 'text'
     street.label().text 'Address'
     
-    cityState = ret.div props: class: 'input-line'
+    cityState = wrapper.div props: class: 'input-line'
     city = cityState.span props: class: 'city'
     city.input props: type: 'text'
     city.label().text 'City'
@@ -29,7 +29,7 @@
     state.input props: type: 'text'
     state.label().text 'State'    
 
-    zipCountry = ret.div props: class: 'input-line'
+    zipCountry = wrapper.div props: class: 'input-line'
     zip = zipCountry.span props: class: 'zip'
     zip.input props: type: 'text'
     zip.label().text 'Zipcode'

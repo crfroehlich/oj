@@ -6,11 +6,10 @@
     className = 'price';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var cents, cmpnt, defaults, dollars, price, ret;
+      var cents, defaults, dollars, price, ret;
       defaults = {};
       OJ.extend(defaults, options);
-      cmpnt = OJ.component(defaults, owner, nodeName);
-      ret = cmpnt.div();
+      ret = OJ.component(defaults, owner, nodeName);
       price = ret.div({
         props: {
           "class": 'input-line'

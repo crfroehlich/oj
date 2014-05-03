@@ -7,7 +7,9 @@
     if not tagName.startsWith 'x-' then tagName = 'x-' + tagName
     widget = OJ.element tagName, options.props, options.styles, options.events, options.text
     OJ.nodes.factory widget, owner
-    widget.div()
+    ret = widget.div()
+    ret.add 'componentName', tagName
+    ret
     
   OJ.register 'component', component
 

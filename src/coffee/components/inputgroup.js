@@ -17,19 +17,19 @@
         placeholder: ''
       };
       OJ.extend(defaults, options);
-      cmpnt = OJ.component(defaults, owner, nodeName);
-      ret = cmpnt.div({
+      ret = OJ.component(defaults, owner, nodeName);
+      cmpnt = ret.div({
         props: {
           "class": 'form-group'
         }
       });
-      ret.label({
+      cmpnt.label({
         props: {
           "for": defaults["for"]
         },
         text: defaults.labelText
       });
-      ret.input({
+      cmpnt.input({
         props: {
           id: defaults["for"],
           type: OJ.enums.inputTypes[defaults.inputType].name,

@@ -12,11 +12,11 @@
         class: 'flotchart'
     
     OJ.extend defaults, options
-    cmpnt = OJ.component defaults, owner, nodeName 
+    ret = OJ.component defaults, owner, nodeName 
     
-    ret = cmpnt.div defaults
+    cmpnt = ret.div defaults
     
-    ret.flot = $.plot ret.$, defaults.data, defaults.config 
+    cmpnt.flot = $.plot cmpnt.$, defaults.data, defaults.config 
 
     ret
 

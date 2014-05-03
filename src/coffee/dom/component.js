@@ -7,7 +7,7 @@
      */
     var component;
     component = function(options, owner, tagName) {
-      var widget;
+      var ret, widget;
       if (options == null) {
         options = OJ.object();
       }
@@ -16,7 +16,9 @@
       }
       widget = OJ.element(tagName, options.props, options.styles, options.events, options.text);
       OJ.nodes.factory(widget, owner);
-      return widget.div();
+      ret = widget.div();
+      ret.add('componentName', tagName);
+      return ret;
     };
     OJ.register('component', component);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
