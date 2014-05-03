@@ -15,26 +15,35 @@
           case 'body':
             allowed = (tagName.startsWith('x-')) || _.contains(nestableNodeNames, tagName);
             break;
-          case 'legend':
-            allowed = false;
-            break;
           case 'fieldset':
             allowed = tagName === 'legend' || false === _.contains(nonNestableNodes, tagName);
+            break;
+          case 'legend':
+            allowed = false;
             break;
           case 'ol':
             allowed = tagName === 'li';
             break;
-          case 'ul':
-            allowed = tagName === 'li';
-            break;
-          case 'table':
-            allowed = tagName === 'td' || tagName === 'tr' || tagName === 'tbody' || tagName === 'thead';
+          case 'option':
+            allowed = false;
             break;
           case 'select':
             allowed = tagName === 'option';
             break;
-          case 'option':
-            allowed = false;
+          case 'table':
+            allowed = tagName === 'tr' || tagName === 'tbody' || tagName === 'thead';
+            break;
+          case 'thead':
+            allowed = tagName === 'tr';
+            break;
+          case 'tbody':
+            allowed = tagName === 'tr';
+            break;
+          case 'tr':
+            allowed = tagName === 'td' || tagName === 'th';
+            break;
+          case 'ul':
+            allowed = tagName === 'li';
             break;
           default:
             if (parent.tagName.startsWith('x-')) {
@@ -192,6 +201,7 @@
         extendChain('tbody', ret, count);
         extendChain('td', ret, count);
         extendChain('textarea', ret, count);
+        extendChain('th', ret, count);
         extendChain('thead', ret, count);
         extendChain('tr', ret, count);
         extendChain('ul', ret, count);

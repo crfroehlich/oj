@@ -5,7 +5,7 @@
     var nodeName;
     nodeName = 'table';
     OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var cells, defaults, init, ret, rows, tbody;
+      var cells, columnCount, defaults, fillMissing, ret, rows, tbody, thead;
       if (owner == null) {
         owner = OJ.body;
       }
@@ -36,55 +36,115 @@
         oddAlignRight: false
       };
       rows = [];
-      cells = {};
+      cells = OJ.array2D();
+      columnCount = 0;
       OJ.extend(defaults, options);
       ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
+      if (false === calledFromFactory) {
+        OJ.nodes.factory(ret, owner);
+      }
       tbody = null;
-      init = _.once(function() {
-        tbody = OJ.nodes.tbody({}, ret, false);
-        rows.push(OJ.nodes.tr({}, tbody, false));
+      thead = null;
+      ret.add('init', _.once(function() {
+        thead = ret.thead().tr();
+        tbody = ret.tbody();
+        rows.push(tbody.tr());
+        return ret;
+      }));
+      fillMissing = function() {
+        return cells.each(function(rowNo, colNo, val) {
+          var row;
+          if (!val) {
+            row = ret.row(rowNo);
+            return row.cell(colNo, {});
+          }
+        });
+      };
+
+      /*
+      Adds a column name to the table head
+       */
+      ret.add('column', function(colNo, colName) {
+        var i, nativeTh, th;
+        ret.init();
+        columnCount += 1;
+        th = null;
+        i = 0;
+        while (thead.rows[0].cells.length < colNo) {
+          nativeTh = thead[0].cells[0];
+          if (!nativeTh) {
+            th = thead.th({});
+          } else {
+            th = OJ.restoreElement('th', nativeTh);
+          }
+          i += 1;
+        }
+        th.text(colName);
+        return th;
       });
-      ret.add('cell', function(rowNo, colNo) {
-        var cell, idx, row, td;
-        init();
+
+      /*
+      Adds a new row (tr) to the table body
+       */
+      ret.add('row', function(rowNo, opts) {
+        var row;
+        ret.init();
+        row = rows[rowNo - 1];
+        if (!row) {
+          while (rows.length < rowNo) {
+            row = tbody.tr({});
+            rows.push(row);
+          }
+        }
+        if (!row.cell) {
+          row.add('cell', function(colNo, opts) {
+            var cell;
+            cell = OJ.nodes.td(opts, row);
+            cells.set(rowNo, colNo, cell);
+            return cell;
+          });
+        }
+        return row;
+      });
+
+      /*
+      Adds a cell (tr/td) to the table body
+       */
+      ret.add('cell', function(rowNo, colNo, opts) {
+        var cell, i, nuOpts, row, tryCell;
+        ret.init();
         if (rowNo < 1) {
           rowNo = 1;
         }
         if (colNo < 1) {
           colNo = 1;
         }
-        row = rows[rowNo - 1];
-        if (!row) {
-          while (rows.length < rowNo) {
-            row = OJ.nodes.tr({}, tbody, false);
-            rows.push(row);
-          }
+        if (columnCount > 0 && colNo - 1 > columnCount) {
+          throw new Error('A column name has not been defined for this position {' + rowNo + 'x' + colNo + '}.');
         }
-        td = row[0].cells[colNo];
-        if (td) {
-          cell = OJ.restoreElement('td', td);
-        }
-        if (!td) {
-          while (row[0].cells.length < colNo) {
-            idx = row[0].cells.length;
-            td = row[0].cells[idx - 1];
-            if (td && idx === colNo) {
-              cell = OJ.restoreElement('td', td);
-            } else {
-              cell = OJ.nodes.td({
-                props: defaults.cells
-              }, row, false);
+        row = ret.row(rowNo);
+        cell = cells.get(rowNo, colNo);
+        if (!cell) {
+          i = 0;
+          while (i <= colNo) {
+            i += 1;
+            tryCell = cells.get(rowNo, i);
+            if (!tryCell) {
+              if (i === colNo) {
+                nuOpts = OJ.extend({
+                  props: defaults.cells
+                }, opts);
+                cell = row.cell(colNo, nuOpts);
+              } else {
+                row.cell(i, {
+                  props: defaults.cells
+                });
+              }
             }
           }
         }
-        if (!cell.isValid) {
-          OJ.nodes.factory(cell, row, rowNo + colNo);
-        }
         return cell;
       });
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

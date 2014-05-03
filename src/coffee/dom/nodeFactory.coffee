@@ -44,20 +44,26 @@
       switch parent.tagName
         when 'body'
           allowed = (tagName.startsWith 'x-') or _.contains nestableNodeNames, tagName
-        when 'legend'
-          allowed = false
         when 'fieldset'
           allowed = tagName is 'legend' or false is _.contains nonNestableNodes, tagName
+        when 'legend'
+          allowed = false
         when 'ol'
           allowed = tagName is 'li'
-        when 'ul'
-          allowed = tagName is 'li'
-        when 'table'
-          allowed = tagName is 'td' or tagName is 'tr' or tagName is 'tbody' or tagName is 'thead'
-        when 'select'
-          allowed = tagName is 'option'
         when 'option'
           allowed = false
+        when 'select'
+          allowed = tagName is 'option'
+        when 'table'
+          allowed = tagName is 'tr' or tagName is 'tbody' or tagName is 'thead'
+        when 'thead'
+          allowed = tagName is 'tr'
+        when 'tbody'
+          allowed = tagName is 'tr'  
+        when 'tr'
+          allowed = tagName is 'td' or tagName is 'th'
+        when 'ul'
+          allowed = tagName is 'li'
         else
           if parent.tagName.startsWith 'x-'
             allowed = false is _.contains nonNestableNodes, tagName
@@ -186,6 +192,7 @@
       extendChain 'tbody', ret, count
       extendChain 'td', ret, count
       extendChain 'textarea', ret, count
+      extendChain 'th', ret, count
       extendChain 'thead', ret, count
       extendChain 'tr', ret, count
       extendChain 'ul', ret, count

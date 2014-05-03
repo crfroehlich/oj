@@ -27,51 +27,90 @@
       oddAlignRight: false
     
     rows = []
-    cells = {}
+    cells = OJ.array2D()
+    columnCount = 0
     
     OJ.extend defaults, options
     ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+    if false is calledFromFactory then OJ.nodes.factory ret, owner
     
     tbody = null
+    thead = null
+    ret.add 'init', _.once ->  
+      thead = ret.thead().tr()
+      tbody = ret.tbody()
+      rows.push tbody.tr()
+      ret
     
-    init = _.once ->
-      tbody = OJ.nodes.tbody {}, ret, false 
-      rows.push OJ.nodes.tr {}, tbody, false
-      return
-      
-    ret.add 'cell', (rowNo, colNo) ->
-      init()
-      
-      if rowNo < 1 then rowNo = 1
-      if colNo < 1 then colNo = 1
-          
+    fillMissing = () ->
+      cells.each (rowNo, colNo, val) ->
+        if not val
+          row = ret.row rowNo
+          row.cell colNo, {} 
+    
+    ###
+    Adds a column name to the table head
+    ###
+    ret.add 'column', (colNo, colName) ->
+      ret.init()
+      columnCount += 1
+      th = null
+      i = 0
+      while thead.rows[0].cells.length < colNo
+        nativeTh = thead[0].cells[0]
+        if not nativeTh
+          th = thead.th {}  
+        else 
+          th = OJ.restoreElement 'th', nativeTh  
+        i += 1
+      th.text colName
+      th
+    
+    ###
+    Adds a new row (tr) to the table body
+    ###
+    ret.add 'row', (rowNo, opts) ->              
+      ret.init()
       row = rows[rowNo-1]
       
       if not row
         while rows.length < rowNo
-          row = OJ.nodes.tr {}, tbody, false
-          rows.push row
+          row = tbody.tr {}
+          rows.push row  
       
-      td = row[0].cells[colNo]
+      if not row.cell
+        row.add 'cell', (colNo, opts) ->
+          cell = OJ.nodes.td opts, row
+          cells.set rowNo, colNo, cell
+          cell
       
-      if td then cell = OJ.restoreElement 'td', td
-      if not td
-        while row[0].cells.length < colNo
-          idx = row[0].cells.length
-          td = row[0].cells[idx-1]
-          if td and idx is colNo 
-            cell = OJ.restoreElement 'td', td
-          else  
-            cell = OJ.nodes.td props: defaults.cells, row, false
+      row
+                                                                                                                                              
+    ###
+    Adds a cell (tr/td) to the table body
+    ###              
+    ret.add 'cell', (rowNo, colNo, opts) ->
+      ret.init()
+      if rowNo < 1 then rowNo = 1
+      if colNo < 1 then colNo = 1
+      if columnCount > 0 and colNo-1 > columnCount then throw new Error 'A column name has not been defined for this position {' + rowNo + 'x' + colNo + '}.'    
+          
+      row = ret.row rowNo
       
-      if not cell.isValid
-        OJ.nodes.factory cell, row, rowNo + colNo
-            
+      cell = cells.get rowNo, colNo
+      
+      if not cell
+        i = 0
+        while i <= colNo
+          i += 1
+          tryCell = cells.get rowNo, i
+          if not tryCell
+            if i is colNo
+              nuOpts = OJ.extend {props: defaults.cells}, opts
+              cell = row.cell colNo, nuOpts
+            else  
+              row.cell i, props: defaults.cells
       cell  
-    
-    
-    
-    if false is calledFromFactory then OJ.nodes.factory ret, owner
 
     ret
 

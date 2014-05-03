@@ -170,6 +170,9 @@
     <Content Include="src\coffee\dom\nodes\td.js">
       <DependentUpon>td.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\dom\nodes\th.js">
+      <DependentUpon>th.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\dom\nodes\thead.js">
       <DependentUpon>thead.coffee</DependentUpon>
     </Content>
@@ -500,6 +503,10 @@
     <Content Include="src\coffee\dom\nodes\b.coffee" />
     <Content Include="src\coffee\dom\nodes\b.map">
       <DependentUpon>b.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\dom\nodes\th.coffee" />
+    <Content Include="src\coffee\dom\nodes\th.map">
+      <DependentUpon>th.coffee</DependentUpon>
     </Content>
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
