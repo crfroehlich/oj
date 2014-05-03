@@ -1,6 +1,6 @@
 {
   "name": "OJ",
-  "version": "0.2.36",
+  "version": "0.2.37",
   "main": [
     "dist/complete.min.js",
     "dist/release.html"
@@ -35,10 +35,14 @@
   },
   "overrides": {
     "modernizr": {
-      "main": ["modernizr.js"]
+      "main": [
+        "modernizr.js"
+      ]
     },
     "q": {
-      "main": ["q.js"]
+      "main": [
+        "q.js"
+      ]
     },
     "flot": {
       "main": [
