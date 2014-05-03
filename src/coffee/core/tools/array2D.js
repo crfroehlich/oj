@@ -27,6 +27,12 @@
               return callBack(rowIdx, colIdx, val);
             });
           });
+        },
+        width: function() {
+          return maxWidth;
+        },
+        length: function() {
+          return maxLength;
         }
       };
 

@@ -19,6 +19,10 @@
             rowIdx = row+1
             colIdx = col+1
             callBack rowIdx, colIdx, val
+      width: () ->
+        maxWidth
+      length: () ->
+        maxLength
          
     ###
     Guarantee that the dimensions of the array are always backed by values at every position
