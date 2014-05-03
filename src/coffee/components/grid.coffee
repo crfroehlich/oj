@@ -9,8 +9,8 @@
         class: 'grid'
     
     OJ.extend defaults, options
-    cmpnt = OJ.component defaults, owner, nodeName 
-    ret = cmpnt.div()
+    ret = OJ.component defaults, owner, nodeName 
+    cmpnt = ret.div()
 
     rows = []
     tiles = OJ.array2D()
@@ -25,7 +25,7 @@
       nuRow = rows[rowNo-1]
       if not nuRow
         while rows.length < rowNo
-          nuRow = ret.div props: class: 'row'
+          nuRow = cmpnt.div props: class: 'row'
           rows.push nuRow
         nuRow.add 'tile', (colNo, opts) ->
           nuTile = OJ.components.tile opts, nuRow
@@ -41,7 +41,14 @@
       tile = tiles.get rowNo, colNo
       
       if not tile
-        tile = row.tile colNo, opts
+        i = 0
+        while i <= colNo
+          i += 1
+          tile = tiles.get rowNo, i
+          if i is colNo
+            tile = row.tile colNo, opts
+          else if not tile
+            row.tile i
       
       fillMissing()
       tile      

@@ -13,8 +13,8 @@
         }
       };
       OJ.extend(defaults, options);
-      cmpnt = OJ.component(defaults, owner, nodeName);
-      ret = cmpnt.div();
+      ret = OJ.component(defaults, owner, nodeName);
+      cmpnt = ret.div();
       rows = [];
       tiles = OJ.array2D();
       fillMissing = function() {
@@ -34,7 +34,7 @@
         nuRow = rows[rowNo - 1];
         if (!nuRow) {
           while (rows.length < rowNo) {
-            nuRow = ret.div({
+            nuRow = cmpnt.div({
               props: {
                 "class": 'row'
               }
@@ -51,7 +51,7 @@
         return nuRow;
       });
       ret.add('tile', function(rowNo, colNo, opts) {
-        var row, tile;
+        var i, row, tile;
         if (!rowNo || rowNo < 1) {
           rowNo = 1;
         }
@@ -61,7 +61,16 @@
         row = ret.row(rowNo);
         tile = tiles.get(rowNo, colNo);
         if (!tile) {
-          tile = row.tile(colNo, opts);
+          i = 0;
+          while (i <= colNo) {
+            i += 1;
+            tile = tiles.get(rowNo, i);
+            if (i === colNo) {
+              tile = row.tile(colNo, opts);
+            } else if (!tile) {
+              row.tile(i);
+            }
+          }
         }
         fillMissing();
         return tile;
