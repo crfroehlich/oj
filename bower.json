@@ -34,28 +34,17 @@
     "fontawesome": "~4.0.3"
   },
   "overrides": {
-    "jquery": {
-      "main": "dist/jquery.js"
-    },
     "modernizr": {
-      "main": "modernizr.js"
+      "main": ["modernizr.js"]
     },
     "q": {
-      "main": "q.js"
-    },
-    "jquery.validation": {
-      "main": "jquery.validate.js"
+      "main": ["q.js"]
     },
     "flot": {
       "main": [
         "jquery.flot.js",
         "excanvas.min.js",
         "jquery.flot.resize.js"
-      ]
-    },
-    "formbuilder": {
-      "main": [
-        "dist/formbuilder-min.css"
       ]
     },
     "fontawesome": {
