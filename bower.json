@@ -1,6 +1,6 @@
 {
   "name": "OJ",
-  "version": "0.2.38",
+  "version": "0.2.39",
   "main": [
     "dist/complete.min.js",
     "dist/release.html"
@@ -61,5 +61,10 @@
     "qunit": ">= 1.14.0",
     "coffee-script": ">= 1.7.1",
     "Faker": ">= 0.7.0"
+  },
+  "resolutions": {
+    "bootstrap": ">= 3.1.1",
+    "jquery": ">= 2.1.0",
+    "jquery.easy-pie-chart": "~2.1.4"
   }
 }

@@ -5,9 +5,9 @@
   ###
   component = (options = OJ.object(), owner, tagName) ->
     if not tagName.startsWith 'x-' then tagName = 'x-' + tagName
-    widget = OJ.element tagName, options.props, options.styles, options.events, options.text
+    widget = OJ.element tagName #, options.props, options.styles, options.events, options.text
     OJ.nodes.factory widget, owner
-    ret = widget.div()
+    ret = widget.div options
     ret.add 'componentName', tagName
     ret
     

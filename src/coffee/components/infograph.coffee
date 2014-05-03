@@ -19,7 +19,6 @@
     
     OJ.extend defaults, options
     ret = OJ.component defaults, owner, nodeName 
-    cmpnt = ret.div()
     
     #table = cmpnt.table defaults
     

@@ -16,10 +16,7 @@
     
     OJ.extend defaults, options
     ret = OJ.component defaults, owner, nodeName 
-    
-    cmpnt = ret.div defaults
-    
-    cmpnt.$.sparkline defaults.data, defaults.config
+    ret.$.sparkline defaults.data, defaults.config
     
     ret
 

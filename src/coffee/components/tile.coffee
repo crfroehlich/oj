@@ -16,8 +16,7 @@
     if defaults.mediumSpan then defaults.props.class += ' col-md-' + defaults.mediumSpan
     if defaults.largeSpan then defaults.props.class += ' col-lg-' + defaults.largeSpan
     
-    ret = OJ.component {}, owner, nodeName 
-    cmpnt = ret.div defaults
+    ret = OJ.component defaults, owner, nodeName 
     ret
 
   return

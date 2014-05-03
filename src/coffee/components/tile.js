@@ -6,7 +6,7 @@
     className = 'tile';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var cmpnt, defaults, ret;
+      var defaults, ret;
       defaults = {
         smallSpan: '',
         mediumSpan: '4',
@@ -25,8 +25,7 @@
       if (defaults.largeSpan) {
         defaults.props["class"] += ' col-lg-' + defaults.largeSpan;
       }
-      ret = OJ.component({}, owner, nodeName);
-      cmpnt = ret.div(defaults);
+      ret = OJ.component(defaults, owner, nodeName);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

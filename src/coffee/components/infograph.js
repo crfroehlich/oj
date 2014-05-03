@@ -6,7 +6,7 @@
     className = 'infograph';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var active, cmpnt, colNum, count, defaults, disabled, icon, inactive, ret, rowNum, total, unknown, _i, _j, _ref, _ref1;
+      var active, colNum, count, defaults, disabled, icon, inactive, ret, rowNum, total, unknown, _i, _j, _ref, _ref1;
       defaults = {
         icon: 'male',
         height: 10,
@@ -24,7 +24,6 @@
       };
       OJ.extend(defaults, options);
       ret = OJ.component(defaults, owner, nodeName);
-      cmpnt = ret.div();
       count = defaults.width * defaults.height;
       total = defaults.active + defaults.inactive + defaults.disabled + defaults.unknown;
       if (total > count) {

@@ -6,7 +6,7 @@
     className = 'sparkline';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var cmpnt, defaults, ret;
+      var defaults, ret;
       defaults = {
         config: {
           type: 'line',
@@ -21,8 +21,7 @@
       };
       OJ.extend(defaults, options);
       ret = OJ.component(defaults, owner, nodeName);
-      cmpnt = ret.div(defaults);
-      cmpnt.$.sparkline(defaults.data, defaults.config);
+      ret.$.sparkline(defaults.data, defaults.config);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

@@ -10,8 +10,7 @@
     
     OJ.extend defaults, options
     ret = OJ.component defaults, owner, nodeName 
-    cmpnt = ret.div()
-
+    
     rows = []
     tiles = OJ.array2D()
     
@@ -25,7 +24,7 @@
       nuRow = rows[rowNo-1]
       if not nuRow
         while rows.length < rowNo
-          nuRow = cmpnt.div props: class: 'row'
+          nuRow = ret.div props: class: 'row'
           rows.push nuRow
         nuRow.add 'tile', (colNo, opts) ->
           nuTile = OJ.components.tile opts, nuRow

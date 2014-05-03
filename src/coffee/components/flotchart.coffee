@@ -13,10 +13,7 @@
     
     OJ.extend defaults, options
     ret = OJ.component defaults, owner, nodeName 
-    
-    cmpnt = ret.div defaults
-    
-    cmpnt.flot = $.plot cmpnt.$, defaults.data, defaults.config 
+    ret.flot = $.plot ret.$, defaults.data, defaults.config 
 
     ret
 

@@ -14,9 +14,9 @@
       if (!tagName.startsWith('x-')) {
         tagName = 'x-' + tagName;
       }
-      widget = OJ.element(tagName, options.props, options.styles, options.events, options.text);
+      widget = OJ.element(tagName);
       OJ.nodes.factory(widget, owner);
-      ret = widget.div();
+      ret = widget.div(options);
       ret.add('componentName', tagName);
       return ret;
     };

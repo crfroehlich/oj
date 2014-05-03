@@ -6,7 +6,7 @@
     className = 'flotchart';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var cmpnt, defaults, ret;
+      var defaults, ret;
       defaults = {
         config: {},
         data: [],
@@ -16,8 +16,7 @@
       };
       OJ.extend(defaults, options);
       ret = OJ.component(defaults, owner, nodeName);
-      cmpnt = ret.div(defaults);
-      cmpnt.flot = $.plot(cmpnt.$, defaults.data, defaults.config);
+      ret.flot = $.plot(ret.$, defaults.data, defaults.config);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
