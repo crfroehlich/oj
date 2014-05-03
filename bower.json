@@ -1,6 +1,6 @@
 {
   "name": "OJ",
-  "version": "0.2.40",
+  "version": "0.2.41",
   "main": [
     "dist/complete.min.js",
     "dist/release.html"
@@ -65,6 +65,6 @@
   "resolutions": {
     "bootstrap": ">= 3.1.1",
     "jquery": ">= 2.1.0",
-    "jquery.easy-pie-chart": "~2.1.4"
+    "jquery.easy-pie-chart": ">= 2.1.4"
   }
 }
