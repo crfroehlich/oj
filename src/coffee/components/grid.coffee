@@ -41,7 +41,7 @@
       
       if not tile
         i = 0
-        while i <= colNo
+        while i < colNo
           i += 1
           tryTile = tiles.get rowNo, i
           if not tryTile

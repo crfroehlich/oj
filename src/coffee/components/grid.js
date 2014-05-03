@@ -61,7 +61,7 @@
         tile = tiles.get(rowNo, colNo);
         if (!tile) {
           i = 0;
-          while (i <= colNo) {
+          while (i < colNo) {
             i += 1;
             tryTile = tiles.get(rowNo, i);
             if (!tryTile) {

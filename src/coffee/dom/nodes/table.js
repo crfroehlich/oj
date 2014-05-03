@@ -126,7 +126,7 @@
         cell = cells.get(rowNo, colNo);
         if (!cell) {
           i = 0;
-          while (i <= colNo) {
+          while (i < colNo) {
             i += 1;
             tryCell = cells.get(rowNo, i);
             if (!tryCell) {

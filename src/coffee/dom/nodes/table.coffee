@@ -101,7 +101,7 @@
       
       if not cell
         i = 0
-        while i <= colNo
+        while i < colNo
           i += 1
           tryCell = cells.get rowNo, i
           if not tryCell
