@@ -18,10 +18,10 @@
         color: '#4193d0'
     
     OJ.extend defaults, options
-    cmpnt = OJ.component defaults, owner, nodeName 
-    ret = cmpnt.div()
+    ret = OJ.component defaults, owner, nodeName 
+    cmpnt = ret.div()
     
-    table = ret.table defaults
+    #table = cmpnt.table defaults
     
     count = defaults.width * defaults.height
     total = defaults.active + defaults.inactive + defaults.disabled + defaults.unknown          
@@ -47,8 +47,8 @@
           icon += ' text-warning'  
         else if active > 0
           active -= 1
-        table.cell rowNum, colNum  
-          .i props: class: icon              
+        #table.cell rowNum, colNum  
+        cmpnt.i props: class: icon              
                
                          
     ret
