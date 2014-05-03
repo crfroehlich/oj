@@ -47,7 +47,7 @@
         else if active > 0
           active -= 1
         #table.cell rowNum, colNum  
-        cmpnt.i props: class: icon              
+        ret.i props: class: icon              
                
                          
     ret

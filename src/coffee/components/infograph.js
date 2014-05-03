@@ -48,7 +48,7 @@
           } else if (active > 0) {
             active -= 1;
           }
-          cmpnt.i({
+          ret.i({
             props: {
               "class": icon
             }
