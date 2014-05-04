@@ -36,8 +36,10 @@
     
     tbody = null
     thead = null
+    theadRow = null
     ret.add 'init', _.once ->  
-      thead = ret.thead().tr()
+      thead = ret.thead()
+      theadRow = thead.tr()
       tbody = ret.tbody()
       rows.push tbody.tr()
       ret
@@ -56,13 +58,16 @@
       columnCount += 1
       th = null
       i = 0
-      while thead.rows[0].cells.length < colNo
-        nativeTh = thead[0].cells[0]
+      while thead[0].rows[0].cells.length < colNo
+        nativeTh = thead[0].rows[0].cells[i]
         if not nativeTh
-          th = thead.th {}  
+          th = theadRow.th {}  
         else 
           th = OJ.restoreElement 'th', nativeTh  
         i += 1
+      if not th
+        nativeTh = thead[0].rows[0].cells[colNo-1]
+        th = OJ.restoreElement 'th', nativeTh
       th.text colName
       th
     

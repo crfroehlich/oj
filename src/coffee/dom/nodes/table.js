@@ -5,7 +5,7 @@
     var nodeName;
     nodeName = 'table';
     OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var cells, columnCount, defaults, fillMissing, ret, rows, tbody, thead;
+      var cells, columnCount, defaults, fillMissing, ret, rows, tbody, thead, theadRow;
       if (owner == null) {
         owner = OJ.body;
       }
@@ -45,8 +45,10 @@
       }
       tbody = null;
       thead = null;
+      theadRow = null;
       ret.add('init', _.once(function() {
-        thead = ret.thead().tr();
+        thead = ret.thead();
+        theadRow = thead.tr();
         tbody = ret.tbody();
         rows.push(tbody.tr());
         return ret;
@@ -70,14 +72,18 @@
         columnCount += 1;
         th = null;
         i = 0;
-        while (thead.rows[0].cells.length < colNo) {
-          nativeTh = thead[0].cells[0];
+        while (thead[0].rows[0].cells.length < colNo) {
+          nativeTh = thead[0].rows[0].cells[i];
           if (!nativeTh) {
-            th = thead.th({});
+            th = theadRow.th({});
           } else {
             th = OJ.restoreElement('th', nativeTh);
           }
           i += 1;
+        }
+        if (!th) {
+          nativeTh = thead[0].rows[0].cells[colNo - 1];
+          th = OJ.restoreElement('th', nativeTh);
         }
         th.text(colName);
         return th;
