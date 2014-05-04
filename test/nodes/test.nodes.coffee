@@ -30,10 +30,10 @@
     
     node.remove()
     # Test 6: node is removed
-    equal `undefined`, document.getElementById nodeId, 'Node has been removed'
+    equal `undefined`, document.getElementById(nodeId), 'Node has been removed'
     
     # Test 7: child is removed
-    equal `undefined`, document.getElementById childId, 'Child has been removed'
+    equal `undefined`, document.getElementById(childId), 'Child has been removed'
     
     return
 
@@ -63,8 +63,8 @@
     deepEqual cNode.id, childId, 'Element IDs are equal'
     
     node.remove()
-    equal `undefined`, document.getElementById nodeId, 'Node has been removed'
-    equal `undefined`, document.getElementById childId, 'Child has been removed'
+    equal `undefined`, document.getElementById(nodeId), 'Node has been removed'
+    equal `undefined`, document.getElementById(childId), 'Child has been removed'
     return
 
   test 'Test the Table node', ->
@@ -94,8 +94,8 @@
       i += 1
     
     node.remove()
-    equal `undefined`, document.getElementById nodeId, 'Node has been removed'
-    equal `undefined`, document.getElementById childId, 'Child has been removed'
+    equal `undefined`, document.getElementById(nodeId), 'Node has been removed'
+    equal `undefined`, document.getElementById(childId), 'Child has been removed'
     return
 
   return

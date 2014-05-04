@@ -23,8 +23,8 @@
       cNode = document.getElementById(childId);
       deepEqual(cNode.id, childId, 'Element IDs are equal');
       node.remove();
-      equal(undefined, document.getElementById(nodeId, 'Node has been removed'));
-      equal(undefined, document.getElementById(childId, 'Child has been removed'));
+      equal(undefined, document.getElementById(nodeId), 'Node has been removed');
+      equal(undefined, document.getElementById(childId), 'Child has been removed');
     });
     test('Test the Span node', function() {
       var cNode, child, childId, dNode, node, nodeId;
@@ -42,8 +42,8 @@
       cNode = document.getElementById(childId);
       deepEqual(cNode.id, childId, 'Element IDs are equal');
       node.remove();
-      equal(undefined, document.getElementById(nodeId, 'Node has been removed'));
-      equal(undefined, document.getElementById(childId, 'Child has been removed'));
+      equal(undefined, document.getElementById(nodeId), 'Node has been removed');
+      equal(undefined, document.getElementById(childId), 'Child has been removed');
     });
     test('Test the Table node', function() {
       var cNode, child, childId, dNode, i, node, nodeId;
@@ -64,8 +64,8 @@
         i += 1;
       }
       node.remove();
-      equal(undefined, document.getElementById(nodeId, 'Node has been removed'));
-      equal(undefined, document.getElementById(childId, 'Child has been removed'));
+      equal(undefined, document.getElementById(nodeId), 'Node has been removed');
+      equal(undefined, document.getElementById(childId), 'Child has been removed');
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
