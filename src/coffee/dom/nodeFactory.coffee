@@ -36,39 +36,48 @@
     'link'
     'script'
   ]
-    
+  
+  isChildNodeTypeAllowedHashtable = {}
+      
   isChildNodeTypeAllowed = (parent, tagName) ->
-    if -1 isnt ['a','div','form','label', 'li', 'td', 'span', 'p', 'nav', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf parent.tagName
-      allowed = false is _.contains nonNestableNodes, tagName
-    else   
-      switch parent.tagName
-        when 'body'
-          allowed = (tagName.startsWith 'x-') or _.contains nestableNodeNames, tagName
-        when 'fieldset'
-          allowed = tagName is 'legend' or false is _.contains nonNestableNodes, tagName
-        when 'legend'
-          allowed = false
-        when 'ol'
-          allowed = tagName is 'li'
-        when 'option'
-          allowed = false
-        when 'select'
-          allowed = tagName is 'option'
-        when 'table'
-          allowed = tagName is 'tr' or tagName is 'tbody' or tagName is 'thead'
-        when 'thead'
-          allowed = tagName is 'tr'
-        when 'tbody'
-          allowed = tagName is 'tr'  
-        when 'tr'
-          allowed = tagName is 'td' or tagName is 'th'
-        when 'ul'
-          allowed = tagName is 'li'
-        else
-          if parent.tagName.startsWith 'x-'
-            allowed = false is _.contains nonNestableNodes, tagName
+    if not isChildNodeTypeAllowedHashtable[parent.tagName]
+      isChildNodeTypeAllowedHashtable[parent.tagName] = {}
+    
+    if true is isChildNodeTypeAllowedHashtable[parent.tagName][tagName] or false is isChildNodeTypeAllowedHashtable[parent.tagName][tagName]
+      allowed = isChildNodeTypeAllowedHashtable[parent.tagName][tagName]
+    else
+      if -1 isnt ['a','div','form','label', 'li', 'td', 'span', 'p', 'nav', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf parent.tagName
+        isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false is _.contains nonNestableNodes, tagName
+      else   
+        switch parent.tagName
+          when 'body'
+            isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = (tagName.startsWith 'x-') or _.contains nestableNodeNames, tagName
+          when 'fieldset'
+            isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'legend' or false is _.contains nonNestableNodes, tagName
+          when 'legend'
+            isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false
+          when 'ol'
+            isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'li'
+          when 'option'
+            isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false
+          when 'select'
+            isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'option'
+          when 'table'
+            isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'tr' or tagName is 'tbody' or tagName is 'thead'
+          when 'thead'
+            isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'tr'
+          when 'tbody'
+            isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'tr'  
+          when 'tr'
+            isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'td' or tagName is 'th'
+          when 'ul'
+            isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'li'
           else
-            allowed = false 
+            if parent.tagName.startsWith 'x-'
+              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false is _.contains nonNestableNodes, tagName
+            else
+              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false 
+      allowed = isChildNodeTypeAllowedHashtable[parent.tagName][tagName]
     allowed
   
   ###
@@ -159,6 +168,47 @@
       
       ret.isFullyInit = true      
     
+#      ext = _.partialRight extendChain, ret, count
+#      
+#      ext 'a'
+#      ext 'b'
+#      ext 'br'
+#      ext 'button'
+#      ext 'div'
+#      ext 'em'
+#      ext 'fieldset'
+#      ext 'form'
+#      ext 'h1'
+#      ext 'h2'
+#      ext 'h3'
+#      ext 'h4'
+#      ext 'h5'
+#      ext 'h6'
+#      ext 'i'
+#      ext 'img'
+#      ext 'input'
+#      ext 'label'
+#      ext 'legend'
+#      ext 'li'
+#      ext 'nav'
+#      ext 'ol'
+#      ext 'option'
+#      ext 'p'
+#      ext 'select'
+#      ext 'span'
+#      ext 'strong'
+#      ext 'sup'
+#      ext 'svg'
+#      ext 'table'
+#      ext 'tbody'
+#      ext 'td'
+#      ext 'textarea'
+#      ext 'th'
+#      ext 'thead'
+#      ext 'tr'
+#      ext 'ul'
+
+      
       extendChain 'a', ret, count
       extendChain 'b', ret, count
       extendChain 'br', ret, count
