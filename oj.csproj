@@ -873,18 +873,32 @@
     <Content Include="test\core\test.to.map">
       <DependentUpon>test.to.coffee</DependentUpon>
     </Content>
-    <None Include="test\nodes\test.nodes.coffee" />
+    <Content Include="test\nodes\test.div.coffee" />
+    <Content Include="test\nodes\test.div.js">
+      <DependentUpon>test.div.coffee</DependentUpon>
+    </Content>
+    <Content Include="test\nodes\test.span.coffee" />
+    <Content Include="test\nodes\test.div.map">
+      <DependentUpon>test.div.coffee</DependentUpon>
+    </Content>
+    <Content Include="test\nodes\test.span.map">
+      <DependentUpon>test.span.coffee</DependentUpon>
+    </Content>
+    <None Include="test\nodes\test.table.coffee" />
     <Content Include="test\core\test.to.js">
       <DependentUpon>test.to.coffee</DependentUpon>
     </Content>
-    <Content Include="test\nodes\test.nodes.js">
-      <DependentUpon>test.nodes.coffee</DependentUpon>
+    <Content Include="test\nodes\test.span.js">
+      <DependentUpon>test.span.coffee</DependentUpon>
+    </Content>
+    <Content Include="test\nodes\test.table.js">
+      <DependentUpon>test.table.coffee</DependentUpon>
     </Content>
     <Content Include="test\test.coffee.html" />
     <Content Include="test\test.html" />
     <Content Include="web.config" />
-    <Content Include="test\nodes\test.nodes.map">
-      <DependentUpon>test.nodes.coffee</DependentUpon>
+    <Content Include="test\nodes\test.table.map">
+      <DependentUpon>test.table.coffee</DependentUpon>
     </Content>
     <None Include="web.Debug.config">
       <DependentUpon>web.config</DependentUpon>
