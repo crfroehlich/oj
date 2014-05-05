@@ -21,6 +21,7 @@
     <link rel="stylesheet" href="../bower_components/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="../bower_components/qunit/qunit/qunit.css" />
     <link rel="stylesheet" href="../bower_components/fontawesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="../bower_components/datatables/media/css/jquery.dataTables.css" />
     <!-- endbower -->
 </head>
 <body class="scripts-async">
@@ -50,17 +51,14 @@
     <script src="../bower_components/flot/jquery.flot.js"></script>
     <script src="../bower_components/flot/excanvas.min.js"></script>
     <script src="../bower_components/flot/jquery.flot.resize.js"></script>
+    <script src="../bower_components/datatables/media/js/jquery.dataTables.js"></script>
     <!-- endbower -->
     
     <!-- inject:js -->
     <script src="../src/coffee/oj.js"></script>
     <script src="../src/coffee/ojInit.js"></script>
-    <script src="../src/coffee/dom/component.js"></script>
-    <script src="../src/coffee/dom/custom.js"></script>
-    <script src="../src/coffee/dom/dom.js"></script>
-    <script src="../src/coffee/dom/element.js"></script>
-    <script src="../src/coffee/dom/nodeFactory.js"></script>
     <script src="../src/coffee/components/address.js"></script>
+    <script src="../src/coffee/components/datatable.js"></script>
     <script src="../src/coffee/components/easypie.js"></script>
     <script src="../src/coffee/components/flotchart.js"></script>
     <script src="../src/coffee/components/grid.js"></script>
@@ -69,6 +67,18 @@
     <script src="../src/coffee/components/price.js"></script>
     <script src="../src/coffee/components/sparkline.js"></script>
     <script src="../src/coffee/components/tile.js"></script>
+    <script src="../src/coffee/dom/component.js"></script>
+    <script src="../src/coffee/dom/custom.js"></script>
+    <script src="../src/coffee/dom/dom.js"></script>
+    <script src="../src/coffee/dom/element.js"></script>
+    <script src="../src/coffee/dom/nodeFactory.js"></script>
+    <script src="../src/coffee/core/common/array.js"></script>
+    <script src="../src/coffee/core/common/date.js"></script>
+    <script src="../src/coffee/core/common/function.js"></script>
+    <script src="../src/coffee/core/common/number.js"></script>
+    <script src="../src/coffee/core/common/object.js"></script>
+    <script src="../src/coffee/core/common/property.js"></script>
+    <script src="../src/coffee/core/common/string.js"></script>
     <script src="../src/coffee/core/tools/array2D.js"></script>
     <script src="../src/coffee/core/tools/async.js"></script>
     <script src="../src/coffee/core/tools/console.js"></script>
@@ -86,13 +96,6 @@
     <script src="../src/coffee/core/db/dbSelect.js"></script>
     <script src="../src/coffee/core/db/dbTable.js"></script>
     <script src="../src/coffee/core/db/dbUpdate.js"></script>
-    <script src="../src/coffee/core/common/array.js"></script>
-    <script src="../src/coffee/core/common/date.js"></script>
-    <script src="../src/coffee/core/common/function.js"></script>
-    <script src="../src/coffee/core/common/number.js"></script>
-    <script src="../src/coffee/core/common/object.js"></script>
-    <script src="../src/coffee/core/common/property.js"></script>
-    <script src="../src/coffee/core/common/string.js"></script>
     <script src="../src/coffee/dom/nodes/a.js"></script>
     <script src="../src/coffee/dom/nodes/b.js"></script>
     <script src="../src/coffee/dom/nodes/br.js"></script>

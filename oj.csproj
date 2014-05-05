@@ -53,6 +53,9 @@
     <Content Include="src\coffee\components\address.js">
       <DependentUpon>address.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\components\datatable.js">
+      <DependentUpon>datatable.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\components\easypie.js">
       <DependentUpon>easypie.coffee</DependentUpon>
     </Content>
@@ -275,6 +278,10 @@
     <Content Include="src\coffee\components\infograph.coffee" />
     <Content Include="src\coffee\components\infograph.map">
       <DependentUpon>infograph.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\components\datatable.coffee" />
+    <Content Include="src\coffee\components\datatable.map">
+      <DependentUpon>datatable.coffee</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">
@@ -790,6 +797,9 @@
     <Content Include="test\components\test.address.js">
       <DependentUpon>test.address.coffee</DependentUpon>
     </Content>
+    <Content Include="test\components\test.datatable.js">
+      <DependentUpon>test.datatable.coffee</DependentUpon>
+    </Content>
     <Content Include="test\components\test.easypie.js">
       <DependentUpon>test.easypie.coffee</DependentUpon>
     </Content>
@@ -807,6 +817,7 @@
     <Content Include="test\components\test.flotchart.coffee" />
     <Content Include="test\components\test.infograph.coffee" />
     <Content Include="test\components\test.inputgroup.coffee" />
+    <Content Include="test\components\test.datatable.coffee" />
     <None Include="test\components\test.address.coffee" />
     <Content Include="src\templates\closedNodes.json" />
     <Content Include="src\templates\openNodes.json" />
@@ -838,6 +849,9 @@
     </Content>
     <Content Include="test\components\test.sparkline.map">
       <DependentUpon>test.sparkline.coffee</DependentUpon>
+    </Content>
+    <Content Include="test\components\test.datatable.map">
+      <DependentUpon>test.datatable.coffee</DependentUpon>
     </Content>
     <None Include="test\core\test.is.coffee" />
     <Content Include="test\components\test.grid.js">
