@@ -1,6 +1,6 @@
 {
   "name": "OJ",
-  "version": "0.2.47",
+  "version": "0.2.48",
   "main": [
     "dist/complete.min.js",
     "dist/release.html"
@@ -32,7 +32,8 @@
     "jquery.easy-pie-chart": "~2.1.4",
     "flot": "~0.8.2",
     "fontawesome": "~4.0.3",
-    "datatables": "~1.10.0"
+    "datatables": "~1.10.0",
+    "pubsub-js": "~1.4.2"
   },
   "overrides": {
     "modernizr": {

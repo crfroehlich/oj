@@ -77,6 +77,9 @@
     <Content Include="src\coffee\components\sparkline.js">
       <DependentUpon>sparkline.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\components\tabs.js">
+      <DependentUpon>tabs.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\components\tile.js">
       <DependentUpon>tile.coffee</DependentUpon>
     </Content>
@@ -282,6 +285,10 @@
     <Content Include="src\coffee\components\datatable.coffee" />
     <Content Include="src\coffee\components\datatable.map">
       <DependentUpon>datatable.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\components\tabs.coffee" />
+    <Content Include="src\coffee\components\tabs.map">
+      <DependentUpon>tabs.coffee</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">
@@ -853,12 +860,19 @@
     <Content Include="test\components\test.datatable.map">
       <DependentUpon>test.datatable.coffee</DependentUpon>
     </Content>
+    <Content Include="test\components\test.tabs.coffee" />
+    <Content Include="test\components\test.tabs.map">
+      <DependentUpon>test.tabs.coffee</DependentUpon>
+    </Content>
     <None Include="test\core\test.is.coffee" />
     <Content Include="test\components\test.grid.js">
       <DependentUpon>test.grid.coffee</DependentUpon>
     </Content>
     <Content Include="test\components\test.sparkline.js">
       <DependentUpon>test.sparkline.coffee</DependentUpon>
+    </Content>
+    <Content Include="test\components\test.tabs.js">
+      <DependentUpon>test.tabs.coffee</DependentUpon>
     </Content>
     <Content Include="test\core\test.is.js">
       <DependentUpon>test.is.coffee</DependentUpon>
