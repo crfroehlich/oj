@@ -18,6 +18,7 @@
       OJ.nodes.factory(widget, owner);
       ret = widget.div(options);
       ret.add('componentName', tagName);
+      ret.add('remove', widget.remove);
       return ret;
     };
     OJ.register('component', component);

@@ -9,6 +9,7 @@
     OJ.nodes.factory widget, owner
     ret = widget.div options
     ret.add 'componentName', tagName
+    ret.add 'remove', widget.remove
     ret
     
   OJ.register 'component', component
