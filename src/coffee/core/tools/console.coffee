@@ -41,79 +41,79 @@
   #Begin KLUDGE. What we really want to do is call console[methodName].apply(this, arguments); but
   #but this generates an exception, which is not at all expected. So to kludge these wrappers into being,
   #Accept a list of parameters from a-p--because who would ever need more than 16 parameters?
-  OJ.console.register "assert", assert = (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "assert", assert = (a...) ->
     'use strict'
-    console.assert a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.assert a...
     return
 
-  OJ.console.register "count", count = (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "count", count = (a...) ->
     'use strict'
-    console.count a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.count a...
     return
 
-  OJ.console.register "error", (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "error", (a...) ->
     'use strict'
-    console.error a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.error a...
     return
 
-  OJ.console.register "group", (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "group", (a...) ->
     'use strict'
-    console.group a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.group a...
     return
 
-  OJ.console.register "groupCollapsed", (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "groupCollapsed", (a...) ->
     'use strict'
-    console.groupCollapsed a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.groupCollapsed a...
     return
 
-  OJ.console.register "groupEnd", (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "groupEnd", (a...) ->
     'use strict'
-    console.groupEnd a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.groupEnd a...
     return
 
-  OJ.console.register "info", (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "info", (a...) ->
     'use strict'
-    console.info a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.info a...
     return
 
-  OJ.console.register "log", (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "log", (a...) ->
     'use strict'
-    console.log a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.log a...
     return
 
-  OJ.console.register "profile", (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "profile", (a...) ->
     'use strict'
-    console.profile a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.profile a...
     return
 
-  OJ.console.register "profileEnd", (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "profileEnd", (a...) ->
     'use strict'
-    console.profileEnd a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.profileEnd a...
     return
 
-  OJ.console.register "table", (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "table", (a...) ->
     'use strict'
-    console.table a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.table a...
     return
 
-  OJ.console.register "time", (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "time", (a...) ->
     'use strict'
-    console.time a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.time a...
     return
 
-  OJ.console.register "timeEnd", (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "timeEnd", (a...) ->
     'use strict'
-    console.timeEnd a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.timeEnd a...
     return
 
-  OJ.console.register "trace", (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "trace", (a...) ->
     'use strict'
-    console.trace a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.trace a...
     return
 
-  OJ.console.register "warn", (a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p) ->
+  OJ.console.register "warn", (a...) ->
     'use strict'
-    console.warn a, b, c, d, e, f, g, h, i, j, k, l, m, n, o, p
+    console.warn a...
     return
 
   return
