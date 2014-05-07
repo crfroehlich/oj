@@ -18,7 +18,7 @@
               event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
               return val.apply(null, event);
             };
-            el.$.bind(key, callback);
+            el.$.on(key, callback);
             el.add(key, callback);
           }
         });

@@ -20,11 +20,11 @@
       events[eventName].push(method);
       return token;
     };
-    publish = function(event) {
+    publish = function(event, data) {
       var eventName;
       eventName = getEventName(event);
       if (events[eventName]) {
-        PubSub.publish(eventName);
+        PubSub.publish(eventName, data);
       } else {
         OJ.console.info('Event named {' + event + '} is not recognized.');
       }

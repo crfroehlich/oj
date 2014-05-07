@@ -26,9 +26,17 @@
 
     # Bind an action to a jQuery element's event.
     el.add 'bind', (eventName, event) ->
-      el.$.bind eventName, event  if isControlStillValid()
+      el.$.on eventName, event  if isControlStillValid()
+      el
+    
+    el.add 'on', (eventName, event) ->
+      el.$.on eventName, event  if isControlStillValid()
       el
 
+    el.add 'off', (eventName, event) ->
+      el.$.off eventName, event  if isControlStillValid()
+      el
+  
     # Bind an event to a key, when pressed in this control.
     # The OJ object (for chaining)
     el.add 'keyboard', (keys, event) ->
@@ -184,7 +192,7 @@
 
     # Unbind an action from a jQuery element's event.
     el.add 'unbind', (eventName, event) ->
-      el.$.unbind eventName, event  if isControlStillValid()
+      el.$.off eventName, event  if isControlStillValid()
       el
 
     # Get the value of the element.

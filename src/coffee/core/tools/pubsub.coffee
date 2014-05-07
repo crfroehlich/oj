@@ -17,10 +17,10 @@
     events[eventName].push method
     token
   
-  publish = (event) ->
+  publish = (event, data) ->
     eventName = getEventName event
     if events[eventName]
-      PubSub.publish eventName
+      PubSub.publish eventName, data
     else
       OJ.console.info 'Event named {' + event + '} is not recognized.'
     return  

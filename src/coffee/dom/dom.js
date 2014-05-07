@@ -27,7 +27,19 @@
       });
       el.add('bind', function(eventName, event) {
         if (isControlStillValid()) {
-          el.$.bind(eventName, event);
+          el.$.on(eventName, event);
+        }
+        return el;
+      });
+      el.add('on', function(eventName, event) {
+        if (isControlStillValid()) {
+          el.$.on(eventName, event);
+        }
+        return el;
+      });
+      el.add('off', function(eventName, event) {
+        if (isControlStillValid()) {
+          el.$.off(eventName, event);
         }
         return el;
       });
@@ -197,7 +209,7 @@
       });
       el.add('unbind', function(eventName, event) {
         if (isControlStillValid()) {
-          el.$.unbind(eventName, event);
+          el.$.off(eventName, event);
         }
         return el;
       });

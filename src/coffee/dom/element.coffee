@@ -7,7 +7,7 @@
     if el then _.forOwn events, (val, key) ->
       if val isnt _.noop and _.isFunction val
         callback = (event...) -> val event...
-        el.$.bind key, callback
+        el.$.on key, callback
         el.add key, callback
         return
 
