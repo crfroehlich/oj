@@ -787,13 +787,13 @@ OJ IIFE definition to anchor JsDoc comments.
       });
       first = true;
       OJ.each(defaults.tabs, function(tabVal, tabName) {
-        var tabClass, tabContentClass;
+        var a, tabClass, tabContentClass;
         tabClass = '';
         if (first) {
           first = false;
           tabClass = 'active';
         }
-        tabs.li({
+        a = tabs.li({
           props: {
             "class": tabClass
           }
@@ -802,6 +802,11 @@ OJ IIFE definition to anchor JsDoc comments.
           props: {
             href: '#' + tabName,
             'data-toggle': 'tab'
+          },
+          events: {
+            click: function() {
+              return a.$.tab('show');
+            }
           }
         });
         tabContentClass = 'tab-pane ' + tabClass;
@@ -936,7 +941,19 @@ OJ IIFE definition to anchor JsDoc comments.
       });
       el.add('bind', function(eventName, event) {
         if (isControlStillValid()) {
-          el.$.bind(eventName, event);
+          el.$.on(eventName, event);
+        }
+        return el;
+      });
+      el.add('on', function(eventName, event) {
+        if (isControlStillValid()) {
+          el.$.on(eventName, event);
+        }
+        return el;
+      });
+      el.add('off', function(eventName, event) {
+        if (isControlStillValid()) {
+          el.$.off(eventName, event);
         }
         return el;
       });
@@ -1106,7 +1123,7 @@ OJ IIFE definition to anchor JsDoc comments.
       });
       el.add('unbind', function(eventName, event) {
         if (isControlStillValid()) {
-          el.$.unbind(eventName, event);
+          el.$.off(eventName, event);
         }
         return el;
       });
@@ -1161,7 +1178,7 @@ OJ IIFE definition to anchor JsDoc comments.
               event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
               return val.apply(null, event);
             };
-            el.$.bind(key, callback);
+            el.$.on(key, callback);
             el.add(key, callback);
           }
         });
@@ -3039,11 +3056,11 @@ OJ IIFE definition to anchor JsDoc comments.
       events[eventName].push(method);
       return token;
     };
-    publish = function(event) {
+    publish = function(event, data) {
       var eventName;
       eventName = getEventName(event);
       if (events[eventName]) {
-        PubSub.publish(eventName);
+        PubSub.publish(eventName, data);
       } else {
         OJ.console.info('Event named {' + event + '} is not recognized.');
       }
