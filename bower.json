@@ -1,8 +1,8 @@
 {
   "name": "OJ",
-  "version": "0.3.3",
+  "version": "0.3.4",
   "main": [
-    "dist/complete.min.js",
+    "dist/OJ.min.js",
     "dist/release.html"
   ],
   "ignore": [

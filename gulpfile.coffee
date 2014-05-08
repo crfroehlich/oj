@@ -117,7 +117,7 @@ Compile and Minify CoffeeScript to JS
 gulp.task 'coffee', ->
   gulp.src files.coffee
     .pipe coffee map: true
-    .pipe concat 'complete.js'
+    .pipe concat 'OJ.js'
     .pipe header extended, pkg: pkg
     .pipe gulp.dest paths.release
     .pipe rename suffix: '.min'
