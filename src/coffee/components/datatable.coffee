@@ -18,7 +18,7 @@
     ret = OJ.component defaults, owner, nodeName 
     
     ret.rawTable = ret.table defaults.table
-    ret.dataTable = ret.rawTable.$.DataTable opts
+    ret.dataTable = ret.rawTable.$.DataTable defaults.opts
 
     ret
 

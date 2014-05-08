@@ -9,15 +9,16 @@
       props: 
         cellpadding: 0
         cellspacing: 0
-        align: ""
-        width: ""
-        cellalign: "left"
-        cellvalign: "top"
+        align: ''
+        width: ''
+        cellalign: 'left'
+        cellvalign: 'top'
+        class: ''
       styles: {}
       events:
         click: _.noop
       cells:
-        class: ""
+        class: ''
         align: ''
         'vertical-align': ''
         cellpadding: ''
