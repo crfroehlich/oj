@@ -16,8 +16,8 @@
         }
       };
       OJ.extend(defaults, options, true);
-      if (defaults.spallSpan) {
-        defaults.props["class"] += ' col-xs-' + defaults.spallSpan;
+      if (defaults.smallSpan) {
+        defaults.props["class"] += ' col-xs-' + defaults.smallSpan;
       }
       if (defaults.mediumSpan) {
         defaults.props["class"] += ' col-md-' + defaults.mediumSpan;
