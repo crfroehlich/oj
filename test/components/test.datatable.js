@@ -11,22 +11,24 @@
       var dNode, datatable, nodeId;
       expect(4);
       datatable = OJ.body.datatable({
-        data: [["Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$3,120"], ["Garrett Winters", "Director", "Edinburgh", "8422", "2011/07/25", "$5,300"]],
-        columns: [
-          {
-            title: 'A'
-          }, {
-            title: 'B'
-          }, {
-            title: 'C'
-          }, {
-            title: 'D'
-          }, {
-            title: 'E'
-          }, {
-            title: 'F'
-          }
-        ]
+        opts: {
+          data: [["Tiger Nixon", "System Architect", "Edinburgh", "5421", "2011/04/25", "$3,120"], ["Garrett Winters", "Director", "Edinburgh", "8422", "2011/07/25", "$5,300"]],
+          columns: [
+            {
+              title: 'A'
+            }, {
+              title: 'B'
+            }, {
+              title: 'C'
+            }, {
+              title: 'D'
+            }, {
+              title: 'E'
+            }, {
+              title: 'F'
+            }
+          ]
+        }
       });
       deepEqual(datatable.componentName === 'x-datatable', true, 'Component is an datatable');
       nodeId = datatable.getId();
