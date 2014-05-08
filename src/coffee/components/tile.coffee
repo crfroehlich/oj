@@ -11,7 +11,7 @@
       props: 
         class: 'tile'
     
-    OJ.extend defaults, options
+    OJ.extend defaults, options, true
     if defaults.spallSpan then defaults.props.class += ' col-xs-' + defaults.spallSpan
     if defaults.mediumSpan then defaults.props.class += ' col-md-' + defaults.mediumSpan
     if defaults.largeSpan then defaults.props.class += ' col-lg-' + defaults.largeSpan

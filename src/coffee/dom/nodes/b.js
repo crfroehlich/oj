@@ -20,8 +20,8 @@
         },
         number: 1
       };
-      OJ.extend(defaults, options);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events);
+      OJ.extend(defaults, options, true);
+      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }

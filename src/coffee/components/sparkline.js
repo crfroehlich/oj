@@ -19,7 +19,7 @@
           "class": 'sparkline'
         }
       };
-      OJ.extend(defaults, options);
+      OJ.extend(defaults, options, true);
       ret = OJ.component(defaults, owner, nodeName);
       ret.$.sparkline(defaults.data, defaults.config);
       return ret;

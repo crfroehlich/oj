@@ -26,7 +26,7 @@
           change: _.noop
         }
       };
-      OJ.extend(defaults, options);
+      OJ.extend(defaults, options, true);
       value = '';
       values = [];
       hasEmpty = false;

@@ -33,7 +33,7 @@
           keyup: _.noop
         }
       };
-      OJ.extend(defaults, options);
+      OJ.extend(defaults, options, true);
       value = defaults.props.value;
       syncValue = function() {
         switch (defaults.props.type) {

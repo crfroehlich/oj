@@ -11,7 +11,7 @@
       props: 
         class: 'flotchart'
     
-    OJ.extend defaults, options
+    OJ.extend defaults, options, true
     ret = OJ.component defaults, owner, nodeName 
     ret.flot = $.plot ret.$, defaults.data, defaults.config 
 

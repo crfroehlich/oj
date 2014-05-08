@@ -21,7 +21,7 @@
         click: _.noop
 
     
-    OJ.extend defaults, options
+    OJ.extend defaults, options, true
     
     toggleState = 'off'
     

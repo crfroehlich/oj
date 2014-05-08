@@ -16,7 +16,7 @@
       props: 
         class: 'chart easy-pie inline-block primary'
     
-    OJ.extend defaults, options
+    OJ.extend defaults, options, true
     defaults.props['data-percent'] = defaults.config.percent
     ret = OJ.component defaults, owner, nodeName 
     ret.$.easyPieChart defaults.config

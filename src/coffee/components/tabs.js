@@ -13,7 +13,7 @@
           "class": ''
         }
       };
-      OJ.extend(defaults, options);
+      OJ.extend(defaults, options, true);
       ret = OJ.component(defaults, owner, nodeName);
       tabs = ret.ul({
         props: {
@@ -27,13 +27,13 @@
       });
       first = true;
       OJ.each(defaults.tabs, function(tabVal, tabName) {
-        var tabClass, tabContentClass;
+        var a, tabClass, tabContentClass;
         tabClass = '';
         if (first) {
           first = false;
           tabClass = 'active';
         }
-        tabs.li({
+        a = tabs.li({
           props: {
             "class": tabClass
           }
@@ -42,6 +42,11 @@
           props: {
             href: '#' + tabName,
             'data-toggle': 'tab'
+          },
+          events: {
+            click: function() {
+              return a.$.tab('show');
+            }
           }
         });
         tabContentClass = 'tab-pane ' + tabClass;

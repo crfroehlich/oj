@@ -22,7 +22,7 @@
           color: '#4193d0'
         }
       };
-      OJ.extend(defaults, options);
+      OJ.extend(defaults, options, true);
       ret = OJ.component(defaults, owner, nodeName);
       count = defaults.width * defaults.height;
       total = defaults.active + defaults.inactive + defaults.disabled + defaults.unknown;

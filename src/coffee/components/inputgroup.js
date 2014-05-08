@@ -16,7 +16,7 @@
         inputType: 'text',
         placeholder: ''
       };
-      OJ.extend(defaults, options);
+      OJ.extend(defaults, options, true);
       ret = OJ.component(defaults, owner, nodeName);
       cmpnt = ret.div({
         props: {

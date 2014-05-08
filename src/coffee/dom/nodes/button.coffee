@@ -12,7 +12,7 @@
       events:
         click: _.noop
     
-    OJ.extend defaults, options
+    OJ.extend defaults, options, true
 
     ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
     

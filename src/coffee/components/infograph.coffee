@@ -17,7 +17,7 @@
       styles:
         color: '#4193d0'
     
-    OJ.extend defaults, options
+    OJ.extend defaults, options, true
     ret = OJ.component defaults, owner, nodeName 
     
     #table = cmpnt.table defaults

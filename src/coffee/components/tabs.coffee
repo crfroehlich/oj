@@ -10,7 +10,7 @@
       props:
         class: ''
     
-    OJ.extend defaults, options
+    OJ.extend defaults, options, true
     ret = OJ.component defaults, owner, nodeName 
     
     tabs = ret.ul props: class: 'nav nav-tabs'
@@ -22,9 +22,16 @@
       if first
         first = false
         tabClass = 'active'
-      tabs.li props: class: tabClass
-        .a text: tabName, props: href: '#' + tabName, 'data-toggle': 'tab'
-      
+      a = tabs.li props: class: tabClass
+        .a 
+          text: tabName
+          props: 
+            href: '#' + tabName
+            'data-toggle': 'tab'
+          events:
+            click: ->
+              a.$.tab 'show'
+              
       tabContentClass = 'tab-pane ' + tabClass
       ret.add tabName, content.div props: class: tabContentClass, id: tabName
       

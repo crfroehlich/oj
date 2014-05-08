@@ -30,7 +30,7 @@
     cells = OJ.array2D()
     columnCount = 0
     
-    OJ.extend defaults, options
+    OJ.extend defaults, options, true
     ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
     if false is calledFromFactory then OJ.nodes.factory ret, owner
     

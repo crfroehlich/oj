@@ -20,7 +20,7 @@
         },
         number: 1
       };
-      OJ.extend(defaults, options);
+      OJ.extend(defaults, options, true);
       while (i < OJ.number(defaults.number)) {
         ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
         i += 1;

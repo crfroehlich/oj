@@ -15,7 +15,7 @@
           "class": 'tile'
         }
       };
-      OJ.extend(defaults, options);
+      OJ.extend(defaults, options, true);
       if (defaults.spallSpan) {
         defaults.props["class"] += ' col-xs-' + defaults.spallSpan;
       }

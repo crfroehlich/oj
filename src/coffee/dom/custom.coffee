@@ -9,7 +9,7 @@
         click: _.noop
       number: 1  
     
-    OJ.extend defaults, options
+    OJ.extend defaults, options, true
     ret = OJ.element tagName, defaults.props, defaults.styles, defaults.events
     
     if false is calledFromFactory then OJ.nodes.factory ret, owner

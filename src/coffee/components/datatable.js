@@ -8,15 +8,18 @@
     OJ.components.register(className, function(options, owner) {
       var defaults, ret;
       defaults = {
-        data: [[]],
+        data: [],
         columns: [],
+        table: {
+          "class": ''
+        },
         props: {
           "class": ''
         }
       };
-      OJ.extend(defaults, options);
+      OJ.extend(defaults, options, true);
       ret = OJ.component(defaults, owner, nodeName);
-      ret.rawTable = ret.table();
+      ret.rawTable = ret.table(defaults.table);
       ret.dataTable = ret.rawTable.$.DataTable(defaults);
       return ret;
     });

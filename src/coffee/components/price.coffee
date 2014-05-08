@@ -6,7 +6,7 @@
   OJ.components.register className, (options, owner) ->
     defaults = {}
     
-    OJ.extend defaults, options
+    OJ.extend defaults, options, true
     ret = OJ.component defaults, owner, nodeName
     
     price = ret.div props: class: 'input-line'

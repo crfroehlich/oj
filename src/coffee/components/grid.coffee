@@ -8,7 +8,7 @@
       props: 
         class: 'grid'
     
-    OJ.extend defaults, options
+    OJ.extend defaults, options, true
     ret = OJ.component defaults, owner, nodeName 
     
     rows = []

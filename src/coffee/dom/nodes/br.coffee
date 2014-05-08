@@ -12,7 +12,7 @@
         click: _.noop
       number: 1  
     
-    OJ.extend defaults, options
+    OJ.extend defaults, options, true
     while i < OJ.number defaults.number
       # In the case of multiple brs, it is desirable to only get the last one out
       ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
