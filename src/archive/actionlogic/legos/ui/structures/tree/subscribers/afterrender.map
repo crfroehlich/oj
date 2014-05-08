@@ -1,9 +1,9 @@
 {
   "version": 3,
   "file": "afterrender.js",
-  "sourceRoot": "C:\\Windows",
+  "sourceRoot": "",
   "sources": [
-    "\\\\psf\\Source\\Github\\oj\\src\\archive\\actionlogic\\legos\\ui\\structures\\tree\\subscribers\\afterrender.coffee"
+    "afterrender.coffee"
   ],
   "names": [],
   "mappings": ";AAGA;AAAA,MAAA,gBAAA;;AAAA,EAAA,CAAC,gBAAA,GAAmB,SAAC,EAAD,GAAA;AAElB;AAAA;;OAAA;AAAA,QAAA,WAAA;AAAA,IAGA,EAAE,CAAC,KAAK,CAAC,WAAW,CAAC,QAArB,CAA8B,aAA9B,EAA6C,WAAA,GAAc,SAAC,QAAD,GAAA;AACzD,MAAA,YAAA,CAAA;AAAA,UAAA,WAAA;AACA,MAAA,IAAG,QAAH;AAIE;AAAA;;;;WAAA;eAKA,WAAA,GAAc,SAAC,OAAD,EAAU,KAAV,GAAA;AACZ,UAAA,YAAA,CAAA;AAAA,UACA,QAAA,CAAS,OAAT,EAAkB,KAAlB,CADA,CADY;QAAA,EAThB;OAFyD;IAAA,CAA3D,CAHA,CAFkB;EAAA,CAApB,CAAA,CAsBG,CAAI,MAAA,CAAA,MAAA,KAAmB,WAAnB,IAAmC,MAAtC,GAAkD,MAAlD,GAA+D,CAAI,MAAA,CAAA,MAAA,KAAmB,WAAtB,GAAuC,MAAvC,GAAmD,IAApD,CAAhE,CAA4H,CAAC,EAtBhI,CAAA,CAAA;AAAA"

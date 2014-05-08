@@ -1,9 +1,9 @@
 {
   "version": 3,
   "file": "column.js",
-  "sourceRoot": "C:\\Windows",
+  "sourceRoot": "",
   "sources": [
-    "\\\\psf\\Source\\Github\\oj\\src\\archive\\actionlogic\\legos\\ui\\structures\\grid\\columns\\column.coffee"
+    "column.coffee"
   ],
   "names": [],
   "mappings": ";AAAA;AAAA;AAAA"

@@ -1,9 +1,9 @@
 {
   "version": 3,
   "file": "dataTypeCollection.js",
-  "sourceRoot": "C:\\Windows",
+  "sourceRoot": "",
   "sources": [
-    "\\\\psf\\Source\\Github\\oj\\src\\archive\\actionlogic\\legos\\data\\datatype\\dataTypeCollection.coffee"
+    "dataTypeCollection.coffee"
   ],
   "names": [],
   "mappings": ";AAAA;AAAA;AAAA"

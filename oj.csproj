@@ -39,10 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Content Include="dist\404.html" />
-    <Content Include="dist\complete.js" />
-    <Content Include="dist\complete.min.js">
-      <DependentUpon>complete.js</DependentUpon>
-    </Content>
+    <Content Include="dist\OJ.js" />
     <Content Include="dist\crossdomain.xml" />
     <Content Include="dist\release.html" />
     <Content Include="dist\humans.txt" />
@@ -243,9 +240,6 @@
       <DependentUpon>address.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\components\price.coffee" />
-    <Content Include="dist\complete.min.js.map">
-      <DependentUpon>complete.js</DependentUpon>
-    </Content>
     <Content Include="src\coffee\components\price.map">
       <DependentUpon>price.coffee</DependentUpon>
     </Content>
@@ -328,6 +322,7 @@
     <Content Include="src\coffee\core\tools\pubsub.map">
       <DependentUpon>pubsub.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\core\tools\pubsub.coffee" />
     <None Include="src\coffee\core\tools\uuid.coffee" />
     <Content Include="src\css\main.css" />
     <Content Include="src\css\normalize.css" />
