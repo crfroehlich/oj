@@ -8,8 +8,10 @@
     OJ.components.register(className, function(options, owner) {
       var defaults, ret;
       defaults = {
-        data: [],
-        columns: [],
+        opts: {
+          data: [],
+          columns: []
+        },
         table: {
           "class": ''
         },
@@ -20,7 +22,7 @@
       OJ.extend(defaults, options, true);
       ret = OJ.component(defaults, owner, nodeName);
       ret.rawTable = ret.table(defaults.table);
-      ret.dataTable = ret.rawTable.$.DataTable(defaults);
+      ret.dataTable = ret.rawTable.$.DataTable(opts);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

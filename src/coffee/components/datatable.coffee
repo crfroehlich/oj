@@ -6,8 +6,9 @@
   
   OJ.components.register className, (options, owner) ->
     defaults = 
-      data: []
-      columns: []
+      opts:
+        data: []
+        columns: []
       table: 
         class: ''
       props:
@@ -17,7 +18,7 @@
     ret = OJ.component defaults, owner, nodeName 
     
     ret.rawTable = ret.table defaults.table
-    ret.dataTable = ret.rawTable.$.DataTable defaults
+    ret.dataTable = ret.rawTable.$.DataTable opts
 
     ret
 
