@@ -14,7 +14,8 @@
       Add a property to the object and return it
        */
       obj.add = function(name, val) {
-        return OJ.property(obj, name, val);
+        OJ.property(obj, name, val);
+        return obj;
       };
       return obj;
     };
@@ -64,8 +65,10 @@
     });
     OJ.register('params', function(data, delimiter) {
       var ret;
+      if (delimiter == null) {
+        delimiter = '&';
+      }
       ret = '';
-      delimiter = delimiter || '&';
       if (delimiter === '&') {
         OJ.tryExec(function() {
           ret = $.param(data);
@@ -82,9 +85,12 @@
     });
     OJ.register('extend', function(destObj, srcObj, deepCopy) {
       var ret;
+      if (deepCopy == null) {
+        deepCopy = false;
+      }
       ret = destObj || {};
       if (arguments.length === 3) {
-        ret = $.extend(OJ.bool(deepCopy), ret, srcObj);
+        ret = $.extend(OJ.to.bool(deepCopy), ret, srcObj);
       } else {
         ret = $.extend(ret, srcObj);
       }

@@ -11,6 +11,7 @@
     ###
     obj.add = (name, val) -> 
       OJ.property obj, name, val
+      obj
     
     obj
 
@@ -49,9 +50,8 @@
       ret = {}  if OJ.is.nullOrEmpty(ret)
     ret
 
-  OJ.register 'params', (data, delimiter) ->
+  OJ.register 'params', (data, delimiter = '&') ->
     ret = ''
-    delimiter = delimiter or '&'
     if delimiter is '&'
       OJ.tryExec ->
         ret = $.param(data)
@@ -65,10 +65,10 @@
 
     OJ.string ret
 
-  OJ.register 'extend', (destObj, srcObj, deepCopy) ->
+  OJ.register 'extend', (destObj, srcObj, deepCopy = false) ->
     ret = destObj or {}
     if arguments.length is 3
-      ret = $.extend(OJ.bool(deepCopy), ret, srcObj)
+      ret = $.extend(OJ.to.bool(deepCopy), ret, srcObj)
     else
       ret = $.extend(ret, srcObj)
     ret
