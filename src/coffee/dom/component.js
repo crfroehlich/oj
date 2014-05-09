@@ -7,7 +7,7 @@
      */
     var component;
     component = function(options, owner, tagName) {
-      var ret, widget;
+      var ret, rootNodeType, widget;
       if (options == null) {
         options = OJ.object();
       }
@@ -16,7 +16,8 @@
       }
       widget = OJ.element(tagName);
       OJ.nodes.factory(widget, owner);
-      ret = widget.div(options);
+      rootNodeType = options.rootNodeType || OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] || 'div';
+      ret = widget[rootNodeType](options);
       ret.add('componentName', tagName);
       ret.add('remove', widget.remove);
       return ret;

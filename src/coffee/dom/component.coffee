@@ -7,7 +7,10 @@
     if not tagName.startsWith 'x-' then tagName = 'x-' + tagName
     widget = OJ.element tagName #, options.props, options.styles, options.events, options.text
     OJ.nodes.factory widget, owner
-    ret = widget.div options
+    
+    rootNodeType = options.rootNodeType or OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] or 'div'
+    
+    ret = widget[rootNodeType] options
     ret.add 'componentName', tagName
     ret.add 'remove', widget.remove
     ret

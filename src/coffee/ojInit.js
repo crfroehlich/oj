@@ -11,6 +11,7 @@
     OJ.makeSubNameSpace('components');
     OJ.components.register('members', {});
     OJ['GENERATE_UNIQUE_IDS'] = false;
+    OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] = 'div';
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);
