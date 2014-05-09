@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.3.7
+ * @version v0.3.9
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -306,6 +306,7 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ.makeSubNameSpace('components');
     OJ.components.register('members', {});
     OJ['GENERATE_UNIQUE_IDS'] = false;
+    OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] = 'div';
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);
@@ -501,6 +502,11 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ.components.register(className, function(options, owner) {
       var defaults, fillMissing, ret, rows, tiles;
       defaults = {
+        tileSizes: {
+          smallSpan: '',
+          mediumSpan: '',
+          largeSpan: ''
+        },
         props: {
           "class": 'grid'
         }
@@ -535,6 +541,7 @@ OJ IIFE definition to anchor JsDoc comments.
           }
           nuRow.add('tile', function(colNo, opts) {
             var nuTile;
+            OJ.extend(opts, OJ.extend({}, defaults.tileSizes));
             nuTile = OJ.components.tile(opts, nuRow);
             tiles.set(rowNo, colNo, nuTile);
             return nuTile;
@@ -869,7 +876,7 @@ OJ IIFE definition to anchor JsDoc comments.
      */
     var component;
     component = function(options, owner, tagName) {
-      var ret, widget;
+      var ret, rootNodeType, widget;
       if (options == null) {
         options = OJ.object();
       }
@@ -878,7 +885,8 @@ OJ IIFE definition to anchor JsDoc comments.
       }
       widget = OJ.element(tagName);
       OJ.nodes.factory(widget, owner);
-      ret = widget.div(options);
+      rootNodeType = options.rootNodeType || OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] || 'div';
+      ret = widget[rootNodeType](options);
       ret.add('componentName', tagName);
       ret.add('remove', widget.remove);
       return ret;
