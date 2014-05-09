@@ -31,7 +31,7 @@
           nuRow = ret.div props: class: 'row'
           rows.push nuRow
         nuRow.add 'tile', (colNo, opts) ->
-          OJ.extend opts, OJ.extend {}, defaults.tileSizes
+          opts = OJ.extend (OJ.extend {}, defaults.tileSizes), opts
           nuTile = OJ.components.tile opts, nuRow
           tiles.set rowNo, colNo, nuTile
           nuTile

@@ -47,7 +47,7 @@
           }
           nuRow.add('tile', function(colNo, opts) {
             var nuTile;
-            OJ.extend(opts, OJ.extend({}, defaults.tileSizes));
+            opts = OJ.extend(OJ.extend({}, defaults.tileSizes), opts);
             nuTile = OJ.components.tile(opts, nuRow);
             tiles.set(rowNo, colNo, nuTile);
             return nuTile;
