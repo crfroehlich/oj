@@ -5,6 +5,10 @@
   OJ.components.members[nodeName] = className
   OJ.components.register className, (options, owner) ->
     defaults = 
+      tileSizes:
+        smallSpan: ''
+        mediumSpan: ''
+        largeSpan: ''
       props: 
         class: 'grid'
     
@@ -27,6 +31,7 @@
           nuRow = ret.div props: class: 'row'
           rows.push nuRow
         nuRow.add 'tile', (colNo, opts) ->
+          OJ.extend opts, OJ.extend {}, defaults.tileSizes
           nuTile = OJ.components.tile opts, nuRow
           tiles.set rowNo, colNo, nuTile
           nuTile

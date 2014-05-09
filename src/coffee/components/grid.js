@@ -8,6 +8,11 @@
     OJ.components.register(className, function(options, owner) {
       var defaults, fillMissing, ret, rows, tiles;
       defaults = {
+        tileSizes: {
+          smallSpan: '',
+          mediumSpan: '',
+          largeSpan: ''
+        },
         props: {
           "class": 'grid'
         }
@@ -42,6 +47,7 @@
           }
           nuRow.add('tile', function(colNo, opts) {
             var nuTile;
+            OJ.extend(opts, OJ.extend({}, defaults.tileSizes));
             nuTile = OJ.components.tile(opts, nuRow);
             tiles.set(rowNo, colNo, nuTile);
             return nuTile;
