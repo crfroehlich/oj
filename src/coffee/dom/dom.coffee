@@ -80,7 +80,7 @@
     # Get the length of this element.
     el.add 'length', ->
       len = 0
-      len = OJ.number(el.$.length)  if isControlStillValid()
+      len = OJ.to.number(el.$.length)  if isControlStillValid()
       len
 
     # Reference to the parent as passed in
@@ -113,7 +113,7 @@
     # Mark the required status of the element.
     el.add 'required', (truthy, addLabel) ->
       if isControlStillValid()
-        switch OJ.bool(truthy)
+        switch OJ.to.bool(truthy)
           when true
             el.attr 'required', true
             el.addClass 'required'
@@ -161,7 +161,7 @@
           el.$.val value
           el
         else
-          OJ.string el.$.val()
+          OJ.to.string el.$.val()
 
     el.add 'valueOf', ->
       el.val()
