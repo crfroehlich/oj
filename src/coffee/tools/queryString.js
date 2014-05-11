@@ -23,7 +23,7 @@
       }
       return ret;
     });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
