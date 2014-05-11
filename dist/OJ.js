@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.3.11
+ * @version v0.3.12
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -1039,7 +1039,7 @@ OJ IIFE definition to anchor JsDoc comments.
         var len;
         len = 0;
         if (isControlStillValid()) {
-          len = OJ.to.number(el.$.length);
+          len = OJ.number(el.$.length);
         }
         return len;
       });
@@ -1071,7 +1071,7 @@ OJ IIFE definition to anchor JsDoc comments.
       });
       el.add('required', function(truthy, addLabel) {
         if (isControlStillValid()) {
-          switch (OJ.to.bool(truthy)) {
+          switch (OJ.bool(truthy)) {
             case true:
               el.attr('required', true);
               el.addClass('required');
@@ -1124,7 +1124,7 @@ OJ IIFE definition to anchor JsDoc comments.
             el.$.val(value);
             return el;
           } else {
-            return OJ.to.string(el.$.val());
+            return OJ.string(el.$.val());
           }
         }
       });
@@ -3191,7 +3191,7 @@ OJ IIFE definition to anchor JsDoc comments.
     });
     OJ.is.register('arrayNullOrEmpty', function(arr) {
       'use strict';
-      return !Array.isArray(arr) || !arr || !arr.length || arr.length === 0 || !arr.push;
+      return _.isEmpty(arr);
     });
     OJ.is.register('stringNullOrEmpty', function(str) {
       'use strict';
@@ -3248,7 +3248,7 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ.is.register('generic', function(obj) {
       'use strict';
       var ret;
-      ret = false === OJ.is['function'](obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
+      ret = false === OJ.is.func(obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
       return ret;
     });
     OJ.is.register('array', function(obj) {
@@ -3281,7 +3281,7 @@ OJ IIFE definition to anchor JsDoc comments.
       'use strict';
       return _.isFunction(obj);
     });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -3362,18 +3362,18 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-    OJ.to.register("bool", function(str) {
+    OJ.to.register('bool', function(str) {
       var retBool;
-      retBool = OJ.is["true"](str);
+      retBool = OJ.is['true'](str);
       if (retBool === false || retBool !== true) {
         retBool = false;
       }
       return retBool;
     });
-    OJ.to.register("ES5_ToBool", function(val) {
-      return val !== false && val !== 0 && val !== "" && val !== null && val !== undefined && (typeof val !== "number" || !isNaN(val));
+    OJ.to.register('ES5_ToBool', function(val) {
+      return val !== false && val !== 0 && val !== '' && val !== null && val !== undefined && (typeof val !== 'number' || !isNaN(val));
     });
-    OJ.to.register("dateFromTicks", function(tickStr) {
+    OJ.to.register('dateFromTicks', function(tickStr) {
       var arr, localOffset, offset, ret, ticks, ticsDateTime;
       ticsDateTime = OJ.to.string(tickStr);
       ret = void 0;
@@ -3382,11 +3382,11 @@ OJ IIFE definition to anchor JsDoc comments.
       localOffset = void 0;
       arr = void 0;
       if (false === OJ.is.nullOrEmpty(ticsDateTime)) {
-        ticsDateTime = ticsDateTime.replace("/", "");
-        ticsDateTime = ticsDateTime.replace("Date", "");
-        ticsDateTime = ticsDateTime.replace("(", "");
-        ticsDateTime = ticsDateTime.replace(")", "");
-        arr = ticsDateTime.split("-");
+        ticsDateTime = ticsDateTime.replace('/', '');
+        ticsDateTime = ticsDateTime.replace('Date', '');
+        ticsDateTime = ticsDateTime.replace('(', '');
+        ticsDateTime = ticsDateTime.replace(')', '');
+        arr = ticsDateTime.split('-');
         if (arr.length > 1) {
           ticks = OJ.to.number(arr[0]);
           offset = OJ.to.number(arr[1]);
@@ -3399,13 +3399,13 @@ OJ IIFE definition to anchor JsDoc comments.
       }
       return ret;
     });
-    OJ.to.register("binary", function(obj) {
+    OJ.to.register('binary', function(obj) {
       var ret;
       ret = NaN;
-      if (obj === 0 || obj === "0" || obj === "" || obj === false || OJ.to.string(obj).toLowerCase().trim() === "false") {
+      if (obj === 0 || obj === '0' || obj === '' || obj === false || OJ.to.string(obj).toLowerCase().trim() === 'false') {
         ret = 0;
       } else {
-        if (obj === 1 || obj === "1" || obj === true || OJ.to.string(obj).toLowerCase().trim() === "true") {
+        if (obj === 1 || obj === '1' || obj === true || OJ.to.string(obj).toLowerCase().trim() === 'true') {
           ret = 1;
         }
       }
@@ -3419,7 +3419,7 @@ OJ IIFE definition to anchor JsDoc comments.
     All other values are parsed as Integers.
     Failures return as NaN.
      */
-    OJ.to.register("number", function(inputNum, defaultNum) {
+    OJ.to.register('number', function(inputNum, defaultNum) {
       var retVal, tryGetNumber;
       tryGetNumber = function(val) {
         var ret, tryGet;
@@ -3451,7 +3451,7 @@ OJ IIFE definition to anchor JsDoc comments.
       }
       return retVal;
     });
-    OJ.to.register("string", function(inputStr, defaultStr) {
+    OJ.to.register('string', function(inputStr, defaultStr) {
       var ret1, ret2, retVal, tryGetString;
       tryGetString = function(str) {
         var ret;
@@ -3459,7 +3459,7 @@ OJ IIFE definition to anchor JsDoc comments.
         if (OJ.is.string(str)) {
           ret = str;
         } else {
-          ret = "";
+          ret = '';
           if (OJ.is.bool(str) || OJ.is.number(str) || OJ.is.date(str)) {
             ret = str.toString();
           }
@@ -3468,7 +3468,7 @@ OJ IIFE definition to anchor JsDoc comments.
       };
       ret1 = tryGetString(inputStr);
       ret2 = tryGetString(defaultStr);
-      retVal = "";
+      retVal = '';
       if (ret1.length !== 0) {
         retVal = ret1;
       } else if (ret1 === ret2 || ret2.length === 0) {
@@ -3478,29 +3478,7 @@ OJ IIFE definition to anchor JsDoc comments.
       }
       return retVal;
     });
-    OJ.to.register("vendorDomObject", function(id) {
-      var base, ret, _$el;
-      ret = null;
-      base = "#";
-      if (id === "body") {
-        base = "";
-      }
-      _$el = OJ["?"](base + id);
-      if (_$el) {
-        ret = _$el;
-      }
-      return ret;
-    });
-    OJ.to.register("vendorDomObjFromString", function(html) {
-      var ret, _$el;
-      ret = null;
-      _$el = OJ["?"](html);
-      if (_$el) {
-        ret = _$el;
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -3657,7 +3635,7 @@ OJ IIFE definition to anchor JsDoc comments.
         number: 1
       };
       OJ.extend(defaults, options, true);
-      while (i < OJ.to.number(defaults.number)) {
+      while (i < OJ.number(defaults.number)) {
         ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
         i += 1;
       }
