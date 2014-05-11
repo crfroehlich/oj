@@ -232,3 +232,11 @@ OJ NameSpace
 ###
 Object.defineProperty thisGlobal, nameSpaceName,
   value: makeTheJuice()
+
+OJ.register 'global', thisGlobal
+
+thisDocument = {}
+if typeof document isnt 'undefined'
+  thisDocument = document
+  
+OJ.register 'document', thisDocument

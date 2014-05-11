@@ -26,7 +26,7 @@ OJ IIFE definition to anchor JsDoc comments.
  */
 
 (function() {
-  var NsTree, makeTheJuice, nameSpaceName, thisGlobal, utilLib;
+  var NsTree, makeTheJuice, nameSpaceName, thisDocument, thisGlobal, utilLib;
 
   thisGlobal = (typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this);
 
@@ -286,6 +286,16 @@ OJ IIFE definition to anchor JsDoc comments.
   Object.defineProperty(thisGlobal, nameSpaceName, {
     value: makeTheJuice()
   });
+
+  OJ.register('global', thisGlobal);
+
+  thisDocument = {};
+
+  if (typeof document !== 'undefined') {
+    thisDocument = document;
+  }
+
+  OJ.register('document', thisDocument);
 
 }).call(this);
 
