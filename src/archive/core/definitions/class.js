@@ -40,9 +40,9 @@
         var e;
         try {
           if (inheritsFrom) {
-            inheritsFrom.apply(this, Array.prototype.slice.call(arguments_, 0));
+            inheritsFrom.apply(this, Array.prototype.slice.call(arguments, 0));
           }
-          return callBack.apply(this, Array.prototype.slice.call(arguments_, 0));
+          return callBack.apply(this, Array.prototype.slice.call(arguments, 0));
         } catch (_error) {
           e = _error;
           OJ.errors.ClassInheritanceError(Class.name + " failed to execute all or part of its callback routine for method " + name + "().", "", "", e);

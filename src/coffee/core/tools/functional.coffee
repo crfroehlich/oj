@@ -8,9 +8,9 @@
   #    
   OJ.fun.register "curryLeft", curryLeft = (func) ->
     slice = Array::slice
-    args = slice.call(arguments_, 1)
+    args = slice.call(arguments, 1)
     ->
-      func.apply this, args.concat(slice.call(arguments_, 0))
+      func.apply this, args.concat(slice.call(arguments, 0))
 
   
   #

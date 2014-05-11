@@ -91,7 +91,7 @@
         nsRet.array = delimitedString.split(nsInternal.delimiter)
       nsInternal.deleteDuplicates()
       return
-    ) arguments_
+    ) arguments
     nsRet
 
   return

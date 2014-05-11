@@ -7,9 +7,9 @@
     OJ.fun.register("curryLeft", curryLeft = function(func) {
       var args, slice;
       slice = Array.prototype.slice;
-      args = slice.call(arguments_, 1);
+      args = slice.call(arguments, 1);
       return function() {
-        return func.apply(this, args.concat(slice.call(arguments_, 0)));
+        return func.apply(this, args.concat(slice.call(arguments, 0)));
       };
     });
     OJ.fun.register("foldLeft", foldLeft = function(func, newArray, oldArray) {

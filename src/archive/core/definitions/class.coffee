@@ -35,8 +35,8 @@
     obj = Object.create(null)
     obj[name] = ->
       try
-        inheritsFrom.apply this, Array::slice.call(arguments_, 0)  if inheritsFrom
-        return callBack.apply(this, Array::slice.call(arguments_, 0))
+        inheritsFrom.apply this, Array::slice.call(arguments, 0)  if inheritsFrom
+        return callBack.apply(this, Array::slice.call(arguments, 0))
       catch e
         OJ.errors.ClassInheritanceError Class.name + " failed to execute all or part of its callback routine for method " + name + "().", "", "", e
       return

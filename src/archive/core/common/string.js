@@ -117,7 +117,7 @@
           nsRet.array = delimitedString.split(nsInternal.delimiter);
         }
         nsInternal.deleteDuplicates();
-      })(arguments_);
+      })(arguments);
       return nsRet;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

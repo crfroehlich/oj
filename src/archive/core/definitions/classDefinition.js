@@ -64,7 +64,7 @@
         subscribers = OJ[namespace].subscribers.subscribers();
         OJ.property(that, "subscribers", subscribers);
         OJ.property(that.subscribers, "exception", function() {
-          OJ.console.error("An error occurred in " + name + ".", arguments_[0], arguments_[1], arguments_[2], arguments_[3], arguments_[4], arguments_[5]);
+          OJ.console.error("An error occurred in " + name + ".", arguments[0], arguments[1], arguments[2], arguments[3], arguments[4], arguments[5]);
         });
 
         /*
@@ -95,7 +95,7 @@
               func(them);
             });
           }
-          return them.callParent(arguments_);
+          return them.callParent(arguments);
         });
         if (subscribers && Object.keys(subscribers).length > 0) {
 

@@ -10,7 +10,7 @@
     ret = false
     that = this
     try
-      ret = tryFunc.apply(that, Array::slice.call(arguments_, 1))  if OJ.is.func(tryFunc)
+      ret = tryFunc.apply(that, Array::slice.call(arguments, 1))  if OJ.is.func(tryFunc)
     catch exception
       if (exception.name is "TypeError" or exception.type is "called_non_callable") and exception.type is "non_object_property_load" # ignore errors failing to exec self-executing functions
         OJ.console.info "Ignoring exception: ", exception
@@ -28,7 +28,7 @@
     'use strict'
     that = this
     ->
-      args = Array::slice.call(arguments_, 0)
+      args = Array::slice.call(arguments, 0)
       args.unshift tryFunc
       OJ.tryExec.apply that, args
 

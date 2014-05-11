@@ -1034,7 +1034,7 @@ OJ IIFE definition to anchor JsDoc comments.
           if (OJ.isPlainObject(prop)) {
             setDataObj(prop);
           } else {
-            switch (arguments_.length) {
+            switch (arguments.length) {
               case 1:
                 data = getData(prop);
                 break;
@@ -1166,7 +1166,7 @@ OJ IIFE definition to anchor JsDoc comments.
       });
       el.add('val', function(value) {
         if (isControlStillValid()) {
-          if (arguments_.length === 1 && false === OJ.isNullOrUndefined(value)) {
+          if (arguments.length === 1 && false === OJ.isNullOrUndefined(value)) {
             el.$.val(value);
             return el;
           } else {
@@ -1795,7 +1795,7 @@ OJ IIFE definition to anchor JsDoc comments.
       that = this;
       try {
         if (OJ.is.func(tryFunc)) {
-          ret = tryFunc.apply(that, Array.prototype.slice.call(arguments_, 1));
+          ret = tryFunc.apply(that, Array.prototype.slice.call(arguments, 1));
         }
       } catch (_error) {
         exception = _error;
@@ -1815,7 +1815,7 @@ OJ IIFE definition to anchor JsDoc comments.
       that = this;
       return function() {
         var args;
-        args = Array.prototype.slice.call(arguments_, 0);
+        args = Array.prototype.slice.call(arguments, 0);
         args.unshift(tryFunc);
         return OJ.tryExec.apply(that, args);
       };
@@ -2092,7 +2092,7 @@ OJ IIFE definition to anchor JsDoc comments.
           nsRet.array = delimitedString.split(nsInternal.delimiter);
         }
         nsInternal.deleteDuplicates();
-      })(arguments_);
+      })(arguments);
       return nsRet;
     });
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
@@ -3181,9 +3181,9 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ.fun.register("curryLeft", curryLeft = function(func) {
       var args, slice;
       slice = Array.prototype.slice;
-      args = slice.call(arguments_, 1);
+      args = slice.call(arguments, 1);
       return function() {
-        return func.apply(this, args.concat(slice.call(arguments_, 0)));
+        return func.apply(this, args.concat(slice.call(arguments, 0)));
       };
     });
     OJ.fun.register("foldLeft", foldLeft = function(func, newArray, oldArray) {

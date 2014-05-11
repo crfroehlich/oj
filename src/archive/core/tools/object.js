@@ -113,7 +113,7 @@
       "use strict";
       var ret;
       ret = destObj || {};
-      if (arguments_.length === 3) {
+      if (arguments.length === 3) {
         ret = window.$.extend(OJ.bool(deepCopy), ret, srcObj);
       } else {
         ret = window.$.extend(ret, srcObj);

@@ -159,7 +159,7 @@
         ret = NsNode
         if OJ.is.plainObject(name)
           NsNode["?"].attr name
-        else if arguments_.length is 1
+        else if arguments.length is 1
           ret = NsNode["?"].attr(name)
         else
           NsNode["?"].attr name, value
@@ -179,7 +179,7 @@
       if param1 and NsInternal.isNodeAlive()
         if OJ.is.plainObject(param1)
           NsNode["?"].css param1
-        else if arguments_.length is 1
+        else if arguments.length is 1
           ret = NsNode["?"].css(param1)
         else
           NsNode["?"].css param1, param2
@@ -191,7 +191,7 @@
         if OJ.is.plainObject(prop)
           setDataProperties NsNode, NsInternal, prop
         else
-          switch arguments_.length
+          switch arguments.length
             when 1
               ret = getDataProp(NsNode, NsInternal, prop)
             when 2
@@ -231,7 +231,7 @@
         ret = NsNode
         if OJ.is.plainObject(name)
           NsNode["?"].prop name
-        else if arguments_.length is 1
+        else if arguments.length is 1
           ret = NsNode["?"].prop(name)
         else
           NsNode["?"].prop name, value
@@ -269,7 +269,7 @@
 
     NsNode.add "text", text = (text) ->
       if text and isNodeAlive(NsNode)
-        if arguments_.length is 1 and false is OJ.is.nullOrUndefined(text)
+        if arguments.length is 1 and false is OJ.is.nullOrUndefined(text)
           NsNode["?"].text text
           NsNode
         else

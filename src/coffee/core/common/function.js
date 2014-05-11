@@ -9,7 +9,7 @@
       that = this;
       try {
         if (OJ.is.func(tryFunc)) {
-          ret = tryFunc.apply(that, Array.prototype.slice.call(arguments_, 1));
+          ret = tryFunc.apply(that, Array.prototype.slice.call(arguments, 1));
         }
       } catch (_error) {
         exception = _error;
@@ -29,7 +29,7 @@
       that = this;
       return function() {
         var args;
-        args = Array.prototype.slice.call(arguments_, 0);
+        args = Array.prototype.slice.call(arguments, 0);
         args.unshift(tryFunc);
         return OJ.tryExec.apply(that, args);
       };
