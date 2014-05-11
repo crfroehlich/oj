@@ -19,17 +19,17 @@
     ret = OJ.component defaults, owner, nodeName 
     
     cmpnt = ret.div props: class: 'form-group'
-    cmpnt.label props: { for: defaults.for }, text: defaults.labelText
+    label = cmpnt.label props: { for: defaults.for }, text: defaults.labelText
     
-    cmpnt.value = () ->
-      cmpnt.input.value
-    cmpnt.input 
+    input = cmpnt.input 
       props: 
         id: defaults.for, 
         type: OJ.enums.inputTypes[defaults.inputType].name, 
         class: 'form-control', 
         placeholder: defaults.placeholder 
-          
+    
+    ret.value = () ->
+      input.value
       
     ret
 
