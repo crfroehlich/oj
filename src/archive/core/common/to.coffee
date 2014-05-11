@@ -9,7 +9,7 @@
     val isnt false and val isnt 0 and val isnt "" and val isnt null and val isnt `undefined` and (typeof val isnt "number" or not isNaN(val))
 
   OJ.to.register "dateFromTicks", (tickStr) ->
-    ticsDateTime = OJ.string(tickStr)
+    ticsDateTime = OJ.to.string(tickStr)
     ret = undefined
     ticks = undefined
     offset = undefined
@@ -22,12 +22,12 @@
       ticsDateTime = ticsDateTime.replace(")", "")
       arr = ticsDateTime.split("-")
       if arr.length > 1
-        ticks = OJ.number(arr[0])
-        offset = OJ.number(arr[1])
+        ticks = OJ.to.number(arr[0])
+        offset = OJ.to.number(arr[1])
         localOffset = new Date().getTimezoneOffset()
         ret = new Date((ticks - ((localOffset + (offset / 100 * 60)) * 1000)))
       else if arr.length is 1
-        ticks = OJ.number(arr[0])
+        ticks = OJ.to.number(arr[0])
         ret = new Date(ticks)
     ret
 

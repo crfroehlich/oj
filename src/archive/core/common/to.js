@@ -15,7 +15,7 @@
     });
     OJ.to.register("dateFromTicks", function(tickStr) {
       var arr, localOffset, offset, ret, ticks, ticsDateTime;
-      ticsDateTime = OJ.string(tickStr);
+      ticsDateTime = OJ.to.string(tickStr);
       ret = void 0;
       ticks = void 0;
       offset = void 0;
@@ -28,12 +28,12 @@
         ticsDateTime = ticsDateTime.replace(")", "");
         arr = ticsDateTime.split("-");
         if (arr.length > 1) {
-          ticks = OJ.number(arr[0]);
-          offset = OJ.number(arr[1]);
+          ticks = OJ.to.number(arr[0]);
+          offset = OJ.to.number(arr[1]);
           localOffset = new Date().getTimezoneOffset();
           ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
         } else if (arr.length === 1) {
-          ticks = OJ.number(arr[0]);
+          ticks = OJ.to.number(arr[0]);
           ret = new Date(ticks);
         }
       }

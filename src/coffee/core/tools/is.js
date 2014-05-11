@@ -7,7 +7,7 @@
     });
     OJ.is.register('arrayNullOrEmpty', function(arr) {
       'use strict';
-      return !Array.isArray(arr) || !arr || !arr.length || arr.length === 0 || !arr.push;
+      return _.isEmpty(arr);
     });
     OJ.is.register('stringNullOrEmpty', function(str) {
       'use strict';
@@ -64,7 +64,7 @@
     OJ.is.register('generic', function(obj) {
       'use strict';
       var ret;
-      ret = false === OJ.is['function'](obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
+      ret = false === OJ.is.func(obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
       return ret;
     });
     OJ.is.register('array', function(obj) {
@@ -97,7 +97,7 @@
       'use strict';
       return _.isFunction(obj);
     });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 

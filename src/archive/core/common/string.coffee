@@ -45,7 +45,7 @@
 
       contains: (str, caseSensitive) ->
         isCaseSensitive = OJ.to.bool(caseSensitive)
-        str = OJ.string(str).trim()
+        str = OJ.to.string(str).trim()
         str = str.toLowerCase()  if false is isCaseSensitive
         match = nsRet.array.filter((matStr) ->
           (isCaseSensitive and OJ.to.string(matStr).trim() is str) or OJ.to.string(matStr).trim().toLowerCase() is str

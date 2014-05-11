@@ -11,7 +11,7 @@
       ret = OJEnum[enumMember]
     else if false is caseSensitive
       OJ.each OJEnum, (member) ->
-        ret = member  if OJ.contains(OJEnum, member) and OJ.string(member).toLowerCase() is OJ.string(enumMember).toLowerCase()
+        ret = member  if OJ.contains(OJEnum, member) and OJ.to.string(member).toLowerCase() is OJ.to.string(enumMember).toLowerCase()
         return
 
     ret

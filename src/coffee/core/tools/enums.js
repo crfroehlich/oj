@@ -11,7 +11,7 @@
         ret = OJEnum[enumMember];
       } else if (false === caseSensitive) {
         OJ.each(OJEnum, function(member) {
-          if (OJ.contains(OJEnum, member) && OJ.string(member).toLowerCase() === OJ.string(enumMember).toLowerCase()) {
+          if (OJ.contains(OJEnum, member) && OJ.to.string(member).toLowerCase() === OJ.to.string(enumMember).toLowerCase()) {
             ret = member;
           }
         });

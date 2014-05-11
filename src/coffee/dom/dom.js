@@ -88,7 +88,7 @@
         var len;
         len = 0;
         if (isControlStillValid()) {
-          len = OJ.number(el.$.length);
+          len = OJ.to.number(el.$.length);
         }
         return len;
       });
@@ -120,7 +120,7 @@
       });
       el.add('required', function(truthy, addLabel) {
         if (isControlStillValid()) {
-          switch (OJ.bool(truthy)) {
+          switch (OJ.to.bool(truthy)) {
             case true:
               el.attr('required', true);
               el.addClass('required');
@@ -173,7 +173,7 @@
             el.$.val(value);
             return el;
           } else {
-            return OJ.string(el.$.val());
+            return OJ.to.string(el.$.val());
           }
         }
       });

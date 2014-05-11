@@ -78,7 +78,7 @@
     });
 
     OJ.clientDb.register('clear', function (clearAll) {
-        if (OJ.bool(clearAll)) {
+        if (OJ.to.bool(clearAll)) {
             //nuke the entire storage collection
             if (ojInternal.hasLocalStorage) {
                 window.localStorage.clear();
@@ -98,12 +98,12 @@
     OJ.clientDb.register('getItem', function (key) {
         var ret = '';
         if (false === OJ.is.nullOrEmpty(key)) {
-            var value = OJ.string(window.localStorage.getItem(key));
+            var value = OJ.to.string(window.localStorage.getItem(key));
             if (OJ.is.nullOrEmpty(value) || value === 'undefined') {
-                value = OJ.string(window.sessionStorage.getItem(key));
+                value = OJ.to.string(window.sessionStorage.getItem(key));
             }
             if (OJ.is.nullOrEmpty(value) || value === 'undefined') {
-                value = OJ.string(ojInternal.closureStorage.getItem(key));
+                value = OJ.to.string(ojInternal.closureStorage.getItem(key));
             }
             if (!OJ.is.nullOrEmpty(value) && value !== 'undefined') {
                 try {

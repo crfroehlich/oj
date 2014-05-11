@@ -21,7 +21,7 @@
     };
     OJ.register('object', object);
     OJ.register('isInstanceOf', function(name, obj) {
-      return OJ.contains(name, obj) && OJ.bool(obj[name]);
+      return OJ.contains(name, obj) && OJ.to.bool(obj[name]);
     });
     OJ.register('contains', function(object, index) {
       var ret;
@@ -81,7 +81,7 @@
           ret += key + '=' + val;
         });
       }
-      return OJ.string(ret);
+      return OJ.to.string(ret);
     });
     OJ.register('extend', function(destObj, srcObj, deepCopy) {
       var ret;

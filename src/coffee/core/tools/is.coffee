@@ -6,7 +6,7 @@
 
   OJ.is.register 'arrayNullOrEmpty', (arr) ->
     'use strict'
-    not Array.isArray(arr) or not arr or not arr.length or arr.length is 0 or not arr.push
+    _.isEmpty arr
 
   OJ.is.register 'stringNullOrEmpty', (str) ->
     'use strict'
@@ -58,7 +58,7 @@
 
   OJ.is.register 'generic', (obj) ->
     'use strict'
-    ret = (false is OJ.is['function'](obj) and false is OJ.hasLength(obj) and false is OJ.is.plainObject(obj))
+    ret = (false is OJ.is.func(obj) and false is OJ.hasLength(obj) and false is OJ.is.plainObject(obj))
     ret
 
   OJ.is.register 'array', (obj) ->
@@ -92,4 +92,4 @@
     _.isFunction obj
 
   return
-) (if (typeof global isnt 'undefined' and global) then global else if (typeof window isnt 'undefined') then window else this).OJ
+) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ

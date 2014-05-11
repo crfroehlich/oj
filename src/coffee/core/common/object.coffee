@@ -18,7 +18,7 @@
   OJ.register 'object', object
   
   OJ.register 'isInstanceOf', (name, obj) ->
-    OJ.contains(name, obj) and OJ.bool(obj[name])
+    OJ.contains(name, obj) and OJ.to.bool(obj[name])
 
   OJ.register 'contains', (object, index) ->
     ret = false
@@ -63,7 +63,7 @@
         ret += key + '=' + val
         return
 
-    OJ.string ret
+    OJ.to.string ret
 
   OJ.register 'extend', (destObj, srcObj, deepCopy = false) ->
     ret = destObj or {}

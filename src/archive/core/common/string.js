@@ -53,7 +53,7 @@
         contains: function(str, caseSensitive) {
           var isCaseSensitive, match;
           isCaseSensitive = OJ.to.bool(caseSensitive);
-          str = OJ.string(str).trim();
+          str = OJ.to.string(str).trim();
           if (false === isCaseSensitive) {
             str = str.toLowerCase();
           }

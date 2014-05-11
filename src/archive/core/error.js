@@ -5,9 +5,9 @@
     OJ.error.register("makeErrorObj", function(errorType, friendlyMsg, esotericMsg) {
       'use strict';
       return {
-        type: OJ.string(errorType, OJ.enums.errorType.warning.name),
-        message: OJ.string(friendlyMsg),
-        detail: OJ.string(esotericMsg)
+        type: OJ.to.string(errorType, OJ.enums.errorType.warning.name),
+        message: OJ.to.string(friendlyMsg),
+        detail: OJ.to.string(esotericMsg)
       };
     });
     OJ.error.register("showError", function(errorJson, friendlyMsg, esotericMsg) {
@@ -29,7 +29,7 @@
       if ($errorsdiv.length <= 0) {
         $errorsdiv = $("#ErrorDiv");
       }
-      if ($errorsdiv.length > 0 && OJ.bool(e.display)) {
+      if ($errorsdiv.length > 0 && OJ.to.bool(e.display)) {
         $errorsdiv.OJErrorMessage({
           name: e.name,
           type: e.type,

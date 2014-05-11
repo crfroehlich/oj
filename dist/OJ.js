@@ -1039,7 +1039,7 @@ OJ IIFE definition to anchor JsDoc comments.
         var len;
         len = 0;
         if (isControlStillValid()) {
-          len = OJ.number(el.$.length);
+          len = OJ.to.number(el.$.length);
         }
         return len;
       });
@@ -1071,7 +1071,7 @@ OJ IIFE definition to anchor JsDoc comments.
       });
       el.add('required', function(truthy, addLabel) {
         if (isControlStillValid()) {
-          switch (OJ.bool(truthy)) {
+          switch (OJ.to.bool(truthy)) {
             case true:
               el.attr('required', true);
               el.addClass('required');
@@ -1124,7 +1124,7 @@ OJ IIFE definition to anchor JsDoc comments.
             el.$.val(value);
             return el;
           } else {
-            return OJ.string(el.$.val());
+            return OJ.to.string(el.$.val());
           }
         }
       });
@@ -1710,7 +1710,7 @@ OJ IIFE definition to anchor JsDoc comments.
     'use strict';
     OJ.register("getDateFromDnJson", function(dnDate) {
       var arr, dnDateStr, localOffset, offset, ret, ticks;
-      dnDateStr = OJ.string(dnDate);
+      dnDateStr = OJ.to.string(dnDate);
       ret = void 0;
       ticks = void 0;
       offset = void 0;
@@ -1724,12 +1724,12 @@ OJ IIFE definition to anchor JsDoc comments.
         dnDateStr = dnDateStr.replace(")", "");
         arr = dnDateStr.split("-");
         if (arr.length > 1) {
-          ticks = OJ.number(arr[0]);
-          offset = OJ.number(arr[1]);
+          ticks = OJ.to.number(arr[0]);
+          offset = OJ.to.number(arr[1]);
           localOffset = new Date().getTimezoneOffset();
           ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
         } else if (arr.length === 1) {
-          ticks = OJ.number(arr[0]);
+          ticks = OJ.to.number(arr[0]);
           ret = new Date(ticks);
         }
       }
@@ -1821,7 +1821,7 @@ OJ IIFE definition to anchor JsDoc comments.
     };
     OJ.register('object', object);
     OJ.register('isInstanceOf', function(name, obj) {
-      return OJ.contains(name, obj) && OJ.bool(obj[name]);
+      return OJ.contains(name, obj) && OJ.to.bool(obj[name]);
     });
     OJ.register('contains', function(object, index) {
       var ret;
@@ -1881,7 +1881,7 @@ OJ IIFE definition to anchor JsDoc comments.
           ret += key + '=' + val;
         });
       }
-      return OJ.string(ret);
+      return OJ.to.string(ret);
     });
     OJ.register('extend', function(destObj, srcObj, deepCopy) {
       var ret;
@@ -1982,7 +1982,7 @@ OJ IIFE definition to anchor JsDoc comments.
         contains: function(str, caseSensitive) {
           var isCaseSensitive, match;
           isCaseSensitive = OJ.to.bool(caseSensitive);
-          str = OJ.string(str).trim();
+          str = OJ.to.string(str).trim();
           if (false === isCaseSensitive) {
             str = str.toLowerCase();
           }
@@ -2803,7 +2803,7 @@ OJ IIFE definition to anchor JsDoc comments.
         ret = OJEnum[enumMember];
       } else if (false === caseSensitive) {
         OJ.each(OJEnum, function(member) {
-          if (OJ.contains(OJEnum, member) && OJ.string(member).toLowerCase() === OJ.string(enumMember).toLowerCase()) {
+          if (OJ.contains(OJEnum, member) && OJ.to.string(member).toLowerCase() === OJ.to.string(enumMember).toLowerCase()) {
             ret = member;
           }
         });
@@ -3375,7 +3375,7 @@ OJ IIFE definition to anchor JsDoc comments.
     });
     OJ.to.register("dateFromTicks", function(tickStr) {
       var arr, localOffset, offset, ret, ticks, ticsDateTime;
-      ticsDateTime = OJ.string(tickStr);
+      ticsDateTime = OJ.to.string(tickStr);
       ret = void 0;
       ticks = void 0;
       offset = void 0;
@@ -3388,12 +3388,12 @@ OJ IIFE definition to anchor JsDoc comments.
         ticsDateTime = ticsDateTime.replace(")", "");
         arr = ticsDateTime.split("-");
         if (arr.length > 1) {
-          ticks = OJ.number(arr[0]);
-          offset = OJ.number(arr[1]);
+          ticks = OJ.to.number(arr[0]);
+          offset = OJ.to.number(arr[1]);
           localOffset = new Date().getTimezoneOffset();
           ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
         } else if (arr.length === 1) {
-          ticks = OJ.number(arr[0]);
+          ticks = OJ.to.number(arr[0]);
           ret = new Date(ticks);
         }
       }
@@ -3657,7 +3657,7 @@ OJ IIFE definition to anchor JsDoc comments.
         number: 1
       };
       OJ.extend(defaults, options, true);
-      while (i < OJ.number(defaults.number)) {
+      while (i < OJ.to.number(defaults.number)) {
         ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
         i += 1;
       }
