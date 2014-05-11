@@ -8,7 +8,7 @@
       var args, query, slice;
       query = this;
       slice = Array.prototype.slice;
-      args = slice.call(arguments, 0);
+      args = slice.call(arguments_, 0);
       query.columns = query.columns || [];
       OJ.each(args, function(argumentValue) {
         query.columns.push(argumentValue);

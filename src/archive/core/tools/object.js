@@ -31,7 +31,7 @@
     OJ.register("object", object);
     OJ.register("isInstanceOf", function(name, obj) {
       "use strict";
-      return OJ.contains(name, obj) && OJ.to.bool(obj[name]);
+      return OJ.contains(name, obj) && OJ.bool(obj[name]);
     });
     OJ.register("contains", function(object, index) {
       "use strict";
@@ -107,14 +107,14 @@
           ret += key + "=" + val;
         });
       }
-      return OJ.to.string(ret);
+      return OJ.string(ret);
     });
     OJ.register("extend", function(destObj, srcObj, deepCopy) {
       "use strict";
       var ret;
       ret = destObj || {};
-      if (arguments.length === 3) {
-        ret = window.$.extend(OJ.to.bool(deepCopy), ret, srcObj);
+      if (arguments_.length === 3) {
+        ret = window.$.extend(OJ.bool(deepCopy), ret, srcObj);
       } else {
         ret = window.$.extend(ret, srcObj);
       }

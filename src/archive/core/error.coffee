@@ -8,9 +8,9 @@
     # name="friendlyMsg" type="String"> Friendly message. 
     # name="esotericMsg" type="String"> (Optional) Error message with Developer context. 
     #  The error object. 
-    type: OJ.string(errorType, OJ.enums.errorType.warning.name)
-    message: OJ.string(friendlyMsg)
-    detail: OJ.string(esotericMsg)
+    type: OJ.to.string(errorType, OJ.enums.errorType.warning.name)
+    message: OJ.to.string(friendlyMsg)
+    detail: OJ.to.string(esotericMsg)
 
   OJ.error.register "showError", (errorJson, friendlyMsg, esotericMsg) ->
     'use strict'
@@ -33,7 +33,7 @@
       e.type = errorJson
     $errorsdiv = $("#DialogErrorDiv")
     $errorsdiv = $("#ErrorDiv")  if $errorsdiv.length <= 0
-    if $errorsdiv.length > 0 and OJ.bool(e.display)
+    if $errorsdiv.length > 0 and OJ.to.bool(e.display)
       $errorsdiv.OJErrorMessage
         name: e.name
         type: e.type

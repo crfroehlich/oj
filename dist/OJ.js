@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.3.12
+ * @version v0.3.13
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -669,7 +669,7 @@ OJ IIFE definition to anchor JsDoc comments.
     className = 'inputgroup';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var cmpnt, defaults, ret;
+      var cmpnt, defaults, input, label, ret;
       defaults = {
         props: {
           "class": 'form-group'
@@ -689,16 +689,13 @@ OJ IIFE definition to anchor JsDoc comments.
           "class": 'form-group'
         }
       });
-      cmpnt.label({
+      label = cmpnt.label({
         props: {
           "for": defaults["for"]
         },
         text: defaults.labelText
       });
-      cmpnt.value = function() {
-        return cmpnt.input.value;
-      };
-      cmpnt.input({
+      input = cmpnt.input({
         props: {
           id: defaults["for"],
           type: OJ.enums.inputTypes[defaults.inputType].name,
@@ -706,6 +703,9 @@ OJ IIFE definition to anchor JsDoc comments.
           placeholder: defaults.placeholder
         }
       });
+      ret.value = function() {
+        return input.value;
+      };
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -1039,7 +1039,7 @@ OJ IIFE definition to anchor JsDoc comments.
         var len;
         len = 0;
         if (isControlStillValid()) {
-          len = OJ.number(el.$.length);
+          len = OJ.to.number(el.$.length);
         }
         return len;
       });
@@ -1071,7 +1071,7 @@ OJ IIFE definition to anchor JsDoc comments.
       });
       el.add('required', function(truthy, addLabel) {
         if (isControlStillValid()) {
-          switch (OJ.bool(truthy)) {
+          switch (OJ.to.bool(truthy)) {
             case true:
               el.attr('required', true);
               el.addClass('required');
@@ -1124,7 +1124,7 @@ OJ IIFE definition to anchor JsDoc comments.
             el.$.val(value);
             return el;
           } else {
-            return OJ.string(el.$.val());
+            return OJ.to.string(el.$.val());
           }
         }
       });

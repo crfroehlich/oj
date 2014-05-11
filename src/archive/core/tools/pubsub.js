@@ -5,13 +5,13 @@
     makePubSubMethods = function(privateBindingObj, nameSpace) {
       privateBindingObj = privateBindingObj || $({});
       nameSpace.register("subscribe", function() {
-        privateBindingObj.on.apply(privateBindingObj, arguments);
+        privateBindingObj.on.apply(privateBindingObj, arguments_);
       });
       nameSpace.register("unsubscribe", function() {
-        privateBindingObj.off.apply(privateBindingObj, arguments);
+        privateBindingObj.off.apply(privateBindingObj, arguments_);
       });
       nameSpace.register("publish", function() {
-        privateBindingObj.trigger.apply(privateBindingObj, arguments);
+        privateBindingObj.trigger.apply(privateBindingObj, arguments_);
       });
       nameSpace.register("pubsSubs", function() {
         var ret;

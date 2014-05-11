@@ -8,7 +8,7 @@
       cookie = $.cookie(cookiename);
       ret = "";
       if (cookie !== "[object Object]") {
-        ret = OJ.to.string(cookie);
+        ret = OJ.string(cookie);
       }
       return ret;
     });
