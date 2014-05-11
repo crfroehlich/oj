@@ -1,14 +1,16 @@
 ((OJ) ->
-  thisGlobal = ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)))
-  onError = thisGlobal.onerror
+  
+  if OJ.TRACK_ON_ERROR
+    onError = OJ.global.onerror
 
-  ###
-  Log errors to the console
-  ###
-  thisGlobal.onerror = (msg, url, lineNumber) ->
-    console.warn "%s\r url: %s\r line: %d", msg, url, lineNumber
-    onError arguments if onError
-    false #true means don't propogate the error
+    ###
+    Log errors to the console
+    ###
+    OJ.global.onerror = (msg, url, lineNumber) ->
+      ret = false
+      OJ.console.warn "%s\r url: %s\r line: %d", msg, url, lineNumber
+      ret = onError msg, url, lineNumber if onError
+      ret #true means don't propagate the error
 
   return
 ) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
