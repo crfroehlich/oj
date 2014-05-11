@@ -324,6 +324,9 @@
     </Content>
     <Content Include="src\coffee\core\tools\pubsub.coffee" />
     <None Include="src\coffee\core\tools\uuid.coffee" />
+    <Content Include="src\coffee\tools\cookie.js">
+      <DependentUpon>cookie.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\tools\history.js">
       <DependentUpon>history.coffee</DependentUpon>
     </Content>
@@ -906,7 +909,14 @@
     <Content Include="test\core\test.is.map">
       <DependentUpon>test.is.coffee</DependentUpon>
     </Content>
+    <Content Include="test\core\test.pubsub.coffee" />
+    <Content Include="test\core\test.pubsub.map">
+      <DependentUpon>test.pubsub.coffee</DependentUpon>
+    </Content>
     <None Include="test\core\test.to.coffee" />
+    <Content Include="test\core\test.pubsub.js">
+      <DependentUpon>test.pubsub.coffee</DependentUpon>
+    </Content>
     <Content Include="test\core\test.to.map">
       <DependentUpon>test.to.coffee</DependentUpon>
     </Content>

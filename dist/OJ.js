@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.3.9
+ * @version v0.3.11
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -31,7 +31,7 @@ OJ IIFE definition to anchor JsDoc comments.
  */
 
 (function() {
-  var NsTree, makeTheJuice, nameSpaceName, thisGlobal, utilLib;
+  var NsTree, makeTheJuice, nameSpaceName, thisDocument, thisGlobal, utilLib;
 
   thisGlobal = (typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this);
 
@@ -292,6 +292,16 @@ OJ IIFE definition to anchor JsDoc comments.
     value: makeTheJuice()
   });
 
+  OJ.register('global', thisGlobal);
+
+  thisDocument = {};
+
+  if (typeof document !== 'undefined') {
+    thisDocument = document;
+  }
+
+  OJ.register('document', thisDocument);
+
 }).call(this);
 
 (function() {
@@ -304,9 +314,17 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ.makeSubNameSpace('nodes');
     OJ.makeSubNameSpace('db');
     OJ.makeSubNameSpace('components');
+    OJ.makeSubNameSpace('notifications');
+    OJ.makeSubNameSpace('history');
+    OJ.makeSubNameSpace('cookie');
     OJ.components.register('members', {});
+
+    /*
+    Configuration variables
+     */
     OJ['GENERATE_UNIQUE_IDS'] = false;
     OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] = 'div';
+    OJ['TRACK_ON_ERROR'] = false;
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);
@@ -656,6 +674,9 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {
           "class": 'form-group'
         },
+        events: {
+          change: _.noop
+        },
         "for": OJ.createUUID(),
         labelText: '',
         inputType: 'text',
@@ -674,6 +695,9 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         text: defaults.labelText
       });
+      cmpnt.value = function() {
+        return cmpnt.input.value;
+      };
       cmpnt.input({
         props: {
           id: defaults["for"],
@@ -1488,6 +1512,224 @@ OJ IIFE definition to anchor JsDoc comments.
 }).call(this);
 
 (function() {
+  (function(OJ) {
+
+    /*
+    Setup settings
+    $.cookie.raw = true
+    $.cookie.json = true
+    
+    Setup defaults
+    https://github.com/carhartl/jquery-cookie/
+    $.cookie.defaults.expires = 365
+    $.cookie.defaults.path = '/'
+    $.cookie.defaults.domain = 'oj.com'
+     */
+    var cookies;
+    $.cookie.defaults.secure = false;
+    cookies = {};
+    OJ.cookie.register('get', function(cookieName, type) {
+      var ret;
+      ret = '';
+      if (cookieName) {
+        if (type) {
+          ret = $.cookie(cookieName, type);
+        } else {
+          ret = $.cookie(cookieName);
+        }
+        if (ret) {
+          return cookies[cookieName] = ret;
+        }
+      }
+    });
+    OJ.cookie.register('all', function() {
+      var ret;
+      ret = $.cookie();
+      return ret;
+    });
+    OJ.cookie.register('set', function(cookieName, value, opts) {
+      var ret;
+      ret = '';
+      if (cookieName) {
+        cookies[cookieName] = value;
+        if (opts) {
+          ret = $.cookie(cookieName, value, opts);
+        } else {
+          ret = $.cookie(cookieName, value);
+        }
+      }
+      return ret;
+    });
+    OJ.cookie.register('delete', function(cookieName, opts) {
+      if (cookieName) {
+        if (opts) {
+          $.removeCookie(cookieName, opts);
+        } else {
+          $.removeCookie(cookieName);
+        }
+        delete cookies[cookieName];
+      }
+    });
+    OJ.cookie.register('deleteAll', function() {
+      cookies = {};
+      OJ.each(OJ.cookie.all, function(val, key) {
+        return OJ.cookie["delete"](key);
+      });
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var eventInfo, eventName;
+    if (OJ.global.addEventListener) {
+      eventName = 'addEventListener';
+      eventInfo = '';
+    } else {
+      eventName = 'attachEvent';
+      eventInfo = 'on';
+    }
+    OJ.history.register('pushState', function(pageName, event) {
+      if (pageName) {
+        history.pushState(null, null, '#' + pageName);
+        if (event) {
+          if (event.preventDefault) {
+            event.preventDefault();
+          } else {
+            event.returnValue = false;
+          }
+        }
+      }
+      return false;
+    });
+    OJ.history.register('restoreState', function(location) {
+      var pageName;
+      pageName = location.hash;
+      if (!pageName) {
+        pageName = location.href.split('#')[1];
+      }
+      if (pageName) {
+        pageName = pageName.replace('#', '');
+        OJ.publish('restoreState', {
+          pageName: pageName
+        });
+      }
+    });
+
+    /* 
+    hang on the event, all references in this document
+     */
+    OJ.document[eventName](eventInfo + 'click', (function(event) {
+      var target;
+      event = event || window.event;
+      target = event.target || event.srcElement;
+      if (target && target.nodeName === 'A' && (' ' + target.className + ' ').indexOf('ajax') >= 0) {
+        OJ.pushState(target.href, event);
+      }
+      event.preventDefault();
+      return event.stopPropagation();
+    }), false);
+
+    /*
+    hang on popstate event triggered by pressing back/forward in browser
+     */
+    OJ.global[eventName](eventInfo + 'popstate', (function(event) {
+
+      /*
+      Note, this is the only difference when using this library,
+      because the object document.location cannot be overriden,
+      so library the returns generated 'location' object within
+      an object window.history, so get it out of 'history.location'.
+      For browsers supporting 'history.pushState' get generated
+      object 'location' with the usual 'document.location'.
+       */
+      var returnLocation;
+      returnLocation = history.location || document.location;
+
+      /*
+      here can cause data loading, etc.
+       */
+      OJ.history.restoreState(returnLocation);
+    }), false);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var friendlyName;
+    friendlyName = 'noty';
+    OJ.notifications.register(friendlyName, function(options, owner) {
+      var defaults, ret;
+      defaults = {
+        layout: 'topRight',
+        theme: 'defaultTheme',
+        type: 'alert',
+        text: '',
+        dismissQueue: true,
+        template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+        animation: {
+          open: {
+            height: 'toggle'
+          },
+          close: {
+            height: 'toggle'
+          },
+          easing: 'swing',
+          speed: 500
+        },
+        timeout: 5000,
+        force: false,
+        modal: false,
+        maxVisible: 5,
+        killer: false,
+        closeWith: ['click'],
+        callback: {
+          onShow: _.noop,
+          afterShow: _.noop,
+          onClose: _.noop,
+          afterClose: _.noop
+        },
+        buttons: false
+      };
+      OJ.extend(defaults, options, true);
+      ret = noty(defaults);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+     */
+    OJ.register('queryString', function(param) {
+      var i, params, prm, ret;
+      ret = {};
+      if (OJ.global.location) {
+        params = OJ.global.location.search.substr(1).split('&');
+        if (params) {
+          i = 0;
+          while (i < params.length) {
+            prm = params[i].split('=');
+            if (prm.length === 2) {
+              ret[prm[0]] = OJ.global.decodeURIComponent(prm[1].replace(/\+/g, " "));
+            }
+            i += 1;
+          }
+        }
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
   (function() {
     var makeSequentialArray;
     makeSequentialArray = function(start, end) {
@@ -1854,6 +2096,498 @@ OJ IIFE definition to anchor JsDoc comments.
       return nsRet;
     });
   })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var cacheDbMgr, cacheExists, getCachedResponse, makeCachedCall, setCachedWebResponse, thisUserName, validate;
+    cacheDbMgr = null;
+    thisUserName = '';
+
+    /*
+    All paramaters are required
+     */
+    validate = function(userName, webServiceName) {
+      thisUserName = userName || thisUserName;
+      if (!thisUserName) {
+        throw new Error('User Name is required.');
+      }
+      if (!webServiceName) {
+        throw new Error('Web Service Name is required.');
+      }
+    };
+
+    /*
+    Make a cached call for insert
+     */
+    makeCachedCall = function(webServiceName, data) {
+      return {
+        message: {
+          dateTime: new Date(),
+          cache: {
+            userName: thisUserName,
+            webServiceName: webServiceName
+          },
+          data: data
+        }
+      };
+    };
+    getCachedResponse = function(webServiceName, userName) {
+      var deferred, promise, ret;
+      deferred = Q.defer();
+      ret = void 0;
+      userName = userName || thisUserName;
+      if (null === cacheDbMgr) {
+        deferred.resolve(OJ.object());
+        ret = deferred.promise;
+      } else {
+        validate(userName, webServiceName);
+        promise = cacheDbMgr.select.from('CachedData', 'uniqueCalls', [webServiceName, thisUserName]);
+        ret = promise.then(function(data) {
+          if (data && data.length > 0) {
+            return data[0].data;
+          }
+        });
+      }
+      return ret;
+    };
+    OJ.register('getCachedResponse', getCachedResponse);
+    setCachedWebResponse = function(webServiceName, data, customerId, userName) {
+      var deferred, ret;
+      deferred = Q.defer();
+      customerId = customerId || thisCustomerId;
+      userName = userName || thisUserName;
+      ret = void 0;
+      if (null === cacheDbMgr) {
+        deferred.resolve(OJ.object());
+        ret = deferred.promise;
+      } else {
+        validate(customerId, userName, webServiceName);
+        ret = cacheDbMgr.update('CachedData', 'uniqueCalls', [webServiceName, thisUserName, thisCustomerId], {
+          data: data
+        });
+        ret.then(function(updatedRows) {
+          var cachedCall;
+          if (!updatedRows || updatedRows.length === 0) {
+            cachedCall = makeCachedCall(webServiceName, data);
+            return cacheDbMgr.insert('CachedData', cachedCall);
+          }
+        });
+      }
+      return ret;
+    };
+    OJ.register('setCachedWebResponse', setCachedWebResponse);
+    cacheExists = function() {
+      return cacheDbMgr !== undefined;
+    };
+    OJ.register('cacheExists', cacheExists);
+    OJ.register('initDb', function(userName) {
+      if (userName == null) {
+        userName = 'offline';
+      }
+      thisUserName = userName;
+      if (window.Modernizr.indexeddb) {
+        cacheDbMgr = OJ.db.dbManager('ojdb', 1);
+        cacheDbMgr.ddl.createTable('CachedData', 'CachedDataId', true);
+        cacheDbMgr.ddl.createIndex('CachedData', 'dateTimeId', 'dateTime');
+        cacheDbMgr.ddl.createIndex('CachedData', 'userNameId', 'cache.userName');
+        cacheDbMgr.ddl.createIndex('CachedData', 'webServiceNameId', 'cache.webServiceName');
+        cacheDbMgr.ddl.createIndex('CachedData', 'uniqueCalls', ['cache.webServiceName', 'cache.userName'], true);
+      }
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var dbManager;
+    dbManager = function(name, version) {
+      var connect, disconnect, isNewConnectionRequired, ret, schemaScripts, select;
+      ret = OJ.object();
+      ret.add('promises', OJ.object());
+      isNewConnectionRequired = false;
+      schemaScripts = [];
+      connect = function(dbName, dbVersion, dbOnUpgrade) {
+        var deferred, request;
+        isNewConnectionRequired = !ret.promises.connect || dbName !== name || dbVersion !== version;
+        if (isNewConnectionRequired) {
+          deferred = Q.defer();
+          ret.promises.connect = deferred.promise;
+          version = dbVersion || 1;
+          name = dbName;
+          dbOnUpgrade = dbOnUpgrade || function() {};
+          request = window.indexedDB.open(name, version);
+          request.onblocked = function(event) {
+            ret.IDB.close();
+            alert('A new version of this page is ready. Please reload!');
+          };
+          request.onerror = function(event) {
+            deferred.reject(new Error('Database error: ' + event.target.errorCode));
+            if (ret.IDB) {
+              ret.IDB.close();
+            }
+          };
+          request.onsuccess = function(event) {
+            ret.IDB = ret.IDB || request.result;
+            deferred.resolve(ret.IDB);
+          };
+          request.onupgradeneeded = function(event) {
+            ret.IDB = ret.IDB || request.result;
+            if (schemaScripts.length > 0) {
+              OJ.each(schemaScripts, function(script) {
+                script(ret.IDB);
+              });
+            }
+            dbOnUpgrade(ret.IDB);
+          };
+        }
+        return ret.promises.connect;
+      };
+      disconnect = function() {
+        if (ret.promises.connect.isFulfilled()) {
+          ret.IDB.close();
+        } else {
+          if (ret.IDB) {
+            ret.promises.connect.done(ret.IDB.close);
+          }
+        }
+      };
+      ret.add('connect', connect);
+      ret.add('disconnect', disconnect);
+      ret.add('getDb', function() {
+        return ret.IDB;
+      });
+      ret.add('schemaScripts', schemaScripts);
+      ret.add('tables', OJ.object());
+      ret.add('ddl', {
+        createTable: function(tableName, tablePkColumnName, autoIncrement) {
+          return OJ.fun.shiftRight(OJ.db.table.create, ret, arguments, this);
+        },
+        dropTable: function(tableName) {
+          return OJ.fun.shiftRight(OJ.db.index.drop, ret, arguments, this);
+        },
+        createIndex: function(tableName, columnName, indexName, isUnique) {
+          return OJ.fun.shiftRight(OJ.db.index.create, ret, arguments, this);
+        }
+      });
+      ret.add('insert', function() {
+        return OJ.fun.shiftRight(OJ.db.insert, ret, arguments, this);
+      });
+      ret.add('update', function() {
+        return OJ.fun.shiftRight(OJ.db.update, ret, arguments, this);
+      });
+      select = OJ.object();
+      ret.add('select', select);
+      select.add('all', function() {
+        return OJ.fun.shiftRight(OJ.db.select.all, ret, arguments, this);
+      });
+      select.add('from', function() {
+        return OJ.fun.shiftRight(OJ.db.select.from, ret, arguments, this);
+      });
+      ret.connect(name, version);
+      return ret;
+    };
+    OJ.db.register('dbManager', dbManager);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var createIndex, createIndexImpl;
+    OJ.db.makeSubNameSpace('index');
+    createIndexImpl = function(dbManager, tableName, columnName, indexName, isUnique) {
+      var table;
+      table = dbManager.tables[tableName];
+      return table.createIndex(columnName, indexName || columnName + 'Idx', {
+        unique: true === isUnique
+      });
+    };
+    createIndex = function(dbManager, tableName, columnName, indexName, isUnique) {
+      var deferred;
+      deferred = Q.defer();
+      dbManager.schemaScripts.push(function() {
+        var e, index;
+        try {
+          index = createIndexImpl(dbManager, tableName, columnName, indexName, isUnique);
+          deferred.resolve(index);
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error('Could not create a new index', e));
+        }
+        return dbManager.tables[tableName];
+      });
+      return deferred.promise;
+    };
+    OJ.db.index.register('create', createIndex);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var insert, insertImpl, onError;
+    onError = function(eventObj) {
+      OJ.debug.error(eventObj.target.error);
+      return new Error(eventObj.target.error);
+    };
+    insertImpl = function(dbManager, tableName, records) {
+      var deferred, doInsert;
+      deferred = Q.defer();
+      doInsert = function() {
+        var e, objectStore, transaction;
+        try {
+          transaction = dbManager.getDb().transaction([tableName], "readwrite");
+          objectStore = transaction.objectStore(tableName);
+          OJ.each(records, function(rec) {
+            objectStore.add(rec);
+          });
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error("Could not insert records", e));
+        }
+        return deferred.resolve(true);
+      };
+      dbManager.promises.connect.then(doInsert, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+    insert = function(dbWrapper, tableName, records) {
+      return insertImpl(dbWrapper, tableName, records);
+    };
+    OJ.db.register("insert", insert);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var onError, selectAll, selectAllImpl, selectFrom, selectFromImpl;
+    OJ.db.makeSubNameSpace('select');
+    onError = function(eventObj) {
+      OJ.debug.error(eventObj.target.error);
+      return new Error(eventObj.target.error);
+    };
+    selectAllImpl = function(dbManager, tableName, ret) {
+      var deferred, doSelect;
+      deferred = Q.defer();
+      doSelect = function() {
+        var e, objectStore, selRequest, transaction;
+        try {
+          transaction = dbManager.getDb().transaction([tableName]);
+          objectStore = transaction.objectStore(tableName);
+          ret = ret || [];
+          selRequest = objectStore.openCursor();
+          selRequest.onsuccess = function(event) {
+            var cursor;
+            cursor = event.target.result;
+            if (cursor) {
+              ret.push(cursor.value);
+              cursor['continue']();
+            } else {
+              deferred.resolve(ret);
+            }
+          };
+          selRequest.onerror = function(eventObj) {
+            deferred.reject(onError(eventObj));
+          };
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error('Could not select records', e));
+        }
+        return deferred.promise;
+      };
+      dbManager.promises.connect.then(doSelect, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+    selectAll = function(dbWrapper, tableName) {
+      var promise, ret;
+      ret = [];
+      promise = selectAllImpl(dbWrapper, tableName, ret);
+      promise['return'] = ret;
+      return promise;
+    };
+    OJ.db.select.register('all', selectAll);
+    selectFromImpl = function(dbManager, tableName, indexName, indexVal, ret) {
+      var deferred, doSelect;
+      deferred = Q.defer();
+      doSelect = function() {
+        var e, index, keyRange, objectStore, selRequest, transaction;
+        try {
+          transaction = dbManager.getDb().transaction([tableName]);
+          objectStore = transaction.objectStore(tableName);
+          index = objectStore.index(indexName);
+          ret = ret || [];
+          keyRange = void 0;
+          if (indexVal) {
+            keyRange = IDBKeyRange.only(indexVal);
+          }
+          selRequest = index.openCursor(keyRange);
+          selRequest.onsuccess = function(event) {
+            var cursor;
+            cursor = event.target.result;
+            if (cursor) {
+              ret.push(cursor.value);
+              cursor['continue']();
+            } else {
+              deferred.resolve(ret);
+            }
+          };
+          selRequest.onerror = function(eventObj) {
+            deferred.reject(onError(eventObj));
+          };
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error('Could not select records', e));
+        }
+        return deferred.promise;
+      };
+      dbManager.promises.connect.then(doSelect, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+    OJ.db.select.register('from', selectFrom = function(dbWrapper, tableName, indexName, indexVal) {
+      var promise, ret;
+      ret = [];
+      promise = selectFromImpl(dbWrapper, tableName, indexName, indexVal, ret);
+      promise['return'] = ret;
+      return promise;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var createTable, createTableImpl, dropTable, dropTableImpl;
+    OJ.db.makeSubNameSpace('table');
+    createTableImpl = function(deferred, dbManager, tableName, tablePkColumnName, autoIncrement) {
+
+      /*
+      @param db {IDBDatabase} An IDBDatabase instance
+       */
+      dbManager.schemaScripts.push(function(db) {
+        var e, table;
+        try {
+          table = db.createObjectStore(tableName, {
+            keyPath: tablePkColumnName,
+            autoIncrement: false !== autoIncrement
+          });
+          dbManager.tables.add(tableName, table);
+          deferred.resolve(table);
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error("Could not create a new table", e));
+        }
+        return dbManager.tables[tableName];
+      });
+      return deferred.promise;
+    };
+    createTable = function(dbManager, tableName, tablePkColumnName, autoIncrement) {
+      var deferred;
+      deferred = Q.defer();
+      return createTableImpl(deferred, dbManager, tableName, tablePkColumnName, autoIncrement);
+    };
+    OJ.db.table.register("create", createTable);
+    dropTableImpl = function(deferred, dbManager, tableName) {
+
+      /*
+      @param db {IDBDatabase} An IDBDatabase instance
+       */
+      dbManager.schemaScripts.push(function(db) {
+        var e;
+        try {
+          db.deleteObjectStore(tableName);
+          delete dbManager.schema[tableName];
+          deferred.resolve();
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error("Could not create a new table", e));
+        }
+        return true;
+      });
+      return deferred.promise;
+    };
+    dropTable = function(dbManager, tableName) {
+      var deferred;
+      deferred = Q.defer();
+      return dropTableImpl(deferred, dbManager, tableName);
+    };
+    OJ.db.table.register("drop", dropTable);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
+    var onError, update, updateImpl;
+    onError = function(eventObj) {
+      OJ.debug.error(eventObj.target.error);
+      return new Error(eventObj.target.error);
+    };
+    updateImpl = function(dbManager, tableName, indexName, indexVal, ret, record) {
+      var deferred, doUpdate;
+      deferred = Q.defer();
+      doUpdate = function() {
+        var e, index, keyRange, objectStore, selRequest, transaction;
+        try {
+          transaction = dbManager.getDb().transaction([tableName], "readwrite");
+          objectStore = transaction.objectStore(tableName);
+          index = objectStore.index(indexName);
+          ret = ret || [];
+          keyRange = IDBKeyRange.only(indexVal);
+          selRequest = index.openCursor(keyRange);
+          selRequest.onsuccess = function(event) {
+            var cursor, newRec, updtRequest, val;
+            cursor = event.target.result;
+            if (cursor) {
+              val = cursor.value;
+              newRec = OJ.extend(val, record);
+              updtRequest = cursor.update(newRec);
+              updtRequest.onerror = onError;
+            } else {
+              deferred.resolve(ret);
+            }
+          };
+          selRequest.onerror = function(e) {
+            deferred.reject(onError(e));
+          };
+        } catch (_error) {
+          e = _error;
+          console.log(e, e.stack);
+          deferred.reject(new Error("Could not select records", e));
+        }
+        return deferred.promise;
+      };
+      dbManager.promises.connect.then(doUpdate, function() {
+        deferred.reject();
+      });
+      return deferred.promise;
+    };
+    OJ.db.register("update", update = function(dbWrapper, tableName, indexName, indexVal, record) {
+      var ret;
+      ret = [];
+      return updateImpl(dbWrapper, tableName, indexName, indexVal, ret, record);
+    });
+  })();
 
 }).call(this);
 
@@ -2418,20 +3152,23 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-    var onError, thisGlobal;
-    thisGlobal = (typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this));
-    onError = thisGlobal.onerror;
+    var onError;
+    if (OJ.TRACK_ON_ERROR) {
+      onError = OJ.global.onerror;
 
-    /*
-    Log errors to the console
-     */
-    thisGlobal.onerror = function(msg, url, lineNumber) {
-      console.warn("%s\r url: %s\r line: %d", msg, url, lineNumber);
-      if (onError) {
-        onError(arguments);
-      }
-      return false;
-    };
+      /*
+      Log errors to the console
+       */
+      OJ.global.onerror = function(msg, url, lineNumber) {
+        var ret;
+        ret = false;
+        OJ.console.warn("%s\r url: %s\r line: %d", msg, url, lineNumber);
+        if (onError) {
+          ret = onError(msg, url, lineNumber);
+        }
+        return ret;
+      };
+    }
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
@@ -2840,498 +3577,6 @@ OJ IIFE definition to anchor JsDoc comments.
     };
     OJ.register("createUUID", createFauxUUID);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var cacheDbMgr, cacheExists, getCachedResponse, makeCachedCall, setCachedWebResponse, thisUserName, validate;
-    cacheDbMgr = null;
-    thisUserName = '';
-
-    /*
-    All paramaters are required
-     */
-    validate = function(userName, webServiceName) {
-      thisUserName = userName || thisUserName;
-      if (!thisUserName) {
-        throw new Error('User Name is required.');
-      }
-      if (!webServiceName) {
-        throw new Error('Web Service Name is required.');
-      }
-    };
-
-    /*
-    Make a cached call for insert
-     */
-    makeCachedCall = function(webServiceName, data) {
-      return {
-        message: {
-          dateTime: new Date(),
-          cache: {
-            userName: thisUserName,
-            webServiceName: webServiceName
-          },
-          data: data
-        }
-      };
-    };
-    getCachedResponse = function(webServiceName, userName) {
-      var deferred, promise, ret;
-      deferred = Q.defer();
-      ret = void 0;
-      userName = userName || thisUserName;
-      if (null === cacheDbMgr) {
-        deferred.resolve(OJ.object());
-        ret = deferred.promise;
-      } else {
-        validate(userName, webServiceName);
-        promise = cacheDbMgr.select.from('CachedData', 'uniqueCalls', [webServiceName, thisUserName]);
-        ret = promise.then(function(data) {
-          if (data && data.length > 0) {
-            return data[0].data;
-          }
-        });
-      }
-      return ret;
-    };
-    OJ.register('getCachedResponse', getCachedResponse);
-    setCachedWebResponse = function(webServiceName, data, customerId, userName) {
-      var deferred, ret;
-      deferred = Q.defer();
-      customerId = customerId || thisCustomerId;
-      userName = userName || thisUserName;
-      ret = void 0;
-      if (null === cacheDbMgr) {
-        deferred.resolve(OJ.object());
-        ret = deferred.promise;
-      } else {
-        validate(customerId, userName, webServiceName);
-        ret = cacheDbMgr.update('CachedData', 'uniqueCalls', [webServiceName, thisUserName, thisCustomerId], {
-          data: data
-        });
-        ret.then(function(updatedRows) {
-          var cachedCall;
-          if (!updatedRows || updatedRows.length === 0) {
-            cachedCall = makeCachedCall(webServiceName, data);
-            return cacheDbMgr.insert('CachedData', cachedCall);
-          }
-        });
-      }
-      return ret;
-    };
-    OJ.register('setCachedWebResponse', setCachedWebResponse);
-    cacheExists = function() {
-      return cacheDbMgr !== undefined;
-    };
-    OJ.register('cacheExists', cacheExists);
-    OJ.register('initDb', function(userName) {
-      if (userName == null) {
-        userName = 'offline';
-      }
-      thisUserName = userName;
-      if (window.Modernizr.indexeddb) {
-        cacheDbMgr = OJ.db.dbManager('ojdb', 1);
-        cacheDbMgr.ddl.createTable('CachedData', 'CachedDataId', true);
-        cacheDbMgr.ddl.createIndex('CachedData', 'dateTimeId', 'dateTime');
-        cacheDbMgr.ddl.createIndex('CachedData', 'userNameId', 'cache.userName');
-        cacheDbMgr.ddl.createIndex('CachedData', 'webServiceNameId', 'cache.webServiceName');
-        cacheDbMgr.ddl.createIndex('CachedData', 'uniqueCalls', ['cache.webServiceName', 'cache.userName'], true);
-      }
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var dbManager;
-    dbManager = function(name, version) {
-      var connect, disconnect, isNewConnectionRequired, ret, schemaScripts, select;
-      ret = OJ.object();
-      ret.add('promises', OJ.object());
-      isNewConnectionRequired = false;
-      schemaScripts = [];
-      connect = function(dbName, dbVersion, dbOnUpgrade) {
-        var deferred, request;
-        isNewConnectionRequired = !ret.promises.connect || dbName !== name || dbVersion !== version;
-        if (isNewConnectionRequired) {
-          deferred = Q.defer();
-          ret.promises.connect = deferred.promise;
-          version = dbVersion || 1;
-          name = dbName;
-          dbOnUpgrade = dbOnUpgrade || function() {};
-          request = window.indexedDB.open(name, version);
-          request.onblocked = function(event) {
-            ret.IDB.close();
-            alert('A new version of this page is ready. Please reload!');
-          };
-          request.onerror = function(event) {
-            deferred.reject(new Error('Database error: ' + event.target.errorCode));
-            if (ret.IDB) {
-              ret.IDB.close();
-            }
-          };
-          request.onsuccess = function(event) {
-            ret.IDB = ret.IDB || request.result;
-            deferred.resolve(ret.IDB);
-          };
-          request.onupgradeneeded = function(event) {
-            ret.IDB = ret.IDB || request.result;
-            if (schemaScripts.length > 0) {
-              OJ.each(schemaScripts, function(script) {
-                script(ret.IDB);
-              });
-            }
-            dbOnUpgrade(ret.IDB);
-          };
-        }
-        return ret.promises.connect;
-      };
-      disconnect = function() {
-        if (ret.promises.connect.isFulfilled()) {
-          ret.IDB.close();
-        } else {
-          if (ret.IDB) {
-            ret.promises.connect.done(ret.IDB.close);
-          }
-        }
-      };
-      ret.add('connect', connect);
-      ret.add('disconnect', disconnect);
-      ret.add('getDb', function() {
-        return ret.IDB;
-      });
-      ret.add('schemaScripts', schemaScripts);
-      ret.add('tables', OJ.object());
-      ret.add('ddl', {
-        createTable: function(tableName, tablePkColumnName, autoIncrement) {
-          return OJ.fun.shiftRight(OJ.db.table.create, ret, arguments, this);
-        },
-        dropTable: function(tableName) {
-          return OJ.fun.shiftRight(OJ.db.index.drop, ret, arguments, this);
-        },
-        createIndex: function(tableName, columnName, indexName, isUnique) {
-          return OJ.fun.shiftRight(OJ.db.index.create, ret, arguments, this);
-        }
-      });
-      ret.add('insert', function() {
-        return OJ.fun.shiftRight(OJ.db.insert, ret, arguments, this);
-      });
-      ret.add('update', function() {
-        return OJ.fun.shiftRight(OJ.db.update, ret, arguments, this);
-      });
-      select = OJ.object();
-      ret.add('select', select);
-      select.add('all', function() {
-        return OJ.fun.shiftRight(OJ.db.select.all, ret, arguments, this);
-      });
-      select.add('from', function() {
-        return OJ.fun.shiftRight(OJ.db.select.from, ret, arguments, this);
-      });
-      ret.connect(name, version);
-      return ret;
-    };
-    OJ.db.register('dbManager', dbManager);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var createIndex, createIndexImpl;
-    OJ.db.makeSubNameSpace('index');
-    createIndexImpl = function(dbManager, tableName, columnName, indexName, isUnique) {
-      var table;
-      table = dbManager.tables[tableName];
-      return table.createIndex(columnName, indexName || columnName + 'Idx', {
-        unique: true === isUnique
-      });
-    };
-    createIndex = function(dbManager, tableName, columnName, indexName, isUnique) {
-      var deferred;
-      deferred = Q.defer();
-      dbManager.schemaScripts.push(function() {
-        var e, index;
-        try {
-          index = createIndexImpl(dbManager, tableName, columnName, indexName, isUnique);
-          deferred.resolve(index);
-        } catch (_error) {
-          e = _error;
-          console.log(e, e.stack);
-          deferred.reject(new Error('Could not create a new index', e));
-        }
-        return dbManager.tables[tableName];
-      });
-      return deferred.promise;
-    };
-    OJ.db.index.register('create', createIndex);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var insert, insertImpl, onError;
-    onError = function(eventObj) {
-      OJ.debug.error(eventObj.target.error);
-      return new Error(eventObj.target.error);
-    };
-    insertImpl = function(dbManager, tableName, records) {
-      var deferred, doInsert;
-      deferred = Q.defer();
-      doInsert = function() {
-        var e, objectStore, transaction;
-        try {
-          transaction = dbManager.getDb().transaction([tableName], "readwrite");
-          objectStore = transaction.objectStore(tableName);
-          OJ.each(records, function(rec) {
-            objectStore.add(rec);
-          });
-        } catch (_error) {
-          e = _error;
-          console.log(e, e.stack);
-          deferred.reject(new Error("Could not insert records", e));
-        }
-        return deferred.resolve(true);
-      };
-      dbManager.promises.connect.then(doInsert, function() {
-        deferred.reject();
-      });
-      return deferred.promise;
-    };
-    insert = function(dbWrapper, tableName, records) {
-      return insertImpl(dbWrapper, tableName, records);
-    };
-    OJ.db.register("insert", insert);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var onError, selectAll, selectAllImpl, selectFrom, selectFromImpl;
-    OJ.db.makeSubNameSpace('select');
-    onError = function(eventObj) {
-      OJ.debug.error(eventObj.target.error);
-      return new Error(eventObj.target.error);
-    };
-    selectAllImpl = function(dbManager, tableName, ret) {
-      var deferred, doSelect;
-      deferred = Q.defer();
-      doSelect = function() {
-        var e, objectStore, selRequest, transaction;
-        try {
-          transaction = dbManager.getDb().transaction([tableName]);
-          objectStore = transaction.objectStore(tableName);
-          ret = ret || [];
-          selRequest = objectStore.openCursor();
-          selRequest.onsuccess = function(event) {
-            var cursor;
-            cursor = event.target.result;
-            if (cursor) {
-              ret.push(cursor.value);
-              cursor['continue']();
-            } else {
-              deferred.resolve(ret);
-            }
-          };
-          selRequest.onerror = function(eventObj) {
-            deferred.reject(onError(eventObj));
-          };
-        } catch (_error) {
-          e = _error;
-          console.log(e, e.stack);
-          deferred.reject(new Error('Could not select records', e));
-        }
-        return deferred.promise;
-      };
-      dbManager.promises.connect.then(doSelect, function() {
-        deferred.reject();
-      });
-      return deferred.promise;
-    };
-    selectAll = function(dbWrapper, tableName) {
-      var promise, ret;
-      ret = [];
-      promise = selectAllImpl(dbWrapper, tableName, ret);
-      promise['return'] = ret;
-      return promise;
-    };
-    OJ.db.select.register('all', selectAll);
-    selectFromImpl = function(dbManager, tableName, indexName, indexVal, ret) {
-      var deferred, doSelect;
-      deferred = Q.defer();
-      doSelect = function() {
-        var e, index, keyRange, objectStore, selRequest, transaction;
-        try {
-          transaction = dbManager.getDb().transaction([tableName]);
-          objectStore = transaction.objectStore(tableName);
-          index = objectStore.index(indexName);
-          ret = ret || [];
-          keyRange = void 0;
-          if (indexVal) {
-            keyRange = IDBKeyRange.only(indexVal);
-          }
-          selRequest = index.openCursor(keyRange);
-          selRequest.onsuccess = function(event) {
-            var cursor;
-            cursor = event.target.result;
-            if (cursor) {
-              ret.push(cursor.value);
-              cursor['continue']();
-            } else {
-              deferred.resolve(ret);
-            }
-          };
-          selRequest.onerror = function(eventObj) {
-            deferred.reject(onError(eventObj));
-          };
-        } catch (_error) {
-          e = _error;
-          console.log(e, e.stack);
-          deferred.reject(new Error('Could not select records', e));
-        }
-        return deferred.promise;
-      };
-      dbManager.promises.connect.then(doSelect, function() {
-        deferred.reject();
-      });
-      return deferred.promise;
-    };
-    OJ.db.select.register('from', selectFrom = function(dbWrapper, tableName, indexName, indexVal) {
-      var promise, ret;
-      ret = [];
-      promise = selectFromImpl(dbWrapper, tableName, indexName, indexVal, ret);
-      promise['return'] = ret;
-      return promise;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var createTable, createTableImpl, dropTable, dropTableImpl;
-    OJ.db.makeSubNameSpace('table');
-    createTableImpl = function(deferred, dbManager, tableName, tablePkColumnName, autoIncrement) {
-
-      /*
-      @param db {IDBDatabase} An IDBDatabase instance
-       */
-      dbManager.schemaScripts.push(function(db) {
-        var e, table;
-        try {
-          table = db.createObjectStore(tableName, {
-            keyPath: tablePkColumnName,
-            autoIncrement: false !== autoIncrement
-          });
-          dbManager.tables.add(tableName, table);
-          deferred.resolve(table);
-        } catch (_error) {
-          e = _error;
-          console.log(e, e.stack);
-          deferred.reject(new Error("Could not create a new table", e));
-        }
-        return dbManager.tables[tableName];
-      });
-      return deferred.promise;
-    };
-    createTable = function(dbManager, tableName, tablePkColumnName, autoIncrement) {
-      var deferred;
-      deferred = Q.defer();
-      return createTableImpl(deferred, dbManager, tableName, tablePkColumnName, autoIncrement);
-    };
-    OJ.db.table.register("create", createTable);
-    dropTableImpl = function(deferred, dbManager, tableName) {
-
-      /*
-      @param db {IDBDatabase} An IDBDatabase instance
-       */
-      dbManager.schemaScripts.push(function(db) {
-        var e;
-        try {
-          db.deleteObjectStore(tableName);
-          delete dbManager.schema[tableName];
-          deferred.resolve();
-        } catch (_error) {
-          e = _error;
-          console.log(e, e.stack);
-          deferred.reject(new Error("Could not create a new table", e));
-        }
-        return true;
-      });
-      return deferred.promise;
-    };
-    dropTable = function(dbManager, tableName) {
-      var deferred;
-      deferred = Q.defer();
-      return dropTableImpl(deferred, dbManager, tableName);
-    };
-    OJ.db.table.register("drop", dropTable);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function() {
-    'use strict';
-    var onError, update, updateImpl;
-    onError = function(eventObj) {
-      OJ.debug.error(eventObj.target.error);
-      return new Error(eventObj.target.error);
-    };
-    updateImpl = function(dbManager, tableName, indexName, indexVal, ret, record) {
-      var deferred, doUpdate;
-      deferred = Q.defer();
-      doUpdate = function() {
-        var e, index, keyRange, objectStore, selRequest, transaction;
-        try {
-          transaction = dbManager.getDb().transaction([tableName], "readwrite");
-          objectStore = transaction.objectStore(tableName);
-          index = objectStore.index(indexName);
-          ret = ret || [];
-          keyRange = IDBKeyRange.only(indexVal);
-          selRequest = index.openCursor(keyRange);
-          selRequest.onsuccess = function(event) {
-            var cursor, newRec, updtRequest, val;
-            cursor = event.target.result;
-            if (cursor) {
-              val = cursor.value;
-              newRec = OJ.extend(val, record);
-              updtRequest = cursor.update(newRec);
-              updtRequest.onerror = onError;
-            } else {
-              deferred.resolve(ret);
-            }
-          };
-          selRequest.onerror = function(e) {
-            deferred.reject(onError(e));
-          };
-        } catch (_error) {
-          e = _error;
-          console.log(e, e.stack);
-          deferred.reject(new Error("Could not select records", e));
-        }
-        return deferred.promise;
-      };
-      dbManager.promises.connect.then(doUpdate, function() {
-        deferred.reject();
-      });
-      return deferred.promise;
-    };
-    OJ.db.register("update", update = function(dbWrapper, tableName, indexName, indexVal, record) {
-      var ret;
-      ret = [];
-      return updateImpl(dbWrapper, tableName, indexName, indexVal, ret, record);
-    });
-  })();
 
 }).call(this);
 
@@ -3935,7 +4180,7 @@ OJ IIFE definition to anchor JsDoc comments.
     var nodeName;
     nodeName = 'input';
     OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var change, click, defaults, newChange, newClick, ret, syncValue, value;
+      var defaults, newChange, newClick, newFocusout, oldChange, oldClick, oldFocusout, ret, syncValue;
       if (owner == null) {
         owner = OJ.body;
       }
@@ -3958,44 +4203,50 @@ OJ IIFE definition to anchor JsDoc comments.
           click: _.noop,
           change: _.noop,
           keyenter: _.noop,
-          keyup: _.noop
+          keyup: _.noop,
+          focusout: _.noop
         }
       };
       OJ.extend(defaults, options, true);
-      value = defaults.props.value;
       syncValue = function() {
         switch (defaults.props.type) {
           case OJ.enums.inputTypes.checkbox:
-            return value = ret.$.is(":checked");
+            ret.value = ret.$.is(":checked");
+            break;
           case OJ.enums.inputTypes.radio:
-            return value = ret.$.find(":checked").val();
+            ret.value = ret.$.find(":checked").val();
+            break;
           default:
-            return value = ret.val();
+            ret.value = ret.val();
         }
+        return ret.value;
       };
-      if (defaults.events.click !== _.noop) {
-        click = defaults.events.click;
-        newClick = function() {
-          var event, retval;
-          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-          retval = click.apply(null, event);
-          syncValue();
-          return retval;
-        };
-        defaults.events.click = newClick;
-      }
-      if (defaults.events.change !== _.noop) {
-        change = defaults.events.change;
-        newChange = function() {
-          var event, retval;
-          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-          retval = change.apply(null, event);
-          syncValue();
-          return retval;
-        };
-        defaults.events.change = newChange;
-      }
+      oldClick = defaults.events.click;
+      newClick = function() {
+        var event;
+        event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+        syncValue();
+        return oldClick.apply(null, event);
+      };
+      defaults.events.click = newClick;
+      oldChange = defaults.events.change;
+      newChange = function() {
+        var event;
+        event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+        syncValue();
+        return oldChange.apply(null, event);
+      };
+      defaults.events.change = newChange;
+      oldFocusout = defaults.events.focusout;
+      newFocusout = function() {
+        var event;
+        event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+        syncValue();
+        return oldFocusout.apply(null, event);
+      };
+      defaults.events.focusout = newFocusout;
       ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
+      ret.value = defaults.props.value;
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }
