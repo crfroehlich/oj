@@ -953,7 +953,7 @@ OJ IIFE definition to anchor JsDoc comments.
 (function() {
   (function(OJ) {
     OJ.register('dom', function(el, parent) {
-      var enabled, getData, isControlStillValid, setData, setDataObj;
+      var enabled, isControlStillValid;
       if (parent == null) {
         parent = OJ.body;
       }
@@ -999,52 +999,6 @@ OJ IIFE definition to anchor JsDoc comments.
           Mousetrap.bind(keys, el[event]);
         }
         return el;
-      });
-      getData = function(propName) {
-        var data;
-        data = null;
-        if (isControlStillValid() && propName) {
-          if (el[0] && el[0].dataset && el[0].dataset[propName]) {
-            data = el[0].dataset.propName;
-          }
-        }
-        return data;
-      };
-      setData = function(propName, value) {
-        var data;
-        data = null;
-        if (isControlStillValid() && propName) {
-          data = value;
-          if (el[0] && el[0].dataset) {
-            el[0].dataset[propName] = value;
-          }
-        }
-        return data;
-      };
-      setDataObj = function(obj) {
-        OJ.each(obj, function(val, propName) {
-          setData(propName, val);
-        });
-        return el;
-      };
-      el.add('data', function(prop, val) {
-        var data;
-        data = '';
-        if (isControlStillValid()) {
-          if (OJ.isPlainObject(prop)) {
-            setDataObj(prop);
-          } else {
-            switch (arguments.length) {
-              case 1:
-                data = getData(prop);
-                break;
-              case 2:
-                setData(prop, val);
-                data = el;
-            }
-          }
-        }
-        return data;
       });
       el.add('disable', function() {
         if (isControlStillValid()) {
