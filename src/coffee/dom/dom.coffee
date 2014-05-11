@@ -43,47 +43,6 @@
       Mousetrap.bind keys, el[event]  if isControlStillValid()
       el
     
-    # 
-    # Get the value of a data prop from an Element
-    # 
-    getData = (propName) ->
-      data = null
-      if isControlStillValid() and propName
-        data = el[0].dataset.propName  if el[0] and el[0].dataset and el[0].dataset[propName]
-      data
-
-    # 
-    # Set the value of a data prop from an Element (first to the DOM, then to memory, then to clientDb)
-    # 
-    setData = (propName, value) ->
-      data = null
-      if isControlStillValid() and propName
-        data = value
-        el[0].dataset[propName] = value  if el[0] and el[0].dataset
-      data
-
-    setDataObj = (obj) ->
-      OJ.each obj, (val, propName) ->
-        setData propName, val
-        return
-      el
-    
-    # Store property data on the control.
-    # All properties, a single property, or the control if defining a property (for chaining)
-    el.add 'data', (prop, val) ->
-      data = ''
-      if isControlStillValid()
-        if OJ.isPlainObject(prop)
-          setDataObj prop
-        else
-          switch arguments_.length
-            when 1
-              data = getData prop
-            when 2
-              setData prop, val
-              data = el #for chaining
-      data
-
     # Disable the element.
     # The OJ object (for chaining)
     el.add 'disable', ->
@@ -198,7 +157,7 @@
     # Get the value of the element.
     el.add 'val', (value) ->
       if isControlStillValid()
-        if arguments_.length is 1 and false is OJ.isNullOrUndefined(value)
+        if arguments.length is 1 and false is OJ.isNullOrUndefined(value)
           el.$.val value
           el
         else
