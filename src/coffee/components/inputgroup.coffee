@@ -8,6 +8,8 @@
     defaults = 
       props:
         class: 'form-group'
+      events:
+        change: _.noop
       for: OJ.createUUID()
       labelText: ''
       inputType: 'text'
@@ -18,12 +20,17 @@
     
     cmpnt = ret.div props: class: 'form-group'
     cmpnt.label props: { for: defaults.for }, text: defaults.labelText
-    cmpnt.input props: 
-      id: defaults.for, 
-      type: OJ.enums.inputTypes[defaults.inputType].name, 
-      class: 'form-control', 
-      placeholder: defaults.placeholder 
- 
+    
+    cmpnt.value = () ->
+      cmpnt.input.value
+    cmpnt.input 
+      props: 
+        id: defaults.for, 
+        type: OJ.enums.inputTypes[defaults.inputType].name, 
+        class: 'form-control', 
+        placeholder: defaults.placeholder 
+          
+      
     ret
 
   return

@@ -11,6 +11,9 @@
         props: {
           "class": 'form-group'
         },
+        events: {
+          change: _.noop
+        },
         "for": OJ.createUUID(),
         labelText: '',
         inputType: 'text',
@@ -29,6 +32,9 @@
         },
         text: defaults.labelText
       });
+      cmpnt.value = function() {
+        return cmpnt.input.value;
+      };
       cmpnt.input({
         props: {
           id: defaults["for"],
