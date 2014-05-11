@@ -21,41 +21,49 @@
         change: _.noop
         keyenter: _.noop
         keyup: _.noop
+        focusout: _.noop
 
     
     OJ.extend defaults, options, true
-    value = defaults.props.value
     
     syncValue = ->
       switch defaults.props.type
         when OJ.enums.inputTypes.checkbox
-          value = ret.$.is(":checked")
+          ret.value = ret.$.is(":checked")
         when OJ.enums.inputTypes.radio
-          value = ret.$.find(":checked").val()
+          ret.value = ret.$.find(":checked").val()
         else  
-          value = ret.val()
+          ret.value = ret.val()
+      ret.value    
     
     # Click binding
-    if defaults.events.click isnt _.noop
-      click = defaults.events.click
-      newClick = (event...) ->
-        retval = click event...
-        syncValue()
-        retval
-      defaults.events.click = newClick
+    oldClick = defaults.events.click
+    newClick = (event...) ->
+      syncValue()
+      oldClick event...
+        
+    defaults.events.click = newClick
           
     # Change binding
-    if defaults.events.change isnt _.noop
-      change = defaults.events.change
-      newChange = (event...) ->
-        retval = change event...
-        syncValue()
-        retval
-      defaults.events.change = newChange
+    oldChange = defaults.events.change
+    newChange = (event...) ->
+      syncValue()
+      oldChange event...
+        
+    defaults.events.change = newChange
+    
+    # Change binding
+    oldFocusout = defaults.events.focusout
+    newFocusout = (event...) ->
+      syncValue()
+      oldFocusout event...
+        
+    defaults.events.focusout = newFocusout
+    
     
     ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+    ret.value = defaults.props.value
     
-
     if false is calledFromFactory then OJ.nodes.factory ret, owner
 
     ret

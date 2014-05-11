@@ -7,7 +7,7 @@
     var nodeName;
     nodeName = 'input';
     OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var change, click, defaults, newChange, newClick, ret, syncValue, value;
+      var defaults, newChange, newClick, newFocusout, oldChange, oldClick, oldFocusout, ret, syncValue;
       if (owner == null) {
         owner = OJ.body;
       }
@@ -30,44 +30,50 @@
           click: _.noop,
           change: _.noop,
           keyenter: _.noop,
-          keyup: _.noop
+          keyup: _.noop,
+          focusout: _.noop
         }
       };
       OJ.extend(defaults, options, true);
-      value = defaults.props.value;
       syncValue = function() {
         switch (defaults.props.type) {
           case OJ.enums.inputTypes.checkbox:
-            return value = ret.$.is(":checked");
+            ret.value = ret.$.is(":checked");
+            break;
           case OJ.enums.inputTypes.radio:
-            return value = ret.$.find(":checked").val();
+            ret.value = ret.$.find(":checked").val();
+            break;
           default:
-            return value = ret.val();
+            ret.value = ret.val();
         }
+        return ret.value;
       };
-      if (defaults.events.click !== _.noop) {
-        click = defaults.events.click;
-        newClick = function() {
-          var event, retval;
-          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-          retval = click.apply(null, event);
-          syncValue();
-          return retval;
-        };
-        defaults.events.click = newClick;
-      }
-      if (defaults.events.change !== _.noop) {
-        change = defaults.events.change;
-        newChange = function() {
-          var event, retval;
-          event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-          retval = change.apply(null, event);
-          syncValue();
-          return retval;
-        };
-        defaults.events.change = newChange;
-      }
+      oldClick = defaults.events.click;
+      newClick = function() {
+        var event;
+        event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+        syncValue();
+        return oldClick.apply(null, event);
+      };
+      defaults.events.click = newClick;
+      oldChange = defaults.events.change;
+      newChange = function() {
+        var event;
+        event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+        syncValue();
+        return oldChange.apply(null, event);
+      };
+      defaults.events.change = newChange;
+      oldFocusout = defaults.events.focusout;
+      newFocusout = function() {
+        var event;
+        event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+        syncValue();
+        return oldFocusout.apply(null, event);
+      };
+      defaults.events.focusout = newFocusout;
       ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
+      ret.value = defaults.props.value;
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }
