@@ -33,7 +33,9 @@
     "flot": "~0.8.2",
     "fontawesome": "~4.0.3",
     "datatables": "~1.10.0",
-    "pubsub-js": "~1.4.2"
+    "pubsub-js": "~1.4.2",
+    "jquery-cookie": "~1.4.1",
+    "html5-history-api": "~4.1.0"
   },
   "overrides": {
     "modernizr": {

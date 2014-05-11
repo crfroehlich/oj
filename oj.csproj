@@ -324,6 +324,15 @@
     </Content>
     <Content Include="src\coffee\core\tools\pubsub.coffee" />
     <None Include="src\coffee\core\tools\uuid.coffee" />
+    <Content Include="src\coffee\tools\history.js">
+      <DependentUpon>history.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\tools\noty.js">
+      <DependentUpon>noty.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\tools\queryString.js">
+      <DependentUpon>queryString.coffee</DependentUpon>
+    </Content>
     <Content Include="src\css\main.css" />
     <Content Include="src\css\normalize.css" />
     <Content Include="dist\release.appcache">
@@ -492,6 +501,19 @@
     <Content Include="src\coffee\dom\nodes\th.coffee" />
     <Content Include="src\coffee\dom\nodes\th.map">
       <DependentUpon>th.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\tools\queryString.coffee" />
+    <Content Include="src\coffee\tools\noty.coffee" />
+    <Content Include="src\coffee\tools\queryString.map">
+      <DependentUpon>queryString.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\tools\history.coffee" />
+    <Content Include="src\coffee\tools\cookie.coffee" />
+    <Content Include="src\coffee\tools\history.map">
+      <DependentUpon>history.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\tools\noty.map">
+      <DependentUpon>noty.coffee</DependentUpon>
     </Content>
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
