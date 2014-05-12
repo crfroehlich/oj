@@ -47,6 +47,9 @@
     <Content Include="gulpfile.js">
       <DependentUpon>gulpfile.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\async\promise.js">
+      <DependentUpon>promise.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\components\address.js">
       <DependentUpon>address.coffee</DependentUpon>
     </Content>
@@ -203,9 +206,6 @@
     <Content Include="src\coffee\core\common\array.js.map">
       <DependentUpon>array.coffee</DependentUpon>
     </Content>
-    <Content Include="src\archive\core\common\methods.js.map">
-      <DependentUpon>methods.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\core\db\clientDb.js.map">
       <DependentUpon>clientDb.coffee</DependentUpon>
     </Content>
@@ -286,6 +286,10 @@
     <Content Include="src\coffee\components\tabs.coffee" />
     <Content Include="src\coffee\components\tabs.map">
       <DependentUpon>tabs.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\async\promise.coffee" />
+    <Content Include="src\coffee\async\promise.js.map">
+      <DependentUpon>promise.js</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">
@@ -390,9 +394,6 @@
     <Content Include="src\coffee\dom\nodes\tbody.coffee" />
     <Content Include="src\coffee\dom\nodes\tr.coffee" />
     <Content Include="src\coffee\dom\nodes\td.coffee" />
-    <Content Include="src\archive\metadata\metaNode.js.map">
-      <DependentUpon>metaNode.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\ojInit.js.map">
       <DependentUpon>ojInit.coffee</DependentUpon>
     </Content>
@@ -518,6 +519,10 @@
     <Content Include="src\coffee\tools\noty.map">
       <DependentUpon>noty.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\async\ajax.coffee" />
+    <Content Include="src\coffee\tools\cookie.map">
+      <DependentUpon>cookie.coffee</DependentUpon>
+    </Content>
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
     </None>
@@ -555,38 +560,8 @@
     <Content Include="src\img\tool-sprites.gif" />
     <Content Include="src\img\unchecked.gif" />
     <Content Include="src\img\up_arrow.gif" />
-    <Content Include="src\archive\core\common\function.js">
-      <DependentUpon>function.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\core\tools\functional.js">
       <DependentUpon>functional.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\core\common\is.js">
-      <DependentUpon>is.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\core\common\methods.js">
-      <DependentUpon>methods.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\core\common\number.js">
-      <DependentUpon>number.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\core\common\string.js">
-      <DependentUpon>string.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\core\common\to.js">
-      <DependentUpon>to.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\core\definitions\class.js">
-      <DependentUpon>class.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\core\definitions\classDefinition.js">
-      <DependentUpon>classDefinition.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\core\definitions\errors.js">
-      <DependentUpon>errors.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\core\definitions\subscribers.js">
-      <DependentUpon>subscribers.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\dom.js">
       <DependentUpon>dom.coffee</DependentUpon>
@@ -594,17 +569,6 @@
     <Content Include="src\coffee\core\tools\enums.js">
       <DependentUpon>enums.coffee</DependentUpon>
     </Content>
-    <Content Include="src\archive\core\error.js">
-      <DependentUpon>error.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\core\tools\console.js" />
-    <Content Include="src\archive\core\tools\constant.js" />
-    <Content Include="src\archive\core\tools\each.js" />
-    <Content Include="src\archive\core\tools\object.js" />
-    <Content Include="src\archive\core\tools\objectSql.js" />
-    <Content Include="src\archive\core\tools\property.js" />
-    <Content Include="src\archive\core\tools\shims.js" />
-    <Content Include="src\archive\core\tools\uuid.js" />
     <Content Include="src\coffee\core\db\db.js">
       <DependentUpon>db.coffee</DependentUpon>
     </Content>
@@ -625,30 +589,6 @@
     </Content>
     <Content Include="src\coffee\dom\element.js">
       <DependentUpon>element.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\metadata\metaNode.js">
-      <DependentUpon>metaNode.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\nodes\domNode.js">
-      <DependentUpon>domNode.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\nodes\domNodeAttributes.js">
-      <DependentUpon>domNodeAttributes.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\nodes\elements\div.js">
-      <DependentUpon>div.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\nodes\elements\input.js">
-      <DependentUpon>input.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\nodes\elements\span.js">
-      <DependentUpon>span.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\nodes\elements\_element.js">
-      <DependentUpon>_element.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\nodes\nodeFactory.js">
-      <DependentUpon>nodeFactory.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\nodes\a.js">
       <DependentUpon>a.coffee</DependentUpon>
@@ -710,38 +650,18 @@
     <Content Include="src\coffee\dom\nodes\ul.js">
       <DependentUpon>ul.coffee</DependentUpon>
     </Content>
-    <Content Include="src\archive\promises\ajaxCore.js">
-      <DependentUpon>ajaxCore.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\promises\rest.js">
-      <DependentUpon>rest.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\promises\promise.js">
-      <DependentUpon>promise.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\promises\workerXHR.js">
-      <DependentUpon>workerXHR.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\core\db\clientDb.js">
       <DependentUpon>clientDb.coffee</DependentUpon>
     </Content>
-    <Content Include="src\archive\core\tools\clientdb.js" />
-    <Content Include="src\archive\core\tools\cookie.js" />
-    <Content Include="src\archive\core\tools\pubsub.js" />
-    <Content Include="src\archive\core\tools\querystring.js" />
     <Content Include="src\coffee\core\common\array.js">
       <DependentUpon>array.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\common\date.js">
       <DependentUpon>date.coffee</DependentUpon>
     </Content>
-    <Content Include="src\archive\workers\webWorkerXHR.js">
-      <DependentUpon>webWorkerXHR.coffee</DependentUpon>
-    </Content>
     <Content Include="src\workers\xhrWorker.js" />
     <Content Include="src\coffee\dom\dom.coffee" />
     <Content Include="src\coffee\core\tools\enums.coffee" />
-    <Content Include="src\archive\core\error.coffee" />
     <Content Include="src\coffee\core\db\clientDb.coffee" />
     <Content Include="src\coffee\core\db\db.coffee" />
     <Content Include="src\coffee\core\db\dbIndex.coffee" />
@@ -749,14 +669,6 @@
     <Content Include="src\coffee\core\db\dbSelect.coffee" />
     <Content Include="src\coffee\core\db\dbTable.coffee" />
     <Content Include="src\coffee\core\db\dbUpdate.coffee" />
-    <Content Include="src\archive\metadata\metaNode.coffee" />
-    <Content Include="src\archive\nodes\domNode.coffee" />
-    <Content Include="src\archive\nodes\domNodeAttributes.coffee" />
-    <Content Include="src\archive\nodes\nodeFactory.coffee" />
-    <Content Include="src\archive\nodes\elements\div.coffee" />
-    <Content Include="src\archive\nodes\elements\input.coffee" />
-    <Content Include="src\archive\nodes\elements\span.coffee" />
-    <Content Include="src\archive\nodes\elements\_element.coffee" />
     <Content Include="src\coffee\dom\nodes\a.coffee" />
     <Content Include="src\coffee\dom\nodes\br.coffee" />
     <Content Include="src\coffee\dom\nodes\button.coffee" />
@@ -775,25 +687,10 @@
     <Content Include="src\coffee\dom\nodes\table.coffee" />
     <Content Include="src\coffee\dom\nodes\textarea.coffee" />
     <Content Include="src\coffee\dom\nodes\ul.coffee" />
-    <Content Include="src\archive\promises\ajaxCore.coffee" />
-    <Content Include="src\archive\promises\promise.coffee" />
-    <Content Include="src\archive\promises\rest.coffee" />
-    <Content Include="src\archive\promises\workerXHR.coffee" />
-    <Content Include="src\archive\workers\webWorkerXHR.coffee" />
     <Content Include="src\coffee\dom\element.coffee" />
     <Content Include="src\coffee\core\common\array.coffee" />
     <Content Include="src\coffee\core\common\date.coffee" />
-    <Content Include="src\archive\core\common\function.coffee" />
     <Content Include="src\coffee\core\tools\functional.coffee" />
-    <Content Include="src\archive\core\common\is.coffee" />
-    <Content Include="src\archive\core\common\methods.coffee" />
-    <Content Include="src\archive\core\common\number.coffee" />
-    <Content Include="src\archive\core\common\string.coffee" />
-    <Content Include="src\archive\core\common\to.coffee" />
-    <Content Include="src\archive\core\definitions\class.coffee" />
-    <Content Include="src\archive\core\definitions\classDefinition.coffee" />
-    <Content Include="src\archive\core\definitions\errors.coffee" />
-    <Content Include="src\archive\core\definitions\subscribers.coffee" />
     <Content Include="src\coffee\dom\nodes\br.map">
       <DependentUpon>br.coffee</DependentUpon>
     </Content>
@@ -809,20 +706,8 @@
     </Content>
     <Content Include="src\coffee\dom\nodes\li.coffee" />
     <Content Include="src\coffee\dom\nodes\option.coffee" />
-    <Content Include="src\archive\core\common\to.map">
-      <DependentUpon>to.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\core\common\string.map">
-      <DependentUpon>string.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\core\common\is.map">
-      <DependentUpon>is.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\core\tools\functional.map">
       <DependentUpon>functional.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\archive\core\common\function.map">
-      <DependentUpon>function.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\common\date.map">
       <DependentUpon>date.coffee</DependentUpon>
@@ -971,7 +856,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="src\archive\dom\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
