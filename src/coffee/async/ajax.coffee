@@ -42,13 +42,10 @@
         url: ''
         data: {}
         type: verb
-        url: defaults.url
         xhrFields:
           withCredentials: true
         dataType: 'json'
         contentType: 'application/json; charset=utf-8'
-        data: defaults.data
-        watchGlobal: false isnt watchGlobal
         
       onSuccess: _.noop
       onError: _.noop
