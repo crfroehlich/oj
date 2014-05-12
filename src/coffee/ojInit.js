@@ -12,6 +12,7 @@
     OJ.makeSubNameSpace('notifications');
     OJ.makeSubNameSpace('history');
     OJ.makeSubNameSpace('cookie');
+    OJ.makeSubNameSpace('async');
     OJ.components.register('members', {});
 
     /*
