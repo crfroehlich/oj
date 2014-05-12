@@ -332,62 +332,60 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-    'use strict';
-    var ajax, config;
-    config = OJ.object();
-    config.add('onSuccess', function(opts, data, url) {
+    var ajax, config, optsFromUrl;
+    config = {};
+    config.onSuccess = function(opts, data, url) {
       var response;
       response = {};
       OJ.extend(response, data, true);
-    });
-    config.add('onError', function(xmlHttpRequest, textStatus, param1, opts) {
+      opts.onSuccess(response);
+      OJ.console.table([
+        {
+          Webservice: opts.ajaxOpts.url,
+          StartTime: opts.startTime,
+          EndTime: new Date()
+        }
+      ]);
+    };
+    config.onError = function(xmlHttpRequest, textStatus, param1, opts) {
       if (opts == null) {
         opts = OJ.object();
       }
       if (textStatus !== 'abort') {
-        OJ.console.error({
-          'Webservice Request': opts.urlMethod,
-          data: opts.data,
-          Failed: textStatus,
-          state: xmlHttpRequest.state(),
-          status: xmlHttpRequest.status,
-          statusText: xmlHttpRequest.statusText,
-          readyState: xmlHttpRequest.readyState,
-          responseText: xmlHttpRequest.responseText
-        });
-        opts.error(textStatus);
+        OJ.console.table([
+          {
+            Webservice: opts.ajaxOpts.url,
+            data: opts.ajaxOpts.data,
+            Failed: textStatus,
+            state: xmlHttpRequest.state(),
+            status: xmlHttpRequest.status,
+            statusText: xmlHttpRequest.statusText,
+            readyState: xmlHttpRequest.readyState,
+            responseText: xmlHttpRequest.responseText
+          }
+        ]);
+        opts.onError(textStatus);
       }
-    });
-    config.add('execRequest', function(verb, opts) {
+    };
+    optsFromUrl = function(opts) {
+      var url;
+      if (OJ.is.string(opts)) {
+        url = opts;
+        opts = OJ.object();
+        opts.add('ajaxOpts', OJ.object());
+        opts.ajaxOpts.add('url', url);
+      }
+      return opts;
+    };
+    config.execRequest = function(verb, opts) {
       var defaults, getPromiseFromAjax, promise;
       if (verb == null) {
         verb = 'GET';
       }
-      if (opts == null) {
-        opts = OJ.object();
-      }
       defaults = {
-        url: '',
-        data: {},
-        success: _.noop,
-        error: _.noop,
-        complete: _.noop,
-        overrideError: false,
-        watchGlobal: true,
-        useCache: false
-      };
-      OJ.extend(defaults, opts);
-      defaults.startTime = new Date();
-      if (false === OJ.is.nullOrEmpty(defaults.data)) {
-        if (verb === 'GET') {
-          defaults.data = OJ.params(defaults.data);
-        } else {
-          defaults.data = OJ.serialize(defaults.data);
-        }
-      }
-      getPromiseFromAjax = function(watchGlobal) {
-        var ret;
-        ret = $.ajax({
+        ajaxOpts: {
+          url: '',
+          data: {},
           type: verb,
           url: defaults.url,
           xhrFields: {
@@ -397,19 +395,35 @@ OJ IIFE definition to anchor JsDoc comments.
           contentType: 'application/json; charset=utf-8',
           data: defaults.data,
           watchGlobal: false !== watchGlobal
-        });
+        },
+        onSuccess: _.noop,
+        onError: _.noop,
+        onComplete: _.noop,
+        overrideError: false,
+        watchGlobal: true,
+        useCache: false
+      };
+      opts = optsFromUrl(opts);
+      OJ.extend(defaults, opts);
+      defaults.startTime = new Date();
+      if (false === OJ.is.nullOrEmpty(defaults.ajaxOpts.data)) {
+        if (verb === 'GET') {
+          defaults.ajaxOpts.data = OJ.params(defaults.ajaxOpts.data);
+        } else {
+          defaults.ajaxOpts.data = OJ.serialize(defaults.ajaxOpts.data);
+        }
+      }
+      getPromiseFromAjax = function(watchGlobal) {
+        var ret;
+        ret = $.ajax(defaults.ajaxOpts);
         ret.done(function(data, textStatus, jqXHR) {
-          return config.onSuccess(defaults, data, defaults.url);
+          return config.onSuccess(defaults, data);
         });
         ret.fail(function(jqXHR, textStatus, errorText) {
-          return config.onError(jqXHR, textStatus, errorText, {
-            data: defaults.data,
-            watchGlobal: defaults.watchGlobal,
-            urlMethod: document.location + '/' + defaults.url
-          });
+          return config.onError(jqXHR, textStatus, errorText, defaults);
         });
         ret.always(function(xmlHttpRequest, textStatus) {
-          return defaults.complete(xmlHttpRequest, textStatus);
+          return defaults.onComplete(xmlHttpRequest, textStatus);
         });
         return OJ.async.ajaxPromise(ret);
       };
@@ -420,20 +434,20 @@ OJ IIFE definition to anchor JsDoc comments.
         promise = getPromiseFromAjax(defaults.watchGlobal);
       }
       return promise;
-    });
-    ajax = OJ.object();
-    ajax.add('post', function(opts, type) {
+    };
+    ajax = {};
+    ajax.post = function(opts) {
       return config.execRequest('POST', opts);
-    });
-    ajax.add('get', function(opts, type) {
+    };
+    ajax.get = function(opts) {
       return config.execRequest('GET', opts);
-    });
-    ajax.add('delete', function(opts, type) {
+    };
+    ajax["delete"] = function(opts) {
       return config.execRequest('DELETE', opts);
-    });
-    ajax.add('put', function(opts, type) {
+    };
+    ajax.put = function(opts) {
       return config.execRequest('PUT', opts);
-    });
+    };
     OJ.async.register('ajax', ajax);
     return;
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
