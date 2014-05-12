@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.3.14
+ * @version v0.3.15
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -387,14 +387,11 @@ OJ IIFE definition to anchor JsDoc comments.
           url: '',
           data: {},
           type: verb,
-          url: defaults.url,
           xhrFields: {
             withCredentials: true
           },
           dataType: 'json',
-          contentType: 'application/json; charset=utf-8',
-          data: defaults.data,
-          watchGlobal: false !== watchGlobal
+          contentType: 'application/json; charset=utf-8'
         },
         onSuccess: _.noop,
         onError: _.noop,
