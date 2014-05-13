@@ -37,11 +37,12 @@
     'script'
   ]
   
-  isChildNodeTypeAllowedHashtable = {}
+  #isChildNodeTypeAllowedHashtable = {}
   
-  OJ.nodes.register 'childNodeTypeHashtable', isChildNodeTypeAllowedHashtable            
+  #OJ.nodes.register 'childNodeTypeHashtable', isChildNodeTypeAllowedHashtable            
                                       
   isChildNodeTypeAllowed = (parent, tagName) ->
+    ###
     if not isChildNodeTypeAllowedHashtable[parent.tagName]
       isChildNodeTypeAllowedHashtable[parent.tagName] = {}
     
@@ -81,10 +82,11 @@
               isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false 
       allowed = isChildNodeTypeAllowedHashtable[parent.tagName][tagName]
     allowed
+    ###
+    true
   
   ###
   Pre-calculate permitted childNode relationships
-  ###
   _.each closed, (closedNode) ->
     _.each open, (openNode) ->
       _.each OJ.components.members, (component, componentKey) ->
@@ -94,6 +96,7 @@
         isChildNodeTypeAllowed { tagName: closedNode }, componentKey
         return
      return    
+  ###
   
   ###
   Add components to the chain, if permitted
@@ -101,37 +104,39 @@
   @className is the internal, developer friendly name (e.g widget)
   ###
   addComponents = (tagName, parent, count, className) ->
-    if isChildNodeTypeAllowed parent, tagName
-      parent.add className, (opts) ->
-        if OJ.components[className]
-          nu = OJ.components[className] opts, parent, true
-        else 
-          nu = OJ.component className, parent
-        nu
+    #if isChildNodeTypeAllowed parent, tagName
+    parent.add className, (opts) ->
+      if OJ.components[className]
+        nu = OJ.components[className] opts, parent, true
+      else 
+        nu = OJ.component className, parent
+      nu
+    return
 
-  nodesPermittedToHouseComponents = ['div','span','td','p','body','form', 'li', 'a']
-  OJ.nodes.register 'permittedToHouseComponents', nodesPermittedToHouseComponents
+  #nodesPermittedToHouseComponents = ['div','span','td','p','body','form', 'li', 'a']
+  #OJ.nodes.register 'permittedToHouseComponents', nodesPermittedToHouseComponents
   
   ###
   Determine which components to add to chain, if any
   ###
   controlPostProcessing = (parent, count) ->
-    if _.contains nodesPermittedToHouseComponents, parent.tagName
-      OJ.each OJ.components.members, (className, tagName) ->
-        addComponents tagName, parent, count, className
+    #if _.contains nodesPermittedToHouseComponents, parent.tagName
+    OJ.each OJ.components.members, (className, tagName) ->
+      addComponents tagName, parent, count, className
     return
 
   ###
   Extend the chain, if permitted
   ###
   extendChain = (tagName, parent, count) ->
-    if isChildNodeTypeAllowed parent, tagName
-      parent.add tagName, (opts) ->
-        if OJ.nodes[tagName]
-          nu = OJ.nodes[tagName] opts, parent, true
-        else if (_.contains closed, tagName) or _.contains open, tagName
-          nu = OJ.element tagName, parent
-        OJ.nodes.factory nu, parent, count
+    #if isChildNodeTypeAllowed parent, tagName
+    parent.add tagName, (opts) ->
+      if OJ.nodes[tagName]
+        nu = OJ.nodes[tagName] opts, parent, true
+      else if (_.contains closed, tagName) or _.contains open, tagName
+        nu = OJ.element tagName, parent
+      OJ.nodes.factory nu, parent, count
+    return
 
   ###
   Init the body for chaining the first time it's seen
