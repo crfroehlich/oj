@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.3.15
+ * @version v0.3.16
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -1388,12 +1388,13 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-    var addComponents, buildNodeForChaining, closed, controlPostProcessing, extendChain, initBody, isChildNodeTypeAllowed, isChildNodeTypeAllowedHashtable, nestableNodeNames, nonNestableNodes, open;
+    var addComponents, buildNodeForChaining, closed, controlPostProcessing, extendChain, initBody, isChildNodeTypeAllowed, isChildNodeTypeAllowedHashtable, nestableNodeNames, nodesPermittedToHouseComponents, nonNestableNodes, open;
     closed = 'a abbr acronym address applet article aside audio b bdo big blockquote body button canvas caption center cite code colgroup command datalist dd del details dfn dir div dl dt em embed fieldset figcaption figure font footer form frameset h1 h2 h3 h4 h5 h6 head header hgroup html i iframe ins keygen kbd label legend li map mark menu meter nav noframes noscript object ol optgroup option output p pre progress q rp rt ruby s samp script section select small source span strike strong style sub summary sup table tbody td textarea tfoot th thead time title tr tt u ul var video wbr xmp'.split(' ');
     open = 'area base br col command css !DOCTYPE embed hr img input keygen link meta param source track wbr'.split(' ');
     nestableNodeNames = ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'fieldset', 'select', 'ol', 'ul', 'table'];
     nonNestableNodes = ['li', 'legend', 'tr', 'td', 'option', 'body', 'head', 'source', 'tbody', 'tfoot', 'thead', 'link', 'script'];
     isChildNodeTypeAllowedHashtable = {};
+    OJ.nodes.register('childNodeTypeHashtable', isChildNodeTypeAllowedHashtable);
     isChildNodeTypeAllowed = function(parent, tagName) {
       var allowed;
       if (!isChildNodeTypeAllowedHashtable[parent.tagName]) {
@@ -1453,6 +1454,28 @@ OJ IIFE definition to anchor JsDoc comments.
     };
 
     /*
+    Pre-calculate permitted childNode relationships
+     */
+    _.each(closed, function(closedNode) {
+      _.each(open, function(openNode) {
+        return _.each(OJ.components.members, function(component, componentKey) {
+          isChildNodeTypeAllowed({
+            tagName: closedNode
+          }, openNode);
+          isChildNodeTypeAllowed({
+            tagName: openNode
+          }, closedNode);
+          isChildNodeTypeAllowed({
+            tagName: openNode
+          }, componentKey);
+          isChildNodeTypeAllowed({
+            tagName: closedNode
+          }, componentKey);
+        });
+      });
+    });
+
+    /*
     Add components to the chain, if permitted
     @tagName is the web component compatible node name (e.g. x-widget)
     @className is the internal, developer friendly name (e.g widget)
@@ -1470,12 +1493,14 @@ OJ IIFE definition to anchor JsDoc comments.
         });
       }
     };
+    nodesPermittedToHouseComponents = ['div', 'span', 'td', 'p', 'body', 'form', 'li', 'a'];
+    OJ.nodes.register('permittedToHouseComponents', nodesPermittedToHouseComponents);
 
     /*
     Determine which components to add to chain, if any
      */
     controlPostProcessing = function(parent, count) {
-      if (_.contains(['div', 'span', 'td', 'p', 'body', 'form', 'li'], parent.tagName)) {
+      if (_.contains(nodesPermittedToHouseComponents, parent.tagName)) {
         OJ.each(OJ.components.members, function(className, tagName) {
           return addComponents(tagName, parent, count, className);
         });
