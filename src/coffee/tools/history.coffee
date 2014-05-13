@@ -28,7 +28,7 @@
       pageName = location.href.split('#')[1]
     if pageName
       pageName = pageName.replace '#', ''
-      OJ.publish 'restoreState', pageName: pageName
+      OJ.publish 'restoreState', pageName: pageName, location: location
     return
   
   ### 

@@ -31,7 +31,8 @@
       if (pageName) {
         pageName = pageName.replace('#', '');
         OJ.publish('restoreState', {
-          pageName: pageName
+          pageName: pageName,
+          location: location
         });
       }
     });
