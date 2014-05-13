@@ -38,7 +38,9 @@
   ]
   
   isChildNodeTypeAllowedHashtable = {}
-      
+  
+  OJ.nodes.register 'childNodeTypeHashtable', isChildNodeTypeAllowedHashtable            
+                                      
   isChildNodeTypeAllowed = (parent, tagName) ->
     if not isChildNodeTypeAllowedHashtable[parent.tagName]
       isChildNodeTypeAllowedHashtable[parent.tagName] = {}
@@ -81,6 +83,19 @@
     allowed
   
   ###
+  Pre-calculate permitted childNode relationships
+  ###
+  _.each closed, (closedNode) ->
+    _.each open, (openNode) ->
+      _.each OJ.components.members, (component, componentKey) ->
+        isChildNodeTypeAllowed { tagName: closedNode }, openNode    
+        isChildNodeTypeAllowed { tagName: openNode }, closedNode    
+        isChildNodeTypeAllowed { tagName: openNode }, componentKey    
+        isChildNodeTypeAllowed { tagName: closedNode }, componentKey
+        return
+     return    
+  
+  ###
   Add components to the chain, if permitted
   @tagName is the web component compatible node name (e.g. x-widget)
   @className is the internal, developer friendly name (e.g widget)
@@ -94,11 +109,14 @@
           nu = OJ.component className, parent
         nu
 
+  nodesPermittedToHouseComponents = ['div','span','td','p','body','form', 'li', 'a']
+  OJ.nodes.register 'permittedToHouseComponents', nodesPermittedToHouseComponents
+  
   ###
   Determine which components to add to chain, if any
   ###
   controlPostProcessing = (parent, count) ->
-    if _.contains ['div','span','td','p','body','form', 'li'], parent.tagName
+    if _.contains nodesPermittedToHouseComponents, parent.tagName
       OJ.each OJ.components.members, (className, tagName) ->
         addComponents tagName, parent, count, className
     return
