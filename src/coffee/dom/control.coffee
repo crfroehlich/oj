@@ -12,7 +12,6 @@
     OJ.nodes.factory ret, owner
     
     ret.add 'controlName', tagName
-    ret.add 'remove', widget.remove
     
     ret
     
