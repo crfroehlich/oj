@@ -70,11 +70,14 @@
     @tagName is the web component compatible node name (e.g. x-widget)
     @className is the internal, developer friendly name (e.g widget)
      */
-    addComponents = function(tagName, parent, count, className) {
+    addComponents = function(tagName, parent, count, className, nameSpace) {
+      if (nameSpace == null) {
+        nameSpace = 'components';
+      }
       parent.add(className, function(opts) {
         var nu;
-        if (OJ.components[className]) {
-          nu = OJ.components[className](opts, parent, true);
+        if (OJ[nameSpace][className]) {
+          nu = OJ[nameSpace][className](opts, parent, true);
         } else {
           nu = OJ.component(className, parent);
         }
@@ -88,6 +91,9 @@
     controlPostProcessing = function(parent, count) {
       OJ.each(OJ.components.members, function(className, tagName) {
         return addComponents(tagName, parent, count, className);
+      });
+      OJ.each(OJ.controls.members, function(className, tagName) {
+        return addComponents(tagName, parent, count, className, 'controls');
       });
     };
 

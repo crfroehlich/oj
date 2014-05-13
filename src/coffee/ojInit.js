@@ -9,11 +9,13 @@
     OJ.makeSubNameSpace('nodes');
     OJ.makeSubNameSpace('db');
     OJ.makeSubNameSpace('components');
+    OJ.makeSubNameSpace('controls');
     OJ.makeSubNameSpace('notifications');
     OJ.makeSubNameSpace('history');
     OJ.makeSubNameSpace('cookie');
     OJ.makeSubNameSpace('async');
     OJ.components.register('members', {});
+    OJ.controls.register('members', {});
 
     /*
     Configuration variables

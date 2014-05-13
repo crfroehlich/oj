@@ -103,11 +103,11 @@
   @tagName is the web component compatible node name (e.g. x-widget)
   @className is the internal, developer friendly name (e.g widget)
   ###
-  addComponents = (tagName, parent, count, className) ->
+  addComponents = (tagName, parent, count, className, nameSpace = 'components') ->
     #if isChildNodeTypeAllowed parent, tagName
     parent.add className, (opts) ->
-      if OJ.components[className]
-        nu = OJ.components[className] opts, parent, true
+      if OJ[nameSpace][className]
+        nu = OJ[nameSpace][className] opts, parent, true
       else 
         nu = OJ.component className, parent
       nu
@@ -123,6 +123,8 @@
     #if _.contains nodesPermittedToHouseComponents, parent.tagName
     OJ.each OJ.components.members, (className, tagName) ->
       addComponents tagName, parent, count, className
+    OJ.each OJ.controls.members, (className, tagName) ->
+      addComponents tagName, parent, count, className, 'controls'
     return
 
   ###
