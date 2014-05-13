@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.3.16
+ * @version v0.3.17
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -314,11 +314,13 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ.makeSubNameSpace('nodes');
     OJ.makeSubNameSpace('db');
     OJ.makeSubNameSpace('components');
+    OJ.makeSubNameSpace('controls');
     OJ.makeSubNameSpace('notifications');
     OJ.makeSubNameSpace('history');
     OJ.makeSubNameSpace('cookie');
     OJ.makeSubNameSpace('async');
     OJ.components.register('members', {});
+    OJ.controls.register('members', {});
 
     /*
     Configuration variables
@@ -1071,6 +1073,33 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
+
+    /*
+    Create an HTML Element through ThinDom
+     */
+    var control;
+    control = function(options, owner, tagName) {
+      var ret, rootNodeType;
+      if (options == null) {
+        options = OJ.object();
+      }
+      if (!tagName.startsWith('y-')) {
+        tagName = 'y-' + tagName;
+      }
+      rootNodeType = options.rootNodeType || OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] || 'div';
+      ret = OJ.element(rootNodeType, options.props, options.styles, options.events, options.text);
+      OJ.nodes.factory(ret, owner);
+      ret.add('controlName', tagName);
+      ret.add('remove', widget.remove);
+      return ret;
+    };
+    OJ.register('control', control);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
     'use strict';
     OJ.nodes.register('custom', function(tagName, options, owner, calledFromFactory) {
       var defaults, ret;
@@ -1388,140 +1417,115 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-    var addComponents, buildNodeForChaining, closed, controlPostProcessing, extendChain, initBody, isChildNodeTypeAllowed, isChildNodeTypeAllowedHashtable, nestableNodeNames, nodesPermittedToHouseComponents, nonNestableNodes, open;
+    var addComponents, buildNodeForChaining, closed, controlPostProcessing, extendChain, initBody, isChildNodeTypeAllowed, nestableNodeNames, nonNestableNodes, open;
     closed = 'a abbr acronym address applet article aside audio b bdo big blockquote body button canvas caption center cite code colgroup command datalist dd del details dfn dir div dl dt em embed fieldset figcaption figure font footer form frameset h1 h2 h3 h4 h5 h6 head header hgroup html i iframe ins keygen kbd label legend li map mark menu meter nav noframes noscript object ol optgroup option output p pre progress q rp rt ruby s samp script section select small source span strike strong style sub summary sup table tbody td textarea tfoot th thead time title tr tt u ul var video wbr xmp'.split(' ');
     open = 'area base br col command css !DOCTYPE embed hr img input keygen link meta param source track wbr'.split(' ');
     nestableNodeNames = ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'fieldset', 'select', 'ol', 'ul', 'table'];
     nonNestableNodes = ['li', 'legend', 'tr', 'td', 'option', 'body', 'head', 'source', 'tbody', 'tfoot', 'thead', 'link', 'script'];
-    isChildNodeTypeAllowedHashtable = {};
-    OJ.nodes.register('childNodeTypeHashtable', isChildNodeTypeAllowedHashtable);
     isChildNodeTypeAllowed = function(parent, tagName) {
-      var allowed;
-      if (!isChildNodeTypeAllowedHashtable[parent.tagName]) {
-        isChildNodeTypeAllowedHashtable[parent.tagName] = {};
-      }
-      if (true === isChildNodeTypeAllowedHashtable[parent.tagName][tagName] || false === isChildNodeTypeAllowedHashtable[parent.tagName][tagName]) {
-        allowed = isChildNodeTypeAllowedHashtable[parent.tagName][tagName];
-      } else {
-        if (-1 !== ['a', 'div', 'form', 'label', 'li', 'td', 'span', 'p', 'nav', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf(parent.tagName)) {
-          isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false === _.contains(nonNestableNodes, tagName);
-        } else {
-          switch (parent.tagName) {
-            case 'body':
-              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = (tagName.startsWith('x-')) || _.contains(nestableNodeNames, tagName);
-              break;
-            case 'fieldset':
-              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName === 'legend' || false === _.contains(nonNestableNodes, tagName);
-              break;
-            case 'legend':
-              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false;
-              break;
-            case 'ol':
-              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName === 'li';
-              break;
-            case 'option':
-              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false;
-              break;
-            case 'select':
-              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName === 'option';
-              break;
-            case 'table':
-              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName === 'tr' || tagName === 'tbody' || tagName === 'thead';
-              break;
-            case 'thead':
-              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName === 'tr';
-              break;
-            case 'tbody':
-              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName === 'tr';
-              break;
-            case 'tr':
-              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName === 'td' || tagName === 'th';
-              break;
-            case 'ul':
-              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName === 'li';
-              break;
-            default:
-              if (parent.tagName.startsWith('x-')) {
-                isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false === _.contains(nonNestableNodes, tagName);
-              } else {
-                isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false;
-              }
-          }
-        }
-        allowed = isChildNodeTypeAllowedHashtable[parent.tagName][tagName];
-      }
-      return allowed;
+
+      /*
+      if not isChildNodeTypeAllowedHashtable[parent.tagName]
+        isChildNodeTypeAllowedHashtable[parent.tagName] = {}
+      
+      if true is isChildNodeTypeAllowedHashtable[parent.tagName][tagName] or false is isChildNodeTypeAllowedHashtable[parent.tagName][tagName]
+        allowed = isChildNodeTypeAllowedHashtable[parent.tagName][tagName]
+      else
+        if -1 isnt ['a','div','form','label', 'li', 'td', 'span', 'p', 'nav', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'].indexOf parent.tagName
+          isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false is _.contains nonNestableNodes, tagName
+        else   
+          switch parent.tagName
+            when 'body'
+              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = (tagName.startsWith 'x-') or _.contains nestableNodeNames, tagName
+            when 'fieldset'
+              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'legend' or false is _.contains nonNestableNodes, tagName
+            when 'legend'
+              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false
+            when 'ol'
+              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'li'
+            when 'option'
+              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false
+            when 'select'
+              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'option'
+            when 'table'
+              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'tr' or tagName is 'tbody' or tagName is 'thead'
+            when 'thead'
+              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'tr'
+            when 'tbody'
+              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'tr'  
+            when 'tr'
+              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'td' or tagName is 'th'
+            when 'ul'
+              isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = tagName is 'li'
+            else
+              if parent.tagName.startsWith 'x-'
+                isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false is _.contains nonNestableNodes, tagName
+              else
+                isChildNodeTypeAllowedHashtable[parent.tagName][tagName] = false 
+        allowed = isChildNodeTypeAllowedHashtable[parent.tagName][tagName]
+      allowed
+       */
+      return true;
     };
 
     /*
     Pre-calculate permitted childNode relationships
+    _.each closed, (closedNode) ->
+      _.each open, (openNode) ->
+        _.each OJ.components.members, (component, componentKey) ->
+          isChildNodeTypeAllowed { tagName: closedNode }, openNode    
+          isChildNodeTypeAllowed { tagName: openNode }, closedNode    
+          isChildNodeTypeAllowed { tagName: openNode }, componentKey    
+          isChildNodeTypeAllowed { tagName: closedNode }, componentKey
+          return
+       return
      */
-    _.each(closed, function(closedNode) {
-      _.each(open, function(openNode) {
-        return _.each(OJ.components.members, function(component, componentKey) {
-          isChildNodeTypeAllowed({
-            tagName: closedNode
-          }, openNode);
-          isChildNodeTypeAllowed({
-            tagName: openNode
-          }, closedNode);
-          isChildNodeTypeAllowed({
-            tagName: openNode
-          }, componentKey);
-          isChildNodeTypeAllowed({
-            tagName: closedNode
-          }, componentKey);
-        });
-      });
-    });
 
     /*
     Add components to the chain, if permitted
     @tagName is the web component compatible node name (e.g. x-widget)
     @className is the internal, developer friendly name (e.g widget)
      */
-    addComponents = function(tagName, parent, count, className) {
-      if (isChildNodeTypeAllowed(parent, tagName)) {
-        return parent.add(className, function(opts) {
-          var nu;
-          if (OJ.components[className]) {
-            nu = OJ.components[className](opts, parent, true);
-          } else {
-            nu = OJ.component(className, parent);
-          }
-          return nu;
-        });
+    addComponents = function(tagName, parent, count, className, nameSpace) {
+      if (nameSpace == null) {
+        nameSpace = 'components';
       }
+      parent.add(className, function(opts) {
+        var nu;
+        if (OJ[nameSpace][className]) {
+          nu = OJ[nameSpace][className](opts, parent, true);
+        } else {
+          nu = OJ.component(className, parent);
+        }
+        return nu;
+      });
     };
-    nodesPermittedToHouseComponents = ['div', 'span', 'td', 'p', 'body', 'form', 'li', 'a'];
-    OJ.nodes.register('permittedToHouseComponents', nodesPermittedToHouseComponents);
 
     /*
     Determine which components to add to chain, if any
      */
     controlPostProcessing = function(parent, count) {
-      if (_.contains(nodesPermittedToHouseComponents, parent.tagName)) {
-        OJ.each(OJ.components.members, function(className, tagName) {
-          return addComponents(tagName, parent, count, className);
-        });
-      }
+      OJ.each(OJ.components.members, function(className, tagName) {
+        return addComponents(tagName, parent, count, className);
+      });
+      OJ.each(OJ.controls.members, function(className, tagName) {
+        return addComponents(tagName, parent, count, className, 'controls');
+      });
     };
 
     /*
     Extend the chain, if permitted
      */
     extendChain = function(tagName, parent, count) {
-      if (isChildNodeTypeAllowed(parent, tagName)) {
-        return parent.add(tagName, function(opts) {
-          var nu;
-          if (OJ.nodes[tagName]) {
-            nu = OJ.nodes[tagName](opts, parent, true);
-          } else if ((_.contains(closed, tagName)) || _.contains(open, tagName)) {
-            nu = OJ.element(tagName, parent);
-          }
-          return OJ.nodes.factory(nu, parent, count);
-        });
-      }
+      parent.add(tagName, function(opts) {
+        var nu;
+        if (OJ.nodes[tagName]) {
+          nu = OJ.nodes[tagName](opts, parent, true);
+        } else if ((_.contains(closed, tagName)) || _.contains(open, tagName)) {
+          nu = OJ.element(tagName, parent);
+        }
+        return OJ.nodes.factory(nu, parent, count);
+      });
     };
 
     /*
@@ -1740,7 +1744,8 @@ OJ IIFE definition to anchor JsDoc comments.
       if (pageName) {
         pageName = pageName.replace('#', '');
         OJ.publish('restoreState', {
-          pageName: pageName
+          pageName: pageName,
+          location: location
         });
       }
     });
