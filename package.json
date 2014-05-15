@@ -2,7 +2,7 @@
   "name": "ojs",
   "title": "JavaScript OJ",
   "description": "OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.",
-  "version": "0.3.19",
+  "version": "0.3.20",
   "homepage": "http://somecallmechief.github.io/oj/",
   "author": {
     "name": "Christopher Froehlich",

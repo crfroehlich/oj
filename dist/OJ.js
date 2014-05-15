@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.3.18
+ * @version v0.3.19
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -1862,6 +1862,383 @@ OJ IIFE definition to anchor JsDoc comments.
 }).call(this);
 
 (function() {
+  (function() {
+    var makeSequentialArray;
+    makeSequentialArray = function(start, end) {
+      var i, ret;
+      ret = array();
+      i = void 0;
+      end = +end;
+      if (OJ.isNumber(start) && OJ.isNumber(end)) {
+        i = +start;
+        while (i <= end) {
+          ret.push(i);
+          i += 1;
+        }
+      }
+      return ret;
+    };
+    OJ.register("makeSequentialArray", makeSequentialArray);
+  })();
+
+}).call(this);
+
+(function() {
+  (function() {
+    'use strict';
+    OJ.register("getDateFromDnJson", function(dnDate) {
+      var arr, dnDateStr, localOffset, offset, ret, ticks;
+      dnDateStr = OJ.to.string(dnDate);
+      ret = void 0;
+      ticks = void 0;
+      offset = void 0;
+      localOffset = void 0;
+      arr = void 0;
+      ret = OJ.dateTimeMinValue;
+      if (false === OJ.is.nullOrEmpty(dnDateStr)) {
+        dnDateStr = dnDateStr.replace("/", "");
+        dnDateStr = dnDateStr.replace("Date", "");
+        dnDateStr = dnDateStr.replace("(", "");
+        dnDateStr = dnDateStr.replace(")", "");
+        arr = dnDateStr.split("-");
+        if (arr.length > 1) {
+          ticks = OJ.to.number(arr[0]);
+          offset = OJ.to.number(arr[1]);
+          localOffset = new Date().getTimezoneOffset();
+          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
+        } else if (arr.length === 1) {
+          ticks = OJ.to.number(arr[0]);
+          ret = new Date(ticks);
+        }
+      }
+      return ret;
+    });
+  })();
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var method, tryExec;
+    OJ.register("tryExec", tryExec = function(tryFunc) {
+      'use strict';
+      var exception, ret, that;
+      ret = false;
+      that = this;
+      try {
+        if (OJ.is.func(tryFunc)) {
+          ret = tryFunc.apply(that, Array.prototype.slice.call(arguments, 1));
+        }
+      } catch (_error) {
+        exception = _error;
+        if ((exception.name === "TypeError" || exception.type === "called_non_callable") && exception.type === "non_object_property_load") {
+          OJ.console.info("Ignoring exception: ", exception);
+        } else {
+          OJ.console.error(exception);
+        }
+      } finally {
+
+      }
+      return ret;
+    });
+    OJ.register("method", method = function(tryFunc) {
+      'use strict';
+      var that;
+      that = this;
+      return function() {
+        var args;
+        args = Array.prototype.slice.call(arguments, 0);
+        args.unshift(tryFunc);
+        return OJ.tryExec.apply(that, args);
+      };
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var number;
+    number = Object.create(null);
+    Object.defineProperty(number, "isNaN", {
+      value: (Number && Number.isNaN ? Number.isNaN : isNaN)
+    });
+    Object.defineProperty(number, "isFinite", {
+      value: (Number && Number.isFinite ? Number.isFinite : isFinite)
+    });
+    Object.defineProperty(number, "MAX_VALUE", {
+      value: (Number && Number.MAX_VALUE ? Number.MAX_VALUE : 1.7976931348623157e+308)
+    });
+    Object.defineProperty(number, "MIN_VALUE", {
+      value: (Number && Number.MIN_VALUE ? Number.MIN_VALUE : 5e-324)
+    });
+    OJ.register("number", number);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Create an instance of Object
+     */
+    var object;
+    object = function() {
+      var obj;
+      obj = {};
+
+      /*
+      Add a property to the object and return it
+       */
+      obj.add = function(name, val) {
+        OJ.property(obj, name, val);
+        return obj;
+      };
+      obj.add('each', function(callback) {
+        return OJ.each(obj, function(val, key) {
+          if (key !== 'each' && key !== 'add') {
+            return callback(val, key);
+          }
+        });
+      });
+      return obj;
+    };
+    OJ.register('object', object);
+    OJ.register('isInstanceOf', function(name, obj) {
+      return OJ.contains(name, obj) && OJ.to.bool(obj[name]);
+    });
+    OJ.register('contains', function(object, index) {
+      var ret;
+      ret = false;
+      if (false === OJ.isNullOrUndefined(object)) {
+        if (OJ.isArray(object)) {
+          ret = object.indexOf(index) !== -1;
+        }
+        if (false === ret && object.hasOwnProperty(index)) {
+          ret = true;
+        }
+      }
+      return ret;
+    });
+    OJ.register('compare', function(obj1, obj2) {
+      return _.isEqual(obj1(obj2));
+    });
+    OJ.register('clone', function(data) {
+      return _.cloneDeep(data(true));
+    });
+    OJ.register('serialize', function(data) {
+      var ret;
+      ret = '';
+      OJ.tryExec(function() {
+        ret = JSON.stringify(data);
+      });
+      return ret || '';
+    });
+    OJ.register('deserialize', function(data) {
+      var ret;
+      ret = {};
+      if (data) {
+        OJ.tryExec(function() {
+          ret = window.$.parseJSON(data);
+        });
+        if (OJ.is.nullOrEmpty(ret)) {
+          ret = {};
+        }
+      }
+      return ret;
+    });
+    OJ.register('params', function(data, delimiter) {
+      var ret;
+      if (delimiter == null) {
+        delimiter = '&';
+      }
+      ret = '';
+      if (delimiter === '&') {
+        OJ.tryExec(function() {
+          ret = $.param(data);
+        });
+      } else {
+        OJ.each(data, function(val, key) {
+          if (ret.length > 0) {
+            ret += delimiter;
+          }
+          ret += key + '=' + val;
+        });
+      }
+      return OJ.to.string(ret);
+    });
+    OJ.register('extend', function(destObj, srcObj, deepCopy) {
+      var ret;
+      if (deepCopy == null) {
+        deepCopy = false;
+      }
+      ret = destObj || {};
+      if (arguments.length === 3) {
+        ret = $.extend(OJ.to.bool(deepCopy), ret, srcObj);
+      } else {
+        ret = $.extend(ret, srcObj);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Add a property to an object
+    @param obj {Object} an Object onto which to add a property
+    @param name {String} the property name
+    @param value {Object} the value of the property. Can be any type.
+    @param writable {Boolean} [writable=true] True if the property can be modified
+    @param configurable {Boolean} [configurable=true] True if the property can be removed
+    @param enumerable {Boolean} [enumerable=true] True if the property can be enumerated and is listed in Object.keys
+     */
+    var property;
+    property = function(obj, name, value, writable, configurable, enumerable) {
+      if (!obj) {
+        throw new Error("Cannot define a property without an Object.");
+      }
+      if (!name) {
+        throw new Error("Cannot create a property without a valid property name.");
+      }
+      obj[name] = value;
+      return obj;
+    };
+    OJ.register("property", property);
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.register("delimitedString", function(string, opts) {
+      var nsInternal, nsRet;
+      nsInternal = {
+        newLineToDelimiter: true,
+        spaceToDelimiter: true,
+        removeDuplicates: true,
+        delimiter: ",",
+        initString: OJ.to.string(string)
+      };
+      nsRet = {
+        array: [],
+        delimited: function() {
+          return nsRet.array.join(nsInternal.delimiter);
+        },
+        string: function(delimiter) {
+          var ret;
+          delimiter = delimiter || nsInternal.delimiter;
+          ret = "";
+          OJ.each(nsRet.array, function(val) {
+            if (ret.length > 0) {
+              ret += delimiter;
+            }
+            ret += val;
+          });
+          return ret;
+        },
+        toString: function() {
+          return nsRet.string();
+        },
+        add: function(str) {
+          nsRet.array.push(nsInternal.parse(str));
+          nsInternal.deleteDuplicates();
+          return nsRet;
+        },
+        remove: function(str) {
+          var remove;
+          remove = function(array) {
+            return array.filter(function(item) {
+              if (item !== str) {
+                return true;
+              }
+            });
+          };
+          nsRet.array = remove(nsRet.array);
+          return nsRet;
+        },
+        count: function() {
+          return nsRet.array.length;
+        },
+        contains: function(str, caseSensitive) {
+          var isCaseSensitive, match;
+          isCaseSensitive = OJ.to.bool(caseSensitive);
+          str = OJ.to.string(str).trim();
+          if (false === isCaseSensitive) {
+            str = str.toLowerCase();
+          }
+          match = nsRet.array.filter(function(matStr) {
+            return (isCaseSensitive && OJ.to.string(matStr).trim() === str) || OJ.to.string(matStr).trim().toLowerCase() === str;
+          });
+          return match.length > 0;
+        },
+        each: function(callBack) {
+          return nsRet.array.forEach(callBack);
+        }
+      };
+      nsInternal.parse = function(str) {
+        var ret;
+        ret = OJ.to.string(str);
+        if (nsInternal.newLineToDelimiter) {
+          while (ret.indexOf("\n") !== -1) {
+            ret = ret.replace(/\n/g, nsInternal.delimiter);
+          }
+        }
+        if (nsInternal.spaceToDelimiter) {
+          while (ret.indexOf(" ") !== -1) {
+            ret = ret.replace(RegExp(" ", "g"), nsInternal.delimiter);
+          }
+        }
+        while (ret.indexOf(",,") !== -1) {
+          ret = ret.replace(/,,/g, nsInternal.delimiter);
+        }
+        return ret;
+      };
+      nsInternal.deleteDuplicates = function() {
+        if (nsInternal.removeDuplicates) {
+          (function() {
+            var unique;
+            unique = function(array) {
+              var seen;
+              seen = new Set();
+              return array.filter(function(item) {
+                if (false === seen.has(item)) {
+                  seen.add(item);
+                  return true;
+                }
+              });
+            };
+            nsRet.array = unique(nsRet.array);
+          })();
+        }
+      };
+      (function(a) {
+        var delimitedString;
+        if (a.length > 1 && false === OJ.is.plainObject(opts)) {
+          OJ.each(a, function(val) {
+            if (false === OJ.is.nullOrEmpty(val)) {
+              nsRet.array.push(val);
+            }
+          });
+        } else if (string && string.length > 0) {
+          OJ.extend(nsInternal, opts);
+          delimitedString = nsInternal.parse(string);
+          nsInternal.initString = delimitedString;
+          nsRet.array = delimitedString.split(nsInternal.delimiter);
+        }
+        nsInternal.deleteDuplicates();
+      })(arguments);
+      return nsRet;
+    });
+  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+
+}).call(this);
+
+(function() {
   (function(OJ) {
     'use strict';
     var cacheDbMgr, cacheExists, getCachedResponse, makeCachedCall, setCachedWebResponse, thisUserName, validate;
@@ -3317,376 +3694,6 @@ OJ IIFE definition to anchor JsDoc comments.
     };
     OJ.register("createUUID", createFauxUUID);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function() {
-    var makeSequentialArray;
-    makeSequentialArray = function(start, end) {
-      var i, ret;
-      ret = array();
-      i = void 0;
-      end = +end;
-      if (OJ.isNumber(start) && OJ.isNumber(end)) {
-        i = +start;
-        while (i <= end) {
-          ret.push(i);
-          i += 1;
-        }
-      }
-      return ret;
-    };
-    OJ.register("makeSequentialArray", makeSequentialArray);
-  })();
-
-}).call(this);
-
-(function() {
-  (function() {
-    'use strict';
-    OJ.register("getDateFromDnJson", function(dnDate) {
-      var arr, dnDateStr, localOffset, offset, ret, ticks;
-      dnDateStr = OJ.to.string(dnDate);
-      ret = void 0;
-      ticks = void 0;
-      offset = void 0;
-      localOffset = void 0;
-      arr = void 0;
-      ret = OJ.dateTimeMinValue;
-      if (false === OJ.is.nullOrEmpty(dnDateStr)) {
-        dnDateStr = dnDateStr.replace("/", "");
-        dnDateStr = dnDateStr.replace("Date", "");
-        dnDateStr = dnDateStr.replace("(", "");
-        dnDateStr = dnDateStr.replace(")", "");
-        arr = dnDateStr.split("-");
-        if (arr.length > 1) {
-          ticks = OJ.to.number(arr[0]);
-          offset = OJ.to.number(arr[1]);
-          localOffset = new Date().getTimezoneOffset();
-          ret = new Date(ticks - ((localOffset + (offset / 100 * 60)) * 1000));
-        } else if (arr.length === 1) {
-          ticks = OJ.to.number(arr[0]);
-          ret = new Date(ticks);
-        }
-      }
-      return ret;
-    });
-  })();
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var method, tryExec;
-    OJ.register("tryExec", tryExec = function(tryFunc) {
-      'use strict';
-      var exception, ret, that;
-      ret = false;
-      that = this;
-      try {
-        if (OJ.is.func(tryFunc)) {
-          ret = tryFunc.apply(that, Array.prototype.slice.call(arguments, 1));
-        }
-      } catch (_error) {
-        exception = _error;
-        if ((exception.name === "TypeError" || exception.type === "called_non_callable") && exception.type === "non_object_property_load") {
-          OJ.console.info("Ignoring exception: ", exception);
-        } else {
-          OJ.console.error(exception);
-        }
-      } finally {
-
-      }
-      return ret;
-    });
-    OJ.register("method", method = function(tryFunc) {
-      'use strict';
-      var that;
-      that = this;
-      return function() {
-        var args;
-        args = Array.prototype.slice.call(arguments, 0);
-        args.unshift(tryFunc);
-        return OJ.tryExec.apply(that, args);
-      };
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var number;
-    number = Object.create(null);
-    Object.defineProperty(number, "isNaN", {
-      value: (Number && Number.isNaN ? Number.isNaN : isNaN)
-    });
-    Object.defineProperty(number, "isFinite", {
-      value: (Number && Number.isFinite ? Number.isFinite : isFinite)
-    });
-    Object.defineProperty(number, "MAX_VALUE", {
-      value: (Number && Number.MAX_VALUE ? Number.MAX_VALUE : 1.7976931348623157e+308)
-    });
-    Object.defineProperty(number, "MIN_VALUE", {
-      value: (Number && Number.MIN_VALUE ? Number.MIN_VALUE : 5e-324)
-    });
-    OJ.register("number", number);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    Create an instance of Object
-     */
-    var object;
-    object = function() {
-      var obj;
-      obj = {};
-
-      /*
-      Add a property to the object and return it
-       */
-      obj.add = function(name, val) {
-        OJ.property(obj, name, val);
-        return obj;
-      };
-      return obj;
-    };
-    OJ.register('object', object);
-    OJ.register('isInstanceOf', function(name, obj) {
-      return OJ.contains(name, obj) && OJ.to.bool(obj[name]);
-    });
-    OJ.register('contains', function(object, index) {
-      var ret;
-      ret = false;
-      if (false === OJ.isNullOrUndefined(object)) {
-        if (OJ.isArray(object)) {
-          ret = object.indexOf(index) !== -1;
-        }
-        if (false === ret && object.hasOwnProperty(index)) {
-          ret = true;
-        }
-      }
-      return ret;
-    });
-    OJ.register('compare', function(obj1, obj2) {
-      return _.isEqual(obj1(obj2));
-    });
-    OJ.register('clone', function(data) {
-      return _.cloneDeep(data(true));
-    });
-    OJ.register('serialize', function(data) {
-      var ret;
-      ret = '';
-      OJ.tryExec(function() {
-        ret = JSON.stringify(data);
-      });
-      return ret || '';
-    });
-    OJ.register('deserialize', function(data) {
-      var ret;
-      ret = {};
-      if (data) {
-        OJ.tryExec(function() {
-          ret = window.$.parseJSON(data);
-        });
-        if (OJ.is.nullOrEmpty(ret)) {
-          ret = {};
-        }
-      }
-      return ret;
-    });
-    OJ.register('params', function(data, delimiter) {
-      var ret;
-      if (delimiter == null) {
-        delimiter = '&';
-      }
-      ret = '';
-      if (delimiter === '&') {
-        OJ.tryExec(function() {
-          ret = $.param(data);
-        });
-      } else {
-        OJ.each(data, function(val, key) {
-          if (ret.length > 0) {
-            ret += delimiter;
-          }
-          ret += key + '=' + val;
-        });
-      }
-      return OJ.to.string(ret);
-    });
-    OJ.register('extend', function(destObj, srcObj, deepCopy) {
-      var ret;
-      if (deepCopy == null) {
-        deepCopy = false;
-      }
-      ret = destObj || {};
-      if (arguments.length === 3) {
-        ret = $.extend(OJ.to.bool(deepCopy), ret, srcObj);
-      } else {
-        ret = $.extend(ret, srcObj);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    Add a property to an object
-    @param obj {Object} an Object onto which to add a property
-    @param name {String} the property name
-    @param value {Object} the value of the property. Can be any type.
-    @param writable {Boolean} [writable=true] True if the property can be modified
-    @param configurable {Boolean} [configurable=true] True if the property can be removed
-    @param enumerable {Boolean} [enumerable=true] True if the property can be enumerated and is listed in Object.keys
-     */
-    var property;
-    property = function(obj, name, value, writable, configurable, enumerable) {
-      if (!obj) {
-        throw new Error("Cannot define a property without an Object.");
-      }
-      if (!name) {
-        throw new Error("Cannot create a property without a valid property name.");
-      }
-      obj[name] = value;
-      return obj;
-    };
-    OJ.register("property", property);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.register("delimitedString", function(string, opts) {
-      var nsInternal, nsRet;
-      nsInternal = {
-        newLineToDelimiter: true,
-        spaceToDelimiter: true,
-        removeDuplicates: true,
-        delimiter: ",",
-        initString: OJ.to.string(string)
-      };
-      nsRet = {
-        array: [],
-        delimited: function() {
-          return nsRet.array.join(nsInternal.delimiter);
-        },
-        string: function(delimiter) {
-          var ret;
-          delimiter = delimiter || nsInternal.delimiter;
-          ret = "";
-          OJ.each(nsRet.array, function(val) {
-            if (ret.length > 0) {
-              ret += delimiter;
-            }
-            ret += val;
-          });
-          return ret;
-        },
-        toString: function() {
-          return nsRet.string();
-        },
-        add: function(str) {
-          nsRet.array.push(nsInternal.parse(str));
-          nsInternal.deleteDuplicates();
-          return nsRet;
-        },
-        remove: function(str) {
-          var remove;
-          remove = function(array) {
-            return array.filter(function(item) {
-              if (item !== str) {
-                return true;
-              }
-            });
-          };
-          nsRet.array = remove(nsRet.array);
-          return nsRet;
-        },
-        count: function() {
-          return nsRet.array.length;
-        },
-        contains: function(str, caseSensitive) {
-          var isCaseSensitive, match;
-          isCaseSensitive = OJ.to.bool(caseSensitive);
-          str = OJ.to.string(str).trim();
-          if (false === isCaseSensitive) {
-            str = str.toLowerCase();
-          }
-          match = nsRet.array.filter(function(matStr) {
-            return (isCaseSensitive && OJ.to.string(matStr).trim() === str) || OJ.to.string(matStr).trim().toLowerCase() === str;
-          });
-          return match.length > 0;
-        },
-        each: function(callBack) {
-          return nsRet.array.forEach(callBack);
-        }
-      };
-      nsInternal.parse = function(str) {
-        var ret;
-        ret = OJ.to.string(str);
-        if (nsInternal.newLineToDelimiter) {
-          while (ret.indexOf("\n") !== -1) {
-            ret = ret.replace(/\n/g, nsInternal.delimiter);
-          }
-        }
-        if (nsInternal.spaceToDelimiter) {
-          while (ret.indexOf(" ") !== -1) {
-            ret = ret.replace(RegExp(" ", "g"), nsInternal.delimiter);
-          }
-        }
-        while (ret.indexOf(",,") !== -1) {
-          ret = ret.replace(/,,/g, nsInternal.delimiter);
-        }
-        return ret;
-      };
-      nsInternal.deleteDuplicates = function() {
-        if (nsInternal.removeDuplicates) {
-          (function() {
-            var unique;
-            unique = function(array) {
-              var seen;
-              seen = new Set();
-              return array.filter(function(item) {
-                if (false === seen.has(item)) {
-                  seen.add(item);
-                  return true;
-                }
-              });
-            };
-            nsRet.array = unique(nsRet.array);
-          })();
-        }
-      };
-      (function(a) {
-        var delimitedString;
-        if (a.length > 1 && false === OJ.is.plainObject(opts)) {
-          OJ.each(a, function(val) {
-            if (false === OJ.is.nullOrEmpty(val)) {
-              nsRet.array.push(val);
-            }
-          });
-        } else if (string && string.length > 0) {
-          OJ.extend(nsInternal, opts);
-          delimitedString = nsInternal.parse(string);
-          nsInternal.initString = delimitedString;
-          nsRet.array = delimitedString.split(nsInternal.delimiter);
-        }
-        nsInternal.deleteDuplicates();
-      })(arguments);
-      return nsRet;
-    });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
 
 }).call(this);
 
