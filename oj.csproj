@@ -128,6 +128,9 @@
     <Content Include="src\coffee\core\tools\uuid.js">
       <DependentUpon>uuid.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\dom\control.js">
+      <DependentUpon>control.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\dom\custom.js">
       <DependentUpon>custom.coffee</DependentUpon>
     </Content>
@@ -736,6 +739,10 @@
     <Content Include="src\coffee\dom\nodes\h1.js.map">
       <DependentUpon>h1.js</DependentUpon>
     </Content>
+    <Content Include="src\coffee\dom\control.coffee" />
+    <Content Include="src\coffee\dom\control.js.map">
+      <DependentUpon>control.js</DependentUpon>
+    </Content>
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
     </None>
@@ -1114,6 +1121,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="src\coffee\controls\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
