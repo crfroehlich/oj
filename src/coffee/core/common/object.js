@@ -17,6 +17,13 @@
         OJ.property(obj, name, val);
         return obj;
       };
+      obj.add('each', function(callback) {
+        return OJ.each(obj, function(val, key) {
+          if (key !== 'each' && key !== 'add') {
+            return callback(val, key);
+          }
+        });
+      });
       return obj;
     };
     OJ.register('object', object);

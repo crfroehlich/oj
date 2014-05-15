@@ -13,6 +13,11 @@
       OJ.property obj, name, val
       obj
     
+    obj.add 'each', (callback) ->
+      OJ.each obj, (val, key) ->
+        if key isnt 'each' and key isnt 'add'
+          callback val, key
+        
     obj
 
   OJ.register 'object', object
