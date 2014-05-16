@@ -55,12 +55,12 @@
       useCache: false
     
     opts = optsFromUrl opts
-    OJ.extend defaults, opts
+    OJ.extend defaults, opts, true
     
     defaults.startTime = new Date()
     
     if false is OJ.is.nullOrEmpty defaults.ajaxOpts.data
-      if verb is 'GET'
+      if defaults.ajaxOpts.verb is 'GET'
         defaults.ajaxOpts.data = OJ.params defaults.ajaxOpts.data
       else
         defaults.ajaxOpts.data = OJ.serialize defaults.ajaxOpts.data

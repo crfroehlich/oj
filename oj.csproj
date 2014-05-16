@@ -360,6 +360,9 @@
     <Content Include="src\coffee\core\db\dbUpdate.js.map">
       <DependentUpon>dbUpdate.js</DependentUpon>
     </Content>
+    <Content Include="src\coffee\async\ajax.map">
+      <DependentUpon>ajax.coffee</DependentUpon>
+    </Content>
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">
       <DependentUpon>console.coffee</DependentUpon>
