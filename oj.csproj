@@ -86,6 +86,9 @@
     <Content Include="src\coffee\components\tile.js">
       <DependentUpon>tile.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\controls\icon.js">
+      <DependentUpon>icon.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\core\tools\array2D.js">
       <DependentUpon>array2D.coffee</DependentUpon>
     </Content>
@@ -362,6 +365,10 @@
     </Content>
     <Content Include="src\coffee\async\ajax.map">
       <DependentUpon>ajax.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\controls\icon.coffee" />
+    <Content Include="src\coffee\controls\icon.js.map">
+      <DependentUpon>icon.coffee</DependentUpon>
     </Content>
     <None Include="src\coffee\core\tools\console.coffee" />
     <Content Include="src\coffee\core\tools\console.js">
@@ -1124,7 +1131,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="src\coffee\controls\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
