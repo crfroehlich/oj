@@ -245,3 +245,5 @@ if typeof document isnt 'undefined'
   thisDocument = document
   
 OJ.register 'document', thisDocument
+
+OJ.register 'noop', _.noop

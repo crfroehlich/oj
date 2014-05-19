@@ -11,7 +11,8 @@
   $.cookie.defaults.path = '/'
   $.cookie.defaults.domain = 'oj.com'
   ###
-  
+  if not $ or not $.cookie
+    throw new Error 'jQuery Cookie is a required dependency.'  
   $.cookie.defaults.secure = false
   
   cookies = {}

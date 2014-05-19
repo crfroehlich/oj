@@ -302,6 +302,8 @@ OJ IIFE definition to anchor JsDoc comments.
 
   OJ.register('document', thisDocument);
 
+  OJ.register('noop', _.noop);
+
 }).call(this);
 
 //# sourceMappingURL=oj.js.map
