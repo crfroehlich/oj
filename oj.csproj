@@ -753,6 +753,9 @@
     <Content Include="src\coffee\dom\control.js.map">
       <DependentUpon>control.js</DependentUpon>
     </Content>
+    <Content Include="src\coffee\dom\control.map">
+      <DependentUpon>control.coffee</DependentUpon>
+    </Content>
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
     </None>
@@ -1131,6 +1134,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
+    <Folder Include="src\coffee\inputs\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

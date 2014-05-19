@@ -1,22 +1,24 @@
 ((OJ) ->
   
-  OJ.makeSubNameSpace 'errors'
-  OJ.makeSubNameSpace 'enums'
-  OJ.makeSubNameSpace 'is'
-  OJ.makeSubNameSpace 'instanceOf'
-  OJ.makeSubNameSpace 'to'
-  OJ.makeSubNameSpace 'nodes'
-  OJ.makeSubNameSpace 'db'
-  OJ.makeSubNameSpace 'components'
-  OJ.makeSubNameSpace 'controls'
-  OJ.makeSubNameSpace 'inputs'
-  OJ.makeSubNameSpace 'notifications'
-  OJ.makeSubNameSpace 'history'
-  OJ.makeSubNameSpace 'cookie'
-  OJ.makeSubNameSpace 'async'
+  subNameSpaces = [
+    'errors'
+    'enums'
+    'is'
+    'instanceOf'
+    'to'
+    'nodes'
+    'db'
+    'components'
+    'controls'
+    'inputs'
+    'notifications'
+    'history'
+    'cookie'
+    'async'
+  ]
   
-  OJ.components.register 'members', {}
-  OJ.controls.register 'members', {}
+  _.each subNameSpaces, (name) ->
+    OJ.makeSubNameSpace name
   
   ###
   Configuration variables

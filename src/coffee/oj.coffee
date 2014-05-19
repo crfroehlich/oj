@@ -68,6 +68,9 @@ makeTheJuice = ->
       proto = this
       tree[nsName] = tree[nsName] or {}
       nsTree = tree[nsName]
+      members = {}
+      
+      Object.defineProperty this, "members", value: members
       
       ###
       Register (e.g. "Lift") an Object into the prototype of the namespace.
@@ -84,6 +87,8 @@ makeTheJuice = ->
           throw new Error("Cannot lift a new property without a valid name.")  if (typeof name isnt "string") or name is ""
           throw new Error("Cannot lift a new property without a valid property instance.")  unless obj
           throw new Error("Property named " + name + " is already defined on " + spacename + ".")  if proto[name]
+          
+          members[name] = members[name] or name
           
           #Guard against obliterating the tree as the tree is recursively extended
           nsTree[name] = nsTree[name] or
