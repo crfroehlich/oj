@@ -10,7 +10,8 @@
       }
       defaults = {
         props: {
-          type: inputName
+          type: inputName,
+          maxlength: ''
         },
         styles: {},
         events: {

@@ -10,7 +10,11 @@
       }
       defaults = {
         props: {
-          type: inputName
+          type: inputName,
+          src: '',
+          alt: '',
+          height: '',
+          width: ''
         },
         styles: {},
         events: {

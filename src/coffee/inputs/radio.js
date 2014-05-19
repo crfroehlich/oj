@@ -10,7 +10,10 @@
       }
       defaults = {
         props: {
-          type: inputName
+          type: inputName,
+          name: '',
+          value: '',
+          checked: ''
         },
         styles: {},
         events: {

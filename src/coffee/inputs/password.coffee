@@ -6,6 +6,7 @@
     defaults =
       props:
         type: inputName
+        maxlength: ''
       styles: {}
       events:
         click: _.noop

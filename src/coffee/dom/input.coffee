@@ -3,7 +3,7 @@
   ###
   Create an OJ Input Object through OJ.nodes.input
   ###
-  component = (options = OJ.object(), owner) ->
+  input = (options = OJ.object(), owner) ->
     if not owner then throw new Error 'Cannot create an input without a parent'
     if not options.props or not options.props.type then throw new Error 'Cannot create an input without an input type'
     ret = owner.input options

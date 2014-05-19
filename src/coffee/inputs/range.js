@@ -10,7 +10,11 @@
       }
       defaults = {
         props: {
-          type: inputName
+          type: inputName,
+          min: 0,
+          max: 100,
+          value: 50,
+          step: 1
         },
         styles: {},
         events: {

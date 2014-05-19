@@ -6,6 +6,10 @@
     defaults =
       props:
         type: inputName
+        src: ''
+        alt: ''
+        height: ''
+        width: ''
       styles: {}
       events:
         click: _.noop

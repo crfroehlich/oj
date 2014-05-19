@@ -10,7 +10,9 @@
       }
       defaults = {
         props: {
-          type: inputName
+          type: inputName,
+          accept: '',
+          multiple: ''
         },
         styles: {},
         events: {

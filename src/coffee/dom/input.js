@@ -5,8 +5,8 @@
     /*
     Create an OJ Input Object through OJ.nodes.input
      */
-    var component;
-    component = function(options, owner) {
+    var input;
+    input = function(options, owner) {
       var ret;
       if (options == null) {
         options = OJ.object();

@@ -6,6 +6,7 @@
     defaults =
       props:
         type: inputName
+        multiple: ''
       styles: {}
       events:
         click: _.noop

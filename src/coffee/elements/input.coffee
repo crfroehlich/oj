@@ -40,7 +40,7 @@
     if oldClick and oldClick isnt _.noop
       newClick = (event...) ->
         syncValue()
-        oldClick event...
+        oldClick ret.value, event...
       defaults.events.click = newClick
           
     ### 
@@ -52,7 +52,7 @@
     if oldChange and oldChange isnt _.noop
       newChange = (event...) ->
         syncValue()
-        oldChange event...
+        oldChange ret.value, event...
       defaults.events.change = newChange
     
     ### 
@@ -64,7 +64,7 @@
     newFocusout = (event...) ->
       syncValue()
       if oldFocusout and oldFocusout isnt _.noop 
-        oldFocusout event...
+        oldFocusout ret.value, event...
         
     defaults.events.focusout = newFocusout
     

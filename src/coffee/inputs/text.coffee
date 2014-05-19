@@ -6,6 +6,7 @@
     defaults =
       props:
         type: inputName
+        autocomplete: 'on'
       styles: {}
       events:
         click: _.noop

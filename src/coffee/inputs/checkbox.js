@@ -9,6 +9,8 @@
         owner = OJ.body;
       }
       defaults = {
+        checked: false,
+        indeterminate: false,
         props: {
           type: inputName
         },
@@ -19,6 +21,11 @@
       };
       OJ.extend(defaults, options, true);
       ret = OJ.input(defaults, owner);
+      if (defaults.checked) {
+        ret.attr('checked', true);
+      } else if (defaults.indeterminate) {
+        ret.attr('indeterminate', true);
+      }
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

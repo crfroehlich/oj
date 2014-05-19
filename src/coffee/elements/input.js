@@ -56,7 +56,7 @@
           var event;
           event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
           syncValue();
-          return oldClick.apply(null, event);
+          return oldClick.apply(null, [ret.value].concat(__slice.call(event)));
         };
         defaults.events.click = newClick;
       }
@@ -72,7 +72,7 @@
           var event;
           event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
           syncValue();
-          return oldChange.apply(null, event);
+          return oldChange.apply(null, [ret.value].concat(__slice.call(event)));
         };
         defaults.events.change = newChange;
       }
@@ -88,7 +88,7 @@
         event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
         syncValue();
         if (oldFocusout && oldFocusout !== _.noop) {
-          return oldFocusout.apply(null, event);
+          return oldFocusout.apply(null, [ret.value].concat(__slice.call(event)));
         }
       };
       defaults.events.focusout = newFocusout;

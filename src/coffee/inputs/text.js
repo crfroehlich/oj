@@ -10,7 +10,8 @@
       }
       defaults = {
         props: {
-          type: inputName
+          type: inputName,
+          autocomplete: 'on'
         },
         styles: {},
         events: {
