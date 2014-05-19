@@ -1,12 +1,13 @@
 ((OJ)->
-  inputName = 'text'
+  inputName = 'textinput'
   
   OJ.inputs.register inputName, (options, owner = OJ.body) ->
     
     defaults =
       props:
-        type: inputName
+        type: 'text'
         autocomplete: 'on'
+        autosave: ''
       styles: {}
       events:
         click: _.noop
