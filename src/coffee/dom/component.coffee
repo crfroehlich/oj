@@ -1,7 +1,7 @@
 ((OJ) ->
 
   ###
-  Create an HTML Element through ThinDom
+  Create an HTML Web Component through ThinDom
   ###
   component = (options = OJ.object(), owner, tagName) ->
     if not tagName.startsWith 'x-' then tagName = 'x-' + tagName
