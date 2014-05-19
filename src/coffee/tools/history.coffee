@@ -31,20 +31,21 @@
       OJ.publish 'restoreState', pageName: pageName, location: location
     return
   
-  ### 
-  hang on the event, all references in this document
-  ###
-  OJ.document[eventName] eventInfo + 'click', ((event) ->
-    event = event or window.event
-    target = event.target or event.srcElement
-    
-    # looking for all the links with 'ajax' class found
-    if target and target.nodeName is 'A' and (' ' + target.className + ' ').indexOf('ajax') >= 0
-      OJ.pushState target.href, event
-      
-    event.preventDefault()
-    event.stopPropagation()
-  ), false
+#  ### 
+#  hang on the event, all references in this document
+#  ###
+#  OJ.document[eventName] eventInfo + 'click', ((event) ->
+#    event = event or window.event
+#    target = event.target or event.srcElement
+#    
+#    # looking for all the links with 'ajax' class found
+#    if target and target.nodeName is 'A' and (' ' + target.className + ' ').indexOf('ajax') >= 0
+#      OJ.pushState target.href, event
+#      
+#    event.preventDefault()
+#    event.stopPropagation()
+#  ), false
+
 
   ###
   hang on popstate event triggered by pressing back/forward in browser

@@ -125,6 +125,8 @@
       addComponents tagName, parent, count, className
     OJ.each OJ.controls.members, (className, tagName) ->
       addComponents tagName, parent, count, className, 'controls'
+    OJ.each OJ.inputs.members, (className, tagName) ->
+      addComponents tagName, parent, count, className, 'inputs'  
     return
 
   ###
@@ -227,6 +229,8 @@
               id += ret.tagName + count
               ret.attr 'id', id
           parent.append ret[0]
+          #We need to bind events after the node is in the DOM
+          ret.bindEvents()
           ret.isInDOM = true
         
         controlPostProcessing ret, count

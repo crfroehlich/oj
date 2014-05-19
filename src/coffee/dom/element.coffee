@@ -21,7 +21,7 @@
     ret.add '$', $(ret.get())
     ret.add '0', ret.get()
     
-    bindEvents ret, events
+    ret.add 'bindEvents', _.once () -> bindEvents ret, events
     ret   
       
   ###
