@@ -9,6 +9,7 @@
   OJ.makeSubNameSpace 'db'
   OJ.makeSubNameSpace 'components'
   OJ.makeSubNameSpace 'controls'
+  OJ.makeSubNameSpace 'inputs'
   OJ.makeSubNameSpace 'notifications'
   OJ.makeSubNameSpace 'history'
   OJ.makeSubNameSpace 'cookie'
