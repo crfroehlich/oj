@@ -71,7 +71,7 @@
         });
       });
       OJ.each(OJ.components.members, function(className, tagName) {
-        return addComponents(tagName, parent, count, className);
+        return addComponents(tagName, el, count, className);
       });
       OJ.each(OJ.controls.members, function(className, tagName) {
         return addComponents(tagName, el, count, className, 'controls');

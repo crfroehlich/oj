@@ -128,7 +128,7 @@
     
     #2: add components
     OJ.each OJ.components.members, (className, tagName) ->
-      addComponents tagName, parent, count, className
+      addComponents tagName, el, count, className
     
     #3: add controls
     OJ.each OJ.controls.members, (className, tagName) ->
