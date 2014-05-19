@@ -1,11 +1,11 @@
 ((OJ)->
-  inputName = 'image'
+  inputName = 'buttoninput'
   
   OJ.inputs.register inputName, (options, owner = OJ.body) ->
     
     defaults =
       props:
-        type: inputName
+        type: 'button'
         src: ''
         alt: ''
         height: ''

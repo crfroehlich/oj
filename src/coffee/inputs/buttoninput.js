@@ -2,7 +2,7 @@
 (function() {
   (function(OJ) {
     var inputName;
-    inputName = 'image';
+    inputName = 'buttoninput';
     OJ.inputs.register(inputName, function(options, owner) {
       var defaults, ret;
       if (owner == null) {
@@ -10,7 +10,7 @@
       }
       defaults = {
         props: {
-          type: inputName,
+          type: 'button',
           src: '',
           alt: '',
           height: '',
@@ -29,4 +29,4 @@
 
 }).call(this);
 
-//# sourceMappingURL=image.js.map
+//# sourceMappingURL=buttoninput.js.map
