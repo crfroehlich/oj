@@ -17,6 +17,7 @@ plugins = require 'gulp-load-plugins'
 path = require 'path'
 gulpBowerFiles = require 'gulp-bower-files'
 wiredep = require 'wiredep'
+wiredepStream = wiredep.stream
 coffee = require 'gulp-coffee'
 coffeelint = require 'gulp-coffeelint'
 debug = require 'gulp-debug'
@@ -76,38 +77,42 @@ gulp.task 'inject', ->
    
       addRootSlash: false
       addPrefix: '..')
+    .pipe wiredepStream
+      exclude: [/backbone/, /underscore/, /require/] #these will break Lo-Dash
     .pipe gulp.dest paths.src
     .pipe notify message: 'dev.html includes dynamically injected.'
     .on 'error', gutil.log
   
-  gulp.src(files.testIndexCoffee).pipe(inject(gulp.src([
-    files.coffee
-    files.test
-    files.css
-  ],
-    read: false # Not necessary to read the files (will speed up things), we're only after their paths
-  ),
-    addRootSlash: false
-    addPrefix: '..'
-  )).pipe(gulp.dest(paths.test)).pipe(notify(message: 'test.coffee.html includes dynamically injected.')).on 'error', gutil.log
+  gulp.src files.testIndex
+    .pipe(inject(gulp.src([
+      files.js
+      './test/**/*.js*/'
+      files.css
+    ],
+      read: false # Not necessary to read the files (will speed up things), we're only after their paths
+    ),
+      addRootSlash: false
+      addPrefix: '..'
+    ))
+    .pipe wiredepStream
+      exclude: [/backbone/, /underscore/, /require/] #these will break Lo-Dash
+      devDependencies: true
+    .pipe gulp.dest paths.test
+    .pipe notify message: 'test.html includes dynamically injected.'
+    .on 'error', gutil.log
   
-  gulp.src(files.testIndex).pipe(inject(gulp.src([
-    files.js
-    './test/**/*.js*/'
-    files.css
-  ],
-    read: false # Not necessary to read the files (will speed up things), we're only after their paths
-  ),
-    addRootSlash: false
-    addPrefix: '..'
-  )).pipe(gulp.dest(paths.test)).pipe(notify(message: 'test.html includes dynamically injected.')).on 'error', gutil.log
-  # Not necessary to read the files (will speed up things), we're only after their paths
-  gulp.src(files.index).pipe(inject(gulp.src(['./dist/**/*.min*'],
-    read: false
-  ),
-    addRootSlash: false
-    addPrefix: '..'
-  )).pipe(gulp.dest(paths.release)).pipe(notify(message: 'release.html includes dynamically injected.')).on 'error', gutil.log
+  gulp.src(files.index)
+    .pipe(inject(gulp.src(['./dist/**/*.min*'],
+      read: false
+    ),
+      addRootSlash: false
+      addPrefix: '..'
+    ))
+    .pipe wiredepStream
+      exclude: [/backbone/, /underscore/, /require/] #these will break Lo-Dash
+    .pipe gulp.dest paths.release
+    .pipe notify message: 'release.html includes dynamically injected.'
+    .on 'error', gutil.log
   return
 
 
@@ -128,25 +133,6 @@ gulp.task 'coffee', ->
     .on 'error', gutil.log
   return
   
-
-injectDependencies = (outputFile, includeDev = false) ->
-  wiredep
-    directory: './bower_components'
-    bowerJson: require('./bower.json')
-    src: outputFile
-    exclude: [/backbone/, /underscore/, /require/] #these will break Lo-Dash
-    devDependencies: includeDev
-
-###
-Inject bower dependencies
-###
-gulp.task 'init', ->
-  injectDependencies './dist/release.html'
-  injectDependencies './src/dev.html'
-  injectDependencies './test/test.html', true
-  injectDependencies './test/test.coffee.html'
-  return
-
 ###
  Bump the version in bower and package json
 ###
@@ -186,16 +172,13 @@ gulp.task 'watch', ->
   
   #gulp.watch(files.js, ['inject']);
   gulp.watch files.coffee, [
-    'concat'
-    'inject'
+    'compile'
   ]
   gulp.watch files.test, [
-    'concat'
-    'inject'
+    'compile'
   ]
   gulp.watch files.css, [
-    'concat'
-    'inject'
+    'compile'
   ]
   return
 
@@ -206,7 +189,6 @@ gulp.task 'test', ->
 gulp.task 'compile', [
   'coffee'
   'inject'
-  'init'
 ]
 
 gulp.task 'build', [
