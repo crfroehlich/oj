@@ -19,6 +19,7 @@
       ret.attr 'checked', true
     else if defaults.indeterminate  
       ret.attr 'indeterminate', true
+      
     ret
 
   return

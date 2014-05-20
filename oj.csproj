@@ -134,62 +134,134 @@
     <Content Include="src\coffee\dom\control.js">
       <DependentUpon>control.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\custom.js">
-      <DependentUpon>custom.coffee</DependentUpon>
+    <Content Include="src\coffee\dom\input.js">
+      <DependentUpon>input.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\nodeFactory.js">
       <DependentUpon>nodeFactory.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\b.js">
+    <Content Include="src\coffee\elements\b.js">
       <DependentUpon>b.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\em.js">
+    <Content Include="src\coffee\elements\em.js">
       <DependentUpon>em.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h1.js">
+    <Content Include="src\coffee\elements\h1.js">
       <DependentUpon>h1.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h2.js">
+    <Content Include="src\coffee\elements\h2.js">
       <DependentUpon>h2.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h3.js">
+    <Content Include="src\coffee\elements\h3.js">
       <DependentUpon>h3.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h4.js">
+    <Content Include="src\coffee\elements\h4.js">
       <DependentUpon>h4.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h5.js">
+    <Content Include="src\coffee\elements\h5.js">
       <DependentUpon>h5.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h6.js">
+    <Content Include="src\coffee\elements\h6.js">
       <DependentUpon>h6.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\i.js">
+    <Content Include="src\coffee\elements\i.js">
       <DependentUpon>i.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\nav.js">
+    <Content Include="src\coffee\elements\nav.js">
       <DependentUpon>nav.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\strong.js">
+    <Content Include="src\coffee\elements\strong.js">
       <DependentUpon>strong.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\sup.js">
+    <Content Include="src\coffee\elements\sup.js">
       <DependentUpon>sup.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\tbody.js">
+    <Content Include="src\coffee\elements\tbody.js">
       <DependentUpon>tbody.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\td.js">
+    <Content Include="src\coffee\elements\td.js">
       <DependentUpon>td.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\th.js">
+    <Content Include="src\coffee\elements\th.js">
       <DependentUpon>th.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\thead.js">
+    <Content Include="src\coffee\elements\thead.js">
       <DependentUpon>thead.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\tr.js">
+    <Content Include="src\coffee\elements\tr.js">
       <DependentUpon>tr.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\buttoninput.js">
+      <DependentUpon>buttoninput.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\checkbox.js">
+      <DependentUpon>checkbox.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\color.js">
+      <DependentUpon>color.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\date.js">
+      <DependentUpon>date.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\datetime.js">
+      <DependentUpon>datetime.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\datetimelocal.js">
+      <DependentUpon>datetimelocal.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\email.js">
+      <DependentUpon>email.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\file.js">
+      <DependentUpon>file.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\hidden.js">
+      <DependentUpon>hidden.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\imageinput.js">
+      <DependentUpon>imageinput.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\month.js">
+      <DependentUpon>month.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\number.js">
+      <DependentUpon>number.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\password.js">
+      <DependentUpon>password.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\radio.js">
+      <DependentUpon>radio.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\range.js">
+      <DependentUpon>range.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\reset.js">
+      <DependentUpon>reset.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\search.js">
+      <DependentUpon>search.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\submit.js">
+      <DependentUpon>submit.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\tel.js">
+      <DependentUpon>tel.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\text.js">
+      <DependentUpon>textinput.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\textinput.js">
+      <DependentUpon>textinput.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\time.js">
+      <DependentUpon>time.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\url.js">
+      <DependentUpon>url.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\week.js">
+      <DependentUpon>week.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\oj.js">
       <DependentUpon>oj.coffee</DependentUpon>
@@ -446,45 +518,45 @@
     <Content Include="src\coffee\core\tools\uuid.map">
       <DependentUpon>uuid.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\fieldset.map">
+    <Content Include="src\coffee\elements\fieldset.map">
       <DependentUpon>fieldset.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\form.map">
+    <Content Include="src\coffee\elements\form.map">
       <DependentUpon>form.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\img.map">
+    <Content Include="src\coffee\elements\img.map">
       <DependentUpon>img.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\input.map">
+    <Content Include="src\coffee\elements\input.map">
       <DependentUpon>input.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\label.map">
+    <Content Include="src\coffee\elements\label.map">
       <DependentUpon>label.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\ol.map">
+    <Content Include="src\coffee\elements\ol.map">
       <DependentUpon>ol.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\p.map">
+    <Content Include="src\coffee\elements\p.map">
       <DependentUpon>p.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\select.map">
+    <Content Include="src\coffee\elements\select.map">
       <DependentUpon>select.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\span.map">
+    <Content Include="src\coffee\elements\span.map">
       <DependentUpon>span.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\svg.map">
+    <Content Include="src\coffee\elements\svg.map">
       <DependentUpon>svg.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\textarea.map">
+    <Content Include="src\coffee\elements\textarea.map">
       <DependentUpon>textarea.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\ul.map">
+    <Content Include="src\coffee\elements\ul.map">
       <DependentUpon>ul.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\tbody.coffee" />
-    <Content Include="src\coffee\dom\nodes\tr.coffee" />
-    <Content Include="src\coffee\dom\nodes\td.coffee" />
+    <Content Include="src\coffee\elements\tbody.coffee" />
+    <Content Include="src\coffee\elements\tr.coffee" />
+    <Content Include="src\coffee\elements\td.coffee" />
     <Content Include="src\coffee\ojInit.js.map">
       <DependentUpon>ojInit.coffee</DependentUpon>
     </Content>
@@ -497,28 +569,28 @@
     <Content Include="src\coffee\dom\nodeFactory.js.map">
       <DependentUpon>nodeFactory.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\a.map">
+    <Content Include="src\coffee\elements\a.map">
       <DependentUpon>a.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\legend.map">
+    <Content Include="src\coffee\elements\legend.map">
       <DependentUpon>legend.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\li.map">
+    <Content Include="src\coffee\elements\li.map">
       <DependentUpon>li.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\option.map">
+    <Content Include="src\coffee\elements\option.map">
       <DependentUpon>option.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\table.map">
+    <Content Include="src\coffee\elements\table.map">
       <DependentUpon>table.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\tbody.map">
+    <Content Include="src\coffee\elements\tbody.map">
       <DependentUpon>tbody.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\td.map">
+    <Content Include="src\coffee\elements\td.map">
       <DependentUpon>td.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\tr.map">
+    <Content Include="src\coffee\elements\tr.map">
       <DependentUpon>tr.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\dom.map">
@@ -537,64 +609,60 @@
       <DependentUpon>component.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\_templ" />
-    <Content Include="src\coffee\dom\custom.coffee" />
-    <Content Include="src\coffee\dom\nodes\i.coffee" />
-    <Content Include="src\coffee\dom\nodes\em.coffee" />
-    <Content Include="src\coffee\dom\nodes\i.map">
+    <Content Include="src\coffee\elements\i.coffee" />
+    <Content Include="src\coffee\elements\em.coffee" />
+    <Content Include="src\coffee\elements\i.map">
       <DependentUpon>i.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\custom.map">
-      <DependentUpon>custom.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\dom\nodes\strong.coffee" />
-    <Content Include="src\coffee\dom\nodes\em.map">
+    <Content Include="src\coffee\elements\strong.coffee" />
+    <Content Include="src\coffee\elements\em.map">
       <DependentUpon>em.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h1.coffee" />
-    <Content Include="src\coffee\dom\nodes\h2.coffee" />
-    <Content Include="src\coffee\dom\nodes\h3.coffee" />
-    <Content Include="src\coffee\dom\nodes\h4.coffee" />
-    <Content Include="src\coffee\dom\nodes\h5.coffee" />
-    <Content Include="src\coffee\dom\nodes\h6.coffee" />
-    <Content Include="src\coffee\dom\nodes\nav.coffee" />
-    <Content Include="src\coffee\dom\nodes\sup.coffee" />
-    <Content Include="src\coffee\dom\nodes\thead.coffee" />
-    <Content Include="src\coffee\dom\nodes\h1.map">
+    <Content Include="src\coffee\elements\h1.coffee" />
+    <Content Include="src\coffee\elements\h2.coffee" />
+    <Content Include="src\coffee\elements\h3.coffee" />
+    <Content Include="src\coffee\elements\h4.coffee" />
+    <Content Include="src\coffee\elements\h5.coffee" />
+    <Content Include="src\coffee\elements\h6.coffee" />
+    <Content Include="src\coffee\elements\nav.coffee" />
+    <Content Include="src\coffee\elements\sup.coffee" />
+    <Content Include="src\coffee\elements\thead.coffee" />
+    <Content Include="src\coffee\elements\h1.map">
       <DependentUpon>h1.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h2.map">
+    <Content Include="src\coffee\elements\h2.map">
       <DependentUpon>h2.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h3.map">
+    <Content Include="src\coffee\elements\h3.map">
       <DependentUpon>h3.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h4.map">
+    <Content Include="src\coffee\elements\h4.map">
       <DependentUpon>h4.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h5.map">
+    <Content Include="src\coffee\elements\h5.map">
       <DependentUpon>h5.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h6.map">
+    <Content Include="src\coffee\elements\h6.map">
       <DependentUpon>h6.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\nav.map">
+    <Content Include="src\coffee\elements\nav.map">
       <DependentUpon>nav.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\strong.map">
+    <Content Include="src\coffee\elements\strong.map">
       <DependentUpon>strong.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\sup.map">
+    <Content Include="src\coffee\elements\sup.map">
       <DependentUpon>sup.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\thead.map">
+    <Content Include="src\coffee\elements\thead.map">
       <DependentUpon>thead.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\b.coffee" />
-    <Content Include="src\coffee\dom\nodes\b.map">
+    <Content Include="src\coffee\elements\b.coffee" />
+    <Content Include="src\coffee\elements\b.map">
       <DependentUpon>b.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\th.coffee" />
-    <Content Include="src\coffee\dom\nodes\th.map">
+    <Content Include="src\coffee\elements\th.coffee" />
+    <Content Include="src\coffee\elements\th.map">
       <DependentUpon>th.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\tools\queryString.coffee" />
@@ -617,136 +685,133 @@
     <Content Include="src\coffee\oj.js.map">
       <DependentUpon>oj.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\option.js.map">
+    <Content Include="src\coffee\elements\option.js.map">
       <DependentUpon>option.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\i.js.map">
+    <Content Include="src\coffee\elements\i.js.map">
       <DependentUpon>i.js</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\tools\uuid.js.map">
       <DependentUpon>uuid.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\a.js.map">
+    <Content Include="src\coffee\elements\a.js.map">
       <DependentUpon>a.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h2.js.map">
+    <Content Include="src\coffee\elements\h2.js.map">
       <DependentUpon>h2.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h3.js.map">
+    <Content Include="src\coffee\elements\h3.js.map">
       <DependentUpon>h3.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\svg.js.map">
+    <Content Include="src\coffee\elements\svg.js.map">
       <DependentUpon>svg.js</DependentUpon>
     </Content>
     <Content Include="src\coffee\tools\history.js.map">
       <DependentUpon>history.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\img.js.map">
+    <Content Include="src\coffee\elements\img.js.map">
       <DependentUpon>img.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\tbody.js.map">
+    <Content Include="src\coffee\elements\tbody.js.map">
       <DependentUpon>tbody.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\td.js.map">
+    <Content Include="src\coffee\elements\td.js.map">
       <DependentUpon>td.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\custom.js.map">
-      <DependentUpon>custom.js</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\dom\nodes\fieldset.js.map">
+    <Content Include="src\coffee\elements\fieldset.js.map">
       <DependentUpon>fieldset.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\input.js.map">
+    <Content Include="src\coffee\elements\input.js.map">
       <DependentUpon>input.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\nav.js.map">
+    <Content Include="src\coffee\elements\nav.js.map">
       <DependentUpon>nav.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\ul.js.map">
+    <Content Include="src\coffee\elements\ul.js.map">
       <DependentUpon>ul.js</DependentUpon>
     </Content>
     <Content Include="src\coffee\tools\noty.js.map">
       <DependentUpon>noty.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\li.js.map">
+    <Content Include="src\coffee\elements\li.js.map">
       <DependentUpon>li.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\span.js.map">
+    <Content Include="src\coffee\elements\span.js.map">
       <DependentUpon>span.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\tr.js.map">
+    <Content Include="src\coffee\elements\tr.js.map">
       <DependentUpon>tr.js</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\component.js.map">
       <DependentUpon>component.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\form.js.map">
+    <Content Include="src\coffee\elements\form.js.map">
       <DependentUpon>form.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h5.js.map">
+    <Content Include="src\coffee\elements\h5.js.map">
       <DependentUpon>h5.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\ol.js.map">
+    <Content Include="src\coffee\elements\ol.js.map">
       <DependentUpon>ol.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\sup.js.map">
+    <Content Include="src\coffee\elements\sup.js.map">
       <DependentUpon>sup.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\textarea.js.map">
+    <Content Include="src\coffee\elements\textarea.js.map">
       <DependentUpon>textarea.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\label.js.map">
+    <Content Include="src\coffee\elements\label.js.map">
       <DependentUpon>label.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\select.js.map">
+    <Content Include="src\coffee\elements\select.js.map">
       <DependentUpon>select.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\div.js.map">
+    <Content Include="src\coffee\elements\div.js.map">
       <DependentUpon>div.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\p.js.map">
+    <Content Include="src\coffee\elements\p.js.map">
       <DependentUpon>p.js</DependentUpon>
     </Content>
     <Content Include="src\coffee\tools\cookie.js.map">
       <DependentUpon>cookie.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h6.js.map">
+    <Content Include="src\coffee\elements\h6.js.map">
       <DependentUpon>h6.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\br.js.map">
+    <Content Include="src\coffee\elements\br.js.map">
       <DependentUpon>br.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\em.js.map">
+    <Content Include="src\coffee\elements\em.js.map">
       <DependentUpon>em.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\thead.js.map">
+    <Content Include="src\coffee\elements\thead.js.map">
       <DependentUpon>thead.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\legend.js.map">
+    <Content Include="src\coffee\elements\legend.js.map">
       <DependentUpon>legend.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h4.js.map">
+    <Content Include="src\coffee\elements\h4.js.map">
       <DependentUpon>h4.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\table.js.map">
+    <Content Include="src\coffee\elements\table.js.map">
       <DependentUpon>table.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\th.js.map">
+    <Content Include="src\coffee\elements\th.js.map">
       <DependentUpon>th.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\strong.js.map">
+    <Content Include="src\coffee\elements\strong.js.map">
       <DependentUpon>strong.js</DependentUpon>
     </Content>
     <Content Include="src\coffee\tools\queryString.js.map">
       <DependentUpon>queryString.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\b.js.map">
+    <Content Include="src\coffee\elements\b.js.map">
       <DependentUpon>b.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\button.js.map">
+    <Content Include="src\coffee\elements\button.js.map">
       <DependentUpon>button.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\h1.js.map">
+    <Content Include="src\coffee\elements\h1.js.map">
       <DependentUpon>h1.js</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\control.coffee" />
@@ -755,6 +820,105 @@
     </Content>
     <Content Include="src\coffee\dom\control.map">
       <DependentUpon>control.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\checkbox.coffee" />
+    <Content Include="src\coffee\inputs\datetime.coffee" />
+    <Content Include="src\coffee\inputs\datetimelocal.coffee" />
+    <Content Include="src\coffee\inputs\email.coffee" />
+    <Content Include="src\coffee\inputs\file.coffee" />
+    <Content Include="src\coffee\inputs\hidden.coffee" />
+    <Content Include="src\coffee\inputs\imageinput.coffee" />
+    <Content Include="src\coffee\inputs\month.coffee" />
+    <Content Include="src\coffee\inputs\number.coffee" />
+    <Content Include="src\coffee\inputs\color.coffee" />
+    <Content Include="src\coffee\inputs\date.coffee" />
+    <Content Include="src\coffee\inputs\password.coffee" />
+    <Content Include="src\coffee\inputs\radio.coffee" />
+    <Content Include="src\coffee\inputs\range.coffee" />
+    <Content Include="src\coffee\inputs\reset.coffee" />
+    <Content Include="src\coffee\inputs\search.coffee" />
+    <Content Include="src\coffee\inputs\submit.coffee" />
+    <Content Include="src\coffee\inputs\tel.coffee" />
+    <Content Include="src\coffee\inputs\textinput.coffee" />
+    <Content Include="src\coffee\inputs\time.coffee" />
+    <Content Include="src\coffee\inputs\url.coffee" />
+    <Content Include="src\coffee\inputs\week.coffee" />
+    <Content Include="src\coffee\dom\input.coffee" />
+    <Content Include="src\coffee\dom\input.js.map">
+      <DependentUpon>input.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\checkbox.js.map">
+      <DependentUpon>checkbox.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\color.js.map">
+      <DependentUpon>color.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\date.js.map">
+      <DependentUpon>date.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\datetime.js.map">
+      <DependentUpon>datetime.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\datetimelocal.js.map">
+      <DependentUpon>datetimelocal.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\email.js.map">
+      <DependentUpon>email.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\file.js.map">
+      <DependentUpon>file.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\hidden.js.map">
+      <DependentUpon>hidden.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\month.js.map">
+      <DependentUpon>month.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\number.js.map">
+      <DependentUpon>number.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\password.js.map">
+      <DependentUpon>password.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\radio.js.map">
+      <DependentUpon>radio.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\range.js.map">
+      <DependentUpon>range.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\reset.js.map">
+      <DependentUpon>reset.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\search.js.map">
+      <DependentUpon>search.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\submit.js.map">
+      <DependentUpon>submit.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\tel.js.map">
+      <DependentUpon>tel.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\text.js.map">
+      <DependentUpon>text.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\time.js.map">
+      <DependentUpon>time.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\url.js.map">
+      <DependentUpon>url.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\week.js.map">
+      <DependentUpon>week.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\imageinput.js.map">
+      <DependentUpon>imageinput.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\buttoninput.coffee" />
+    <Content Include="src\coffee\inputs\buttoninput.js.map">
+      <DependentUpon>buttoninput.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\inputs\textinput.js.map">
+      <DependentUpon>textinput.js</DependentUpon>
     </Content>
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
@@ -823,64 +987,64 @@
     <Content Include="src\coffee\dom\element.js">
       <DependentUpon>element.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\a.js">
+    <Content Include="src\coffee\elements\a.js">
       <DependentUpon>a.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\br.js">
+    <Content Include="src\coffee\elements\br.js">
       <DependentUpon>br.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\button.js">
+    <Content Include="src\coffee\elements\button.js">
       <DependentUpon>button.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\div.js">
+    <Content Include="src\coffee\elements\div.js">
       <DependentUpon>div.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\fieldset.js">
+    <Content Include="src\coffee\elements\fieldset.js">
       <DependentUpon>fieldset.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\form.js">
+    <Content Include="src\coffee\elements\form.js">
       <DependentUpon>form.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\img.js">
+    <Content Include="src\coffee\elements\img.js">
       <DependentUpon>img.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\input.js">
+    <Content Include="src\coffee\elements\input.js">
       <DependentUpon>input.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\label.js">
+    <Content Include="src\coffee\elements\label.js">
       <DependentUpon>label.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\legend.js">
+    <Content Include="src\coffee\elements\legend.js">
       <DependentUpon>legend.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\li.js">
+    <Content Include="src\coffee\elements\li.js">
       <DependentUpon>li.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\ol.js">
+    <Content Include="src\coffee\elements\ol.js">
       <DependentUpon>ol.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\option.js">
+    <Content Include="src\coffee\elements\option.js">
       <DependentUpon>option.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\p.js">
+    <Content Include="src\coffee\elements\p.js">
       <DependentUpon>p.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\select.js">
+    <Content Include="src\coffee\elements\select.js">
       <DependentUpon>select.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\span.js">
+    <Content Include="src\coffee\elements\span.js">
       <DependentUpon>span.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\svg.js">
+    <Content Include="src\coffee\elements\svg.js">
       <DependentUpon>svg.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\table.js">
+    <Content Include="src\coffee\elements\table.js">
       <DependentUpon>table.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\textarea.js">
+    <Content Include="src\coffee\elements\textarea.js">
       <DependentUpon>textarea.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\ul.js">
+    <Content Include="src\coffee\elements\ul.js">
       <DependentUpon>ul.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\db\clientDb.js">
@@ -902,43 +1066,43 @@
     <Content Include="src\coffee\core\db\dbSelect.coffee" />
     <Content Include="src\coffee\core\db\dbTable.coffee" />
     <Content Include="src\coffee\core\db\dbUpdate.coffee" />
-    <Content Include="src\coffee\dom\nodes\a.coffee" />
-    <Content Include="src\coffee\dom\nodes\br.coffee" />
-    <Content Include="src\coffee\dom\nodes\button.coffee" />
-    <Content Include="src\coffee\dom\nodes\div.coffee" />
-    <Content Include="src\coffee\dom\nodes\fieldset.coffee" />
-    <Content Include="src\coffee\dom\nodes\form.coffee" />
-    <Content Include="src\coffee\dom\nodes\img.coffee" />
-    <Content Include="src\coffee\dom\nodes\input.coffee" />
-    <Content Include="src\coffee\dom\nodes\label.coffee" />
+    <Content Include="src\coffee\elements\a.coffee" />
+    <Content Include="src\coffee\elements\br.coffee" />
+    <Content Include="src\coffee\elements\button.coffee" />
+    <Content Include="src\coffee\elements\div.coffee" />
+    <Content Include="src\coffee\elements\fieldset.coffee" />
+    <Content Include="src\coffee\elements\form.coffee" />
+    <Content Include="src\coffee\elements\img.coffee" />
+    <Content Include="src\coffee\elements\input.coffee" />
+    <Content Include="src\coffee\elements\label.coffee" />
     <Content Include="src\coffee\dom\nodeFactory.coffee" />
-    <Content Include="src\coffee\dom\nodes\ol.coffee" />
-    <Content Include="src\coffee\dom\nodes\p.coffee" />
-    <Content Include="src\coffee\dom\nodes\select.coffee" />
-    <Content Include="src\coffee\dom\nodes\span.coffee" />
-    <Content Include="src\coffee\dom\nodes\svg.coffee" />
-    <Content Include="src\coffee\dom\nodes\table.coffee" />
-    <Content Include="src\coffee\dom\nodes\textarea.coffee" />
-    <Content Include="src\coffee\dom\nodes\ul.coffee" />
+    <Content Include="src\coffee\elements\ol.coffee" />
+    <Content Include="src\coffee\elements\p.coffee" />
+    <Content Include="src\coffee\elements\select.coffee" />
+    <Content Include="src\coffee\elements\span.coffee" />
+    <Content Include="src\coffee\elements\svg.coffee" />
+    <Content Include="src\coffee\elements\table.coffee" />
+    <Content Include="src\coffee\elements\textarea.coffee" />
+    <Content Include="src\coffee\elements\ul.coffee" />
     <Content Include="src\coffee\dom\element.coffee" />
     <Content Include="src\coffee\core\common\array.coffee" />
     <Content Include="src\coffee\core\common\date.coffee" />
     <Content Include="src\coffee\core\tools\functional.coffee" />
-    <Content Include="src\coffee\dom\nodes\br.map">
+    <Content Include="src\coffee\elements\br.map">
       <DependentUpon>br.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\button.map">
+    <Content Include="src\coffee\elements\button.map">
       <DependentUpon>button.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\div.map">
+    <Content Include="src\coffee\elements\div.map">
       <DependentUpon>div.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\legend.coffee" />
+    <Content Include="src\coffee\elements\legend.coffee" />
     <Content Include="src\coffee\core\tools\enums.js.map">
       <DependentUpon>enums.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\dom\nodes\li.coffee" />
-    <Content Include="src\coffee\dom\nodes\option.coffee" />
+    <Content Include="src\coffee\elements\li.coffee" />
+    <Content Include="src\coffee\elements\option.coffee" />
     <Content Include="src\coffee\core\tools\functional.map">
       <DependentUpon>functional.coffee</DependentUpon>
     </Content>
@@ -1101,6 +1265,7 @@
     <Content Include="test\nodes\test.table.js">
       <DependentUpon>test.table.coffee</DependentUpon>
     </Content>
+    <Content Include="test\test2.html" />
     <Content Include="test\test.coffee.html" />
     <Content Include="test\test.html" />
     <Content Include="web.config" />
@@ -1134,7 +1299,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Properties\" />
-    <Folder Include="src\coffee\inputs\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
