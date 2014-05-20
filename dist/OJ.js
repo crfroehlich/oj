@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.3.23
+ * @version v0.3.24
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -817,7 +817,8 @@ OJ IIFE definition to anchor JsDoc comments.
     className = 'inputgroup';
     OJ.components.members[nodeName] = className;
     OJ.components.register(className, function(options, owner) {
-      var cmpnt, defaults, input, label, ret;
+      var cmpnt, defaults, forId, ret;
+      forId = OJ.createUUID();
       defaults = {
         props: {
           "class": 'form-group'
@@ -825,10 +826,15 @@ OJ IIFE definition to anchor JsDoc comments.
         events: {
           change: _.noop
         },
-        "for": OJ.createUUID(),
+        "for": forId,
         labelText: '',
-        inputType: 'text',
-        placeholder: ''
+        inputOpts: {
+          id: forId,
+          type: 'text',
+          "class": 'form-control',
+          placeholder: '',
+          value: ''
+        }
       };
       OJ.extend(defaults, options, true);
       ret = OJ.component(defaults, owner, nodeName);
@@ -837,22 +843,15 @@ OJ IIFE definition to anchor JsDoc comments.
           "class": 'form-group'
         }
       });
-      label = cmpnt.label({
+      ret.groupLabel = cmpnt.label({
         props: {
-          "for": defaults["for"]
+          "for": forId
         },
         text: defaults.labelText
       });
-      input = cmpnt.input({
-        props: {
-          id: defaults["for"],
-          type: OJ.enums.inputTypes[defaults.inputType].name,
-          "class": 'form-control',
-          placeholder: defaults.placeholder
-        }
-      });
-      ret.value = function() {
-        return input.value;
+      ret.groupInput = cmpnt.input(defaults.inputOpts);
+      ret.groupValue = function() {
+        return input.val();
       };
       return ret;
     });
@@ -4039,6 +4038,26 @@ OJ IIFE definition to anchor JsDoc comments.
         });
       }
     });
+
+    /* 
+    hang on the event, all references in this document
+     */
+
+    /*
+     * This binds to the document click event, which in turn attaches to every click event, causing unexpected behavior.
+     * For any control which wishes to trigger a state change in response to an event, it is better for that control to define the behavior.
+    OJ.document[eventName] eventInfo + 'click', ((event) ->
+      event = event or window.event
+      target = event.target or event.srcElement
+      
+       * looking for all the links with 'ajax' class found
+      if target and target.nodeName is 'A' and (' ' + target.className + ' ').indexOf('ajax') >= 0
+        OJ.pushState target.href, event
+        
+      event.preventDefault()
+      event.stopPropagation()
+    ), false
+     */
 
     /*
     hang on popstate event triggered by pressing back/forward in browser
