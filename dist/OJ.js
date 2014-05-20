@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.3.26
+ * @version v0.3.27
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -1608,864 +1608,6 @@ OJ IIFE definition to anchor JsDoc comments.
 }).call(this);
 
 (function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'buttoninput';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: 'button',
-          src: '',
-          alt: '',
-          height: '',
-          width: ''
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'checkbox';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        checked: false,
-        indeterminate: false,
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      if (defaults.checked) {
-        ret.attr('checked', true);
-      } else if (defaults.indeterminate) {
-        ret.attr('indeterminate', true);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'color';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'date';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'datetime';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'datetime-local';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'email';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName,
-          multiple: ''
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'file';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName,
-          accept: '',
-          multiple: ''
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'hidden';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'imageinput';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: 'image',
-          src: '',
-          alt: '',
-          height: '',
-          width: ''
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'month';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'number';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'password';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName,
-          maxlength: ''
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'radio';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName,
-          name: '',
-          value: '',
-          checked: ''
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'range';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName,
-          min: 0,
-          max: 100,
-          value: 50,
-          step: 1
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'reset';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'search';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'submit';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'tel';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName,
-          pattern: '',
-          maxlength: ''
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'textinput';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: 'text',
-          autocomplete: 'on',
-          autosave: ''
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'time';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'url';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName,
-          pattern: '',
-          maxlength: ''
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'week';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: _.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    Setup settings
-    $.cookie.raw = true
-    $.cookie.json = true
-    
-    Setup defaults
-    https://github.com/carhartl/jquery-cookie/
-    $.cookie.defaults.expires = 365
-    $.cookie.defaults.path = '/'
-    $.cookie.defaults.domain = 'oj.com'
-     */
-    var cookies;
-    if (!$ || !$.cookie) {
-      throw new Error('jQuery Cookie is a required dependency.');
-    }
-    $.cookie.defaults.secure = false;
-    cookies = {};
-    OJ.cookie.register('get', function(cookieName, type) {
-      var ret;
-      ret = '';
-      if (cookieName) {
-        if (type) {
-          ret = $.cookie(cookieName, type);
-        } else {
-          ret = $.cookie(cookieName);
-        }
-        if (ret) {
-          return cookies[cookieName] = ret;
-        }
-      }
-    });
-    OJ.cookie.register('all', function() {
-      var ret;
-      ret = $.cookie();
-      return ret;
-    });
-    OJ.cookie.register('set', function(cookieName, value, opts) {
-      var ret;
-      ret = '';
-      if (cookieName) {
-        cookies[cookieName] = value;
-        if (opts) {
-          ret = $.cookie(cookieName, value, opts);
-        } else {
-          ret = $.cookie(cookieName, value);
-        }
-      }
-      return ret;
-    });
-    OJ.cookie.register('delete', function(cookieName, opts) {
-      if (cookieName) {
-        if (opts) {
-          $.removeCookie(cookieName, opts);
-        } else {
-          $.removeCookie(cookieName);
-        }
-        delete cookies[cookieName];
-      }
-    });
-    OJ.cookie.register('deleteAll', function() {
-      cookies = {};
-      OJ.each(OJ.cookie.all, function(val, key) {
-        return OJ.cookie["delete"](key);
-      });
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var eventInfo, eventName;
-    if (OJ.global.addEventListener) {
-      eventName = 'addEventListener';
-      eventInfo = '';
-    } else {
-      eventName = 'attachEvent';
-      eventInfo = 'on';
-    }
-    OJ.history.register('pushState', function(pageName, event) {
-      if (pageName) {
-        history.pushState(null, null, '#' + pageName);
-        if (event) {
-          if (event.preventDefault) {
-            event.preventDefault();
-          } else {
-            event.returnValue = false;
-          }
-        }
-      }
-      return false;
-    });
-    OJ.history.register('restoreState', function(location) {
-      var pageName;
-      pageName = location.hash;
-      if (!pageName) {
-        pageName = location.href.split('#')[1];
-      }
-      if (pageName) {
-        pageName = pageName.replace('#', '');
-        OJ.publish('restoreState', {
-          pageName: pageName,
-          location: location
-        });
-      }
-    });
-
-    /* 
-    hang on the event, all references in this document
-     */
-
-    /*
-     * This binds to the document click event, which in turn attaches to every click event, causing unexpected behavior.
-     * For any control which wishes to trigger a state change in response to an event, it is better for that control to define the behavior.
-    OJ.document[eventName] eventInfo + 'click', ((event) ->
-      event = event or window.event
-      target = event.target or event.srcElement
-      
-       * looking for all the links with 'ajax' class found
-      if target and target.nodeName is 'A' and (' ' + target.className + ' ').indexOf('ajax') >= 0
-        OJ.pushState target.href, event
-        
-      event.preventDefault()
-      event.stopPropagation()
-    ), false
-     */
-
-    /*
-    hang on popstate event triggered by pressing back/forward in browser
-     */
-    OJ.global[eventName](eventInfo + 'popstate', (function(event) {
-
-      /*
-      Note, this is the only difference when using this library,
-      because the object document.location cannot be overriden,
-      so library the returns generated 'location' object within
-      an object window.history, so get it out of 'history.location'.
-      For browsers supporting 'history.pushState' get generated
-      object 'location' with the usual 'document.location'.
-       */
-      var returnLocation;
-      returnLocation = history.location || document.location;
-
-      /*
-      here can cause data loading, etc.
-       */
-      OJ.history.restoreState(returnLocation);
-    }), false);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var friendlyName;
-    friendlyName = 'noty';
-    OJ.notifications.register(friendlyName, function(options, owner) {
-      var defaults, ret;
-      defaults = {
-        layout: 'topRight',
-        theme: 'defaultTheme',
-        type: 'alert',
-        text: '',
-        dismissQueue: true,
-        template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
-        animation: {
-          open: {
-            height: 'toggle'
-          },
-          close: {
-            height: 'toggle'
-          },
-          easing: 'swing',
-          speed: 500
-        },
-        timeout: 5000,
-        force: false,
-        modal: false,
-        maxVisible: 5,
-        killer: false,
-        closeWith: ['click'],
-        callback: {
-          onShow: _.noop,
-          afterShow: _.noop,
-          onClose: _.noop,
-          afterClose: _.noop
-        },
-        buttons: false
-      };
-      OJ.extend(defaults, options, true);
-      ret = noty(defaults);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-     */
-    OJ.register('queryString', function(param) {
-      var i, params, prm, ret;
-      ret = {};
-      if (OJ.global.location) {
-        params = OJ.global.location.search.substr(1).split('&');
-        if (params) {
-          i = 0;
-          while (i < params.length) {
-            prm = params[i].split('=');
-            if (prm.length === 2) {
-              ret[prm[0]] = OJ.global.decodeURIComponent(prm[1].replace(/\+/g, " "));
-            }
-            i += 1;
-          }
-        }
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
   var __slice = [].slice;
 
   (function(OJ) {
@@ -2485,7 +1627,7 @@ OJ IIFE definition to anchor JsDoc comments.
           id: '',
           "class": '',
           text: '',
-          href: '#',
+          href: 'javaScript:void(0);',
           type: '',
           title: '',
           rel: '',
@@ -4123,6 +3265,864 @@ OJ IIFE definition to anchor JsDoc comments.
       ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'buttoninput';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: 'button',
+          src: '',
+          alt: '',
+          height: '',
+          width: ''
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'checkbox';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        checked: false,
+        indeterminate: false,
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      if (defaults.checked) {
+        ret.attr('checked', true);
+      } else if (defaults.indeterminate) {
+        ret.attr('indeterminate', true);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'color';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'date';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'datetime';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'datetime-local';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'email';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName,
+          multiple: ''
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'file';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName,
+          accept: '',
+          multiple: ''
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'hidden';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'imageinput';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: 'image',
+          src: '',
+          alt: '',
+          height: '',
+          width: ''
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'month';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'number';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'password';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName,
+          maxlength: ''
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'radio';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName,
+          name: '',
+          value: '',
+          checked: ''
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'range';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName,
+          min: 0,
+          max: 100,
+          value: 50,
+          step: 1
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'reset';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'search';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'submit';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'tel';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName,
+          pattern: '',
+          maxlength: ''
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'textinput';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: 'text',
+          autocomplete: 'on',
+          autosave: ''
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'time';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'url';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName,
+          pattern: '',
+          maxlength: ''
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'week';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: _.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Setup settings
+    $.cookie.raw = true
+    $.cookie.json = true
+    
+    Setup defaults
+    https://github.com/carhartl/jquery-cookie/
+    $.cookie.defaults.expires = 365
+    $.cookie.defaults.path = '/'
+    $.cookie.defaults.domain = 'oj.com'
+     */
+    var cookies;
+    if (!$ || !$.cookie) {
+      throw new Error('jQuery Cookie is a required dependency.');
+    }
+    $.cookie.defaults.secure = false;
+    cookies = {};
+    OJ.cookie.register('get', function(cookieName, type) {
+      var ret;
+      ret = '';
+      if (cookieName) {
+        if (type) {
+          ret = $.cookie(cookieName, type);
+        } else {
+          ret = $.cookie(cookieName);
+        }
+        if (ret) {
+          return cookies[cookieName] = ret;
+        }
+      }
+    });
+    OJ.cookie.register('all', function() {
+      var ret;
+      ret = $.cookie();
+      return ret;
+    });
+    OJ.cookie.register('set', function(cookieName, value, opts) {
+      var ret;
+      ret = '';
+      if (cookieName) {
+        cookies[cookieName] = value;
+        if (opts) {
+          ret = $.cookie(cookieName, value, opts);
+        } else {
+          ret = $.cookie(cookieName, value);
+        }
+      }
+      return ret;
+    });
+    OJ.cookie.register('delete', function(cookieName, opts) {
+      if (cookieName) {
+        if (opts) {
+          $.removeCookie(cookieName, opts);
+        } else {
+          $.removeCookie(cookieName);
+        }
+        delete cookies[cookieName];
+      }
+    });
+    OJ.cookie.register('deleteAll', function() {
+      cookies = {};
+      OJ.each(OJ.cookie.all, function(val, key) {
+        return OJ.cookie["delete"](key);
+      });
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var eventInfo, eventName;
+    if (OJ.global.addEventListener) {
+      eventName = 'addEventListener';
+      eventInfo = '';
+    } else {
+      eventName = 'attachEvent';
+      eventInfo = 'on';
+    }
+    OJ.history.register('pushState', function(pageName, event) {
+      if (pageName) {
+        history.pushState(null, null, '#' + pageName);
+        if (event) {
+          if (event.preventDefault) {
+            event.preventDefault();
+          } else {
+            event.returnValue = false;
+          }
+        }
+      }
+      return false;
+    });
+    OJ.history.register('restoreState', function(location) {
+      var pageName;
+      pageName = location.hash;
+      if (!pageName) {
+        pageName = location.href.split('#')[1];
+      }
+      if (pageName) {
+        pageName = pageName.replace('#', '');
+        OJ.publish('restoreState', {
+          pageName: pageName,
+          location: location
+        });
+      }
+    });
+
+    /* 
+    hang on the event, all references in this document
+     */
+
+    /*
+     * This binds to the document click event, which in turn attaches to every click event, causing unexpected behavior.
+     * For any control which wishes to trigger a state change in response to an event, it is better for that control to define the behavior.
+    OJ.document[eventName] eventInfo + 'click', ((event) ->
+      event = event or window.event
+      target = event.target or event.srcElement
+      
+       * looking for all the links with 'ajax' class found
+      if target and target.nodeName is 'A' and (' ' + target.className + ' ').indexOf('ajax') >= 0
+        OJ.pushState target.href, event
+        
+      event.preventDefault()
+      event.stopPropagation()
+    ), false
+     */
+
+    /*
+    hang on popstate event triggered by pressing back/forward in browser
+     */
+    OJ.global[eventName](eventInfo + 'popstate', (function(event) {
+
+      /*
+      Note, this is the only difference when using this library,
+      because the object document.location cannot be overriden,
+      so library the returns generated 'location' object within
+      an object window.history, so get it out of 'history.location'.
+      For browsers supporting 'history.pushState' get generated
+      object 'location' with the usual 'document.location'.
+       */
+      var returnLocation;
+      returnLocation = history.location || document.location;
+
+      /*
+      here can cause data loading, etc.
+       */
+      OJ.history.restoreState(returnLocation);
+    }), false);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var friendlyName;
+    friendlyName = 'noty';
+    OJ.notifications.register(friendlyName, function(options, owner) {
+      var defaults, ret;
+      defaults = {
+        layout: 'topRight',
+        theme: 'defaultTheme',
+        type: 'alert',
+        text: '',
+        dismissQueue: true,
+        template: '<div class="noty_message"><span class="noty_text"></span><div class="noty_close"></div></div>',
+        animation: {
+          open: {
+            height: 'toggle'
+          },
+          close: {
+            height: 'toggle'
+          },
+          easing: 'swing',
+          speed: 500
+        },
+        timeout: 5000,
+        force: false,
+        modal: false,
+        maxVisible: 5,
+        killer: false,
+        closeWith: ['click'],
+        callback: {
+          onShow: _.noop,
+          afterShow: _.noop,
+          onClose: _.noop,
+          afterClose: _.noop
+        },
+        buttons: false
+      };
+      OJ.extend(defaults, options, true);
+      ret = noty(defaults);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
+     */
+    OJ.register('queryString', function(param) {
+      var i, params, prm, ret;
+      ret = {};
+      if (OJ.global.location) {
+        params = OJ.global.location.search.substr(1).split('&');
+        if (params) {
+          i = 0;
+          while (i < params.length) {
+            prm = params[i].split('=');
+            if (prm.length === 2) {
+              ret[prm[0]] = OJ.global.decodeURIComponent(prm[1].replace(/\+/g, " "));
+            }
+            i += 1;
+          }
+        }
       }
       return ret;
     });
