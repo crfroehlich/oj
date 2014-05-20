@@ -5,31 +5,31 @@
   OJ.components.members[nodeName] = className
   
   OJ.components.register className, (options, owner) ->
+    forId = OJ.createUUID()
     defaults = 
       props:
         class: 'form-group'
       events:
         change: _.noop
-      for: OJ.createUUID()
+      for: forId
       labelText: ''
-      inputType: 'text'
-      placeholder: ''
+      inputOpts:
+        id: forId
+        type: 'text'
+        class: 'form-control'
+        placeholder: ''
+        value: ''
     
     OJ.extend defaults, options, true
     ret = OJ.component defaults, owner, nodeName 
     
     cmpnt = ret.div props: class: 'form-group'
-    label = cmpnt.label props: { for: defaults.for }, text: defaults.labelText
     
-    input = cmpnt.input 
-      props: 
-        id: defaults.for, 
-        type: OJ.enums.inputTypes[defaults.inputType].name, 
-        class: 'form-control', 
-        placeholder: defaults.placeholder 
+    ret.groupLabel = cmpnt.label props: { for: forId }, text: defaults.labelText
+    ret.groupInput = cmpnt.input defaults.inputOpts
     
-    ret.value = () ->
-      input.value
+    ret.groupValue = () ->
+      input.val()
       
     ret
 
