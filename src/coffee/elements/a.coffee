@@ -10,7 +10,7 @@
         id: ''
         class: ''
         text: ''
-        href: '#'
+        href: 'javaScript:void(0);'
         type: ''
         title: ''
         rel: ''
