@@ -21,7 +21,7 @@
           props: {
             id: forId,
             type: 'text',
-            "class": 'form-control',
+            "class": '',
             placeholder: '',
             value: ''
           }
@@ -40,9 +40,10 @@
         },
         text: defaults.labelText
       });
+      defaults.inputOpts.props["class"] += ' form-control';
       ret.groupInput = cmpnt.input(defaults.inputOpts);
       ret.groupValue = function() {
-        return input.val();
+        return ret.groupInput.val();
       };
       return ret;
     });

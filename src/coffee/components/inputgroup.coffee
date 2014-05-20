@@ -17,7 +17,7 @@
         props:
           id: forId
           type: 'text'
-          class: 'form-control'
+          class: ''
           placeholder: ''
           value: ''
     
@@ -27,10 +27,12 @@
     cmpnt = ret.div props: class: 'form-group'
     
     ret.groupLabel = cmpnt.label props: { for: forId }, text: defaults.labelText
+    
+    defaults.inputOpts.props.class += ' form-control'
     ret.groupInput = cmpnt.input defaults.inputOpts
     
     ret.groupValue = () ->
-      input.val()
+      ret.groupInput.val()
       
     ret
 
