@@ -14,11 +14,12 @@
       for: forId
       labelText: ''
       inputOpts:
-        id: forId
-        type: 'text'
-        class: 'form-control'
-        placeholder: ''
-        value: ''
+        props:
+          id: forId
+          type: 'text'
+          class: 'form-control'
+          placeholder: ''
+          value: ''
     
     OJ.extend defaults, options, true
     ret = OJ.component defaults, owner, nodeName 
