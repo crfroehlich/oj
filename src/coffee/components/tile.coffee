@@ -5,16 +5,19 @@
   OJ.components.members[nodeName] = className
   OJ.components.register className, (options, owner) ->
     defaults = 
-      smallSpan: ''
-      mediumSpan: '4'
-      largeSpan: ''
+      width: 
+        xs: ''
+        sm: ''
+        md: ''
+        lg: ''
       props: 
         class: 'tile'
-    
+      
     OJ.extend defaults, options, true
-    if defaults.smallSpan then defaults.props.class += ' col-xs-' + defaults.smallSpan
-    if defaults.mediumSpan then defaults.props.class += ' col-md-' + defaults.mediumSpan
-    if defaults.largeSpan then defaults.props.class += ' col-lg-' + defaults.largeSpan
+    if defaults.width.xs then defaults.props.class += ' col-xs-' + defaults.width.xs
+    if defaults.width.sm then defaults.props.class += ' col-sm-' + defaults.width.sm
+    if defaults.width.md then defaults.props.class += ' col-md-' + defaults.width.md
+    if defaults.width.lg then defaults.props.class += ' col-lg-' + defaults.width.lg
     
     ret = OJ.component defaults, owner, nodeName 
     ret
