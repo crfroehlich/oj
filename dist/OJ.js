@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.3.27
+ * @version v0.3.28
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -1018,22 +1018,28 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ.components.register(className, function(options, owner) {
       var defaults, ret;
       defaults = {
-        smallSpan: '',
-        mediumSpan: '4',
-        largeSpan: '',
+        width: {
+          xs: '',
+          sm: '',
+          md: '',
+          lg: ''
+        },
         props: {
           "class": 'tile'
         }
       };
       OJ.extend(defaults, options, true);
-      if (defaults.smallSpan) {
-        defaults.props["class"] += ' col-xs-' + defaults.smallSpan;
+      if (defaults.width.xs) {
+        defaults.props["class"] += ' col-xs-' + defaults.width.xs;
       }
-      if (defaults.mediumSpan) {
-        defaults.props["class"] += ' col-md-' + defaults.mediumSpan;
+      if (defaults.width.sm) {
+        defaults.props["class"] += ' col-sm-' + defaults.width.sm;
       }
-      if (defaults.largeSpan) {
-        defaults.props["class"] += ' col-lg-' + defaults.largeSpan;
+      if (defaults.width.md) {
+        defaults.props["class"] += ' col-md-' + defaults.width.md;
+      }
+      if (defaults.width.lg) {
+        defaults.props["class"] += ' col-lg-' + defaults.width.lg;
       }
       ret = OJ.component(defaults, owner, nodeName);
       return ret;
