@@ -17,6 +17,12 @@
   OJ.async.register 'defer', () ->
     ret = Q.defer()
     ret
+    
+  OJ.async.register 'promise', (deferred) ->
+    ret = Q.defer().promise
+    if deferred and deferred.promise
+      ret = deferred.promise
+    ret
 
   return
   

@@ -22,6 +22,14 @@
       ret = Q.defer();
       return ret;
     });
+    OJ.async.register('promise', function(deferred) {
+      var ret;
+      ret = Q.defer().promise;
+      if (deferred && deferred.promise) {
+        ret = deferred.promise;
+      }
+      return ret;
+    });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
