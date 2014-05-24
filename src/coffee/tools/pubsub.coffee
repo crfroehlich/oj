@@ -26,7 +26,7 @@
     return  
   
   unsubscribe = (tokenOrMethod) ->
-    if OJ.is.function tokenOrMethod
+    if OJ.is.method tokenOrMethod
       if -1 isnt subscribers.indexOf tokenOrMethod
         PubSub.unsubscribe tokenOrMethod
         subscribers = _.remove subscribers, (method) -> method is tokenOrMethod

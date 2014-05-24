@@ -8,7 +8,7 @@
     ret = false
     that = this
     try
-      ret = tryFunc.apply(that, Array::slice.call(arguments, 1))  if OJ.is.func(tryFunc)
+      ret = tryFunc.apply(that, Array::slice.call(arguments, 1))  if OJ.is.method(tryFunc)
     catch exception
       if (exception.name is "TypeError" or exception.type is "called_non_callable") and exception.type is "non_object_property_load"
         OJ.console.info "Ignoring exception: ", exception

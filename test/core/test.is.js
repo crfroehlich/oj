@@ -9,7 +9,7 @@
       deepEqual(OJ.is.number(null), false, 'null is not a Number');
       deepEqual(OJ.is.numeric(null), false, 'null is not numeric');
       deepEqual(OJ.is.date(null), false, 'null is not a Date');
-      deepEqual(OJ.is.func(null), false, 'null is not a Function');
+      deepEqual(OJ.is.method(null), false, 'null is not a Function');
       deepEqual(OJ.is.array(null), false, 'null is not an Array');
       deepEqual(OJ.is.plainObject(null), false, 'null is not an Object');
     });
@@ -21,7 +21,7 @@
       deepEqual(OJ.is.number(undefined), false, 'undefined is not a Number');
       deepEqual(OJ.is.numeric(undefined), false, 'undefined is not numeric');
       deepEqual(OJ.is.date(undefined), false, 'undefined is not a Date');
-      deepEqual(OJ.is.func(undefined), false, 'undefined is not a Function');
+      deepEqual(OJ.is.method(undefined), false, 'undefined is not a Function');
       deepEqual(OJ.is.array(undefined), false, 'undefined is not an Array');
       deepEqual(OJ.is.plainObject(undefined), false, 'undefined is not an Object');
     });
@@ -33,7 +33,7 @@
       deepEqual(OJ.is.number(), false, '(An empty argument) is not a Number');
       deepEqual(OJ.is.numeric(), false, '(An empty argument) is not numeric');
       deepEqual(OJ.is.date(), false, '(An empty argument) is not a Date');
-      deepEqual(OJ.is.func(), false, '(An empty argument) is not a Function');
+      deepEqual(OJ.is.method(), false, '(An empty argument) is not a Function');
       deepEqual(OJ.is.array(), false, '(An empty argument) is not an Array');
       deepEqual(OJ.is.plainObject(), false, '(An empty argument) is not an Object');
     });
@@ -45,7 +45,7 @@
       deepEqual(OJ.is.number(NaN), false, 'NaN is not a Number');
       deepEqual(OJ.is.numeric(NaN), false, 'NaN is not numeric');
       deepEqual(OJ.is.date(NaN), false, 'NaN is not a Date');
-      deepEqual(OJ.is.func(NaN), false, 'NaN is not a Function');
+      deepEqual(OJ.is.method(NaN), false, 'NaN is not a Function');
       deepEqual(OJ.is.array(NaN), false, 'NaN is not an Array');
       deepEqual(OJ.is.plainObject(NaN), false, 'NaN is not an Object');
     });
@@ -57,7 +57,7 @@
       deepEqual(OJ.is.number(-Infinity), false, '-Infinity is not a Number');
       deepEqual(OJ.is.numeric(-Infinity), false, '-Infinity is not numeric');
       deepEqual(OJ.is.date(-Infinity), false, '-Infinity is not a Date');
-      deepEqual(OJ.is.func(-Infinity), false, '-Infinity is not a Function');
+      deepEqual(OJ.is.method(-Infinity), false, '-Infinity is not a Function');
       deepEqual(OJ.is.array(-Infinity), false, '-Infinity is not an Array');
       deepEqual(OJ.is.plainObject(-Infinity), false, '-Infinity is not an Object');
     });
@@ -69,7 +69,7 @@
       deepEqual(OJ.is.number(''), false, '"" is not a Number');
       deepEqual(OJ.is.numeric(''), true, '"" is numeric');
       deepEqual(OJ.is.date(''), false, '"" is not a Date');
-      deepEqual(OJ.is.func(''), false, '"" is not a Function');
+      deepEqual(OJ.is.method(''), false, '"" is not a Function');
       deepEqual(OJ.is.array(''), false, '"" is not an Array');
       deepEqual(OJ.is.plainObject(''), false, '"" is not an Object');
     });
@@ -81,7 +81,7 @@
       deepEqual(OJ.is.number('false'), false, '"false" is not a Number');
       deepEqual(OJ.is.numeric('false'), true, '"false" is binary 0 is numeric');
       deepEqual(OJ.is.date('false'), false, '"false" is not a Date');
-      deepEqual(OJ.is.func('false'), false, '"false" is not a Function');
+      deepEqual(OJ.is.method('false'), false, '"false" is not a Function');
       deepEqual(OJ.is.array('false'), false, '"false" is not an Array');
       deepEqual(OJ.is.plainObject('false'), false, '"false" is not an Object');
     });
@@ -93,7 +93,7 @@
       deepEqual(OJ.is.number('true'), false, '"true" is not a Number');
       deepEqual(OJ.is.numeric('true'), true, '"true" is binary 1 and is numeric');
       deepEqual(OJ.is.date('true'), false, '"true" is not a Date');
-      deepEqual(OJ.is.func('true'), false, '"true" is not a Function');
+      deepEqual(OJ.is.method('true'), false, '"true" is not a Function');
       deepEqual(OJ.is.array('true'), false, '"true" is not an Array');
       deepEqual(OJ.is.plainObject('true'), false, '"true" is not an Object');
     });
@@ -105,7 +105,7 @@
       deepEqual(OJ.is.number(false), false, 'false is not a Number');
       deepEqual(OJ.is.numeric(false), true, 'false converts to 0 is numeric');
       deepEqual(OJ.is.date(false), false, 'false is not a Date');
-      deepEqual(OJ.is.func(false), false, 'false is not a Function');
+      deepEqual(OJ.is.method(false), false, 'false is not a Function');
       deepEqual(OJ.is.array(false), false, 'false is not an Array');
       deepEqual(OJ.is.plainObject(false), false, 'false is not an Object');
     });
@@ -117,7 +117,7 @@
       deepEqual(OJ.is.number(true), false, 'true is not a Number');
       deepEqual(OJ.is.numeric(true), true, 'true converts to 1 is numeric');
       deepEqual(OJ.is.date(true), false, 'true is not a Date');
-      deepEqual(OJ.is.func(true), false, 'true is not a Function');
+      deepEqual(OJ.is.method(true), false, 'true is not a Function');
       deepEqual(OJ.is.array(true), false, 'true is not an Array');
       deepEqual(OJ.is.plainObject(true), false, 'true is not an Object');
     });
@@ -129,7 +129,7 @@
       deepEqual(OJ.is.number([]), false, '[] is not a Number');
       deepEqual(OJ.is.numeric([]), false, '[] is not numeric');
       deepEqual(OJ.is.date([]), false, '[] is not a Date');
-      deepEqual(OJ.is.func([]), false, '[] is not a Function');
+      deepEqual(OJ.is.method([]), false, '[] is not a Function');
       deepEqual(OJ.is.array([]), true, '[] is (actually) an Array!');
       deepEqual(OJ.is.plainObject([]), false, '[] is not an Object');
     });
@@ -141,7 +141,7 @@
       deepEqual(OJ.is.number({}), false, '{} is not a Number');
       deepEqual(OJ.is.numeric({}), false, '{} is not numeric');
       deepEqual(OJ.is.date({}), false, '{} is not a Date');
-      deepEqual(OJ.is.func({}), false, '{} is not a Function');
+      deepEqual(OJ.is.method({}), false, '{} is not a Function');
       deepEqual(OJ.is.array({}), false, '{} is not an Array');
       deepEqual(OJ.is.plainObject({}), true, '{} is (actually) an Object!');
     });
@@ -153,7 +153,7 @@
       deepEqual(OJ.is.number(function() {}), false, "function() {} is not a Number");
       deepEqual(OJ.is.numeric(function() {}), false, "function() {} is not numeric");
       deepEqual(OJ.is.date(function() {}), false, "function() {} is not a Date");
-      deepEqual(OJ.is.func(function() {}), true, "function() {} is (actually) a Function!");
+      deepEqual(OJ.is.method(function() {}), true, "function() {} is (actually) a Function!");
       deepEqual(OJ.is.array(function() {}), false, "function() {} is not an Array");
       deepEqual(OJ.is.plainObject(function() {}), false, "function() {} is not an Object");
     });

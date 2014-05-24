@@ -119,8 +119,12 @@
     <Content Include="src\coffee\core\string.js">
       <DependentUpon>string.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\tools\to.js" />
-    <Content Include="src\coffee\tools\uuid.js" />
+    <Content Include="src\coffee\tools\to.js">
+      <DependentUpon>to.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\tools\uuid.js">
+      <DependentUpon>uuid.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\dom\control.js">
       <DependentUpon>control.coffee</DependentUpon>
     </Content>
@@ -259,7 +263,9 @@
     <Content Include="src\coffee\ojInit.js">
       <DependentUpon>ojInit.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\tools\to.js.map" />
+    <Content Include="src\coffee\tools\to.js.map">
+      <DependentUpon>to.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\core\array.js.map">
       <DependentUpon>array.coffee</DependentUpon>
     </Content>
@@ -1156,7 +1162,6 @@
     <Content Include="test\nodes\test.table.js">
       <DependentUpon>test.table.coffee</DependentUpon>
     </Content>
-    <Content Include="test\test2.html" />
     <Content Include="test\test.coffee.html" />
     <Content Include="test\test.html" />
     <Content Include="web.config" />

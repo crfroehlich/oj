@@ -58,7 +58,7 @@
 
   OJ.is.register 'generic', (obj) ->
     'use strict'
-    ret = (false is OJ.is.func(obj) and false is OJ.hasLength(obj) and false is OJ.is.plainObject(obj))
+    ret = (false is OJ.is.method(obj) and false is OJ.hasLength(obj) and false is OJ.is.plainObject(obj))
     ret
 
   OJ.is.register 'array', (obj) ->
@@ -87,9 +87,14 @@
     'use strict'
     obj.type is name or obj instanceof name
 
-  OJ.is.register 'func', (obj) ->
+  OJ.is.register 'method', (obj) ->
     'use strict'
     _.isFunction obj
 
+  ###
+  Deprecated. Left for backwards compatibility. Use is.method instead.
+  ###
+  OJ.is.register 'func', OJ.is.method
+  
   return
 ) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ

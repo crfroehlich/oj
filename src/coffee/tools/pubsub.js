@@ -30,7 +30,7 @@
       }
     };
     unsubscribe = function(tokenOrMethod) {
-      if (OJ.is["function"](tokenOrMethod)) {
+      if (OJ.is.method(tokenOrMethod)) {
         if (-1 !== subscribers.indexOf(tokenOrMethod)) {
           PubSub.unsubscribe(tokenOrMethod);
           subscribers = _.remove(subscribers, function(method) {
@@ -74,4 +74,4 @@
 
 }).call(this);
 
-//# sourceMappingURL=pubsub.map
+//# sourceMappingURL=pubsub.js.map

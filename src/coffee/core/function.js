@@ -8,7 +8,7 @@
       ret = false;
       that = this;
       try {
-        if (OJ.is.func(tryFunc)) {
+        if (OJ.is.method(tryFunc)) {
           ret = tryFunc.apply(that, Array.prototype.slice.call(arguments, 1));
         }
       } catch (_error) {

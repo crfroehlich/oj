@@ -4201,7 +4201,7 @@ OJ IIFE definition to anchor JsDoc comments.
       ret = false;
       that = this;
       try {
-        if (OJ.is.func(tryFunc)) {
+        if (OJ.is.method(tryFunc)) {
           ret = tryFunc.apply(that, Array.prototype.slice.call(arguments, 1));
         }
       } catch (_error) {
@@ -5708,7 +5708,7 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ.is.register('generic', function(obj) {
       'use strict';
       var ret;
-      ret = false === OJ.is.func(obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
+      ret = false === OJ.is.method(obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
       return ret;
     });
     OJ.is.register('array', function(obj) {
