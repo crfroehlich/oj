@@ -1,21 +1,20 @@
 ﻿((OJ) ->
   OJ.register "delimitedString", (string, opts) ->
-    nsInternal =
+    defaults =
       newLineToDelimiter: true
       spaceToDelimiter: true
       removeDuplicates: true
       delimiter: ","
-      initString: OJ.to.string(string)
+      initString: OJ.to.string string
 
-    nsRet =
+    retObj =
       array: []
       delimited: ->
-        nsRet.array.join nsInternal.delimiter
+        retObj.array.join defaults.delimiter
 
-      string: (delimiter) ->
-        delimiter = delimiter or nsInternal.delimiter
-        ret = ""
-        OJ.each nsRet.array, (val) ->
+      string: (delimiter = defaults.delimiter) ->
+        ret = ''
+        OJ.each retObj.array, (val) ->
           ret += delimiter  if ret.length > 0
           ret += val
           return
@@ -23,12 +22,12 @@
         ret
 
       toString: ->
-        nsRet.string()
+        retObj.string()
 
       add: (str) ->
-        nsRet.array.push nsInternal.parse(str)
-        nsInternal.deleteDuplicates()
-        nsRet
+        retObj.array.push defaults.parse(str)
+        defaults.deleteDuplicates()
+        retObj
 
       remove: (str) ->
         remove = (array) ->
@@ -36,33 +35,33 @@
             true  if item isnt str
 
 
-        nsRet.array = remove(nsRet.array)
-        nsRet
+        retObj.array = remove(retObj.array)
+        retObj
 
       count: ->
-        nsRet.array.length
+        retObj.array.length
 
       contains: (str, caseSensitive) ->
         isCaseSensitive = OJ.to.bool(caseSensitive)
         str = OJ.to.string(str).trim()
         str = str.toLowerCase()  if false is isCaseSensitive
-        match = nsRet.array.filter((matStr) ->
+        match = retObj.array.filter((matStr) ->
           (isCaseSensitive and OJ.to.string(matStr).trim() is str) or OJ.to.string(matStr).trim().toLowerCase() is str
         )
         match.length > 0
 
       each: (callBack) ->
-        nsRet.array.forEach callBack
+        retObj.array.forEach callBack
 
-    nsInternal.parse = (str) ->
+    defaults.parse = (str) ->
       ret = OJ.to.string(str)
-      ret = ret.replace(/\n/g, nsInternal.delimiter)  while ret.indexOf("\n") isnt -1  if nsInternal.newLineToDelimiter
-      ret = ret.replace(RegExp(" ", "g"), nsInternal.delimiter)  while ret.indexOf(" ") isnt -1  if nsInternal.spaceToDelimiter
-      ret = ret.replace(/,,/g, nsInternal.delimiter)  while ret.indexOf(",,") isnt -1
+      ret = ret.replace(/\n/g, defaults.delimiter)  while ret.indexOf("\n") isnt -1  if defaults.newLineToDelimiter
+      ret = ret.replace(RegExp(" ", "g"), defaults.delimiter)  while ret.indexOf(" ") isnt -1  if defaults.spaceToDelimiter
+      ret = ret.replace(/,,/g, defaults.delimiter)  while ret.indexOf(",,") isnt -1
       ret
 
-    nsInternal.deleteDuplicates = ->
-      if nsInternal.removeDuplicates
+    defaults.deleteDuplicates = ->
+      if defaults.removeDuplicates
         (->
           unique = (array) ->
             seen = new Set()
@@ -72,7 +71,7 @@
                 true
 
 
-          nsRet.array = unique(nsRet.array)
+          retObj.array = unique(retObj.array)
           return
         )()
       return
@@ -80,18 +79,18 @@
     ((a) ->
       if a.length > 1 and false is OJ.is.plainObject(opts)
         OJ.each a, (val) ->
-          nsRet.array.push val  if false is OJ.is.nullOrEmpty(val)
+          retObj.array.push val  if false is OJ.is.nullOrEmpty(val)
           return
 
       else if string and string.length > 0
-        OJ.extend nsInternal, opts
-        delimitedString = nsInternal.parse(string)
-        nsInternal.initString = delimitedString
-        nsRet.array = delimitedString.split(nsInternal.delimiter)
-      nsInternal.deleteDuplicates()
+        OJ.extend defaults, opts
+        delimitedString = defaults.parse(string)
+        defaults.initString = delimitedString
+        retObj.array = delimitedString.split(defaults.delimiter)
+      defaults.deleteDuplicates()
       return
     ) arguments
-    nsRet
+    retObj
 
   return
-)  (if (typeof global isnt 'undefined' and global) then global else if (typeof window isnt 'undefined') then window else this).OJ
+) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ

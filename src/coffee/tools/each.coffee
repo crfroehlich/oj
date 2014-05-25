@@ -2,7 +2,6 @@
   
   ###
   True if the object is a true Object or Array
-  @param obj {Object}
   ###
   canEach = (obj) ->
     (_.isPlainObject obj) or _.isArray obj
@@ -10,9 +9,6 @@
   
   ###
   Iterate an object with optional callBack and recursion
-  @param obj {Object} an Object to iterate
-  @param onEach {Function} [onEach=undefined] call back to exec
-  @param recursive {Boolean} if true, recurse the object
   ###
   each = (obj, onEach, recursive) ->
     if canEach obj
@@ -27,4 +23,4 @@
 
   OJ.register "each", each
   return
-)  (if (typeof global isnt 'undefined' and global) then global else if (typeof window isnt 'undefined') then window else this).OJ
+)  ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ

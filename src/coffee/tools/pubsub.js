@@ -70,7 +70,7 @@
     OJ.register('unsubscribe', unsubscribe);
     OJ.register('unsubscribeAll', unsubscribeAll);
     OJ.register('unsubscribeEvent', unsubscribeEvent);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
