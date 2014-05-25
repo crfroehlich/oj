@@ -1,5 +1,19 @@
 ((OJ) ->
   
+  stringRangeToSubRanges = (n = 6, range = []) ->
+    charRange = []
+    OJ.each range, (val) ->
+      char = val.trim()[0].toLowerCase()
+      if false is _.contains charRange, char
+        charRange.push char.charCodeAt()
+    nuRange = rangeToSubRanges n, charRange
+    i = 0
+    while i < n
+      i += 1
+      subRange = nuRange[i]
+      subRange.map (val) -> return String.fromCharCode(val)
+    
+  
   rangeToSubRanges = (n = 6, range = []) ->
     rangeLow = _.min range
     rangeHigh = _.max range
@@ -20,6 +34,7 @@
       chunkVal += jump
     subRanges
   
+  OJ.register 'stringRangeToSubRanges', stringRangeToSubRanges
   OJ.register 'rangeToSubRanges', rangeToSubRanges
 
   return
