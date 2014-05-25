@@ -3,35 +3,20 @@
   (function(OJ) {
     var rangeToSubRanges;
     rangeToSubRanges = function(n, range) {
-      var chunkVal, distance, i, jump, rangeHigh, rangeLow, subRangeSize, subRanges, vals, _results;
+      var chunkVal, distance, i, jump, rangeHigh, rangeLow, subRangeSize, subRanges;
       if (n == null) {
         n = 6;
       }
       if (range == null) {
         range = [];
       }
-      rangeLow = 1;
-      rangeHigh = 1;
-      vals = [];
-      OJ.each(range, function(val) {
-        var num;
-        num = +range[key];
-        if (num > rangeHigh) {
-          rangeHigh = num;
-        }
-        if (num < rangeLow) {
-          rangeLow = num;
-        }
-        if (false === _.contains(vals, num)) {
-          return vals.push(num);
-        }
-      });
-      distance = maxYear - minYear;
+      rangeLow = _.min(range);
+      rangeHigh = _.max(range);
+      distance = rangeHigh - rangeLow;
       subRangeSize = distance / n;
       subRanges = {};
       chunkVal = rangeLow;
       i = 0;
-      _results = [];
       while (i < n) {
         i += 1;
         if (i < 6) {
@@ -40,9 +25,9 @@
           jump = Math.floor(subRangeSize);
         }
         subRanges[i] = _.range(chunkVal, chunkVal + jump);
-        _results.push(chunkVal += jump);
+        chunkVal += jump;
       }
-      return _results;
+      return subRanges;
     };
     OJ.register('rangeToSubRanges', rangeToSubRanges);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);

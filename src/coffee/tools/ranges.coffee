@@ -1,16 +1,10 @@
 ((OJ) ->
   
   rangeToSubRanges = (n = 6, range = []) ->
-    rangeLow = 1
-    rangeHigh = 1
-    vals = [];
-    OJ.each range, (val) ->
-      num = +range[key]
-      if num > rangeHigh then rangeHigh = num
-      if num < rangeLow then rangeLow = num
-      if false is _.contains vals, num then vals.push num  
-
-    distance = maxYear - minYear
+    rangeLow = _.min range
+    rangeHigh = _.max range
+    
+    distance = rangeHigh - rangeLow
     subRangeSize = distance/n
     subRanges = {}
     chunkVal = rangeLow
@@ -22,7 +16,7 @@
         jump = Math.floor subRangeSize
       subRanges[i] = _.range chunkVal, chunkVal + jump
       chunkVal += jump
-    
+    subRanges
   
   OJ.register 'rangeToSubRanges', rangeToSubRanges
 
