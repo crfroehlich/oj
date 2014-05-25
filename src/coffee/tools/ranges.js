@@ -23,6 +23,9 @@
           jump = Math.round(subRangeSize);
         } else {
           jump = Math.floor(subRangeSize);
+          if (chunkVal + jump < rangeHigh) {
+            jump += rangeHigh - chunkVal - jump + 1;
+          }
         }
         subRanges[i] = _.range(chunkVal, chunkVal + jump);
         chunkVal += jump;
