@@ -2,20 +2,6 @@
   'use strict'
   OJ.enums.register 'unknown', 'unknown'
 
-    
-  # Try to fetch an enum based on a string value. 
-  OJ.enums.register 'tryParse', (OJEnum, enumMember, caseSensitive) ->
-    'use strict'
-    ret = OJ.enums.unknown
-    if OJ.contains(OJEnum, enumMember)
-      ret = OJEnum[enumMember]
-    else if false is caseSensitive
-      OJ.each OJEnum, (member) ->
-        ret = member  if OJ.contains(OJEnum, member) and OJ.to.string(member).toLowerCase() is OJ.to.string(enumMember).toLowerCase()
-        return
-
-    ret
-
   OJ.enums.register 'inputTypes',
     button: #characters
       id: 0
@@ -291,19 +277,6 @@
 
       defaultwidth: ''
       defaultsize: '25'
-
-  OJ.enums.register 'rateIntervalTypes',
-    Hourly: 'Hourly'
-    WeeklyByDay: 'WeeklyByDay'
-    MonthlyByDate: 'MonthlyByDate'
-    MonthlyByWeekAndDay: 'MonthlyByWeekAndDay'
-    YearlyByDate: 'YearlyByDate'
-
-  OJ.enums.register 'domElementEvent',
-    click: 'click'
-    change: 'change'
-    vclick: 'vclick'
-    tap: 'tap'
 
   return
 ) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
