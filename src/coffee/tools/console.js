@@ -5,7 +5,7 @@
   (function(OJ) {
     var assert, console, count, length, method, methods, noop, thisGlobal;
     method = void 0;
-    noop = _.noop;
+    noop = OJ.noop;
     methods = ["assert", "clear", "count", "debug", "dir", "dirxml", "error", "exception", "group", "groupCollapsed", "groupEnd", "info", "log", "markTimeline", "profile", "profileEnd", "table", "time", "timeEnd", "timeStamp", "trace", "warn"];
     length = methods.length;
     thisGlobal = (typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this);

@@ -21,9 +21,9 @@
         },
         styles: {},
         events: {
-          click: _.noop,
-          change: _.noop,
-          focusout: _.noop
+          click: OJ.noop,
+          change: OJ.noop,
+          focusout: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -51,7 +51,7 @@
         then call the defined click handler with the latest value.
        */
       oldClick = defaults.events.click;
-      if (oldClick && oldClick !== _.noop) {
+      if (oldClick && oldClick !== OJ.noop) {
         newClick = function() {
           var event;
           event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
@@ -67,7 +67,7 @@
         then call the defined change handler with the latest value.
        */
       oldChange = defaults.events.change;
-      if (oldChange && oldChange !== _.noop) {
+      if (oldChange && oldChange !== OJ.noop) {
         newChange = function() {
           var event;
           event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
@@ -87,7 +87,7 @@
         var event;
         event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
         syncValue();
-        if (oldFocusout && oldFocusout !== _.noop) {
+        if (oldFocusout && oldFocusout !== OJ.noop) {
           return oldFocusout.apply(null, [ret.value].concat(__slice.call(event)));
         }
       };

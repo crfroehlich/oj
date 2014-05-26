@@ -16,7 +16,7 @@
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };

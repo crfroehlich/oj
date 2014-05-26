@@ -16,7 +16,7 @@
         class: ''
       styles: {}
       events:
-        click: _.noop
+        click: OJ.noop
       cells:
         class: ''
         align: ''

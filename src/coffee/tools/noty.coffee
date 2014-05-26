@@ -24,10 +24,10 @@
       killer: false #for close all notifications before show
       closeWith: ['click']  #['click', 'button', 'hover']
       callback: 
-          onShow: _.noop,
-          afterShow: _.noop
-          onClose: _.noop
-          afterClose: _.noop
+          onShow: OJ.noop,
+          afterShow: OJ.noop
+          onClose: OJ.noop
+          afterClose: OJ.noop
       buttons: false #an array of buttons
     
     OJ.extend defaults, options, true

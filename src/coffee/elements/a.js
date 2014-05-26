@@ -28,7 +28,7 @@
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -42,7 +42,7 @@
           }
         }
       };
-      if (defaults.events.click !== _.noop) {
+      if (defaults.events.click !== OJ.noop) {
         click = defaults.events.click;
         newClick = function() {
           var event, retVal;

@@ -22,8 +22,8 @@
         styles: {},
         values: [],
         events: {
-          click: _.noop,
-          change: _.noop
+          click: OJ.noop,
+          change: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -33,7 +33,7 @@
       syncValue = function() {
         return value = ret.val();
       };
-      if (defaults.events.click !== _.noop) {
+      if (defaults.events.click !== OJ.noop) {
         click = defaults.events.click;
         newClick = function() {
           var event, retval;
@@ -44,7 +44,7 @@
         };
         defaults.events.click = newClick;
       }
-      if (defaults.events.change !== _.noop) {
+      if (defaults.events.change !== OJ.noop) {
         change = defaults.events.change;
         newChange = function() {
           var event, retval;

@@ -9,7 +9,7 @@
       props: {}
       styles: {}
       events:
-        click: _.noop
+        click: OJ.noop
       number: 1  
     
     OJ.extend defaults, options, true

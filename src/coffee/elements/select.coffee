@@ -12,8 +12,8 @@
       styles: {}
       values: []
       events:
-        click: _.noop
-        change: _.noop
+        click: OJ.noop
+        change: OJ.noop
     
     OJ.extend defaults, options, true
     
@@ -25,7 +25,7 @@
       value = ret.val()
     
     # Click binding
-    if defaults.events.click isnt _.noop
+    if defaults.events.click isnt OJ.noop
       click = defaults.events.click
       newClick = (event...) ->
         retval = click event...
@@ -34,7 +34,7 @@
       defaults.events.click = newClick
           
     # Change binding
-    if defaults.events.change isnt _.noop
+    if defaults.events.change isnt OJ.noop
       change = defaults.events.change
       newChange = (event...) ->
         retval = change event...

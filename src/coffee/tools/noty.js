@@ -29,10 +29,10 @@
         killer: false,
         closeWith: ['click'],
         callback: {
-          onShow: _.noop,
-          afterShow: _.noop,
-          onClose: _.noop,
-          afterClose: _.noop
+          onShow: OJ.noop,
+          afterShow: OJ.noop,
+          onClose: OJ.noop,
+          afterClose: OJ.noop
         },
         buttons: false
       };

@@ -18,7 +18,7 @@
         target: ''
       styles: {}
       events:
-        click: _.noop
+        click: OJ.noop
 
     
     OJ.extend defaults, options, true
@@ -32,7 +32,7 @@
       return
     
     # Click binding
-    if defaults.events.click isnt _.noop
+    if defaults.events.click isnt OJ.noop
       click = defaults.events.click
       newClick = (event...) ->
         toggle()

@@ -10,7 +10,7 @@
       props:
         class: 'form-group'
       events:
-        change: _.noop
+        change: OJ.noop
       for: forId
       labelText: ''
       inputOpts:

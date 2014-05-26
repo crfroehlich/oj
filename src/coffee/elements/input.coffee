@@ -11,9 +11,9 @@
         value: ''
       styles: {}
       events:
-        click: _.noop
-        change: _.noop
-        focusout: _.noop
+        click: OJ.noop
+        change: OJ.noop
+        focusout: OJ.noop
     
     OJ.extend defaults, options, true
     
@@ -37,7 +37,7 @@
       then call the defined click handler with the latest value.
     ###  
     oldClick = defaults.events.click
-    if oldClick and oldClick isnt _.noop
+    if oldClick and oldClick isnt OJ.noop
       newClick = (event...) ->
         syncValue()
         oldClick ret.value, event...
@@ -49,7 +49,7 @@
       then call the defined change handler with the latest value.
     ### 
     oldChange = defaults.events.change
-    if oldChange and oldChange isnt _.noop
+    if oldChange and oldChange isnt OJ.noop
       newChange = (event...) ->
         syncValue()
         oldChange ret.value, event...
@@ -63,7 +63,7 @@
     oldFocusout = defaults.events.focusout
     newFocusout = (event...) ->
       syncValue()
-      if oldFocusout and oldFocusout isnt _.noop 
+      if oldFocusout and oldFocusout isnt OJ.noop 
         oldFocusout ret.value, event...
         
     defaults.events.focusout = newFocusout

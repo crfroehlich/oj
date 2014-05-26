@@ -10,7 +10,7 @@
         multiple: ''
       styles: {}
       events:
-        click: _.noop
+        click: OJ.noop
     
     OJ.extend defaults, options, true
     
