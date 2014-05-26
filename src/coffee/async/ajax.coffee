@@ -16,14 +16,14 @@
     if textStatus isnt 'abort'
       OJ.console.table [
         Webservice: opts.ajaxOpts.url
-        data: opts.ajaxOpts.data
+        Data: opts.ajaxOpts.data
         Failed: textStatus
-        state: xmlHttpRequest.state()
-        status: xmlHttpRequest.status
-        statusText: xmlHttpRequest.statusText
-        readyState: xmlHttpRequest.readyState
-        responseText: xmlHttpRequest.responseText
-        ]
+        State: xmlHttpRequest.state()
+        Status: xmlHttpRequest.status
+        StatusText: xmlHttpRequest.statusText
+        ReadyState: xmlHttpRequest.readyState
+        ResponseText: xmlHttpRequest.responseText
+      ]
 
       opts.onError textStatus
     return
@@ -47,9 +47,9 @@
         dataType: 'json'
         contentType: 'application/json; charset=utf-8'
         
-      onSuccess: _.noop
-      onError: _.noop
-      onComplete: _.noop
+      onSuccess: OJ.noop
+      onError: OJ.noop
+      onComplete: OJ.noop
       overrideError: false
       watchGlobal: true
       useCache: false
@@ -100,8 +100,6 @@
     config.execRequest 'PUT', opts
 
   OJ.async.register 'ajax', ajax
-
-  return
 
   return
   
