@@ -89,6 +89,9 @@
     <Content Include="src\coffee\controls\icon.js">
       <DependentUpon>icon.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\tools\ranges.js">
+      <DependentUpon>ranges.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\tools\array2D.js">
       <DependentUpon>array2D.coffee</DependentUpon>
     </Content>
@@ -390,6 +393,10 @@
     <Content Include="src\coffee\controls\icon.coffee" />
     <Content Include="src\coffee\controls\icon.js.map">
       <DependentUpon>icon.coffee</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\tools\ranges.coffee" />
+    <Content Include="src\coffee\tools\ranges.js.map">
+      <DependentUpon>ranges.js</DependentUpon>
     </Content>
     <None Include="src\coffee\tools\console.coffee" />
     <Content Include="src\coffee\tools\console.js">

@@ -1,33 +1,12 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.3.29
+ * @version v0.3.30
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
 
 /*
-@fileOverview Name Space file
-@author me
-@version: 0.1.1
- */
-
-
-/*
-jQuery definition to anchor JsDoc comments.
-
-@see http://jquery.com/
-@name jQuery
-@namespace jQuery Library
- */
-
-
-/*
 OJ IIFE definition to anchor JsDoc comments.
-
-@namespace internalNameSpace
-@internal
-@param {string} nameSpaceName
-@param {jQuery} domVendor
  */
 
 (function() {
@@ -37,14 +16,11 @@ OJ IIFE definition to anchor JsDoc comments.
 
   utilLib = thisGlobal.jQuery;
 
-  nameSpaceName = "OJ";
+  nameSpaceName = 'OJ';
 
 
   /*
   boot strap name method into Object prototype
-  @function
-  @return {string} Name of the Object
-  @memberOf {object}
    */
 
   Object.defineProperties(Object.prototype, {
@@ -56,7 +32,7 @@ OJ IIFE definition to anchor JsDoc comments.
         if (results && results.length > 1) {
           return results[1];
         } else {
-          return "";
+          return '';
         }
       }
     }
@@ -65,8 +41,6 @@ OJ IIFE definition to anchor JsDoc comments.
 
   /*
   An internal representation of the namespace tree
-  @internal
-  @memberOf internalNameSpace
    */
 
   NsTree = {};
@@ -74,22 +48,13 @@ OJ IIFE definition to anchor JsDoc comments.
   makeTheJuice = function() {
 
     /*
-    Internal nameSpaceName method to create new "sub" namespaces on arbitrary child objects.
-    @internal
-    @param spacename {string} the namespace name
-    @param tree {object} the internal tree representation of the current level of the namespace
-    @extends OJ
-    @memberOf internalNameSpace
+    Internal nameSpaceName method to create new 'sub' namespaces on arbitrary child objects.
      */
     var NsOut, dependsOn, makeNameSpace, nsInternal;
     makeNameSpace = function(spacename, tree) {
 
       /*
       The derived instance to be constructed
-      @constructor
-      @internal
-      @memberOf makeNameSpace
-      @return {object}
        */
       var Base, Class;
       Base = function(nsName) {
@@ -98,66 +63,57 @@ OJ IIFE definition to anchor JsDoc comments.
         tree[nsName] = tree[nsName] || {};
         nsTree = tree[nsName];
         members = {};
-        Object.defineProperty(this, "members", {
+        Object.defineProperty(this, 'members', {
           value: members
         });
 
         /*
-        Register (e.g. "Lift") an Object into the prototype of the namespace.
+        Register (e.g. 'Lift') an Object into the prototype of the namespace.
         This Object will be readable/executable but is otherwise immutable.
-        @name register
-        @param {string} name The name of the object to lift
-        @param {object} obj Any, arbitrary Object to use as the value.
-        @return {object} The value of the new property.
-        @memberOf OJ
          */
-        Object.defineProperty(this, "register", {
+        Object.defineProperty(this, 'register', {
           value: function(name, obj, enumerable) {
             'use strict';
-            if ((typeof name !== "string") || name === "") {
-              throw new Error("Cannot lift a new property without a valid name.");
+            if ((typeof name !== 'string') || name === '') {
+              throw new Error('Cannot lift a new property without a valid name.');
             }
             if (!obj) {
-              throw new Error("Cannot lift a new property without a valid property instance.");
+              throw new Error('Cannot lift a new property without a valid property instance.');
             }
             if (proto[name]) {
-              throw new Error("Property named " + name + " is already defined on " + spacename + ".");
+              throw new Error('Property named ' + name + ' is already defined on ' + spacename + '.');
             }
             members[name] = members[name] || name;
             nsTree[name] = nsTree[name] || {
               name: name,
               type: typeof obj,
-              instance: (obj.getInstanceName ? obj.getInstanceName() : "unknown")
+              instance: (obj.getInstanceName ? obj.getInstanceName() : 'unknown')
             };
             Object.defineProperty(proto, name, {
               value: obj,
               enumerable: false !== enumerable
             });
-            nsInternal.alertDependents(nsName + "." + spacename + "." + name);
+            nsInternal.alertDependents(nsName + '.' + spacename + '.' + name);
             return obj;
           }
         });
 
         /*
         Create a new, static namespace on the current parent (e.g. nsName.to... || nsName.is...)
-        @name makeSubNameSpace
-        @param {string} subNameSpace The name of the new namespace.
-        @return {object} The new namespace.
-        @memberOf OJ
          */
-        proto.register("makeSubNameSpace", (function(subNameSpace) {
+        proto.register('makeSubNameSpace', (function(subNameSpace) {
           'use strict';
           var newNameSpace;
-          if ((typeof subNameSpace !== "string") || subNameSpace === "") {
-            throw new Error("Cannot create a new sub namespace without a valid name.");
+          if ((typeof subNameSpace !== 'string') || subNameSpace === '') {
+            throw new Error('Cannot create a new sub namespace without a valid name.');
           }
           if (proto.subNameSpace) {
-            throw new Error("Sub namespace named " + subNameSpace + " is already defined on " + spacename + ".");
+            throw new Error('Sub namespace named ' + subNameSpace + ' is already defined on ' + spacename + '.');
           }
-          nsInternal.alertDependents(nsName + "." + subNameSpace);
+          nsInternal.alertDependents(nsName + '.' + subNameSpace);
           newNameSpace = makeNameSpace(subNameSpace, nsTree);
-          if (subNameSpace !== "constants") {
-            newNameSpace.register("constants", makeNameSpace("constants", nsTree), false);
+          if (subNameSpace !== 'constants') {
+            newNameSpace.register('constants', makeNameSpace('constants', nsTree), false);
           }
           proto.register(subNameSpace, newNameSpace, false);
           return newNameSpace;
@@ -170,17 +126,14 @@ OJ IIFE definition to anchor JsDoc comments.
       @internal
       @memberOf makeNameSpace
        */
-      Class = new Function("return function " + spacename + "(){}")();
+      Class = new Function('return function ' + spacename + '(){}')();
       Class.prototype = new Base(spacename);
       return new Class(spacename);
     };
 
     /*
-    "Depend" an Object upon another member of this namespace, upon another namespace,
+    'Depend' an Object upon another member of this namespace, upon another namespace,
     or upon a member of another namespace
-    @param (array) array of dependencies for this method
-    @param (function) obj Any, arbitrary Object to use as the value
-    @memberOf OJ
      */
     dependsOn = function(dependencies, callBack, imports) {
       'use strict';
@@ -208,24 +161,21 @@ OJ IIFE definition to anchor JsDoc comments.
 
     /*
     Fetches the registered properties and methods on the namespace and its child namespaces
-    @interal
-    @return {Array} An array of members defined as strings (e.g. 'namespace.constants.astringcnst')
-    @memberOf internalNameSpace
      */
-    Object.defineProperty(nsInternal, "getNsMembers", {
+    Object.defineProperty(nsInternal, 'getNsMembers', {
       value: function() {
         var members, recurseTree;
         recurseTree = function(key, lastKey) {
-          if (typeof key === "string") {
-            members.push(lastKey + "." + key);
+          if (typeof key === 'string') {
+            members.push(lastKey + '.' + key);
           }
           if (utilLib.isPlainObject(key)) {
             Object.keys(key).forEach(function(k) {
-              if (typeof k === "string") {
-                members.push(lastKey + "." + k);
+              if (typeof k === 'string') {
+                members.push(lastKey + '.' + k);
               }
               if (utilLib.isPlainObject(key[k])) {
-                recurseTree(key[k], lastKey + "." + k);
+                recurseTree(key[k], lastKey + '.' + k);
               }
             });
           }
@@ -242,10 +192,8 @@ OJ IIFE definition to anchor JsDoc comments.
 
     /*
     To support dependency management, when a property is lifted onto the namespace, notify dependents to initialize
-    @internal
-    @memberOf internalNameSpace
      */
-    Object.defineProperty(nsInternal, "alertDependents", {
+    Object.defineProperty(nsInternal, 'alertDependents', {
       value: function(imports) {
         var deps;
         deps = nsInternal.dependents.filter(function(depOn) {
@@ -261,36 +209,25 @@ OJ IIFE definition to anchor JsDoc comments.
 
     /*
     Cache a handle on the vendor (probably jQuery) on the root namespace
-    @name '?'
-    @return {jQuery}
-    @memberOf OJ
      */
-    NsOut.register("?", utilLib, false);
+    NsOut.register('?', utilLib, false);
 
     /*
     Cache the tree (useful for documentation/visualization/debugging)
-    @name 'tree'
-    @return {NsTree}
-    @memberOf OJ
      */
-    NsOut.register("tree", NsTree[nameSpaceName], false);
+    NsOut.register('tree', NsTree[nameSpaceName], false);
 
     /*
     Cache the name space name
-    @name 'name'
-    @return {nameSpaceName}
-    @memberOf OJ
      */
-    NsOut.register("name", nameSpaceName, false);
-    NsOut.register("dependsOn", dependsOn, false);
+    NsOut.register('name', nameSpaceName, false);
+    NsOut.register('dependsOn', dependsOn, false);
     return NsOut;
   };
 
 
   /*
-  OJ NameSpace
-  
-  @namespace OJ
+  Actually define the OJ NameSpace
    */
 
   Object.defineProperty(thisGlobal, nameSpaceName, {
@@ -307,7 +244,7 @@ OJ IIFE definition to anchor JsDoc comments.
 
   OJ.register('document', thisDocument);
 
-  OJ.register('noop', _.noop);
+  OJ.register('noop', function() {});
 
 }).call(this);
 
@@ -325,7 +262,7 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ['GENERATE_UNIQUE_IDS'] = false;
     OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] = 'div';
     OJ['TRACK_ON_ERROR'] = false;
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -354,13 +291,13 @@ OJ IIFE definition to anchor JsDoc comments.
         OJ.console.table([
           {
             Webservice: opts.ajaxOpts.url,
-            data: opts.ajaxOpts.data,
+            Data: opts.ajaxOpts.data,
             Failed: textStatus,
-            state: xmlHttpRequest.state(),
-            status: xmlHttpRequest.status,
-            statusText: xmlHttpRequest.statusText,
-            readyState: xmlHttpRequest.readyState,
-            responseText: xmlHttpRequest.responseText
+            State: xmlHttpRequest.state(),
+            Status: xmlHttpRequest.status,
+            StatusText: xmlHttpRequest.statusText,
+            ReadyState: xmlHttpRequest.readyState,
+            ResponseText: xmlHttpRequest.responseText
           }
         ]);
         opts.onError(textStatus);
@@ -392,9 +329,9 @@ OJ IIFE definition to anchor JsDoc comments.
           dataType: 'json',
           contentType: 'application/json; charset=utf-8'
         },
-        onSuccess: _.noop,
-        onError: _.noop,
-        onComplete: _.noop,
+        onSuccess: OJ.noop,
+        onError: OJ.noop,
+        onComplete: OJ.noop,
         overrideError: false,
         watchGlobal: true,
         useCache: false
@@ -445,7 +382,6 @@ OJ IIFE definition to anchor JsDoc comments.
       return config.execRequest('PUT', opts);
     };
     OJ.async.register('ajax', ajax);
-    return;
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
@@ -832,7 +768,7 @@ OJ IIFE definition to anchor JsDoc comments.
           "class": 'form-group'
         },
         events: {
-          change: _.noop
+          change: OJ.noop
         },
         "for": forId,
         labelText: '',
@@ -1058,75 +994,6 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function() {
-    var controlName, friendlyName;
-    controlName = 'y-icon';
-    friendlyName = 'icon';
-    OJ.controls.members[controlName] = friendlyName;
-    return OJ.controls.register(friendlyName, function(options, owner) {
-      var className, classNameBase, defaults, isToggled, ret;
-      defaults = {
-        iconOpts: {
-          name: '',
-          stackedIcon: '',
-          swapIcon: '',
-          size: false,
-          color: '',
-          library: '',
-          isFixedWidth: false,
-          isList: false,
-          isSpinner: false
-        },
-        props: {
-          "class": ''
-        },
-        rootNodeType: 'span'
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.control(defaults, owner, controlName);
-      isToggled = false;
-      classNameBase = 'fa ';
-      if (defaults.iconOpts.isFixedWidth) {
-        classNameBase += 'fa-fw ';
-      }
-      if (defaults.iconOpts.isList) {
-        classNameBase += 'fa-li ';
-      }
-      if (defaults.iconOpts.isSpinner) {
-        classNameBase += 'fa-spin ';
-      }
-      if (defaults.iconOpts.size) {
-        if (defaults.iconOpts.size > 1 && defaults.iconOpts.size <= 5) {
-          classNameBase += 'fa-' + defaults.iconOpts.size + 'x ';
-        }
-      }
-      className = classNameBase + 'fa-' + defaults.iconOpts.name;
-      ret.myIcon = ret.i({
-        props: {
-          "class": className
-        }
-      });
-      ret.toggleIcon = function() {
-        var newIcon;
-        if (defaults.iconOpts.swapIcon) {
-          newIcon = defaults.iconOpts.name;
-          isToggled = !isToggled;
-          if (isToggled) {
-            ret.myIcon.$.removeClass('fa-' + newIcon);
-            newIcon = defaults.iconOpts.swapIcon;
-          } else {
-            ret.myIcon.$.removeClass('fa-' + defaults.iconOpts.swapIcon);
-          }
-          return ret.myIcon.$.addClass('fa-' + newIcon);
-        }
-      };
-      return ret;
-    });
-  })();
-
-}).call(this);
-
-(function() {
-  (function() {
     var makeSequentialArray;
     makeSequentialArray = function(start, end) {
       var i, ret;
@@ -1216,7 +1083,7 @@ OJ IIFE definition to anchor JsDoc comments.
         return OJ.tryExec.apply(that, args);
       };
     });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -1237,7 +1104,7 @@ OJ IIFE definition to anchor JsDoc comments.
       value: (Number && Number.MIN_VALUE ? Number.MIN_VALUE : 5e-324)
     });
     OJ.register("number", number);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -1345,7 +1212,7 @@ OJ IIFE definition to anchor JsDoc comments.
       }
       return ret;
     });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -1354,12 +1221,6 @@ OJ IIFE definition to anchor JsDoc comments.
 
     /*
     Add a property to an object
-    @param obj {Object} an Object onto which to add a property
-    @param name {String} the property name
-    @param value {Object} the value of the property. Can be any type.
-    @param writable {Boolean} [writable=true] True if the property can be modified
-    @param configurable {Boolean} [configurable=true] True if the property can be removed
-    @param enumerable {Boolean} [enumerable=true] True if the property can be enumerated and is listed in Object.keys
      */
     var property;
     property = function(obj, name, value, writable, configurable, enumerable) {
@@ -1373,31 +1234,33 @@ OJ IIFE definition to anchor JsDoc comments.
       return obj;
     };
     OJ.register("property", property);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
 (function() {
   (function(OJ) {
     OJ.register("delimitedString", function(string, opts) {
-      var nsInternal, nsRet;
-      nsInternal = {
+      var defaults, retObj;
+      defaults = {
         newLineToDelimiter: true,
         spaceToDelimiter: true,
         removeDuplicates: true,
         delimiter: ",",
         initString: OJ.to.string(string)
       };
-      nsRet = {
+      retObj = {
         array: [],
         delimited: function() {
-          return nsRet.array.join(nsInternal.delimiter);
+          return retObj.array.join(defaults.delimiter);
         },
         string: function(delimiter) {
           var ret;
-          delimiter = delimiter || nsInternal.delimiter;
-          ret = "";
-          OJ.each(nsRet.array, function(val) {
+          if (delimiter == null) {
+            delimiter = defaults.delimiter;
+          }
+          ret = '';
+          OJ.each(retObj.array, function(val) {
             if (ret.length > 0) {
               ret += delimiter;
             }
@@ -1406,12 +1269,12 @@ OJ IIFE definition to anchor JsDoc comments.
           return ret;
         },
         toString: function() {
-          return nsRet.string();
+          return retObj.string();
         },
         add: function(str) {
-          nsRet.array.push(nsInternal.parse(str));
-          nsInternal.deleteDuplicates();
-          return nsRet;
+          retObj.array.push(defaults.parse(str));
+          defaults.deleteDuplicates();
+          return retObj;
         },
         remove: function(str) {
           var remove;
@@ -1422,11 +1285,11 @@ OJ IIFE definition to anchor JsDoc comments.
               }
             });
           };
-          nsRet.array = remove(nsRet.array);
-          return nsRet;
+          retObj.array = remove(retObj.array);
+          return retObj;
         },
         count: function() {
-          return nsRet.array.length;
+          return retObj.array.length;
         },
         contains: function(str, caseSensitive) {
           var isCaseSensitive, match;
@@ -1435,35 +1298,35 @@ OJ IIFE definition to anchor JsDoc comments.
           if (false === isCaseSensitive) {
             str = str.toLowerCase();
           }
-          match = nsRet.array.filter(function(matStr) {
+          match = retObj.array.filter(function(matStr) {
             return (isCaseSensitive && OJ.to.string(matStr).trim() === str) || OJ.to.string(matStr).trim().toLowerCase() === str;
           });
           return match.length > 0;
         },
         each: function(callBack) {
-          return nsRet.array.forEach(callBack);
+          return retObj.array.forEach(callBack);
         }
       };
-      nsInternal.parse = function(str) {
+      defaults.parse = function(str) {
         var ret;
         ret = OJ.to.string(str);
-        if (nsInternal.newLineToDelimiter) {
+        if (defaults.newLineToDelimiter) {
           while (ret.indexOf("\n") !== -1) {
-            ret = ret.replace(/\n/g, nsInternal.delimiter);
+            ret = ret.replace(/\n/g, defaults.delimiter);
           }
         }
-        if (nsInternal.spaceToDelimiter) {
+        if (defaults.spaceToDelimiter) {
           while (ret.indexOf(" ") !== -1) {
-            ret = ret.replace(RegExp(" ", "g"), nsInternal.delimiter);
+            ret = ret.replace(RegExp(" ", "g"), defaults.delimiter);
           }
         }
         while (ret.indexOf(",,") !== -1) {
-          ret = ret.replace(/,,/g, nsInternal.delimiter);
+          ret = ret.replace(/,,/g, defaults.delimiter);
         }
         return ret;
       };
-      nsInternal.deleteDuplicates = function() {
-        if (nsInternal.removeDuplicates) {
+      defaults.deleteDuplicates = function() {
+        if (defaults.removeDuplicates) {
           (function() {
             var unique;
             unique = function(array) {
@@ -1476,7 +1339,7 @@ OJ IIFE definition to anchor JsDoc comments.
                 }
               });
             };
-            nsRet.array = unique(nsRet.array);
+            retObj.array = unique(retObj.array);
           })();
         }
       };
@@ -1485,20 +1348,20 @@ OJ IIFE definition to anchor JsDoc comments.
         if (a.length > 1 && false === OJ.is.plainObject(opts)) {
           OJ.each(a, function(val) {
             if (false === OJ.is.nullOrEmpty(val)) {
-              nsRet.array.push(val);
+              retObj.array.push(val);
             }
           });
         } else if (string && string.length > 0) {
-          OJ.extend(nsInternal, opts);
-          delimitedString = nsInternal.parse(string);
-          nsInternal.initString = delimitedString;
-          nsRet.array = delimitedString.split(nsInternal.delimiter);
+          OJ.extend(defaults, opts);
+          delimitedString = defaults.parse(string);
+          defaults.initString = delimitedString;
+          retObj.array = delimitedString.split(defaults.delimiter);
         }
-        nsInternal.deleteDuplicates();
+        defaults.deleteDuplicates();
       })(arguments);
-      return nsRet;
+      return retObj;
     });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -1769,7 +1632,7 @@ OJ IIFE definition to anchor JsDoc comments.
       if (el) {
         return _.forOwn(events, function(val, key) {
           var callback;
-          if (val !== _.noop && _.isFunction(val)) {
+          if (val !== OJ.noop && _.isFunction(val)) {
             callback = function() {
               var event;
               event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
@@ -2027,7 +1890,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -2041,7 +1904,7 @@ OJ IIFE definition to anchor JsDoc comments.
           }
         }
       };
-      if (defaults.events.click !== _.noop) {
+      if (defaults.events.click !== OJ.noop) {
         click = defaults.events.click;
         newClick = function() {
           var event, retVal;
@@ -2084,7 +1947,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };
@@ -2116,7 +1979,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };
@@ -2153,7 +2016,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -2184,7 +2047,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -2215,7 +2078,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };
@@ -2251,7 +2114,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -2286,7 +2149,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -2343,7 +2206,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };
@@ -2375,7 +2238,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };
@@ -2407,7 +2270,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };
@@ -2439,7 +2302,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };
@@ -2471,7 +2334,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };
@@ -2503,7 +2366,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };
@@ -2535,7 +2398,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };
@@ -2576,7 +2439,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -2612,9 +2475,9 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop,
-          change: _.noop,
-          focusout: _.noop
+          click: OJ.noop,
+          change: OJ.noop,
+          focusout: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -2642,7 +2505,7 @@ OJ IIFE definition to anchor JsDoc comments.
         then call the defined click handler with the latest value.
        */
       oldClick = defaults.events.click;
-      if (oldClick && oldClick !== _.noop) {
+      if (oldClick && oldClick !== OJ.noop) {
         newClick = function() {
           var event;
           event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
@@ -2658,7 +2521,7 @@ OJ IIFE definition to anchor JsDoc comments.
         then call the defined change handler with the latest value.
        */
       oldChange = defaults.events.change;
-      if (oldChange && oldChange !== _.noop) {
+      if (oldChange && oldChange !== OJ.noop) {
         newChange = function() {
           var event;
           event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
@@ -2678,7 +2541,7 @@ OJ IIFE definition to anchor JsDoc comments.
         var event;
         event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
         syncValue();
-        if (oldFocusout && oldFocusout !== _.noop) {
+        if (oldFocusout && oldFocusout !== OJ.noop) {
           return oldFocusout.apply(null, [ret.value].concat(__slice.call(event)));
         }
       };
@@ -2715,7 +2578,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -2749,7 +2612,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -2780,7 +2643,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -2811,7 +2674,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };
@@ -2843,7 +2706,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -2879,7 +2742,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -2910,7 +2773,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -2947,8 +2810,8 @@ OJ IIFE definition to anchor JsDoc comments.
         styles: {},
         values: [],
         events: {
-          click: _.noop,
-          change: _.noop
+          click: OJ.noop,
+          change: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -2958,7 +2821,7 @@ OJ IIFE definition to anchor JsDoc comments.
       syncValue = function() {
         return value = ret.val();
       };
-      if (defaults.events.click !== _.noop) {
+      if (defaults.events.click !== OJ.noop) {
         click = defaults.events.click;
         newClick = function() {
           var event, retval;
@@ -2969,7 +2832,7 @@ OJ IIFE definition to anchor JsDoc comments.
         };
         defaults.events.click = newClick;
       }
-      if (defaults.events.change !== _.noop) {
+      if (defaults.events.change !== OJ.noop) {
         change = defaults.events.change;
         newChange = function() {
           var event, retval;
@@ -3088,7 +2951,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3119,7 +2982,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };
@@ -3151,7 +3014,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };
@@ -3183,7 +3046,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3222,7 +3085,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         cells: {
           "class": '',
@@ -3373,7 +3236,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3404,7 +3267,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3451,7 +3314,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3466,7 +3329,7 @@ OJ IIFE definition to anchor JsDoc comments.
             return value = ret.val();
         }
       };
-      if (defaults.events.click !== _.noop) {
+      if (defaults.events.click !== OJ.noop) {
         click = defaults.events.click;
         newClick = function() {
           var event, retval;
@@ -3477,7 +3340,7 @@ OJ IIFE definition to anchor JsDoc comments.
         };
         defaults.events.click = newClick;
       }
-      if (defaults.events.change !== _.noop) {
+      if (defaults.events.change !== OJ.noop) {
         change = defaults.events.change;
         newChange = function() {
           var event, retval;
@@ -3515,7 +3378,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3546,7 +3409,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         },
         number: 1
       };
@@ -3618,7 +3481,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3649,7 +3512,7 @@ OJ IIFE definition to anchor JsDoc comments.
         props: {},
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3682,7 +3545,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3710,7 +3573,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3741,7 +3604,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3767,7 +3630,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3793,7 +3656,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3819,7 +3682,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3846,7 +3709,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3874,7 +3737,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3900,7 +3763,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3930,7 +3793,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3956,7 +3819,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -3982,7 +3845,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -4009,7 +3872,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -4038,7 +3901,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -4068,7 +3931,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -4094,7 +3957,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -4120,7 +3983,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -4146,7 +4009,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -4174,7 +4037,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -4202,7 +4065,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -4228,7 +4091,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -4256,7 +4119,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -4282,7 +4145,7 @@ OJ IIFE definition to anchor JsDoc comments.
         },
         styles: {},
         events: {
-          click: _.noop
+          click: OJ.noop
         }
       };
       OJ.extend(defaults, options, true);
@@ -4371,20 +4234,7 @@ OJ IIFE definition to anchor JsDoc comments.
       return ret;
     };
     OJ.register('array2D', array2D);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var defer;
-    defer = function(method, waitMs) {
-      if (setTimeout) {
-        return setTimeout(method, waitMs);
-      }
-    };
-    OJ.register('defer', defer);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -4394,7 +4244,7 @@ OJ IIFE definition to anchor JsDoc comments.
   (function(OJ) {
     var assert, console, count, length, method, methods, noop, thisGlobal;
     method = void 0;
-    noop = _.noop;
+    noop = OJ.noop;
     methods = ["assert", "clear", "count", "debug", "dir", "dirxml", "error", "exception", "group", "groupCollapsed", "groupEnd", "info", "log", "markTimeline", "profile", "profileEnd", "table", "time", "timeEnd", "timeStamp", "trace", "warn"];
     length = methods.length;
     thisGlobal = (typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this);
@@ -4496,7 +4346,7 @@ OJ IIFE definition to anchor JsDoc comments.
       'use strict';
       console.warn.apply(console, a);
     });
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -4574,10 +4424,22 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
+    var defer;
+    defer = function(method, waitMs) {
+      if (setTimeout) {
+        return setTimeout(method, waitMs);
+      }
+    };
+    OJ.register('defer', defer);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
 
     /*
     True if the object is a true Object or Array
-    @param obj {Object}
      */
     var canEach, each;
     canEach = function(obj) {
@@ -4586,9 +4448,6 @@ OJ IIFE definition to anchor JsDoc comments.
 
     /*
     Iterate an object with optional callBack and recursion
-    @param obj {Object} an Object to iterate
-    @param onEach {Function} [onEach=undefined] call back to exec
-    @param recursive {Boolean} if true, recurse the object
      */
     each = function(obj, onEach, recursive) {
       if (canEach(obj)) {
@@ -4607,7 +4466,7 @@ OJ IIFE definition to anchor JsDoc comments.
       }
     };
     OJ.register("each", each);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -4615,21 +4474,6 @@ OJ IIFE definition to anchor JsDoc comments.
   (function(OJ) {
     'use strict';
     OJ.enums.register('unknown', 'unknown');
-    OJ.enums.register('tryParse', function(OJEnum, enumMember, caseSensitive) {
-      'use strict';
-      var ret;
-      ret = OJ.enums.unknown;
-      if (OJ.contains(OJEnum, enumMember)) {
-        ret = OJEnum[enumMember];
-      } else if (false === caseSensitive) {
-        OJ.each(OJEnum, function(member) {
-          if (OJ.contains(OJEnum, member) && OJ.to.string(member).toLowerCase() === OJ.to.string(enumMember).toLowerCase()) {
-            ret = member;
-          }
-        });
-      }
-      return ret;
-    });
     OJ.enums.register('inputTypes', {
       button: {
         id: 0,
@@ -4906,19 +4750,6 @@ OJ IIFE definition to anchor JsDoc comments.
         defaultwidth: '',
         defaultsize: '25'
       }
-    });
-    OJ.enums.register('rateIntervalTypes', {
-      Hourly: 'Hourly',
-      WeeklyByDay: 'WeeklyByDay',
-      MonthlyByDate: 'MonthlyByDate',
-      MonthlyByWeekAndDay: 'MonthlyByWeekAndDay',
-      YearlyByDate: 'YearlyByDate'
-    });
-    OJ.enums.register('domElementEvent', {
-      click: 'click',
-      change: 'change',
-      vclick: 'vclick',
-      tap: 'tap'
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
@@ -5223,10 +5054,10 @@ OJ IIFE definition to anchor JsDoc comments.
         killer: false,
         closeWith: ['click'],
         callback: {
-          onShow: _.noop,
-          afterShow: _.noop,
-          onClose: _.noop,
-          afterClose: _.noop
+          onShow: OJ.noop,
+          afterShow: OJ.noop,
+          onClose: OJ.noop,
+          afterClose: OJ.noop
         },
         buttons: false
       };
@@ -5309,7 +5140,7 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ.register('unsubscribe', unsubscribe);
     OJ.register('unsubscribeAll', unsubscribeAll);
     OJ.register('unsubscribeEvent', unsubscribeEvent);
-  })((typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this).OJ);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -5337,6 +5168,85 @@ OJ IIFE definition to anchor JsDoc comments.
       }
       return ret;
     });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Take an array of string values and a number of partitions to create.
+    Uses the first letter of each string value in the array to convert to unique code character (lower case)
+    Builds a int range based on unique code chars.
+     */
+    var rangeToSubRanges, stringRangeToSubRanges;
+    stringRangeToSubRanges = function(n, range) {
+      var charRange, i, nuRange, subRange, _results;
+      if (n == null) {
+        n = 6;
+      }
+      if (range == null) {
+        range = [];
+      }
+      charRange = [];
+      OJ.each(range, function(val) {
+        var char;
+        char = val.trim()[0].toLowerCase();
+        if (false === _.contains(charRange, char)) {
+          return charRange.push(char.charCodeAt());
+        }
+      });
+      nuRange = rangeToSubRanges(n, charRange);
+      i = 0;
+      _results = [];
+      while (i < n) {
+        i += 1;
+        subRange = nuRange[i];
+        _results.push(subRange.map(function(val) {
+          return String.fromCharCode(val);
+        }));
+      }
+      return _results;
+    };
+
+    /*
+    Take an array of int values and a number of partitions to create.
+    Divides the original array into the specified number of sub arrays.
+    Overflow is passed to the final partition.
+     */
+    rangeToSubRanges = function(n, range) {
+      var chunkVal, distance, i, jump, rangeHigh, rangeLow, subRangeSize, subRanges;
+      if (n == null) {
+        n = 6;
+      }
+      if (range == null) {
+        range = [];
+      }
+      rangeLow = _.min(range);
+      rangeHigh = _.max(range);
+      distance = rangeHigh - rangeLow;
+      subRangeSize = distance / n;
+      subRanges = {};
+      chunkVal = rangeLow;
+      i = 0;
+      while (i < n) {
+        i += 1;
+        if (i < 6) {
+          jump = Math.round(subRangeSize);
+        } else {
+          jump = Math.floor(subRangeSize);
+          if (chunkVal + jump < rangeHigh) {
+            jump += rangeHigh - chunkVal - jump + 1;
+          }
+        }
+        subRanges[i] = _.range(chunkVal, chunkVal + jump);
+        chunkVal += jump;
+      }
+      return subRanges;
+    };
+    OJ.register('stringRangeToSubRanges', stringRangeToSubRanges);
+    OJ.register('rangeToSubRanges', rangeToSubRanges);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
@@ -5490,5 +5400,74 @@ OJ IIFE definition to anchor JsDoc comments.
     };
     OJ.register("createUUID", createFauxUUID);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function() {
+    var controlName, friendlyName;
+    controlName = 'y-icon';
+    friendlyName = 'icon';
+    OJ.controls.members[controlName] = friendlyName;
+    return OJ.controls.register(friendlyName, function(options, owner) {
+      var className, classNameBase, defaults, isToggled, ret;
+      defaults = {
+        iconOpts: {
+          name: '',
+          stackedIcon: '',
+          swapIcon: '',
+          size: false,
+          color: '',
+          library: '',
+          isFixedWidth: false,
+          isList: false,
+          isSpinner: false
+        },
+        props: {
+          "class": ''
+        },
+        rootNodeType: 'span'
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.control(defaults, owner, controlName);
+      isToggled = false;
+      classNameBase = 'fa ';
+      if (defaults.iconOpts.isFixedWidth) {
+        classNameBase += 'fa-fw ';
+      }
+      if (defaults.iconOpts.isList) {
+        classNameBase += 'fa-li ';
+      }
+      if (defaults.iconOpts.isSpinner) {
+        classNameBase += 'fa-spin ';
+      }
+      if (defaults.iconOpts.size) {
+        if (defaults.iconOpts.size > 1 && defaults.iconOpts.size <= 5) {
+          classNameBase += 'fa-' + defaults.iconOpts.size + 'x ';
+        }
+      }
+      className = classNameBase + 'fa-' + defaults.iconOpts.name;
+      ret.myIcon = ret.i({
+        props: {
+          "class": className
+        }
+      });
+      ret.toggleIcon = function() {
+        var newIcon;
+        if (defaults.iconOpts.swapIcon) {
+          newIcon = defaults.iconOpts.name;
+          isToggled = !isToggled;
+          if (isToggled) {
+            ret.myIcon.$.removeClass('fa-' + newIcon);
+            newIcon = defaults.iconOpts.swapIcon;
+          } else {
+            ret.myIcon.$.removeClass('fa-' + defaults.iconOpts.swapIcon);
+          }
+          return ret.myIcon.$.addClass('fa-' + newIcon);
+        }
+      };
+      return ret;
+    });
+  })();
 
 }).call(this);
