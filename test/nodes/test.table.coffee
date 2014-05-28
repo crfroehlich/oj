@@ -1,11 +1,11 @@
 ((OJ) ->
   module 'table', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    OJ.nodes.div()
+    if not OJ.body.make then OJ.nodes.div()
   
   test 'Test the Table node', ->
     expect 25
-    node = OJ.body.table()
+    node = OJ.body.make 'table'
     
     # Test 1: tagName is table
     deepEqual node.tagName is 'table', true, 'Node is a table'

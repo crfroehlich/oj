@@ -38,21 +38,6 @@
   ]
   
   ###
-  Add components to the chain, if permitted
-  @tagName is the web component compatible node name (e.g. x-widget)
-  @className is the internal, developer friendly name (e.g widget)
-  ###
-  addComponents = (tagName, parent, count, className, nameSpace = 'components') ->
-    #if isChildNodeTypeAllowed parent, tagName
-    parent.add className, (opts) ->
-      if OJ[nameSpace][className]
-        nu = OJ[nameSpace][className] opts, parent, true
-      else 
-        nu = OJ.component className, parent
-      nu
-    return
-
-  ###
   Init the body for chaining the first time it's seen
   ###
   initBody = _.once (body) ->
@@ -116,27 +101,27 @@
     'ul'
   ]
   
+  makeAdd = (tagName, el, count) ->
+    (opts) ->
+      if OJ.nodes[tagName]
+        nu = OJ.nodes[tagName] opts, el, true
+      else 
+        if OJ.components[tagName]
+          nu = OJ.components[tagName] opts, el, true
+        else if OJ.controls[tagName]
+          nu = OJ.controls[tagName] opts, el, true
+        else if OJ.inputs[tagName]
+          nu = OJ.inputs[tagName] opts, el, true
+        else
+          nu = OJ.component tagName, el    
+      OJ.nodes.factory nu, el, count
+  
   buildNodeForChaining = (el, count) ->
-    #1: add literal nodes
-    OJ.each nodeNames, (tagName) ->
-      el.add tagName, (opts) ->
-        if OJ.nodes[tagName]
-          nu = OJ.nodes[tagName] opts, el, true
-        else if (_.contains closed, tagName) or _.contains open, tagName
-          nu = OJ.element tagName, el
-        OJ.nodes.factory nu, el, count
-    
-    #2: add components
-    OJ.each OJ.components.members, (className, tagName) ->
-      addComponents tagName, el, count, className
-    
-    #3: add controls
-    OJ.each OJ.controls.members, (className, tagName) ->
-      addComponents tagName, el, count, className, 'controls'
-    
-    #4: add inputs
-    OJ.each OJ.inputs.members, (className, tagName) ->
-      addComponents tagName, el, count, className, 'inputs'  
+    methods = OJ.object()
+    el.make = (tagName, opts) ->
+      if not methods[tagName]
+        methods[tagName] = makeAdd tagName, el, count
+      methods[tagName] opts
     el
     
   ###

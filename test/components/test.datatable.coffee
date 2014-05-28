@@ -1,12 +1,12 @@
 ((OJ) ->
   module 'x-datatable', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    OJ.nodes.div()
+    if not OJ.body.make then OJ.nodes.div()
   
   test 'Test the datatable component', ->
     expect 4
     
-    datatable = OJ.body.datatable { 
+    datatable = OJ.body.make 'datatable', { 
       opts:
         data: [
           [

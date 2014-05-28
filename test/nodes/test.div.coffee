@@ -1,11 +1,11 @@
 ((OJ) ->
   module 'div', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    OJ.nodes.div()
+    if not OJ.body.make then OJ.nodes.div()
     
   test 'Test the Div node', ->
     expect 7
-    node = OJ.body.div()
+    node = OJ.body.make('div')
     node.text 'Hi I\'m some text'
     
     # Test 1: tagName is div
@@ -20,7 +20,7 @@
     deepEqual nodeId, dNode.id, 'Element IDs are equal'
     
     # Test 4: chaining works
-    child = node.div()
+    child = node.make('div')
     childId = child.getId()
     deepEqual child.tagName is 'div', true, 'Node is a DIV'
     

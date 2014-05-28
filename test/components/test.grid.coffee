@@ -1,12 +1,12 @@
 ((OJ) ->
   module 'grid', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    OJ.nodes.div()
+    if not OJ.body.make then OJ.nodes.div()
   
   test 'Test the grid component', ->
     expect 4
     
-    grid = OJ.body.grid()
+    grid = OJ.body.make 'grid'
     
     # Test 1: componentName is grid
     deepEqual grid.componentName is 'x-grid', true, 'Component is a grid'
@@ -28,7 +28,7 @@
   test 'Test the tiles component', ->
     expect 31
     
-    grid = OJ.body.grid()
+    grid = OJ.body.make 'grid'
     nodeId = grid.getId()
     
     i = 0
@@ -44,7 +44,7 @@
       deepEqual cNode.id, childId, 'Element IDs are equal'
       
       # Test 3*10: chained node is chainable
-      nuDiv = tile.div()
+      nuDiv = tile.make('div')
       nuDivId = nuDiv.getId()
       nuNode = document.getElementById nuDivId
       deepEqual nuNode.id, nuDivId, 'Element IDs are equal'

@@ -18,42 +18,39 @@ While OJ probably doesn't have a lot of utility in the context of Node, I have m
 At its heart, OJ provides a simple API to build out the DOM:
 
 ```coffee
-div = OJ.body.div()
-  .text "Aloha! Ahoy! Hola! Prevet!"
-cell11 = div.table()
-  .cell 1, 1
-  .text 'Ahoy, column 1, row 1!'
-  .cell 2, 1
-  .text 'Aloha, column 1, row 2!'
-span = cell11.span().text 'Aloha! Ahoy! Hola! Prevet!'
+div = OJ.body.make 'div', text: "Aloha! Ahoy! Hola! Prevet!"
+cell11 = div.make 'table'
+  .cell 1, 1, text: 'Ahoy, column 1, row 1!'
+  .cell 2, 1, text: 'Aloha, column 1, row 2!'
+span = cell11.make 'span', text: 'Aloha! Ahoy! Hola! Prevet!'
 ```
 
-Nearly all standard nodes are accessible via chaining, starting with the body element. Every OJ node is chainable against the entire set of compatabile child nodes. For example:
+Nearly all standard nodes are accessible via chaining, starting with the body element. Every OJ node is chainable against the entire set of compatible child nodes. For example:
 
 ```coffee
-div = OJ.body.div()
-select = div.select()
-  .button() #invalid child, will throw "TypeError: undefined is not a function"
-  .option() #valid child of select
+div = OJ.body.make 'div'
+select = div.make 'select'
+  .make 'button' #not terribly rational, but valid semantic
+  .make 'option' #more reasonable chained method
   
-fieldSet = div.fieldset()
-  .legend()
+fieldSet = div.make 'fieldset'
+  .make 'legend'
   
-ol = div.ol()
-  .span() #invalid child, will throw "TypeError: undefined is not a function"
-  .li() #valid child of ol
-  .div() #valid child of li
-  .ul() #valid child of div
-  .p() #invalid child, will throw "TypeError: undefined is not a function"
-  .li() #valid child of li
+ol = div.make 'ol'
+  .make 'span' #not a great idea, but entirely possible
+  .make 'li' #preferable child node
+  .make 'div' #another valid child of li
+  .make 'ul' #valid child of div
+  .make 'p' #suboptimal but valid
+  .make 'li' #valid child of li
 ```
 
-This simple semantic makes it possible to build more complex web components, which are encapsualted as OJ classes.
+This simple semantic makes it possible to build more complex web components, which are encapsulated as OJ classes.
 
 ```coffee
-div.grid() #creates a Bootstrap grid
+div.make 'grid' #creates a Bootstrap grid
   .tile 1, 1 #creates row 1, column 1
-  .grid() #creates a nested grid on previous tile
+  .make 'grid' #creates a nested grid on previous tile
   .tile 1, 1 #creates nested row, nested column
 ```
 
@@ -89,32 +86,13 @@ In OJ, this is generally discouraged. Node lookups by ID are possible (if you ma
 
 ```coffee
 myHolaDiv = OJ.nodes.div();
-leavingDiv = myHolaDiv.div()
-  .text 'Leaving...'
-goneDiv = myHolaDiv.div()
-  .text 'Gone'
+leavingDiv = myHolaDiv.make 'div', text: 'Leaving...'
+goneDiv = myHolaDiv.make 'div', text: 'Gone'
   .hide()
   
 leavingDiv.hide()
 goneDiv.show()  
 ```
-
-While frameworks like jQuery make it easy to inject anything the DOM, out of the box the framework does not necessarily encourage you to compose good HTML. In jQuery every node wrapper is a generic DOM node with the same sets of properties and methods as every other DOM node. In OJ, every node wrapper represents a specific type of DOM node (e.g. DIV, SPAN, TABLE) with a subset of the generic utility methods that you might get from the jQuery API but also a highly constrained, strongly validated superset of methods that are specific to the type of the node. For example, nothing (apart from reason) prevents one from writing this in jQuery:
-
-```coffee
-table = jQuery '<table></table>'
-div = jQuery '<div></div>'
-table.append div
-```
-
-In OJ, the div method does not exist on the table class and thus will generate an exception:
-
-```coffee
-table = OJ.nodes.table()
-table.div() #TypeError: undefined is not a function
-```
-
-This does come at the cost of a learning curve, but the exceptions that OJ will generate for you are intended to ferret out mistakes that will never make their way into Production code. While still runtime exceptions, you will see these immediately--the first time you run the code or unit tests; and within a very short time will disappear completely.
 
 One of OJ's implicit goals is to enable a style of development free from worrying about the minutia
 of the DOM in order to focus more on the UI/UX you want to deliver.

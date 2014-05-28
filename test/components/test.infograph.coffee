@@ -1,12 +1,12 @@
 ((OJ) ->
   module 'x-infograph', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    OJ.nodes.div()
+    if not OJ.body.make then OJ.nodes.div()
   
   test 'Test the infograph component', ->
     expect 4
     
-    infograph = OJ.body.infograph()
+    infograph = OJ.body.make 'infograph'
     
     
     # Test 1: componentName is infograph

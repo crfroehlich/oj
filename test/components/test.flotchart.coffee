@@ -1,12 +1,12 @@
 ((OJ) ->
   module 'x-flotchart', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    OJ.nodes.div()
+    if not OJ.body.make then OJ.nodes.div()
   
   test 'Test the flotchart component', ->
     expect 4
     
-    flotchart = OJ.body.flotchart()
+    flotchart = OJ.body.make 'flotchart'
     
     
     # Test 1: componentName is flotchart

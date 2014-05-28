@@ -1,12 +1,12 @@
 ((OJ) ->
   module 'x-sparkline', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    OJ.nodes.div()
+    if not OJ.body.make then OJ.nodes.div()
   
   test 'Test the sparkline component', ->
     expect 4
     
-    sparkline = OJ.body.sparkline()
+    sparkline = OJ.body.make 'sparkline'
     
     
     # Test 1: componentName is sparkline

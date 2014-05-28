@@ -2,7 +2,7 @@
   nodeName = 'x-address'
   className = 'address'
   
-  OJ.components.members[nodeName] = className
+  OJ.components.members[className] = nodeName
   
   OJ.components.register className, (options, owner) ->
     defaults = 
@@ -12,31 +12,32 @@
     OJ.extend defaults, options, true
     ret = OJ.component defaults, owner, nodeName 
     
-    wrapper = ret.div props: class: 'subtemplate-wrapper'
-    wrapper.div props: class: 'cover'
+    wrapper = ret.make 'div', props: class: 'subtemplate-wrapper'
+    wrapper.make 'div', props: class: 'cover'
     
-    street = wrapper.div props: class: 'input-line'
-      .span  props: class: 'street'
-    street.input props: type: 'text'
-    street.label().text 'Address'
+    street = wrapper.make 'div', props: class: 'input-line'
+      .make 'span', props: class: 'street'
+    street.make 'input', props: type: 'text'
+    street.make 'label', text: 'Address'
     
-    cityState = wrapper.div props: class: 'input-line'
-    city = cityState.span props: class: 'city'
-    city.input props: type: 'text'
-    city.label().text 'City'
+    cityState = wrapper.make 'div', props: class: 'input-line'
+    city = cityState.make 'span', props: class: 'city'
+    city.make 'input', props: type: 'text'
+    city.make 'label', text: 'City'
 
-    state = cityState.span props: class: 'state'
-    state.input props: type: 'text'
-    state.label().text 'State'    
+    state = cityState.make 'span', props: class: 'state'
+    state.make 'input', props: type: 'text'
+    state.make 'label', text: 'State'    
 
-    zipCountry = wrapper.div props: class: 'input-line'
-    zip = zipCountry.span props: class: 'zip'
-    zip.input props: type: 'text'
-    zip.label().text 'Zipcode'
+    zipCountry = wrapper.make 'div', props: class: 'input-line'
+    zip = zipCountry.make 'span', props: class: 'zip'
+    zip.make 'input', props: type: 'text'
+    zip.make 'label', text: 'Zipcode'
     
-    country = zipCountry.span props: class: 'country'
-    country.select().addOption 'United States' 
-    country.label().text 'Country'
+    country = zipCountry.make 'span', props: class: 'country'
+    country.make 'select' 
+      .addOption 'United States' 
+    country.make 'label', text: 'Country'
 
     ret
 

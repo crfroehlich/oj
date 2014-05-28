@@ -2,7 +2,7 @@
   controlName = 'y-icon'
   friendlyName = 'icon'
   
-  OJ.controls.members[controlName] = friendlyName
+  OJ.controls.members[friendlyName] = controlName
   
   OJ.controls.register friendlyName, (options, owner) ->
     defaults =

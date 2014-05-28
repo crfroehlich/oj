@@ -1,12 +1,12 @@
 ((OJ) ->
   module 'x-tabs', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    OJ.nodes.div()
+    if not OJ.body.make then OJ.nodes.div() 
   
   test 'Test the tabs component', ->
     expect 4
     
-    tabs = OJ.body.tabs tabs: tabA: 'tabA', tabB: 'tabB'
+    tabs = OJ.body.make 'tabs', tabs: tabA: 'tabA', tabB: 'tabB'
     
     
     # Test 1: componentName is address

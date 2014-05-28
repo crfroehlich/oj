@@ -2,27 +2,25 @@
   nodeName = 'x-price'
   className = 'price'
   
-  OJ.components.members[nodeName] = className
+  OJ.components.members[className] = nodeName
   OJ.components.register className, (options, owner) ->
     defaults = {}
     
     OJ.extend defaults, options, true
     ret = OJ.component defaults, owner, nodeName
     
-    price = ret.div props: class: 'input-line'
-    price.span  props: class: 'above-line'
-      .text '$'
+    price = ret.make 'div', props: class: 'input-line'
+    price.make 'span', text: '$': props: class: 'above-line' 
       
-    dollars = price.span props: class: 'dollars'          
-    dollars.input props: type: 'text'
-    dollars.label().text 'Dollars'
+    dollars = price.make 'span', props: class: 'dollars'          
+    dollars.make 'input', props: type: 'text'
+    dollars. make 'label', text: 'Dollars'
     
-    price.span  props: class: 'above-line'
-      .text '.'
+    price.make 'span', text: '.', props: class: 'above-line'
     
-    cents = price.span props: class: 'cents'          
-    cents.input props: type: 'text'
-    cents.label().text 'Cents' 
+    cents = price.make 'span', props: class: 'cents'          
+    cents.make 'input', props: type: 'text'
+    cents.make 'label', text: 'Cents' 
 
     ret
 

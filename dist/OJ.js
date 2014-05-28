@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.3.30
+ * @version v0.4.0
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -426,7 +426,7 @@ OJ IIFE definition to anchor JsDoc comments.
     var className, nodeName;
     nodeName = 'x-address';
     className = 'address';
-    OJ.components.members[nodeName] = className;
+    OJ.components.members[className] = nodeName;
     OJ.components.register(className, function(options, owner) {
       var city, cityState, country, defaults, ret, state, street, wrapper, zip, zipCountry;
       defaults = {
@@ -436,81 +436,91 @@ OJ IIFE definition to anchor JsDoc comments.
       };
       OJ.extend(defaults, options, true);
       ret = OJ.component(defaults, owner, nodeName);
-      wrapper = ret.div({
+      wrapper = ret.make('div', {
         props: {
           "class": 'subtemplate-wrapper'
         }
       });
-      wrapper.div({
+      wrapper.make('div', {
         props: {
           "class": 'cover'
         }
       });
-      street = wrapper.div({
+      street = wrapper.make('div', {
         props: {
           "class": 'input-line'
         }
-      }).span({
+      }).make('span', {
         props: {
           "class": 'street'
         }
       });
-      street.input({
+      street.make('input', {
         props: {
           type: 'text'
         }
       });
-      street.label().text('Address');
-      cityState = wrapper.div({
+      street.make('label', {
+        text: 'Address'
+      });
+      cityState = wrapper.make('div', {
         props: {
           "class": 'input-line'
         }
       });
-      city = cityState.span({
+      city = cityState.make('span', {
         props: {
           "class": 'city'
         }
       });
-      city.input({
+      city.make('input', {
         props: {
           type: 'text'
         }
       });
-      city.label().text('City');
-      state = cityState.span({
+      city.make('label', {
+        text: 'City'
+      });
+      state = cityState.make('span', {
         props: {
           "class": 'state'
         }
       });
-      state.input({
+      state.make('input', {
         props: {
           type: 'text'
         }
       });
-      state.label().text('State');
-      zipCountry = wrapper.div({
+      state.make('label', {
+        text: 'State'
+      });
+      zipCountry = wrapper.make('div', {
         props: {
           "class": 'input-line'
         }
       });
-      zip = zipCountry.span({
+      zip = zipCountry.make('span', {
         props: {
           "class": 'zip'
         }
       });
-      zip.input({
+      zip.make('input', {
         props: {
           type: 'text'
         }
       });
-      zip.label().text('Zipcode');
-      country = zipCountry.span({
+      zip.make('label', {
+        text: 'Zipcode'
+      });
+      country = zipCountry.make('span', {
         props: {
           "class": 'country'
         }
       });
-      country.select().addOption('United States');
-      country.label().text('Country');
+      country.make('select').addOption('United States');
+      country.make('label', {
+        text: 'Country'
+      });
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -522,7 +532,7 @@ OJ IIFE definition to anchor JsDoc comments.
     var className, nodeName;
     nodeName = 'x-datatable';
     className = 'datatable';
-    OJ.components.members[nodeName] = className;
+    OJ.components.members[className] = nodeName;
     OJ.components.register(className, function(options, owner) {
       var defaults, ret;
       defaults = {
@@ -539,7 +549,7 @@ OJ IIFE definition to anchor JsDoc comments.
       };
       OJ.extend(defaults, options, true);
       ret = OJ.component(defaults, owner, nodeName);
-      ret.rawTable = ret.table(defaults.table);
+      ret.rawTable = ret.make('table', defaults.table);
       ret.dataTable = ret.rawTable.$.DataTable(defaults.opts);
       return ret;
     });
@@ -552,7 +562,7 @@ OJ IIFE definition to anchor JsDoc comments.
     var className, nodeName;
     nodeName = 'x-easypie';
     className = 'easypie';
-    OJ.components.members[nodeName] = className;
+    OJ.components.members[className] = nodeName;
     OJ.components.register(className, function(options, owner) {
       var defaults, ret;
       defaults = {
@@ -584,7 +594,7 @@ OJ IIFE definition to anchor JsDoc comments.
     var className, nodeName;
     nodeName = 'x-flotchart';
     className = 'flotchart';
-    OJ.components.members[nodeName] = className;
+    OJ.components.members[className] = nodeName;
     OJ.components.register(className, function(options, owner) {
       var defaults, ret;
       defaults = {
@@ -608,7 +618,7 @@ OJ IIFE definition to anchor JsDoc comments.
     var className, nodeName;
     nodeName = 'x-grid';
     className = 'grid';
-    OJ.components.members[nodeName] = className;
+    OJ.components.members[className] = nodeName;
     OJ.components.register(className, function(options, owner) {
       var defaults, fillMissing, ret, rows, tiles;
       defaults = {
@@ -630,7 +640,7 @@ OJ IIFE definition to anchor JsDoc comments.
           var row;
           if (!val) {
             row = ret.row(rowNo);
-            return row.tile(colNo, {});
+            return row.make('tile', colNo, {});
           }
         });
       };
@@ -642,7 +652,7 @@ OJ IIFE definition to anchor JsDoc comments.
         nuRow = rows[rowNo - 1];
         if (!nuRow) {
           while (rows.length < rowNo) {
-            nuRow = ret.div({
+            nuRow = ret.make('div', {
               props: {
                 "class": 'row'
               }
@@ -676,9 +686,9 @@ OJ IIFE definition to anchor JsDoc comments.
             tryTile = tiles.get(rowNo, i);
             if (!tryTile) {
               if (i === colNo) {
-                tile = row.tile(colNo, opts);
+                tile = row.make('tile', colNo, opts);
               } else if (!tile) {
-                row.tile(i);
+                row.make('tile', i);
               }
             }
           }
@@ -697,7 +707,7 @@ OJ IIFE definition to anchor JsDoc comments.
     var className, nodeName;
     nodeName = 'x-infograph';
     className = 'infograph';
-    OJ.components.members[nodeName] = className;
+    OJ.components.members[className] = nodeName;
     OJ.components.register(className, function(options, owner) {
       var active, colNum, count, defaults, disabled, icon, inactive, ret, rowNum, total, unknown, _i, _j, _ref, _ref1;
       defaults = {
@@ -741,7 +751,7 @@ OJ IIFE definition to anchor JsDoc comments.
           } else if (active > 0) {
             active -= 1;
           }
-          ret.i({
+          ret.make('i', {
             props: {
               "class": icon
             }
@@ -759,7 +769,7 @@ OJ IIFE definition to anchor JsDoc comments.
     var className, nodeName;
     nodeName = 'x-input-group';
     className = 'inputgroup';
-    OJ.components.members[nodeName] = className;
+    OJ.components.members[className] = nodeName;
     OJ.components.register(className, function(options, owner) {
       var cmpnt, defaults, forId, ret;
       forId = OJ.createUUID();
@@ -784,19 +794,19 @@ OJ IIFE definition to anchor JsDoc comments.
       };
       OJ.extend(defaults, options, true);
       ret = OJ.component(defaults, owner, nodeName);
-      cmpnt = ret.div({
+      cmpnt = ret.make('div', {
         props: {
           "class": 'form-group'
         }
       });
-      ret.groupLabel = cmpnt.label({
+      ret.groupLabel = cmpnt.make('label', {
         props: {
           "for": forId
         },
         text: defaults.labelText
       });
       defaults.inputOpts.props["class"] += ' form-control';
-      ret.groupInput = cmpnt.input(defaults.inputOpts);
+      ret.groupInput = cmpnt.make('input', defaults.inputOpts);
       ret.groupValue = function() {
         return ret.groupInput.val();
       };
@@ -811,49 +821,58 @@ OJ IIFE definition to anchor JsDoc comments.
     var className, nodeName;
     nodeName = 'x-price';
     className = 'price';
-    OJ.components.members[nodeName] = className;
+    OJ.components.members[className] = nodeName;
     OJ.components.register(className, function(options, owner) {
       var cents, defaults, dollars, price, ret;
       defaults = {};
       OJ.extend(defaults, options, true);
       ret = OJ.component(defaults, owner, nodeName);
-      price = ret.div({
+      price = ret.make('div', {
         props: {
           "class": 'input-line'
         }
       });
-      price.span({
-        props: {
-          "class": 'above-line'
+      price.make('span', {
+        text: {
+          '$': {
+            props: {
+              "class": 'above-line'
+            }
+          }
         }
-      }).text('$');
-      dollars = price.span({
+      });
+      dollars = price.make('span', {
         props: {
           "class": 'dollars'
         }
       });
-      dollars.input({
+      dollars.make('input', {
         props: {
           type: 'text'
         }
       });
-      dollars.label().text('Dollars');
-      price.span({
+      dollars.make('label', {
+        text: 'Dollars'
+      });
+      price.make('span', {
+        text: '.',
         props: {
           "class": 'above-line'
         }
-      }).text('.');
-      cents = price.span({
+      });
+      cents = price.make('span', {
         props: {
           "class": 'cents'
         }
       });
-      cents.input({
+      cents.make('input', {
         props: {
           type: 'text'
         }
       });
-      cents.label().text('Cents');
+      cents.make('label', {
+        text: 'Cents'
+      });
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -865,7 +884,7 @@ OJ IIFE definition to anchor JsDoc comments.
     var className, nodeName;
     nodeName = 'x-sparkline';
     className = 'sparkline';
-    OJ.components.members[nodeName] = className;
+    OJ.components.members[className] = nodeName;
     OJ.components.register(className, function(options, owner) {
       var defaults, ret;
       defaults = {
@@ -894,7 +913,7 @@ OJ IIFE definition to anchor JsDoc comments.
     var className, nodeName;
     nodeName = 'x-tabs';
     className = 'tabs';
-    OJ.components.members[nodeName] = className;
+    OJ.components.members[className] = nodeName;
     OJ.components.register(className, function(options, owner) {
       var content, defaults, first, ret, tabs;
       defaults = {
@@ -905,12 +924,12 @@ OJ IIFE definition to anchor JsDoc comments.
       };
       OJ.extend(defaults, options, true);
       ret = OJ.component(defaults, owner, nodeName);
-      tabs = ret.ul({
+      tabs = ret.make('ul', {
         props: {
           "class": 'nav nav-tabs'
         }
       });
-      content = ret.div({
+      content = ret.make('div', {
         props: {
           "class": 'tab-content'
         }
@@ -923,11 +942,11 @@ OJ IIFE definition to anchor JsDoc comments.
           first = false;
           tabClass = 'active';
         }
-        a = tabs.li({
+        a = tabs.make('li', {
           props: {
             "class": tabClass
           }
-        }).a({
+        }).make('a', {
           text: tabName,
           props: {
             href: '#' + tabName,
@@ -940,7 +959,7 @@ OJ IIFE definition to anchor JsDoc comments.
           }
         });
         tabContentClass = 'tab-pane ' + tabClass;
-        ret.add(tabName, content.div({
+        ret.add(tabName, content.make('div', {
           props: {
             "class": tabContentClass,
             id: tabName
@@ -958,7 +977,7 @@ OJ IIFE definition to anchor JsDoc comments.
     var className, nodeName;
     nodeName = 'x-tile';
     className = 'tile';
-    OJ.components.members[nodeName] = className;
+    OJ.components.members[className] = nodeName;
     OJ.components.register(className, function(options, owner) {
       var defaults, ret;
       defaults = {
@@ -989,6 +1008,75 @@ OJ IIFE definition to anchor JsDoc comments.
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function() {
+    var controlName, friendlyName;
+    controlName = 'y-icon';
+    friendlyName = 'icon';
+    OJ.controls.members[friendlyName] = controlName;
+    return OJ.controls.register(friendlyName, function(options, owner) {
+      var className, classNameBase, defaults, isToggled, ret;
+      defaults = {
+        iconOpts: {
+          name: '',
+          stackedIcon: '',
+          swapIcon: '',
+          size: false,
+          color: '',
+          library: '',
+          isFixedWidth: false,
+          isList: false,
+          isSpinner: false
+        },
+        props: {
+          "class": ''
+        },
+        rootNodeType: 'span'
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.control(defaults, owner, controlName);
+      isToggled = false;
+      classNameBase = 'fa ';
+      if (defaults.iconOpts.isFixedWidth) {
+        classNameBase += 'fa-fw ';
+      }
+      if (defaults.iconOpts.isList) {
+        classNameBase += 'fa-li ';
+      }
+      if (defaults.iconOpts.isSpinner) {
+        classNameBase += 'fa-spin ';
+      }
+      if (defaults.iconOpts.size) {
+        if (defaults.iconOpts.size > 1 && defaults.iconOpts.size <= 5) {
+          classNameBase += 'fa-' + defaults.iconOpts.size + 'x ';
+        }
+      }
+      className = classNameBase + 'fa-' + defaults.iconOpts.name;
+      ret.myIcon = ret.i({
+        props: {
+          "class": className
+        }
+      });
+      ret.toggleIcon = function() {
+        var newIcon;
+        if (defaults.iconOpts.swapIcon) {
+          newIcon = defaults.iconOpts.name;
+          isToggled = !isToggled;
+          if (isToggled) {
+            ret.myIcon.$.removeClass('fa-' + newIcon);
+            newIcon = defaults.iconOpts.swapIcon;
+          } else {
+            ret.myIcon.$.removeClass('fa-' + defaults.iconOpts.swapIcon);
+          }
+          return ret.myIcon.$.addClass('fa-' + newIcon);
+        }
+      };
+      return ret;
+    });
+  })();
 
 }).call(this);
 
@@ -1383,7 +1471,7 @@ OJ IIFE definition to anchor JsDoc comments.
       widget = OJ.element(tagName);
       OJ.nodes.factory(widget, owner);
       rootNodeType = options.rootNodeType || OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] || 'div';
-      ret = widget[rootNodeType](options);
+      ret = widget.make(rootNodeType, options);
       ret.add('componentName', tagName);
       ret.add('remove', widget.remove);
       return ret;
@@ -1726,7 +1814,7 @@ OJ IIFE definition to anchor JsDoc comments.
       if (!options.props || !options.props.type) {
         throw new Error('Cannot create an input without an input type');
       }
-      ret = owner.input(options);
+      ret = owner.make('input', options);
       ret.add('inputName', options.props.type);
       return ret;
     };
@@ -1737,31 +1825,11 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-    var addComponents, buildNodeForChaining, closed, initBody, nestableNodeNames, nodeNames, nonNestableNodes, open;
+    var buildNodeForChaining, closed, initBody, makeAdd, nestableNodeNames, nodeNames, nonNestableNodes, open;
     closed = 'a abbr acronym address applet article aside audio b bdo big blockquote body button canvas caption center cite code colgroup command datalist dd del details dfn dir div dl dt em embed fieldset figcaption figure font footer form frameset h1 h2 h3 h4 h5 h6 head header hgroup html i iframe ins keygen kbd label legend li map mark menu meter nav noframes noscript object ol optgroup option output p pre progress q rp rt ruby s samp script section select small source span strike strong style sub summary sup table tbody td textarea tfoot th thead time title tr tt u ul var video wbr xmp'.split(' ');
     open = 'area base br col command css !DOCTYPE embed hr img input keygen link meta param source track wbr'.split(' ');
     nestableNodeNames = ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'fieldset', 'select', 'ol', 'ul', 'table'];
     nonNestableNodes = ['li', 'legend', 'tr', 'td', 'option', 'body', 'head', 'source', 'tbody', 'tfoot', 'thead', 'link', 'script'];
-
-    /*
-    Add components to the chain, if permitted
-    @tagName is the web component compatible node name (e.g. x-widget)
-    @className is the internal, developer friendly name (e.g widget)
-     */
-    addComponents = function(tagName, parent, count, className, nameSpace) {
-      if (nameSpace == null) {
-        nameSpace = 'components';
-      }
-      parent.add(className, function(opts) {
-        var nu;
-        if (OJ[nameSpace][className]) {
-          nu = OJ[nameSpace][className](opts, parent, true);
-        } else {
-          nu = OJ.component(className, parent);
-        }
-        return nu;
-      });
-    };
 
     /*
     Init the body for chaining the first time it's seen
@@ -1794,27 +1862,34 @@ OJ IIFE definition to anchor JsDoc comments.
       return ret;
     });
     nodeNames = ['a', 'b', 'br', 'button', 'div', 'em', 'fieldset', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'img', 'input', 'label', 'legend', 'li', 'nav', 'ol', 'option', 'p', 'select', 'span', 'strong', 'sup', 'svg', 'table', 'tbody', 'td', 'textarea', 'th', 'thead', 'tr', 'ul'];
-    buildNodeForChaining = function(el, count) {
-      OJ.each(nodeNames, function(tagName) {
-        return el.add(tagName, function(opts) {
-          var nu;
-          if (OJ.nodes[tagName]) {
-            nu = OJ.nodes[tagName](opts, el, true);
-          } else if ((_.contains(closed, tagName)) || _.contains(open, tagName)) {
-            nu = OJ.element(tagName, el);
+    makeAdd = function(tagName, el, count) {
+      return function(opts) {
+        var nu;
+        if (OJ.nodes[tagName]) {
+          nu = OJ.nodes[tagName](opts, el, true);
+        } else {
+          if (OJ.components[tagName]) {
+            nu = OJ.components[tagName](opts, el, true);
+          } else if (OJ.controls[tagName]) {
+            nu = OJ.controls[tagName](opts, el, true);
+          } else if (OJ.inputs[tagName]) {
+            nu = OJ.inputs[tagName](opts, el, true);
+          } else {
+            nu = OJ.component(tagName, el);
           }
-          return OJ.nodes.factory(nu, el, count);
-        });
-      });
-      OJ.each(OJ.components.members, function(className, tagName) {
-        return addComponents(tagName, el, count, className);
-      });
-      OJ.each(OJ.controls.members, function(className, tagName) {
-        return addComponents(tagName, el, count, className, 'controls');
-      });
-      OJ.each(OJ.inputs.members, function(className, tagName) {
-        return addComponents(tagName, el, count, className, 'inputs');
-      });
+        }
+        return OJ.nodes.factory(nu, el, count);
+      };
+    };
+    buildNodeForChaining = function(el, count) {
+      var methods;
+      methods = OJ.object();
+      el.make = function(tagName, opts) {
+        if (!methods[tagName]) {
+          methods[tagName] = makeAdd(tagName, el, count);
+        }
+        return methods[tagName](opts);
+      };
       return el;
     };
 
@@ -2891,7 +2966,7 @@ OJ IIFE definition to anchor JsDoc comments.
               disabled: disabled
             }
           };
-          option = ret.option(val);
+          option = ret.make('option', val);
           option.text(text);
           return option;
         }
@@ -3109,10 +3184,10 @@ OJ IIFE definition to anchor JsDoc comments.
       thead = null;
       theadRow = null;
       ret.add('init', _.once(function() {
-        thead = ret.thead();
-        theadRow = thead.tr();
-        tbody = ret.tbody();
-        rows.push(tbody.tr());
+        thead = ret.make('thead');
+        theadRow = thead.make('tr');
+        tbody = ret.make('tbody');
+        rows.push(tbody.make('tr'));
         return ret;
       }));
       fillMissing = function() {
@@ -3137,7 +3212,7 @@ OJ IIFE definition to anchor JsDoc comments.
         while (thead[0].rows[0].cells.length < colNo) {
           nativeTh = thead[0].rows[0].cells[i];
           if (!nativeTh) {
-            th = theadRow.th({});
+            th = theadRow.make('th', {});
           } else {
             th = OJ.restoreElement('th', nativeTh);
           }
@@ -3160,7 +3235,7 @@ OJ IIFE definition to anchor JsDoc comments.
         row = rows[rowNo - 1];
         if (!row) {
           while (rows.length < rowNo) {
-            row = tbody.tr({});
+            row = tbody.make('tr', {});
             rows.push(row);
           }
         }
@@ -4242,110 +4317,30 @@ OJ IIFE definition to anchor JsDoc comments.
   var __slice = [].slice;
 
   (function(OJ) {
-    var assert, console, count, length, method, methods, noop, thisGlobal;
-    method = void 0;
-    noop = OJ.noop;
-    methods = ["assert", "clear", "count", "debug", "dir", "dirxml", "error", "exception", "group", "groupCollapsed", "groupEnd", "info", "log", "markTimeline", "profile", "profileEnd", "table", "time", "timeEnd", "timeStamp", "trace", "warn"];
-    length = methods.length;
-    thisGlobal = (typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this);
-    console = (thisGlobal.console = thisGlobal.console || {});
-    while (length--) {
-      method = methods[length];
-      if (!console[method]) {
-        console[method] = noop;
-      }
+    var console, methodLength, methods;
+    methods = ['assert', 'clear', 'count', 'debug', 'dir', 'dirxml', 'error', 'exception', 'group', 'groupCollapsed', 'groupEnd', 'info', 'log', 'memory', 'profile', 'profileEnd', 'table', 'time', 'timeEnd', 'timeStamp', 'timeline', 'timelineEnd', 'trace', 'warn'];
+    methodLength = methods.length;
+    console = OJ.global.console || {};
+    OJ.makeSubNameSpace('console');
+
+    /*
+    1. Stub out any missing methods with noop
+    2. Define the available methods on the OJ.console object
+     */
+    while (methodLength--) {
+      (function() {
+        var method;
+        method = methods[methodLength];
+        if (!console[method]) {
+          console[method] = OJ.noop;
+        }
+        return OJ.console.register(method, function() {
+          var params;
+          params = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+          return console[method].apply(console, params);
+        });
+      })();
     }
-    OJ.makeSubNameSpace("console");
-    OJ.console.register("assert", assert = function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.assert.apply(console, a);
-    });
-    OJ.console.register("count", count = function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.count.apply(console, a);
-    });
-    OJ.console.register("error", function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.error.apply(console, a);
-    });
-    OJ.console.register("group", function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.group.apply(console, a);
-    });
-    OJ.console.register("groupCollapsed", function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.groupCollapsed.apply(console, a);
-    });
-    OJ.console.register("groupEnd", function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.groupEnd.apply(console, a);
-    });
-    OJ.console.register("info", function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.info.apply(console, a);
-    });
-    OJ.console.register("log", function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.log.apply(console, a);
-    });
-    OJ.console.register("profile", function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.profile.apply(console, a);
-    });
-    OJ.console.register("profileEnd", function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.profileEnd.apply(console, a);
-    });
-    OJ.console.register("table", function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.table.apply(console, a);
-    });
-    OJ.console.register("time", function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.time.apply(console, a);
-    });
-    OJ.console.register("timeEnd", function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.timeEnd.apply(console, a);
-    });
-    OJ.console.register("trace", function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.trace.apply(console, a);
-    });
-    OJ.console.register("warn", function() {
-      var a;
-      a = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      'use strict';
-      console.warn.apply(console, a);
-    });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
@@ -5400,74 +5395,5 @@ OJ IIFE definition to anchor JsDoc comments.
     };
     OJ.register("createUUID", createFauxUUID);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function() {
-    var controlName, friendlyName;
-    controlName = 'y-icon';
-    friendlyName = 'icon';
-    OJ.controls.members[controlName] = friendlyName;
-    return OJ.controls.register(friendlyName, function(options, owner) {
-      var className, classNameBase, defaults, isToggled, ret;
-      defaults = {
-        iconOpts: {
-          name: '',
-          stackedIcon: '',
-          swapIcon: '',
-          size: false,
-          color: '',
-          library: '',
-          isFixedWidth: false,
-          isList: false,
-          isSpinner: false
-        },
-        props: {
-          "class": ''
-        },
-        rootNodeType: 'span'
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.control(defaults, owner, controlName);
-      isToggled = false;
-      classNameBase = 'fa ';
-      if (defaults.iconOpts.isFixedWidth) {
-        classNameBase += 'fa-fw ';
-      }
-      if (defaults.iconOpts.isList) {
-        classNameBase += 'fa-li ';
-      }
-      if (defaults.iconOpts.isSpinner) {
-        classNameBase += 'fa-spin ';
-      }
-      if (defaults.iconOpts.size) {
-        if (defaults.iconOpts.size > 1 && defaults.iconOpts.size <= 5) {
-          classNameBase += 'fa-' + defaults.iconOpts.size + 'x ';
-        }
-      }
-      className = classNameBase + 'fa-' + defaults.iconOpts.name;
-      ret.myIcon = ret.i({
-        props: {
-          "class": className
-        }
-      });
-      ret.toggleIcon = function() {
-        var newIcon;
-        if (defaults.iconOpts.swapIcon) {
-          newIcon = defaults.iconOpts.name;
-          isToggled = !isToggled;
-          if (isToggled) {
-            ret.myIcon.$.removeClass('fa-' + newIcon);
-            newIcon = defaults.iconOpts.swapIcon;
-          } else {
-            ret.myIcon.$.removeClass('fa-' + defaults.iconOpts.swapIcon);
-          }
-          return ret.myIcon.$.addClass('fa-' + newIcon);
-        }
-      };
-      return ret;
-    });
-  })();
 
 }).call(this);

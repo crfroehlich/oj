@@ -10,7 +10,7 @@
     
     rootNodeType = options.rootNodeType or OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] or 'div'
     
-    ret = widget[rootNodeType] options
+    ret = widget.make rootNodeType, options
     ret.add 'componentName', tagName
     ret.add 'remove', widget.remove
     ret

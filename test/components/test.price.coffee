@@ -1,12 +1,12 @@
 ((OJ) ->
   module 'x-price', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    OJ.nodes.div()
+    if not OJ.body.make then OJ.nodes.div()
   
   test 'Test the price component', ->
     expect 4
     
-    price = OJ.body.price()
+    price = OJ.body.make 'price'
     
     
     # Test 1: componentName is address

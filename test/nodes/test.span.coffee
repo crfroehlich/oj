@@ -1,11 +1,11 @@
 ((OJ) ->
   module 'span', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    OJ.nodes.div()
+    if not OJ.body.make then OJ.nodes.div()
   
   test 'Test the Span node', ->
     expect 7
-    node = OJ.body.span()
+    node = OJ.body.make('span')
     node.text 'Hi I\'m some text'
     
     # Test 1: tagName is span
@@ -20,7 +20,7 @@
     deepEqual nodeId, dNode.id, 'Element IDs are equal'
     
     # Test 4: chaining works
-    child = node.span()
+    child = node.make('span')
     childId = child.getId()
     deepEqual child.tagName is 'span', true, 'Node is a span'
     

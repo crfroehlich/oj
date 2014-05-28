@@ -2,7 +2,7 @@
   nodeName = 'x-easypie'
   className = 'easypie'
   
-  OJ.components.members[nodeName] = className
+  OJ.components.members[className] = nodeName
   OJ.components.register className, (options, owner) ->
     defaults = 
       config:

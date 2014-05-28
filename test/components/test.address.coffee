@@ -1,12 +1,12 @@
 ((OJ) ->
   module 'x-address', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    OJ.nodes.div()
+    if not OJ.body.make then OJ.nodes.div()
   
   test 'Test the address component', ->
     expect 4
     
-    address = OJ.body.address()
+    address = OJ.body.make 'address'
     
     
     # Test 1: componentName is address

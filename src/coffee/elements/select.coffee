@@ -71,7 +71,7 @@
             text: text
             selected: selected
             disabled: disabled
-          option = ret.option val
+          option = ret.make 'option', val
           option.text text
           option
 

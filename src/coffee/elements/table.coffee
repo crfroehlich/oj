@@ -39,10 +39,10 @@
     thead = null
     theadRow = null
     ret.add 'init', _.once ->  
-      thead = ret.thead()
-      theadRow = thead.tr()
-      tbody = ret.tbody()
-      rows.push tbody.tr()
+      thead = ret.make 'thead'
+      theadRow = thead.make 'tr'
+      tbody = ret.make 'tbody'
+      rows.push tbody.make 'tr'
       ret
     
     fillMissing = () ->
@@ -62,7 +62,7 @@
       while thead[0].rows[0].cells.length < colNo
         nativeTh = thead[0].rows[0].cells[i]
         if not nativeTh
-          th = theadRow.th {}  
+          th = theadRow.make 'th', {}  
         else 
           th = OJ.restoreElement 'th', nativeTh  
         i += 1
@@ -81,7 +81,7 @@
       
       if not row
         while rows.length < rowNo
-          row = tbody.tr {}
+          row = tbody.make 'tr', {}
           rows.push row  
       
       if not row.cell

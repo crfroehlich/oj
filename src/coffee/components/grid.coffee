@@ -2,7 +2,7 @@
   nodeName = 'x-grid'
   className = 'grid'
   
-  OJ.components.members[nodeName] = className
+  OJ.components.members[className] = nodeName
   OJ.components.register className, (options, owner) ->
     defaults = 
       tileSizes:
@@ -22,13 +22,13 @@
       tiles.each (rowNo, colNo, val) ->
         if not val
           row = ret.row rowNo
-          row.tile colNo, {} 
+          row.make 'tile', colNo, {} 
     
     ret.add 'row', (rowNo = rows.length-1 or 1)->  
       nuRow = rows[rowNo-1]
       if not nuRow
         while rows.length < rowNo
-          nuRow = ret.div props: class: 'row'
+          nuRow = ret.make 'div', props: class: 'row'
           rows.push nuRow
         nuRow.add 'tile', (colNo, opts) ->
           opts = OJ.extend (OJ.extend {}, defaults.tileSizes), opts
@@ -51,9 +51,9 @@
           tryTile = tiles.get rowNo, i
           if not tryTile
             if i is colNo
-              tile = row.tile colNo, opts
+              tile = row.make 'tile', colNo, opts
             else if not tile
-              row.tile i
+              row.make 'tile', i
           
       fillMissing()
       tile      

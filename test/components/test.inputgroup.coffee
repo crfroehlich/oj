@@ -1,12 +1,12 @@
 ((OJ) ->
   module 'x-input-group', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    OJ.nodes.div()
+    if not OJ.body.make then OJ.nodes.div()
   
   test 'Test the inputgroup component', ->
     expect 4
     
-    inputgroup = OJ.body.inputgroup()
+    inputgroup = OJ.body.make 'inputgroup'
     
     
     # Test 1: componentName is inputgroup

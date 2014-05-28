@@ -2,7 +2,7 @@
   nodeName = 'x-infograph'
   className = 'infograph'
   
-  OJ.components.members[nodeName] = className
+  OJ.components.members[className] = nodeName
   OJ.components.register className, (options, owner) ->
     defaults = 
       icon: 'male'
@@ -47,7 +47,7 @@
         else if active > 0
           active -= 1
         #table.cell rowNum, colNum  
-        ret.i props: class: icon              
+        ret.make 'i', props: class: icon              
                
                          
     ret

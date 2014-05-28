@@ -2,7 +2,7 @@
   nodeName = 'x-input-group'
   className = 'inputgroup'
   
-  OJ.components.members[nodeName] = className
+  OJ.components.members[className] = nodeName
   
   OJ.components.register className, (options, owner) ->
     forId = OJ.createUUID()
@@ -24,12 +24,12 @@
     OJ.extend defaults, options, true
     ret = OJ.component defaults, owner, nodeName 
     
-    cmpnt = ret.div props: class: 'form-group'
+    cmpnt = ret.make 'div', props: class: 'form-group'
     
-    ret.groupLabel = cmpnt.label props: { for: forId }, text: defaults.labelText
+    ret.groupLabel = cmpnt.make 'label', props: { for: forId }, text: defaults.labelText
     
     defaults.inputOpts.props.class += ' form-control'
-    ret.groupInput = cmpnt.input defaults.inputOpts
+    ret.groupInput = cmpnt.make 'input', defaults.inputOpts
     
     ret.groupValue = () ->
       ret.groupInput.val()
