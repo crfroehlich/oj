@@ -89,14 +89,14 @@
     <Content Include="src\coffee\controls\icon.js">
       <DependentUpon>icon.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\tools\defer.js">
+      <DependentUpon>defer.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\tools\ranges.js">
       <DependentUpon>ranges.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\tools\array2D.js">
       <DependentUpon>array2D.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\tools\async.js">
-      <DependentUpon>async.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\tools\error.js">
       <DependentUpon>error.coffee</DependentUpon>
@@ -306,7 +306,7 @@
     <Content Include="src\coffee\components\tile.map">
       <DependentUpon>tile.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\tools\async.coffee" />
+    <Content Include="src\coffee\tools\defer.coffee" />
     <Content Include="src\coffee\components\inputgroup.coffee" />
     <Content Include="src\coffee\components\inputgroup.map">
       <DependentUpon>inputgroup.coffee</DependentUpon>
@@ -369,9 +369,6 @@
     <Content Include="src\coffee\components\flotchart.js.map">
       <DependentUpon>flotchart.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\tools\async.js.map">
-      <DependentUpon>async.js</DependentUpon>
-    </Content>
     <Content Include="src\coffee\components\price.js.map">
       <DependentUpon>price.js</DependentUpon>
     </Content>
@@ -404,6 +401,9 @@
     </Content>
     <Content Include="src\coffee\tools\console.js.map">
       <DependentUpon>console.js</DependentUpon>
+    </Content>
+    <Content Include="src\coffee\tools\defer.js.map">
+      <DependentUpon>defer.js</DependentUpon>
     </Content>
     <None Include="src\coffee\tools\each.coffee" />
     <Content Include="src\coffee\tools\each.js">
