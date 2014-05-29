@@ -1055,7 +1055,7 @@ OJ IIFE definition to anchor JsDoc comments.
         }
       }
       className = classNameBase + 'fa-' + defaults.iconOpts.name;
-      ret.myIcon = ret.i({
+      ret.myIcon = ret.make('i', {
         props: {
           "class": className
         }
@@ -1825,7 +1825,7 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-    var buildNodeForChaining, closed, initBody, makeAdd, nestableNodeNames, nodeNames, nonNestableNodes, open;
+    var addMakeMethod, closed, initBody, makeAdd, makeUniqueId, nestableNodeNames, nodeNames, nonNestableNodes, open;
     closed = 'a abbr acronym address applet article aside audio b bdo big blockquote body button canvas caption center cite code colgroup command datalist dd del details dfn dir div dl dt em embed fieldset figcaption figure font footer form frameset h1 h2 h3 h4 h5 h6 head header hgroup html i iframe ins keygen kbd label legend li map mark menu meter nav noframes noscript object ol optgroup option output p pre progress q rp rt ruby s samp script section select small source span strike strong style sub summary sup table tbody td textarea tfoot th thead time title tr tt u ul var video wbr xmp'.split(' ');
     open = 'area base br col command css !DOCTYPE embed hr img input keygen link meta param source track wbr'.split(' ');
     nestableNodeNames = ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'fieldset', 'select', 'ol', 'ul', 'table'];
@@ -1838,7 +1838,7 @@ OJ IIFE definition to anchor JsDoc comments.
       body.count = 0;
       body.root = null;
       OJ.dom(body, null);
-      buildNodeForChaining(body, 0);
+      addMakeMethod(body, 0);
       body.isFullyInit = true;
       return body;
     });
@@ -1864,40 +1864,51 @@ OJ IIFE definition to anchor JsDoc comments.
     nodeNames = ['a', 'b', 'br', 'button', 'div', 'em', 'fieldset', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'img', 'input', 'label', 'legend', 'li', 'nav', 'ol', 'option', 'p', 'select', 'span', 'strong', 'sup', 'svg', 'table', 'tbody', 'td', 'textarea', 'th', 'thead', 'tr', 'ul'];
     makeAdd = function(tagName, el, count) {
       return function(opts) {
-        var nu;
-        if (OJ.nodes[tagName]) {
-          nu = OJ.nodes[tagName](opts, el, true);
+        var method, nu;
+        method = OJ.nodes[tagName] || OJ.components[tagName] || OJ.controls[tagName] || OJ.inputs[tagName];
+        if (method) {
+          nu = method(opts, el, true);
         } else {
-          if (OJ.components[tagName]) {
-            nu = OJ.components[tagName](opts, el, true);
-          } else if (OJ.controls[tagName]) {
-            nu = OJ.controls[tagName](opts, el, true);
-          } else if (OJ.inputs[tagName]) {
-            nu = OJ.inputs[tagName](opts, el, true);
-          } else {
-            nu = OJ.component(tagName, el);
-          }
+          nu = OJ.component(tagName, el);
         }
         return OJ.nodes.factory(nu, el, count);
       };
     };
-    buildNodeForChaining = function(el, count) {
+    addMakeMethod = function(el, count) {
       var methods;
       methods = OJ.object();
       el.make = function(tagName, opts) {
-        if (!methods[tagName]) {
-          methods[tagName] = makeAdd(tagName, el, count);
+        var method;
+        method = methods[tagName];
+        if (!method) {
+          method = makeAdd(tagName, el, count);
+          methods[tagName] = method;
         }
-        return methods[tagName](opts);
+        return method(opts);
       };
       return el;
+    };
+    makeUniqueId = function(el, parent, count) {
+      var id;
+      if (OJ.GENERATE_UNIQUE_IDS) {
+        count += 1;
+        if (count <= parent.count) {
+          count = parent.count + 1;
+        }
+        parent.count = count;
+        if (!el.getId()) {
+          id = parent.getId();
+          id += el.tagName + count;
+          el.attr('id', id);
+        }
+      }
     };
 
     /*
     Extends a OJ Control class with all the (permitted) methods on the factory
      */
     OJ.nodes.register('factory', function(el, parent, count) {
-      var id, ret;
+      var ret;
       if (parent == null) {
         parent = OJ.body;
       }
@@ -1907,26 +1918,15 @@ OJ IIFE definition to anchor JsDoc comments.
       initBody(OJ.body);
       ret = el;
       if (!el.isFullyInit) {
-        count += 1;
-        if (count <= parent.count) {
-          count = parent.count + 1;
-        }
-        parent.count = count;
         if (el.tagName !== 'body') {
           ret = OJ.dom(el, parent);
           if (!ret.isInDOM) {
-            if (OJ.GENERATE_UNIQUE_IDS) {
-              if (!ret.getId()) {
-                id = parent.getId();
-                id += ret.tagName + count;
-                ret.attr('id', id);
-              }
-            }
+            makeUniqueId(el, parent, count);
             parent.append(ret[0]);
             ret.bindEvents();
             ret.isInDOM = true;
           }
-          buildNodeForChaining(ret, count);
+          addMakeMethod(ret, count);
           ret.isFullyInit = true;
         }
       }
