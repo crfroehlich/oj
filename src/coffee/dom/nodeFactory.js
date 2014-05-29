@@ -89,10 +89,10 @@
           count = parent.count + 1;
         }
         parent.count = count;
-        if (!ret.getId()) {
+        if (!el.getId()) {
           id = parent.getId();
-          id += ret.tagName + count;
-          ret.attr('id', id);
+          id += el.tagName + count;
+          el.attr('id', id);
         }
       }
     };
@@ -114,7 +114,7 @@
         if (el.tagName !== 'body') {
           ret = OJ.dom(el, parent);
           if (!ret.isInDOM) {
-            makeUniquqId(el, parent, count);
+            makeUniqueId(el, parent, count);
             parent.append(ret[0]);
             ret.bindEvents();
             ret.isInDOM = true;

@@ -139,10 +139,10 @@
       if count <= parent.count then count = parent.count + 1
       parent.count = count
       
-      if not ret.getId()
+      if not el.getId()
         id = parent.getId()
-        id += ret.tagName + count
-        ret.attr 'id', id
+        id += el.tagName + count
+        el.attr 'id', id
     return
         
   ###
@@ -166,7 +166,7 @@
         
         #6: If the node isn't in the DOM, append it to the parent
         if not ret.isInDOM
-          makeUniquqId el, parent, count
+          makeUniqueId el, parent, count
           parent.append ret[0]
           #7: Bind any defined events after the node is in the DOM
           ret.bindEvents()
