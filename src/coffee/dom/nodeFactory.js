@@ -41,30 +41,13 @@
     makeAdd = function(tagName, el, count) {
       return function(opts) {
         var method, nu;
-        method = OJ.nodes[tagName];
+        method = OJ.nodes[tagName] || OJ.components[tagName] || OJ.controls[tagName] || OJ.inputs[tagName];
         if (method) {
           nu = method(opts, el, true);
         } else {
-          method = OJ.components[tagName];
-          if (method) {
-            nu = method(opts, el, true);
-          } else {
-            method = OJ.controls[tagName];
-            if (method) {
-              nu = method(opts, el, true);
-            } else {
-              method = OJ.inputs[tagName];
-              if (method) {
-                nu = method(opts, el, true);
-              } else {
-                nu = OJ.component(tagName, el);
-              }
-            }
-          }
+          nu = OJ.component(tagName, el);
         }
-        if (nu) {
-          return OJ.nodes.factory(nu, el, count);
-        }
+        return OJ.nodes.factory(nu, el, count);
       };
     };
     addMakeMethod = function(el, count) {

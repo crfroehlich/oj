@@ -103,25 +103,12 @@
   
   makeAdd = (tagName, el, count) ->
     (opts) ->
-      method = OJ.nodes[tagName]
+      method = OJ.nodes[tagName] or OJ.components[tagName] or OJ.controls[tagName] or OJ.inputs[tagName]
       if method
         nu = method opts, el, true
       else 
-        method = OJ.components[tagName]
-        if method
-          nu = method opts, el, true
-        else 
-          method = OJ.controls[tagName]
-          if method
-            nu = method opts, el, true
-          else 
-            method = OJ.inputs[tagName]
-            if method
-              nu = method opts, el, true
-            else
-              nu = OJ.component tagName, el    
-      if nu
-        OJ.nodes.factory nu, el, count
+        nu = OJ.component tagName, el    
+      OJ.nodes.factory nu, el, count
   
   addMakeMethod = (el, count) ->
     methods = OJ.object()
