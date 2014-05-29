@@ -103,25 +103,34 @@
   
   makeAdd = (tagName, el, count) ->
     (opts) ->
-      if OJ.nodes[tagName]
-        nu = OJ.nodes[tagName] opts, el, true
+      method = OJ.nodes[tagName]
+      if method
+        nu = method opts, el, true
       else 
-        if OJ.components[tagName]
-          nu = OJ.components[tagName] opts, el, true
-        else if OJ.controls[tagName]
-          nu = OJ.controls[tagName] opts, el, true
-        else if OJ.inputs[tagName]
-          nu = OJ.inputs[tagName] opts, el, true
-        else
-          nu = OJ.component tagName, el    
-      OJ.nodes.factory nu, el, count
+        method = OJ.components[tagName]
+        if method
+          nu = method opts, el, true
+        else 
+          method = OJ.controls[tagName]
+          if method
+            nu = method opts, el, true
+          else 
+            method = OJ.inputs[tagName]
+            if method
+              nu = method opts, el, true
+            else
+              nu = OJ.component tagName, el    
+      if nu
+        OJ.nodes.factory nu, el, count
   
   buildNodeForChaining = (el, count) ->
     methods = OJ.object()
     el.make = (tagName, opts) ->
-      if not methods[tagName]
-        methods[tagName] = makeAdd tagName, el, count
-      methods[tagName] opts
+      method = methods[tagName]
+      if not method
+        method = makeAdd tagName, el, count
+        methods[tagName] = method
+      method opts
     el
     
   ###

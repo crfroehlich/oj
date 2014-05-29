@@ -40,31 +40,44 @@
     nodeNames = ['a', 'b', 'br', 'button', 'div', 'em', 'fieldset', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'img', 'input', 'label', 'legend', 'li', 'nav', 'ol', 'option', 'p', 'select', 'span', 'strong', 'sup', 'svg', 'table', 'tbody', 'td', 'textarea', 'th', 'thead', 'tr', 'ul'];
     makeAdd = function(tagName, el, count) {
       return function(opts) {
-        var nu;
-        if (OJ.nodes[tagName]) {
-          nu = OJ.nodes[tagName](opts, el, true);
+        var method, nu;
+        method = OJ.nodes[tagName];
+        if (method) {
+          nu = method(opts, el, true);
         } else {
-          if (OJ.components[tagName]) {
-            nu = OJ.components[tagName](opts, el, true);
-          } else if (OJ.controls[tagName]) {
-            nu = OJ.controls[tagName](opts, el, true);
-          } else if (OJ.inputs[tagName]) {
-            nu = OJ.inputs[tagName](opts, el, true);
+          method = OJ.components[tagName];
+          if (method) {
+            nu = method(opts, el, true);
           } else {
-            nu = OJ.component(tagName, el);
+            method = OJ.controls[tagName];
+            if (method) {
+              nu = method(opts, el, true);
+            } else {
+              method = OJ.inputs[tagName];
+              if (method) {
+                nu = method(opts, el, true);
+              } else {
+                nu = OJ.component(tagName, el);
+              }
+            }
           }
         }
-        return OJ.nodes.factory(nu, el, count);
+        if (nu) {
+          return OJ.nodes.factory(nu, el, count);
+        }
       };
     };
     buildNodeForChaining = function(el, count) {
       var methods;
       methods = OJ.object();
       el.make = function(tagName, opts) {
-        if (!methods[tagName]) {
-          methods[tagName] = makeAdd(tagName, el, count);
+        var method;
+        method = methods[tagName];
+        if (!method) {
+          method = makeAdd(tagName, el, count);
+          methods[tagName] = method;
         }
-        return methods[tagName](opts);
+        return method(opts);
       };
       return el;
     };
