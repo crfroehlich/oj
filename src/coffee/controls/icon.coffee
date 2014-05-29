@@ -37,7 +37,7 @@
         classNameBase += 'fa-' + defaults.iconOpts.size + 'x '
       
     className = classNameBase + 'fa-' + defaults.iconOpts.name
-    ret.myIcon = ret.i props: class: className
+    ret.myIcon = ret.make 'i', props: class: className
 
     #Toggles display between normal icon and swap icon, if a swap icon has been specified
     ret.toggleIcon = ->

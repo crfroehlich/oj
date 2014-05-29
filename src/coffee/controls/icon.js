@@ -43,7 +43,7 @@
         }
       }
       className = classNameBase + 'fa-' + defaults.iconOpts.name;
-      ret.myIcon = ret.i({
+      ret.myIcon = ret.make('i', {
         props: {
           "class": className
         }
