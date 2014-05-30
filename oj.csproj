@@ -1139,6 +1139,9 @@
     <Content Include="test\core\test.to.map">
       <DependentUpon>test.to.coffee</DependentUpon>
     </Content>
+    <Content Include="test\nodes\test.allNodes.js">
+      <DependentUpon>test.allNodes.coffee</DependentUpon>
+    </Content>
     <Content Include="test\nodes\test.div.coffee" />
     <Content Include="test\nodes\test.div.js">
       <DependentUpon>test.div.coffee</DependentUpon>
@@ -1158,6 +1161,10 @@
     </Content>
     <Content Include="test\core\test.to.js.map">
       <DependentUpon>test.to.js</DependentUpon>
+    </Content>
+    <Content Include="test\nodes\test.allNodes.coffee" />
+    <Content Include="test\nodes\test.allNodes.map">
+      <DependentUpon>test.allNodes.coffee</DependentUpon>
     </Content>
     <None Include="test\nodes\test.table.coffee" />
     <Content Include="test\core\test.to.js">
