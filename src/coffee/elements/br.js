@@ -5,7 +5,7 @@
     var nodeName;
     nodeName = 'br';
     OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
+      var defaults, i, ret;
       if (owner == null) {
         owner = OJ.body;
       }
@@ -21,7 +21,8 @@
         number: 1
       };
       OJ.extend(defaults, options, true);
-      while (i < OJ.number(defaults.number)) {
+      i = 0;
+      while (i < OJ.to.number(defaults.number)) {
         ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
         i += 1;
       }

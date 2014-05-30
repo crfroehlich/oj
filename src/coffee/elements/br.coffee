@@ -13,7 +13,8 @@
       number: 1  
     
     OJ.extend defaults, options, true
-    while i < OJ.number defaults.number
+    i = 0
+    while i < OJ.to.number defaults.number
       # In the case of multiple brs, it is desirable to only get the last one out
       ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
       
