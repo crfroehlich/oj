@@ -1110,6 +1110,7 @@
     <Content Include="test\controls\test.allControls.map">
       <DependentUpon>test.allControls.coffee</DependentUpon>
     </Content>
+    <Content Include="test\inputs\test.allInputs.coffee" />
     <None Include="test\core\test.is.coffee" />
     <Content Include="test\components\test.grid.js">
       <DependentUpon>test.grid.coffee</DependentUpon>
@@ -1146,6 +1147,9 @@
     <Content Include="test\core\test.to.map">
       <DependentUpon>test.to.coffee</DependentUpon>
     </Content>
+    <Content Include="test\inputs\test.allInputs.js">
+      <DependentUpon>test.allInputs.coffee</DependentUpon>
+    </Content>
     <Content Include="test\nodes\test.allNodes.js">
       <DependentUpon>test.allNodes.coffee</DependentUpon>
     </Content>
@@ -1172,6 +1176,9 @@
     <Content Include="test\nodes\test.allNodes.coffee" />
     <Content Include="test\nodes\test.allNodes.map">
       <DependentUpon>test.allNodes.coffee</DependentUpon>
+    </Content>
+    <Content Include="test\inputs\test.allInputs.map">
+      <DependentUpon>test.allInputs.coffee</DependentUpon>
     </Content>
     <None Include="test\nodes\test.table.coffee" />
     <Content Include="test\core\test.to.js">
