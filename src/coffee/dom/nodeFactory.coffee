@@ -107,7 +107,7 @@
       if method
         nu = method opts, el, true
       else 
-        nu = OJ.component tagName, el    
+        nu = OJ.component null, el, tagName    
       OJ.nodes.factory nu, el, count
   
   addMakeMethod = (el, count) ->
