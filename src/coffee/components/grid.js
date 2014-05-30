@@ -72,9 +72,9 @@
             tryTile = tiles.get(rowNo, i);
             if (!tryTile) {
               if (i === colNo) {
-                tile = row.make('tile', colNo, opts);
+                tile = row.tile(colNo, opts);
               } else if (!tile) {
-                row.make('tile', i);
+                row.tile(i);
               }
             }
           }
