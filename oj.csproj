@@ -1106,6 +1106,10 @@
     <Content Include="test\components\test.tabs.js.map">
       <DependentUpon>test.tabs.js</DependentUpon>
     </Content>
+    <Content Include="test\controls\test.allControls.coffee" />
+    <Content Include="test\controls\test.allControls.map">
+      <DependentUpon>test.allControls.coffee</DependentUpon>
+    </Content>
     <None Include="test\core\test.is.coffee" />
     <Content Include="test\components\test.grid.js">
       <DependentUpon>test.grid.coffee</DependentUpon>
@@ -1115,6 +1119,9 @@
     </Content>
     <Content Include="test\components\test.tabs.js">
       <DependentUpon>test.tabs.coffee</DependentUpon>
+    </Content>
+    <Content Include="test\controls\test.allControls.js">
+      <DependentUpon>test.allControls.coffee</DependentUpon>
     </Content>
     <Content Include="test\core\test.is.js">
       <DependentUpon>test.is.coffee</DependentUpon>
