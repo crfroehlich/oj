@@ -1,0 +1,28 @@
+<!DOCTYPE html><html lang="en"><head><title>ojInit</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="ojInit"><meta name="groc-project-path" content="src/coffee/ojInit.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/ojInit.coffee">src/coffee/ojInit.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="nf">(OJ) -&gt;</span>
+  
+  <span class="nv">subNameSpaces = </span><span class="p">[</span>
+    <span class="s">&#39;errors&#39;</span>
+    <span class="s">&#39;enums&#39;</span>
+    <span class="s">&#39;is&#39;</span>
+    <span class="s">&#39;instanceOf&#39;</span>
+    <span class="s">&#39;to&#39;</span>
+    <span class="s">&#39;nodes&#39;</span>
+    <span class="s">&#39;db&#39;</span>
+    <span class="s">&#39;components&#39;</span>
+    <span class="s">&#39;controls&#39;</span>
+    <span class="s">&#39;inputs&#39;</span>
+    <span class="s">&#39;notifications&#39;</span>
+    <span class="s">&#39;history&#39;</span>
+    <span class="s">&#39;cookie&#39;</span>
+    <span class="s">&#39;async&#39;</span>
+  <span class="p">]</span>
+  
+  <span class="nx">_</span><span class="p">.</span><span class="nx">each</span> <span class="nx">subNameSpaces</span><span class="p">,</span> <span class="nf">(name) -&gt;</span>
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">makeSubNameSpace</span> <span class="nx">name</span>
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Configuration variables</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">[</span><span class="s">&#39;GENERATE_UNIQUE_IDS&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">false</span>
+  <span class="nx">OJ</span><span class="p">[</span><span class="s">&#39;DEFAULT_COMPONENT_ROOT_NODETYPE&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;div&#39;</span>
+  <span class="nx">OJ</span><span class="p">[</span><span class="s">&#39;TRACK_ON_ERROR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">false</span>
+  
+  <span class="k">return</span>
+  
+<span class="p">)</span>  <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">global</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="o">and</span> <span class="nx">global</span> <span class="k">then</span> <span class="nx">global</span> <span class="k">else</span> <span class="p">(</span><span class="k">if</span> <span class="k">typeof</span> <span class="nb">window</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="k">then</span> <span class="nb">window</span> <span class="k">else</span> <span class="k">this</span><span class="p">))).</span><span class="nx">OJ</span></div></div></div></div></body></html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html><html lang="en"><head><title>dom/nodeFactory</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="dom/nodeFactory"><meta name="groc-project-path" content="src/coffee/dom/nodeFactory.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/dom/nodeFactory.coffee">src/coffee/dom/nodeFactory.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="nf">(OJ)-&gt;</span>
+
+  <span class="nv">closed = </span><span class="s">&#39;a abbr acronym address applet article aside audio b bdo big blockquote body button canvas caption center cite code colgroup command datalist dd del details dfn dir div dl dt em embed fieldset figcaption figure font footer form frameset h1 h2 h3 h4 h5 h6 head header hgroup html i iframe ins keygen kbd label legend li map mark menu meter nav noframes noscript object ol optgroup option output p pre progress q rp rt ruby s samp script section select small source span strike strong style sub summary sup table tbody td textarea tfoot th thead time title tr tt u ul var video wbr xmp&#39;</span><span class="p">.</span><span class="nx">split</span> <span class="s">&#39; &#39;</span>
+  <span class="nv">open = </span><span class="s">&#39;area base br col command css !DOCTYPE embed hr img input keygen link meta param source track wbr&#39;</span><span class="p">.</span><span class="nx">split</span> <span class="s">&#39; &#39;</span>
+  
+  <span class="nv">nestableNodeNames = </span><span class="p">[</span>
+    <span class="s">&#39;div&#39;</span> 
+    <span class="s">&#39;span&#39;</span> 
+    <span class="s">&#39;h1&#39;</span> 
+    <span class="s">&#39;h2&#39;</span> 
+    <span class="s">&#39;h3&#39;</span> 
+    <span class="s">&#39;h4&#39;</span> 
+    <span class="s">&#39;h5&#39;</span> 
+    <span class="s">&#39;h6&#39;</span> 
+    <span class="s">&#39;p&#39;</span> 
+    <span class="s">&#39;fieldset&#39;</span> 
+    <span class="s">&#39;select&#39;</span> 
+    <span class="s">&#39;ol&#39;</span> 
+    <span class="s">&#39;ul&#39;</span> 
+    <span class="s">&#39;table&#39;</span>
+  <span class="p">]</span>
+      </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This list is not yet exhaustive, just exclude the obvious</p></div></div><div class="code"><div class="wrapper">  <span class="nv">nonNestableNodes = </span><span class="p">[</span>
+    <span class="s">&#39;li&#39;</span>
+    <span class="s">&#39;legend&#39;</span>
+    <span class="s">&#39;tr&#39;</span>
+    <span class="s">&#39;td&#39;</span>
+    <span class="s">&#39;option&#39;</span>
+    <span class="s">&#39;body&#39;</span>
+    <span class="s">&#39;head&#39;</span>
+    <span class="s">&#39;source&#39;</span>
+    <span class="s">&#39;tbody&#39;</span>
+    <span class="s">&#39;tfoot&#39;</span>
+    <span class="s">&#39;thead&#39;</span>
+    <span class="s">&#39;link&#39;</span>
+    <span class="s">&#39;script&#39;</span>
+  <span class="p">]</span>
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Init the body for chaining the first time it's seen</p></div></div><div class="code"><div class="wrapper">  <span class="nv">initBody = </span><span class="nx">_</span><span class="p">.</span><span class="nx">once</span> <span class="nf">(body) -&gt;</span>
+    <span class="nv">body.count = </span><span class="mi">0</span>
+    <span class="nv">body.root = </span><span class="kc">null</span>
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">dom</span> <span class="nx">body</span><span class="p">,</span> <span class="kc">null</span>
+    <span class="nx">addMakeMethod</span> <span class="nx">body</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="nv">body.isFullyInit = </span><span class="kc">true</span>
+    <span class="nx">body</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Fetch a node from the DOM and return an OJ'fied instance of the element</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;get&#39;</span><span class="p">,</span> <span class="nf">(id, tagName = &#39;div&#39;) -&gt;</span>
+    <span class="nv">ret = </span><span class="kc">null</span>
+    <span class="nv">el = </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span> <span class="nx">id</span>
+    <span class="k">if</span> <span class="nx">el</span>
+      <span class="nv">thinEl = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">restoreElement</span> <span class="nx">tagName</span><span class="p">,</span> <span class="nx">el</span>
+    <span class="k">if</span> <span class="nx">thinEl</span>
+      <span class="nv">ret = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">factory</span> <span class="nx">thinEl</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">0</span>
+    
+    <span class="nx">ret</span>
+  
+  <span class="nv">nodeNames = </span><span class="p">[</span>
+    <span class="s">&#39;a&#39;</span>
+    <span class="s">&#39;b&#39;</span>
+    <span class="s">&#39;br&#39;</span>
+    <span class="s">&#39;button&#39;</span>
+    <span class="s">&#39;div&#39;</span>
+    <span class="s">&#39;em&#39;</span>
+    <span class="s">&#39;fieldset&#39;</span>
+    <span class="s">&#39;form&#39;</span>
+    <span class="s">&#39;h1&#39;</span>
+    <span class="s">&#39;h2&#39;</span>
+    <span class="s">&#39;h3&#39;</span>
+    <span class="s">&#39;h4&#39;</span>
+    <span class="s">&#39;h5&#39;</span>
+    <span class="s">&#39;h6&#39;</span>
+    <span class="s">&#39;i&#39;</span>
+    <span class="s">&#39;img&#39;</span>
+    <span class="s">&#39;input&#39;</span>
+    <span class="s">&#39;label&#39;</span>
+    <span class="s">&#39;legend&#39;</span>
+    <span class="s">&#39;li&#39;</span>
+    <span class="s">&#39;nav&#39;</span>
+    <span class="s">&#39;ol&#39;</span>
+    <span class="s">&#39;option&#39;</span>
+    <span class="s">&#39;p&#39;</span>
+    <span class="s">&#39;select&#39;</span>
+    <span class="s">&#39;span&#39;</span>
+    <span class="s">&#39;strong&#39;</span>
+    <span class="s">&#39;sup&#39;</span>
+    <span class="s">&#39;svg&#39;</span>
+    <span class="s">&#39;table&#39;</span>
+    <span class="s">&#39;tbody&#39;</span>
+    <span class="s">&#39;td&#39;</span>
+    <span class="s">&#39;textarea&#39;</span>
+    <span class="s">&#39;th&#39;</span>
+    <span class="s">&#39;thead&#39;</span>
+    <span class="s">&#39;tr&#39;</span>
+    <span class="s">&#39;ul&#39;</span>
+  <span class="p">]</span>
+  
+  <span class="nv">makeAdd = </span><span class="nf">(tagName, el, count) -&gt;</span>
+    <span class="nf">(opts) -&gt;</span>
+      <span class="nv">method = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">[</span><span class="nx">tagName</span><span class="p">]</span> <span class="o">or</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">components</span><span class="p">[</span><span class="nx">tagName</span><span class="p">]</span> <span class="o">or</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">controls</span><span class="p">[</span><span class="nx">tagName</span><span class="p">]</span> <span class="o">or</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">inputs</span><span class="p">[</span><span class="nx">tagName</span><span class="p">]</span>
+      <span class="k">if</span> <span class="nx">method</span>
+        <span class="nv">nu = </span><span class="nx">method</span> <span class="nx">opts</span><span class="p">,</span> <span class="nx">el</span><span class="p">,</span> <span class="kc">true</span>
+      <span class="k">else</span> 
+        <span class="nv">nu = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">component</span> <span class="kc">null</span><span class="p">,</span> <span class="nx">el</span><span class="p">,</span> <span class="nx">tagName</span>    
+      <span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">factory</span> <span class="nx">nu</span><span class="p">,</span> <span class="nx">el</span><span class="p">,</span> <span class="nx">count</span>
+  
+  <span class="nv">addMakeMethod = </span><span class="nf">(el, count) -&gt;</span>
+    <span class="nv">methods = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">object</span><span class="p">()</span>
+    <span class="nv">el.make = </span><span class="nf">(tagName, opts) -&gt;</span>
+      <span class="nv">method = </span><span class="nx">methods</span><span class="p">[</span><span class="nx">tagName</span><span class="p">]</span>
+      <span class="k">if</span> <span class="o">not</span> <span class="nx">method</span>
+        <span class="nv">method = </span><span class="nx">makeAdd</span> <span class="nx">tagName</span><span class="p">,</span> <span class="nx">el</span><span class="p">,</span> <span class="nx">count</span>
+        <span class="nx">methods</span><span class="p">[</span><span class="nx">tagName</span><span class="p">]</span> <span class="o">=</span> <span class="nx">method</span>
+      <span class="nx">method</span> <span class="nx">opts</span>
+    <span class="nx">el</span>
+  
+  <span class="nv">makeUniqueId = </span><span class="nf">(el, parent, count) -&gt;</span>
+    <span class="k">if</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">GENERATE_UNIQUE_IDS</span>
+      <span class="nx">count</span> <span class="o">+=</span> <span class="mi">1</span>
+      <span class="k">if</span> <span class="nx">count</span> <span class="o">&lt;=</span> <span class="nx">parent</span><span class="p">.</span><span class="nx">count</span> <span class="k">then</span> <span class="nv">count = </span><span class="nx">parent</span><span class="p">.</span><span class="nx">count</span> <span class="o">+</span> <span class="mi">1</span>
+      <span class="nv">parent.count = </span><span class="nx">count</span>
+      
+      <span class="k">if</span> <span class="o">not</span> <span class="nx">el</span><span class="p">.</span><span class="nx">getId</span><span class="p">()</span>
+        <span class="nv">id = </span><span class="nx">parent</span><span class="p">.</span><span class="nx">getId</span><span class="p">()</span>
+        <span class="nx">id</span> <span class="o">+=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">+</span> <span class="nx">count</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">attr</span> <span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="nx">id</span>
+    <span class="k">return</span>
+        </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Extends a OJ Control class with all the (permitted) methods on the factory</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;factory&#39;</span><span class="p">,</span> <span class="nf">(el, parent = OJ.body, count = parent.count or 0) -&gt;</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>1: Guarantee that the body node is initialized (this will only execute once)</p></div></div><div class="code"><div class="wrapper">    <span class="nx">initBody</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">body</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>2: for clarity, we are returning the extended element</p></div></div><div class="code"><div class="wrapper">    <span class="nv">ret = </span><span class="nx">el</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>3: If the element has never been initialized, continue</p></div></div><div class="code"><div class="wrapper">    <span class="k">if</span> <span class="o">not</span> <span class="nx">el</span><span class="p">.</span><span class="nx">isFullyInit</span>
+      </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>4: As long as the element isn't the body node, continue</p></div></div><div class="code"><div class="wrapper">      <span class="k">if</span> <span class="nx">el</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">isnt</span> <span class="s">&#39;body&#39;</span> </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>5: Extend the element with standard jQuery API methods</p></div></div><div class="code"><div class="wrapper">        <span class="nv">ret = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">dom</span> <span class="nx">el</span><span class="p">,</span> <span class="nx">parent</span>
+        </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>6: If the node isn't in the DOM, append it to the parent</p></div></div><div class="code"><div class="wrapper">        <span class="k">if</span> <span class="o">not</span> <span class="nx">ret</span><span class="p">.</span><span class="nx">isInDOM</span>
+          <span class="nx">makeUniqueId</span> <span class="nx">el</span><span class="p">,</span> <span class="nx">parent</span><span class="p">,</span> <span class="nx">count</span>
+          <span class="nx">parent</span><span class="p">.</span><span class="nx">append</span> <span class="nx">ret</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>7: Bind any defined events after the node is in the DOM</p></div></div><div class="code"><div class="wrapper">          <span class="nx">ret</span><span class="p">.</span><span class="nx">bindEvents</span><span class="p">()</span>
+          <span class="nv">ret.isInDOM = </span><span class="kc">true</span>
+        </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>8: Create the all important 'make' method</p></div></div><div class="code"><div class="wrapper">        <span class="nx">addMakeMethod</span> <span class="nx">ret</span><span class="p">,</span> <span class="nx">count</span>
+        </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>9: Prevent duplicate factory extension by setting is init = true</p></div></div><div class="code"><div class="wrapper">        <span class="nv">ret.isFullyInit = </span><span class="kc">true</span>     
+        </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>10: Return the extended element    </p></div></div><div class="code"><div class="wrapper">    <span class="nx">ret</span>
+
+  <span class="k">return</span>
+<span class="p">)</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">global</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="o">and</span> <span class="nx">global</span> <span class="k">then</span> <span class="nx">global</span> <span class="k">else</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nb">window</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="k">then</span> <span class="nb">window</span> <span class="k">else</span> <span class="k">this</span><span class="p">)))).</span><span class="nx">OJ</span></div></div></div></div></body></html>

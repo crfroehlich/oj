@@ -1,0 +1,24 @@
+<!DOCTYPE html><html lang="en"><head><title>components/sparkline</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="components/sparkline"><meta name="groc-project-path" content="src/coffee/components/sparkline.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/components/sparkline.coffee">src/coffee/components/sparkline.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="err">﻿</span><span class="p">(</span><span class="nf">(OJ) -&gt;</span>
+  <span class="nv">nodeName = </span><span class="s">&#39;x-sparkline&#39;</span>
+  <span class="nv">className = </span><span class="s">&#39;sparkline&#39;</span>
+  
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">members</span><span class="p">[</span><span class="nx">className</span><span class="p">]</span> <span class="o">=</span> <span class="nx">nodeName</span>
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">components</span><span class="p">.</span><span class="nx">register</span> <span class="nx">className</span><span class="p">,</span> <span class="nf">(options, owner) -&gt;</span>
+    <span class="nv">defaults = </span>
+      <span class="nv">config:</span>
+        <span class="nv">type: </span><span class="s">&#39;line&#39;</span>
+        <span class="nv">height: </span><span class="s">&#39;70&#39;</span>
+        <span class="nv">width: </span><span class="s">&#39;&#39;</span>
+        <span class="nv">enableTagOptions: </span><span class="kc">true</span>
+      <span class="nv">data: </span><span class="p">[]</span>
+      <span class="nv">props: </span>
+        <span class="k">class</span><span class="o">:</span> <span class="s">&#39;sparkline&#39;</span>
+    
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">defaults</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="kc">true</span>
+    <span class="nv">ret = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">component</span> <span class="nx">defaults</span><span class="p">,</span> <span class="nx">owner</span><span class="p">,</span> <span class="nx">nodeName</span> 
+    <span class="nx">ret</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">sparkline</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">data</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">config</span>
+    
+    <span class="nx">ret</span>
+
+  <span class="k">return</span>
+<span class="p">)</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">global</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="o">and</span> <span class="nx">global</span> <span class="k">then</span> <span class="nx">global</span> <span class="k">else</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nb">window</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="k">then</span> <span class="nb">window</span> <span class="k">else</span> <span class="k">this</span><span class="p">)))).</span><span class="nx">OJ</span></div></div></div></div></body></html>

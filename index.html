@@ -1,139 +1,104 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+<!DOCTYPE html><html lang="en"><head><title>index</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content=""><meta name="groc-document-path" content="index"><meta name="groc-project-path" content="README.md"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="assets/style.css"><script type="text/javascript" src="assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/README.md">README.md</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h2 id="welcome-to-oj">Welcome to OJ.</h2>
 
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
+<p>OJ(S) (OJ.js || OpenJS || Orange Julius || whatever you like) is a framework upon which to build web applications in pure (sometimes functional) <del>JavaScript</del> CoffeeScript.</p>
 
-    <title>OJ by somecallmechief</title>
-  </head>
+<p>OJ is packaged for Node and Bower. Other options abound.
+* Bower <code>bower install --save ojs</code>
+* From NPM last stable <code>npm install --save ojs</code>
+* Clone from Git <code>git clone git@github.com:somecallmechief/oj.git</code></p>
 
-  <body>
-
-    <header>
-      <div class="container">
-        <h1>OJ</h1>
-        <h2>OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn&#39;t rely on string templating or partially baked web standards.</h2>
-
-        <section id="downloads">
-          <a href="https://github.com/somecallmechief/oj/zipball/master" class="btn">Download as .zip</a>
-          <a href="https://github.com/somecallmechief/oj/tarball/master" class="btn">Download as .tar.gz</a>
-          <a href="https://github.com/somecallmechief/oj" class="btn btn-github"><span class="icon"></span>View on GitHub</a>
-        </section>
-      </div>
-    </header>
-
-    <div class="container">
-      <section id="main_content">
-        <h2>
-<a name="welcome-to-oj" class="anchor" href="#welcome-to-oj"><span class="octicon octicon-link"></span></a>Welcome to OJ.</h2>
-
-<p>OJ(S) (OJ.js || OpenJS || Orange Julius || whatever you like) is a framework upon which to build web applications in pure (sometimes functional) JavaScript.</p>
-
-<p>OJ is packaged for Node and Bower. Other options abound.</p>
-
-<ul>
-<li>Bower <code>bower install --save ojs</code>
-</li>
-<li>From NPM last stable <code>npm install --save ojs</code>
-</li>
-<li>Clone from Git <code>git clone git@github.com:somecallmechief/oj.git</code>
-*</li>
-</ul><p>There are more than a few TODOs before OJ will fully deliver on its promise, but this is the API at the core of the vision:</p>
-
-<div class="highlight highlight-coffee"><pre><span class="nv">div = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">body</span><span class="p">.</span><span class="nx">div</span><span class="p">()</span>
-  <span class="p">.</span><span class="nx">text</span> <span class="s">"Aloha! Ahoy! Hola! Prevet!"</span>
-<span class="nv">cell11 = </span><span class="nx">div</span><span class="p">.</span><span class="nx">table</span><span class="p">()</span>
-  <span class="p">.</span><span class="nx">cell</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
-  <span class="p">.</span><span class="nx">text</span> <span class="s">'Ahoy, column 1, row 1!'</span>
-<span class="nv">span = </span><span class="nx">cell11</span><span class="p">.</span><span class="nx">span</span><span class="p">().</span><span class="nx">text</span> <span class="s">'Aloha! Ahoy! Hola! Prevet!'</span>
-<span class="p">...</span>
-<span class="nx">div</span><span class="p">.</span><span class="nx">loginDialog</span> <span class="p">{</span> <span class="nv">pass: </span><span class="nx">loadMainPage</span><span class="p">,</span> <span class="nv">fail: </span><span class="nx">div</span><span class="p">.</span><span class="nx">loginDialog</span> <span class="p">}</span>
-<span class="o">```</span><span class="nx">coffee</span>
-<span class="nv">div = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">node</span><span class="p">.</span><span class="nx">make</span> <span class="s">"body"</span>
-  <span class="p">.</span><span class="nx">div</span><span class="p">()</span>
-  <span class="p">.</span><span class="nx">text</span> <span class="s">"Aloha! Ahoy! Hola! Prevet!"</span>
-<span class="nv">cell11 = </span><span class="nx">div</span><span class="p">.</span><span class="nx">table</span><span class="p">()</span>
-  <span class="p">.</span><span class="nx">cell</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span>
-  <span class="p">.</span><span class="nx">text</span> <span class="s">'Ahoy, column 1, row 1!'</span>
-<span class="nv">span = </span><span class="nx">cell11</span><span class="p">.</span><span class="nx">span</span><span class="p">().</span><span class="nx">text</span> <span class="s">'Aloha! Ahoy! Hola! Prevet!'</span>
-<span class="p">...</span>
-<span class="nx">div</span><span class="p">.</span><span class="nx">loginDialog</span> <span class="p">{</span> <span class="nv">pass: </span><span class="nx">loadMainPage</span><span class="p">,</span> <span class="nv">fail: </span><span class="nx">div</span><span class="p">.</span><span class="nx">loginDialog</span> <span class="p">}</span>
-</pre></div>
+<h3 id="abstract">Abstract</h3>
 
 <p>OJ is written in CoffeeScript. The distribution folder has the complete CS and JS for the project.
 The source folder includes CS, JS and source maps for each individual file.
 Feel free to use OJ in either flavor.
 While OJ probably doesn't have a lot of utility in the context of Node, I have made an effort to keep it Node-compatible--although there is absolutely no testing to this effect.</p>
 
-<h3>
-<a name="semantics" class="anchor" href="#semantics"><span class="octicon octicon-link"></span></a>Semantics</h3>
+<h3 id="api">API</h3>
 
-<p>By design, OJ handles the generation of unique element IDs for every DOM node automatically under the hood.
-This provides faster lookups in the internal API and encourages you to reference nodes in memory as opposed to relying on "truth in DOM".
-For example, while you might write something like the following in jQuery:</p>
+<p>At its heart, OJ provides a simple API to build out the DOM:</p>
 
-<div class="highlight highlight-coffee"><pre><span class="nx">jQuery</span> <span class="s">'#myHolaDiv'</span>
-  <span class="p">.</span><span class="nx">append</span> <span class="s">'&lt;div id="leavingDiv"&gt;Leaving...&lt;/div&gt;'</span>
-<span class="nx">jQuery</span> <span class="s">'#myHolaDiv'</span>
-  <span class="p">.</span><span class="nx">append</span> <span class="s">'&lt;div&gt;Leaving......&lt;/div&gt;'</span>
-<span class="nx">jQuery</span> <span class="s">'#myHolaDiv'</span>
-  <span class="p">.</span><span class="nx">append</span> <span class="s">'&lt;div id="goneDiv"&gt;Gone&lt;/div&gt;'</span>
-</pre></div>
+<pre><code class="coffee">div = OJ.body.make 'div', text: "Aloha! Ahoy! Hola! Prevet!"
+cell11 = div.make 'table'
+  .cell 1, 1, text: 'Ahoy, column 1, row 1!'
+  .cell 2, 1, text: 'Aloha, column 1, row 2!'
+span = cell11.make 'span', text: 'Aloha! Ahoy! Hola! Prevet!'
+</code></pre>
+
+<p>Nearly all standard nodes are accessible via chaining, starting with the body element. Every OJ node is chainable against the entire set of compatible child nodes. For example:</p>
+
+<pre><code class="coffee">div = OJ.body.make 'div'
+select = div.make 'select'
+  .make 'button' #not terribly rational, but valid semantic
+  .make 'option' #more reasonable chained method
+
+fieldSet = div.make 'fieldset'
+  .make 'legend'
+
+ol = div.make 'ol'
+  .make 'span' #not a great idea, but entirely possible
+  .make 'li' #preferable child node
+  .make 'div' #another valid child of li
+  .make 'ul' #valid child of div
+  .make 'p' #suboptimal but valid
+  .make 'li' #valid child of li
+</code></pre>
+
+<p>This simple semantic makes it possible to build more complex web components, which are encapsulated as OJ classes.</p>
+
+<pre><code class="coffee">div.make 'grid' #creates a Bootstrap grid
+  .tile 1, 1 #creates row 1, column 1
+  .make 'grid' #creates a nested grid on previous tile
+  .tile 1, 1 #creates nested row, nested column
+</code></pre>
+
+<p>Components are currently a work in progress, but several functional components include jQuery Sparkline, jQuery Flotchart, and Bootstrap grids.</p>
+
+<h3 id="foundation">Foundation</h3>
+
+<p>In order for OJ to scale, it has to be fast. By far, the fastest way to insert nodes into the DOM is by calling <code>document.createElement</code> and <code>someElement.appendChild</code>. Unfortunately, this is a tedious process to do manually. Rather than revert to anti-patterns like setting innerHTML, OJ leverages the speed of ThinDOM for light, fast, semantically accurate DOM insertion. This does come at a slight cost, but ThinDOM outperforms jQuery insertions by at least an order of magnitude--so it's a logical choice for the core of OJ's DOM manipulation. </p>
+
+<p>While ThinDOM may be the fastest choice for getting your nodes into the DOM, it doesn't offer the cross-browser support and flexibility of jQuery's API--so for everything else you need to do to your nodes, OJ wraps around jQuery to provide access to all of the <code>addClass</code> and <code>hide</code> and <code>on</code> that you might need.</p>
+
+<h3 id="semantics">Semantics</h3>
+
+<p>By design, OJ handles the generation of unique element IDs for every DOM node automatically under the hood. This provides faster lookups in the internal API and encourages you to reference nodes in memory as opposed to relying on "truth in DOM". For example, while you might write something like the following in jQuery:</p>
+
+<pre><code class="coffee">jQuery '#myHolaDiv'
+  .append '&lt;div id="leavingDiv"&gt;Leaving...&lt;/div&gt;'
+jQuery '#myHolaDiv'
+  .append '&lt;div&gt;Leaving......&lt;/div&gt;'
+jQuery '#myHolaDiv'
+  .append '&lt;div id="goneDiv"&gt;Gone&lt;/div&gt;'
+</code></pre>
 
 <p>And at some point later fetch the node from the DOM:</p>
 
-<div class="highlight highlight-coffee"><pre><span class="nv">leaving = </span><span class="nx">jQuery</span> <span class="s">'#leavingDiv'</span>
-  <span class="p">.</span><span class="nx">hide</span><span class="p">();</span>
-</pre></div>
+<pre><code class="coffee">leaving = jQuery '#leavingDiv'
+  .hide();
+</code></pre>
 
-<p>In OJ, this is generally discouraged. Node lookups by ID are possible (if you maintain a reference to the ID),
-but it is usually better to chain in memory, preserving a reference to the object:</p>
+<p>In OJ, this is generally discouraged. Node lookups by ID are possible (if you maintain a reference to the ID <code>OJ.nodes.get('myHolaDiv)</code>), but it is usually better to consolidate behavior using a reference to the object and encapsulate the logic into components.</p>
 
-<div class="highlight highlight-coffee"><pre><span class="nv">myHolaDiv = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">div</span><span class="p">();</span>
-<span class="nx">myHolaDiv</span><span class="p">.</span><span class="nx">div</span><span class="p">()</span>
-  <span class="p">.</span><span class="nx">text</span> <span class="s">'Leaving...'</span>
-<span class="nx">myHolaDiv</span><span class="p">.</span><span class="nx">div</span><span class="p">()</span>
-  <span class="p">.</span><span class="nx">text</span> <span class="s">'Leaving......'</span>
-<span class="nx">myHolaDiv</span><span class="p">.</span><span class="nx">div</span><span class="p">()</span>
-  <span class="p">.</span><span class="nx">text</span> <span class="s">'Gone'</span>
-</pre></div>
+<pre><code class="coffee">myHolaDiv = OJ.nodes.div();
+leavingDiv = myHolaDiv.make 'div', text: 'Leaving...'
+goneDiv = myHolaDiv.make 'div', text: 'Gone'
+  .hide()
 
-<p>While frameworks like jQuery make it easy to inject anything the DOM, out of the box the framework does not encourage you to compose good HTML.
-In jQuery every node wrapper is a generic DOM node with the same sets of properties and methods as every other DOM node.
-In OJ, every node wrapper represents a specific type of DOM node (e.g. DIV, SPAN, TABLE) with a subset of the generic utility methods
-that you might get from the jQuery API but also a highly constrained, strongly validated superset of methods
-that are specific to the type of the node. For example, nothing (apart from reason) prevents one from writing this in jQuery:</p>
+leavingDiv.hide()
+goneDiv.show()  
+</code></pre>
 
-<div class="highlight highlight-coffee"><pre><span class="nv">table = </span><span class="nx">jQuery</span> <span class="s">'&lt;table&gt;&lt;/table&gt;'</span>
-<span class="nv">div = </span><span class="nx">jQuery</span> <span class="s">'&lt;div&gt;&lt;/div&gt;'</span>
-<span class="nx">table</span><span class="p">.</span><span class="nx">append</span> <span class="nx">div</span>
-</pre></div>
-
-<p>In OJ, the div method does not exist on the table class and thus will generate an exception:</p>
-
-<div class="highlight highlight-coffee"><pre><span class="nv">table = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">table</span><span class="p">()</span>
-<span class="nx">table</span><span class="p">.</span><span class="nx">div</span><span class="p">()</span> <span class="c1">#throws new TypeError: Object [object global] has no method 'div'</span>
-</pre></div>
-
-<p>This does come at the cost of a learning curve, but the exceptions that OJ will generate for you are intended to ferret out mistakes
-that will never make their way into Production code.
-While still runtime exceptions, you will see these immediately--the first time you run the code or unit tests;
-and within a very short time will disappear completely.
-Just as the Promise pattern enables you to write code that doesn't care about the actual order of operations,
-freeing you to focus only on the sequence of logic, I think OJ enables a style of development free from worrying about the minutia
+<p>One of OJ's implicit goals is to enable a style of development free from worrying about the minutia
 of the DOM in order to focus more on the UI/UX you want to deliver.</p>
 
-<h2>
-<a name="state-of-the-project" class="anchor" href="#state-of-the-project"><span class="octicon octicon-link"></span></a>State of the Project</h2>
+<h2 id="state-of-the-project">State of the Project</h2>
 
-<p>The Dream: Basic HTML and CSS are fully encapsulated in strongly validated OJ classes.
-Complex forms, layouts and composites are abstracted into thin OJ classes which are extensible with mixins.
-Entire workflows are simplified into OJ structures which can be defined with just a few lines (or so) of JavaScript code.
-Layouts are configurable simply by clicking and dragging the form. Validation and data binding come for free.</p>
+<p>The Dream: 
+* Basic HTML and CSS are fully encapsulated in strongly validated OJ classes.
+* Complex forms, layouts and composites are abstracted into thin OJ classes which are extensible with mixins. 
+* Entire workflows are simplified into OJ structures which can be defined with just a few lines (or so) of JavaScript code.
+* Layouts are configurable simply by clicking and dragging the form. Validation and data binding come for free.</p>
 
 <p><del>The Reality: Some of the most complex work has already been done. The SQL Builder demo is complete, minus actual AJAX requests. A fully fledged wrapper around IndexedDb is in place. Objects are queryable using SQL-like semantics. Raw DOM nodes are wrapped and ready. Much has been done, but much more still remains to do.</del></p>
 
@@ -141,44 +106,23 @@ Layouts are configurable simply by clicking and dragging the form. Validation an
 <del>The core factory class is in place, but only SPAN and DIV have been implemented. TABLE is next, followed by INPUT (which will immediately spawn a factory subclass to handle input type: radio, checkbox, etc). SELECT (with child class OPTION) will be followed by the rest of the classic DOM Nodes.</del></p>
 
 <p>As of v0.2.0, the entire library has been refactored to CoffeeScript. Anything non-essential to the DOM framework has been archived (the source is still included in the project under /src/archive).
-All standard nodes are supported: div, span, input, table, fieldset, p, b, br, ol, ul, li, select, option and more
-Unit tests are in place and expanding to prove out all of the new nodes.</p>
+All standard nodes are supported: div, span, input, table, fieldset, p, b, br, ol, ul, li, select, option and more. Unit tests are in place and expanding to prove out all of the new nodes.</p>
 
-<h3>
-<a name="todo-priority-2-v030" class="anchor" href="#todo-priority-2-v030"><span class="octicon octicon-link"></span></a>TODO Priority 2 v0.3.0</h3>
+<h3 id="todo-priority-2-v030">TODO Priority 2 v0.3.0</h3>
 
 <p>A secondary factory will need to implement components. There's still some implementation specing to do on how to distinguish
 between abstract components (e.g. an array of checkboxes) vs. concrete controls (e.g. an Address composite).</p>
 
-<h3>
-<a name="todo-priority-3-v040" class="anchor" href="#todo-priority-3-v040"><span class="octicon octicon-link"></span></a>TODO Priority 3 v0.4.0</h3>
+<h3 id="todo-priority-3-v040">TODO Priority 3 v0.4.0</h3>
 
 <p>A FORM factory is on the table, so to speak. Additional specification work is needed to define a data structure
 which can be implicitly cast into an OJ form, generating an ordered layout of controls and to facilitate real time data.</p>
 
-<h2>
-<a name="support-or-contact" class="anchor" href="#support-or-contact"><span class="octicon octicon-link"></span></a>Support or Contact</h2>
+<h2 id="support-or-contact">Support or Contact</h2>
 
 <p>Feel like contributing? Wondering what in the sam hill I'm thinking? Challenge me to a duel; fork me; contact me; ignore me.
-Collaborate in real time <a href="https://c9.io/somecallmechief/oj">in my IDE of choice</a>.</p>
+Collaborate in real time [in my IDE of choice] (https://c9.io/somecallmechief/oj).</p>
 
-<h2>
-<a name="licensing" class="anchor" href="#licensing"><span class="octicon octicon-link"></span></a>Licensing</h2>
+<h2 id="licensing">Licensing</h2>
 
-<p>Everything I write is always Public Domain. Please take generously.</p>
-      </section>
-    </div>
-
-              <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-          </script>
-          <script type="text/javascript">
-            try {
-              var pageTracker = _gat._getTracker("UA-41555099-1");
-            pageTracker._trackPageview();
-            } catch(err) {}
-          </script>
-
-  </body>
-</html>
+<p>Everything I write is always Public Domain. Please take generously.</p></div></div></div></div></body></html>

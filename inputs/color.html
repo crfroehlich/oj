@@ -1,0 +1,20 @@
+<!DOCTYPE html><html lang="en"><head><title>inputs/color</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="inputs/color"><meta name="groc-project-path" content="src/coffee/inputs/color.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/inputs/color.coffee">src/coffee/inputs/color.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="nf">(OJ)-&gt;</span>
+  <span class="nv">inputName = </span><span class="s">&#39;color&#39;</span>
+  
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">inputs</span><span class="p">.</span><span class="nx">register</span> <span class="nx">inputName</span><span class="p">,</span> <span class="nf">(options, owner = OJ.body) -&gt;</span>
+    
+    <span class="nv">defaults =</span>
+      <span class="nv">props:</span>
+        <span class="nv">type: </span><span class="nx">inputName</span>
+      <span class="nv">styles: </span><span class="p">{}</span>
+      <span class="nv">events:</span>
+        <span class="nv">click: </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">noop</span>
+    
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">defaults</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="kc">true</span>
+    
+    <span class="nv">ret = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">input</span> <span class="nx">defaults</span><span class="p">,</span> <span class="nx">owner</span>
+    <span class="nx">ret</span>
+
+  <span class="k">return</span>
+
+<span class="p">)</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">global</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="o">and</span> <span class="nx">global</span> <span class="k">then</span> <span class="nx">global</span> <span class="k">else</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nb">window</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="k">then</span> <span class="nb">window</span> <span class="k">else</span> <span class="k">this</span><span class="p">)))).</span><span class="nx">OJ</span></div></div></div></div></body></html>

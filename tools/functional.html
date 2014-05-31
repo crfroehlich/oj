@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang="en"><head><title>tools/functional</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="tools/functional"><meta name="groc-project-path" content="src/coffee/tools/functional.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/tools/functional.coffee">src/coffee/tools/functional.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><p>global OJ:true</p></div></div><div class="code"><div class="wrapper"><span class="p">(</span><span class="nf">(OJ) -&gt;</span>
+  <span class="s">&#39;use strict&#39;</span>
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">makeSubNameSpace</span> <span class="s">&quot;fun&quot;</span>
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Curry Left method</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">fun</span><span class="p">.</span><span class="nx">register</span> <span class="s">&quot;curryLeft&quot;</span><span class="p">,</span> <span class="nv">curryLeft = </span><span class="nf">(func) -&gt;</span>
+    <span class="nv">slice = </span><span class="nb">Array</span><span class="o">::</span><span class="nx">slice</span>
+    <span class="nv">args = </span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="nf">(arguments, 1)</span>
+<span class="nf">    -&gt;</span>
+      <span class="nx">func</span><span class="p">.</span><span class="nx">apply</span> <span class="k">this</span><span class="p">,</span> <span class="nx">args</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">arguments</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
+
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Fold Left method</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">fun</span><span class="p">.</span><span class="nx">register</span> <span class="s">&quot;foldLeft&quot;</span><span class="p">,</span> <span class="nv">foldLeft = </span><span class="nf">(func, newArray, oldArray) -&gt;</span>
+    <span class="nv">accumulation = </span><span class="nx">newArray</span>
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">each</span> <span class="nx">oldArray</span><span class="p">,</span> <span class="nf">(val) -&gt;</span>
+      <span class="nv">accumulation = </span><span class="nx">func</span><span class="p">(</span><span class="nx">accumulation</span><span class="p">,</span> <span class="nx">val</span><span class="p">)</span>
+      <span class="k">return</span>
+
+    <span class="nx">accumulation</span>
+
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Map method</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">fun</span><span class="p">.</span><span class="nx">register</span> <span class="s">&quot;map&quot;</span><span class="p">,</span> <span class="nv">map = </span><span class="nf">(func, array) -&gt;</span>
+    <span class="nv">onIteration = </span><span class="nf">(accumulation, val) -&gt;</span>
+      <span class="nx">accumulation</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">func</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span>
+
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">fun</span><span class="p">.</span><span class="nx">foldLeft</span> <span class="nx">onIteration</span><span class="p">,</span> <span class="p">[],</span> <span class="nx">array</span>
+
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Filter method</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">fun</span><span class="p">.</span><span class="nx">register</span> <span class="s">&quot;filter&quot;</span><span class="p">,</span> <span class="nv">filter = </span><span class="nf">(func, array) -&gt;</span>
+    <span class="nv">onIteration = </span><span class="nf">(accumulation, val) -&gt;</span>
+      <span class="k">if</span> <span class="nx">func</span><span class="p">(</span><span class="nx">val</span><span class="p">)</span>
+        <span class="nx">accumulation</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">val</span>
+      <span class="k">else</span>
+        <span class="nx">accumulation</span>
+
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">fun</span><span class="p">.</span><span class="nx">foldLeft</span> <span class="nx">onIteration</span><span class="p">,</span> <span class="p">[],</span> <span class="nx">array</span>
+
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Inserts a parameter into the position of the first argument, shifting all other arguments to "the right" by one position</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">fun</span><span class="p">.</span><span class="nx">register</span> <span class="s">&quot;shiftRight&quot;</span><span class="p">,</span> <span class="nv">shiftRight = </span><span class="nf">(shiftFunc, firstParam, originalArguments, context) -&gt;</span>
+    <span class="nv">context = </span><span class="nx">context</span> <span class="o">or</span> <span class="k">this</span>
+    <span class="nv">args = </span><span class="nb">Array</span><span class="o">::</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">originalArguments</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="nx">args</span><span class="p">.</span><span class="nx">unshift</span> <span class="nx">firstParam</span>
+    <span class="nx">shiftFunc</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">args</span>
+
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li>Executes a method using a new context and arguments</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">fun</span><span class="p">.</span><span class="nx">register</span> <span class="s">&quot;apply&quot;</span><span class="p">,</span> <span class="nv">apply = </span><span class="nf">(applyFunc, originalArguments, context) -&gt;</span>
+    <span class="nv">context = </span><span class="nx">context</span> <span class="o">or</span> <span class="k">this</span>
+    <span class="nv">args = </span><span class="nb">Array</span><span class="o">::</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="nx">originalArguments</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="nx">applyFunc</span><span class="p">.</span><span class="nx">apply</span> <span class="nx">context</span><span class="p">,</span> <span class="nx">args</span>
+
+  <span class="k">return</span>
+<span class="p">)</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">global</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="o">and</span> <span class="nx">global</span> <span class="k">then</span> <span class="nx">global</span> <span class="k">else</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nb">window</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="k">then</span> <span class="nb">window</span> <span class="k">else</span> <span class="k">this</span><span class="p">)))).</span><span class="nx">OJ</span></div></div></div></div></body></html>

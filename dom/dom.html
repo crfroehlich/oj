@@ -1,0 +1,120 @@
+<!DOCTYPE html><html lang="en"><head><title>dom/dom</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="dom/dom"><meta name="groc-project-path" content="src/coffee/dom/dom.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/dom/dom.coffee">src/coffee/dom/dom.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="nf">(OJ) -&gt;</span>
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Extend an object with OJ DOM methods and properties
+'options' Object defining paramaters for dom construction.
+'element' Object to extend
+'OJ.dom'>Object representing a OJ.dom</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;dom&#39;</span><span class="p">,</span> <span class="nf">(el, parent = OJ.body ) -&gt;</span>
+    <span class="s">&#39;use strict&#39;</span>
+
+    <span class="nv">enabled = </span><span class="kc">true</span>
+    
+    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;isValid&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+       <span class="nx">el</span> <span class="o">and</span> <span class="nx">el</span><span class="p">.</span><span class="nx">el</span> <span class="k">instanceof</span> <span class="nx">HTMLElement</span>
+    
+    <span class="nv">isControlStillValid = </span><span class="nf">-&gt;</span>
+      <span class="nv">valid = </span><span class="kc">false</span> <span class="o">is</span> <span class="nx">OJ</span><span class="p">.</span><span class="o">is</span><span class="p">.</span><span class="nx">nullOrEmpty</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="o">and</span> <span class="nx">el</span><span class="p">.</span><span class="nx">isValid</span><span class="p">()</span>
+      <span class="nx">OJ</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">throwException</span> <span class="s">&#39;el is null. Event bindings may not have been GCd.&#39;</span>  <span class="k">if</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">valid</span>
+      <span class="nx">valid</span>
+     </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Add a CSS class to an element
+An element to add class to
+The value of the attribute</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;addClass&#39;</span><span class="p">,</span> <span class="nf">(name) -&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">addClass</span> <span class="nx">name</span> <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">el</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Bind an action to a jQuery element's event.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;bind&#39;</span><span class="p">,</span> <span class="nf">(eventName, event) -&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">on</span> <span class="nx">eventName</span><span class="p">,</span> <span class="nx">event</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">el</span>
+    
+    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;on&#39;</span><span class="p">,</span> <span class="nf">(eventName, event) -&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">on</span> <span class="nx">eventName</span><span class="p">,</span> <span class="nx">event</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">el</span>
+
+    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;off&#39;</span><span class="p">,</span> <span class="nf">(eventName, event) -&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">off</span> <span class="nx">eventName</span><span class="p">,</span> <span class="nx">event</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">el</span>
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Bind an event to a key, when pressed in this control.
+The OJ object (for chaining)</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;keyboard&#39;</span><span class="p">,</span> <span class="nf">(keys, event) -&gt;</span>
+      <span class="nx">Mousetrap</span><span class="p">.</span><span class="nx">bind</span> <span class="nx">keys</span><span class="p">,</span> <span class="nx">el</span><span class="p">[</span><span class="nx">event</span><span class="p">]</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">el</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Disable the element.
+The OJ object (for chaining)</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;disable&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+        <span class="nv">enabled = </span><span class="kc">false</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">attr</span> <span class="s">&#39;disabled&#39;</span><span class="p">,</span> <span class="s">&#39;disabled&#39;</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">addClass</span> <span class="s">&#39;disabled&#39;</span><span class="p">,</span> <span class="s">&#39;disabled&#39;</span>
+      <span class="nx">el</span>
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Empty the element.
+The OJ object (for chaining) </p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;empty&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">empty</span><span class="p">()</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">el</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Enable the element.
+The OJ object (for chaining) </p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;enable&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+        <span class="nv">enabled = </span><span class="kc">true</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">removeAttr</span> <span class="s">&#39;disabled&#39;</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">removeClass</span> <span class="s">&#39;disabled&#39;</span>
+      <span class="nx">el</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Get the DOM Element ID of this object.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;getId&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nv">id = </span><span class="nx">el</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="nx">id</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">id</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Make the element invisible.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;hide&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">css</span> <span class="s">&#39;display&#39;</span><span class="p">,</span> <span class="s">&#39;none&#39;</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">el</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Get the length of this element.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;length&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nv">len = </span><span class="mi">0</span>
+      <span class="nv">len = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">number</span><span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">len</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Reference to the parent as passed in</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;parent&#39;</span><span class="p">,</span> <span class="nx">parent</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Remove the node from the DOM</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;remove&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="k">if</span> <span class="nx">el</span> <span class="o">and</span> <span class="nx">el</span><span class="p">.</span><span class="nx">$</span>
+        <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">remove</span><span class="p">()</span>
+        </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Set the value of el to null to guarantee that isControlStillValid will be correct</p></div></div><div class="code"><div class="wrapper">        <span class="nv">el = </span><span class="kc">null</span>
+      <span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Remove a CSS class from an element.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;removeClass&#39;</span><span class="p">,</span> <span class="nf">(name) -&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">removeClass</span> <span class="nx">name</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">el</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Remove a property from an element. jQuery distinguishes between 'props' and 'attr'; hence 2 methods.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;removeProp&#39;</span><span class="p">,</span> <span class="nf">(name) -&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">removeProp</span> <span class="nx">name</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">el</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Remove a property from an element. jQuery distinguishes between 'props' and 'attr'; hence 2 methods.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;removeAttr&#39;</span><span class="p">,</span> <span class="nf">(name) -&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">removeAttr</span> <span class="nx">name</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">el</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Mark the required status of the element.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;required&#39;</span><span class="p">,</span> <span class="nf">(truthy, addLabel) -&gt;</span>
+      <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+        <span class="k">switch</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">bool</span><span class="p">(</span><span class="nx">truthy</span><span class="p">)</span>
+          <span class="k">when</span> <span class="kc">true</span>
+            <span class="nx">el</span><span class="p">.</span><span class="nx">attr</span> <span class="s">&#39;required&#39;</span><span class="p">,</span> <span class="kc">true</span>
+            <span class="nx">el</span><span class="p">.</span><span class="nx">addClass</span> <span class="s">&#39;required&#39;</span>
+          <span class="k">when</span> <span class="kc">false</span>
+            <span class="nx">el</span><span class="p">.</span><span class="nx">removeProp</span> <span class="s">&#39;required&#39;</span>
+            <span class="nx">el</span><span class="p">.</span><span class="nx">removeClass</span> <span class="s">&#39;required&#39;</span>
+      <span class="nx">el</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>reference to the root of the node</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;root&#39;</span><span class="p">,</span> <span class="nx">el</span><span class="p">.</span><span class="nx">root</span> <span class="o">or</span> <span class="nx">parent</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Make the element visible.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;show&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">show</span><span class="p">()</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">el</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Toggle visibility</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;toggle&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">toggle</span><span class="p">()</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">el</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Toggle the element's enabled state.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;toggleEnable&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nx">enabled</span>
+          <span class="nx">el</span><span class="p">.</span><span class="nx">disable</span><span class="p">()</span>
+        <span class="k">else</span>
+          <span class="nx">el</span><span class="p">.</span><span class="nx">enable</span><span class="p">()</span>
+      <span class="nx">el</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Trigger an event bound to a jQuery element.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;trigger&#39;</span><span class="p">,</span> <span class="nf">(eventName, eventOpts) -&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">trigger</span> <span class="nx">eventName</span><span class="p">,</span> <span class="nx">eventOpts</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">el</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Unbind an action from a jQuery element's event.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;unbind&#39;</span><span class="p">,</span> <span class="nf">(eventName, event) -&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">off</span> <span class="nx">eventName</span><span class="p">,</span> <span class="nx">event</span>  <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+      <span class="nx">el</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Get the value of the element.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;val&#39;</span><span class="p">,</span> <span class="nf">(value) -&gt;</span>
+      <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
+        <span class="k">if</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span> <span class="o">and</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">isNullOrUndefined</span><span class="p">(</span><span class="nx">value</span><span class="p">)</span>
+          <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">val</span> <span class="nx">value</span>
+          <span class="nx">el</span>
+        <span class="k">else</span>
+          <span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">string</span> <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">val</span><span class="p">()</span>
+
+    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;valueOf&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">val</span><span class="p">()</span>
+
+    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;toString&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
+      <span class="nx">el</span><span class="p">.</span><span class="nx">val</span><span class="p">()</span>
+
+    <span class="nx">el</span>
+
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;isElementInDom&#39;</span><span class="p">,</span> <span class="nf">(elementId) -&gt;</span>
+    <span class="kc">false</span> <span class="o">is</span> <span class="nx">OJ</span><span class="p">.</span><span class="o">is</span><span class="p">.</span><span class="nx">nullOrEmpty</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">getElement</span> <span class="nx">elementId</span>
+
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;getElement&#39;</span><span class="p">,</span> <span class="nf">(id) -&gt;</span>
+    <span class="k">if</span> <span class="k">typeof</span> <span class="nb">document</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> 
+      <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">)</span> 
+    <span class="k">else</span> 
+      <span class="kc">undefined</span>
+
+  <span class="k">return</span>
+  
+<span class="p">)</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">global</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="o">and</span> <span class="nx">global</span> <span class="k">then</span> <span class="nx">global</span> <span class="k">else</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nb">window</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="k">then</span> <span class="nb">window</span> <span class="k">else</span> <span class="k">this</span><span class="p">)))).</span><span class="nx">OJ</span></div></div></div></div></body></html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html><html lang="en"><head><title>core/object</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="core/object"><meta name="groc-project-path" content="src/coffee/core/object.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/core/object.coffee">src/coffee/core/object.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="nf">(OJ) -&gt;</span>
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Create an instance of Object</p></div></div><div class="code"><div class="wrapper">  <span class="nv">object = </span><span class="nf">-&gt;</span>
+    <span class="nv">obj = </span><span class="p">{}</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Add a property to the object and return it</p></div></div><div class="code"><div class="wrapper">    <span class="nv">obj.add = </span><span class="nf">(name, val) -&gt;</span> 
+      <span class="nx">OJ</span><span class="p">.</span><span class="nx">property</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">val</span>
+      <span class="nx">obj</span>
+    
+    <span class="nx">obj</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;each&#39;</span><span class="p">,</span> <span class="nf">(callback) -&gt;</span>
+      <span class="nx">OJ</span><span class="p">.</span><span class="nx">each</span> <span class="nx">obj</span><span class="p">,</span> <span class="nf">(val, key) -&gt;</span>
+        <span class="k">if</span> <span class="nx">key</span> <span class="o">isnt</span> <span class="s">&#39;each&#39;</span> <span class="o">and</span> <span class="nx">key</span> <span class="o">isnt</span> <span class="s">&#39;add&#39;</span>
+          <span class="nx">callback</span> <span class="nx">val</span><span class="p">,</span> <span class="nx">key</span>
+        
+    <span class="nx">obj</span>
+
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;object&#39;</span><span class="p">,</span> <span class="nx">object</span>
+  
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;isInstanceOf&#39;</span><span class="p">,</span> <span class="nf">(name, obj) -&gt;</span>
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">obj</span><span class="p">)</span> <span class="o">and</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">bool</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span>
+
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;contains&#39;</span><span class="p">,</span> <span class="nf">(object, index) -&gt;</span>
+    <span class="nv">ret = </span><span class="kc">false</span>
+    <span class="k">if</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">isNullOrUndefined</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span>
+      <span class="nv">ret = </span><span class="nx">object</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="o">isnt</span> <span class="o">-</span><span class="mi">1</span>  <span class="k">if</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span>
+      <span class="nv">ret = </span><span class="kc">true</span>  <span class="k">if</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">ret</span> <span class="o">and</span> <span class="nx">object</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span>
+    <span class="nx">ret</span>
+
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;compare&#39;</span><span class="p">,</span> <span class="nf">(obj1, obj2) -&gt;</span>
+    <span class="nx">_</span><span class="p">.</span><span class="nx">isEqual</span> <span class="nx">obj1</span> <span class="nx">obj2</span>
+    
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;clone&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
+    <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span> <span class="nx">data</span> <span class="kc">true</span>
+
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;serialize&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
+    <span class="nv">ret = </span><span class="s">&#39;&#39;</span>
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">tryExec</span> <span class="nf">-&gt;</span>
+      <span class="nv">ret = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+      <span class="k">return</span>
+    <span class="nx">ret</span> <span class="o">or</span> <span class="s">&#39;&#39;</span>
+
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;deserialize&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
+    <span class="nv">ret = </span><span class="p">{}</span>
+    <span class="k">if</span> <span class="nx">data</span>
+      <span class="nx">OJ</span><span class="p">.</span><span class="nx">tryExec</span> <span class="nf">-&gt;</span>
+        <span class="nv">ret = </span><span class="nb">window</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">parseJSON</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+        <span class="k">return</span>
+
+      <span class="nv">ret = </span><span class="p">{}</span>  <span class="k">if</span> <span class="nx">OJ</span><span class="p">.</span><span class="o">is</span><span class="p">.</span><span class="nx">nullOrEmpty</span><span class="p">(</span><span class="nx">ret</span><span class="p">)</span>
+    <span class="nx">ret</span>
+
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;params&#39;</span><span class="p">,</span> <span class="nf">(data, delimiter = &#39;&amp;&#39;) -&gt;</span>
+    <span class="nv">ret = </span><span class="s">&#39;&#39;</span>
+    <span class="k">if</span> <span class="nx">delimiter</span> <span class="o">is</span> <span class="s">&#39;&amp;&#39;</span>
+      <span class="nx">OJ</span><span class="p">.</span><span class="nx">tryExec</span> <span class="nf">-&gt;</span>
+        <span class="nv">ret = </span><span class="nx">$</span><span class="p">.</span><span class="nx">param</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">else</span>
+      <span class="nx">OJ</span><span class="p">.</span><span class="nx">each</span> <span class="nx">data</span><span class="p">,</span> <span class="nf">(val, key) -&gt;</span>
+        <span class="nx">ret</span> <span class="o">+=</span> <span class="nx">delimiter</span>  <span class="k">if</span> <span class="nx">ret</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">0</span>
+        <span class="nx">ret</span> <span class="o">+=</span> <span class="nx">key</span> <span class="o">+</span> <span class="s">&#39;=&#39;</span> <span class="o">+</span> <span class="nx">val</span>
+        <span class="k">return</span>
+
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">string</span> <span class="nx">ret</span>
+
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;extend&#39;</span><span class="p">,</span> <span class="nf">(destObj, srcObj, deepCopy = false) -&gt;</span>
+    <span class="nv">ret = </span><span class="nx">destObj</span> <span class="o">or</span> <span class="p">{}</span>
+    <span class="k">if</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">3</span>
+      <span class="nv">ret = </span><span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">bool</span><span class="p">(</span><span class="nx">deepCopy</span><span class="p">),</span> <span class="nx">ret</span><span class="p">,</span> <span class="nx">srcObj</span><span class="p">)</span>
+    <span class="k">else</span>
+      <span class="nv">ret = </span><span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">ret</span><span class="p">,</span> <span class="nx">srcObj</span><span class="p">)</span>
+    <span class="nx">ret</span>
+  
+  
+  
+  
+  <span class="k">return</span>
+<span class="p">)</span>  <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">global</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="o">and</span> <span class="nx">global</span> <span class="k">then</span> <span class="nx">global</span> <span class="k">else</span> <span class="p">(</span><span class="k">if</span> <span class="k">typeof</span> <span class="nb">window</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="k">then</span> <span class="nb">window</span> <span class="k">else</span> <span class="k">this</span><span class="p">))).</span><span class="nx">OJ</span></div></div></div></div></body></html>

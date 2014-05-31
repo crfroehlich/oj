@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang="en"><head><title>tools/console</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="tools/console"><meta name="groc-project-path" content="src/coffee/tools/console.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/tools/console.coffee">src/coffee/tools/console.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="nf">(OJ) -&gt;</span>
+  <span class="nv">methods = </span><span class="p">[</span>
+    <span class="s">&#39;assert&#39;</span>
+    <span class="s">&#39;clear&#39;</span>
+    <span class="s">&#39;count&#39;</span>
+    <span class="s">&#39;debug&#39;</span>
+    <span class="s">&#39;dir&#39;</span>
+    <span class="s">&#39;dirxml&#39;</span>
+    <span class="s">&#39;error&#39;</span>
+    <span class="s">&#39;exception&#39;</span>
+    <span class="s">&#39;group&#39;</span>
+    <span class="s">&#39;groupCollapsed&#39;</span>
+    <span class="s">&#39;groupEnd&#39;</span>
+    <span class="s">&#39;info&#39;</span>
+    <span class="s">&#39;log&#39;</span>
+    <span class="s">&#39;memory&#39;</span>
+    <span class="s">&#39;profile&#39;</span>
+    <span class="s">&#39;profileEnd&#39;</span>
+    <span class="s">&#39;table&#39;</span>
+    <span class="s">&#39;time&#39;</span>
+    <span class="s">&#39;timeEnd&#39;</span>
+    <span class="s">&#39;timeStamp&#39;</span>
+    <span class="s">&#39;timeline&#39;</span>
+    <span class="s">&#39;timelineEnd&#39;</span>
+    <span class="s">&#39;trace&#39;</span>
+    <span class="s">&#39;warn&#39;</span>
+  <span class="p">]</span>
+  <span class="nv">methodLength = </span><span class="nx">methods</span><span class="p">.</span><span class="nx">length</span>
+  <span class="nv">console = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">global</span><span class="p">.</span><span class="nx">console</span> <span class="o">or</span> <span class="p">{}</span>
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">makeSubNameSpace</span> <span class="s">&#39;console&#39;</span>
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ol>
+<li>Stub out any missing methods with noop</li>
+<li>Define the available methods on the OJ.console object</li>
+</ol></div></div><div class="code"><div class="wrapper">  <span class="k">while</span> <span class="nx">methodLength</span><span class="o">--</span>
+    <span class="p">(</span><span class="nf">-&gt;</span>
+      <span class="nv">method = </span><span class="nx">methods</span><span class="p">[</span><span class="nx">methodLength</span><span class="p">]</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Only stub undefined methods.</p></div></div><div class="code"><div class="wrapper">      <span class="nx">console</span><span class="p">[</span><span class="nx">method</span><span class="p">]</span> <span class="o">=</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">noop</span> <span class="k">unless</span> <span class="nx">console</span><span class="p">[</span><span class="nx">method</span><span class="p">]</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Define the method on the OJ console namespace</p></div></div><div class="code"><div class="wrapper">      <span class="nx">OJ</span><span class="p">.</span><span class="nx">console</span><span class="p">.</span><span class="nx">register</span> <span class="nx">method</span><span class="p">,</span> <span class="nf">(params...) -&gt;</span>
+        <span class="nx">console</span><span class="p">[</span><span class="nx">method</span><span class="p">]</span> <span class="nx">params</span><span class="p">...</span>
+    <span class="p">)()</span>
+
+  <span class="k">return</span>
+<span class="p">)</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">global</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="o">and</span> <span class="nx">global</span> <span class="k">then</span> <span class="nx">global</span> <span class="k">else</span> <span class="p">(</span><span class="k">if</span> <span class="k">typeof</span> <span class="nb">window</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="k">then</span> <span class="nb">window</span> <span class="k">else</span> <span class="k">this</span><span class="p">))).</span><span class="nx">OJ</span></div></div></div></div></body></html>

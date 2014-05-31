@@ -1,0 +1,104 @@
+<!DOCTYPE html><html lang="en"><head><title>async/ajax</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="async/ajax"><meta name="groc-project-path" content="src/coffee/async/ajax.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/async/ajax.coffee">src/coffee/async/ajax.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="err">﻿</span><span class="p">(</span><span class="nf">(OJ) -&gt;</span>
+
+  <span class="nv">config = </span><span class="p">{}</span>
+  <span class="nv">config.onSuccess = </span><span class="nf">(opts, data, url) -&gt;</span>
+    <span class="nv">response = </span><span class="p">{}</span>
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">response</span><span class="p">,</span> <span class="nx">data</span><span class="p">,</span> <span class="kc">true</span>
+    <span class="nx">opts</span><span class="p">.</span><span class="nx">onSuccess</span> <span class="nx">response</span>
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">console</span><span class="p">.</span><span class="nx">table</span> <span class="p">[</span>
+      <span class="nv">Webservice: </span><span class="nx">opts</span><span class="p">.</span><span class="nx">ajaxOpts</span><span class="p">.</span><span class="nx">url</span>
+      <span class="nv">StartTime: </span><span class="nx">opts</span><span class="p">.</span><span class="nx">startTime</span>
+      <span class="nv">EndTime: </span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+    <span class="p">]</span> 
+    <span class="k">return</span>
+  
+  <span class="nv">config.onError = </span><span class="p">(</span><span class="nx">xmlHttpRequest</span><span class="p">,</span> <span class="nx">textStatus</span><span class="p">,</span> <span class="nx">param1</span><span class="p">,</span> <span class="nv">opts = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">object</span><span class="p">())</span> <span class="nf">-&gt;</span>
+    <span class="k">if</span> <span class="nx">textStatus</span> <span class="o">isnt</span> <span class="s">&#39;abort&#39;</span>
+      <span class="nx">OJ</span><span class="p">.</span><span class="nx">console</span><span class="p">.</span><span class="nx">table</span> <span class="p">[</span>
+        <span class="nv">Webservice: </span><span class="nx">opts</span><span class="p">.</span><span class="nx">ajaxOpts</span><span class="p">.</span><span class="nx">url</span>
+        <span class="nv">Data: </span><span class="nx">opts</span><span class="p">.</span><span class="nx">ajaxOpts</span><span class="p">.</span><span class="nx">data</span>
+        <span class="nv">Failed: </span><span class="nx">textStatus</span>
+        <span class="nv">State: </span><span class="nx">xmlHttpRequest</span><span class="p">.</span><span class="nx">state</span><span class="p">()</span>
+        <span class="nv">Status: </span><span class="nx">xmlHttpRequest</span><span class="p">.</span><span class="nx">status</span>
+        <span class="nv">StatusText: </span><span class="nx">xmlHttpRequest</span><span class="p">.</span><span class="nx">statusText</span>
+        <span class="nv">ReadyState: </span><span class="nx">xmlHttpRequest</span><span class="p">.</span><span class="nx">readyState</span>
+        <span class="nv">ResponseText: </span><span class="nx">xmlHttpRequest</span><span class="p">.</span><span class="nx">responseText</span>
+      <span class="p">]</span>
+
+      <span class="nx">opts</span><span class="p">.</span><span class="nx">onError</span> <span class="nx">textStatus</span>
+    <span class="k">return</span>
+  
+  <span class="nv">optsFromUrl = </span><span class="nf">(opts) -&gt;</span>
+    <span class="k">if</span> <span class="nx">OJ</span><span class="p">.</span><span class="o">is</span><span class="p">.</span><span class="nx">string</span> <span class="nx">opts</span>
+      <span class="nv">url = </span><span class="nx">opts</span>
+      <span class="nv">opts = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">object</span><span class="p">()</span>
+      <span class="nx">opts</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;ajaxOpts&#39;</span><span class="p">,</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">object</span><span class="p">()</span>
+      <span class="nx">opts</span><span class="p">.</span><span class="nx">ajaxOpts</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;url&#39;</span><span class="p">,</span> <span class="nx">url</span>
+    <span class="nx">opts</span>
+  
+  <span class="nv">config.execRequest = </span><span class="nf">(verb = &#39;GET&#39;, opts) -&gt;</span>
+    <span class="nv">defaults =</span>
+      <span class="nv">ajaxOpts:</span>
+        <span class="nv">url: </span><span class="s">&#39;&#39;</span>
+        <span class="nv">data: </span><span class="p">{}</span>
+        <span class="nv">type: </span><span class="nx">verb</span>
+        <span class="nv">xhrFields:</span>
+          <span class="nv">withCredentials: </span><span class="kc">true</span>
+        <span class="nv">dataType: </span><span class="s">&#39;json&#39;</span>
+        <span class="nv">contentType: </span><span class="s">&#39;application/json; charset=utf-8&#39;</span>
+        
+      <span class="nv">onSuccess: </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">noop</span>
+      <span class="nv">onError: </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">noop</span>
+      <span class="nv">onComplete: </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">noop</span>
+      <span class="nv">overrideError: </span><span class="kc">false</span>
+      <span class="nv">watchGlobal: </span><span class="kc">true</span>
+      <span class="nv">useCache: </span><span class="kc">false</span>
+    
+    <span class="nv">opts = </span><span class="nx">optsFromUrl</span> <span class="nx">opts</span>
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">defaults</span><span class="p">,</span> <span class="nx">opts</span><span class="p">,</span> <span class="kc">true</span>
+    
+    <span class="nv">defaults.startTime = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">()</span>
+    
+    <span class="k">if</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">OJ</span><span class="p">.</span><span class="o">is</span><span class="p">.</span><span class="nx">nullOrEmpty</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">ajaxOpts</span><span class="p">.</span><span class="nx">data</span>
+      <span class="k">if</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">ajaxOpts</span><span class="p">.</span><span class="nx">verb</span> <span class="o">is</span> <span class="s">&#39;GET&#39;</span>
+        <span class="nv">defaults.ajaxOpts.data = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">params</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">ajaxOpts</span><span class="p">.</span><span class="nx">data</span>
+      <span class="k">else</span>
+        <span class="nv">defaults.ajaxOpts.data = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">serialize</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">ajaxOpts</span><span class="p">.</span><span class="nx">data</span>
+    
+    <span class="nv">getPromiseFromAjax = </span><span class="nf">(watchGlobal) -&gt;</span>
+      <span class="nv">ret = </span><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">ajaxOpts</span>
+      
+      <span class="nx">ret</span><span class="p">.</span><span class="nx">done</span> <span class="nf">(data, textStatus, jqXHR) -&gt;</span>
+        <span class="nx">config</span><span class="p">.</span><span class="nx">onSuccess</span> <span class="nx">defaults</span><span class="p">,</span> <span class="nx">data</span>
+
+      <span class="nx">ret</span><span class="p">.</span><span class="nx">fail</span> <span class="nf">(jqXHR, textStatus, errorText) -&gt;</span>
+        <span class="nx">config</span><span class="p">.</span><span class="nx">onError</span> <span class="nx">jqXHR</span><span class="p">,</span> <span class="nx">textStatus</span><span class="p">,</span> <span class="nx">errorText</span><span class="p">,</span> <span class="nx">defaults</span>
+  
+      <span class="nx">ret</span><span class="p">.</span><span class="nx">always</span> <span class="nf">(xmlHttpRequest, textStatus) -&gt;</span>
+        <span class="nx">defaults</span><span class="p">.</span><span class="nx">onComplete</span> <span class="nx">xmlHttpRequest</span><span class="p">,</span> <span class="nx">textStatus</span>
+
+      <span class="nx">OJ</span><span class="p">.</span><span class="nx">async</span><span class="p">.</span><span class="nx">ajaxPromise</span> <span class="nx">ret</span>
+
+    <span class="nv">promise = </span><span class="kc">undefined</span>
+    <span class="k">if</span> <span class="kc">true</span> <span class="o">is</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">useCache</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>fetch last known result from cache</p></div></div><div class="code"><div class="wrapper">    <span class="k">else</span>
+      <span class="nv">promise = </span><span class="nx">getPromiseFromAjax</span><span class="p">(</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">watchGlobal</span><span class="p">)</span>
+    <span class="nx">promise</span>
+  
+  <span class="nv">ajax = </span><span class="p">{}</span>
+  <span class="nv">ajax.post = </span><span class="nf">(opts) -&gt;</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">execRequest</span> <span class="s">&#39;POST&#39;</span><span class="p">,</span> <span class="nx">opts</span>
+  
+  <span class="nv">ajax.get = </span><span class="nf">(opts) -&gt;</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">execRequest</span> <span class="s">&#39;GET&#39;</span><span class="p">,</span> <span class="nx">opts</span>
+
+  <span class="nv">ajax.delete = </span><span class="nf">(opts) -&gt;</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">execRequest</span> <span class="s">&#39;DELETE&#39;</span><span class="p">,</span> <span class="nx">opts</span>
+
+  <span class="nv">ajax.put = </span><span class="nf">(opts) -&gt;</span>
+    <span class="nx">config</span><span class="p">.</span><span class="nx">execRequest</span> <span class="s">&#39;PUT&#39;</span><span class="p">,</span> <span class="nx">opts</span>
+
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">async</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;ajax&#39;</span><span class="p">,</span> <span class="nx">ajax</span>
+
+  <span class="k">return</span>
+  
+<span class="p">)</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">global</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="o">and</span> <span class="nx">global</span> <span class="k">then</span> <span class="nx">global</span> <span class="k">else</span> <span class="p">(</span><span class="k">if</span> <span class="k">typeof</span> <span class="nb">window</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="k">then</span> <span class="nb">window</span> <span class="k">else</span> <span class="k">this</span><span class="p">))).</span><span class="nx">OJ</span></div></div></div></div></body></html>

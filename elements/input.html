@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang="en"><head><title>elements/input</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="elements/input"><meta name="groc-project-path" content="src/coffee/elements/input.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/elements/input.coffee">src/coffee/elements/input.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="nf">(OJ)-&gt;</span>
+  <span class="s">&#39;use strict&#39;</span>
+  
+  <span class="nv">nodeName = </span><span class="s">&#39;input&#39;</span>
+  
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">register</span> <span class="nx">nodeName</span><span class="p">,</span> <span class="nf">(options, owner = OJ.body, calledFromFactory = false) -&gt;</span>
+    
+    <span class="nv">defaults =</span>
+      <span class="nv">props:</span>
+        <span class="nv">type: </span><span class="s">&#39;text&#39;</span>
+        <span class="nv">value: </span><span class="s">&#39;&#39;</span>
+      <span class="nv">styles: </span><span class="p">{}</span>
+      <span class="nv">events:</span>
+        <span class="nv">click: </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">noop</span>
+        <span class="nv">change: </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">noop</span>
+        <span class="nv">focusout: </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">noop</span>
+    
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">defaults</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="kc">true</span>
+    
+    <span class="k">if</span> <span class="o">not</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">type</span> <span class="o">or</span> <span class="o">not</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">enums</span><span class="p">.</span><span class="nx">inputTypes</span><span class="p">[</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">type</span><span class="p">]</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&#39;No matching input type for {&#39;</span> <span class="o">+</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">type</span> <span class="o">+</span> <span class="s">&#39;} could be found.&#39;</span>
+    <span class="nv">thisType = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">enums</span><span class="p">.</span><span class="nx">inputTypes</span><span class="p">[</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">type</span><span class="p">]</span>
+    
+    <span class="nv">syncValue = </span><span class="nf">-&gt;</span>
+      <span class="k">switch</span> <span class="nx">thisType</span>
+        <span class="k">when</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">enums</span><span class="p">.</span><span class="nx">inputTypes</span><span class="p">.</span><span class="nx">checkbox</span>
+          <span class="nv">ret.value = </span><span class="nx">ret</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="o">is</span> <span class="s">&#39;:checked&#39;</span>
+        <span class="k">when</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">enums</span><span class="p">.</span><span class="nx">inputTypes</span><span class="p">.</span><span class="nx">radio</span>
+          <span class="nv">ret.value = </span><span class="nx">ret</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">find</span><span class="p">(</span><span class="s">&#39;:checked&#39;</span><span class="p">).</span><span class="nx">val</span><span class="p">()</span>
+        <span class="k">else</span>  
+          <span class="nv">ret.value = </span><span class="nx">ret</span><span class="p">.</span><span class="nx">val</span><span class="p">()</span>
+      <span class="nx">ret</span><span class="p">.</span><span class="nx">value</span>    
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Click binding. If the caller defined a click handler, 
+  wrap it, sync the value of the input first, 
+  then call the defined click handler with the latest value.</p></div></div><div class="code"><div class="wrapper">  
+    <span class="nv">oldClick = </span><span class="nx">defaults</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">click</span>
+    <span class="k">if</span> <span class="nx">oldClick</span> <span class="o">and</span> <span class="nx">oldClick</span> <span class="o">isnt</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">noop</span>
+      <span class="nv">newClick = </span><span class="nf">(event...) -&gt;</span>
+        <span class="nx">syncValue</span><span class="p">()</span>
+        <span class="nx">oldClick</span> <span class="nx">ret</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span> <span class="nx">event</span><span class="p">...</span>
+      <span class="nv">defaults.events.click = </span><span class="nx">newClick</span>
+          </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Change binding. If the caller defined a change handler, 
+  wrap it, sync the value of the input first, 
+  then call the defined change handler with the latest value.</p></div></div><div class="code"><div class="wrapper"> 
+    <span class="nv">oldChange = </span><span class="nx">defaults</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">change</span>
+    <span class="k">if</span> <span class="nx">oldChange</span> <span class="o">and</span> <span class="nx">oldChange</span> <span class="o">isnt</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">noop</span>
+      <span class="nv">newChange = </span><span class="nf">(event...) -&gt;</span>
+        <span class="nx">syncValue</span><span class="p">()</span>
+        <span class="nx">oldChange</span> <span class="nx">ret</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span> <span class="nx">event</span><span class="p">...</span>
+      <span class="nv">defaults.events.change = </span><span class="nx">newChange</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>On Focus Out binding. Always use the event to update the internal
+  value of the control; and if the caller defined a focusout event,
+  wrap it and invoke it with the latest value</p></div></div><div class="code"><div class="wrapper"> 
+    <span class="nv">oldFocusout = </span><span class="nx">defaults</span><span class="p">.</span><span class="nx">events</span><span class="p">.</span><span class="nx">focusout</span>
+    <span class="nv">newFocusout = </span><span class="nf">(event...) -&gt;</span>
+      <span class="nx">syncValue</span><span class="p">()</span>
+      <span class="k">if</span> <span class="nx">oldFocusout</span> <span class="o">and</span> <span class="nx">oldFocusout</span> <span class="o">isnt</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">noop</span> 
+        <span class="nx">oldFocusout</span> <span class="nx">ret</span><span class="p">.</span><span class="nx">value</span><span class="p">,</span> <span class="nx">event</span><span class="p">...</span>
+        
+    <span class="nv">defaults.events.focusout = </span><span class="nx">newFocusout</span>
+    
+    
+    <span class="nv">ret = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">element</span> <span class="nx">nodeName</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">props</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">styles</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">events</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">text</span>
+    <span class="nv">ret.value = </span><span class="nx">defaults</span><span class="p">.</span><span class="nx">props</span><span class="p">.</span><span class="nx">value</span>
+    
+    <span class="k">if</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">calledFromFactory</span> <span class="k">then</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">factory</span> <span class="nx">ret</span><span class="p">,</span> <span class="nx">owner</span>
+
+    <span class="nx">ret</span>
+
+  <span class="k">return</span>
+
+<span class="p">)</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">global</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="o">and</span> <span class="nx">global</span> <span class="k">then</span> <span class="nx">global</span> <span class="k">else</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nb">window</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="k">then</span> <span class="nb">window</span> <span class="k">else</span> <span class="k">this</span><span class="p">)))).</span><span class="nx">OJ</span></div></div></div></div></body></html>

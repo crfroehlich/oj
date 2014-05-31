@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang="en"><head><title>core/date</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="core/date"><meta name="groc-project-path" content="src/coffee/core/date.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/core/date.coffee">src/coffee/core/date.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="nf">-&gt;</span>
+  <span class="s">&#39;use strict&#39;</span>
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&quot;getDateFromDnJson&quot;</span><span class="p">,</span> <span class="nf">(dnDate) -&gt;</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Transforms a .NET JSON date into a JavaScript date.
+name="obj"  Object to test
+type="Boolean" />
+      var milli = OJ.to.number(DnDate.replace(/\/Date((\d+)-?(\d+))\//, '$1'));
+      var offset = OJ.to.number(DnDate.replace(/\/Date(\d+([+-]?\d+))\//, '$1'));
+      var localOffset = new Date().getTimezoneOffset();
+      return new Date((milli - ((localOffset + (offset / 100 * 60)) * 1000)));</p></div></div><div class="code"><div class="wrapper">    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Dn Date will look like /Date(1335758400000-0400)/  </p></div></div><div class="code"><div class="wrapper">    <span class="nv">dnDateStr = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">string</span><span class="p">(</span><span class="nx">dnDate</span><span class="p">)</span>
+    <span class="nv">ret = </span><span class="kc">undefined</span>
+    <span class="nv">ticks = </span><span class="kc">undefined</span>
+    <span class="nv">offset = </span><span class="kc">undefined</span>
+    <span class="nv">localOffset = </span><span class="kc">undefined</span>
+    <span class="nv">arr = </span><span class="kc">undefined</span>
+    <span class="nv">ret = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">dateTimeMinValue</span>
+    <span class="k">if</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">OJ</span><span class="p">.</span><span class="o">is</span><span class="p">.</span><span class="nx">nullOrEmpty</span><span class="p">(</span><span class="nx">dnDateStr</span><span class="p">)</span>
+      <span class="nv">dnDateStr = </span><span class="nx">dnDateStr</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s">&quot;/&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+      <span class="nv">dnDateStr = </span><span class="nx">dnDateStr</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s">&quot;Date&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+      <span class="nv">dnDateStr = </span><span class="nx">dnDateStr</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s">&quot;(&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+      <span class="nv">dnDateStr = </span><span class="nx">dnDateStr</span><span class="p">.</span><span class="nx">replace</span><span class="p">(</span><span class="s">&quot;)&quot;</span><span class="p">,</span> <span class="s">&quot;&quot;</span><span class="p">)</span>
+      <span class="nv">arr = </span><span class="nx">dnDateStr</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&quot;-&quot;</span><span class="p">)</span>
+      <span class="k">if</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">&gt;</span> <span class="mi">1</span>
+        <span class="nv">ticks = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">number</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="nv">offset = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">number</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+        <span class="nv">localOffset = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">().</span><span class="nx">getTimezoneOffset</span><span class="p">()</span>
+        <span class="nv">ret = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">((</span><span class="nx">ticks</span> <span class="o">-</span> <span class="p">((</span><span class="nx">localOffset</span> <span class="o">+</span> <span class="p">(</span><span class="nx">offset</span> <span class="o">/</span> <span class="mi">100</span> <span class="o">*</span> <span class="mi">60</span><span class="p">))</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)))</span>
+      <span class="k">else</span> <span class="k">if</span> <span class="nx">arr</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">1</span>
+        <span class="nv">ticks = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">number</span><span class="p">(</span><span class="nx">arr</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+        <span class="nv">ret = </span><span class="k">new</span> <span class="nb">Date</span><span class="p">(</span><span class="nx">ticks</span><span class="p">)</span>
+    <span class="nx">ret</span>
+
+  <span class="k">return</span>
+<span class="p">)()</span></div></div></div></div></body></html>

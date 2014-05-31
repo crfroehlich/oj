@@ -1,0 +1,53 @@
+<!DOCTYPE html><html lang="en"><head><title>tools/history</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="tools/history"><meta name="groc-project-path" content="src/coffee/tools/history.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/tools/history.coffee">src/coffee/tools/history.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="err">﻿</span><span class="p">(</span><span class="nf">(OJ) -&gt;</span>
+
+  <span class="k">if</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">global</span><span class="p">.</span><span class="nx">addEventListener</span>
+    <span class="nv">eventName = </span><span class="s">&#39;addEventListener&#39;</span>
+    <span class="nv">eventInfo = </span><span class="s">&#39;&#39;</span>
+  <span class="k">else</span> 
+    <span class="nv">eventName = </span><span class="s">&#39;attachEvent&#39;</span>
+    <span class="nv">eventInfo = </span><span class="s">&#39;on&#39;</span>
+  
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;pushState&#39;</span><span class="p">,</span> <span class="nf">(pageName, event) -&gt;</span>
+    <span class="k">if</span> <span class="nx">pageName</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>keep the link in the browser history</p></div></div><div class="code"><div class="wrapper">      <span class="nx">history</span><span class="p">.</span><span class="nx">pushState</span> <span class="kc">null</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="s">&#39;#&#39;</span> <span class="o">+</span> <span class="nx">pageName</span>
+      </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>here can cause data loading, etc.</p></div></div><div class="code"><div class="wrapper">    
+      <span class="k">if</span> <span class="nx">event</span>    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>do not give a default action</p></div></div><div class="code"><div class="wrapper">        <span class="k">if</span> <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span>
+          <span class="nx">event</span><span class="p">.</span><span class="nx">preventDefault</span><span class="p">()</span>
+        <span class="k">else</span>
+          <span class="nv">event.returnValue = </span><span class="kc">false</span>
+    <span class="kc">false</span>
+  
+  <span class="nx">OJ</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;restoreState&#39;</span><span class="p">,</span> <span class="nf">(location) -&gt;</span>
+    <span class="nv">pageName = </span><span class="nx">location</span><span class="p">.</span><span class="nx">hash</span>
+    <span class="k">if</span> <span class="o">not</span> <span class="nx">pageName</span>
+      <span class="nv">pageName = </span><span class="nx">location</span><span class="p">.</span><span class="nx">href</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s">&#39;#&#39;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">if</span> <span class="nx">pageName</span>
+      <span class="nv">pageName = </span><span class="nx">pageName</span><span class="p">.</span><span class="nx">replace</span> <span class="s">&#39;#&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span>
+      <span class="nx">OJ</span><span class="p">.</span><span class="nx">publish</span> <span class="s">&#39;restoreState&#39;</span><span class="p">,</span> <span class="nv">pageName: </span><span class="nx">pageName</span><span class="p">,</span> <span class="nv">location: </span><span class="nx">location</span>
+    <span class="k">return</span>
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>hang on the event, all references in this document</p></div></div><div class="code"><div class="wrapper">  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>This binds to the document click event, which in turn attaches to every click event, causing unexpected behavior.
+For any control which wishes to trigger a state change in response to an event, it is better for that control to define the behavior.
+OJ.document[eventName] eventInfo + 'click', ((event) ->
+  event = event or window.event
+  target = event.target or event.srcElement</p>
+
+<p>looking for all the links with 'ajax' class found
+  if target and target.nodeName is 'A' and (' ' + target.className + ' ').indexOf('ajax') >= 0
+    OJ.pushState target.href, event</p>
+
+<p>event.preventDefault()
+  event.stopPropagation()
+), false</p></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>hang on popstate event triggered by pressing back/forward in browser</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">global</span><span class="p">[</span><span class="nx">eventName</span><span class="p">]</span> <span class="nx">eventInfo</span> <span class="o">+</span> <span class="s">&#39;popstate&#39;</span><span class="p">,</span> <span class="p">(</span><span class="nf">(event) -&gt;</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>we get a normal Location object</p></div></div><div class="code"><div class="wrapper">    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Note, this is the only difference when using this library,
+because the object document.location cannot be overriden,
+so library the returns generated 'location' object within
+an object window.history, so get it out of 'history.location'.
+For browsers supporting 'history.pushState' get generated
+object 'location' with the usual 'document.location'.</p></div></div><div class="code"><div class="wrapper">                     
+    <span class="nv">returnLocation = </span><span class="nx">history</span><span class="p">.</span><span class="nx">location</span> <span class="o">or</span> <span class="nb">document</span><span class="p">.</span><span class="nx">location</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>here can cause data loading, etc.</p></div></div><div class="code"><div class="wrapper">    <span class="nx">OJ</span><span class="p">.</span><span class="nx">history</span><span class="p">.</span><span class="nx">restoreState</span> <span class="nx">returnLocation</span>
+    
+    <span class="k">return</span>
+  <span class="p">),</span> <span class="kc">false</span> 
+  
+  <span class="k">return</span>
+<span class="p">)</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">global</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="o">and</span> <span class="nx">global</span> <span class="k">then</span> <span class="nx">global</span> <span class="k">else</span> <span class="p">(</span><span class="k">if</span> <span class="k">typeof</span> <span class="nb">window</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="k">then</span> <span class="nb">window</span> <span class="k">else</span> <span class="k">this</span><span class="p">))).</span><span class="nx">OJ</span> </div></div></div></div></body></html>
