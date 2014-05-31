@@ -1,0 +1,5 @@
+{
+    "glob": ["src/coffee/**/*.coffee", "README.md"],
+    "github": true,
+    "whitespace-after-token": false
+}

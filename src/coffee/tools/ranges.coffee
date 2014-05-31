@@ -26,7 +26,7 @@
 
     ret = rangeToSubRanges n, charRange
 
-    i = 0 
+    i = 0
     while i < n
       i += 1
       subRange = ret[i]

@@ -29,6 +29,7 @@ header = require 'gulp-header'
 watch = require 'gulp-watch'
 plumber = require 'gulp-plumber'
 js2coffee = require 'gulp-js2coffee'
+docco = require 'gulp-docco'
 server = lr()
 
 pkg = require './package.json'
@@ -195,6 +196,11 @@ gulp.task 'build', [
   'compile'
   'watch'
 ]
+
+gulp.task 'docco', ->
+  gulp.src './src/coffee/**/*.coffee'
+   .pipe docco()
+   .pipe gulp.dest './docs'
 
 gulp.task 'default', ['build']
 

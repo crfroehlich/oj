@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.4.3
+ * @version v0.4.4
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -5169,14 +5169,31 @@ OJ IIFE definition to anchor JsDoc comments.
 }).call(this);
 
 (function() {
+  var __slice = [].slice;
+
   (function(OJ) {
+    var rangeToSubRanges, stringRangeToSubRanges;
+    OJ.register('range', function() {
+      var params;
+      params = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      return _.range.apply(_, params);
+    });
+    OJ.register('rangeMin', function() {
+      var params;
+      params = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      return _.min.apply(_, params);
+    });
+    OJ.register('rangeMax', function() {
+      var params;
+      params = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      return _.max.apply(_, params);
+    });
 
     /*
     Take an array of string values and a number of partitions to create.
     Uses the first letter of each string value in the array to convert to unique code character (lower case)
     Builds a int range based on unique code chars.
      */
-    var rangeToSubRanges, stringRangeToSubRanges;
     stringRangeToSubRanges = function(n, range) {
       var charRange, i, oldGetRange, ret, subRange;
       if (n == null) {
@@ -5224,8 +5241,8 @@ OJ IIFE definition to anchor JsDoc comments.
         range = [];
       }
       ret = OJ.object();
-      rangeLow = _.min(range);
-      rangeHigh = _.max(range);
+      rangeLow = OJ.rangeMin(range);
+      rangeHigh = OJ.rangeMax(range);
       distance = rangeHigh - rangeLow;
       subRangeSize = distance / n;
       subRanges = ret.add('ranges', OJ.object());
@@ -5242,7 +5259,7 @@ OJ IIFE definition to anchor JsDoc comments.
             jump += rangeHigh - chunkVal - jump + 1;
           }
         }
-        subRange = _.range(chunkVal, chunkVal + jump);
+        subRange = OJ.range(chunkVal, chunkVal + jump);
         OJ.each(subRange, function(val) {
           return map.add(val, i);
         });
