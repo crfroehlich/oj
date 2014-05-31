@@ -9,7 +9,7 @@
      */
     var rangeToSubRanges, stringRangeToSubRanges;
     stringRangeToSubRanges = function(n, range) {
-      var charRange, i, nuRange, subRange, _results;
+      var charRange, i, oldGetRange, ret, subRange;
       if (n == null) {
         n = 6;
       }
@@ -24,17 +24,21 @@
           return charRange.push(char.charCodeAt());
         }
       });
-      nuRange = rangeToSubRanges(n, charRange);
+      ret = rangeToSubRanges(n, charRange);
       i = 0;
-      _results = [];
       while (i < n) {
         i += 1;
-        subRange = nuRange[i];
-        _results.push(subRange.map(function(val) {
-          return String.fromCharCode(val);
-        }));
+        subRange = ret[i];
+        subRange.map(String.fromCharCode);
       }
-      return _results;
+      oldGetRange = ret.getRange;
+      ret.getRange = function(val) {
+        var char, idx;
+        char = val.trim()[0].toLowerCase().charCodeAt();
+        idx = oldGetRange(char);
+        return idx;
+      };
+      return ret;
     };
 
     /*
@@ -43,34 +47,43 @@
     Overflow is passed to the final partition.
      */
     rangeToSubRanges = function(n, range) {
-      var chunkVal, distance, i, jump, rangeHigh, rangeLow, subRangeSize, subRanges;
+      var chunkVal, distance, i, jump, map, rangeHigh, rangeLow, ret, subRange, subRangeSize, subRanges;
       if (n == null) {
         n = 6;
       }
       if (range == null) {
         range = [];
       }
+      ret = OJ.object();
       rangeLow = _.min(range);
       rangeHigh = _.max(range);
       distance = rangeHigh - rangeLow;
       subRangeSize = distance / n;
-      subRanges = {};
+      subRanges = ret.add('ranges', OJ.object());
       chunkVal = rangeLow;
+      map = OJ.object();
       i = 0;
       while (i < n) {
         i += 1;
-        if (i < 6) {
+        if (i < n) {
           jump = Math.round(subRangeSize);
         } else {
           jump = Math.floor(subRangeSize);
-          if (chunkVal + jump < rangeHigh) {
+          if (chunkVal + jump <= rangeHigh) {
             jump += rangeHigh - chunkVal - jump + 1;
           }
         }
-        subRanges[i] = _.range(chunkVal, chunkVal + jump);
+        subRange = _.range(chunkVal, chunkVal + jump);
+        OJ.each(subRange, function(val) {
+          return map.add(val, i);
+        });
+        subRanges[i] = subRange;
         chunkVal += jump;
       }
-      return subRanges;
+      ret.add('getRange', function(val) {
+        return map[val];
+      });
+      return ret;
     };
     OJ.register('stringRangeToSubRanges', stringRangeToSubRanges);
     OJ.register('rangeToSubRanges', rangeToSubRanges);

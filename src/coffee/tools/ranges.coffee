@@ -14,13 +14,20 @@
       if false is _.contains charRange, char
         charRange.push char.charCodeAt()
     
-    nuRange = rangeToSubRanges n, charRange
+    ret = rangeToSubRanges n, charRange
     
     i = 0
     while i < n
       i += 1
-      subRange = nuRange[i]
-      subRange.map (val) -> return String.fromCharCode(val)
+      subRange = ret[i]
+      subRange.map String.fromCharCode
+    
+    oldGetRange = ret.getRange
+    ret.getRange = (val) ->
+      char = val.trim()[0].toLowerCase().charCodeAt()
+      idx = oldGetRange char
+      idx
+    ret
     
   
   ###
@@ -29,24 +36,35 @@
   Overflow is passed to the final partition.
   ###
   rangeToSubRanges = (n = 6, range = []) ->
+    ret = OJ.object()
     rangeLow = _.min range
     rangeHigh = _.max range
     
     distance = rangeHigh - rangeLow
     subRangeSize = distance/n
-    subRanges = {}
+    subRanges = ret.add 'ranges', OJ.object()
     chunkVal = rangeLow
+    
+    map = OJ.object()
+    
     i = 0;
     while i < n   
       i += 1
-      if i < 6 then jump = Math.round subRangeSize
+      if i < n then jump = Math.round subRangeSize
       else
         jump = Math.floor subRangeSize
-        if chunkVal + jump < rangeHigh
+        if chunkVal + jump <= rangeHigh
           jump += rangeHigh - chunkVal - jump + 1
-      subRanges[i] = _.range chunkVal, chunkVal + jump
+      
+      subRange = _.range chunkVal, chunkVal + jump
+      OJ.each subRange, (val) -> map.add val, i
+      subRanges[i] = subRange
       chunkVal += jump
-    subRanges
+    
+    ret.add 'getRange', (val) ->
+      map[val] 
+    
+    ret
   
   OJ.register 'stringRangeToSubRanges', stringRangeToSubRanges
   OJ.register 'rangeToSubRanges', rangeToSubRanges
