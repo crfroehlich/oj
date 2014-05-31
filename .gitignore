@@ -17,3 +17,4 @@ src/archive/events
 src/archive/promises
 src/archive/session
 src/archive/valueTypes
+.idea
