@@ -27,9 +27,8 @@
 
   OJ.register 'contains', (object, index) ->
     ret = false
-    if false is OJ.isNullOrUndefined(object)
-      ret = object.indexOf(index) isnt -1  if OJ.isArray(object)
-      ret = true  if false is ret and object.hasOwnProperty(index)
+    if object
+      ret = _.contains object index
     ret
 
   OJ.register 'compare', (obj1, obj2) ->

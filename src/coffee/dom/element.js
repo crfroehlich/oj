@@ -12,7 +12,7 @@
       if (el) {
         return _.forOwn(events, function(val, key) {
           var callback;
-          if (val !== OJ.noop && _.isFunction(val)) {
+          if (OJ.is.method(val)) {
             callback = function() {
               var event;
               event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];

@@ -37,7 +37,7 @@
       OJ.each(range, function(val) {
         var char;
         char = val.trim()[0].toLowerCase();
-        if (false === _.contains(charRange, char)) {
+        if (false === OJ.contains(charRange, char)) {
           return charRange.push(char.charCodeAt());
         }
       });
@@ -108,4 +108,4 @@
 
 }).call(this);
 
-//# sourceMappingURL=ranges.map
+//# sourceMappingURL=ranges.js.map

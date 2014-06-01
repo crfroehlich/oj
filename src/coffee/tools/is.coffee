@@ -89,7 +89,7 @@
 
   OJ.is.register 'method', (obj) ->
     'use strict'
-    _.isFunction obj
+    obj isnt OJ.noop and _.isFunction obj
 
   ###
   Deprecated. Left for backwards compatibility. Use is.method instead.

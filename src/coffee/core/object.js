@@ -33,13 +33,8 @@
     OJ.register('contains', function(object, index) {
       var ret;
       ret = false;
-      if (false === OJ.isNullOrUndefined(object)) {
-        if (OJ.isArray(object)) {
-          ret = object.indexOf(index) !== -1;
-        }
-        if (false === ret && object.hasOwnProperty(index)) {
-          ret = true;
-        }
+      if (object) {
+        ret = _.contains(object(index));
       }
       return ret;
     });

@@ -95,7 +95,7 @@
     });
     OJ.is.register('method', function(obj) {
       'use strict';
-      return _.isFunction(obj);
+      return obj !== OJ.noop && _.isFunction(obj);
     });
 
     /*

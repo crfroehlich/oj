@@ -5,7 +5,7 @@
   ###
   bindEvents = (el, events) ->
     if el then _.forOwn events, (val, key) ->
-      if val isnt OJ.noop and _.isFunction val
+      if OJ.is.method val
         callback = (event...) -> val event...
         el.$.on key, callback
         el.add key, callback

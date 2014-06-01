@@ -7,7 +7,7 @@
      */
     var canEach, each;
     canEach = function(obj) {
-      return (_.isPlainObject(obj)) || _.isArray(obj);
+      return OJ.is.plainObject(obj || OJ.is.array(obj));
     };
 
     /*
@@ -15,7 +15,7 @@
      */
     each = function(obj, onEach, recursive) {
       if (canEach(obj)) {
-        _.forEach(obj, function(val, key) {
+        _.forOwn(obj, function(val, key) {
           var quit;
           if (onEach && (val || key)) {
             quit = onEach(val, key);
@@ -29,7 +29,7 @@
         });
       }
     };
-    OJ.register("each", each);
+    OJ.register('each', each);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);

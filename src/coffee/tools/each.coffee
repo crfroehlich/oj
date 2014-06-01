@@ -4,7 +4,7 @@
   True if the object is a true Object or Array
   ###
   canEach = (obj) ->
-    (_.isPlainObject obj) or _.isArray obj
+    OJ.is.plainObject obj or OJ.is.array obj
 
   
   ###
@@ -12,7 +12,7 @@
   ###
   each = (obj, onEach, recursive) ->
     if canEach obj
-      _.forEach obj, (val, key) ->
+      _.forOwn obj, (val, key) ->
         if onEach and (val or key)
           quit = onEach val, key
           return false  if false is quit
@@ -21,6 +21,6 @@
 
     return
 
-  OJ.register "each", each
+  OJ.register 'each', each
   return
 )  ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ

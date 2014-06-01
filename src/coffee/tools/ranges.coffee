@@ -21,7 +21,7 @@
 
     OJ.each range, (val) ->
       char = val.trim()[0].toLowerCase()
-      if false is _.contains charRange, char
+      if false is OJ.contains charRange, char
         charRange.push char.charCodeAt()
 
     ret = rangeToSubRanges n, charRange
