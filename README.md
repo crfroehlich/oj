@@ -45,6 +45,36 @@ ol = div.make 'ol'
   .make 'li' #valid child of li
 ```
 
+#### Special Cases
+
+In most cases, the `make` method is your start and end point for chaining node creation. In a few cases, specific classes such as `grid` and `table` provide an additional convenience
+method or two to make chaining simpler:
+
+```coffee
+table = OJ.body.make 'table' #returns an instance of table
+table.cell 1, 1, text: 'Ahoy, column 1, row 1!' #the table.cell method provides a simple abstraction over table.make 'tr' and table.make 'td'
+table.make 'tr' #Still valid, creates a new row
+  .make 'td' #Still valid, creates a new cell
+```
+
+The element table class provides a unique `cell` method which takes in the ordinal position of the cell (row, column) and guarantees that the cell you want is in the correct location.
+Further, it guarantees that the table is fully populated.
+
+```coffee
+table = OJ.body.make 'table' #returns an instance of table
+table.cell 14, 7, text: 'Ahoy, column 7, row 14!' #cell() guarantees that rows 1-13 are created and that each row has at least 7 columns (filled with non-breaking whitespace if absent)
+table.cell 14, 12, text: 'Ahoy, column 12, row 14' #cell() now guarantees that all existing rows also have 14 columns (filled with non-breaking whitespace if absent)
+```
+
+Likewise, the component grid class provides a unique `tile` method which accomplishes the same effect for Bootstrap grids as `table.cell` does for tables.
+
+```coffee
+grid = OJ.body.make 'grid' #returns an instance of grid
+grid.tile 2, 1, widths: xs: 12, sm: 6, md: 4 #Guarantees that at least 2 Bootstrap rows exist, each with 1 column
+```
+
+#### Components
+
 This simple semantic makes it possible to build more complex web components, which are encapsulated as OJ classes.
 
 ```coffee
@@ -62,9 +92,28 @@ In order for OJ to scale, it has to be fast. By far, the fastest way to insert n
 
 While ThinDOM may be the fastest choice for getting your nodes into the DOM, it doesn't offer the cross-browser support and flexibility of jQuery's API--so for everything else you need to do to your nodes, OJ wraps around jQuery to provide access to all of the `addClass` and `hide` and `on` that you might need.
 
-### Semantics
+### Element IDs
 
-By design, OJ handles the generation of unique element IDs for every DOM node automatically under the hood. This provides faster lookups in the internal API and encourages you to reference nodes in memory as opposed to relying on "truth in DOM". For example, while you might write something like the following in jQuery:
+By default, OJ does not add element IDs to any of the nodes it creates. This is configurable. If desired, enable element ID creation by setting:
+
+```coffee
+OJ['GENERATE_UNIQUE_IDS'] = true
+```
+
+If enabled, OJ will generate unique element IDs for every node created. The generated IDs are accessible via the `getId` method.
+
+```coffee
+divId = div.getId()
+```
+
+You are always free to specify your own IDs on node creation (whether or not automatic ID generation is enabled).
+
+```coffee
+div = OJ.body.make 'div', props: id: 'myHolaDiv'
+```
+
+Regardless, OJ is not optimized for fetching nodes from the DOM, rather it encourages you to reference nodes in memory as opposed to relying on "truth in DOM". 
+For example, while you might write something like the following in jQuery:
 
 ```coffee
 jQuery '#myHolaDiv'
@@ -82,10 +131,10 @@ leaving = jQuery '#leavingDiv'
   .hide();
 ```
 
-In OJ, this is generally discouraged. Node lookups by ID are possible (if you maintain a reference to the ID `OJ.nodes.get('myHolaDiv)`), but it is usually better to consolidate behavior using a reference to the object and encapsulate the logic into components.
+In OJ, this is generally discouraged. Node lookups by ID are possible (e.g. `OJ.nodes.get('myHolaDiv)`), but it is usually better to consolidate behavior using a reference to the object and encapsulate the logic into components.
 
 ```coffee
-myHolaDiv = OJ.nodes.div();
+myHolaDiv = OJ.body.make 'div'
 leavingDiv = myHolaDiv.make 'div', text: 'Leaving...'
 goneDiv = myHolaDiv.make 'div', text: 'Gone'
   .hide()
@@ -113,9 +162,14 @@ The Dream:
 As of v0.2.0, the entire library has been refactored to CoffeeScript. Anything non-essential to the DOM framework has been archived (the source is still included in the project under /src/archive).
 All standard nodes are supported: div, span, input, table, fieldset, p, b, br, ol, ul, li, select, option and more. Unit tests are in place and expanding to prove out all of the new nodes.
 
-### TODO Priority 2 v0.3.0
-A secondary factory will need to implement components. There's still some implementation specing to do on how to distinguish
-between abstract components (e.g. an array of checkboxes) vs. concrete controls (e.g. an Address composite).
+~~### TODO Priority 2 v0.3.0~~ Complete
+~~A secondary factory will need to implement components. There's still some implementation specing to do on how to distinguish
+between abstract components (e.g. an array of checkboxes) vs. concrete controls (e.g. an Address composite).~~
+
+As of v0.3.0, all literal nodes (e.g. span, div, etc) are encapsulated in element classes. 
+All controls (simple combinations of literals) are contained in control classes.
+Components (OJ's version of web components) are contained in component classes.
+An additional input collection exists to handle all the possible permutations of the literal input class.
 
 ### TODO Priority 3 v0.4.0
 A FORM factory is on the table, so to speak. Additional specification work is needed to define a data structure
