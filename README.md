@@ -100,7 +100,7 @@ By default, OJ does not add element IDs to any of the nodes it creates. This is 
 OJ['GENERATE_UNIQUE_IDS'] = true
 ```
 
-If enabled, OJ will generate unique element IDs for every node created. The generated IDs are accessible via the `getId` method.
+If enabled, OJ will generate unique element IDs for every node created. Any element ID is accessible via the `getId` method.
 
 ```coffee
 divId = div.getId()
@@ -135,12 +135,19 @@ In OJ, this is generally discouraged. Node lookups by ID are possible (e.g. `OJ.
 
 ```coffee
 myHolaDiv = OJ.body.make 'div'
-leavingDiv = myHolaDiv.make 'div', text: 'Leaving...'
-goneDiv = myHolaDiv.make 'div', text: 'Gone'
+leavingDiv = myHolaDiv.make 'div', 
+  text: 'Leaving...'
+  events:
+    click: ->
+      leavingDiv.hide()
+      goneDiv.show()  
+goneDiv = myHolaDiv.make 'div', 
+  text: 'Gone'
+  events: 
+    click: ->
+      goneDiv.hide()  
   .hide()
   
-leavingDiv.hide()
-goneDiv.show()  
 ```
 
 One of OJ's implicit goals is to enable a style of development free from worrying about the minutia
