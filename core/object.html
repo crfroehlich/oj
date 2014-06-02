@@ -19,9 +19,8 @@
 
   <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;contains&#39;</span><span class="p">,</span> <span class="nf">(object, index) -&gt;</span>
     <span class="nv">ret = </span><span class="kc">false</span>
-    <span class="k">if</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">isNullOrUndefined</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span>
-      <span class="nv">ret = </span><span class="nx">object</span><span class="p">.</span><span class="nx">indexOf</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span> <span class="o">isnt</span> <span class="o">-</span><span class="mi">1</span>  <span class="k">if</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">isArray</span><span class="p">(</span><span class="nx">object</span><span class="p">)</span>
-      <span class="nv">ret = </span><span class="kc">true</span>  <span class="k">if</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">ret</span> <span class="o">and</span> <span class="nx">object</span><span class="p">.</span><span class="nx">hasOwnProperty</span><span class="p">(</span><span class="nx">index</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">object</span>
+      <span class="nv">ret = </span><span class="nx">_</span><span class="p">.</span><span class="nx">contains</span> <span class="nx">object</span> <span class="nx">index</span>
     <span class="nx">ret</span>
 
   <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;compare&#39;</span><span class="p">,</span> <span class="nf">(obj1, obj2) -&gt;</span>

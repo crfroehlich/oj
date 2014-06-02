@@ -15,7 +15,7 @@ Builds a int range based on unique code chars.</p></div></div><div class="code">
 
     <span class="nx">OJ</span><span class="p">.</span><span class="nx">each</span> <span class="nx">range</span><span class="p">,</span> <span class="nf">(val) -&gt;</span>
       <span class="nv">char = </span><span class="nx">val</span><span class="p">.</span><span class="nx">trim</span><span class="p">()[</span><span class="mi">0</span><span class="p">].</span><span class="nx">toLowerCase</span><span class="p">()</span>
-      <span class="k">if</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">_</span><span class="p">.</span><span class="nx">contains</span> <span class="nx">charRange</span><span class="p">,</span> <span class="nx">char</span>
+      <span class="k">if</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">contains</span> <span class="nx">charRange</span><span class="p">,</span> <span class="nx">char</span>
         <span class="nx">charRange</span><span class="p">.</span><span class="nx">push</span> <span class="nx">char</span><span class="p">.</span><span class="nx">charCodeAt</span><span class="p">()</span>
 
     <span class="nv">ret = </span><span class="nx">rangeToSubRanges</span> <span class="nx">n</span><span class="p">,</span> <span class="nx">charRange</span>

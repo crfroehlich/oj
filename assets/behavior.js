@@ -45,7 +45,26 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                 "title": "API",
                 "slug": "api"
               },
-              "depth": 3
+              "depth": 3,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Special Cases",
+                    "slug": "special-cases"
+                  },
+                  "depth": 4
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 4,
+                    "title": "Components",
+                    "slug": "components"
+                  },
+                  "depth": 4
+                }
+              ]
             }, {
               "type": "heading",
               "data": {
@@ -58,8 +77,8 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "type": "heading",
               "data": {
                 "level": 3,
-                "title": "Semantics",
-                "slug": "semantics"
+                "title": "Element IDs",
+                "slug": "element-ids"
               },
               "depth": 3
             }
@@ -74,14 +93,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
           "depth": 2,
           "children": [
             {
-              "type": "heading",
-              "data": {
-                "level": 3,
-                "title": "TODO Priority 2 v0.3.0",
-                "slug": "todo-priority-2-v030"
-              },
-              "depth": 3
-            }, {
               "type": "heading",
               "data": {
                 "level": 3,
