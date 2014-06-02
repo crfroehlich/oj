@@ -6,10 +6,6 @@
     _.each(subNameSpaces, function(name) {
       return OJ.makeSubNameSpace(name);
     });
-
-    /*
-    Configuration variables
-     */
     OJ['GENERATE_UNIQUE_IDS'] = false;
     OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] = 'div';
     OJ['TRACK_ON_ERROR'] = false;
