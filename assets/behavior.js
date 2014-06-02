@@ -2058,7 +2058,36 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "title": "ojInit"
       },
       "depth": 1,
-      "outline": []
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "OJ Post-Initialization",
+            "slug": "oj-post-initialization"
+          },
+          "depth": 1,
+          "children": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "SubNameSpaces",
+                "slug": "subnamespaces"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Configuration variables",
+                "slug": "configuration-variables"
+              },
+              "depth": 2
+            }
+          ]
+        }
+      ]
     }, {
       "type": "folder",
       "data": {
@@ -2171,7 +2200,33 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "title": "each"
           },
           "depth": 2,
-          "outline": []
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "canEach",
+                "slug": "caneach"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "each",
+                "slug": "each"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "register",
+                "slug": "register"
+              },
+              "depth": 2
+            }
+          ]
         }, {
           "type": "file",
           "data": {
