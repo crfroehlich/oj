@@ -2034,7 +2034,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "src/coffee/oj.coffee",
         "targetPath": "oj",
         "pageTitle": "oj",
-        "title": "oj"
+        "firstHeader": {
+          "type": "heading",
+          "data": {
+            "level": 1,
+            "title": "OJ",
+            "slug": "oj",
+            "isFileHeader": true
+          },
+          "depth": 1
+        },
+        "title": "OJ"
       },
       "depth": 1,
       "outline": []
@@ -2055,16 +2065,13 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
         "projectPath": "src/coffee/ojInit.coffee",
         "targetPath": "ojInit",
         "pageTitle": "ojInit",
-        "title": "ojInit"
-      },
-      "depth": 1,
-      "outline": [
-        {
+        "firstHeader": {
           "type": "heading",
           "data": {
             "level": 1,
             "title": "OJ Post-Initialization",
-            "slug": "oj-post-initialization"
+            "slug": "oj-post-initialization",
+            "isFileHeader": true
           },
           "depth": 1,
           "children": [
@@ -2086,6 +2093,27 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 2
             }
           ]
+        },
+        "title": "OJ Post-Initialization"
+      },
+      "depth": 1,
+      "outline": [
+        {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "SubNameSpaces",
+            "slug": "subnamespaces"
+          },
+          "depth": 2
+        }, {
+          "type": "heading",
+          "data": {
+            "level": 2,
+            "title": "Configuration variables",
+            "slug": "configuration-variables"
+          },
+          "depth": 2
         }
       ]
     }, {
@@ -2197,6 +2225,43 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "src/coffee/tools/each.coffee",
             "targetPath": "tools/each",
             "pageTitle": "tools/each",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "each",
+                "slug": "each",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "canEach",
+                    "slug": "caneach"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "each",
+                    "slug": "each"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "register",
+                    "slug": "register"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
             "title": "each"
           },
           "depth": 2,
@@ -2433,6 +2498,16 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "src/coffee/tools/to.coffee",
             "targetPath": "tools/to",
             "pageTitle": "tools/to",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "to",
+                "slug": "to",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
             "title": "to"
           },
           "depth": 2,
@@ -2454,7 +2529,17 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "src/coffee/tools/uuid.coffee",
             "targetPath": "tools/uuid",
             "pageTitle": "tools/uuid",
-            "title": "uuid"
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "createUUID",
+                "slug": "createuuid",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "createUUID"
           },
           "depth": 2,
           "outline": []
