@@ -1,7 +1,9 @@
+ # # OJ Post-Initialization
+
 ((OJ) ->
 
-  # # OJ Post-Initialization
-
+  # Simple array of anticipated/known child namespaces
+  
   subNameSpaces = [
     'errors'
     'enums'

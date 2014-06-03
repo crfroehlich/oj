@@ -1,4 +1,6 @@
-﻿((OJ) ->
+﻿# # to
+
+((OJ) ->
   OJ.to.register 'bool', (str) ->
     retBool = OJ.is['true'](str)
     retBool = false  if retBool is false or retBool isnt true

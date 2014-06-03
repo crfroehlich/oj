@@ -1,7 +1,7 @@
-###
-OJ IIFE definition to anchor JsDoc comments.
-###
-thisGlobal = (if (typeof global isnt 'undefined' and global) then global else if (typeof window isnt 'undefined') then window else this)
+# # OJ
+
+# Persist a reference to the global object
+thisGlobal = if (typeof global isnt 'undefined' and global) then global else (if (typeof self isnt 'undefined' and self) then self else (if (typeof window isnt 'undefined' and window) then window else this))
 utilLib = thisGlobal.jQuery
 nameSpaceName = 'OJ'
 
