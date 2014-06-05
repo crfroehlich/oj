@@ -169,11 +169,11 @@
       });
       el.add('val', function(value) {
         if (isControlStillValid()) {
-          if (arguments.length === 1 && false === OJ.isNullOrUndefined(value)) {
+          if (arguments.length === 1 && false === OJ.is.nullOrUndefined(value)) {
             el.$.val(value);
             return el;
           } else {
-            return OJ.to.string(el.$.val());
+            return el.$.val();
           }
         }
       });

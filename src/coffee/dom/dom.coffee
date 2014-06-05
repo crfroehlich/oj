@@ -157,11 +157,11 @@
     # Get the value of the element.
     el.add 'val', (value) ->
       if isControlStillValid()
-        if arguments.length is 1 and false is OJ.isNullOrUndefined(value)
+        if arguments.length is 1 and false is OJ.is.nullOrUndefined(value)
           el.$.val value
           el
         else
-          OJ.to.string el.$.val()
+          el.$.val()
 
     el.add 'valueOf', ->
       el.val()
