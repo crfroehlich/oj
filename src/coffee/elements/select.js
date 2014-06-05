@@ -96,15 +96,18 @@
         }
         if (add) {
           val = {
+            text: text,
             props: {
-              value: value,
-              text: text,
-              selected: selected,
-              disabled: disabled
+              value: value
             }
           };
+          if (selected) {
+            val.selected = selected;
+          }
+          if (disabled) {
+            val.disabled = disabled;
+          }
           option = ret.make('option', val);
-          option.text(text);
           return option;
         }
       });

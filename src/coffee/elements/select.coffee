@@ -66,13 +66,15 @@
         add = true
       if false is add and false is isEmpty then add = true  
       if add
-          val = props:
-            value: value
+          val = 
             text: text
-            selected: selected
-            disabled: disabled
+            props:
+              value: value
+          if selected
+            val.selected = selected
+          if disabled  
+            val.disabled = disabled
           option = ret.make 'option', val
-          option.text text
           option
 
     ret.add 'addOptions', (options) ->
