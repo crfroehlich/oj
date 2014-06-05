@@ -4,15 +4,10 @@
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
-
-/*
-OJ IIFE definition to anchor JsDoc comments.
- */
-
 (function() {
   var NsTree, makeTheJuice, nameSpaceName, thisDocument, thisGlobal, utilLib;
 
-  thisGlobal = (typeof global !== 'undefined' && global ? global : typeof window !== 'undefined' ? window : this);
+  thisGlobal = typeof global !== 'undefined' && global ? global : (typeof self !== 'undefined' && self ? self : (typeof window !== 'undefined' && window ? window : this));
 
   utilLib = thisGlobal.jQuery;
 
@@ -255,10 +250,6 @@ OJ IIFE definition to anchor JsDoc comments.
     _.each(subNameSpaces, function(name) {
       return OJ.makeSubNameSpace(name);
     });
-
-    /*
-    Configuration variables
-     */
     OJ['GENERATE_UNIQUE_IDS'] = false;
     OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] = 'div';
     OJ['TRACK_ON_ERROR'] = false;
@@ -1082,28 +1073,6 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function() {
-    var makeSequentialArray;
-    makeSequentialArray = function(start, end) {
-      var i, ret;
-      ret = array();
-      i = void 0;
-      end = +end;
-      if (OJ.isNumber(start) && OJ.isNumber(end)) {
-        i = +start;
-        while (i <= end) {
-          ret.push(i);
-          i += 1;
-        }
-      }
-      return ret;
-    };
-    OJ.register("makeSequentialArray", makeSequentialArray);
-  })();
-
-}).call(this);
-
-(function() {
-  (function() {
     'use strict';
     OJ.register("getDateFromDnJson", function(dnDate) {
       var arr, dnDateStr, localOffset, offset, ret, ticks;
@@ -1230,13 +1199,8 @@ OJ IIFE definition to anchor JsDoc comments.
     OJ.register('contains', function(object, index) {
       var ret;
       ret = false;
-      if (false === OJ.isNullOrUndefined(object)) {
-        if (OJ.isArray(object)) {
-          ret = object.indexOf(index) !== -1;
-        }
-        if (false === ret && object.hasOwnProperty(index)) {
-          ret = true;
-        }
+      if (object) {
+        ret = _.contains(object(index));
       }
       return ret;
     });
@@ -1677,11 +1641,11 @@ OJ IIFE definition to anchor JsDoc comments.
       });
       el.add('val', function(value) {
         if (isControlStillValid()) {
-          if (arguments.length === 1 && false === OJ.isNullOrUndefined(value)) {
+          if (arguments.length === 1 && false === OJ.is.nullOrUndefined(value)) {
             el.$.val(value);
             return el;
           } else {
-            return OJ.to.string(el.$.val());
+            return el.$.val();
           }
         }
       });
@@ -1720,7 +1684,7 @@ OJ IIFE definition to anchor JsDoc comments.
       if (el) {
         return _.forOwn(events, function(val, key) {
           var callback;
-          if (val !== OJ.noop && _.isFunction(val)) {
+          if (OJ.is.method(val)) {
             callback = function() {
               var event;
               event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
@@ -2960,15 +2924,18 @@ OJ IIFE definition to anchor JsDoc comments.
         }
         if (add) {
           val = {
+            text: text,
             props: {
-              value: value,
-              text: text,
-              selected: selected,
-              disabled: disabled
+              value: value
             }
           };
+          if (selected) {
+            val.selected = selected;
+          }
+          if (disabled) {
+            val.disabled = disabled;
+          }
           option = ret.make('option', val);
-          option.text(text);
           return option;
         }
       });
@@ -4433,21 +4400,13 @@ OJ IIFE definition to anchor JsDoc comments.
 
 (function() {
   (function(OJ) {
-
-    /*
-    True if the object is a true Object or Array
-     */
     var canEach, each;
     canEach = function(obj) {
-      return (_.isPlainObject(obj)) || _.isArray(obj);
+      return OJ.is.plainObject(obj || OJ.is.array(obj));
     };
-
-    /*
-    Iterate an object with optional callBack and recursion
-     */
     each = function(obj, onEach, recursive) {
       if (canEach(obj)) {
-        _.forEach(obj, function(val, key) {
+        _.forOwn(obj, function(val, key) {
           var quit;
           if (onEach && (val || key)) {
             quit = onEach(val, key);
@@ -4461,7 +4420,7 @@ OJ IIFE definition to anchor JsDoc comments.
         });
       }
     };
-    OJ.register("each", each);
+    OJ.register('each', each);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
@@ -5009,7 +4968,7 @@ OJ IIFE definition to anchor JsDoc comments.
     });
     OJ.is.register('method', function(obj) {
       'use strict';
-      return _.isFunction(obj);
+      return obj !== OJ.noop && _.isFunction(obj);
     });
 
     /*
@@ -5206,7 +5165,7 @@ OJ IIFE definition to anchor JsDoc comments.
       OJ.each(range, function(val) {
         var char;
         char = val.trim()[0].toLowerCase();
-        if (false === _.contains(charRange, char)) {
+        if (false === OJ.contains(charRange, char)) {
           return charRange.push(char.charCodeAt());
         }
       });
