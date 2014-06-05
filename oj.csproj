@@ -269,9 +269,6 @@
     <Content Include="src\coffee\tools\to.js.map">
       <DependentUpon>to.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\array.js.map">
-      <DependentUpon>array.coffee</DependentUpon>
-    </Content>
     <Content Include="gulpfile.coffee" />
     <Content Include="gulpfile.map">
       <DependentUpon>gulpfile.coffee</DependentUpon>
@@ -967,9 +964,6 @@
     <Content Include="src\coffee\elements\ul.js">
       <DependentUpon>ul.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\core\array.js">
-      <DependentUpon>array.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\core\date.js">
       <DependentUpon>date.coffee</DependentUpon>
     </Content>
@@ -995,7 +989,6 @@
     <Content Include="src\coffee\elements\textarea.coffee" />
     <Content Include="src\coffee\elements\ul.coffee" />
     <Content Include="src\coffee\dom\element.coffee" />
-    <Content Include="src\coffee\core\array.coffee" />
     <Content Include="src\coffee\core\date.coffee" />
     <Content Include="src\coffee\tools\functional.coffee" />
     <Content Include="src\coffee\elements\br.map">
