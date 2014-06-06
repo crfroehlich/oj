@@ -17,18 +17,22 @@
       };
       return promise;
     });
-    OJ.async.register('defer', function() {
+    OJ.async.register('defer', function(func) {
       var ret;
-      ret = Q.defer();
+      if (func == null) {
+        func = OJ.noop;
+      }
+      ret = Q.fcall(func);
       return ret;
     });
     OJ.async.register('promise', function(deferred) {
       var ret;
-      ret = Q.defer().promise;
-      if (deferred && deferred.promise) {
-        ret = deferred.promise;
+      if (deferred == null) {
+        deferred = Q.defer();
       }
-      return ret;
+      if (deferred && deferred.promise) {
+        return ret = deferred.promise;
+      }
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 

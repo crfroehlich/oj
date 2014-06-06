@@ -4,10 +4,10 @@
   
   # ## canEach
   canEach = (obj) ->
-    # Return true if the object is truly iterable (e.g. an instance of Object or Array)
+    # Return true if the object [is](is.html) truly iterable (e.g. an instance of Object or Array)
     OJ.is.plainObject obj or OJ.is.array obj
   
-  # ## each
+  # ## [OJ](oj.html).each
   
   # Iterate all of the members of an object (or an array) with optional callback and recursion.
   # * `obj`: the object to iterate, 

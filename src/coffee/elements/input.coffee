@@ -1,3 +1,5 @@
+# # input
+
 ((OJ)->
   'use strict'
   
