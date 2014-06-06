@@ -465,27 +465,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "CoffeeScript"
             },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/core/array.coffee",
-            "projectPath": "src/coffee/core/array.coffee",
-            "targetPath": "core/array",
-            "pageTitle": "core/array",
-            "title": "array"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
             "sourcePath": "/Drive/Source/Github/oj/src/coffee/core/date.coffee",
             "projectPath": "src/coffee/core/date.coffee",
             "targetPath": "core/date",
@@ -2477,10 +2456,105 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "src/coffee/tools/ranges.coffee",
             "targetPath": "tools/ranges",
             "pageTitle": "tools/ranges",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "ranges",
+                "slug": "ranges",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "range",
+                    "slug": "range"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "rangeMin",
+                    "slug": "rangemin"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "rangeMax",
+                    "slug": "rangemax"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "stringRangeToSubRanges",
+                    "slug": "stringrangetosubranges"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "rangeToSubRanges",
+                    "slug": "rangetosubranges"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
             "title": "ranges"
           },
           "depth": 2,
-          "outline": []
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "range",
+                "slug": "range"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "rangeMin",
+                "slug": "rangemin"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "rangeMax",
+                "slug": "rangemax"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "stringRangeToSubRanges",
+                "slug": "stringrangetosubranges"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "rangeToSubRanges",
+                "slug": "rangetosubranges"
+              },
+              "depth": 2
+            }
+          ]
         }, {
           "type": "file",
           "data": {

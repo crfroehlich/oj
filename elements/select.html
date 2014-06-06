@@ -62,13 +62,15 @@
         <span class="nv">add = </span><span class="kc">true</span>
       <span class="k">if</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">add</span> <span class="o">and</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">isEmpty</span> <span class="k">then</span> <span class="nv">add = </span><span class="kc">true</span>  
       <span class="k">if</span> <span class="nx">add</span>
-          <span class="nv">val = props:</span>
-            <span class="nv">value: </span><span class="nx">value</span>
+          <span class="nv">val = </span>
             <span class="nv">text: </span><span class="nx">text</span>
-            <span class="nv">selected: </span><span class="nx">selected</span>
-            <span class="nv">disabled: </span><span class="nx">disabled</span>
+            <span class="nv">props:</span>
+              <span class="nv">value: </span><span class="nx">value</span>
+          <span class="k">if</span> <span class="nx">selected</span>
+            <span class="nv">val.selected = </span><span class="nx">selected</span>
+          <span class="k">if</span> <span class="nx">disabled</span>  
+            <span class="nv">val.disabled = </span><span class="nx">disabled</span>
           <span class="nv">option = </span><span class="nx">ret</span><span class="p">.</span><span class="nx">make</span> <span class="s">&#39;option&#39;</span><span class="p">,</span> <span class="nx">val</span>
-          <span class="nx">option</span><span class="p">.</span><span class="nx">text</span> <span class="nx">text</span>
           <span class="nx">option</span>
 
     <span class="nx">ret</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;addOptions&#39;</span><span class="p">,</span> <span class="nf">(options) -&gt;</span>
