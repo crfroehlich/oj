@@ -26,10 +26,7 @@
         return el;
       });
       el.add('bind', function(eventName, event) {
-        if (isControlStillValid()) {
-          el.$.on(eventName, event);
-        }
-        return el;
+        return el.on(eventName, event);
       });
       el.add('on', function(eventName, event) {
         if (isControlStillValid()) {
@@ -162,10 +159,7 @@
         return el;
       });
       el.add('unbind', function(eventName, event) {
-        if (isControlStillValid()) {
-          el.$.off(eventName, event);
-        }
-        return el;
+        return el.off(eventName, event);
       });
       el.add('val', function(value) {
         if (isControlStillValid()) {
@@ -191,8 +185,6 @@
     OJ.register('getElement', function(id) {
       if (typeof document !== 'undefined') {
         return document.getElementById(id);
-      } else {
-        return void 0;
       }
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
