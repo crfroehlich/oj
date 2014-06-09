@@ -5,7 +5,7 @@
   # ## canEach
   canEach = (obj) ->
     # Return true if the object [is](is.html) truly iterable (e.g. an instance of Object or Array)
-    OJ.is.plainObject obj or OJ.is.array obj
+    OJ.is.plainObject(obj) or OJ.is.array obj
   
   # ## [OJ](oj.html).each
   
@@ -16,10 +16,12 @@
   each = (obj, onEach, recursive) ->
     if canEach obj
       # Using [Lo-Dash](http://lodash.com/docs#forown)'s `forOwn` method to ensure that only the actual properties of the object are enumerated. 
-      # * `onEach` callback will receive 2 parameters: 
-      # * `val` and `key`. 
-      # * `val` is always the value of the property. 
-      # * `key` is either the name of the property or the current index of the array.
+      ###
+       * `onEach` callback will receive 2 parameters: 
+       * `val` and `key`. 
+       * `val` is always the value of the property. 
+       * `key` is either the name of the property or the current index of the array.
+      ###
       _.forOwn obj, (val, key) ->
         if onEach and (val or key)
           quit = onEach val, key
