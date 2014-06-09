@@ -355,10 +355,41 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "src/coffee/components/address.coffee",
             "targetPath": "components/address",
             "pageTitle": "components/address",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "address",
+                "slug": "address",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "address [x-address]",
+                    "slug": "address-x-address"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
             "title": "address"
           },
           "depth": 2,
-          "outline": []
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "address [x-address]",
+                "slug": "address-x-address"
+              },
+              "depth": 2
+            }
+          ]
         }, {
           "type": "file",
           "data": {
@@ -763,6 +794,16 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "src/coffee/dom/component.coffee",
             "targetPath": "dom/component",
             "pageTitle": "dom/component",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "component",
+                "slug": "component",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
             "title": "component"
           },
           "depth": 2,
