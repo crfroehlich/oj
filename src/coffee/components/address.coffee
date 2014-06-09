@@ -1,9 +1,14 @@
-﻿((OJ) ->
+﻿# # address
+
+((OJ) ->
   nodeName = 'x-address'
   className = 'address'
   
   OJ.components.members[className] = nodeName
   
+  # ## address [x-address]
+  # mostly a proof-of-concept component class to demonstrate viability of component classes
+  # assumes a Bootstrap template which is not defined in OJ, as OJ has no opinion about styling
   OJ.components.register className, (options, owner) ->
     defaults = 
       props:
