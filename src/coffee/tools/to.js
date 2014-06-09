@@ -50,14 +50,6 @@
       }
       return ret;
     });
-
-    /*
-    Attempts to converts an arbitrary value to a Number.
-    Loose falsy values are converted to 0.
-    Loose truthy values are converted to 1.
-    All other values are parsed as Integers.
-    Failures return as NaN.
-     */
     OJ.to.register('number', function(inputNum, defaultNum) {
       var retVal, tryGetNumber;
       tryGetNumber = function(val) {
