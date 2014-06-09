@@ -45,8 +45,11 @@
   # define a standard `exec` method to handle all request verbs. Uses the [jQuery.ajax](http://api.jquery.com/category/ajax/) API.
   # `execRequest` returns a promise represent the actual AJAX call.
   # * `verb` default value = 'GET'
+  #
   # * `opts` object
+  #
   # ** `opts.ajaxOpts` object for all jQuery's ajax-specific properties.
+  #
   config.execRequest = (verb = 'GET', opts) ->
     defaults =
       ajaxOpts:
@@ -92,11 +95,7 @@
 
       OJ.async.ajaxPromise ret
 
-    promise = undefined
-    if true is defaults.useCache
-      #fetch last known result from cache
-    else
-      promise = getPromiseFromAjax(defaults.watchGlobal)
+    promise = getPromiseFromAjax(defaults.watchGlobal)
     promise
   
   ajax = {}
@@ -104,28 +103,36 @@
   # ## post
   # [OJ](oj.html).ajax.post: insert a new object or init a form post
   # * `opts` can be an object representing the configuration of the request.
+  #
   # * `opts` can also be a string, representing the URL to hit. 
+  #
   ajax.post = (opts) ->
     config.execRequest 'POST', opts
   
   # ## get
   # [OJ](oj.html).ajax.get: get an existing object
   # * `opts` can be an object representing the configuration of the request.
+  #
   # * `opts` can also be a string, representing the URL to hit.
+  #
   ajax.get = (opts) ->
     config.execRequest 'GET', opts
 
   # ## delete
   # [OJ](oj.html).ajax.delete: delete an existing object
   # * `opts` can be an object representing the configuration of the request.
+  #
   # * `opts` can also be a string, representing the URL to hit.
+  #
   ajax.delete = (opts) ->
     config.execRequest 'DELETE', opts
 
   # ## put
   # [OJ](oj.html).ajax.put: update an existing object
   # 1 `opts` can be an object representing the configuration of the request.
+  #
   # 2 `opts` can also be a string, representing the URL to hit.
+  #
   ajax.put = (opts) ->
     config.execRequest 'PUT', opts
 

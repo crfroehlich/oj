@@ -93,12 +93,7 @@
         });
         return OJ.async.ajaxPromise(ret);
       };
-      promise = void 0;
-      if (true === defaults.useCache) {
-
-      } else {
-        promise = getPromiseFromAjax(defaults.watchGlobal);
-      }
+      promise = getPromiseFromAjax(defaults.watchGlobal);
       return promise;
     };
     ajax = {};
