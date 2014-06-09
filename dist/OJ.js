@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.4.4
+ * @version v0.4.5
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -351,12 +351,7 @@
         });
         return OJ.async.ajaxPromise(ret);
       };
-      promise = void 0;
-      if (true === defaults.useCache) {
-
-      } else {
-        promise = getPromiseFromAjax(defaults.watchGlobal);
-      }
+      promise = getPromiseFromAjax(defaults.watchGlobal);
       return promise;
     };
     ajax = {};
@@ -395,18 +390,22 @@
       };
       return promise;
     });
-    OJ.async.register('defer', function() {
+    OJ.async.register('defer', function(func) {
       var ret;
-      ret = Q.defer();
+      if (func == null) {
+        func = OJ.noop;
+      }
+      ret = Q.fcall(func);
       return ret;
     });
     OJ.async.register('promise', function(deferred) {
       var ret;
-      ret = Q.defer().promise;
-      if (deferred && deferred.promise) {
-        ret = deferred.promise;
+      if (deferred == null) {
+        deferred = Q.defer();
       }
-      return ret;
+      if (deferred && deferred.promise) {
+        return ret = deferred.promise;
+      }
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
@@ -1419,10 +1418,6 @@
 
 (function() {
   (function(OJ) {
-
-    /*
-    Create an HTML Web Component through ThinDom
-     */
     var component;
     component = function(options, owner, tagName) {
       var ret, rootNodeType, widget;
@@ -1498,10 +1493,7 @@
         return el;
       });
       el.add('bind', function(eventName, event) {
-        if (isControlStillValid()) {
-          el.$.on(eventName, event);
-        }
-        return el;
+        return el.on(eventName, event);
       });
       el.add('on', function(eventName, event) {
         if (isControlStillValid()) {
@@ -1634,10 +1626,7 @@
         return el;
       });
       el.add('unbind', function(eventName, event) {
-        if (isControlStillValid()) {
-          el.$.off(eventName, event);
-        }
-        return el;
+        return el.off(eventName, event);
       });
       el.add('val', function(value) {
         if (isControlStillValid()) {
@@ -1663,8 +1652,6 @@
     OJ.register('getElement', function(id) {
       if (typeof document !== 'undefined') {
         return document.getElementById(id);
-      } else {
-        return void 0;
       }
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -4402,10 +4389,17 @@
   (function(OJ) {
     var canEach, each;
     canEach = function(obj) {
-      return OJ.is.plainObject(obj || OJ.is.array(obj));
+      return OJ.is.plainObject(obj) || OJ.is.array(obj);
     };
     each = function(obj, onEach, recursive) {
       if (canEach(obj)) {
+
+        /*
+         * `onEach` callback will receive 2 parameters: 
+         * `val` and `key`. 
+         * `val` is always the value of the property. 
+         * `key` is either the name of the property or the current index of the array.
+         */
         _.forOwn(obj, function(val, key) {
           var quit;
           if (onEach && (val || key)) {
@@ -5287,14 +5281,6 @@
       }
       return ret;
     });
-
-    /*
-    Attempts to converts an arbitrary value to a Number.
-    Loose falsy values are converted to 0.
-    Loose truthy values are converted to 1.
-    All other values are parsed as Integers.
-    Failures return as NaN.
-     */
     OJ.to.register('number', function(inputNum, defaultNum) {
       var retVal, tryGetNumber;
       tryGetNumber = function(val) {
