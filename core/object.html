@@ -1,5 +1,7 @@
-<!DOCTYPE html><html lang="en"><head><title>core/object</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="core/object"><meta name="groc-project-path" content="src/coffee/core/object.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/core/object.coffee">src/coffee/core/object.coffee</a></div></div><div id="document"><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="nf">(OJ) -&gt;</span>
-  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Create an instance of Object</p></div></div><div class="code"><div class="wrapper">  <span class="nv">object = </span><span class="nf">-&gt;</span>
+<!DOCTYPE html><html lang="en"><head><title>core/object</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="core/object"><meta name="groc-project-path" content="src/coffee/core/object.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/core/object.coffee">src/coffee/core/object.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="object">object</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="nf">(OJ) -&gt;</span>
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="ojojhtmlobject"><a href="oj.html">OJ</a>.object</h2>
+
+<p>create an object with helper <code>add</code> and <code>each</code> methods.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">object = </span><span class="nf">-&gt;</span>
     <span class="nv">obj = </span><span class="p">{}</span>
     </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Add a property to the object and return it</p></div></div><div class="code"><div class="wrapper">    <span class="nv">obj.add = </span><span class="nf">(name, val) -&gt;</span> 
       <span class="nx">OJ</span><span class="p">.</span><span class="nx">property</span> <span class="nx">obj</span><span class="p">,</span> <span class="nx">name</span><span class="p">,</span> <span class="nx">val</span>
@@ -13,30 +15,33 @@
     <span class="nx">obj</span>
 
   <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;object&#39;</span><span class="p">,</span> <span class="nx">object</span>
-  
-  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;isInstanceOf&#39;</span><span class="p">,</span> <span class="nf">(name, obj) -&gt;</span>
-    <span class="nx">OJ</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">obj</span><span class="p">)</span> <span class="o">and</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">bool</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span>
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="ojojhtmlisinstanceof"><a href="oj.html">OJ</a>.isInstanceOf</h2>
 
-  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;contains&#39;</span><span class="p">,</span> <span class="nf">(object, index) -&gt;</span>
+<p>determines is a thing is an instance of a Thing, assuming the things were all created in OJ</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;isInstanceOf&#39;</span><span class="p">,</span> <span class="nf">(name, obj) -&gt;</span>
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">contains</span><span class="p">(</span><span class="nx">name</span><span class="p">,</span> <span class="nx">obj</span><span class="p">)</span> <span class="o">and</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">bool</span><span class="p">(</span><span class="nx">obj</span><span class="p">[</span><span class="nx">name</span><span class="p">])</span>
+   </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="ojojhtmlcontains"><a href="oj.html">OJ</a>.contains</h2>
+
+<p>true if the <code>object</code> contains the value   </p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;contains&#39;</span><span class="p">,</span> <span class="nf">(object, index) -&gt;</span>
     <span class="nv">ret = </span><span class="kc">false</span>
     <span class="k">if</span> <span class="nx">object</span>
-      <span class="nv">ret = </span><span class="nx">_</span><span class="p">.</span><span class="nx">contains</span> <span class="nx">object</span> <span class="nx">index</span>
-    <span class="nx">ret</span>
+      <span class="nv">ret = </span><span class="nx">_</span><span class="p">.</span><span class="nx">contains</span> <span class="nx">object</span><span class="p">,</span> <span class="nx">index</span>
+    <span class="nx">ret</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="ojojhtmlcompare"><a href="oj.html">OJ</a>.compare</h2>
 
-  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;compare&#39;</span><span class="p">,</span> <span class="nf">(obj1, obj2) -&gt;</span>
-    <span class="nx">_</span><span class="p">.</span><span class="nx">isEqual</span> <span class="nx">obj1</span> <span class="nx">obj2</span>
-    
-  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;clone&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
-    <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span> <span class="nx">data</span> <span class="kc">true</span>
+<p>compare two objects/arrays/values for strict equality</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;compare&#39;</span><span class="p">,</span> <span class="nf">(obj1, obj2) -&gt;</span>
+    <span class="nx">_</span><span class="p">.</span><span class="nx">isEqual</span> <span class="nx">obj1</span><span class="p">,</span> <span class="nx">obj2</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="ojojhtmlclone"><a href="oj.html">OJ</a>.clone</h2>
 
-  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;serialize&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
+<p>copy all of the values (recursively) from one object to another.  </p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;clone&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
+    <span class="nx">_</span><span class="p">.</span><span class="nx">cloneDeep</span> <span class="nx">data</span> <span class="kc">true</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="ojojhtmlserialize"><a href="oj.html">OJ</a>.serialize</h2>
+
+<p>Convert an object to a JSON representation of the object</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;serialize&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
     <span class="nv">ret = </span><span class="s">&#39;&#39;</span>
     <span class="nx">OJ</span><span class="p">.</span><span class="nx">tryExec</span> <span class="nf">-&gt;</span>
       <span class="nv">ret = </span><span class="nx">JSON</span><span class="p">.</span><span class="nx">stringify</span><span class="p">(</span><span class="nx">data</span><span class="p">)</span>
       <span class="k">return</span>
-    <span class="nx">ret</span> <span class="o">or</span> <span class="s">&#39;&#39;</span>
+    <span class="nx">ret</span> <span class="o">or</span> <span class="s">&#39;&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="ojojhtmldeserialize"><a href="oj.html">OJ</a>.deserialize</h2>
 
-  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;deserialize&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
+<p>Convert a JSON string to an object</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;deserialize&#39;</span><span class="p">,</span> <span class="nf">(data) -&gt;</span>
     <span class="nv">ret = </span><span class="p">{}</span>
     <span class="k">if</span> <span class="nx">data</span>
       <span class="nx">OJ</span><span class="p">.</span><span class="nx">tryExec</span> <span class="nf">-&gt;</span>
@@ -44,9 +49,9 @@
         <span class="k">return</span>
 
       <span class="nv">ret = </span><span class="p">{}</span>  <span class="k">if</span> <span class="nx">OJ</span><span class="p">.</span><span class="o">is</span><span class="p">.</span><span class="nx">nullOrEmpty</span><span class="p">(</span><span class="nx">ret</span><span class="p">)</span>
-    <span class="nx">ret</span>
+    <span class="nx">ret</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="ojojhtmlparams"><a href="oj.html">OJ</a>.params</h2>
 
-  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;params&#39;</span><span class="p">,</span> <span class="nf">(data, delimiter = &#39;&amp;&#39;) -&gt;</span>
+<p>Convert an object to a delimited list of parameters (normally query-string parameters)</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;params&#39;</span><span class="p">,</span> <span class="nf">(data, delimiter = &#39;&amp;&#39;) -&gt;</span>
     <span class="nv">ret = </span><span class="s">&#39;&#39;</span>
     <span class="k">if</span> <span class="nx">delimiter</span> <span class="o">is</span> <span class="s">&#39;&amp;&#39;</span>
       <span class="nx">OJ</span><span class="p">.</span><span class="nx">tryExec</span> <span class="nf">-&gt;</span>
@@ -59,9 +64,9 @@
         <span class="nx">ret</span> <span class="o">+=</span> <span class="nx">key</span> <span class="o">+</span> <span class="s">&#39;=&#39;</span> <span class="o">+</span> <span class="nx">val</span>
         <span class="k">return</span>
 
-    <span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">string</span> <span class="nx">ret</span>
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">string</span> <span class="nx">ret</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="ojojhtmlextend"><a href="oj.html">OJ</a>.extend</h2>
 
-  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;extend&#39;</span><span class="p">,</span> <span class="nf">(destObj, srcObj, deepCopy = false) -&gt;</span>
+<p>copy the properties of one object to another object</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;extend&#39;</span><span class="p">,</span> <span class="nf">(destObj, srcObj, deepCopy = false) -&gt;</span>
     <span class="nv">ret = </span><span class="nx">destObj</span> <span class="o">or</span> <span class="p">{}</span>
     <span class="k">if</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">3</span>
       <span class="nv">ret = </span><span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">bool</span><span class="p">(</span><span class="nx">deepCopy</span><span class="p">),</span> <span class="nx">ret</span><span class="p">,</span> <span class="nx">srcObj</span><span class="p">)</span>

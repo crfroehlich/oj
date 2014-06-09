@@ -721,6 +721,16 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "src/coffee/core/object.coffee",
             "targetPath": "core/object",
             "pageTitle": "core/object",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "object",
+                "slug": "object",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
             "title": "object"
           },
           "depth": 2,
