@@ -124,8 +124,8 @@
 
   # ## put
   # [OJ](oj.html).ajax.put: update an existing object
-  # * `opts` can be an object representing the configuration of the request.
-  # * `opts` can also be a string, representing the URL to hit.
+  # 1 `opts` can be an object representing the configuration of the request.
+  # 2 `opts` can also be a string, representing the URL to hit.
   ajax.put = (opts) ->
     config.execRequest 'PUT', opts
 

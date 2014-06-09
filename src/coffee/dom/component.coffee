@@ -13,7 +13,7 @@
   component = (options = OJ.object(), owner, tagName) ->
   
     if not tagName.startsWith 'x-' then tagName = 'x-' + tagName
-    # web components are really just ordinary OJ (element)[element.html]'s with a special name.
+    # web components are really just ordinary OJ [element](element.html)'s with a special name.
     # Until HTML Web Components are fully supported (and OJ is refactored accordingly), the element will be treated as an unknown element.
     # In most cases, the default behavior of the browser is acceptable (see also [HTML Semantics](http://diveintohtml5.info/semantics.html)), but
     # in some cases this is problematic (firstly, because these elements are always rendered inline).
