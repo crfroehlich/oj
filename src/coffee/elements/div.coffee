@@ -3,23 +3,24 @@
 ((OJ)->
   'use strict'
   
-  nodeName = 'div'
-  
-  OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
-    
-    defaults =
-      props: {}
-      styles: {}
-      events:
-        click: OJ.noop
-    
-    OJ.extend defaults, options, true
-    ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
-    
-    
-    if false is calledFromFactory then OJ.nodes.factory ret, owner
+  # register semantic/structural aliases
+  for nodeName in [ 'div', 'section', 'header', 'footer' ]
 
-    ret
+    OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
+
+      defaults =
+        props: {}
+        styles: {}
+        events:
+          click: OJ.noop
+
+      OJ.extend defaults, options, true
+      ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+
+
+      if false is calledFromFactory then OJ.nodes.factory ret, owner
+
+      ret
 
   return
 
