@@ -24,8 +24,10 @@
     <span class="nv">ret = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">control</span> <span class="nx">defaults</span><span class="p">,</span> <span class="nx">owner</span><span class="p">,</span> <span class="nx">controlName</span>
     
     <span class="nv">isToggled = </span><span class="kc">false</span>
-    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>TODO: Support for pictoicons
-TODO: Support for other FontAwesome properties (stack, rotate, size, etc)</p></div></div><div class="code"><div class="wrapper">    
+    
+    <span class="c1">#TODO: Support for pictoicons</span>
+    <span class="c1">#TODO: Support for other FontAwesome properties (stack, rotate, size, etc)</span>
+    
     <span class="nv">classNameBase = </span><span class="s">&#39;fa &#39;</span>
     <span class="k">if</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">iconOpts</span><span class="p">.</span><span class="nx">isFixedWidth</span> <span class="k">then</span> <span class="nx">classNameBase</span> <span class="o">+=</span> <span class="s">&#39;fa-fw &#39;</span>
     <span class="k">if</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">iconOpts</span><span class="p">.</span><span class="nx">isList</span> <span class="k">then</span> <span class="nx">classNameBase</span> <span class="o">+=</span> <span class="s">&#39;fa-li &#39;</span>
@@ -35,7 +37,10 @@ TODO: Support for other FontAwesome properties (stack, rotate, size, etc)</p></d
         <span class="nx">classNameBase</span> <span class="o">+=</span> <span class="s">&#39;fa-&#39;</span> <span class="o">+</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">iconOpts</span><span class="p">.</span><span class="nx">size</span> <span class="o">+</span> <span class="s">&#39;x &#39;</span>
       
     <span class="nv">className = </span><span class="nx">classNameBase</span> <span class="o">+</span> <span class="s">&#39;fa-&#39;</span> <span class="o">+</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">iconOpts</span><span class="p">.</span><span class="nx">name</span>
-    <span class="nv">ret.myIcon = </span><span class="nx">ret</span><span class="p">.</span><span class="nx">make</span> <span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="nv">props: </span><span class="k">class</span><span class="o">:</span> <span class="nx">className</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Toggles display between normal icon and swap icon, if a swap icon has been specified</p></div></div><div class="code"><div class="wrapper">    <span class="nv">ret.toggleIcon = </span><span class="nf">-&gt;</span>
+    <span class="nv">ret.myIcon = </span><span class="nx">ret</span><span class="p">.</span><span class="nx">make</span> <span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="nv">props: </span><span class="k">class</span><span class="o">:</span> <span class="nx">className</span>
+
+    <span class="c1">#Toggles display between normal icon and swap icon, if a swap icon has been specified</span>
+    <span class="nv">ret.toggleIcon = </span><span class="nf">-&gt;</span>
       <span class="k">if</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">iconOpts</span><span class="p">.</span><span class="nx">swapIcon</span>
         <span class="nv">newIcon = </span><span class="nx">defaults</span><span class="p">.</span><span class="nx">iconOpts</span><span class="p">.</span><span class="nx">name</span>
         

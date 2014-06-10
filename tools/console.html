@@ -35,7 +35,9 @@
     <span class="p">(</span><span class="nf">-&gt;</span>
       <span class="nv">method = </span><span class="nx">methods</span><span class="p">[</span><span class="nx">methodLength</span><span class="p">]</span>
     </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Only stub undefined methods.</p></div></div><div class="code"><div class="wrapper">      <span class="nx">console</span><span class="p">[</span><span class="nx">method</span><span class="p">]</span> <span class="o">=</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">noop</span> <span class="k">unless</span> <span class="nx">console</span><span class="p">[</span><span class="nx">method</span><span class="p">]</span>
-    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Define the method on the OJ console namespace</p></div></div><div class="code"><div class="wrapper">      <span class="nx">OJ</span><span class="p">.</span><span class="nx">console</span><span class="p">.</span><span class="nx">register</span> <span class="nx">method</span><span class="p">,</span> <span class="nf">(params...) -&gt;</span>
+    
+      <span class="c1">#Define the method on the OJ console namespace</span>
+      <span class="nx">OJ</span><span class="p">.</span><span class="nx">console</span><span class="p">.</span><span class="nx">register</span> <span class="nx">method</span><span class="p">,</span> <span class="nf">(params...) -&gt;</span>
         <span class="nx">console</span><span class="p">[</span><span class="nx">method</span><span class="p">]</span> <span class="nx">params</span><span class="p">...</span>
     <span class="p">)()</span>
 

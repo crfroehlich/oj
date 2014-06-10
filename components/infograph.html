@@ -19,7 +19,9 @@
     
     <span class="nx">OJ</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">defaults</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="kc">true</span>
     <span class="nv">ret = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">component</span> <span class="nx">defaults</span><span class="p">,</span> <span class="nx">owner</span><span class="p">,</span> <span class="nx">nodeName</span> 
-    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>table = cmpnt.table defaults</p></div></div><div class="code"><div class="wrapper">    
+    
+    <span class="c1">#table = cmpnt.table defaults</span>
+    
     <span class="nv">count = </span><span class="nx">defaults</span><span class="p">.</span><span class="nx">width</span> <span class="o">*</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">height</span>
     <span class="nv">total = </span><span class="nx">defaults</span><span class="p">.</span><span class="nx">active</span> <span class="o">+</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">inactive</span> <span class="o">+</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">disabled</span> <span class="o">+</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">unknown</span>          
     <span class="k">if</span> <span class="nx">total</span> <span class="o">&gt;</span> <span class="nx">count</span> <span class="k">then</span> <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&#39;Total members exceeds dimensions of infographic&#39;</span>
@@ -43,7 +45,9 @@
           <span class="nx">unknown</span> <span class="o">-=</span> <span class="mi">1</span>  
           <span class="nx">icon</span> <span class="o">+=</span> <span class="s">&#39; text-warning&#39;</span>  
         <span class="k">else</span> <span class="k">if</span> <span class="nx">active</span> <span class="o">&gt;</span> <span class="mi">0</span>
-          <span class="nx">active</span> <span class="o">-=</span> <span class="mi">1</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>table.cell rowNum, colNum  </p></div></div><div class="code"><div class="wrapper">        <span class="nx">ret</span><span class="p">.</span><span class="nx">make</span> <span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="nv">props: </span><span class="k">class</span><span class="o">:</span> <span class="nx">icon</span>              
+          <span class="nx">active</span> <span class="o">-=</span> <span class="mi">1</span>
+        <span class="c1">#table.cell rowNum, colNum  </span>
+        <span class="nx">ret</span><span class="p">.</span><span class="nx">make</span> <span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="nv">props: </span><span class="k">class</span><span class="o">:</span> <span class="nx">icon</span>              
                
                          
     <span class="nx">ret</span>
