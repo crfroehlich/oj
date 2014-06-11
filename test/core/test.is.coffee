@@ -233,7 +233,14 @@
     deepEqual OJ.is.number('-'), false, ''-' is not a number'
     return
 
-  return
-
 ##endregion OJ.is.number
+
+  module 'is.nullOrUndefined'
+  test 'OJ.is.nullOrUndefined', ->
+    deepEqual OJ.is.nullOrUndefined(null), true, 'null is null or undefined'
+    deepEqual OJ.is.nullOrUndefined(), true, 'undefined is null or undefined'
+    deepEqual OJ.is.nullOrUndefined('i_exist'), false, 'object instance is not null or undefined'
+    return
+
+  return
 ) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
