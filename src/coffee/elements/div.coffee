@@ -4,23 +4,22 @@
   'use strict'
   
   # register semantic/structural aliases
-  for nodeName in [ 'div', 'section', 'header', 'footer' ]
+  for loopName in [ 'div', 'section', 'header', 'footer' ]
+    do (nodeName = loopName) ->
+      OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
+        defaults =
+          props: {}
+          styles: {}
+          events:
+            click: OJ.noop
 
-    OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
-
-      defaults =
-        props: {}
-        styles: {}
-        events:
-          click: OJ.noop
-
-      OJ.extend defaults, options, true
-      ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+        OJ.extend defaults, options, true
+        ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
 
 
-      if false is calledFromFactory then OJ.nodes.factory ret, owner
+        if false is calledFromFactory then OJ.nodes.factory ret, owner
 
-      ret
+        ret
 
   return
 

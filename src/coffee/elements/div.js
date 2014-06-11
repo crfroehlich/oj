@@ -2,30 +2,36 @@
 (function() {
   (function(OJ) {
     'use strict';
-    var nodeName;
-    nodeName = 'div';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
+    var loopName, _fn, _i, _len, _ref;
+    _ref = ['div', 'section', 'header', 'footer'];
+    _fn = function(nodeName) {
+      return OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
+        var defaults, ret;
+        if (owner == null) {
+          owner = OJ.body;
         }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
+        if (calledFromFactory == null) {
+          calledFromFactory = false;
+        }
+        defaults = {
+          props: {},
+          styles: {},
+          events: {
+            click: OJ.noop
+          }
+        };
+        OJ.extend(defaults, options, true);
+        ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
+        if (false === calledFromFactory) {
+          OJ.nodes.factory(ret, owner);
+        }
+        return ret;
+      });
+    };
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      loopName = _ref[_i];
+      _fn(loopName);
+    }
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
