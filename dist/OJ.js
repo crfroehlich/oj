@@ -412,75 +412,6 @@
 }).call(this);
 
 (function() {
-  (function() {
-    var controlName, friendlyName;
-    controlName = 'y-icon';
-    friendlyName = 'icon';
-    OJ.controls.members[friendlyName] = controlName;
-    return OJ.controls.register(friendlyName, function(options, owner) {
-      var className, classNameBase, defaults, isToggled, ret;
-      defaults = {
-        iconOpts: {
-          name: '',
-          stackedIcon: '',
-          swapIcon: '',
-          size: false,
-          color: '',
-          library: '',
-          isFixedWidth: false,
-          isList: false,
-          isSpinner: false
-        },
-        props: {
-          "class": ''
-        },
-        rootNodeType: 'span'
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.control(defaults, owner, controlName);
-      isToggled = false;
-      classNameBase = 'fa ';
-      if (defaults.iconOpts.isFixedWidth) {
-        classNameBase += 'fa-fw ';
-      }
-      if (defaults.iconOpts.isList) {
-        classNameBase += 'fa-li ';
-      }
-      if (defaults.iconOpts.isSpinner) {
-        classNameBase += 'fa-spin ';
-      }
-      if (defaults.iconOpts.size) {
-        if (defaults.iconOpts.size > 1 && defaults.iconOpts.size <= 5) {
-          classNameBase += 'fa-' + defaults.iconOpts.size + 'x ';
-        }
-      }
-      className = classNameBase + 'fa-' + defaults.iconOpts.name;
-      ret.myIcon = ret.make('i', {
-        props: {
-          "class": className
-        }
-      });
-      ret.toggleIcon = function() {
-        var newIcon;
-        if (defaults.iconOpts.swapIcon) {
-          newIcon = defaults.iconOpts.name;
-          isToggled = !isToggled;
-          if (isToggled) {
-            ret.myIcon.$.removeClass('fa-' + newIcon);
-            newIcon = defaults.iconOpts.swapIcon;
-          } else {
-            ret.myIcon.$.removeClass('fa-' + defaults.iconOpts.swapIcon);
-          }
-          return ret.myIcon.$.addClass('fa-' + newIcon);
-        }
-      };
-      return ret;
-    });
-  })();
-
-}).call(this);
-
-(function() {
   (function(OJ) {
     var className, nodeName;
     nodeName = 'x-address';
@@ -1067,6 +998,75 @@
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function() {
+    var controlName, friendlyName;
+    controlName = 'y-icon';
+    friendlyName = 'icon';
+    OJ.controls.members[friendlyName] = controlName;
+    return OJ.controls.register(friendlyName, function(options, owner) {
+      var className, classNameBase, defaults, isToggled, ret;
+      defaults = {
+        iconOpts: {
+          name: '',
+          stackedIcon: '',
+          swapIcon: '',
+          size: false,
+          color: '',
+          library: '',
+          isFixedWidth: false,
+          isList: false,
+          isSpinner: false
+        },
+        props: {
+          "class": ''
+        },
+        rootNodeType: 'span'
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.control(defaults, owner, controlName);
+      isToggled = false;
+      classNameBase = 'fa ';
+      if (defaults.iconOpts.isFixedWidth) {
+        classNameBase += 'fa-fw ';
+      }
+      if (defaults.iconOpts.isList) {
+        classNameBase += 'fa-li ';
+      }
+      if (defaults.iconOpts.isSpinner) {
+        classNameBase += 'fa-spin ';
+      }
+      if (defaults.iconOpts.size) {
+        if (defaults.iconOpts.size > 1 && defaults.iconOpts.size <= 5) {
+          classNameBase += 'fa-' + defaults.iconOpts.size + 'x ';
+        }
+      }
+      className = classNameBase + 'fa-' + defaults.iconOpts.name;
+      ret.myIcon = ret.make('i', {
+        props: {
+          "class": className
+        }
+      });
+      ret.toggleIcon = function() {
+        var newIcon;
+        if (defaults.iconOpts.swapIcon) {
+          newIcon = defaults.iconOpts.name;
+          isToggled = !isToggled;
+          if (isToggled) {
+            ret.myIcon.$.removeClass('fa-' + newIcon);
+            newIcon = defaults.iconOpts.swapIcon;
+          } else {
+            ret.myIcon.$.removeClass('fa-' + defaults.iconOpts.swapIcon);
+          }
+          return ret.myIcon.$.addClass('fa-' + newIcon);
+        }
+      };
+      return ret;
+    });
+  })();
 
 }).call(this);
 
@@ -2686,11 +2686,10 @@
 (function() {
   (function(OJ) {
     'use strict';
-    var nodeName, _i, _len, _ref;
+    var loopName, _fn, _i, _len, _ref;
     _ref = ['div', 'section', 'header', 'footer'];
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      nodeName = _ref[_i];
-      OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
+    _fn = function(nodeName) {
+      return OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
         var defaults, ret;
         if (owner == null) {
           owner = OJ.body;
@@ -2712,6 +2711,10 @@
         }
         return ret;
       });
+    };
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      loopName = _ref[_i];
+      _fn(loopName);
     }
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
@@ -4392,13 +4395,6 @@
     };
     each = function(obj, onEach, recursive) {
       if (canEach(obj)) {
-
-        /*
-         * `onEach` callback will receive 2 parameters: 
-         * `val` and `key`. 
-         * `val` is always the value of the property. 
-         * `key` is either the name of the property or the current index of the array.
-         */
         _.forOwn(obj, function(val, key) {
           var quit;
           if (onEach && (val || key)) {
