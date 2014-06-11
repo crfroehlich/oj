@@ -3,13 +3,14 @@
 ((OJ) ->
 
   # Create an HTML Web Component through ThinDom
-  # * `options` an object representing the standard options to be passed into the component
-  # ** `rootNodeType`: the tag name of the root node to create, default = 'div'
-  # ** `props`: an object representing the DOM attributes to append to the root node
-  # ** `styles`: an object representing the CSS attributes to append to the root node
-  # ** `events`: an object representing the named DOM events (and corresponding callback methods) to bind to the root node 
-  # * `owner` the parent to which the component node will be appended
-  # * `tagName` the name of of the component, which will always be prefixed with 'x-'
+  
+  # - `options` an object representing the standard options to be passed into the component
+  # -- `rootNodeType`: the tag name of the root node to create, default = 'div'
+  # -- `props`: an object representing the DOM attributes to append to the root node
+  # -- `styles`: an object representing the CSS attributes to append to the root node
+  # -- `events`: an object representing the named DOM events (and corresponding callback methods) to bind to the root node 
+  # - `owner` the parent to which the component node will be appended
+  # - `tagName` the name of of the component, which will always be prefixed with 'x-'
   component = (options = OJ.object(), owner, tagName) ->
   
     if not tagName.startsWith 'x-' then tagName = 'x-' + tagName

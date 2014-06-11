@@ -3,8 +3,9 @@
 ((OJ) ->
   
   # Extend an object with OJ DOM methods and properties
-  # * `el` Object to extend
-  # * `parent` parent object to which `el` will be appended
+  
+  # - `el` Object to extend
+  # - `parent` parent object to which `el` will be appended
   OJ.register 'dom', (el, parent = OJ.body ) ->
     'use strict'
 
@@ -21,8 +22,8 @@
     
     # ## addClass  
     # Add a CSS class to an element
-    # An element to add class to
-    # The value of the attribute
+    
+    # - `name` the name of the class to add
     el.add 'addClass', (name) ->
       el.$.addClass name if isControlStillValid()
       el

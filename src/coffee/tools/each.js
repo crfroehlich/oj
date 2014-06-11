@@ -7,13 +7,6 @@
     };
     each = function(obj, onEach, recursive) {
       if (canEach(obj)) {
-
-        /*
-         * `onEach` callback will receive 2 parameters: 
-         * `val` and `key`. 
-         * `val` is always the value of the property. 
-         * `key` is either the name of the property or the current index of the array.
-         */
         _.forOwn(obj, function(val, key) {
           var quit;
           if (onEach && (val || key)) {
