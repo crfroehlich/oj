@@ -63,7 +63,11 @@ files =
 gulp.task 'inject', ->
   
   #Inject into dev.html
-  gulp.src files.devIndex
+  #1. Add the template to a new stream
+  gulp.src './src/dev.tmpl'
+    #2: Rename the file from .tmpl to .html
+    .pipe rename extname: '.html'
+    #3: Inject all OJ resources into the file
     .pipe inject(gulp.src([
       files.js
       files.css
@@ -72,23 +76,29 @@ gulp.task 'inject', ->
    
       addRootSlash: false
       addPrefix: '..')
+    #4: Inject all Bower resources into the file  
     .pipe wiredepStream
       exclude: [/backbone/, /underscore/, /require/] #these will break Lo-Dash
+    #5: write the file to disk  
     .pipe gulp.dest paths.src
+    #6: Send Growl notification that task has completed
     .pipe notify message: 'dev.html includes dynamically injected.'
+    #7: Write any errors to the console
     .on 'error', gutil.log
   
-  gulp.src files.testIndex
-    .pipe(inject(gulp.src([
+  # Repeat for Unit Tests HTML page
+  gulp.src './test/test.tmpl'
+    .pipe rename extname: '.html'
+    .pipe inject(gulp.src([
       files.js
       './test/**/*.js*/'
       files.css
     ],
-      read: false # Not necessary to read the files (will speed up things), we're only after their paths
-    ),
+      read: false), # Not necessary to read the files (will speed up things), we're only after their paths
+    
       addRootSlash: false
-      addPrefix: '..'
-    ))
+      addPrefix: '..')
+      
     .pipe wiredepStream
       exclude: [/backbone/, /underscore/, /require/] #these will break Lo-Dash
       devDependencies: true
@@ -96,13 +106,13 @@ gulp.task 'inject', ->
     .pipe notify message: 'test.html includes dynamically injected.'
     .on 'error', gutil.log
   
-  gulp.src(files.index)
-    .pipe(inject(gulp.src(['./dist/**/*.min*'],
-      read: false
-    ),
+  # Repeat for Release HTML page
+  gulp.src './dist/release.tmpl'
+    .pipe rename extname: '.html'
+    .pipe inject(gulp.src(['./dist/**/*.min*'],
+      read: false),
       addRootSlash: false
-      addPrefix: '..'
-    ))
+      addPrefix: '..')
     .pipe wiredepStream
       exclude: [/backbone/, /underscore/, /require/] #these will break Lo-Dash
     .pipe gulp.dest paths.release
@@ -115,6 +125,12 @@ gulp.task 'inject', ->
 Compile and Minify CoffeeScript to JS
 ###
 gulp.task 'coffee', ->
+  #1: compile all coffee files in-place to support debugging
+  gulp.src files.coffee, base: './'
+    .pipe coffee map: true, m: true
+    .pipe gulp.dest './'
+  
+  #2: compile dist files
   gulp.src files.coffee
     .pipe coffee map: true
     .pipe concat 'OJ.js'

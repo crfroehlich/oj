@@ -41,7 +41,10 @@
     <Content Include="dist\404.html" />
     <Content Include="dist\OJ.js" />
     <Content Include="dist\crossdomain.xml" />
-    <Content Include="dist\release.html" />
+    <None Include="dist\release.tmpl" />
+    <Content Include="dist\release.html">
+      <DependentUpon>release.tmpl</DependentUpon>
+    </Content>
     <Content Include="dist\humans.txt" />
     <Content Include="dist\robots.txt" />
     <Content Include="gulpfile.js">
@@ -858,7 +861,10 @@
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
     </None>
-    <Content Include="src\dev.html" />
+    <None Include="src\dev.tmpl" />
+    <Content Include="src\dev.html">
+      <DependentUpon>dev.tmpl</DependentUpon>
+    </Content>
     <Content Include="src\img\ajax-loader.gif" />
     <Content Include="src\img\ajax-loader.png" />
     <Content Include="src\img\checked.gif" />
@@ -1183,8 +1189,10 @@
     <Content Include="test\nodes\test.table.js">
       <DependentUpon>test.table.coffee</DependentUpon>
     </Content>
-    <Content Include="test\test.coffee.html" />
-    <Content Include="test\test.html" />
+    <None Include="test\test.tmpl" />
+    <Content Include="test\test.html">
+      <DependentUpon>test.tmpl</DependentUpon>
+    </Content>
     <Content Include="web.config" />
     <Content Include="test\nodes\test.table.map">
       <DependentUpon>test.table.coffee</DependentUpon>

@@ -20,3 +20,5 @@ src/archive/valueTypes
 .idea
 src/coffee/**/*.js
 src/coffee/**/*.map
+src/*.html
+test/*.html

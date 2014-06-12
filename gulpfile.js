@@ -84,7 +84,9 @@
   };
 
   gulp.task('inject', function() {
-    gulp.src(files.devIndex).pipe(inject(gulp.src([files.js, files.css], {
+    gulp.src('./src/dev.tmpl').pipe(rename({
+      extname: '.html'
+    })).pipe(inject(gulp.src([files.js, files.css], {
       read: false
     }), {
       addRootSlash: false,
@@ -94,7 +96,9 @@
     })).pipe(gulp.dest(paths.src)).pipe(notify({
       message: 'dev.html includes dynamically injected.'
     })).on('error', gutil.log);
-    gulp.src(files.testIndex).pipe(inject(gulp.src([files.js, './test/**/*.js*/', files.css], {
+    gulp.src('./test/test.tmpl').pipe(rename({
+      extname: '.html'
+    })).pipe(inject(gulp.src([files.js, './test/**/*.js*/', files.css], {
       read: false
     }), {
       addRootSlash: false,
@@ -105,7 +109,9 @@
     })).pipe(gulp.dest(paths.test)).pipe(notify({
       message: 'test.html includes dynamically injected.'
     })).on('error', gutil.log);
-    gulp.src(files.index).pipe(inject(gulp.src(['./dist/**/*.min*'], {
+    gulp.src('./dist/release.tmpl').pipe(rename({
+      extname: '.html'
+    })).pipe(inject(gulp.src(['./dist/**/*.min*'], {
       read: false
     }), {
       addRootSlash: false,
@@ -123,6 +129,12 @@
    */
 
   gulp.task('coffee', function() {
+    gulp.src(files.coffee, {
+      base: './'
+    }).pipe(coffee({
+      map: true,
+      m: true
+    })).pipe(gulp.dest('./'));
     gulp.src(files.coffee).pipe(coffee({
       map: true
     })).pipe(concat('OJ.js')).pipe(header(extended, {
