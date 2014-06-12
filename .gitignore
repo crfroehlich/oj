@@ -18,3 +18,5 @@ src/archive/promises
 src/archive/session
 src/archive/valueTypes
 .idea
+src/coffee/**/*.js
+src/coffee/**/*.map
