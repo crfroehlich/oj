@@ -13,11 +13,11 @@
     
     # ## isValid
     el.add 'isValid', ->
-       el and el.el instanceof HTMLElement
+       el and (el.el instanceof HTMLElement or el.el instanceof DocumentFragment)
     
     isControlStillValid = ->
       valid = false is OJ.is.nullOrEmpty(el) and el.isValid()
-      OJ.error.throwException 'el is null. Event bindings may not have been GCd.'  if false is valid
+      throw new Error 'el is null. Event bindings may not have been GCd.'  if false is valid
       valid
     
     # ## addClass  

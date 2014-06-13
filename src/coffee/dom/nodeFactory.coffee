@@ -140,18 +140,19 @@
     #1: Guarantee that the body node is initialized (this will only execute once)
     initBody OJ.body
     
-    #2: for clarity, we are returning the extended element
+    # 2: for clarity, we are returning the extended element
     ret = el
     
-    #3: If the element has never been initialized, continue
+    # 3: If the element has never been initialized, continue
     if not el.isFullyInit
       
-      #4: As long as the element isn't the body node, continue
+      # 4: As long as the element isn't the body node, continue
       if el.tagName isnt 'body' 
-        #5: Extend the element with standard jQuery API methods
+        # 5: Extend the element with standard jQuery API methods
         ret = OJ.dom el, parent
         
-        #6: If the node isn't in the DOM, append it to the parent
+        # 6: If the node isn't in the DOM, append it to the parent
+        # This also accommodates document fragments, which are not in the DOM but are presumed to be sound until ready for manual insertion
         if not ret.isInDOM
           makeUniqueId el, parent, count
           parent.append ret[0]
@@ -159,10 +160,10 @@
           ret.bindEvents()
           ret.isInDOM = true
         
-        #8: Create the all important 'make' method
+        # 8: Create the all important 'make' method
         addMakeMethod ret, count
         
-        #9: Prevent duplicate factory extension by setting is init = true
+        # 9: Prevent duplicate factory extension by setting is init = true
         ret.isFullyInit = true     
         
     #10: Return the extended element    

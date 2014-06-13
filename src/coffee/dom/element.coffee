@@ -1,3 +1,5 @@
+# # element
+
 ((OJ) ->
 
   ###
@@ -24,6 +26,7 @@
     ret.add 'bindEvents', _.once () -> bindEvents ret, events
     ret   
       
+  # ## element
   ###
   Create an HTML Element through ThinDom
   ###
@@ -32,19 +35,20 @@
     finalize ret, tag, props, styles, events, text
     ret
   
-
+  # ## restoreElement
   ###
   Restore an HTML Element through ThinDom
   ###
   OJ.register 'restoreElement', (tag, el) ->
     ret = ThinDOM null, null, el
     finalize ret, tag
-    ret.add 'isInDOM', true   
+    ret.add 'isInDOM', true  
+    OJ.nodes.factory ret 
     ret               
    
   
   ###
-  Persist a handle on the body ode
+  Persist a handle on the body node
   ###
   if typeof document isnt 'undefined' then body = document.body else body = null  
   initBody = (el) ->  
