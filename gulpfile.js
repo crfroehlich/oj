@@ -82,10 +82,11 @@
     css: './src/css/**/*.css',
     js: './src/coffee/**/*.js',
     coffee: './src/coffee/**/*.coffee',
-    test: './test/**/*.coffee*/'
+    test: './test/**/*.coffee',
+    testJs: './test/**/*.js'
   };
 
-  injectTask = function(path, pageName, sourceFiles, excludes) {
+  injectTask = function(path, pageName, sourceFiles) {
     if (path == null) {
       path = '';
     }
@@ -95,10 +96,7 @@
     if (sourceFiles == null) {
       sourceFiles = [];
     }
-    if (excludes == null) {
-      excludes = [];
-    }
-    return gulp.src(path + pageName + '.tmpl').pipe(rename({
+    return gulp.src(path + '/' + pageName + '.tmpl').pipe(rename({
       extname: '.html'
     })).pipe(inject(gulp.src(sourceFiles, {
       read: false
@@ -106,16 +104,16 @@
       addRootSlash: false,
       addPrefix: '..'
     })).pipe(wiredepStream({
-      exclude: excludes
-    })).pipe(gulp.dest(paths.src)).pipe(notify({
+      exclude: [/backbone/, /underscore/, /require/]
+    })).pipe(gulp.dest(path)).pipe(notify({
       message: pageName + '.html includes dynamically injected.'
     })).on('error', gutil.log);
   };
 
   gulp.task('inject', function() {
-    injectTask('./src/', 'dev', [files.js, files.css], [/backbone/, /underscore/, /require/]);
-    injectTask('./test/', 'test', [files.js, './test/**/*.js*/', files.css], [/backbone/, /underscore/, /require/]);
-    injectTask('./dist/', 'release', ['./dist/**/*.min*'], [/backbone/, /underscore/, /require/]);
+    injectTask('./src', 'dev', [files.js, files.css]);
+    injectTask('./test', 'test', [files.js, files.testJs, files.css]);
+    injectTask('./dist', 'release', ['./dist/**/*.min*']);
   });
 
   compileInPlace = function(files) {
