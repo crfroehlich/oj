@@ -24,6 +24,7 @@ bump = require 'gulp-bump'
 qunit = require 'gulp-qunit'
 header = require 'gulp-header'
 watch = require 'gulp-watch'
+sourceMaps = require 'gulp-sourcemaps'
 server = lr()
 
 pkg = require './package.json'
@@ -59,76 +60,53 @@ files =
   coffee: './src/coffee/**/*.coffee'
   test: './test/**/*.coffee*/'
 
-# Inject JS & CSS Files
-gulp.task 'inject', ->
-  
-  #Inject into dev.html
+injectTask = (path = '', pageName = '', sourceFiles = [], excludes = []) ->
   #1. Add the template to a new stream
-  gulp.src './src/dev.tmpl'
+  gulp.src path + pageName + '.tmpl'
     #2: Rename the file from .tmpl to .html
     .pipe rename extname: '.html'
     #3: Inject all OJ resources into the file
-    .pipe inject(gulp.src([
-      files.js
-      files.css
-    ],
-      read: false), # Not necessary to read the files (will speed up things), we're only after their paths
-   
+    .pipe inject(gulp.src(sourceFiles, read: false), # Not necessary to read the files (will speed up things), we're only after their paths
       addRootSlash: false
       addPrefix: '..')
     #4: Inject all Bower resources into the file  
     .pipe wiredepStream
-      exclude: [/backbone/, /underscore/, /require/] #these will break Lo-Dash
+      exclude: excludes #these will break Lo-Dash
     #5: write the file to disk  
     .pipe gulp.dest paths.src
     #6: Send Growl notification that task has completed
-    .pipe notify message: 'dev.html includes dynamically injected.'
+    .pipe notify message: pageName + '.html includes dynamically injected.'
     #7: Write any errors to the console
     .on 'error', gutil.log
+
+# Inject JS & CSS Files
+gulp.task 'inject', ->
+  
+  #Inject into dev.html
+  injectTask './src/', 'dev', [files.js, files.css], [/backbone/, /underscore/, /require/] #these will break Lo-Dash
   
   # Repeat for Unit Tests HTML page
-  gulp.src './test/test.tmpl'
-    .pipe rename extname: '.html'
-    .pipe inject(gulp.src([
-      files.js
-      './test/**/*.js*/'
-      files.css
-    ],
-      read: false), # Not necessary to read the files (will speed up things), we're only after their paths
-    
-      addRootSlash: false
-      addPrefix: '..')
-      
-    .pipe wiredepStream
-      exclude: [/backbone/, /underscore/, /require/] #these will break Lo-Dash
-      devDependencies: true
-    .pipe gulp.dest paths.test
-    .pipe notify message: 'test.html includes dynamically injected.'
-    .on 'error', gutil.log
+  injectTask './test/', 'test', [files.js, './test/**/*.js*/', files.css], [/backbone/, /underscore/, /require/] #these will break Lo-Dash
   
   # Repeat for Release HTML page
-  gulp.src './dist/release.tmpl'
-    .pipe rename extname: '.html'
-    .pipe inject(gulp.src(['./dist/**/*.min*'],
-      read: false),
-      addRootSlash: false
-      addPrefix: '..')
-    .pipe wiredepStream
-      exclude: [/backbone/, /underscore/, /require/] #these will break Lo-Dash
-    .pipe gulp.dest paths.release
-    .pipe notify message: 'release.html includes dynamically injected.'
-    .on 'error', gutil.log
+  injectTask './dist/', 'release', ['./dist/**/*.min*'], [/backbone/, /underscore/, /require/] #these will break Lo-Dash
+  
   return
 
-
+compileInPlace = (files) ->
+  #1: compile all coffee files in-place to support debugging
+  gulp.src files, base: './'
+    .pipe sourceMaps.init()
+    .pipe coffee map: true, m: true
+    .pipe sourceMaps.write './'
+    .pipe gulp.dest './'
+    
 ### 
 Compile and Minify CoffeeScript to JS
 ###
 gulp.task 'coffee', ->
-  #1: compile all coffee files in-place to support debugging
-  gulp.src files.coffee, base: './'
-    .pipe coffee map: true, m: true
-    .pipe gulp.dest './'
+  compileInPlace files.coffee
+  compileInPlace './test/**/*.coffee'
   
   #2: compile dist files
   gulp.src files.coffee
@@ -206,11 +184,6 @@ gulp.task 'build', [
   'compile'
   'watch'
 ]
-
-gulp.task 'docco', ->
-  gulp.src './src/coffee/**/*.coffee'
-   .pipe docco()
-   .pipe gulp.dest './docs'
 
 gulp.task 'default', ['build']
 
