@@ -92,6 +92,9 @@
     <Content Include="src\coffee\controls\icon.js">
       <DependentUpon>icon.coffee</DependentUpon>
     </Content>
+    <Content Include="src\coffee\dom\fragment.js">
+      <DependentUpon>fragment.coffee</DependentUpon>
+    </Content>
     <Content Include="src\coffee\tools\defer.js">
       <DependentUpon>defer.coffee</DependentUpon>
     </Content>
@@ -395,6 +398,8 @@
     <Content Include="src\coffee\tools\ranges.js.map">
       <DependentUpon>ranges.js</DependentUpon>
     </Content>
+    <Content Include="src\coffee\dom\fragment.coffee" />
+    <Content Include="src\coffee\dom\fragment.js.map" />
     <None Include="src\coffee\tools\console.coffee" />
     <Content Include="src\coffee\tools\console.js">
       <DependentUpon>console.coffee</DependentUpon>

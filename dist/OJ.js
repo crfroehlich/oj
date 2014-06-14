@@ -412,75 +412,6 @@
 }).call(this);
 
 (function() {
-  (function() {
-    var controlName, friendlyName;
-    controlName = 'y-icon';
-    friendlyName = 'icon';
-    OJ.controls.members[friendlyName] = controlName;
-    return OJ.controls.register(friendlyName, function(options, owner) {
-      var className, classNameBase, defaults, isToggled, ret;
-      defaults = {
-        iconOpts: {
-          name: '',
-          stackedIcon: '',
-          swapIcon: '',
-          size: false,
-          color: '',
-          library: '',
-          isFixedWidth: false,
-          isList: false,
-          isSpinner: false
-        },
-        props: {
-          "class": ''
-        },
-        rootNodeType: 'span'
-      };
-      OJ.extend(defaults, options);
-      ret = OJ.control(defaults, owner, controlName);
-      isToggled = false;
-      classNameBase = 'fa ';
-      if (defaults.iconOpts.isFixedWidth) {
-        classNameBase += 'fa-fw ';
-      }
-      if (defaults.iconOpts.isList) {
-        classNameBase += 'fa-li ';
-      }
-      if (defaults.iconOpts.isSpinner) {
-        classNameBase += 'fa-spin ';
-      }
-      if (defaults.iconOpts.size) {
-        if (defaults.iconOpts.size > 1 && defaults.iconOpts.size <= 5) {
-          classNameBase += 'fa-' + defaults.iconOpts.size + 'x ';
-        }
-      }
-      className = classNameBase + 'fa-' + defaults.iconOpts.name;
-      ret.myIcon = ret.make('i', {
-        props: {
-          "class": className
-        }
-      });
-      ret.toggleIcon = function() {
-        var newIcon;
-        if (defaults.iconOpts.swapIcon) {
-          newIcon = defaults.iconOpts.name;
-          isToggled = !isToggled;
-          if (isToggled) {
-            ret.myIcon.$.removeClass('fa-' + newIcon);
-            newIcon = defaults.iconOpts.swapIcon;
-          } else {
-            ret.myIcon.$.removeClass('fa-' + defaults.iconOpts.swapIcon);
-          }
-          return ret.myIcon.$.addClass('fa-' + newIcon);
-        }
-      };
-      return ret;
-    });
-  })();
-
-}).call(this);
-
-(function() {
   (function(OJ) {
     var className, nodeName;
     nodeName = 'x-address';
@@ -745,9 +676,9 @@
             tryTile = tiles.get(rowNo, i);
             if (!tryTile) {
               if (i === colNo) {
-                tile = row.tile(colNo, opts);
+                tile = row.make('tile', colNo, opts);
               } else if (!tile) {
-                row.tile(i);
+                row.make('tile', i);
               }
             }
           }
@@ -1067,6 +998,75 @@
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function() {
+    var controlName, friendlyName;
+    controlName = 'y-icon';
+    friendlyName = 'icon';
+    OJ.controls.members[friendlyName] = controlName;
+    return OJ.controls.register(friendlyName, function(options, owner) {
+      var className, classNameBase, defaults, isToggled, ret;
+      defaults = {
+        iconOpts: {
+          name: '',
+          stackedIcon: '',
+          swapIcon: '',
+          size: false,
+          color: '',
+          library: '',
+          isFixedWidth: false,
+          isList: false,
+          isSpinner: false
+        },
+        props: {
+          "class": ''
+        },
+        rootNodeType: 'span'
+      };
+      OJ.extend(defaults, options);
+      ret = OJ.control(defaults, owner, controlName);
+      isToggled = false;
+      classNameBase = 'fa ';
+      if (defaults.iconOpts.isFixedWidth) {
+        classNameBase += 'fa-fw ';
+      }
+      if (defaults.iconOpts.isList) {
+        classNameBase += 'fa-li ';
+      }
+      if (defaults.iconOpts.isSpinner) {
+        classNameBase += 'fa-spin ';
+      }
+      if (defaults.iconOpts.size) {
+        if (defaults.iconOpts.size > 1 && defaults.iconOpts.size <= 5) {
+          classNameBase += 'fa-' + defaults.iconOpts.size + 'x ';
+        }
+      }
+      className = classNameBase + 'fa-' + defaults.iconOpts.name;
+      ret.myIcon = ret.make('i', {
+        props: {
+          "class": className
+        }
+      });
+      ret.toggleIcon = function() {
+        var newIcon;
+        if (defaults.iconOpts.swapIcon) {
+          newIcon = defaults.iconOpts.name;
+          isToggled = !isToggled;
+          if (isToggled) {
+            ret.myIcon.$.removeClass('fa-' + newIcon);
+            newIcon = defaults.iconOpts.swapIcon;
+          } else {
+            ret.myIcon.$.removeClass('fa-' + defaults.iconOpts.swapIcon);
+          }
+          return ret.myIcon.$.addClass('fa-' + newIcon);
+        }
+      };
+      return ret;
+    });
+  })();
 
 }).call(this);
 
@@ -1472,13 +1472,13 @@
       'use strict';
       enabled = true;
       el.add('isValid', function() {
-        return el && el.el instanceof HTMLElement;
+        return el && (el.el instanceof HTMLElement || el.el instanceof DocumentFragment);
       });
       isControlStillValid = function() {
         var valid;
         valid = false === OJ.is.nullOrEmpty(el) && el.isValid();
         if (false === valid) {
-          OJ.error.throwException('el is null. Event bindings may not have been GCd.');
+          throw new Error('el is null. Event bindings may not have been GCd.');
         }
         return valid;
       };
@@ -1715,11 +1715,12 @@
       ret = ThinDOM(null, null, el);
       finalize(ret, tag);
       ret.add('isInDOM', true);
+      OJ.nodes.factory(ret);
       return ret;
     });
 
     /*
-    Persist a handle on the body ode
+    Persist a handle on the body node
      */
     if (typeof document !== 'undefined') {
       body = document.body;
@@ -1739,6 +1740,21 @@
       return 'body';
     };
     OJ.register('body', thinBody);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.register('fragment', function() {
+      var fragment, ret;
+      ret = null;
+      if (typeof document !== 'undefined') {
+        fragment = document.createDocumentFragment();
+        ret = OJ.restoreElement('fragment', fragment);
+      }
+      return ret;
+    });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
@@ -1877,636 +1893,6 @@
           ret.isFullyInit = true;
         }
       }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'buttoninput';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: 'button',
-          src: '',
-          alt: '',
-          height: '',
-          width: ''
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'checkbox';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        checked: false,
-        indeterminate: false,
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      if (defaults.checked) {
-        ret.attr('checked', true);
-      } else if (defaults.indeterminate) {
-        ret.attr('indeterminate', true);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'color';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'date';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'datetime';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'datetime-local';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'email';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName,
-          multiple: ''
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'file';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName,
-          accept: '',
-          multiple: ''
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'hidden';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'imageinput';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: 'image',
-          src: '',
-          alt: '',
-          height: '',
-          width: ''
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'month';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'number';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'password';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName,
-          maxlength: ''
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'radio';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName,
-          name: '',
-          value: '',
-          checked: ''
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'range';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName,
-          min: 0,
-          max: 100,
-          value: 50,
-          step: 1
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'reset';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'search';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'submit';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'tel';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName,
-          pattern: '',
-          maxlength: ''
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'textinput';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: 'text',
-          autocomplete: 'on',
-          autosave: ''
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'time';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'url';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName,
-          pattern: '',
-          maxlength: ''
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var inputName;
-    inputName = 'week';
-    OJ.inputs.register(inputName, function(options, owner) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      defaults = {
-        props: {
-          type: inputName
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.input(defaults, owner);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -2686,11 +2072,10 @@
 (function() {
   (function(OJ) {
     'use strict';
-    var nodeName, _i, _len, _ref;
+    var nodeName, _fn, _i, _len, _ref;
     _ref = ['div', 'section', 'header', 'footer'];
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      nodeName = _ref[_i];
-      OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
+    _fn = function(tag) {
+      return OJ.nodes.register(tag, function(options, owner, calledFromFactory) {
         var defaults, ret;
         if (owner == null) {
           owner = OJ.body;
@@ -2706,12 +2091,16 @@
           }
         };
         OJ.extend(defaults, options, true);
-        ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
+        ret = OJ.element(tag, defaults.props, defaults.styles, defaults.events, defaults.text);
         if (false === calledFromFactory) {
           OJ.nodes.factory(ret, owner);
         }
         return ret;
       });
+    };
+    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
+      nodeName = _ref[_i];
+      _fn(nodeName);
     }
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
@@ -4187,6 +3576,636 @@
 
 (function() {
   (function(OJ) {
+    var inputName;
+    inputName = 'buttoninput';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: 'button',
+          src: '',
+          alt: '',
+          height: '',
+          width: ''
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'checkbox';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        checked: false,
+        indeterminate: false,
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      if (defaults.checked) {
+        ret.attr('checked', true);
+      } else if (defaults.indeterminate) {
+        ret.attr('indeterminate', true);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'color';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'date';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'datetime';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'datetime-local';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'email';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName,
+          multiple: ''
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'file';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName,
+          accept: '',
+          multiple: ''
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'hidden';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'imageinput';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: 'image',
+          src: '',
+          alt: '',
+          height: '',
+          width: ''
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'month';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'number';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'password';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName,
+          maxlength: ''
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'radio';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName,
+          name: '',
+          value: '',
+          checked: ''
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'range';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName,
+          min: 0,
+          max: 100,
+          value: 50,
+          step: 1
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'reset';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'search';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'submit';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'tel';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName,
+          pattern: '',
+          maxlength: ''
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'textinput';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: 'text',
+          autocomplete: 'on',
+          autosave: ''
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'time';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'url';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName,
+          pattern: '',
+          maxlength: ''
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var inputName;
+    inputName = 'week';
+    OJ.inputs.register(inputName, function(options, owner) {
+      var defaults, ret;
+      if (owner == null) {
+        owner = OJ.body;
+      }
+      defaults = {
+        props: {
+          type: inputName
+        },
+        styles: {},
+        events: {
+          click: OJ.noop
+        }
+      };
+      OJ.extend(defaults, options, true);
+      ret = OJ.input(defaults, owner);
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
     var array2D;
     array2D = function(initLength, initWidth) {
       var array, extend, maxLength, maxWidth, ret;
@@ -4392,13 +4411,6 @@
     };
     each = function(obj, onEach, recursive) {
       if (canEach(obj)) {
-
-        /*
-         * `onEach` callback will receive 2 parameters: 
-         * `val` and `key`. 
-         * `val` is always the value of the property. 
-         * `key` is either the name of the property or the current index of the array.
-         */
         _.forOwn(obj, function(val, key) {
           var quit;
           if (onEach && (val || key)) {
