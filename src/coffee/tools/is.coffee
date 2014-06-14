@@ -81,7 +81,11 @@
 
   OJ.is.register 'nullOrEmpty', (obj, checkLength) ->
     'use strict'
-    _.isEmpty obj or _.isUndefined obj or _.isNull obj or _.isNaN obj
+    _.isEmpty(obj) or _.isUndefined(obj) or _.isNull(obj) or _.isNaN(obj)
+
+  OJ.is.register 'nullOrUndefined', (obj, checkLength) ->
+    'use strict'
+    _.isUndefined(obj) or _.isNull(obj) or _.isNaN(obj)
 
   OJ.is.register 'instanceof', (name, obj) ->
     'use strict'
