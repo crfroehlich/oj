@@ -127,7 +127,7 @@
       parent.count = count
       
       if not el.getId()
-        id = parent.getId()
+        id = parent.getId() or ''
         id += el.tagName + count
         el.attr 'id', id
     return

@@ -399,7 +399,9 @@
       <DependentUpon>ranges.js</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\fragment.coffee" />
-    <Content Include="src\coffee\dom\fragment.js.map" />
+    <Content Include="src\coffee\dom\fragment.js.map">
+      <DependentUpon>fragment.js</DependentUpon>
+    </Content>
     <None Include="src\coffee\tools\console.coffee" />
     <Content Include="src\coffee\tools\console.js">
       <DependentUpon>console.coffee</DependentUpon>
@@ -551,7 +553,6 @@
     <Content Include="src\coffee\dom\component.map">
       <DependentUpon>component.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\_templ" />
     <Content Include="src\coffee\elements\i.coffee" />
     <Content Include="src\coffee\elements\em.coffee" />
     <Content Include="src\coffee\elements\i.map">
