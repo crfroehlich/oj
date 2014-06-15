@@ -9,8 +9,8 @@ OJ is packaged for Node and Bower. Other options abound.
 ### Abstract
 
 OJ is written in CoffeeScript. The distribution folder has the complete CS and JS for the project.
-The source folder includes CS, JS and source maps for each individual file.
-Feel free to use OJ in either flavor.
+The source folder includes only the CoffeeScript. To generate the JavaScript and corresponding Source Map files for each source file, run the `gulp compile` task.
+Once compiled, feel free to use OJ in either flavor.
 While OJ probably doesn't have a lot of utility in the context of Node, I have made an effort to keep it Node-compatible--although there is absolutely no testing to this effect.
 
 ### API
