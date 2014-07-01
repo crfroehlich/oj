@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.4.7
+ * @version v0.4.8
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -676,9 +676,9 @@
             tryTile = tiles.get(rowNo, i);
             if (!tryTile) {
               if (i === colNo) {
-                tile = row.make('tile', colNo, opts);
+                tile = row.make('tile', opts);
               } else if (!tile) {
-                row.make('tile', i);
+                row.make('tile');
               }
             }
           }
@@ -1413,493 +1413,6 @@
 }).call(this);
 
 (function() {
-  (function(OJ) {
-    var component;
-    component = function(options, owner, tagName) {
-      var ret, rootNodeType, widget;
-      if (options == null) {
-        options = OJ.object();
-      }
-      if (!tagName.startsWith('x-')) {
-        tagName = 'x-' + tagName;
-      }
-      widget = OJ.element(tagName);
-      OJ.nodes.factory(widget, owner);
-      rootNodeType = options.rootNodeType || OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] || 'div';
-      ret = widget.make(rootNodeType, options);
-      ret.add('componentName', tagName);
-      ret.add('remove', widget.remove);
-      return ret;
-    };
-    OJ.register('component', component);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    Create a set of HTML Elements through ThinDom
-     */
-    var control;
-    control = function(options, owner, tagName) {
-      var ret, rootNodeType;
-      if (options == null) {
-        options = OJ.object();
-      }
-      if (!tagName.startsWith('y-')) {
-        tagName = 'y-' + tagName;
-      }
-      rootNodeType = options.rootNodeType || OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] || 'div';
-      ret = OJ.element(rootNodeType, options.props, options.styles, options.events, options.text);
-      OJ.nodes.factory(ret, owner);
-      ret.add('controlName', tagName);
-      return ret;
-    };
-    OJ.register('control', control);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.register('dom', function(el, parent) {
-      var enabled, isControlStillValid;
-      if (parent == null) {
-        parent = OJ.body;
-      }
-      'use strict';
-      enabled = true;
-      el.add('isValid', function() {
-        return el && (el.el instanceof HTMLElement || el.el instanceof DocumentFragment);
-      });
-      isControlStillValid = function() {
-        var valid;
-        valid = false === OJ.is.nullOrEmpty(el) && el.isValid();
-        if (false === valid) {
-          throw new Error('el is null. Event bindings may not have been GCd.');
-        }
-        return valid;
-      };
-      el.add('addClass', function(name) {
-        if (isControlStillValid()) {
-          el.$.addClass(name);
-        }
-        return el;
-      });
-      el.add('bind', function(eventName, event) {
-        return el.on(eventName, event);
-      });
-      el.add('on', function(eventName, event) {
-        if (isControlStillValid()) {
-          el.$.on(eventName, event);
-        }
-        return el;
-      });
-      el.add('off', function(eventName, event) {
-        if (isControlStillValid()) {
-          el.$.off(eventName, event);
-        }
-        return el;
-      });
-      el.add('keyboard', function(keys, event) {
-        if (isControlStillValid()) {
-          Mousetrap.bind(keys, el[event]);
-        }
-        return el;
-      });
-      el.add('disable', function() {
-        if (isControlStillValid()) {
-          enabled = false;
-          el.attr('disabled', 'disabled');
-          el.addClass('disabled', 'disabled');
-        }
-        return el;
-      });
-      el.add('empty', function() {
-        if (isControlStillValid()) {
-          el.$.empty();
-        }
-        return el;
-      });
-      el.add('enable', function() {
-        if (isControlStillValid()) {
-          enabled = true;
-          el.removeAttr('disabled');
-          el.removeClass('disabled');
-        }
-        return el;
-      });
-      el.add('getId', function() {
-        var id;
-        if (isControlStillValid()) {
-          id = el[0].id;
-        }
-        return id;
-      });
-      el.add('hide', function() {
-        if (isControlStillValid()) {
-          el.css('display', 'none');
-        }
-        return el;
-      });
-      el.add('length', function() {
-        var len;
-        len = 0;
-        if (isControlStillValid()) {
-          len = OJ.to.number(el.$.length);
-        }
-        return len;
-      });
-      el.add('parent', parent);
-      el.add('remove', function() {
-        if (el && el.$) {
-          el.$.remove();
-          el = null;
-        }
-        return null;
-      });
-      el.add('removeClass', function(name) {
-        if (isControlStillValid()) {
-          el.$.removeClass(name);
-        }
-        return el;
-      });
-      el.add('removeProp', function(name) {
-        if (isControlStillValid()) {
-          el.$.removeProp(name);
-        }
-        return el;
-      });
-      el.add('removeAttr', function(name) {
-        if (isControlStillValid()) {
-          el.$.removeAttr(name);
-        }
-        return el;
-      });
-      el.add('required', function(truthy, addLabel) {
-        if (isControlStillValid()) {
-          switch (OJ.to.bool(truthy)) {
-            case true:
-              el.attr('required', true);
-              el.addClass('required');
-              break;
-            case false:
-              el.removeProp('required');
-              el.removeClass('required');
-          }
-        }
-        return el;
-      });
-      el.add('root', el.root || parent);
-      el.add('show', function() {
-        if (isControlStillValid()) {
-          el.$.show();
-        }
-        return el;
-      });
-      el.add('toggle', function() {
-        if (isControlStillValid()) {
-          el.$.toggle();
-        }
-        return el;
-      });
-      el.add('toggleEnable', function() {
-        if (isControlStillValid()) {
-          if (enabled) {
-            el.disable();
-          } else {
-            el.enable();
-          }
-        }
-        return el;
-      });
-      el.add('trigger', function(eventName, eventOpts) {
-        if (isControlStillValid()) {
-          el.$.trigger(eventName, eventOpts);
-        }
-        return el;
-      });
-      el.add('unbind', function(eventName, event) {
-        return el.off(eventName, event);
-      });
-      el.add('val', function(value) {
-        if (isControlStillValid()) {
-          if (arguments.length === 1 && false === OJ.is.nullOrUndefined(value)) {
-            el.$.val(value);
-            return el;
-          } else {
-            return el.$.val();
-          }
-        }
-      });
-      el.add('valueOf', function() {
-        return el.val();
-      });
-      el.add('toString', function() {
-        return el.val();
-      });
-      return el;
-    });
-    OJ.register('isElementInDom', function(elementId) {
-      return false === OJ.is.nullOrEmpty(OJ.getElement(elementId));
-    });
-    OJ.register('getElement', function(id) {
-      if (typeof document !== 'undefined') {
-        return document.getElementById(id);
-      }
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  var __slice = [].slice;
-
-  (function(OJ) {
-
-    /*
-     Bind all event handlers
-     */
-    var bindEvents, body, finalize, initBody, thinBody;
-    bindEvents = function(el, events) {
-      if (el) {
-        return _.forOwn(events, function(val, key) {
-          var callback;
-          if (OJ.is.method(val)) {
-            callback = function() {
-              var event;
-              event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-              return val.apply(null, event);
-            };
-            el.$.on(key, callback);
-            el.add(key, callback);
-          }
-        });
-      }
-    };
-
-    /*
-    Finalize the ThimDOM node
-     */
-    finalize = function(ret, tag, props, styles, events, text) {
-      ret.add('tagName', tag);
-      ret.css(styles);
-      if (text) {
-        ret.text(text);
-      }
-      ret.add('$', $(ret.get()));
-      ret.add('0', ret.get());
-      ret.add('bindEvents', _.once(function() {
-        return bindEvents(ret, events);
-      }));
-      return ret;
-    };
-
-    /*
-    Create an HTML Element through ThinDom
-     */
-    OJ.register('element', function(tag, props, styles, events, text) {
-      var ret;
-      ret = ThinDOM(tag, props);
-      finalize(ret, tag, props, styles, events, text);
-      return ret;
-    });
-
-    /*
-    Restore an HTML Element through ThinDom
-     */
-    OJ.register('restoreElement', function(tag, el) {
-      var ret;
-      ret = ThinDOM(null, null, el);
-      finalize(ret, tag);
-      ret.add('isInDOM', true);
-      OJ.nodes.factory(ret);
-      return ret;
-    });
-
-    /*
-    Persist a handle on the body node
-     */
-    if (typeof document !== 'undefined') {
-      body = document.body;
-    } else {
-      body = null;
-    }
-    initBody = function(el) {
-      var ret;
-      ret = ThinDOM(null, {
-        id: 'body'
-      }, el);
-      ret.isInDOM = true;
-      return finalize(ret, 'body');
-    };
-    thinBody = initBody(body);
-    thinBody.getId = function() {
-      return 'body';
-    };
-    OJ.register('body', thinBody);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    OJ.register('fragment', function() {
-      var fragment, ret;
-      ret = null;
-      if (typeof document !== 'undefined') {
-        fragment = document.createDocumentFragment();
-        ret = OJ.restoreElement('fragment', fragment);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-
-    /*
-    Create an OJ Input Object through OJ.nodes.input
-     */
-    var input;
-    input = function(options, owner) {
-      var ret;
-      if (options == null) {
-        options = OJ.object();
-      }
-      if (!owner) {
-        throw new Error('Cannot create an input without a parent');
-      }
-      if (!options.props || !options.props.type) {
-        throw new Error('Cannot create an input without an input type');
-      }
-      ret = owner.make('input', options);
-      ret.add('inputName', options.props.type);
-      return ret;
-    };
-    OJ.register('input', input);
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var addMakeMethod, closed, initBody, makeAdd, makeUniqueId, nestableNodeNames, nodeNames, nonNestableNodes, open;
-    closed = 'a abbr acronym address applet article aside audio b bdo big blockquote body button canvas caption center cite code colgroup command datalist dd del details dfn dir div dl dt em embed fieldset figcaption figure font footer form frameset h1 h2 h3 h4 h5 h6 head header hgroup html i iframe ins keygen kbd label legend li map mark menu meter nav noframes noscript object ol optgroup option output p pre progress q rp rt ruby s samp script section select small source span strike strong style sub summary sup table tbody td textarea tfoot th thead time title tr tt u ul var video wbr xmp'.split(' ');
-    open = 'area base br col command css !DOCTYPE embed hr img input keygen link meta param source track wbr'.split(' ');
-    nestableNodeNames = ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'fieldset', 'select', 'ol', 'ul', 'table'];
-    nonNestableNodes = ['li', 'legend', 'tr', 'td', 'option', 'body', 'head', 'source', 'tbody', 'tfoot', 'thead', 'link', 'script'];
-
-    /*
-    Init the body for chaining the first time it's seen
-     */
-    initBody = _.once(function(body) {
-      body.count = 0;
-      body.root = null;
-      OJ.dom(body, null);
-      addMakeMethod(body, 0);
-      body.isFullyInit = true;
-      return body;
-    });
-
-    /*
-    Fetch a node from the DOM and return an OJ'fied instance of the element
-     */
-    OJ.nodes.register('get', function(id, tagName) {
-      var el, ret, thinEl;
-      if (tagName == null) {
-        tagName = 'div';
-      }
-      ret = null;
-      el = document.getElementById(id);
-      if (el) {
-        thinEl = OJ.restoreElement(tagName, el);
-      }
-      if (thinEl) {
-        ret = OJ.nodes.factory(thinEl, null, 0);
-      }
-      return ret;
-    });
-    nodeNames = ['a', 'b', 'br', 'button', 'div', 'em', 'fieldset', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'img', 'input', 'label', 'legend', 'li', 'nav', 'ol', 'option', 'p', 'select', 'span', 'strong', 'sup', 'svg', 'table', 'tbody', 'td', 'textarea', 'th', 'thead', 'tr', 'ul'];
-    makeAdd = function(tagName, el, count) {
-      return function(opts) {
-        var method, nu;
-        method = OJ.nodes[tagName] || OJ.components[tagName] || OJ.controls[tagName] || OJ.inputs[tagName];
-        if (method) {
-          nu = method(opts, el, true);
-        } else {
-          nu = OJ.component(null, el, tagName);
-        }
-        return OJ.nodes.factory(nu, el, count);
-      };
-    };
-    addMakeMethod = function(el, count) {
-      var methods;
-      methods = OJ.object();
-      el.make = function(tagName, opts) {
-        var method;
-        method = methods[tagName];
-        if (!method) {
-          method = makeAdd(tagName, el, count);
-          methods[tagName] = method;
-        }
-        return method(opts);
-      };
-      return el;
-    };
-    makeUniqueId = function(el, parent, count) {
-      var id;
-      if (OJ.GENERATE_UNIQUE_IDS) {
-        count += 1;
-        if (count <= parent.count) {
-          count = parent.count + 1;
-        }
-        parent.count = count;
-        if (!el.getId()) {
-          id = parent.getId();
-          id += el.tagName + count;
-          el.attr('id', id);
-        }
-      }
-    };
-
-    /*
-    Extends a OJ Control class with all the (permitted) methods on the factory
-     */
-    OJ.nodes.register('factory', function(el, parent, count) {
-      var ret;
-      if (parent == null) {
-        parent = OJ.body;
-      }
-      if (count == null) {
-        count = parent.count || 0;
-      }
-      initBody(OJ.body);
-      ret = el;
-      if (!el.isFullyInit) {
-        if (el.tagName !== 'body') {
-          ret = OJ.dom(el, parent);
-          if (!ret.isInDOM) {
-            makeUniqueId(el, parent, count);
-            parent.append(ret[0]);
-            ret.bindEvents();
-            ret.isInDOM = true;
-          }
-          addMakeMethod(ret, count);
-          ret.isFullyInit = true;
-        }
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
   var __slice = [].slice;
 
   (function(OJ) {
@@ -1972,38 +1485,6 @@
   (function(OJ) {
     'use strict';
     var nodeName;
-    nodeName = 'b';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        },
-        number: 1
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
     nodeName = 'br';
     OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
       var defaults, i, ret;
@@ -2027,143 +1508,6 @@
         ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
         i += 1;
       }
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'button';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          type: 'button'
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName, _fn, _i, _len, _ref;
-    _ref = ['div', 'section', 'header', 'footer'];
-    _fn = function(tag) {
-      return OJ.nodes.register(tag, function(options, owner, calledFromFactory) {
-        var defaults, ret;
-        if (owner == null) {
-          owner = OJ.body;
-        }
-        if (calledFromFactory == null) {
-          calledFromFactory = false;
-        }
-        defaults = {
-          props: {},
-          styles: {},
-          events: {
-            click: OJ.noop
-          }
-        };
-        OJ.extend(defaults, options, true);
-        ret = OJ.element(tag, defaults.props, defaults.styles, defaults.events, defaults.text);
-        if (false === calledFromFactory) {
-          OJ.nodes.factory(ret, owner);
-        }
-        return ret;
-      });
-    };
-    for (_i = 0, _len = _ref.length; _i < _len; _i++) {
-      nodeName = _ref[_i];
-      _fn(nodeName);
-    }
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'em';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        },
-        number: 1
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'fieldset';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          form: '',
-          disabled: '',
-          name: ''
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }
@@ -2225,270 +1569,6 @@
       ret.add('isFormValid', function() {
         return ret.$.valid() && (!ret.validator.invalidElements() || ret.validator.invalidElements().length === 0);
       });
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'h1';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        },
-        number: 1
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'h2';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        },
-        number: 1
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'h3';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        },
-        number: 1
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'h4';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        },
-        number: 1
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'h5';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        },
-        number: 1
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'h6';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        },
-        number: 1
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'i';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        },
-        number: 1
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'img';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          src: "",
-          alt: "",
-          title: "",
-          height: "",
-          ismap: "",
-          usemap: "",
-          border: 0,
-          width: ""
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
       if (false === calledFromFactory) {
         OJ.nodes.factory(ret, owner);
       }
@@ -2606,206 +1686,7 @@
   (function(OJ) {
     'use strict';
     var nodeName;
-    nodeName = 'label';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          forAttr: "",
-          form: "",
-          text: ""
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'legend';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          form: '',
-          disabled: ''
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'li';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'nav';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        },
-        number: 1
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
     nodeName = 'ol';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'option';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {
-          value: '',
-          text: '',
-          selected: '',
-          disabled: ''
-        },
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'p';
     OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
       var defaults, ret;
       if (owner == null) {
@@ -2986,132 +1867,6 @@
   (function(OJ) {
     'use strict';
     var nodeName;
-    nodeName = 'span';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'strong';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        },
-        number: 1
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'sup';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        },
-        number: 1
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'svg';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
     nodeName = 'table';
     OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
       var cells, columnCount, defaults, fillMissing, ret, rows, tbody, thead, theadRow;
@@ -3268,68 +2023,6 @@
 }).call(this);
 
 (function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'tbody';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'td';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
   var __slice = [].slice;
 
   (function(OJ) {
@@ -3413,37 +2106,6 @@
   (function(OJ) {
     'use strict';
     var nodeName;
-    nodeName = 'th';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
     nodeName = 'thead';
     OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
       var cells, defaults, ret, rows;
@@ -3506,37 +2168,6 @@
         }
         return cell;
       });
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    'use strict';
-    var nodeName;
-    nodeName = 'tr';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var defaults, ret;
-      if (owner == null) {
-        owner = OJ.body;
-      }
-      if (calledFromFactory == null) {
-        calledFromFactory = false;
-      }
-      defaults = {
-        props: {},
-        styles: {},
-        events: {
-          click: OJ.noop
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.element(nodeName, defaults.props, defaults.styles, defaults.events, defaults.text);
-      if (false === calledFromFactory) {
-        OJ.nodes.factory(ret, owner);
-      }
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -4965,7 +3596,11 @@
     });
     OJ.is.register('nullOrEmpty', function(obj, checkLength) {
       'use strict';
-      return _.isEmpty(obj || _.isUndefined(obj || _.isNull(obj || _.isNaN(obj))));
+      return _.isEmpty(obj) || _.isUndefined(obj) || _.isNull(obj) || _.isNaN(obj);
+    });
+    OJ.is.register('nullOrUndefined', function(obj, checkLength) {
+      'use strict';
+      return _.isUndefined(obj) || _.isNull(obj) || _.isNaN(obj);
     });
     OJ.is.register('instanceof', function(name, obj) {
       'use strict';
@@ -5381,6 +4016,532 @@
       return uuid;
     };
     OJ.register("createUUID", createFauxUUID);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var component;
+    component = function(options, owner, tagName) {
+      var ret, rootNodeType, widget;
+      if (options == null) {
+        options = OJ.object();
+      }
+      if (!tagName.startsWith('x-')) {
+        tagName = 'x-' + tagName;
+      }
+      widget = OJ.element(tagName);
+      OJ.nodes.factory(widget, owner);
+      rootNodeType = options.rootNodeType || OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] || 'div';
+      ret = widget.make(rootNodeType, options);
+      ret.add('componentName', tagName);
+      ret.add('remove', widget.remove);
+      return ret;
+    };
+    OJ.register('component', component);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Create a set of HTML Elements through ThinDom
+     */
+    var control;
+    control = function(options, owner, tagName) {
+      var ret, rootNodeType;
+      if (options == null) {
+        options = OJ.object();
+      }
+      if (!tagName.startsWith('y-')) {
+        tagName = 'y-' + tagName;
+      }
+      rootNodeType = options.rootNodeType || OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] || 'div';
+      ret = OJ.element(rootNodeType, options.props, options.styles, options.events, options.text);
+      OJ.nodes.factory(ret, owner);
+      ret.add('controlName', tagName);
+      return ret;
+    };
+    OJ.register('control', control);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.register('dom', function(el, parent) {
+      var enabled, isControlStillValid;
+      if (parent == null) {
+        parent = OJ.body;
+      }
+      'use strict';
+      enabled = true;
+      el.add('isValid', function() {
+        return el && (el.el instanceof HTMLElement || el.el instanceof DocumentFragment);
+      });
+      isControlStillValid = function() {
+        var valid;
+        valid = false === OJ.is.nullOrEmpty(el) && el.isValid();
+        if (false === valid) {
+          throw new Error('el is null. Event bindings may not have been GCd.');
+        }
+        return valid;
+      };
+      el.add('addClass', function(name) {
+        if (isControlStillValid()) {
+          el.$.addClass(name);
+        }
+        return el;
+      });
+      el.add('bind', function(eventName, event) {
+        return el.on(eventName, event);
+      });
+      el.add('on', function(eventName, event) {
+        if (isControlStillValid()) {
+          el.$.on(eventName, event);
+        }
+        return el;
+      });
+      el.add('off', function(eventName, event) {
+        if (isControlStillValid()) {
+          el.$.off(eventName, event);
+        }
+        return el;
+      });
+      el.add('keyboard', function(keys, event) {
+        if (isControlStillValid()) {
+          Mousetrap.bind(keys, el[event]);
+        }
+        return el;
+      });
+      el.add('disable', function() {
+        if (isControlStillValid()) {
+          enabled = false;
+          el.attr('disabled', 'disabled');
+          el.addClass('disabled', 'disabled');
+        }
+        return el;
+      });
+      el.add('empty', function() {
+        if (isControlStillValid()) {
+          el.$.empty();
+        }
+        return el;
+      });
+      el.add('enable', function() {
+        if (isControlStillValid()) {
+          enabled = true;
+          el.removeAttr('disabled');
+          el.removeClass('disabled');
+        }
+        return el;
+      });
+      el.add('getId', function() {
+        var id;
+        if (isControlStillValid()) {
+          id = el[0].id;
+        }
+        return id;
+      });
+      el.add('hide', function() {
+        if (isControlStillValid()) {
+          el.css('display', 'none');
+        }
+        return el;
+      });
+      el.add('length', function() {
+        var len;
+        len = 0;
+        if (isControlStillValid()) {
+          len = OJ.to.number(el.$.length);
+        }
+        return len;
+      });
+      el.add('parent', parent);
+      el.add('remove', function() {
+        if (el && el.$) {
+          el.$.remove();
+          el = null;
+        }
+        return null;
+      });
+      el.add('removeClass', function(name) {
+        if (isControlStillValid()) {
+          el.$.removeClass(name);
+        }
+        return el;
+      });
+      el.add('removeProp', function(name) {
+        if (isControlStillValid()) {
+          el.$.removeProp(name);
+        }
+        return el;
+      });
+      el.add('removeAttr', function(name) {
+        if (isControlStillValid()) {
+          el.$.removeAttr(name);
+        }
+        return el;
+      });
+      el.add('required', function(truthy, addLabel) {
+        if (isControlStillValid()) {
+          switch (OJ.to.bool(truthy)) {
+            case true:
+              el.attr('required', true);
+              el.addClass('required');
+              break;
+            case false:
+              el.removeProp('required');
+              el.removeClass('required');
+          }
+        }
+        return el;
+      });
+      el.add('root', el.root || parent);
+      el.add('show', function() {
+        if (isControlStillValid()) {
+          el.$.show();
+        }
+        return el;
+      });
+      el.add('toggle', function() {
+        if (isControlStillValid()) {
+          el.$.toggle();
+        }
+        return el;
+      });
+      el.add('toggleEnable', function() {
+        if (isControlStillValid()) {
+          if (enabled) {
+            el.disable();
+          } else {
+            el.enable();
+          }
+        }
+        return el;
+      });
+      el.add('trigger', function(eventName, eventOpts) {
+        if (isControlStillValid()) {
+          el.$.trigger(eventName, eventOpts);
+        }
+        return el;
+      });
+      el.add('unbind', function(eventName, event) {
+        return el.off(eventName, event);
+      });
+      el.add('val', function(value) {
+        if (isControlStillValid()) {
+          if (arguments.length === 1 && false === OJ.is.nullOrUndefined(value)) {
+            el.$.val(value);
+            return el;
+          } else {
+            return el.$.val();
+          }
+        }
+      });
+      el.add('valueOf', function() {
+        return el.val();
+      });
+      el.add('toString', function() {
+        return el.val();
+      });
+      return el;
+    });
+    OJ.register('isElementInDom', function(elementId) {
+      return false === OJ.is.nullOrEmpty(OJ.getElement(elementId));
+    });
+    OJ.register('getElement', function(id) {
+      if (typeof document !== 'undefined') {
+        return document.getElementById(id);
+      }
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  var __slice = [].slice;
+
+  (function(OJ) {
+
+    /*
+     Bind all event handlers
+     */
+    var bindEvents, body, finalize, initBody, thinBody;
+    bindEvents = function(el, events) {
+      if (el) {
+        return _.forOwn(events, function(val, key) {
+          var callback;
+          if (OJ.is.method(val)) {
+            callback = function() {
+              var event;
+              event = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+              return val.apply(null, event);
+            };
+            el.$.on(key, callback);
+            el.add(key, callback);
+          }
+        });
+      }
+    };
+
+    /*
+    Finalize the ThimDOM node
+     */
+    finalize = function(ret, tag, props, styles, events, text) {
+      ret.add('tagName', tag);
+      ret.css(styles);
+      if (text) {
+        ret.text(text);
+      }
+      ret.add('$', $(ret.get()));
+      ret.add('0', ret.get());
+      ret.add('bindEvents', _.once(function() {
+        return bindEvents(ret, events);
+      }));
+      return ret;
+    };
+
+    /*
+    Create an HTML Element through ThinDom
+     */
+    OJ.register('element', function(tag, props, styles, events, text) {
+      var ret;
+      ret = ThinDOM(tag, props);
+      finalize(ret, tag, props, styles, events, text);
+      return ret;
+    });
+
+    /*
+    Restore an HTML Element through ThinDom
+     */
+    OJ.register('restoreElement', function(tag, el) {
+      var ret;
+      ret = ThinDOM(null, null, el);
+      finalize(ret, tag);
+      ret.add('isInDOM', true);
+      OJ.nodes.factory(ret);
+      return ret;
+    });
+
+    /*
+    Persist a handle on the body node
+     */
+    if (typeof document !== 'undefined') {
+      body = document.body;
+    } else {
+      body = null;
+    }
+    initBody = function(el) {
+      var ret;
+      ret = ThinDOM(null, {
+        id: 'body'
+      }, el);
+      ret.isInDOM = true;
+      return finalize(ret, 'body');
+    };
+    thinBody = initBody(body);
+    thinBody.getId = function() {
+      return 'body';
+    };
+    OJ.register('body', thinBody);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    OJ.register('fragment', function() {
+      var fragment, ret;
+      ret = null;
+      if (typeof document !== 'undefined') {
+        fragment = document.createDocumentFragment();
+        ret = OJ.restoreElement('fragment', fragment);
+      }
+      return ret;
+    });
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    'use strict';
+    var all, closed, loopName, open, _fn, _i, _len;
+    closed = ['abbr', 'acronym', 'applet', 'article', 'aside', 'audio', 'b', 'bdo', 'big', 'blockquote', 'button', 'canvas', 'caption', 'center', 'cite', 'code', 'colgroup', 'datalist', 'dd', 'del', 'details', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'fieldset', 'figcaption', 'figure', 'font', 'footer', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'html', 'i', 'iframe', 'ins', 'kbd', 'label', 'legend', 'li', 'map', 'mark', 'menu', 'meter', 'nav', 'noframes', 'noscript', 'object', 'optgroup', 'option', 'output', 'p', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'section', 'small', 'span', 'strike', 'strong', 'style', 'sub', 'summary', 'sup', 'tbody', 'td', 'tfoot', 'th', 'time', 'title', 'tr', 'tt', 'u', 'var', 'video', 'xmp'];
+    open = 'area base col command css embed hr img keygen meta param source track wbr'.split(' ');
+    all = closed.concat(open);
+    _fn = function(tag) {
+      return OJ.nodes.register(tag, function(options, owner, calledFromFactory) {
+        var defaults, ret;
+        if (owner == null) {
+          owner = OJ.body;
+        }
+        if (calledFromFactory == null) {
+          calledFromFactory = false;
+        }
+        defaults = {
+          props: {},
+          styles: {},
+          events: {
+            click: OJ.noop
+          }
+        };
+        OJ.extend(defaults, options, true);
+        ret = OJ.element(tag, defaults.props, defaults.styles, defaults.events, defaults.text);
+        if (false === calledFromFactory) {
+          OJ.nodes.factory(ret, owner);
+        }
+        return ret;
+      });
+    };
+    for (_i = 0, _len = all.length; _i < _len; _i++) {
+      loopName = all[_i];
+      _fn(loopName);
+    }
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+
+    /*
+    Create an OJ Input Object through OJ.nodes.input
+     */
+    var input;
+    input = function(options, owner) {
+      var ret;
+      if (options == null) {
+        options = OJ.object();
+      }
+      if (!owner) {
+        throw new Error('Cannot create an input without a parent');
+      }
+      if (!options.props || !options.props.type) {
+        throw new Error('Cannot create an input without an input type');
+      }
+      ret = owner.make('input', options);
+      ret.add('inputName', options.props.type);
+      return ret;
+    };
+    OJ.register('input', input);
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
+
+}).call(this);
+
+(function() {
+  (function(OJ) {
+    var addMakeMethod, closed, initBody, makeAdd, makeUniqueId, nestableNodeNames, nodeNames, nonNestableNodes, open;
+    closed = 'a abbr acronym address applet article aside audio b bdo big blockquote body button canvas caption center cite code colgroup command datalist dd del details dfn dir div dl dt em embed fieldset figcaption figure font footer form frameset h1 h2 h3 h4 h5 h6 head header hgroup html i iframe ins keygen kbd label legend li map mark menu meter nav noframes noscript object ol optgroup option output p pre progress q rp rt ruby s samp script section select small source span strike strong style sub summary sup table tbody td textarea tfoot th thead time title tr tt u ul var video wbr xmp'.split(' ');
+    open = 'area base br col command css !DOCTYPE embed hr img input keygen link meta param source track wbr'.split(' ');
+    nestableNodeNames = ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'fieldset', 'select', 'ol', 'ul', 'table'];
+    nonNestableNodes = ['li', 'legend', 'tr', 'td', 'option', 'body', 'head', 'source', 'tbody', 'tfoot', 'thead', 'link', 'script'];
+
+    /*
+    Init the body for chaining the first time it's seen
+     */
+    initBody = _.once(function(body) {
+      body.count = 0;
+      body.root = null;
+      OJ.dom(body, null);
+      addMakeMethod(body, 0);
+      body.isFullyInit = true;
+      return body;
+    });
+
+    /*
+    Fetch a node from the DOM and return an OJ'fied instance of the element
+     */
+    OJ.nodes.register('get', function(id, tagName) {
+      var el, ret, thinEl;
+      if (tagName == null) {
+        tagName = 'div';
+      }
+      ret = null;
+      el = document.getElementById(id);
+      if (el) {
+        thinEl = OJ.restoreElement(tagName, el);
+      }
+      if (thinEl) {
+        ret = OJ.nodes.factory(thinEl, null, 0);
+      }
+      return ret;
+    });
+    nodeNames = ['a', 'b', 'br', 'button', 'div', 'em', 'fieldset', 'form', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'i', 'img', 'input', 'label', 'legend', 'li', 'nav', 'ol', 'option', 'p', 'select', 'span', 'strong', 'sup', 'svg', 'table', 'tbody', 'td', 'textarea', 'th', 'thead', 'tr', 'ul'];
+    makeAdd = function(tagName, el, count) {
+      return function(opts) {
+        var method, nu;
+        method = OJ.nodes[tagName] || OJ.components[tagName] || OJ.controls[tagName] || OJ.inputs[tagName];
+        if (method) {
+          nu = method(opts, el, true);
+        } else {
+          nu = OJ.component(null, el, tagName);
+        }
+        return OJ.nodes.factory(nu, el, count);
+      };
+    };
+    addMakeMethod = function(el, count) {
+      var methods;
+      methods = OJ.object();
+      el.make = function(tagName, opts) {
+        var method;
+        method = methods[tagName];
+        if (!method) {
+          method = makeAdd(tagName, el, count);
+          methods[tagName] = method;
+        }
+        return method(opts);
+      };
+      return el;
+    };
+    makeUniqueId = function(el, parent, count) {
+      var id;
+      if (OJ.GENERATE_UNIQUE_IDS) {
+        count += 1;
+        if (count <= parent.count) {
+          count = parent.count + 1;
+        }
+        parent.count = count;
+        if (!el.getId()) {
+          id = parent.getId() || '';
+          id += el.tagName + count;
+          el.attr('id', id);
+        }
+      }
+    };
+
+    /*
+    Extends a OJ Control class with all the (permitted) methods on the factory
+     */
+    OJ.nodes.register('factory', function(el, parent, count) {
+      var ret;
+      if (parent == null) {
+        parent = OJ.body;
+      }
+      if (count == null) {
+        count = parent.count || 0;
+      }
+      initBody(OJ.body);
+      ret = el;
+      if (!el.isFullyInit) {
+        if (el.tagName !== 'body') {
+          ret = OJ.dom(el, parent);
+          if (!ret.isInDOM) {
+            makeUniqueId(el, parent, count);
+            parent.append(ret[0]);
+            ret.bindEvents();
+            ret.isInDOM = true;
+          }
+          addMakeMethod(ret, count);
+          ret.isFullyInit = true;
+        }
+      }
+      return ret;
+    });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
