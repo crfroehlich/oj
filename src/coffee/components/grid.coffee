@@ -51,9 +51,9 @@
           tryTile = tiles.get rowNo, i
           if not tryTile
             if i is colNo
-              tile = row.make 'tile', colNo, opts
+              tile = row.make 'tile', opts
             else if not tile
-              row.make 'tile', i
+              row.make 'tile'
           
       fillMissing()
       tile      
