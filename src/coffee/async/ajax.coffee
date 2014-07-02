@@ -79,7 +79,7 @@
       else
         defaults.ajaxOpts.data = OJ.serialize defaults.ajaxOpts.data
     
-    getPromiseFromAjax = (watchGlobal) ->
+    getJQueryDeferred = (watchGlobal) ->
       ret = $.ajax defaults.ajaxOpts
       
       ret.done (data, textStatus, jqXHR) ->
@@ -93,7 +93,7 @@
 
       OJ.async.ajaxPromise ret
 
-    promise = getPromiseFromAjax(defaults.watchGlobal)
+    promise = getJQueryDeferred(defaults.watchGlobal)
     promise
   
   ajax = {}
