@@ -64,11 +64,11 @@
         if not nativeTh
           th = theadRow.make 'th', {}  
         else 
-          th = OJ.restoreElement 'th', nativeTh  
+          th = OJ.restoreElement nativeTh, 'th' 
         i += 1
       if not th
         nativeTh = thead[0].rows[0].cells[colNo-1]
-        th = OJ.restoreElement 'th', nativeTh
+        th = OJ.restoreElement nativeTh, 'th'
       th.text colName
       th
     

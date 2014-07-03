@@ -6,7 +6,7 @@
     ret = null
     if typeof document isnt 'undefined'
       fragment = document.createDocumentFragment()
-      ret = OJ.restoreElement 'fragment', fragment
+      ret = OJ.restoreElement fragment, 'fragment'
     ret  
   
         

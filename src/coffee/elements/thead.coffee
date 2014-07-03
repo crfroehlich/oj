@@ -35,13 +35,13 @@
       
       td = row[0].cells[colNo]
       
-      if td then cell = OJ.restoreElement 'td', td
+      if td then cell = OJ.restoreElement td, 'td'
       if not td
         while row[0].cells.length < colNo
           idx = row[0].cells.length
           td = row[0].cells[idx-1]
           if td and idx is colNo 
-            cell = OJ.restoreElement 'td', td
+            cell = OJ.restoreElement td, 'td'
           else  
             cell = OJ.nodes.td props: defaults.cells, row, false
       

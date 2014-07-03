@@ -55,7 +55,7 @@
     ret = null
     el = document.getElementById id
     if el
-      thinEl = OJ.restoreElement tagName, el
+      thinEl = OJ.restoreElement el, tagName
     if thinEl
       ret = OJ.nodes.factory thinEl, null, 0
     

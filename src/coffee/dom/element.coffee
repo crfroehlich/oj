@@ -39,7 +39,7 @@
   ###
   Restore an HTML Element through ThinDom
   ###
-  OJ.register 'restoreElement', (tag, el) ->
+  OJ.register 'restoreElement', (el, tag = el.nodeName) ->
     ret = ThinDOM null, null, el
     finalize ret, tag
     ret.add 'isInDOM', true  
