@@ -1701,8 +1701,11 @@
     /*
     Restore an HTML Element through ThinDom
      */
-    OJ.register('restoreElement', function(tag, el) {
+    OJ.register('restoreElement', function(el, tag) {
       var ret;
+      if (tag == null) {
+        tag = el.nodeName;
+      }
       ret = ThinDOM(null, null, el);
       finalize(ret, tag);
       ret.add('isInDOM', true);
@@ -1742,7 +1745,7 @@
       ret = null;
       if (typeof document !== 'undefined') {
         fragment = document.createDocumentFragment();
-        ret = OJ.restoreElement('fragment', fragment);
+        ret = OJ.restoreElement(fragment, 'fragment');
       }
       return ret;
     });
@@ -1847,7 +1850,7 @@
       ret = null;
       el = document.getElementById(id);
       if (el) {
-        thinEl = OJ.restoreElement(tagName, el);
+        thinEl = OJ.restoreElement(el, tagName);
       }
       if (thinEl) {
         ret = OJ.nodes.factory(thinEl, null, 0);
@@ -2459,13 +2462,13 @@
           if (!nativeTh) {
             th = theadRow.make('th', {});
           } else {
-            th = OJ.restoreElement('th', nativeTh);
+            th = OJ.restoreElement(nativeTh, 'th');
           }
           i += 1;
         }
         if (!th) {
           nativeTh = thead[0].rows[0].cells[colNo - 1];
-          th = OJ.restoreElement('th', nativeTh);
+          th = OJ.restoreElement(nativeTh, 'th');
         }
         th.text(colName);
         return th;
@@ -2665,14 +2668,14 @@
         }
         td = row[0].cells[colNo];
         if (td) {
-          cell = OJ.restoreElement('td', td);
+          cell = OJ.restoreElement(td, 'td');
         }
         if (!td) {
           while (row[0].cells.length < colNo) {
             idx = row[0].cells.length;
             td = row[0].cells[idx - 1];
             if (td && idx === colNo) {
-              cell = OJ.restoreElement('td', td);
+              cell = OJ.restoreElement(td, 'td');
             } else {
               cell = OJ.nodes.td({
                 props: defaults.cells
