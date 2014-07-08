@@ -526,13 +526,13 @@
         },
         props: {
           "class": ''
-        }
+        },
+        rootNodeType: 'table'
       };
       OJ.extend(defaults, options, true);
       ret = OJ.component(defaults, owner, nodeName);
-      ret.rawTable = ret.make('table', defaults.table);
-      ret.rawTable.empty();
-      ret.dataTable = ret.rawTable.$.DataTable(defaults.opts);
+      ret.empty();
+      ret.dataTable = ret.$.DataTable(defaults.opts);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
