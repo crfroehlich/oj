@@ -166,7 +166,12 @@
         # 9: Prevent duplicate factory extension by setting is init = true
         ret.isFullyInit = true     
         
-    #10: Return the extended element    
+        # 10: if the node supports it, call finalize
+        finalize = _.once ret.finalize or OJ.noop
+        ret.finalize = finalize
+        finalize()
+        
+    # 11: Return the extended element    
     ret
 
   return

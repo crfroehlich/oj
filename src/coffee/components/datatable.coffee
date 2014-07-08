@@ -18,6 +18,7 @@
     ret = OJ.component defaults, owner, nodeName 
     
     ret.rawTable = ret.make 'table', defaults.table
+    ret.rawTable.empty()
     ret.dataTable = ret.rawTable.$.DataTable defaults.opts
 
     ret

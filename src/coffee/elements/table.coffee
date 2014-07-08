@@ -6,6 +6,7 @@
   OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
     
     defaults =
+      data: null
       props: 
         cellpadding: 0
         cellspacing: 0
@@ -38,11 +39,24 @@
     tbody = null
     thead = null
     theadRow = null
+    
     ret.add 'init', _.once ->  
-      thead = ret.make 'thead'
-      theadRow = thead.make 'tr'
-      tbody = ret.make 'tbody'
-      rows.push tbody.make 'tr'
+      if defaults.data
+        tblStr = ConvertJsonToTable defaults.data
+      if tblStr
+        jTbl = $ tblStr
+        jBody = jTbl.find 'tbody'
+        ret.$.append jBody
+        tbody = OJ.restoreElement jBody[0]
+        
+        jHead = jTbl.find 'thead'
+        ret.$.append jHead
+        thead = OJ.restoreElement jHead[0]
+      else  
+        thead = ret.make 'thead'
+        theadRow = thead.make 'tr'
+        tbody = ret.make 'tbody'
+        rows.push tbody.make 'tr'
       ret
     
     fillMissing = () ->
@@ -118,6 +132,10 @@
               row.cell i, props: defaults.cells
       cell  
 
+    ret.add 'finalize', ->
+      ret.init()
+      ret
+    
     ret
 
   return
