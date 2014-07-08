@@ -5,7 +5,7 @@
   # ## canEach
   canEach = (obj) ->
     # Return true if the object [is](is.html) truly iterable (e.g. an instance of Object or Array)
-    OJ.is.plainObject(obj) or OJ.is.array obj
+    OJ.is.plainObject(obj) or OJ.is.object(obj) or OJ.is.array obj
 
   # ## [OJ](oj.html).each
 
