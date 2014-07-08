@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.4.11
+ * @version v0.4.12
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -3558,7 +3558,7 @@
   (function(OJ) {
     var canEach, each;
     canEach = function(obj) {
-      return OJ.is.plainObject(obj) || OJ.is.array(obj);
+      return OJ.is.plainObject(obj) || OJ.is.object(obj) || OJ.is.array(obj);
     };
     each = function(obj, onEach, recursive) {
       if (canEach(obj)) {
@@ -4031,32 +4031,28 @@
 (function() {
   (function(OJ) {
     OJ.is.register('bool', function(boolean) {
-      'use strict';
       return _.isBoolean(boolean);
     });
     OJ.is.register('arrayNullOrEmpty', function(arr) {
-      'use strict';
       return _.isEmpty(arr);
     });
     OJ.is.register('stringNullOrEmpty', function(str) {
-      'use strict';
       return str && (!str.length || str.length === 0 || !str.trim || !str.trim());
     });
     OJ.is.register('numberNullOrEmpty', function(num) {
-      'use strict';
       return !num || isNaN(num) || !num.toPrecision;
     });
     OJ.is.register('dateNullOrEmpty', function(dt) {
-      'use strict';
       return !dt || !dt.getTime;
     });
     OJ.is.register('objectNullOrEmpty', function(obj) {
-      'use strict';
       return _.isEmpty(obj || !Object.keys(obj) || Object.keys(obj).length === 0);
     });
     OJ.is.register('plainObject', function(obj) {
-      'use strict';
       return _.isPlainObject(obj);
+    });
+    OJ.is.register('object', function(obj) {
+      return _.isObject(obj);
     });
     OJ.is.register('date', function(dt) {
       return _.isDate(dt);
@@ -4082,7 +4078,6 @@
       return ret;
     });
     OJ.is.register('vendorObject', function(obj) {
-      'use strict';
       var ret;
       ret = obj instanceof OJ['?'];
       return ret;
@@ -4091,7 +4086,6 @@
       return false === OJ.is.nullOrEmpty(document.getElementById(elementId));
     });
     OJ.is.register('generic', function(obj) {
-      'use strict';
       var ret;
       ret = false === OJ.is.method(obj) && false === OJ.hasLength(obj) && false === OJ.is.plainObject(obj);
       return ret;
@@ -4103,31 +4097,24 @@
       return _.isString(str);
     });
     OJ.is.register('true', function(obj) {
-      'use strict';
       return obj === true || obj === 'true' || obj === 1 || obj === '1';
     });
     OJ.is.register('false', function(obj) {
-      'use strict';
       return obj === false || obj === 'false' || obj === 0 || obj === '0';
     });
     OJ.is.register('trueOrFalse', function(obj) {
-      'use strict';
       return OJ.is["true"](obj || OJ.is["false"](obj));
     });
     OJ.is.register('nullOrEmpty', function(obj, checkLength) {
-      'use strict';
       return _.isEmpty(obj) || _.isUndefined(obj) || _.isNull(obj) || _.isNaN(obj);
     });
     OJ.is.register('nullOrUndefined', function(obj, checkLength) {
-      'use strict';
       return _.isUndefined(obj) || _.isNull(obj) || _.isNaN(obj);
     });
     OJ.is.register('instanceof', function(name, obj) {
-      'use strict';
       return obj.type === name || obj instanceof name;
     });
     OJ.is.register('method', function(obj) {
-      'use strict';
       return obj !== OJ.noop && _.isFunction(obj);
     });
 

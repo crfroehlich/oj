@@ -59,7 +59,7 @@ files =
   test: './test/**/*.coffee'
   testJs: './test/**/*.js'
 
-injectTask = (path = '', pageName = '', sourceFiles = []) ->
+injectTask = (path = '', pageName = '', sourceFiles = [], includeDevDependencies = false) ->
   #1. Add the template to a new stream
   gulp.src path + '/' + pageName + '.tmpl'
     #2: Rename the file from .tmpl to .html
@@ -71,6 +71,7 @@ injectTask = (path = '', pageName = '', sourceFiles = []) ->
     #4: Inject all Bower resources into the file  
     .pipe wiredepStream
       exclude: [/backbone/, /underscore/, /require/] #these will break Lo-Dash
+      devDependencies: includeDevDependencies
     #5: write the file to disk  
     .pipe gulp.dest path
     #6: Send Growl notification that task has completed
@@ -85,7 +86,7 @@ gulp.task 'inject', ->
   injectTask './src', 'dev', [files.js, files.css]
   
   # Repeat for Unit Tests HTML page
-  injectTask './test', 'test', [files.js, files.testJs, files.css]
+  injectTask './test', 'test', [files.js, files.testJs, files.css], true
   
   # Repeat for Release HTML page
   injectTask './dist', 'release', ['./dist/**/*.min*']

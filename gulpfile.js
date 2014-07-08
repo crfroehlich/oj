@@ -82,7 +82,7 @@
     testJs: './test/**/*.js'
   };
 
-  injectTask = function(path, pageName, sourceFiles) {
+  injectTask = function(path, pageName, sourceFiles, includeDevDependencies) {
     if (path == null) {
       path = '';
     }
@@ -92,6 +92,9 @@
     if (sourceFiles == null) {
       sourceFiles = [];
     }
+    if (includeDevDependencies == null) {
+      includeDevDependencies = false;
+    }
     return gulp.src(path + '/' + pageName + '.tmpl').pipe(rename({
       extname: '.html'
     })).pipe(inject(gulp.src(sourceFiles, {
@@ -100,7 +103,8 @@
       addRootSlash: false,
       addPrefix: '..'
     })).pipe(wiredepStream({
-      exclude: [/backbone/, /underscore/, /require/]
+      exclude: [/backbone/, /underscore/, /require/],
+      devDependencies: includeDevDependencies
     })).pipe(gulp.dest(path)).pipe(notify({
       message: pageName + '.html includes dynamically injected.'
     })).on('error', gutil.log);
@@ -108,7 +112,7 @@
 
   gulp.task('inject', function() {
     injectTask('./src', 'dev', [files.js, files.css]);
-    injectTask('./test', 'test', [files.js, files.testJs, files.css]);
+    injectTask('./test', 'test', [files.js, files.testJs, files.css], true);
     injectTask('./dist', 'release', ['./dist/**/*.min*']);
   });
 
