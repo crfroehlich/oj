@@ -36,18 +36,7 @@
     'link'
     'script'
   ]
-  
-  ###
-  Init the body for chaining the first time it's seen
-  ###
-  initBody = _.once (body) ->
-    body.count = 0
-    body.root = null
-    OJ.dom body, null
-    addMakeMethod body, 0
-    body.isFullyInit = true
-    body
-
+ 
   ###
   Fetch a node from the DOM and return an OJ'fied instance of the element
   ###
@@ -137,42 +126,47 @@
   ###
   OJ.nodes.register 'factory', (el, parent = OJ.body, count = parent.count or 0) ->
     
-    #1: Guarantee that the body node is initialized (this will only execute once)
-    initBody OJ.body
-    
-    # 2: for clarity, we are returning the extended element
+    # 1: for clarity, we are returning the extended element
     ret = el
     
-    # 3: If the element has never been initialized, continue
+    # 2: If the element has never been initialized, continue
     if not el.isFullyInit
       
-      # 4: As long as the element isn't the body node, continue
+      # 3: As long as the element isn't the body node, continue
       if el.tagName isnt 'body' 
-        # 5: Extend the element with standard jQuery API methods
+        # 4: Extend the element with standard jQuery API methods
         ret = OJ.dom el, parent
         
-        # 6: If the node isn't in the DOM, append it to the parent
+        # 5: If the node isn't in the DOM, append it to the parent
         # This also accommodates document fragments, which are not in the DOM but are presumed to be sound until ready for manual insertion
         if not ret.isInDOM
           makeUniqueId el, parent, count
           parent.append ret[0]
-          #7: Bind any defined events after the node is in the DOM
+          # 6: Bind any defined events after the node is in the DOM
           ret.bindEvents()
           ret.isInDOM = true
         
-        # 8: Create the all important 'make' method
+        # 7: Create the all important 'make' method
         addMakeMethod ret, count
         
-        # 9: Prevent duplicate factory extension by setting is init = true
+        # 8: Prevent duplicate factory extension by setting is init = true
         ret.isFullyInit = true     
         
-        # 10: if the node supports it, call finalize
+        # 9: if the node supports it, call finalize
         finalize = _.once ret.finalize or OJ.noop
         ret.finalize = finalize
         finalize()
         
-    # 11: Return the extended element    
+    # 10: Return the extended element    
     ret
+
+  initBody = ( ->
+    OJ.body.count = 0
+    OJ.body.root = null
+    OJ.dom OJ.body, null
+    addMakeMethod OJ.body, 0
+    OJ.body.isFullyInit = true
+  )()
 
   return
 ) ((if typeof global isnt 'undefined' and global then global else ((if typeof window isnt 'undefined' then window else this)))).OJ

@@ -1,7 +1,7 @@
 ((OJ) ->
   module 'all controls', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    if not OJ.body.make then OJ.nodes.div()
+    
     
   test 'Test all controls', ->
     count = 0

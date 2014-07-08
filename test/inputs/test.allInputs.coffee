@@ -1,7 +1,7 @@
 ((OJ) ->
   module 'all inputs', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    if not OJ.body.make then OJ.nodes.div()
+    
     
   test 'Test all inputs', ->
     count = 0

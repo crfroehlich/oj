@@ -1,7 +1,7 @@
 ((OJ) ->
   module 'x-easypie', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    if not OJ.body.make then OJ.nodes.div()
+    
   
   test 'Test the easypie component', ->
     expect 4

@@ -88,8 +88,8 @@
   # copy the properties of one object to another object
   OJ.register 'extend', (destObj, srcObj, deepCopy = false) ->
     ret = destObj or {}
-    if arguments.length is 3
-      ret = $.extend(OJ.to.bool(deepCopy), ret, srcObj)
+    if deepCopy is true
+      ret = $.extend(deepCopy, ret, srcObj)
     else
       ret = $.extend(ret, srcObj)
     ret

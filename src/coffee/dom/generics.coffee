@@ -105,9 +105,8 @@
         defaults =
           props: {}
           styles: {}
-          events:
-            click: OJ.noop
-
+          events: {}
+          
         OJ.extend defaults, options, true
         ret = OJ.element tag, defaults.props, defaults.styles, defaults.events, defaults.text
 

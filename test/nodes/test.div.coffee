@@ -1,7 +1,7 @@
 ((OJ) ->
   module 'div', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
-    if not OJ.body.make then OJ.nodes.div()
+    
     
   test 'Test the Div node', ->
     expect 7
