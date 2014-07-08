@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.4.12
+ * @version v0.4.14
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -531,6 +531,7 @@
       OJ.extend(defaults, options, true);
       ret = OJ.component(defaults, owner, nodeName);
       ret.rawTable = ret.make('table', defaults.table);
+      ret.rawTable.empty();
       ret.dataTable = ret.rawTable.$.DataTable(defaults.opts);
       return ret;
     });
@@ -1243,8 +1244,8 @@
         deepCopy = false;
       }
       ret = destObj || {};
-      if (arguments.length === 3) {
-        ret = $.extend(OJ.to.bool(deepCopy), ret, srcObj);
+      if (deepCopy === true) {
+        ret = $.extend(deepCopy, ret, srcObj);
       } else {
         ret = $.extend(ret, srcObj);
       }
@@ -1772,9 +1773,7 @@
         defaults = {
           props: {},
           styles: {},
-          events: {
-            click: OJ.noop
-          }
+          events: {}
         };
         OJ.extend(defaults, options, true);
         ret = OJ.element(tag, defaults.props, defaults.styles, defaults.events, defaults.text);
@@ -1826,18 +1825,6 @@
     open = 'area base br col command css !DOCTYPE embed hr img input keygen link meta param source track wbr'.split(' ');
     nestableNodeNames = ['div', 'span', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'fieldset', 'select', 'ol', 'ul', 'table'];
     nonNestableNodes = ['li', 'legend', 'tr', 'td', 'option', 'body', 'head', 'source', 'tbody', 'tfoot', 'thead', 'link', 'script'];
-
-    /*
-    Init the body for chaining the first time it's seen
-     */
-    initBody = _.once(function(body) {
-      body.count = 0;
-      body.root = null;
-      OJ.dom(body, null);
-      addMakeMethod(body, 0);
-      body.isFullyInit = true;
-      return body;
-    });
 
     /*
     Fetch a node from the DOM and return an OJ'fied instance of the element
@@ -1904,14 +1891,13 @@
     Extends a OJ Control class with all the (permitted) methods on the factory
      */
     OJ.nodes.register('factory', function(el, parent, count) {
-      var ret;
+      var finalize, ret;
       if (parent == null) {
         parent = OJ.body;
       }
       if (count == null) {
         count = parent.count || 0;
       }
-      initBody(OJ.body);
       ret = el;
       if (!el.isFullyInit) {
         if (el.tagName !== 'body') {
@@ -1924,10 +1910,20 @@
           }
           addMakeMethod(ret, count);
           ret.isFullyInit = true;
+          finalize = _.once(ret.finalize || OJ.noop);
+          ret.finalize = finalize;
+          finalize();
         }
       }
       return ret;
     });
+    initBody = (function() {
+      OJ.body.count = 0;
+      OJ.body.root = null;
+      OJ.dom(OJ.body, null);
+      addMakeMethod(OJ.body, 0);
+      return OJ.body.isFullyInit = true;
+    })();
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
@@ -2397,6 +2393,7 @@
         calledFromFactory = false;
       }
       defaults = {
+        data: null,
         props: {
           cellpadding: 0,
           cellspacing: 0,
@@ -2432,10 +2429,24 @@
       thead = null;
       theadRow = null;
       ret.add('init', _.once(function() {
-        thead = ret.make('thead');
-        theadRow = thead.make('tr');
-        tbody = ret.make('tbody');
-        rows.push(tbody.make('tr'));
+        var jBody, jHead, jTbl, tblStr;
+        if (defaults.data) {
+          tblStr = ConvertJsonToTable(defaults.data);
+        }
+        if (tblStr) {
+          jTbl = $(tblStr);
+          jBody = jTbl.find('tbody');
+          ret.$.append(jBody);
+          tbody = OJ.restoreElement(jBody[0]);
+          jHead = jTbl.find('thead');
+          ret.$.append(jHead);
+          thead = OJ.restoreElement(jHead[0]);
+        } else {
+          thead = ret.make('thead');
+          theadRow = thead.make('tr');
+          tbody = ret.make('tbody');
+          rows.push(tbody.make('tr'));
+        }
         return ret;
       }));
       fillMissing = function() {
@@ -2535,6 +2546,10 @@
           }
         }
         return cell;
+      });
+      ret.add('finalize', function() {
+        ret.init();
+        return ret;
       });
       return ret;
     });
