@@ -1,9 +1,14 @@
+# # table
+
 ((OJ)->
   'use strict'
   
   nodeName = 'table'
   
-  OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
+  ###
+  Create an HTML table. Provides helper methods to create Columns and Cells.
+  ###
+  table = (options, owner = OJ.body, calledFromFactory = false) ->
     
     defaults =
       data: null
@@ -52,6 +57,8 @@
         jHead = jTbl.find 'thead'
         ret.$.append jHead
         thead = OJ.restoreElement jHead[0]
+        theadRow = OJ.restoreElement thead[0].rows[0]
+        loadCells()
       else  
         thead = ret.make 'thead'
         theadRow = thead.make 'tr'
@@ -59,6 +66,20 @@
         rows.push tbody.make 'tr'
       ret
     
+    loadCells = () ->
+      r = 0
+      while tbody[0].rows.length > r
+        c = 0
+        memRow = OJ.restoreElement tbody[0].rows[r]
+        rows.push memRow
+        while tbody[0].rows[r].cells.length > c
+          memCell = cells.get r+1, c+1
+          if not memCell
+            memCell = OJ.restoreElement tbody[0].rows[r].cells[c]
+            cells.set r+1, c+1, memCell
+          c += 1
+        r += 1
+        
     fillMissing = () ->
       cells.each (rowNo, colNo, val) ->
         if not val
@@ -90,7 +111,6 @@
     Adds a new row (tr) to the table body
     ###
     ret.add 'row', (rowNo, opts) ->              
-      ret.init()
       row = rows[rowNo-1]
       
       if not row
@@ -110,7 +130,6 @@
     Adds a cell (tr/td) to the table body
     ###              
     ret.add 'cell', (rowNo, colNo, opts) ->
-      ret.init()
       if rowNo < 1 then rowNo = 1
       if colNo < 1 then colNo = 1
       if columnCount > 0 and colNo-1 > columnCount then throw new Error 'A column name has not been defined for this position {' + rowNo + 'x' + colNo + '}.'    
@@ -123,13 +142,14 @@
         i = 0
         while i < colNo
           i += 1
-          tryCell = cells.get rowNo, i
-          if not tryCell
-            if i is colNo
-              nuOpts = OJ.extend {props: defaults.cells}, opts
-              cell = row.cell colNo, nuOpts
-            else  
-              row.cell i, props: defaults.cells
+          if i is colNo
+            nuOpts = OJ.extend {props: defaults.cells}, opts
+            cell = row.cell colNo, nuOpts
+          else  
+            tryCell = cells.get rowNo, i
+            if not tryCell
+              tryCell =  row.cell i, props: defaults.cells
+          
       cell  
 
     ret.add 'finalize', ->
@@ -137,6 +157,8 @@
       ret
     
     ret
+  
+  OJ.nodes.register nodeName, table
 
   return
 
