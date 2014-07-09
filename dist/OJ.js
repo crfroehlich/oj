@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.4.14
+ * @version v0.4.15
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -2382,10 +2382,14 @@
 (function() {
   (function(OJ) {
     'use strict';
-    var nodeName;
+    var nodeName, table;
     nodeName = 'table';
-    OJ.nodes.register(nodeName, function(options, owner, calledFromFactory) {
-      var cells, columnCount, defaults, fillMissing, ret, rows, tbody, thead, theadRow;
+
+    /*
+    Create an HTML table. Provides helper methods to create Columns and Cells.
+     */
+    table = function(options, owner, calledFromFactory) {
+      var cells, columnCount, defaults, fillMissing, loadCells, ret, rows, tbody, thead, theadRow;
       if (owner == null) {
         owner = OJ.body;
       }
@@ -2441,6 +2445,8 @@
           jHead = jTbl.find('thead');
           ret.$.append(jHead);
           thead = OJ.restoreElement(jHead[0]);
+          theadRow = OJ.restoreElement(thead[0].rows[0]);
+          loadCells();
         } else {
           thead = ret.make('thead');
           theadRow = thead.make('tr');
@@ -2449,6 +2455,26 @@
         }
         return ret;
       }));
+      loadCells = function() {
+        var c, memCell, memRow, r, _results;
+        r = 0;
+        _results = [];
+        while (tbody[0].rows.length > r) {
+          c = 0;
+          memRow = OJ.restoreElement(tbody[0].rows[r]);
+          rows.push(memRow);
+          while (tbody[0].rows[r].cells.length > c) {
+            memCell = cells.get(r + 1, c + 1);
+            if (!memCell) {
+              memCell = OJ.restoreElement(tbody[0].rows[r].cells[c]);
+              cells.set(r + 1, c + 1, memCell);
+            }
+            c += 1;
+          }
+          _results.push(r += 1);
+        }
+        return _results;
+      };
       fillMissing = function() {
         return cells.each(function(rowNo, colNo, val) {
           var row;
@@ -2490,7 +2516,6 @@
        */
       ret.add('row', function(rowNo, opts) {
         var row;
-        ret.init();
         row = rows[rowNo - 1];
         if (!row) {
           while (rows.length < rowNo) {
@@ -2514,7 +2539,6 @@
        */
       ret.add('cell', function(rowNo, colNo, opts) {
         var cell, i, nuOpts, row, tryCell;
-        ret.init();
         if (rowNo < 1) {
           rowNo = 1;
         }
@@ -2530,15 +2554,15 @@
           i = 0;
           while (i < colNo) {
             i += 1;
-            tryCell = cells.get(rowNo, i);
-            if (!tryCell) {
-              if (i === colNo) {
-                nuOpts = OJ.extend({
-                  props: defaults.cells
-                }, opts);
-                cell = row.cell(colNo, nuOpts);
-              } else {
-                row.cell(i, {
+            if (i === colNo) {
+              nuOpts = OJ.extend({
+                props: defaults.cells
+              }, opts);
+              cell = row.cell(colNo, nuOpts);
+            } else {
+              tryCell = cells.get(rowNo, i);
+              if (!tryCell) {
+                tryCell = row.cell(i, {
                   props: defaults.cells
                 });
               }
@@ -2552,7 +2576,8 @@
         return ret;
       });
       return ret;
-    });
+    };
+    OJ.nodes.register(nodeName, table);
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
