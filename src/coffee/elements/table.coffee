@@ -1,7 +1,6 @@
 # # table
 
 ((OJ)->
-  'use strict'
   
   nodeName = 'table'
   
@@ -29,6 +28,8 @@
         'vertical-align': ''
         cellpadding: ''
         margin: ''
+      thead: {}
+      tbody: {}
 
       firstAlignRight: false
       oddAlignRight: false
@@ -45,19 +46,23 @@
     thead = null
     theadRow = null
     
-    ret.add 'init', _.once ->  
+    # ### init
+    # internal method for one time initialization of the table
+    init = _.once ->  
       if defaults.data
         tblStr = ConvertJsonToTable defaults.data
       if tblStr
         jTbl = $ tblStr
-        jBody = jTbl.find 'tbody'
-        ret.$.append jBody
-        tbody = OJ.restoreElement jBody[0]
         
         jHead = jTbl.find 'thead'
         ret.$.append jHead
         thead = OJ.restoreElement jHead[0]
         theadRow = OJ.restoreElement thead[0].rows[0]
+        
+        jBody = jTbl.find 'tbody'
+        ret.$.append jBody
+        tbody = OJ.restoreElement jBody[0]
+        
         loadCells()
       else  
         thead = ret.make 'thead'
@@ -66,6 +71,8 @@
         rows.push tbody.make 'tr'
       ret
     
+    # ### loadCells
+    # internal method guarantees that tables loaded from JSON are fully loaded into memory
     loadCells = () ->
       r = 0
       while tbody[0].rows.length > r
@@ -79,16 +86,17 @@
             cells.set r+1, c+1, memCell
           c += 1
         r += 1
-        
+    
+    # ### fillMissing
+    # internal method guarantees that cells exist for the dimensions of the table        
     fillMissing = () ->
       cells.each (rowNo, colNo, val) ->
         if not val
           row = ret.row rowNo
           row.cell colNo, {} 
     
-    ###
-    Adds a column name to the table head
-    ###
+    # ## column
+    # Adds a column name to the table head
     ret.add 'column', (colNo, colName) ->
       ret.init()
       columnCount += 1
@@ -107,9 +115,8 @@
       th.text colName
       th
     
-    ###
-    Adds a new row (tr) to the table body
-    ###
+    # ## row
+    # Adds a new row (tr) to the table body
     ret.add 'row', (rowNo, opts) ->              
       row = rows[rowNo-1]
       
@@ -125,10 +132,9 @@
           cell
       
       row
-                                                                                                                                              
-    ###
-    Adds a cell (tr/td) to the table body
-    ###              
+    
+    # ## cell                                                                                                                                                                                                                                                                                    
+    # Adds a cell (tr/td) to the table body
     ret.add 'cell', (rowNo, colNo, opts) ->
       if rowNo < 1 then rowNo = 1
       if colNo < 1 then colNo = 1
@@ -151,9 +157,19 @@
               tryCell =  row.cell i, props: defaults.cells
           
       cell  
+  
+    # ## THead
+    # Expose the internal thead node
+    ret.add 'thead', thead
+    
+    # ## TBody
+    # Expose the internal tbody node
+    ret.add 'tbody', tbody
 
+    # ## Finalize
+    # Finalize guarantees that thead and tbody and created when the node is fully instantiated
     ret.add 'finalize', ->
-      ret.init()
+      init()
       ret
     
     ret
