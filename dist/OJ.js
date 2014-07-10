@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.4.15
+ * @version v0.4.16
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -2381,7 +2381,6 @@
 
 (function() {
   (function(OJ) {
-    'use strict';
     var nodeName, table;
     nodeName = 'table';
 
@@ -2389,7 +2388,7 @@
     Create an HTML table. Provides helper methods to create Columns and Cells.
      */
     table = function(options, owner, calledFromFactory) {
-      var cells, columnCount, defaults, fillMissing, loadCells, ret, rows, tbody, thead, theadRow;
+      var cells, columnCount, defaults, fillMissing, init, loadCells, ret, rows, tbody, thead, theadRow;
       if (owner == null) {
         owner = OJ.body;
       }
@@ -2418,6 +2417,8 @@
           cellpadding: '',
           margin: ''
         },
+        thead: {},
+        tbody: {},
         firstAlignRight: false,
         oddAlignRight: false
       };
@@ -2432,20 +2433,20 @@
       tbody = null;
       thead = null;
       theadRow = null;
-      ret.add('init', _.once(function() {
+      init = _.once(function() {
         var jBody, jHead, jTbl, tblStr;
         if (defaults.data) {
           tblStr = ConvertJsonToTable(defaults.data);
         }
         if (tblStr) {
           jTbl = $(tblStr);
-          jBody = jTbl.find('tbody');
-          ret.$.append(jBody);
-          tbody = OJ.restoreElement(jBody[0]);
           jHead = jTbl.find('thead');
           ret.$.append(jHead);
           thead = OJ.restoreElement(jHead[0]);
           theadRow = OJ.restoreElement(thead[0].rows[0]);
+          jBody = jTbl.find('tbody');
+          ret.$.append(jBody);
+          tbody = OJ.restoreElement(jBody[0]);
           loadCells();
         } else {
           thead = ret.make('thead');
@@ -2454,7 +2455,7 @@
           rows.push(tbody.make('tr'));
         }
         return ret;
-      }));
+      });
       loadCells = function() {
         var c, memCell, memRow, r, _results;
         r = 0;
@@ -2484,10 +2485,6 @@
           }
         });
       };
-
-      /*
-      Adds a column name to the table head
-       */
       ret.add('column', function(colNo, colName) {
         var i, nativeTh, th;
         ret.init();
@@ -2510,10 +2507,6 @@
         th.text(colName);
         return th;
       });
-
-      /*
-      Adds a new row (tr) to the table body
-       */
       ret.add('row', function(rowNo, opts) {
         var row;
         row = rows[rowNo - 1];
@@ -2533,10 +2526,6 @@
         }
         return row;
       });
-
-      /*
-      Adds a cell (tr/td) to the table body
-       */
       ret.add('cell', function(rowNo, colNo, opts) {
         var cell, i, nuOpts, row, tryCell;
         if (rowNo < 1) {
@@ -2571,8 +2560,10 @@
         }
         return cell;
       });
+      ret.add('thead', thead);
+      ret.add('tbody', tbody);
       ret.add('finalize', function() {
-        ret.init();
+        init();
         return ret;
       });
       return ret;
