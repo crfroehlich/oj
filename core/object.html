@@ -68,8 +68,8 @@
 
 <p>copy the properties of one object to another object</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;extend&#39;</span><span class="p">,</span> <span class="nf">(destObj, srcObj, deepCopy = false) -&gt;</span>
     <span class="nv">ret = </span><span class="nx">destObj</span> <span class="o">or</span> <span class="p">{}</span>
-    <span class="k">if</span> <span class="nx">arguments</span><span class="p">.</span><span class="nx">length</span> <span class="o">is</span> <span class="mi">3</span>
-      <span class="nv">ret = </span><span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">OJ</span><span class="p">.</span><span class="nx">to</span><span class="p">.</span><span class="nx">bool</span><span class="p">(</span><span class="nx">deepCopy</span><span class="p">),</span> <span class="nx">ret</span><span class="p">,</span> <span class="nx">srcObj</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nx">deepCopy</span> <span class="o">is</span> <span class="kc">true</span>
+      <span class="nv">ret = </span><span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">deepCopy</span><span class="p">,</span> <span class="nx">ret</span><span class="p">,</span> <span class="nx">srcObj</span><span class="p">)</span>
     <span class="k">else</span>
       <span class="nv">ret = </span><span class="nx">$</span><span class="p">.</span><span class="nx">extend</span><span class="p">(</span><span class="nx">ret</span><span class="p">,</span> <span class="nx">srcObj</span><span class="p">)</span>
     <span class="nx">ret</span>

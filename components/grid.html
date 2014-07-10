@@ -51,9 +51,9 @@
           <span class="nv">tryTile = </span><span class="nx">tiles</span><span class="p">.</span><span class="nx">get</span> <span class="nx">rowNo</span><span class="p">,</span> <span class="nx">i</span>
           <span class="k">if</span> <span class="o">not</span> <span class="nx">tryTile</span>
             <span class="k">if</span> <span class="nx">i</span> <span class="o">is</span> <span class="nx">colNo</span>
-              <span class="nv">tile = </span><span class="nx">row</span><span class="p">.</span><span class="nx">tile</span> <span class="nx">colNo</span><span class="p">,</span> <span class="nx">opts</span>
+              <span class="nv">tile = </span><span class="nx">row</span><span class="p">.</span><span class="nx">make</span> <span class="s">&#39;tile&#39;</span><span class="p">,</span> <span class="nx">opts</span>
             <span class="k">else</span> <span class="k">if</span> <span class="o">not</span> <span class="nx">tile</span>
-              <span class="nx">row</span><span class="p">.</span><span class="nx">tile</span> <span class="nx">i</span>
+              <span class="nx">row</span><span class="p">.</span><span class="nx">make</span> <span class="s">&#39;tile&#39;</span>
           
       <span class="nx">fillMissing</span><span class="p">()</span>
       <span class="nx">tile</span>      

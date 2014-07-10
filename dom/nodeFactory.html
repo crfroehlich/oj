@@ -36,17 +36,11 @@
     <span class="s">&#39;link&#39;</span>
     <span class="s">&#39;script&#39;</span>
   <span class="p">]</span>
-  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Init the body for chaining the first time it's seen</p></div></div><div class="code"><div class="wrapper">  <span class="nv">initBody = </span><span class="nx">_</span><span class="p">.</span><span class="nx">once</span> <span class="nf">(body) -&gt;</span>
-    <span class="nv">body.count = </span><span class="mi">0</span>
-    <span class="nv">body.root = </span><span class="kc">null</span>
-    <span class="nx">OJ</span><span class="p">.</span><span class="nx">dom</span> <span class="nx">body</span><span class="p">,</span> <span class="kc">null</span>
-    <span class="nx">addMakeMethod</span> <span class="nx">body</span><span class="p">,</span> <span class="mi">0</span>
-    <span class="nv">body.isFullyInit = </span><span class="kc">true</span>
-    <span class="nx">body</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Fetch a node from the DOM and return an OJ'fied instance of the element</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;get&#39;</span><span class="p">,</span> <span class="nf">(id, tagName = &#39;div&#39;) -&gt;</span>
+ </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Fetch a node from the DOM and return an OJ'fied instance of the element</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;get&#39;</span><span class="p">,</span> <span class="nf">(id, tagName = &#39;div&#39;) -&gt;</span>
     <span class="nv">ret = </span><span class="kc">null</span>
     <span class="nv">el = </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span> <span class="nx">id</span>
     <span class="k">if</span> <span class="nx">el</span>
-      <span class="nv">thinEl = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">restoreElement</span> <span class="nx">tagName</span><span class="p">,</span> <span class="nx">el</span>
+      <span class="nv">thinEl = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">restoreElement</span> <span class="nx">el</span><span class="p">,</span> <span class="nx">tagName</span>
     <span class="k">if</span> <span class="nx">thinEl</span>
       <span class="nv">ret = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">factory</span> <span class="nx">thinEl</span><span class="p">,</span> <span class="kc">null</span><span class="p">,</span> <span class="mi">0</span>
     
@@ -118,42 +112,33 @@
       <span class="nv">parent.count = </span><span class="nx">count</span>
       
       <span class="k">if</span> <span class="o">not</span> <span class="nx">el</span><span class="p">.</span><span class="nx">getId</span><span class="p">()</span>
-        <span class="nv">id = </span><span class="nx">parent</span><span class="p">.</span><span class="nx">getId</span><span class="p">()</span>
+        <span class="nv">id = </span><span class="nx">parent</span><span class="p">.</span><span class="nx">getId</span><span class="p">()</span> <span class="o">or</span> <span class="s">&#39;&#39;</span>
         <span class="nx">id</span> <span class="o">+=</span> <span class="nx">el</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">+</span> <span class="nx">count</span>
         <span class="nx">el</span><span class="p">.</span><span class="nx">attr</span> <span class="s">&#39;id&#39;</span><span class="p">,</span> <span class="nx">id</span>
     <span class="k">return</span>
         </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Extends a OJ Control class with all the (permitted) methods on the factory</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;factory&#39;</span><span class="p">,</span> <span class="nf">(el, parent = OJ.body, count = parent.count or 0) -&gt;</span>
-    
-    <span class="c1">#1: Guarantee that the body node is initialized (this will only execute once)</span>
-    <span class="nx">initBody</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">body</span>
-    
-    <span class="c1">#2: for clarity, we are returning the extended element</span>
-    <span class="nv">ret = </span><span class="nx">el</span>
-    
-    <span class="c1">#3: If the element has never been initialized, continue</span>
-    <span class="k">if</span> <span class="o">not</span> <span class="nx">el</span><span class="p">.</span><span class="nx">isFullyInit</span>
-      
-      <span class="c1">#4: As long as the element isn&#39;t the body node, continue</span>
-      <span class="k">if</span> <span class="nx">el</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">isnt</span> <span class="s">&#39;body&#39;</span> 
-        <span class="c1">#5: Extend the element with standard jQuery API methods</span>
-        <span class="nv">ret = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">dom</span> <span class="nx">el</span><span class="p">,</span> <span class="nx">parent</span>
-        
-        <span class="c1">#6: If the node isn&#39;t in the DOM, append it to the parent</span>
-        <span class="k">if</span> <span class="o">not</span> <span class="nx">ret</span><span class="p">.</span><span class="nx">isInDOM</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>1: for clarity, we are returning the extended element</p></div></div><div class="code"><div class="wrapper">    <span class="nv">ret = </span><span class="nx">el</span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>2: If the element has never been initialized, continue</p></div></div><div class="code"><div class="wrapper">    <span class="k">if</span> <span class="o">not</span> <span class="nx">el</span><span class="p">.</span><span class="nx">isFullyInit</span>
+      </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>3: As long as the element isn't the body node, continue</p></div></div><div class="code"><div class="wrapper">      <span class="k">if</span> <span class="nx">el</span><span class="p">.</span><span class="nx">tagName</span> <span class="o">isnt</span> <span class="s">&#39;body&#39;</span> </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>4: Extend the element with standard jQuery API methods</p></div></div><div class="code"><div class="wrapper">        <span class="nv">ret = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">dom</span> <span class="nx">el</span><span class="p">,</span> <span class="nx">parent</span>
+        </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>5: If the node isn't in the DOM, append it to the parent
+This also accommodates document fragments, which are not in the DOM but are presumed to be sound until ready for manual insertion</p></div></div><div class="code"><div class="wrapper">        <span class="k">if</span> <span class="o">not</span> <span class="nx">ret</span><span class="p">.</span><span class="nx">isInDOM</span>
           <span class="nx">makeUniqueId</span> <span class="nx">el</span><span class="p">,</span> <span class="nx">parent</span><span class="p">,</span> <span class="nx">count</span>
-          <span class="nx">parent</span><span class="p">.</span><span class="nx">append</span> <span class="nx">ret</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-          <span class="c1">#7: Bind any defined events after the node is in the DOM</span>
-          <span class="nx">ret</span><span class="p">.</span><span class="nx">bindEvents</span><span class="p">()</span>
+          <span class="nx">parent</span><span class="p">.</span><span class="nx">append</span> <span class="nx">ret</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>6: Bind any defined events after the node is in the DOM</p></div></div><div class="code"><div class="wrapper">          <span class="nx">ret</span><span class="p">.</span><span class="nx">bindEvents</span><span class="p">()</span>
           <span class="nv">ret.isInDOM = </span><span class="kc">true</span>
-        
-        <span class="c1">#8: Create the all important &#39;make&#39; method</span>
-        <span class="nx">addMakeMethod</span> <span class="nx">ret</span><span class="p">,</span> <span class="nx">count</span>
-        
-        <span class="c1">#9: Prevent duplicate factory extension by setting is init = true</span>
-        <span class="nv">ret.isFullyInit = </span><span class="kc">true</span>     
-        
-    <span class="c1">#10: Return the extended element    </span>
-    <span class="nx">ret</span>
+        </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>7: Create the all important 'make' method</p></div></div><div class="code"><div class="wrapper">        <span class="nx">addMakeMethod</span> <span class="nx">ret</span><span class="p">,</span> <span class="nx">count</span>
+        </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>8: Prevent duplicate factory extension by setting is init = true</p></div></div><div class="code"><div class="wrapper">        <span class="nv">ret.isFullyInit = </span><span class="kc">true</span>     
+        </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>9: if the node supports it, call finalize</p></div></div><div class="code"><div class="wrapper">        <span class="nv">finalize = </span><span class="nx">_</span><span class="p">.</span><span class="nx">once</span> <span class="nx">ret</span><span class="p">.</span><span class="nx">finalize</span> <span class="o">or</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">noop</span>
+        <span class="nv">ret.finalize = </span><span class="nx">finalize</span>
+        <span class="nx">finalize</span><span class="p">()</span>
+        </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>10: Return the extended element    </p></div></div><div class="code"><div class="wrapper">    <span class="nx">ret</span>
+
+  <span class="nv">initBody = </span><span class="p">(</span> <span class="nf">-&gt;</span>
+    <span class="nv">OJ.body.count = </span><span class="mi">0</span>
+    <span class="nv">OJ.body.root = </span><span class="kc">null</span>
+    <span class="nx">OJ</span><span class="p">.</span><span class="nx">dom</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span> <span class="kc">null</span>
+    <span class="nx">addMakeMethod</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">body</span><span class="p">,</span> <span class="mi">0</span>
+    <span class="nv">OJ.body.isFullyInit = </span><span class="kc">true</span>
+  <span class="p">)()</span>
 
   <span class="k">return</span>
 <span class="p">)</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">global</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="o">and</span> <span class="nx">global</span> <span class="k">then</span> <span class="nx">global</span> <span class="k">else</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nb">window</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="k">then</span> <span class="nb">window</span> <span class="k">else</span> <span class="k">this</span><span class="p">)))).</span><span class="nx">OJ</span></div></div></div></div></body></html>

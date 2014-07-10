@@ -34,10 +34,11 @@
       <span class="nx">opts</span><span class="p">.</span><span class="nx">ajaxOpts</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;url&#39;</span><span class="p">,</span> <span class="nx">url</span>
     <span class="nx">opts</span>
   </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>define a standard <code>exec</code> method to handle all request verbs. Uses the <a href="http://api.jquery.com/category/ajax/">jQuery.ajax</a> API.
-<code>execRequest</code> returns a promise represent the actual AJAX call.
-* <code>verb</code> default value = 'GET'
-* <code>opts</code> object
-** <code>opts.ajaxOpts</code> object for all jQuery's ajax-specific properties.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">config.execRequest = </span><span class="nf">(verb = &#39;GET&#39;, opts) -&gt;</span>
+<code>execRequest</code> returns a promise represent the actual AJAX call.</p></div></div><div class="code"><div class="wrapper">  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><code>verb</code> default value = 'GET'</li>
+<li><code>opts</code> object
+-- <code>opts.ajaxOpts</code> object for all jQuery's ajax-specific properties.</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nv">config.execRequest = </span><span class="nf">(verb = &#39;GET&#39;, opts) -&gt;</span>
     <span class="nv">defaults =</span>
       <span class="nv">ajaxOpts:</span>
         <span class="nv">url: </span><span class="s">&#39;&#39;</span>
@@ -64,7 +65,7 @@
         <span class="nv">defaults.ajaxOpts.data = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">params</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">ajaxOpts</span><span class="p">.</span><span class="nx">data</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>all other requests take an object</p></div></div><div class="code"><div class="wrapper">      <span class="k">else</span>
         <span class="nv">defaults.ajaxOpts.data = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">serialize</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">ajaxOpts</span><span class="p">.</span><span class="nx">data</span>
     
-    <span class="nv">getPromiseFromAjax = </span><span class="nf">(watchGlobal) -&gt;</span>
+    <span class="nv">getJQueryDeferred = </span><span class="nf">(watchGlobal) -&gt;</span>
       <span class="nv">ret = </span><span class="nx">$</span><span class="p">.</span><span class="nx">ajax</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">ajaxOpts</span>
       
       <span class="nx">ret</span><span class="p">.</span><span class="nx">done</span> <span class="nf">(data, textStatus, jqXHR) -&gt;</span>
@@ -78,31 +79,35 @@
 
       <span class="nx">OJ</span><span class="p">.</span><span class="nx">async</span><span class="p">.</span><span class="nx">ajaxPromise</span> <span class="nx">ret</span>
 
-    <span class="nv">promise = </span><span class="nx">getPromiseFromAjax</span><span class="p">(</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">watchGlobal</span><span class="p">)</span>
+    <span class="nv">promise = </span><span class="nx">getJQueryDeferred</span><span class="p">(</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">watchGlobal</span><span class="p">)</span>
     <span class="nx">promise</span>
   
   <span class="nv">ajax = </span><span class="p">{}</span>
   </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="post">post</h2>
 
-<p><a href="oj.html">OJ</a>.ajax.post: insert a new object or init a form post
-* <code>opts</code> can be an object representing the configuration of the request.
-* <code>opts</code> can also be a string, representing the URL to hit. </p></div></div><div class="code"><div class="wrapper">  <span class="nv">ajax.post = </span><span class="nf">(opts) -&gt;</span>
+<p><a href="oj.html">OJ</a>.ajax.post: insert a new object or init a form post</p></div></div><div class="code"><div class="wrapper">  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><code>opts</code> can be an object representing the configuration of the request.</li>
+<li><code>opts</code> can also be a string, representing the URL to hit. </li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nv">ajax.post = </span><span class="nf">(opts) -&gt;</span>
     <span class="nx">config</span><span class="p">.</span><span class="nx">execRequest</span> <span class="s">&#39;POST&#39;</span><span class="p">,</span> <span class="nx">opts</span>
   </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="get">get</h2>
 
-<p><a href="oj.html">OJ</a>.ajax.get: get an existing object
-* <code>opts</code> can be an object representing the configuration of the request.
-* <code>opts</code> can also be a string, representing the URL to hit.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">ajax.get = </span><span class="nf">(opts) -&gt;</span>
+<p><a href="oj.html">OJ</a>.ajax.get: get an existing object</p></div></div><div class="code"><div class="wrapper">  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><code>opts</code> can be an object representing the configuration of the request.</li>
+<li><code>opts</code> can also be a string, representing the URL to hit.</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nv">ajax.get = </span><span class="nf">(opts) -&gt;</span>
     <span class="nx">config</span><span class="p">.</span><span class="nx">execRequest</span> <span class="s">&#39;GET&#39;</span><span class="p">,</span> <span class="nx">opts</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="delete">delete</h2>
 
-<p><a href="oj.html">OJ</a>.ajax.delete: delete an existing object
-* <code>opts</code> can be an object representing the configuration of the request.
-* <code>opts</code> can also be a string, representing the URL to hit.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">ajax.delete = </span><span class="nf">(opts) -&gt;</span>
+<p><a href="oj.html">OJ</a>.ajax.delete: delete an existing object</p></div></div><div class="code"><div class="wrapper">  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><code>opts</code> can be an object representing the configuration of the request.</li>
+<li><code>opts</code> can also be a string, representing the URL to hit.</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nv">ajax.delete = </span><span class="nf">(opts) -&gt;</span>
     <span class="nx">config</span><span class="p">.</span><span class="nx">execRequest</span> <span class="s">&#39;DELETE&#39;</span><span class="p">,</span> <span class="nx">opts</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="put">put</h2>
 
-<p><a href="oj.html">OJ</a>.ajax.put: update an existing object
-1 <code>opts</code> can be an object representing the configuration of the request.
-2 <code>opts</code> can also be a string, representing the URL to hit.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">ajax.put = </span><span class="nf">(opts) -&gt;</span>
+<p><a href="oj.html">OJ</a>.ajax.put: update an existing object</p></div></div><div class="code"><div class="wrapper">  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><code>opts</code> can be an object representing the configuration of the request.</li>
+<li><code>opts</code> can also be a string, representing the URL to hit.</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nv">ajax.put = </span><span class="nf">(opts) -&gt;</span>
     <span class="nx">config</span><span class="p">.</span><span class="nx">execRequest</span> <span class="s">&#39;PUT&#39;</span><span class="p">,</span> <span class="nx">opts</span>
 
   <span class="nx">OJ</span><span class="p">.</span><span class="nx">async</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;ajax&#39;</span><span class="p">,</span> <span class="nx">ajax</span>

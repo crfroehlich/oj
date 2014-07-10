@@ -279,14 +279,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                     "slug": "defer"
                   },
                   "depth": 2
-                }, {
-                  "type": "heading",
-                  "data": {
-                    "level": 2,
-                    "title": "promise",
-                    "slug": "promise"
-                  },
-                  "depth": 2
                 }
               ]
             },
@@ -316,14 +308,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
                 "level": 2,
                 "title": "defer",
                 "slug": "defer"
-              },
-              "depth": 2
-            }, {
-              "type": "heading",
-              "data": {
-                "level": 2,
-                "title": "promise",
-                "slug": "promise"
               },
               "depth": 2
             }
@@ -1324,7 +1308,116 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
             "projectPath": "src/coffee/dom/element.coffee",
             "targetPath": "dom/element",
             "pageTitle": "dom/element",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "element",
+                "slug": "element",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "element",
+                    "slug": "element"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "restoreElement",
+                    "slug": "restoreelement"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
             "title": "element"
+          },
+          "depth": 2,
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "element",
+                "slug": "element"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "restoreElement",
+                "slug": "restoreelement"
+              },
+              "depth": 2
+            }
+          ]
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/Drive/Source/Github/oj/src/coffee/dom/fragment.coffee",
+            "projectPath": "src/coffee/dom/fragment.coffee",
+            "targetPath": "dom/fragment",
+            "pageTitle": "dom/fragment",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "fragment",
+                "slug": "fragment",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "fragment"
+          },
+          "depth": 2,
+          "outline": []
+        }, {
+          "type": "file",
+          "data": {
+            "language": {
+              "nameMatchers": [".coffee", "Cakefile"],
+              "pygmentsLexer": "coffee-script",
+              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
+              "strictMultiLineEnd": false,
+              "singleLineComment": ["#"],
+              "ignorePrefix": "}",
+              "foldPrefix": "^",
+              "name": "CoffeeScript"
+            },
+            "sourcePath": "/Drive/Source/Github/oj/src/coffee/dom/generics.coffee",
+            "projectPath": "src/coffee/dom/generics.coffee",
+            "targetPath": "dom/generics",
+            "pageTitle": "dom/generics",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "generic nodes",
+                "slug": "generic-nodes",
+                "isFileHeader": true
+              },
+              "depth": 1
+            },
+            "title": "generic nodes"
           },
           "depth": 2,
           "outline": []
@@ -1424,37 +1517,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "CoffeeScript"
             },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/b.coffee",
-            "projectPath": "src/coffee/elements/b.coffee",
-            "targetPath": "elements/b",
-            "pageTitle": "elements/b",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "b",
-                "slug": "b",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "b"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
             "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/br.coffee",
             "projectPath": "src/coffee/elements/br.coffee",
             "targetPath": "elements/br",
@@ -1470,130 +1532,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 1
             },
             "title": "br"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/button.coffee",
-            "projectPath": "src/coffee/elements/button.coffee",
-            "targetPath": "elements/button",
-            "pageTitle": "elements/button",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "button",
-                "slug": "button",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "button"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/div.coffee",
-            "projectPath": "src/coffee/elements/div.coffee",
-            "targetPath": "elements/div",
-            "pageTitle": "elements/div",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "div",
-                "slug": "div",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "div"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/em.coffee",
-            "projectPath": "src/coffee/elements/em.coffee",
-            "targetPath": "elements/em",
-            "pageTitle": "elements/em",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "em",
-                "slug": "em",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "em"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/fieldset.coffee",
-            "projectPath": "src/coffee/elements/fieldset.coffee",
-            "targetPath": "elements/fieldset",
-            "pageTitle": "elements/fieldset",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "fieldset",
-                "slug": "fieldset",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "fieldset"
           },
           "depth": 2,
           "outline": []
@@ -1641,254 +1579,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "CoffeeScript"
             },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/h1.coffee",
-            "projectPath": "src/coffee/elements/h1.coffee",
-            "targetPath": "elements/h1",
-            "pageTitle": "elements/h1",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "h1",
-                "slug": "h1",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "h1"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/h2.coffee",
-            "projectPath": "src/coffee/elements/h2.coffee",
-            "targetPath": "elements/h2",
-            "pageTitle": "elements/h2",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "h2",
-                "slug": "h2",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "h2"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/h3.coffee",
-            "projectPath": "src/coffee/elements/h3.coffee",
-            "targetPath": "elements/h3",
-            "pageTitle": "elements/h3",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "h3",
-                "slug": "h3",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "h3"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/h4.coffee",
-            "projectPath": "src/coffee/elements/h4.coffee",
-            "targetPath": "elements/h4",
-            "pageTitle": "elements/h4",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "h4",
-                "slug": "h4",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "h4"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/h5.coffee",
-            "projectPath": "src/coffee/elements/h5.coffee",
-            "targetPath": "elements/h5",
-            "pageTitle": "elements/h5",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "h5",
-                "slug": "h5",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "h5"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/h6.coffee",
-            "projectPath": "src/coffee/elements/h6.coffee",
-            "targetPath": "elements/h6",
-            "pageTitle": "elements/h6",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "h6",
-                "slug": "h6",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "h6"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/i.coffee",
-            "projectPath": "src/coffee/elements/i.coffee",
-            "targetPath": "elements/i",
-            "pageTitle": "elements/i",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "i",
-                "slug": "i",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "i"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/img.coffee",
-            "projectPath": "src/coffee/elements/img.coffee",
-            "targetPath": "elements/img",
-            "pageTitle": "elements/img",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "img",
-                "slug": "img",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "img"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
             "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/input.coffee",
             "projectPath": "src/coffee/elements/input.coffee",
             "targetPath": "elements/input",
@@ -1904,130 +1594,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "depth": 1
             },
             "title": "input"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/label.coffee",
-            "projectPath": "src/coffee/elements/label.coffee",
-            "targetPath": "elements/label",
-            "pageTitle": "elements/label",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "label",
-                "slug": "label",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "label"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/legend.coffee",
-            "projectPath": "src/coffee/elements/legend.coffee",
-            "targetPath": "elements/legend",
-            "pageTitle": "elements/legend",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "legend",
-                "slug": "legend",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "legend"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/li.coffee",
-            "projectPath": "src/coffee/elements/li.coffee",
-            "targetPath": "elements/li",
-            "pageTitle": "elements/li",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "li",
-                "slug": "li",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "li"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/nav.coffee",
-            "projectPath": "src/coffee/elements/nav.coffee",
-            "targetPath": "elements/nav",
-            "pageTitle": "elements/nav",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "nav",
-                "slug": "nav",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "nav"
           },
           "depth": 2,
           "outline": []
@@ -2075,68 +1641,6 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "CoffeeScript"
             },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/option.coffee",
-            "projectPath": "src/coffee/elements/option.coffee",
-            "targetPath": "elements/option",
-            "pageTitle": "elements/option",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "option",
-                "slug": "option",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "option"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/p.coffee",
-            "projectPath": "src/coffee/elements/p.coffee",
-            "targetPath": "elements/p",
-            "pageTitle": "elements/p",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "p",
-                "slug": "p",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "p"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
             "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/select.coffee",
             "projectPath": "src/coffee/elements/select.coffee",
             "targetPath": "elements/select",
@@ -2168,150 +1672,173 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "CoffeeScript"
             },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/span.coffee",
-            "projectPath": "src/coffee/elements/span.coffee",
-            "targetPath": "elements/span",
-            "pageTitle": "elements/span",
-            "firstHeader": {
-              "type": "heading",
-              "data": {
-                "level": 1,
-                "title": "span",
-                "slug": "span",
-                "isFileHeader": true
-              },
-              "depth": 1
-            },
-            "title": "span"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/strong.coffee",
-            "projectPath": "src/coffee/elements/strong.coffee",
-            "targetPath": "elements/strong",
-            "pageTitle": "elements/strong",
-            "title": "strong"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/sup.coffee",
-            "projectPath": "src/coffee/elements/sup.coffee",
-            "targetPath": "elements/sup",
-            "pageTitle": "elements/sup",
-            "title": "sup"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/svg.coffee",
-            "projectPath": "src/coffee/elements/svg.coffee",
-            "targetPath": "elements/svg",
-            "pageTitle": "elements/svg",
-            "title": "svg"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
             "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/table.coffee",
             "projectPath": "src/coffee/elements/table.coffee",
             "targetPath": "elements/table",
             "pageTitle": "elements/table",
+            "firstHeader": {
+              "type": "heading",
+              "data": {
+                "level": 1,
+                "title": "table",
+                "slug": "table",
+                "isFileHeader": true
+              },
+              "depth": 1,
+              "children": [
+                {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "init",
+                    "slug": "init"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "loadCells",
+                    "slug": "loadcells"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 3,
+                    "title": "fillMissing",
+                    "slug": "fillmissing"
+                  },
+                  "depth": 3
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "column",
+                    "slug": "column"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "row",
+                    "slug": "row"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "cell",
+                    "slug": "cell"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "THead",
+                    "slug": "thead"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "TBody",
+                    "slug": "tbody"
+                  },
+                  "depth": 2
+                }, {
+                  "type": "heading",
+                  "data": {
+                    "level": 2,
+                    "title": "Finalize",
+                    "slug": "finalize"
+                  },
+                  "depth": 2
+                }
+              ]
+            },
             "title": "table"
           },
           "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/tbody.coffee",
-            "projectPath": "src/coffee/elements/tbody.coffee",
-            "targetPath": "elements/tbody",
-            "pageTitle": "elements/tbody",
-            "title": "tbody"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/td.coffee",
-            "projectPath": "src/coffee/elements/td.coffee",
-            "targetPath": "elements/td",
-            "pageTitle": "elements/td",
-            "title": "td"
-          },
-          "depth": 2,
-          "outline": []
+          "outline": [
+            {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "init",
+                "slug": "init"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "loadCells",
+                "slug": "loadcells"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 3,
+                "title": "fillMissing",
+                "slug": "fillmissing"
+              },
+              "depth": 3
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "column",
+                "slug": "column"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "row",
+                "slug": "row"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "cell",
+                "slug": "cell"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "THead",
+                "slug": "thead"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "TBody",
+                "slug": "tbody"
+              },
+              "depth": 2
+            }, {
+              "type": "heading",
+              "data": {
+                "level": 2,
+                "title": "Finalize",
+                "slug": "finalize"
+              },
+              "depth": 2
+            }
+          ]
         }, {
           "type": "file",
           "data": {
@@ -2346,53 +1873,11 @@ f.event={add:function(a,c,d,e,g){var h,i,j,k,l,m,n,o,p,q,r,s;if(!(a.nodeType===3
               "foldPrefix": "^",
               "name": "CoffeeScript"
             },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/th.coffee",
-            "projectPath": "src/coffee/elements/th.coffee",
-            "targetPath": "elements/th",
-            "pageTitle": "elements/th",
-            "title": "th"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
             "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/thead.coffee",
             "projectPath": "src/coffee/elements/thead.coffee",
             "targetPath": "elements/thead",
             "pageTitle": "elements/thead",
             "title": "thead"
-          },
-          "depth": 2,
-          "outline": []
-        }, {
-          "type": "file",
-          "data": {
-            "language": {
-              "nameMatchers": [".coffee", "Cakefile"],
-              "pygmentsLexer": "coffee-script",
-              "multiLineComment": ["###*", " *", " ###", "###", "#", "###", "###*", "#", "###"],
-              "strictMultiLineEnd": false,
-              "singleLineComment": ["#"],
-              "ignorePrefix": "}",
-              "foldPrefix": "^",
-              "name": "CoffeeScript"
-            },
-            "sourcePath": "/Drive/Source/Github/oj/src/coffee/elements/tr.coffee",
-            "projectPath": "src/coffee/elements/tr.coffee",
-            "targetPath": "elements/tr",
-            "pageTitle": "elements/tr",
-            "title": "tr"
           },
           "depth": 2,
           "outline": []

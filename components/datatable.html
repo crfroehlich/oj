@@ -13,12 +13,12 @@
         <span class="k">class</span><span class="o">:</span> <span class="s">&#39;&#39;</span>
       <span class="nv">props:</span>
         <span class="k">class</span><span class="o">:</span> <span class="s">&#39;&#39;</span>
+      <span class="nv">rootNodeType: </span><span class="s">&#39;table&#39;</span>
     
     <span class="nx">OJ</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">defaults</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="kc">true</span>
     <span class="nv">ret = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">component</span> <span class="nx">defaults</span><span class="p">,</span> <span class="nx">owner</span><span class="p">,</span> <span class="nx">nodeName</span> 
-    
-    <span class="nv">ret.rawTable = </span><span class="nx">ret</span><span class="p">.</span><span class="nx">make</span> <span class="s">&#39;table&#39;</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">table</span>
-    <span class="nv">ret.dataTable = </span><span class="nx">ret</span><span class="p">.</span><span class="nx">rawTable</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">DataTable</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">opts</span>
+    <span class="nx">ret</span><span class="p">.</span><span class="nx">empty</span><span class="p">()</span>
+    <span class="nv">ret.dataTable = </span><span class="nx">ret</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">DataTable</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">opts</span>
 
     <span class="nx">ret</span>
 

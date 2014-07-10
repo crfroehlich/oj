@@ -1,22 +1,23 @@
 <!DOCTYPE html><html lang="en"><head><title>dom/dom</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="dom/dom"><meta name="groc-project-path" content="src/coffee/dom/dom.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/dom/dom.coffee">src/coffee/dom/dom.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="dom">dom</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="nf">(OJ) -&gt;</span>
-  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Extend an object with OJ DOM methods and properties
-* <code>el</code> Object to extend
-* <code>parent</code> parent object to which <code>el</code> will be appended</p></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;dom&#39;</span><span class="p">,</span> <span class="nf">(el, parent = OJ.body ) -&gt;</span>
+  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Extend an object with OJ DOM methods and properties</p></div></div><div class="code"><div class="wrapper">  </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><code>el</code> Object to extend</li>
+<li><code>parent</code> parent object to which <code>el</code> will be appended</li>
+</ul></div></div><div class="code"><div class="wrapper">  <span class="nx">OJ</span><span class="p">.</span><span class="nx">register</span> <span class="s">&#39;dom&#39;</span><span class="p">,</span> <span class="nf">(el, parent = OJ.body ) -&gt;</span>
     <span class="s">&#39;use strict&#39;</span>
 
     <span class="nv">enabled = </span><span class="kc">true</span>
     </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="isvalid">isValid</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;isValid&#39;</span><span class="p">,</span> <span class="nf">-&gt;</span>
-       <span class="nx">el</span> <span class="o">and</span> <span class="nx">el</span><span class="p">.</span><span class="nx">el</span> <span class="k">instanceof</span> <span class="nx">HTMLElement</span>
+       <span class="nx">el</span> <span class="o">and</span> <span class="p">(</span><span class="nx">el</span><span class="p">.</span><span class="nx">el</span> <span class="k">instanceof</span> <span class="nx">HTMLElement</span> <span class="o">or</span> <span class="nx">el</span><span class="p">.</span><span class="nx">el</span> <span class="k">instanceof</span> <span class="nx">DocumentFragment</span><span class="p">)</span>
     
     <span class="nv">isControlStillValid = </span><span class="nf">-&gt;</span>
       <span class="nv">valid = </span><span class="kc">false</span> <span class="o">is</span> <span class="nx">OJ</span><span class="p">.</span><span class="o">is</span><span class="p">.</span><span class="nx">nullOrEmpty</span><span class="p">(</span><span class="nx">el</span><span class="p">)</span> <span class="o">and</span> <span class="nx">el</span><span class="p">.</span><span class="nx">isValid</span><span class="p">()</span>
-      <span class="nx">OJ</span><span class="p">.</span><span class="nx">error</span><span class="p">.</span><span class="nx">throwException</span> <span class="s">&#39;el is null. Event bindings may not have been GCd.&#39;</span>  <span class="k">if</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">valid</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nb">Error</span> <span class="s">&#39;el is null. Event bindings may not have been GCd.&#39;</span>  <span class="k">if</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">valid</span>
       <span class="nx">valid</span>
     </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="addclass">addClass</h2>
 
-<p>Add a CSS class to an element
-An element to add class to
-The value of the attribute</p></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;addClass&#39;</span><span class="p">,</span> <span class="nf">(name) -&gt;</span>
+<p>Add a CSS class to an element</p></div></div><div class="code"><div class="wrapper">    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><ul>
+<li><code>name</code> the name of the class to add</li>
+</ul></div></div><div class="code"><div class="wrapper">    <span class="nx">el</span><span class="p">.</span><span class="nx">add</span> <span class="s">&#39;addClass&#39;</span><span class="p">,</span> <span class="nf">(name) -&gt;</span>
       <span class="nx">el</span><span class="p">.</span><span class="nx">$</span><span class="p">.</span><span class="nx">addClass</span> <span class="nx">name</span> <span class="k">if</span> <span class="nx">isControlStillValid</span><span class="p">()</span>
       <span class="nx">el</span>
     </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="bind">bind</h2>

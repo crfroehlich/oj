@@ -1,0 +1,116 @@
+<!DOCTYPE html><html lang="en"><head><title>dom/generics</title></head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0"><meta name="groc-relative-root" content="../"><meta name="groc-document-path" content="dom/generics"><meta name="groc-project-path" content="src/coffee/dom/generics.coffee"><meta name="groc-github-url" content="https://github.com/somecallmechief/oj"><link rel="stylesheet" type="text/css" media="all" href="../assets/style.css"><script type="text/javascript" src="../assets/behavior.js"></script><body><div id="meta"><div class="file-path"><a href="https://github.com/somecallmechief/oj/blob/master/src/coffee/dom/generics.coffee">src/coffee/dom/generics.coffee</a></div></div><div id="document"><div class="segment"><div class="comments "><div class="wrapper"><h1 id="generic-nodes">generic nodes</h1></div></div></div><div class="segment"><div class="code"><div class="wrapper"><span class="p">(</span><span class="nf">(OJ)-&gt;</span>
+  <span class="s">&#39;use strict&#39;</span>
+  
+  <span class="nv">closed = </span><span class="p">[</span>
+    <span class="s">&#39;abbr&#39;</span>
+    <span class="s">&#39;acronym&#39;</span>
+    <span class="s">&#39;applet&#39;</span>
+    <span class="s">&#39;article&#39;</span>
+    <span class="s">&#39;aside&#39;</span>
+    <span class="s">&#39;audio&#39;</span>
+    <span class="s">&#39;b&#39;</span>
+    <span class="s">&#39;bdo&#39;</span>
+    <span class="s">&#39;big&#39;</span>
+    <span class="s">&#39;blockquote&#39;</span>
+    <span class="s">&#39;button&#39;</span>
+    <span class="s">&#39;canvas&#39;</span>
+    <span class="s">&#39;caption&#39;</span>
+    <span class="s">&#39;center&#39;</span>
+    <span class="s">&#39;cite&#39;</span>
+    <span class="s">&#39;code&#39;</span>
+    <span class="s">&#39;colgroup&#39;</span>
+    <span class="s">&#39;datalist&#39;</span>
+    <span class="s">&#39;dd&#39;</span>
+    <span class="s">&#39;del&#39;</span>
+    <span class="s">&#39;details&#39;</span>
+    <span class="s">&#39;dfn&#39;</span>
+    <span class="s">&#39;dir&#39;</span>
+    <span class="s">&#39;div&#39;</span>
+    <span class="s">&#39;dl&#39;</span>
+    <span class="s">&#39;dt&#39;</span>
+    <span class="s">&#39;em&#39;</span>
+    <span class="s">&#39;fieldset&#39;</span>
+    <span class="s">&#39;figcaption&#39;</span>
+    <span class="s">&#39;figure&#39;</span>
+    <span class="s">&#39;font&#39;</span>
+    <span class="s">&#39;footer&#39;</span>
+    <span class="s">&#39;h1&#39;</span>
+    <span class="s">&#39;h2&#39;</span>
+    <span class="s">&#39;h3&#39;</span>
+    <span class="s">&#39;h4&#39;</span>
+    <span class="s">&#39;h5&#39;</span>
+    <span class="s">&#39;h6&#39;</span>
+    <span class="s">&#39;head&#39;</span>
+    <span class="s">&#39;header&#39;</span>
+    <span class="s">&#39;hgroup&#39;</span>
+    <span class="s">&#39;html&#39;</span>
+    <span class="s">&#39;i&#39;</span>
+    <span class="s">&#39;iframe&#39;</span>
+    <span class="s">&#39;ins&#39;</span>
+    <span class="s">&#39;kbd&#39;</span>
+    <span class="s">&#39;label&#39;</span>
+    <span class="s">&#39;legend&#39;</span>
+    <span class="s">&#39;li&#39;</span>
+    <span class="s">&#39;map&#39;</span>
+    <span class="s">&#39;mark&#39;</span>
+    <span class="s">&#39;menu&#39;</span>
+    <span class="s">&#39;meter&#39;</span>
+    <span class="s">&#39;nav&#39;</span>
+    <span class="s">&#39;noframes&#39;</span>
+    <span class="s">&#39;noscript&#39;</span>
+    <span class="s">&#39;object&#39;</span>
+    <span class="s">&#39;optgroup&#39;</span>
+    <span class="s">&#39;option&#39;</span>
+    <span class="s">&#39;output&#39;</span>
+    <span class="s">&#39;p&#39;</span>
+    <span class="s">&#39;pre&#39;</span>
+    <span class="s">&#39;progress&#39;</span>
+    <span class="s">&#39;q&#39;</span>
+    <span class="s">&#39;rp&#39;</span>
+    <span class="s">&#39;rt&#39;</span>
+    <span class="s">&#39;ruby&#39;</span>
+    <span class="s">&#39;s&#39;</span>
+    <span class="s">&#39;samp&#39;</span>
+    <span class="s">&#39;section&#39;</span>
+    <span class="s">&#39;small&#39;</span>
+    <span class="s">&#39;span&#39;</span>
+    <span class="s">&#39;strike&#39;</span>
+    <span class="s">&#39;strong&#39;</span>
+    <span class="s">&#39;style&#39;</span>
+    <span class="s">&#39;sub&#39;</span>
+    <span class="s">&#39;summary&#39;</span>
+    <span class="s">&#39;sup&#39;</span>
+    <span class="s">&#39;tbody&#39;</span>
+    <span class="s">&#39;td&#39;</span>
+    <span class="s">&#39;tfoot&#39;</span>
+    <span class="s">&#39;th&#39;</span>
+    <span class="s">&#39;time&#39;</span>
+    <span class="s">&#39;title&#39;</span>
+    <span class="s">&#39;tr&#39;</span>
+    <span class="s">&#39;tt&#39;</span>
+    <span class="s">&#39;u&#39;</span>
+    <span class="s">&#39;var&#39;</span>
+    <span class="s">&#39;video&#39;</span>
+    <span class="s">&#39;xmp&#39;</span>
+  <span class="p">]</span>
+  <span class="nv">open = </span><span class="s">&#39;area base col command css embed hr img keygen meta param source track wbr&#39;</span><span class="p">.</span><span class="nx">split</span> <span class="s">&#39; &#39;</span>
+  <span class="nv">all = </span><span class="nx">closed</span><span class="p">.</span><span class="nx">concat</span> <span class="nx">open</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>register semantic/structural aliases</p></div></div><div class="code"><div class="wrapper">  <span class="k">for</span> <span class="nx">loopName</span> <span class="k">in</span> <span class="nx">all</span>
+    <span class="nx">do</span> <span class="nf">(tag = loopName) -&gt;</span>
+      <span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">register</span> <span class="nx">tag</span><span class="p">,</span> <span class="nf">(options, owner = OJ.body, calledFromFactory = false) -&gt;</span>
+
+        <span class="nv">defaults =</span>
+          <span class="nv">props: </span><span class="p">{}</span>
+          <span class="nv">styles: </span><span class="p">{}</span>
+          <span class="nv">events: </span><span class="p">{}</span>
+          
+        <span class="nx">OJ</span><span class="p">.</span><span class="nx">extend</span> <span class="nx">defaults</span><span class="p">,</span> <span class="nx">options</span><span class="p">,</span> <span class="kc">true</span>
+        <span class="nv">ret = </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">element</span> <span class="nx">tag</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">props</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">styles</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">events</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">text</span>
+
+
+        <span class="k">if</span> <span class="kc">false</span> <span class="o">is</span> <span class="nx">calledFromFactory</span> <span class="k">then</span> <span class="nx">OJ</span><span class="p">.</span><span class="nx">nodes</span><span class="p">.</span><span class="nx">factory</span> <span class="nx">ret</span><span class="p">,</span> <span class="nx">owner</span>
+
+        <span class="nx">ret</span>
+    
+  <span class="k">return</span>
+
+<span class="p">)</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nx">global</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="o">and</span> <span class="nx">global</span> <span class="k">then</span> <span class="nx">global</span> <span class="k">else</span> <span class="p">((</span><span class="k">if</span> <span class="k">typeof</span> <span class="nb">window</span> <span class="o">isnt</span> <span class="s">&#39;undefined&#39;</span> <span class="k">then</span> <span class="nb">window</span> <span class="k">else</span> <span class="k">this</span><span class="p">)))).</span><span class="nx">OJ</span></div></div></div></div></body></html>
