@@ -9,8 +9,13 @@
   ###
   table = (options, owner = OJ.body, calledFromFactory = false) ->
     
+    # ## options
     defaults =
+      # ### data
+      # optional array of objects. if provided will generate table automatically.
       data: null
+      # ### props
+      # optional properties to apply to table root node
       props: 
         cellpadding: 0
         cellspacing: 0
@@ -20,15 +25,20 @@
         cellvalign: 'top'
         class: ''
       styles: {}
-      events:
-        click: OJ.noop
+      events: {}
+      # ### cells
+      # optional properties to apply to individual cells
       cells:
         class: ''
         align: ''
         'vertical-align': ''
         cellpadding: ''
         margin: ''
+      # ### thead
+      # optional options object to pass into thead creation  
       thead: {}
+      # ### tbody
+      # optional options object to pass into tbody creation
       tbody: {}
 
       firstAlignRight: false
@@ -65,9 +75,9 @@
         
         loadCells()
       else  
-        thead = ret.make 'thead'
+        thead = ret.make 'thead', defaults.thead
         theadRow = thead.make 'tr'
-        tbody = ret.make 'tbody'
+        tbody = ret.make 'tbody', defaults.tbody
         rows.push tbody.make 'tr'
       ret
     
