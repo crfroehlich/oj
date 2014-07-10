@@ -2,10 +2,11 @@
   
   <span class="nv">nodeName = </span><span class="s">&#39;table&#39;</span>
   </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><p>Create an HTML table. Provides helper methods to create Columns and Cells.</p></div></div><div class="code"><div class="wrapper">  <span class="nv">table = </span><span class="nf">(options, owner = OJ.body, calledFromFactory = false) -&gt;</span>
-    
-    <span class="nv">defaults =</span>
-      <span class="nv">data: </span><span class="kc">null</span>
-      <span class="nv">props: </span>
+    </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h2 id="options">options</h2></div></div></div><div class="segment"><div class="code"><div class="wrapper">    <span class="nv">defaults =</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="data">data</h3>
+
+<p>optional array of objects. if provided will generate table automatically.</p></div></div><div class="code"><div class="wrapper">      <span class="nv">data: </span><span class="kc">null</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="props">props</h3>
+
+<p>optional properties to apply to table root node</p></div></div><div class="code"><div class="wrapper">      <span class="nv">props: </span>
         <span class="nv">cellpadding: </span><span class="mi">0</span>
         <span class="nv">cellspacing: </span><span class="mi">0</span>
         <span class="nv">align: </span><span class="s">&#39;&#39;</span>
@@ -14,16 +15,18 @@
         <span class="nv">cellvalign: </span><span class="s">&#39;top&#39;</span>
         <span class="k">class</span><span class="o">:</span> <span class="s">&#39;&#39;</span>
       <span class="nv">styles: </span><span class="p">{}</span>
-      <span class="nv">events:</span>
-        <span class="nv">click: </span><span class="nx">OJ</span><span class="p">.</span><span class="nx">noop</span>
-      <span class="nv">cells:</span>
+      <span class="nv">events: </span><span class="p">{}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="cells">cells</h3>
+
+<p>optional properties to apply to individual cells</p></div></div><div class="code"><div class="wrapper">      <span class="nv">cells:</span>
         <span class="k">class</span><span class="o">:</span> <span class="s">&#39;&#39;</span>
         <span class="nv">align: </span><span class="s">&#39;&#39;</span>
         <span class="s">&#39;vertical-align&#39;</span><span class="o">:</span> <span class="s">&#39;&#39;</span>
         <span class="nv">cellpadding: </span><span class="s">&#39;&#39;</span>
-        <span class="nv">margin: </span><span class="s">&#39;&#39;</span>
-      <span class="nv">thead: </span><span class="p">{}</span>
-      <span class="nv">tbody: </span><span class="p">{}</span>
+        <span class="nv">margin: </span><span class="s">&#39;&#39;</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="thead">thead</h3>
+
+<p>optional options object to pass into thead creation  </p></div></div><div class="code"><div class="wrapper">      <span class="nv">thead: </span><span class="p">{}</span></div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="tbody">tbody</h3>
+
+<p>optional options object to pass into tbody creation</p></div></div><div class="code"><div class="wrapper">      <span class="nv">tbody: </span><span class="p">{}</span>
 
       <span class="nv">firstAlignRight: </span><span class="kc">false</span>
       <span class="nv">oddAlignRight: </span><span class="kc">false</span>
@@ -58,9 +61,9 @@
         
         <span class="nx">loadCells</span><span class="p">()</span>
       <span class="k">else</span>  
-        <span class="nv">thead = </span><span class="nx">ret</span><span class="p">.</span><span class="nx">make</span> <span class="s">&#39;thead&#39;</span>
+        <span class="nv">thead = </span><span class="nx">ret</span><span class="p">.</span><span class="nx">make</span> <span class="s">&#39;thead&#39;</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">thead</span>
         <span class="nv">theadRow = </span><span class="nx">thead</span><span class="p">.</span><span class="nx">make</span> <span class="s">&#39;tr&#39;</span>
-        <span class="nv">tbody = </span><span class="nx">ret</span><span class="p">.</span><span class="nx">make</span> <span class="s">&#39;tbody&#39;</span>
+        <span class="nv">tbody = </span><span class="nx">ret</span><span class="p">.</span><span class="nx">make</span> <span class="s">&#39;tbody&#39;</span><span class="p">,</span> <span class="nx">defaults</span><span class="p">.</span><span class="nx">tbody</span>
         <span class="nx">rows</span><span class="p">.</span><span class="nx">push</span> <span class="nx">tbody</span><span class="p">.</span><span class="nx">make</span> <span class="s">&#39;tr&#39;</span>
       <span class="nx">ret</span>
     </div></div></div><div class="segment"><div class="comments "><div class="wrapper"><h3 id="loadcells">loadCells</h3>
