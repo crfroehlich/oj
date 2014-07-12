@@ -168,18 +168,21 @@
           
       cell  
   
-    # ## THead
-    # Expose the internal thead node
-    ret.add 'thead', thead
     
-    # ## TBody
-    # Expose the internal tbody node
-    ret.add 'tbody', tbody
 
     # ## Finalize
     # Finalize guarantees that thead and tbody and created when the node is fully instantiated
     ret.add 'finalize', ->
       init()
+      
+      # ## THead
+      # Expose the internal thead node
+      ret.add 'thead', thead
+    
+      # ## TBody
+      # Expose the internal tbody node
+      ret.add 'tbody', tbody
+      
       ret
     
     ret
