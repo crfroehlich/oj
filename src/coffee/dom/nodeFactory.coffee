@@ -155,7 +155,7 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
         # 9: if the node supports it, call finalize
         finalize = _.once ret.finalize or OJ.noop
         ret.finalize = finalize
-        finalize()
+        finalize ret
         
     # 10: Return the extended element    
     ret
