@@ -24,3 +24,8 @@ src/*.html
 test/*.html
 test/**/*.js
 test/**/*.map
+gulp/**/*.js
+gulp/**/*.map
+gulpfile.js
+gulpfile.js.map
+web.config
