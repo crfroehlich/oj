@@ -1727,7 +1727,7 @@
           ret.isFullyInit = true;
           finalize = _.once(ret.finalize || OJ.noop);
           ret.finalize = finalize;
-          finalize();
+          finalize(ret);
         }
       }
       return ret;

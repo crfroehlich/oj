@@ -1,6 +1,8 @@
 ﻿gulp = require 'gulp'
 gutil = require 'gulp-util'
 bump = require 'gulp-bump'
+git = require 'gulp-git'
+
 header = require '../util/header'
 ###
  Tag the repo with a version
