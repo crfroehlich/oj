@@ -1,6 +1,6 @@
 ﻿# # to
 
-((OJ) ->
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
   
   # ## bool
   # convert any compatible object to a boolean. Incompatible objects are false.
@@ -102,4 +102,4 @@
     retVal
 
   return
-)  ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
+

@@ -1,6 +1,6 @@
 # # object
 
-((OJ) ->
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
   
   # ## [OJ](oj.html).object
   # create an object with helper `add` and `each` methods.
@@ -98,4 +98,4 @@
   
   
   return
-)  ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
+

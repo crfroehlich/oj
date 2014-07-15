@@ -1,4 +1,4 @@
-((OJ) ->
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
 
   ###
   Create a set of HTML Elements through ThinDom
@@ -18,4 +18,4 @@
   OJ.register 'control', control
 
   return
-) ((if typeof global isnt 'undefined' and global then global else ((if typeof window isnt 'undefined' then window else this)))).OJ
+

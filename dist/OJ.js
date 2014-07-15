@@ -1,245 +1,231 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.4.19
+ * @version v0.4.20
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
 (function() {
-  var NsTree, makeTheJuice, nameSpaceName, thisDocument, thisGlobal, utilLib;
-
-  thisGlobal = typeof global !== 'undefined' && global ? global : (typeof self !== 'undefined' && self ? self : (typeof window !== 'undefined' && window ? window : this));
-
-  utilLib = thisGlobal.jQuery;
-
-  nameSpaceName = 'OJ';
-
-
-  /*
-  boot strap name method into Object prototype
-   */
-
-  Object.defineProperties(Object.prototype, {
-    getInstanceName: {
-      value: function() {
-        var funcNameRegex, results;
-        funcNameRegex = /function (.{1,})\(/;
-        results = funcNameRegex.exec(this.constructor.toString());
-        if (results && results.length > 1) {
-          return results[1];
-        } else {
-          return '';
-        }
-      }
-    }
-  });
-
-
-  /*
-  An internal representation of the namespace tree
-   */
-
-  NsTree = {};
-
-  makeTheJuice = function() {
+  (function(thisGlobal) {
+    var NsTree, makeTheJuice, nameSpaceName, thisDocument, utilLib;
+    utilLib = thisGlobal.jQuery;
+    nameSpaceName = 'OJ';
 
     /*
-    Internal nameSpaceName method to create new 'sub' namespaces on arbitrary child objects.
+    boot strap name method into Object prototype
      */
-    var NsOut, dependsOn, makeNameSpace, nsInternal;
-    makeNameSpace = function(spacename, tree) {
+    Object.defineProperties(Object.prototype, {
+      getInstanceName: {
+        value: function() {
+          var funcNameRegex, results;
+          funcNameRegex = /function (.{1,})\(/;
+          results = funcNameRegex.exec(this.constructor.toString());
+          if (results && results.length > 1) {
+            return results[1];
+          } else {
+            return '';
+          }
+        }
+      }
+    });
+
+    /*
+    An internal representation of the namespace tree
+     */
+    NsTree = {};
+    makeTheJuice = function() {
 
       /*
-      The derived instance to be constructed
+      Internal nameSpaceName method to create new 'sub' namespaces on arbitrary child objects.
        */
-      var Base, Class;
-      Base = function(nsName) {
-        var members, nsTree, proto;
-        proto = this;
-        tree[nsName] = tree[nsName] || {};
-        nsTree = tree[nsName];
-        members = {};
-        Object.defineProperty(this, 'members', {
-          value: members
-        });
+      var NsOut, dependsOn, makeNameSpace, nsInternal;
+      makeNameSpace = function(spacename, tree) {
 
         /*
-        Register (e.g. 'Lift') an Object into the prototype of the namespace.
-        This Object will be readable/executable but is otherwise immutable.
+        The derived instance to be constructed
          */
-        Object.defineProperty(this, 'register', {
-          value: function(name, obj, enumerable) {
+        var Base, Class;
+        Base = function(nsName) {
+          var members, nsTree, proto;
+          proto = this;
+          tree[nsName] = tree[nsName] || {};
+          nsTree = tree[nsName];
+          members = {};
+          Object.defineProperty(this, 'members', {
+            value: members
+          });
+
+          /*
+          Register (e.g. 'Lift') an Object into the prototype of the namespace.
+          This Object will be readable/executable but is otherwise immutable.
+           */
+          Object.defineProperty(this, 'register', {
+            value: function(name, obj, enumerable) {
+              'use strict';
+              if ((typeof name !== 'string') || name === '') {
+                throw new Error('Cannot lift a new property without a valid name.');
+              }
+              if (!obj) {
+                throw new Error('Cannot lift a new property without a valid property instance.');
+              }
+              if (proto[name]) {
+                throw new Error('Property named ' + name + ' is already defined on ' + spacename + '.');
+              }
+              members[name] = members[name] || name;
+              nsTree[name] = nsTree[name] || {
+                name: name,
+                type: typeof obj,
+                instance: (obj.getInstanceName ? obj.getInstanceName() : 'unknown')
+              };
+              Object.defineProperty(proto, name, {
+                value: obj,
+                enumerable: false !== enumerable
+              });
+              nsInternal.alertDependents(nsName + '.' + spacename + '.' + name);
+              return obj;
+            }
+          });
+
+          /*
+          Create a new, static namespace on the current parent (e.g. nsName.to... || nsName.is...)
+           */
+          proto.register('makeSubNameSpace', (function(subNameSpace) {
             'use strict';
-            if ((typeof name !== 'string') || name === '') {
-              throw new Error('Cannot lift a new property without a valid name.');
+            var newNameSpace;
+            if ((typeof subNameSpace !== 'string') || subNameSpace === '') {
+              throw new Error('Cannot create a new sub namespace without a valid name.');
             }
-            if (!obj) {
-              throw new Error('Cannot lift a new property without a valid property instance.');
+            if (proto.subNameSpace) {
+              throw new Error('Sub namespace named ' + subNameSpace + ' is already defined on ' + spacename + '.');
             }
-            if (proto[name]) {
-              throw new Error('Property named ' + name + ' is already defined on ' + spacename + '.');
+            nsInternal.alertDependents(nsName + '.' + subNameSpace);
+            newNameSpace = makeNameSpace(subNameSpace, nsTree);
+            if (subNameSpace !== 'constants') {
+              newNameSpace.register('constants', makeNameSpace('constants', nsTree), false);
             }
-            members[name] = members[name] || name;
-            nsTree[name] = nsTree[name] || {
-              name: name,
-              type: typeof obj,
-              instance: (obj.getInstanceName ? obj.getInstanceName() : 'unknown')
-            };
-            Object.defineProperty(proto, name, {
-              value: obj,
-              enumerable: false !== enumerable
-            });
-            nsInternal.alertDependents(nsName + '.' + spacename + '.' + name);
-            return obj;
-          }
-        });
+            proto.register(subNameSpace, newNameSpace, false);
+            return newNameSpace;
+          }), false);
+        };
 
         /*
-        Create a new, static namespace on the current parent (e.g. nsName.to... || nsName.is...)
+        An internal mechanism to represent the instance of this namespace
+        @constructor
+        @internal
+        @memberOf makeNameSpace
          */
-        proto.register('makeSubNameSpace', (function(subNameSpace) {
-          'use strict';
-          var newNameSpace;
-          if ((typeof subNameSpace !== 'string') || subNameSpace === '') {
-            throw new Error('Cannot create a new sub namespace without a valid name.');
-          }
-          if (proto.subNameSpace) {
-            throw new Error('Sub namespace named ' + subNameSpace + ' is already defined on ' + spacename + '.');
-          }
-          nsInternal.alertDependents(nsName + '.' + subNameSpace);
-          newNameSpace = makeNameSpace(subNameSpace, nsTree);
-          if (subNameSpace !== 'constants') {
-            newNameSpace.register('constants', makeNameSpace('constants', nsTree), false);
-          }
-          proto.register(subNameSpace, newNameSpace, false);
-          return newNameSpace;
-        }), false);
+        Class = new Function('return function ' + spacename + '(){}')();
+        Class.prototype = new Base(spacename);
+        return new Class(spacename);
       };
 
       /*
-      An internal mechanism to represent the instance of this namespace
-      @constructor
-      @internal
-      @memberOf makeNameSpace
+      'Depend' an Object upon another member of this namespace, upon another namespace,
+      or upon a member of another namespace
        */
-      Class = new Function('return function ' + spacename + '(){}')();
-      Class.prototype = new Base(spacename);
-      return new Class(spacename);
-    };
-
-    /*
-    'Depend' an Object upon another member of this namespace, upon another namespace,
-    or upon a member of another namespace
-     */
-    dependsOn = function(dependencies, callBack, imports) {
-      'use strict';
-      var missing, nsMembers, ret;
-      ret = false;
-      nsMembers = nsInternal.getNsMembers();
-      if (dependencies && dependencies.length > 0 && callBack) {
-        missing = dependencies.filter(function(depen) {
-          return nsMembers.indexOf(depen) === -1 && (!imports || imports !== depen);
-        });
-        if (missing.length === 0) {
-          ret = true;
-          callBack();
-        } else {
-          nsInternal.dependents.push(function(imports) {
-            return dependsOn(missing, callBack, imports);
+      dependsOn = function(dependencies, callBack, imports) {
+        'use strict';
+        var missing, nsMembers, ret;
+        ret = false;
+        nsMembers = nsInternal.getNsMembers();
+        if (dependencies && dependencies.length > 0 && callBack) {
+          missing = dependencies.filter(function(depen) {
+            return nsMembers.indexOf(depen) === -1 && (!imports || imports !== depen);
           });
-        }
-      }
-      return ret;
-    };
-    nsInternal = {
-      dependents: []
-    };
-
-    /*
-    Fetches the registered properties and methods on the namespace and its child namespaces
-     */
-    Object.defineProperty(nsInternal, 'getNsMembers', {
-      value: function() {
-        var members, recurseTree;
-        recurseTree = function(key, lastKey) {
-          if (typeof key === 'string') {
-            members.push(lastKey + '.' + key);
-          }
-          if (utilLib.isPlainObject(key)) {
-            Object.keys(key).forEach(function(k) {
-              if (typeof k === 'string') {
-                members.push(lastKey + '.' + k);
-              }
-              if (utilLib.isPlainObject(key[k])) {
-                recurseTree(key[k], lastKey + '.' + k);
-              }
+          if (missing.length === 0) {
+            ret = true;
+            callBack();
+          } else {
+            nsInternal.dependents.push(function(imports) {
+              return dependsOn(missing, callBack, imports);
             });
           }
-        };
-        members = [];
-        Object.keys(NsTree[nameSpaceName]).forEach(function(key) {
-          if (utilLib.isPlainObject(NsTree[nameSpaceName][key])) {
-            recurseTree(NsTree[nameSpaceName][key], nameSpaceName);
-          }
-        });
-        return members;
-      }
-    });
-
-    /*
-    To support dependency management, when a property is lifted onto the namespace, notify dependents to initialize
-     */
-    Object.defineProperty(nsInternal, 'alertDependents', {
-      value: function(imports) {
-        var deps;
-        deps = nsInternal.dependents.filter(function(depOn) {
-          return false === depOn(imports);
-        });
-        if (Array.isArray(deps)) {
-          nsInternal.dependents = deps;
         }
-      }
+        return ret;
+      };
+      nsInternal = {
+        dependents: []
+      };
+
+      /*
+      Fetches the registered properties and methods on the namespace and its child namespaces
+       */
+      Object.defineProperty(nsInternal, 'getNsMembers', {
+        value: function() {
+          var members, recurseTree;
+          recurseTree = function(key, lastKey) {
+            if (typeof key === 'string') {
+              members.push(lastKey + '.' + key);
+            }
+            if (utilLib.isPlainObject(key)) {
+              Object.keys(key).forEach(function(k) {
+                if (typeof k === 'string') {
+                  members.push(lastKey + '.' + k);
+                }
+                if (utilLib.isPlainObject(key[k])) {
+                  recurseTree(key[k], lastKey + '.' + k);
+                }
+              });
+            }
+          };
+          members = [];
+          Object.keys(NsTree[nameSpaceName]).forEach(function(key) {
+            if (utilLib.isPlainObject(NsTree[nameSpaceName][key])) {
+              recurseTree(NsTree[nameSpaceName][key], nameSpaceName);
+            }
+          });
+          return members;
+        }
+      });
+
+      /*
+      To support dependency management, when a property is lifted onto the namespace, notify dependents to initialize
+       */
+      Object.defineProperty(nsInternal, 'alertDependents', {
+        value: function(imports) {
+          var deps;
+          deps = nsInternal.dependents.filter(function(depOn) {
+            return false === depOn(imports);
+          });
+          if (Array.isArray(deps)) {
+            nsInternal.dependents = deps;
+          }
+        }
+      });
+      NsTree[nameSpaceName] = {};
+      NsOut = makeNameSpace(nameSpaceName, NsTree[nameSpaceName]);
+
+      /*
+      Cache a handle on the vendor (probably jQuery) on the root namespace
+       */
+      NsOut.register('?', utilLib, false);
+
+      /*
+      Cache the tree (useful for documentation/visualization/debugging)
+       */
+      NsOut.register('tree', NsTree[nameSpaceName], false);
+
+      /*
+      Cache the name space name
+       */
+      NsOut.register('name', nameSpaceName, false);
+      NsOut.register('dependsOn', dependsOn, false);
+      return NsOut;
+    };
+
+    /*
+    Actually define the OJ NameSpace
+     */
+    Object.defineProperty(thisGlobal, nameSpaceName, {
+      value: makeTheJuice()
     });
-    NsTree[nameSpaceName] = {};
-    NsOut = makeNameSpace(nameSpaceName, NsTree[nameSpaceName]);
-
-    /*
-    Cache a handle on the vendor (probably jQuery) on the root namespace
-     */
-    NsOut.register('?', utilLib, false);
-
-    /*
-    Cache the tree (useful for documentation/visualization/debugging)
-     */
-    NsOut.register('tree', NsTree[nameSpaceName], false);
-
-    /*
-    Cache the name space name
-     */
-    NsOut.register('name', nameSpaceName, false);
-    NsOut.register('dependsOn', dependsOn, false);
-    return NsOut;
-  };
-
-
-  /*
-  Actually define the OJ NameSpace
-   */
-
-  Object.defineProperty(thisGlobal, nameSpaceName, {
-    value: makeTheJuice()
-  });
-
-  OJ.register('global', thisGlobal);
-
-  thisDocument = {};
-
-  if (typeof document !== 'undefined') {
-    thisDocument = document;
-  }
-
-  OJ.register('document', thisDocument);
-
-  OJ.register('noop', function() {});
+    OJ.register('global', thisGlobal);
+    thisDocument = {};
+    if (typeof document !== 'undefined') {
+      thisDocument = document;
+    }
+    OJ.register('document', thisDocument);
+    return OJ.register('noop', function() {});
+  })((typeof global !== 'undefined' && global ? global : (typeof self !== 'undefined' && self ? self : (typeof window !== 'undefined' && window ? window : this))));
 
 }).call(this);
 
@@ -396,112 +382,6 @@
         func = OJ.noop;
       }
       ret = Promise.method(func);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var className, nodeName;
-    nodeName = 'x-address';
-    className = 'address';
-    OJ.components.members[className] = nodeName;
-    OJ.components.register(className, function(options, owner) {
-      var city, cityState, country, defaults, ret, state, street, wrapper, zip, zipCountry;
-      defaults = {
-        props: {
-          "class": 'fb-field-wrapper response-field-address'
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.component(defaults, owner, nodeName);
-      wrapper = ret.make('div', {
-        props: {
-          "class": 'subtemplate-wrapper'
-        }
-      });
-      wrapper.make('div', {
-        props: {
-          "class": 'cover'
-        }
-      });
-      street = wrapper.make('div', {
-        props: {
-          "class": 'input-line'
-        }
-      }).make('span', {
-        props: {
-          "class": 'street'
-        }
-      });
-      street.make('input', {
-        props: {
-          type: 'text'
-        }
-      });
-      street.make('label', {
-        text: 'Address'
-      });
-      cityState = wrapper.make('div', {
-        props: {
-          "class": 'input-line'
-        }
-      });
-      city = cityState.make('span', {
-        props: {
-          "class": 'city'
-        }
-      });
-      city.make('input', {
-        props: {
-          type: 'text'
-        }
-      });
-      city.make('label', {
-        text: 'City'
-      });
-      state = cityState.make('span', {
-        props: {
-          "class": 'state'
-        }
-      });
-      state.make('input', {
-        props: {
-          type: 'text'
-        }
-      });
-      state.make('label', {
-        text: 'State'
-      });
-      zipCountry = wrapper.make('div', {
-        props: {
-          "class": 'input-line'
-        }
-      });
-      zip = zipCountry.make('span', {
-        props: {
-          "class": 'zip'
-        }
-      });
-      zip.make('input', {
-        props: {
-          type: 'text'
-        }
-      });
-      zip.make('label', {
-        text: 'Zipcode'
-      });
-      country = zipCountry.make('span', {
-        props: {
-          "class": 'country'
-        }
-      });
-      country.make('select').addOption('United States');
-      country.make('label', {
-        text: 'Country'
-      });
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -801,69 +681,6 @@
 (function() {
   (function(OJ) {
     var className, nodeName;
-    nodeName = 'x-price';
-    className = 'price';
-    OJ.components.members[className] = nodeName;
-    OJ.components.register(className, function(options, owner) {
-      var cents, defaults, dollars, price, ret;
-      defaults = {};
-      OJ.extend(defaults, options, true);
-      ret = OJ.component(defaults, owner, nodeName);
-      price = ret.make('div', {
-        props: {
-          "class": 'input-line'
-        }
-      });
-      price.make('span', {
-        text: {
-          '$': {
-            props: {
-              "class": 'above-line'
-            }
-          }
-        }
-      });
-      dollars = price.make('span', {
-        props: {
-          "class": 'dollars'
-        }
-      });
-      dollars.make('input', {
-        props: {
-          type: 'text'
-        }
-      });
-      dollars.make('label', {
-        text: 'Dollars'
-      });
-      price.make('span', {
-        text: '.',
-        props: {
-          "class": 'above-line'
-        }
-      });
-      cents = price.make('span', {
-        props: {
-          "class": 'cents'
-        }
-      });
-      cents.make('input', {
-        props: {
-          type: 'text'
-        }
-      });
-      cents.make('label', {
-        text: 'Cents'
-      });
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var className, nodeName;
     nodeName = 'x-sparkline';
     className = 'sparkline';
     OJ.components.members[className] = nodeName;
@@ -994,7 +811,7 @@
 }).call(this);
 
 (function() {
-  (function() {
+  (function(OJ) {
     var controlName, friendlyName;
     controlName = 'y-icon';
     friendlyName = 'icon';
@@ -1058,13 +875,12 @@
       };
       return ret;
     });
-  })();
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
 (function() {
-  (function() {
-    'use strict';
+  (function(OJ) {
     OJ.register("getDateFromDnJson", function(dnDate) {
       var arr, dnDateStr, localOffset, offset, ret, ticks;
       dnDateStr = OJ.to.string(dnDate);
@@ -1092,7 +908,7 @@
       }
       return ret;
     });
-  })();
+  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
 
@@ -1756,7 +1572,6 @@
 
 (function() {
   (function(OJ) {
-    'use strict';
     var all, closed, loopName, open, _fn, _i, _len;
     closed = ['abbr', 'acronym', 'applet', 'article', 'aside', 'audio', 'b', 'bdo', 'big', 'blockquote', 'button', 'canvas', 'caption', 'center', 'cite', 'code', 'colgroup', 'datalist', 'dd', 'del', 'details', 'dfn', 'dir', 'div', 'dl', 'dt', 'em', 'fieldset', 'figcaption', 'figure', 'font', 'footer', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'head', 'header', 'hgroup', 'html', 'i', 'iframe', 'ins', 'kbd', 'label', 'legend', 'li', 'map', 'mark', 'menu', 'meter', 'nav', 'noframes', 'noscript', 'object', 'optgroup', 'option', 'output', 'p', 'pre', 'progress', 'q', 'rp', 'rt', 'ruby', 's', 'samp', 'section', 'small', 'span', 'strike', 'strong', 'style', 'sub', 'summary', 'sup', 'tbody', 'td', 'tfoot', 'th', 'time', 'title', 'tr', 'tt', 'u', 'var', 'video', 'xmp'];
     open = 'area base col command css embed hr img keygen meta param source track wbr'.split(' ');

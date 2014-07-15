@@ -1,6 +1,6 @@
 # # component
 
-((OJ) ->
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
 
   # Create an HTML Web Component through ThinDom
   
@@ -39,4 +39,4 @@
   OJ.register 'component', component
 
   return
-) ((if typeof global isnt 'undefined' and global then global else ((if typeof window isnt 'undefined' then window else this)))).OJ
+

@@ -1,6 +1,6 @@
  # # OJ Post-Initialization
 
-((OJ) ->
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
 
   # Simple array of anticipated/known child namespaces
   
@@ -39,4 +39,4 @@
   
   return
   
-)  ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
+

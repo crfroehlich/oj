@@ -1,4 +1,4 @@
-﻿((OJ) ->
+﻿do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
   number = Object.create(null)
   Object.defineProperty number, "isNaN",
     value: (if (Number and Number.isNaN) then Number.isNaN else isNaN)
@@ -14,4 +14,4 @@
 
   OJ.register "number", number
   return
-)  ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
+

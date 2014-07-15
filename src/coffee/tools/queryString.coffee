@@ -1,4 +1,4 @@
-﻿((OJ) ->
+﻿do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
   
   ###
   http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
@@ -20,4 +20,4 @@
   return
   
   
-) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
+

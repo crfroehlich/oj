@@ -1,6 +1,6 @@
 # # element
 
-((OJ) ->
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
 
   ###
    Bind all event handlers
@@ -63,4 +63,4 @@
   OJ.register 'body', thinBody 
           
   return
-) ((if typeof global isnt 'undefined' and global then global else ((if typeof window isnt 'undefined' then window else this)))).OJ
+

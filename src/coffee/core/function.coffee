@@ -1,4 +1,4 @@
-﻿((OJ) ->
+﻿do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
 
   # Wrap the execution of a method in a try..catch..finally     
   # ignore errors failing to exec self-executing functions 
@@ -29,4 +29,4 @@
 
   return
  
- )  ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
+ 

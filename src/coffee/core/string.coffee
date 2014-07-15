@@ -1,4 +1,4 @@
-﻿((OJ) ->
+﻿do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
   OJ.register "delimitedString", (string, opts) ->
     defaults =
       newLineToDelimiter: true
@@ -93,4 +93,4 @@
     retObj
 
   return
-) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
+

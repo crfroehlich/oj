@@ -1,6 +1,6 @@
 # # each
 
-((OJ) ->
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
 
   # ## canEach
   canEach = (obj) ->
@@ -36,4 +36,4 @@
   # register the `each` method on the [OJ](OJ.html) namespace
   OJ.register 'each', each
   return
-) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
+

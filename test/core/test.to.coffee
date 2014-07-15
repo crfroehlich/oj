@@ -1,4 +1,4 @@
-((OJ) ->
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
   module 'to.string'
   test 'to.string(null)', ->
     expect 16
@@ -81,5 +81,5 @@
     deepEqual OJ.to.number('-42') is -42, true, 'to.number converts "-42" to -42.'
     return
 
-  return
-) ((if typeof global isnt "undefined" and global then global else (if typeof window isnt "undefined" then window else this))).OJ
+  
+

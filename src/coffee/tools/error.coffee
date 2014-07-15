@@ -1,4 +1,4 @@
-((OJ) ->
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
   
   if OJ.TRACK_ON_ERROR
     onError = OJ.global.onerror
@@ -13,4 +13,4 @@
       ret #true means don't propagate the error 
 
   return
-) ((if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this))).OJ
+

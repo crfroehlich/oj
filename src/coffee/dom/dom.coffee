@@ -1,6 +1,6 @@
 # # dom
 
-((OJ) ->
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
   
   # Extend an object with OJ DOM methods and properties
   
@@ -209,5 +209,5 @@
   
   return
   
-) ((if typeof global isnt 'undefined' and global then global else ((if typeof window isnt 'undefined' then window else this)))).OJ
+
 

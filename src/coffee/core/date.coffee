@@ -1,5 +1,4 @@
-(->
-  'use strict'
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
   OJ.register "getDateFromDnJson", (dnDate) ->
     
     # Transforms a .NET JSON date into a JavaScript date.
@@ -37,4 +36,3 @@
     ret
 
   return
-)()
