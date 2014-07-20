@@ -1,12 +1,18 @@
-﻿do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
-  nodeName = 'x-input-group'
-  className = 'inputgroup'
-  
+﻿OJ = require '../oj'
+require '../ojInit'
+require '../core/object'
+require '../dom/component'
+require 'jquery'
+
+nodeName = 'x-input-group'
+className = 'inputgroup'
+
+component = do ->
   OJ.components.members[className] = nodeName
-  
-  OJ.components.register className, (options, owner) ->
+
+  (options, owner) ->
     forId = OJ.createUUID()
-    defaults = 
+    defaults =
       props:
         class: 'form-group'
       events:
@@ -20,21 +26,21 @@
           class: ''
           placeholder: ''
           value: ''
-    
+
     OJ.extend defaults, options, true
-    ret = OJ.component defaults, owner, nodeName 
-    
+    ret = OJ.component defaults, owner, nodeName
+
     cmpnt = ret.make 'div', props: class: 'form-group'
-    
+
     ret.groupLabel = cmpnt.make 'label', props: { for: forId }, text: defaults.labelText
-    
+
     defaults.inputOpts.props.class += ' form-control'
     ret.groupInput = cmpnt.make 'input', defaults.inputOpts
-    
+
     ret.groupValue = () ->
       ret.groupInput.val()
-      
+
     ret
 
-  return
-
+OJ.components.register className, component
+module.exports = component

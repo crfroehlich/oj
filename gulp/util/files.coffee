@@ -17,7 +17,7 @@ files =
   coffee: './src/coffee/**/*.coffee'
   test: './test/**/*.coffee'
   testJs: './test/**/*.js'
-  
-module.exports = 
+
+module.exports =
   paths: paths
-  files: files  
+  files: files

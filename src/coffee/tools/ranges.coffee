@@ -1,12 +1,12 @@
 # # ranges
 
-do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
+
 
   # ## range
   # Using [Lo-Dash](http://lodash.com/docs#range)'s `range` method
   OJ.register 'range', (params...) ->
     _.range params...
-  
+
   # ## rangeMin
   # Using [Lo-Dash](http://lodash.com/docs#min)'s `min` method
   OJ.register 'rangeMin', (params...) ->
@@ -65,7 +65,7 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
 
     map = OJ.object()
 
-    i = 0;
+    i = 0
     while i < n
       i += 1
       if i < n then jump = Math.round subRangeSize

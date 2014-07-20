@@ -32,10 +32,10 @@ div = OJ.body.make 'div'
 select = div.make 'select'
   .make 'button' #not terribly rational, but valid semantic
   .make 'option' #more reasonable chained method
-  
+
 fieldSet = div.make 'fieldset'
   .make 'legend'
-  
+
 ol = div.make 'ol'
   .make 'span' #not a great idea, but entirely possible
   .make 'li' #preferable child node
@@ -88,7 +88,7 @@ Components are currently a work in progress, but several functional components i
 
 ### Foundation
 
-In order for OJ to scale, it has to be fast. By far, the fastest way to insert nodes into the DOM is by calling `document.createElement` and `someElement.appendChild`. Unfortunately, this is a tedious process to do manually. Rather than revert to anti-patterns like setting innerHTML, OJ leverages the speed of ThinDOM for light, fast, semantically accurate DOM insertion. This does come at a slight cost, but ThinDOM outperforms jQuery insertions by at least an order of magnitude--so it's a logical choice for the core of OJ's DOM manipulation. 
+In order for OJ to scale, it has to be fast. By far, the fastest way to insert nodes into the DOM is by calling `document.createElement` and `someElement.appendChild`. Unfortunately, this is a tedious process to do manually. Rather than revert to anti-patterns like setting innerHTML, OJ leverages the speed of ThinDOM for light, fast, semantically accurate DOM insertion. This does come at a slight cost, but ThinDOM outperforms jQuery insertions by at least an order of magnitude--so it's a logical choice for the core of OJ's DOM manipulation.
 
 While ThinDOM may be the fastest choice for getting your nodes into the DOM, it doesn't offer the cross-browser support and flexibility of jQuery's API--so for everything else you need to do to your nodes, OJ wraps around jQuery to provide access to all of the `addClass` and `hide` and `on` that you might need.
 
@@ -112,7 +112,7 @@ You are always free to specify your own IDs on node creation (whether or not aut
 div = OJ.body.make 'div', props: id: 'myHolaDiv'
 ```
 
-Regardless, OJ is not optimized for fetching nodes from the DOM, rather it encourages you to reference nodes in memory as opposed to relying on "truth in DOM". 
+Regardless, OJ is not optimized for fetching nodes from the DOM, rather it encourages you to reference nodes in memory as opposed to relying on "truth in DOM".
 For example, while you might write something like the following in jQuery:
 
 ```coffee
@@ -135,19 +135,19 @@ In OJ, this is generally discouraged. Node lookups by ID are possible (e.g. `OJ.
 
 ```coffee
 myHolaDiv = OJ.body.make 'div'
-leavingDiv = myHolaDiv.make 'div', 
+leavingDiv = myHolaDiv.make 'div',
   text: 'Leaving...'
   events:
     click: ->
       leavingDiv.hide()
-      goneDiv.show()  
-goneDiv = myHolaDiv.make 'div', 
+      goneDiv.show()
+goneDiv = myHolaDiv.make 'div',
   text: 'Gone'
-  events: 
+  events:
     click: ->
-      goneDiv.hide()  
+      goneDiv.hide()
   .hide()
-  
+
 ```
 
 One of OJ's implicit goals is to enable a style of development free from worrying about the minutia
@@ -155,9 +155,9 @@ of the DOM in order to focus more on the UI/UX you want to deliver.
 
 ## State of the Project
 
-The Dream: 
+The Dream:
 * Basic HTML and CSS are fully encapsulated in strongly validated OJ classes.
-* Complex forms, layouts and composites are abstracted into thin OJ classes which are extensible with mixins. 
+* Complex forms, layouts and composites are abstracted into thin OJ classes which are extensible with mixins.
 * Entire workflows are simplified into OJ structures which can be defined with just a few lines (or so) of JavaScript code.
 * Layouts are configurable simply by clicking and dragging the form. Validation and data binding come for free.
 
@@ -173,7 +173,7 @@ All standard nodes are supported: div, span, input, table, fieldset, p, b, br, o
 ~~A secondary factory will need to implement components. There's still some implementation specing to do on how to distinguish
 between abstract components (e.g. an array of checkboxes) vs. concrete controls (e.g. an Address composite).~~
 
-As of v0.3.0, all literal nodes (e.g. span, div, etc) are encapsulated in element classes. 
+As of v0.3.0, all literal nodes (e.g. span, div, etc) are encapsulated in element classes.
 All controls (simple combinations of literals) are contained in control classes.
 Components (OJ's version of web components) are contained in component classes.
 An additional input collection exists to handle all the possible permutations of the literal input class.

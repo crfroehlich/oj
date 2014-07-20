@@ -13,8 +13,8 @@ gulp.task 'bumpVersion', ->
   .pipe bump()
   .pipe gulp.dest './'
   return
-  
+
 gulp.task 'bump', [
   'bumpVersion'
-  'compile' 
-]  
+  'compile'
+]

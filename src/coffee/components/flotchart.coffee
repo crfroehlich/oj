@@ -1,21 +1,27 @@
-﻿do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
-  nodeName = 'x-flotchart'
-  className = 'flotchart'
-  
+﻿OJ = require '../oj'
+require '../ojInit'
+require '../core/object'
+require '../dom/component'
+require 'jquery'
+
+nodeName = 'x-flotchart'
+className = 'flotchart'
+
+component = do ->
   OJ.components.members[className] = nodeName
-  OJ.components.register className, (options, owner) ->
-    defaults = 
+  (options, owner) ->
+    defaults =
       config: {}
-        
+
       data: []
-      props: 
+      props:
         class: 'flotchart'
-    
+
     OJ.extend defaults, options, true
-    ret = OJ.component defaults, owner, nodeName 
-    ret.flot = $.plot ret.$, defaults.data, defaults.config 
+    ret = OJ.component defaults, owner, nodeName
+    ret.flot = $.plot ret.$, defaults.data, defaults.config
 
     ret
 
-  return
-
+OJ.components.register className, component
+module.exports = component

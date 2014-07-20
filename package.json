@@ -22,9 +22,16 @@
       "url": "http://creativecommons.org/about/pdm"
     }
   ],
-  "dependencies": {},
+  "dependencies": {
+    "bluebird": "^2.2.2",
+    "browserify": "^4.2.1",
+    "jquery": "^2.1.1",
+    "lodash": "^2.4.1"
+  },
   "devDependencies": {
+    "browserify": ">= 4.2.1",
     "coffee-script": "*",
+    "glob": ">= 4.0.4",
     "gulp": ">= 3.5.5",
     "gulp-autoprefixer": ">= 0.0.6",
     "gulp-bump": ">= 0.1.6",
@@ -47,9 +54,11 @@
     "gulp-uglify": ">= 0.2.1",
     "gulp-util": "*",
     "gulp-watch": ">= 0.5.3",
-    "pretty-hrtime": "^0.2.1",
+    "pretty-hrtime": ">= 0.2.1",
     "qunit": "*",
-    "tiny-lr": "0.0.5",
+    "tiny-lr": ">= 0.0.5",
+    "vinyl-source-stream": ">= 0.1.1",
+    "watchify": ">= 0.10.2",
     "wiredep": ">= 1.2.2"
   },
   "keywords": [],

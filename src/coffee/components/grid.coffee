@@ -1,30 +1,36 @@
-﻿do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
-  nodeName = 'x-grid'
-  className = 'grid'
-  
+﻿OJ = require '../oj'
+require '../ojInit'
+require '../core/object'
+require '../dom/component'
+require 'jquery'
+
+nodeName = 'x-grid'
+className = 'grid'
+
+component = do ->
   OJ.components.members[className] = nodeName
-  OJ.components.register className, (options, owner) ->
-    defaults = 
+  (options, owner) ->
+    defaults =
       tileSizes:
         smallSpan: ''
         mediumSpan: ''
         largeSpan: ''
-      props: 
+      props:
         class: 'grid'
-    
+
     OJ.extend defaults, options, true
-    ret = OJ.component defaults, owner, nodeName 
-    
+    ret = OJ.component defaults, owner, nodeName
+
     rows = []
     tiles = OJ.array2D()
-    
+
     fillMissing = () ->
       tiles.each (rowNo, colNo, val) ->
         if not val
           row = ret.row rowNo
-          row.make 'tile', colNo, {} 
-    
-    ret.add 'row', (rowNo = rows.length-1 or 1)->  
+          row.make 'tile', colNo, {}
+
+    ret.add 'row', (rowNo = rows.length-1 or 1)->
       nuRow = rows[rowNo-1]
       if not nuRow
         while rows.length < rowNo
@@ -35,15 +41,15 @@
           nuTile = OJ.components.tile opts, nuRow
           tiles.set rowNo, colNo, nuTile
           nuTile
-      nuRow  
-                      
+      nuRow
+
     ret.add 'tile', (rowNo, colNo, opts) ->
       if not rowNo or rowNo < 1 then rowNo = 1
       if not colNo or colNo < 1 then colNo = 1
-      
+
       row = ret.row rowNo
       tile = tiles.get rowNo, colNo
-      
+
       if not tile
         i = 0
         while i < colNo
@@ -54,11 +60,11 @@
               tile = row.make 'tile', opts
             else if not tile
               row.make 'tile'
-          
+
       fillMissing()
-      tile      
-            
+      tile
+
     ret
 
-  return
-
+OJ.components.register className, component
+module.exports = component

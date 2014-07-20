@@ -18,8 +18,8 @@ succint = '// <%= pkg.name %>@v<%= pkg.version %>, <%= pkg.license %> licensed. 
 module.exports =
   succint: ->
     header succint, pkg: pkg
-    
+
   extended: ->
-    header extended, pkg: pkg  
-    
+    header extended, pkg: pkg
+
   package: pkg

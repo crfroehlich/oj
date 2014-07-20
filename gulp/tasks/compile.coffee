@@ -1,7 +1,7 @@
 ﻿gulp = require 'gulp'
 
 gulp.task 'compile', [
-  'coffee'
+  'browserify'
   'inject'
 ]
 

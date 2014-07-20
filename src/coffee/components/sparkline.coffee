@@ -1,24 +1,30 @@
-﻿do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
-  nodeName = 'x-sparkline'
-  className = 'sparkline'
-  
+﻿OJ = require '../oj'
+require '../ojInit'
+require '../core/object'
+require '../dom/component'
+require 'jquery'
+
+nodeName = 'x-sparkline'
+className = 'sparkline'
+
+component = do ->
   OJ.components.members[className] = nodeName
-  OJ.components.register className, (options, owner) ->
-    defaults = 
+  (options, owner) ->
+    defaults =
       config:
         type: 'line'
         height: '70'
         width: ''
         enableTagOptions: true
       data: []
-      props: 
+      props:
         class: 'sparkline'
-    
+
     OJ.extend defaults, options, true
-    ret = OJ.component defaults, owner, nodeName 
+    ret = OJ.component defaults, owner, nodeName
     ret.$.sparkline defaults.data, defaults.config
-    
+
     ret
 
-  return
-
+OJ.components.register className, component
+module.exports = component

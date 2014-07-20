@@ -1,9 +1,14 @@
-﻿# # ajax
+﻿OJ = require '../oj'
+require '../ojInit'
+require '../tools/console'
+require '../core/object'
+$ = require 'jquery'
 
-do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
+# # ajax
 
+ajax = do ->
   config = {}
-  
+
   # define a standard on success handler, write out the request stats to a table
   config.onSuccess = (opts, data, url) ->
     response = {}
@@ -13,9 +18,9 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
       Webservice: opts.ajaxOpts.url
       StartTime: opts.startTime
       EndTime: new Date()
-    ] 
+    ]
     return
-  
+
   # define a standard on error handler, write out the request error conext to a table
   config.onError = (xmlHttpRequest, textStatus, param1, opts = OJ.object()) ->
     if textStatus isnt 'abort'
@@ -32,7 +37,7 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
 
       opts.onError textStatus
     return
-  
+
   # in the case where `opts` is a string, convert it to an object
   optsFromUrl = (opts) ->
     if OJ.is.string opts
@@ -41,10 +46,10 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
       opts.add 'ajaxOpts', OJ.object()
       opts.ajaxOpts.add 'url', url
     opts
-  
+
   # define a standard `exec` method to handle all request verbs. Uses the [jQuery.ajax](http://api.jquery.com/category/ajax/) API.
   # `execRequest` returns a promise represent the actual AJAX call.
-  
+
   # - `verb` default value = 'GET'
   # - `opts` object
   # -- `opts.ajaxOpts` object for all jQuery's ajax-specific properties.
@@ -58,19 +63,19 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
           withCredentials: true
         dataType: 'json'
         contentType: 'application/json; charset=utf-8'
-        
+
       onSuccess: OJ.noop
       onError: OJ.noop
       onComplete: OJ.noop
       overrideError: false
       watchGlobal: true
       useCache: false
-    
+
     opts = optsFromUrl opts
     OJ.extend defaults, opts, true
-    
+
     defaults.startTime = new Date()
-    
+
     if false is OJ.is.nullOrEmpty defaults.ajaxOpts.data
       # GET requests expect queryString parameters
       if defaults.ajaxOpts.verb is 'GET'
@@ -78,16 +83,16 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
       # all other requests take an object
       else
         defaults.ajaxOpts.data = OJ.serialize defaults.ajaxOpts.data
-    
+
     getJQueryDeferred = (watchGlobal) ->
       ret = $.ajax defaults.ajaxOpts
-      
+
       ret.done (data, textStatus, jqXHR) ->
         config.onSuccess defaults, data
 
       ret.fail (jqXHR, textStatus, errorText) ->
         config.onError jqXHR, textStatus, errorText, defaults
-  
+
       ret.always (xmlHttpRequest, textStatus) ->
         defaults.onComplete xmlHttpRequest, textStatus
 
@@ -95,20 +100,20 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
 
     promise = getJQueryDeferred(defaults.watchGlobal)
     promise
-  
+
   ajax = {}
-  
+
   # ## post
   # [OJ](oj.html).ajax.post: insert a new object or init a form post
-  
+
   # - `opts` can be an object representing the configuration of the request.
-  # - `opts` can also be a string, representing the URL to hit. 
+  # - `opts` can also be a string, representing the URL to hit.
   ajax.post = (opts) ->
     config.execRequest 'POST', opts
-  
+
   # ## get
   # [OJ](oj.html).ajax.get: get an existing object
-  
+
   # - `opts` can be an object representing the configuration of the request.
   # - `opts` can also be a string, representing the URL to hit.
   #
@@ -117,7 +122,7 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
 
   # ## delete
   # [OJ](oj.html).ajax.delete: delete an existing object
-  
+
   # - `opts` can be an object representing the configuration of the request.
   # - `opts` can also be a string, representing the URL to hit.
   ajax.delete = (opts) ->
@@ -125,14 +130,13 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
 
   # ## put
   # [OJ](oj.html).ajax.put: update an existing object
-  
+
   # - `opts` can be an object representing the configuration of the request.
   # - `opts` can also be a string, representing the URL to hit.
   ajax.put = (opts) ->
     config.execRequest 'PUT', opts
 
-  OJ.async.register 'ajax', ajax
+  ajax
 
-  return
-  
-
+OJ.async.register 'ajax', ajax
+module.exports = ajax

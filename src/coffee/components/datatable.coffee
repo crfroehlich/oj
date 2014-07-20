@@ -1,26 +1,34 @@
-﻿do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
+﻿OJ = require '../oj'
+require '../ojInit'
+require '../core/object'
+require '../dom/component'
+require 'jquery'
+
+className = 'datatable'
+component = do ->
+
   nodeName = 'x-datatable'
-  className = 'datatable'
-  
+
   OJ.components.members[className] = nodeName
-  
-  OJ.components.register className, (options, owner) ->
-    defaults = 
+
+  (options, owner) ->
+    defaults =
       opts:
         data: []
         columns: []
-      table: 
+      table:
         class: ''
       props:
         class: ''
       rootNodeType: 'table'
-    
+
     OJ.extend defaults, options, true
-    ret = OJ.component defaults, owner, nodeName 
+    ret = OJ.component defaults, owner, nodeName
     ret.empty()
     ret.dataTable = ret.$.DataTable defaults.opts
 
     ret
 
-  return
+OJ.components.register className, component
+module.exports = component
 
