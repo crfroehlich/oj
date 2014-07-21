@@ -1,6 +1,7 @@
 OJ = require '../oj'
 require '../core/object'
 require '../dom/nodeFactory'
+require '../tools/enums'
 
 # # input
 

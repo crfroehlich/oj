@@ -1,4 +1,4 @@
-OJ = require '../../src/coffee/oj'
+OJ = require 'ojs'
 QUnit.module 'all controls', setup: ->
   OJ['GENERATE_UNIQUE_IDS'] = true
 
@@ -42,4 +42,4 @@ QUnit.test 'Test all controls', ->
       # Test 7: child is removed
       equal `undefined`, document.getElementById(childId), 'Child has been removed'
 
-  return
+  

@@ -8,7 +8,7 @@
     "name": "Christopher Froehlich",
     "email": "npm@luddites.me"
   },
-  "main": "dist/OJ.min.js",
+  "main": "dist/OJ.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/somecallmechief/oj"
@@ -22,15 +22,29 @@
       "url": "http://creativecommons.org/about/pdm"
     }
   ],
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
   "dependencies": {
-    "bluebird": "^2.2.2",
-    "browserify": "^4.2.1",
-    "jquery": "^2.1.1",
-    "lodash": "^2.4.1"
+    "bluebird": ">= 2.2.2",
+    "pubsub-js": ">= 1.4.2",
+    "browserify": ">= 4.2.1",
+    "jquery": ">= 2.1.1",
+    "lodash": ">= 2.4.1",
+    "thindom": ">= 1.0.6",
+    "es6-shim": ">=0.13.0",
+    "localforage": ">=0.9.1",
+    "setimmediate": ">= 1.0.2",
+    "font-awesome": ">= 4.1.0",
+    "html5-history-api": ">= 4.1.12"
   },
   "devDependencies": {
     "browserify": ">= 4.2.1",
+    "browserify-shim": ">= 3.6.0",
     "coffee-script": "*",
+    "coffeeify": ">= 0.6.0",
     "glob": ">= 4.0.4",
     "gulp": ">= 3.5.5",
     "gulp-autoprefixer": ">= 0.0.6",
@@ -39,32 +53,94 @@
     "gulp-coffee": ">= 1.4.1",
     "gulp-coffeelint": ">= 0.3.1",
     "gulp-concat": ">= 2.1.7",
+    "gulp-cson": ">= 0.0.1",
     "gulp-debug": ">= 0.2.0",
     "gulp-git": ">= 0.3.6",
     "gulp-header": ">= 1.0.2",
     "gulp-imagemin": ">= 0.1.5",
     "gulp-inject": "*",
+    "gulp-less": ">= 1.3.2",
     "gulp-load-plugins": "*",
     "gulp-minify-css": ">= 0.3.0",
     "gulp-notify": ">= 1.2.1",
+    "gulp-plumber": "^0.6.4",
     "gulp-qunit": ">= 0.3.2",
     "gulp-rename": ">= 1.2.0",
     "gulp-replace": "*",
     "gulp-sourcemaps": ">= 0.4.0",
+    "gulp-stripbom": "^0.1.2",
     "gulp-uglify": ">= 0.2.1",
     "gulp-util": "*",
-    "gulp-watch": ">= 0.5.3",
+    "gulp-watch": "^0.6.8",
     "pretty-hrtime": ">= 0.2.1",
     "qunit": "*",
     "tiny-lr": ">= 0.0.5",
     "vinyl-source-stream": ">= 0.1.1",
     "watchify": ">= 0.10.2",
-    "wiredep": ">= 1.2.2"
+    "wiredep": ">= 1.2.2",
+    "qunitjs": ">= 1.14.0",
+    "less": ">= 1.7.3",
+    "faker": ">= 0.7.0"
   },
   "keywords": [],
   "engines": {
     "node": "0.8.x",
     "npm": "1.1.x"
   },
-  "scripts": {}
+  "scripts": {},
+  "browserify-shim": {
+    "jquery-ui": {
+      "depends": [
+        "jquery:$"
+      ]
+    },
+    "modernizr": "Modernizr",
+    "google-code-prettify": "prettify",
+    "kapusta-jquery.sparkline": "kapusta-jquery.sparkline",
+    "jquery.easy-pie-chart": {
+      "depends": [
+        "jquery:$",
+        "requirejs"
+      ]
+    },
+    "excanvas": {
+      "depends": [
+        "jquery:$"
+      ]
+    },
+    "flot-resize": {
+      "depends": [
+        "jquery:$"
+      ]
+    },
+    "datatables": {
+      "depends": [
+        "jquery:$"
+      ]
+    },
+    "jquery-cookie": {
+      "depends": [
+        "jquery:$"
+      ]
+    },
+    "jquery-validate": {
+      "depends": [
+        "jquery:$"
+      ]
+    },
+    "json-to-table": "ConvertJsonToTable"
+  },
+  "browser": {
+    "jquery-ui": ".\\bower_components\\jquery-ui\\jquery-ui.js",
+    "modernizr": ".\\bower_components\\modernizr\\modernizr.js",
+    "google-code-prettify": ".\\bower_components\\google-code-prettify\\src\\prettify.js",
+    "kapusta-jquery.sparkline": ".\\bower_components\\kapusta-jquery.sparkline\\dist\\jquery.sparkline.min.js",
+    "jquery.easy-pie-chart": ".\\bower_components\\jquery.easy-pie-chart\\dist\\jquery.easypiechart.js",
+    "excanvas": ".\\bower_components\\flot\\excanvas.min.js",
+    "flot-resize": ".\\bower_components\\flot\\jquery.flot.resize.js",
+    "datatables": ".\\bower_components\\datatables\\media\\js\\jquery.dataTables.js",
+    "jquery-cookie": ".\\bower_components\\jquery-cookie\\jquery.cookie.js",
+    "jquery-validate": ".\\bower_components\\jquery-validate\\dist\\jquery.validate.js",
+    "json-to-table": ".\\bower_components\\json-to-table\\json-to-table.js"
+  }
 }

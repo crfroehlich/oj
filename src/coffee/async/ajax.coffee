@@ -1,7 +1,8 @@
-﻿OJ = require '../oj'
-require '../ojInit'
-require '../tools/console'
-require '../core/object'
+OJ = require '../oj'
+require './async'
+console = require '../tools/console'
+isMethod = require '../tools/is'
+obj = require '../core/object'
 $ = require 'jquery'
 
 # # ajax
@@ -12,19 +13,18 @@ ajax = do ->
   # define a standard on success handler, write out the request stats to a table
   config.onSuccess = (opts, data, url) ->
     response = {}
-    OJ.extend response, data, true
+    obj.extend response, data, true
     opts.onSuccess response
-    OJ.console.table [
+    console.table [
       Webservice: opts.ajaxOpts.url
       StartTime: opts.startTime
       EndTime: new Date()
     ]
-    return
 
   # define a standard on error handler, write out the request error conext to a table
-  config.onError = (xmlHttpRequest, textStatus, param1, opts = OJ.object()) ->
+  config.onError = (xmlHttpRequest, textStatus, param1, opts = obj.object()) ->
     if textStatus isnt 'abort'
-      OJ.console.table [
+      console.table [
         Webservice: opts.ajaxOpts.url
         Data: opts.ajaxOpts.data
         Failed: textStatus
@@ -34,16 +34,14 @@ ajax = do ->
         ReadyState: xmlHttpRequest.readyState
         ResponseText: xmlHttpRequest.responseText
       ]
-
       opts.onError textStatus
-    return
-
+ 
   # in the case where `opts` is a string, convert it to an object
   optsFromUrl = (opts) ->
-    if OJ.is.string opts
+    if isMethod.string opts
       url = opts
-      opts = OJ.object()
-      opts.add 'ajaxOpts', OJ.object()
+      opts = obj.object()
+      opts.add 'ajaxOpts', obj.object()
       opts.ajaxOpts.add 'url', url
     opts
 
@@ -72,17 +70,17 @@ ajax = do ->
       useCache: false
 
     opts = optsFromUrl opts
-    OJ.extend defaults, opts, true
+    obj.extend defaults, opts, true
 
     defaults.startTime = new Date()
 
-    if false is OJ.is.nullOrEmpty defaults.ajaxOpts.data
+    if false is isMethod.nullOrEmpty defaults.ajaxOpts.data
       # GET requests expect queryString parameters
       if defaults.ajaxOpts.verb is 'GET'
-        defaults.ajaxOpts.data = OJ.params defaults.ajaxOpts.data
+        defaults.ajaxOpts.data = obj.params defaults.ajaxOpts.data
       # all other requests take an object
       else
-        defaults.ajaxOpts.data = OJ.serialize defaults.ajaxOpts.data
+        defaults.ajaxOpts.data = obj.serialize defaults.ajaxOpts.data
 
     getJQueryDeferred = (watchGlobal) ->
       ret = $.ajax defaults.ajaxOpts

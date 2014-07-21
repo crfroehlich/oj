@@ -1,4 +1,4 @@
-require '../oj'
+OJ = require '../oj'
 
 ###
 Create an OJ Input Object through OJ.nodes.input
@@ -12,3 +12,5 @@ input = (options = OJ.object(), owner) ->
 
 OJ.register 'input', input
 module.exports = input
+  
+

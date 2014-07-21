@@ -1,4 +1,4 @@
-﻿OJ = require '../oj'
+OJ = require '../oj'
 require '../ojInit'
 require '../core/object'
 require '../dom/component'

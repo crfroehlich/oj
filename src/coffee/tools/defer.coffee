@@ -1,8 +1,10 @@
-﻿OJ = require '../oj'
+OJ = require '../oj'
 
 defer = (method, waitMs) ->
+  ret = null
   if setTimeout
-    return setTimeout method, waitMs
+    ret = setTimeout method, waitMs
+  ret
 
 OJ.register 'defer', defer
 module.exports = defer

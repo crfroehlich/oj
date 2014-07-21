@@ -1,4 +1,4 @@
-OJ = require '../../src/coffee/oj'
+OJ = require 'ojs'
 QUnit.module 'all nodes', setup: ->
   OJ['GENERATE_UNIQUE_IDS'] = true
 

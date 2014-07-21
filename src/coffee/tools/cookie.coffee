@@ -1,8 +1,7 @@
-﻿OJ = require '../oj'
+OJ = require '../oj'
 $ = require 'jquery'
-require '../core/object'
 require './each'
-require '../ojInit'
+require 'jquery-cookie'
 
 ###
 Setup settings
@@ -59,10 +58,8 @@ cookie.deleteAll = ->
     OJ.cookie.delete key
   return
 
-OJ.cookie.register 'get', cookie.get
-OJ.cookie.register 'all', cookie.all
-OJ.cookie.register 'set', cookie.set
-OJ.cookie.register 'delete', cookie.delete
-OJ.cookie.register 'deleteAll', cookie.deleteAll
+Object.seal cookie
+Object.freeze cookie
 
+OJ.register 'cookie', cookie
 module.exports = cookie

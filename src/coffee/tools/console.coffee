@@ -1,6 +1,4 @@
 OJ = require '../oj'
-require '../core/object'
-require '../ojInit'
 
 methods = [
   'assert'
@@ -29,8 +27,7 @@ methods = [
   'warn'
 ]
 methodLength = methods.length
-console = OJ.global.console or {}
-OJ.makeSubNameSpace 'console'
+cnsl = OJ.global.console or {}
 
 ###
 1. Stub out any missing methods with noop
@@ -41,11 +38,11 @@ while methodLength--
     method = methods[methodLength]
 
     # Only stub undefined methods.
-    console[method] = OJ.noop unless console[method]
-
-    #Define the method on the OJ console namespace
-    OJ.console.register method, (params...) ->
-      console[method] params...
+    cnsl[method] = OJ.noop unless cnsl[method]
   )()
 
-module.exports = console
+Object.seal cnsl
+Object.freeze cnsl
+    
+OJ.register 'console', cnsl
+module.exports = cnsl

@@ -1,74 +1,59 @@
 OJ = require '../oj'
-require 'jquery'
+$ = require 'jquery'
 _ = require 'lodash'
-require '../ojInit'
-require './nodeFactory'
-require '../core/object'
+
+require 'thindom'
 
 # # element
 
-element = do ->
-
+element = 
   ###
     Bind all event handlers
   ###
-  bindEvents = (el, events) ->
+  bindEvents: (el, events) ->
     if el then _.forOwn events, (val, key) ->
-      if OJ.is.method val
+      isMethod = require '../tools/is'
+      if isMethod.method val
         callback = (event...) -> val event...
         el.$.on key, callback
         el.add key, callback
-        return
+        null
 
   ###
   Finalize the ThimDOM node
   ###
-  finalize = (ret, tag, props, styles, events, text) ->
+  finalize: (ret, tag, props, styles, events, text) ->
     ret.add 'tagName', tag
     ret.css styles
     if text then ret.text text
     ret.add '$', $(ret.get())
     ret.add '0', ret.get()
 
-    ret.add 'bindEvents', _.once () -> bindEvents ret, events
+    ret.add 'bindEvents', _.once () -> element.bindEvents ret, events
     ret
 
   # ## restoreElement
   ###
   Restore an HTML Element through ThinDom
   ###
-  OJ.register 'restoreElement', (el, tag = el.nodeName) ->
+  restoreElement: (el, tag = el.nodeName) ->
+    nodeFactory = require './nodeFactory'
     ret = ThinDOM null, null, el
-    finalize ret, tag
+    element.finalize ret, tag
     ret.add 'isInDOM', true
-    OJ.nodes.factory ret
+    nodeFactory ret
     ret
 
   # ## element
   ###
   Create an HTML Element through ThinDom
   ###
-  element = (tag, props, styles, events, text) ->
+  element: (tag, props, styles, events, text) ->
     ret = ThinDOM tag, props
-    finalize ret, tag, props, styles, events, text
+    element.finalize ret, tag, props, styles, events, text
     ret
-  element
 
+OJ.register 'restoreElement', element.restoreElement
+OJ.register 'element', element.element
 
-
-
-###
-Persist a handle on the body node
-###
-if typeof document isnt 'undefined' then body = document.body else body = null
-initBody = (el) ->
-  ret = ThinDOM null, id: 'body', el
-  ret.isInDOM = true
-  finalize ret, 'body'
-
-thinBody = initBody body
-thinBody.getId = ->
-  'body'
-
-OJ.register 'body', thinBody
 module.exports = element

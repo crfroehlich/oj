@@ -1,5 +1,5 @@
-﻿OJ = require '../oj'
-require '../core/object'
+OJ = require '../oj'
+require 'html5-history-api'
 
 hstr = {}
 
@@ -59,6 +59,8 @@ OJ.global[eventName] eventInfo + 'popstate', ((event) ->
   return
 ), false
 
-OJ.history.register 'pushState', hstr.pushState
-OJ.history.register 'restoreState', hstr.restoreState
+Object.seal hstr
+Object.freeze hstr
+
+OJ.register 'hstr', hstr
 module.exports = hstr

@@ -1,4 +1,4 @@
-﻿gulp = require 'gulp'
+gulp = require 'gulp'
 sourceMaps = require 'gulp-sourcemaps'
 coffee = require 'gulp-coffee'
 coffeelint = require 'gulp-coffeelint'

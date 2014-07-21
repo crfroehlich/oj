@@ -1,4 +1,4 @@
-﻿gulp = require 'gulp'
+gulp = require 'gulp'
 gutil = require 'gulp-util'
 content = require '../util/files'
 qunit = require 'gulp-qunit'

@@ -1,4 +1,4 @@
-﻿gulp = require 'gulp'
+gulp = require 'gulp'
 gutil = require 'gulp-util'
 bump = require 'gulp-bump'
 
@@ -13,8 +13,8 @@ gulp.task 'bumpVersion', ->
   .pipe bump()
   .pipe gulp.dest './'
   return
-
+  
 gulp.task 'bump', [
   'bumpVersion'
-  'compile'
-]
+  'compile' 
+]  

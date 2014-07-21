@@ -1,4 +1,4 @@
-﻿gulp = require 'gulp'
+gulp = require 'gulp'
 pkg = require '../../package.json'
 header = require 'gulp-header'
 
@@ -12,14 +12,14 @@ extended = [
   ''
 ].join('\n')
 
-succint = '// <%= pkg.name %>@v<%= pkg.version %>, <%= pkg.license %> licensed. <%= pkg.homepage %>\n'
+succinct = '// <%= pkg.name %>@v<%= pkg.version %>, <%= pkg.license %> licensed. <%= pkg.homepage %>\n'
 
 
 module.exports =
-  succint: ->
-    header succint, pkg: pkg
-
+  succinct: ->
+    header succinct, pkg: pkg
+    
   extended: ->
-    header extended, pkg: pkg
-
+    header extended, pkg: pkg  
+    
   package: pkg

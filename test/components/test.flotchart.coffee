@@ -1,4 +1,4 @@
-OJ = require '../../src/coffee/oj'
+OJ = require 'ojs'
 QUnit.module 'x-flotchart', setup: ->
   OJ['GENERATE_UNIQUE_IDS'] = true
 
@@ -24,4 +24,3 @@ QUnit.test 'Test the flotchart component', ->
   # Test 4: node is removed
   equal `undefined`, document.getElementById nodeId, 'flotchart has been removed'
 
-  return

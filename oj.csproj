@@ -83,6 +83,8 @@
     <Content Include="src\coffee\dom\input.coffee" />
     <Content Include="src\coffee\dom\nodeFactory.coffee" />
     <Content Include="src\coffee\async\ajax.coffee" />
+    <Content Include="gulp\tasks\stripbom.coffee" />
+    <Content Include="src\coffee\async\async.coffee" />
     <None Include="src\coffee\core\object.coffee" />
     <None Include="src\coffee\core\property.coffee" />
     <Content Include="src\css\main.css" />

@@ -1,5 +1,4 @@
 OJ = require '../oj'
-require '../ojInit'
 require '../tools/console'
 
 if OJ.TRACK_ON_ERROR

@@ -1,4 +1,4 @@
-OJ = require '../../src/coffee/oj'
+OJ = require 'ojs'
 
 
 randomXys = []
@@ -33,7 +33,7 @@ QUnit.test 'Test the grid component', ->
   # Test 4: node is removed
   equal `undefined`, document.getElementById nodeId, 'grid has been removed'
 
-  return
+  
 
 QUnit.test 'Test the tiles component', ->
   expect 31
@@ -65,7 +65,7 @@ QUnit.test 'Test the tiles component', ->
   # Test 4: node is removed
   equal `undefined`, document.getElementById nodeId, 'grid has been removed'
 
-  return
+  
 
 QUnit.test 'Test the tiles component using document fragment', ->
   expect 11
@@ -94,4 +94,4 @@ QUnit.test 'Test the tiles component using document fragment', ->
   # Test 4: node is removed
   equal `undefined`, document.getElementById nodeId, 'grid has been removed'
 
-  return
+  

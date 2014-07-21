@@ -1,4 +1,4 @@
-OJ = require '../../src/coffee/oj'
+OJ = require 'ojs'
 QUnit.module 'null'
 QUnit.test 'null is not of any OJ supported type', ->
   expect 8 #all 8 assertions must pass
@@ -10,7 +10,7 @@ QUnit.test 'null is not of any OJ supported type', ->
   deepEqual OJ.is.method(null), false, 'null is not a Function'
   deepEqual OJ.is.array(null), false, 'null is not an Array'
   deepEqual OJ.is.plainObject(null), false, 'null is not an Object'
-  return
+  
 
 
 QUnit.module 'explicit undefined'
@@ -24,7 +24,7 @@ QUnit.test 'undefined is not of any OJ supported type', ->
   deepEqual OJ.is.method(`undefined`), false, 'undefined is not a Function'
   deepEqual OJ.is.array(`undefined`), false, 'undefined is not an Array'
   deepEqual OJ.is.plainObject(`undefined`), false, 'undefined is not an Object'
-  return
+  
 
 
 QUnit.module 'implicit undefined by empty arguments'
@@ -38,7 +38,7 @@ QUnit.test 'undefined is not of any OJ supported type', ->
   deepEqual OJ.is.method(), false, '(An empty argument) is not a Function'
   deepEqual OJ.is.array(), false, '(An empty argument) is not an Array'
   deepEqual OJ.is.plainObject(), false, '(An empty argument) is not an Object'
-  return
+  
 
 
 QUnit.module 'is...number NaN'
@@ -52,7 +52,7 @@ QUnit.test 'NaN is a number and only a number', ->
   deepEqual OJ.is.method(NaN), false, 'NaN is not a Function'
   deepEqual OJ.is.array(NaN), false, 'NaN is not an Array'
   deepEqual OJ.is.plainObject(NaN), false, 'NaN is not an Object'
-  return
+  
 
 
 QUnit.module 'is...number -Infinity'
@@ -66,7 +66,7 @@ QUnit.test '-Infinity is a number and only a number', ->
   deepEqual OJ.is.method(-Infinity), false, '-Infinity is not a Function'
   deepEqual OJ.is.array(-Infinity), false, '-Infinity is not an Array'
   deepEqual OJ.is.plainObject(-Infinity), false, '-Infinity is not an Object'
-  return
+  
 
 
 QUnit.module 'is...string ""'
@@ -80,7 +80,7 @@ QUnit.test '"" is a string and only a string', ->
   deepEqual OJ.is.method(''), false, '"" is not a Function'
   deepEqual OJ.is.array(''), false, '"" is not an Array'
   deepEqual OJ.is.plainObject(''), false, '"" is not an Object'
-  return
+  
 
 
 QUnit.module 'is...string "false"'
@@ -94,7 +94,7 @@ QUnit.test '"false" is a String and only a String', ->
   deepEqual OJ.is.method('false'), false, '"false" is not a Function'
   deepEqual OJ.is.array('false'), false, '"false" is not an Array'
   deepEqual OJ.is.plainObject('false'), false, '"false" is not an Object'
-  return
+  
 
 
 QUnit.module 'is...string "true"'
@@ -108,7 +108,7 @@ QUnit.test '"true" is a String and only a String', ->
   deepEqual OJ.is.method('true'), false, '"true" is not a Function'
   deepEqual OJ.is.array('true'), false, '"true" is not an Array'
   deepEqual OJ.is.plainObject('true'), false, '"true" is not an Object'
-  return
+  
 
 
 QUnit.module 'is...boolean false'
@@ -122,7 +122,7 @@ QUnit.test 'false is a Boolean and only a Boolean', ->
   deepEqual OJ.is.method(false), false, 'false is not a Function'
   deepEqual OJ.is.array(false), false, 'false is not an Array'
   deepEqual OJ.is.plainObject(false), false, 'false is not an Object'
-  return
+  
 
 
 QUnit.module 'is...boolean true'
@@ -136,7 +136,7 @@ QUnit.test 'true is a Boolean and only a Boolean', ->
   deepEqual OJ.is.method(true), false, 'true is not a Function'
   deepEqual OJ.is.array(true), false, 'true is not an Array'
   deepEqual OJ.is.plainObject(true), false, 'true is not an Object'
-  return
+  
 
 
 QUnit.module 'is...array'
@@ -150,7 +150,7 @@ QUnit.test '[] is an Array and not any other type', ->
   deepEqual OJ.is.method([]), false, '[] is not a Function'
   deepEqual OJ.is.array([]), true, '[] is (actually) an Array!'
   deepEqual OJ.is.plainObject([]), false, '[] is not an Object'
-  return
+  
 
 
 QUnit.module 'is...object'
@@ -164,7 +164,7 @@ QUnit.test '{} is an Object and not any other type', ->
   deepEqual OJ.is.method({}), false, '{} is not a Function'
   deepEqual OJ.is.array({}), false, '{} is not an Array'
   deepEqual OJ.is.plainObject({}), true, '{} is (actually) an Object!'
-  return
+  
 
 QUnit.module "is...function"
 QUnit.test "function() {} is a function and not any other type", ->
@@ -185,7 +185,7 @@ QUnit.test "function() {} is a function and not any other type", ->
   ), false, "function() {} is not an Array"
   deepEqual OJ.is.plainObject(->
   ), false, "function() {} is not an Object"
-  return
+  
 
 
 
@@ -204,7 +204,7 @@ QUnit.test 'OJ.is.string suite', ->
   deepEqual OJ.is.string(0), false, '0 is not a string'
   deepEqual OJ.is.string(new Date()), false, 'new Date() is not a string'
   deepEqual OJ.is.string(String), false, 'String is not a string'
-  return
+  
 
 QUnit.module 'is.bool'
 QUnit.test 'OJ.is.bool', ->
@@ -213,7 +213,7 @@ QUnit.test 'OJ.is.bool', ->
   deepEqual OJ.is.bool('0'), false, '"0" is not a boolean value'
   deepEqual OJ.is.bool(1), false, '1 is not a boolean value'
   deepEqual OJ.is.bool('1'), false, '"1" is not a boolean value'
-  return
+  
 
 ##region OJ.is.number
 QUnit.module 'is.number'
@@ -231,7 +231,7 @@ QUnit.test 'OJ.is.number', ->
   deepEqual OJ.is.number(0xA), true, '0xA a number'
   deepEqual OJ.is.number(0xA), true, '0xA a number'
   deepEqual OJ.is.number('-'), false, ''-' is not a number'
-  return
+  
 
 ##endregion OJ.is.number
 
@@ -240,4 +240,4 @@ QUnit.test 'OJ.is.nullOrUndefined', ->
   deepEqual OJ.is.nullOrUndefined(null), true, 'null is null or undefined'
   deepEqual OJ.is.nullOrUndefined(), true, 'undefined is null or undefined'
   deepEqual OJ.is.nullOrUndefined('i_exist'), false, 'object instance is not null or undefined'
-  return
+  

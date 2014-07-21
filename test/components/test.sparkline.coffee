@@ -1,4 +1,4 @@
-OJ = require '../../src/coffee/oj'
+OJ = require 'ojs'
 QUnit.module 'x-sparkline', setup: ->
   OJ['GENERATE_UNIQUE_IDS'] = true
 
@@ -24,4 +24,4 @@ QUnit.test 'Test the sparkline component', ->
   # Test 4: node is removed
   equal `undefined`, document.getElementById nodeId, 'sparkline has been removed'
 
-  return
+  

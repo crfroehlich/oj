@@ -1,18 +1,23 @@
-﻿# bundleLogger
+# bundleLogger
 #   ------------
 #   Provides gulp style logs to the bundle method in browserify.js
 #
 gutil = require 'gulp-util'
 prettyHrtime = require 'pretty-hrtime'
 startTime = undefined
+notify = require './notify'
+
 module.exports =
   start: ->
     startTime = process.hrtime()
+    prettyTime = prettyHrtime startTime
     gutil.log 'Running', gutil.colors.green('"bundle"') + '...'
+    notify.message 'Started Bundle at ' + startTime, 'Browserify Running'
     return
 
   end: ->
     taskTime = process.hrtime startTime
     prettyTime = prettyHrtime taskTime
     gutil.log 'Finished', gutil.colors.green('"bundle"'), 'in', gutil.colors.magenta(prettyTime)
+    notify.message 'Finsihed Bundle in ' + prettyTime, 'Browserify Done'
     return

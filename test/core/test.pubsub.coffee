@@ -1,4 +1,4 @@
-﻿OJ = require '../../src/coffee/oj'
+OJ = require 'ojs'
 QUnit.module 'pubSub'
 
 QUnit.asyncTest 'Test pubsub', ->
@@ -11,4 +11,4 @@ QUnit.asyncTest 'Test pubsub', ->
   OJ.subscribe 'PubSub Test', method
   OJ.publish 'PubSub Test'
 
-  return
+  

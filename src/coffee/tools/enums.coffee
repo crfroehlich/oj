@@ -1,5 +1,4 @@
 OJ = require '../oj'
-require '../core/object'
 
 enums = {}
 enums.unknown = 'unknown'
@@ -280,6 +279,8 @@ enums.inputTypes =
     defaultwidth: ''
     defaultsize: '25'
 
-OJ.enums.register 'inputTypes', enums.inputType
-OJ.enums.register 'unknown', enums.unknown
+Object.seal enums
+Object.freeze enums
+
+OJ.register 'enums', enums
 module.exports = enums

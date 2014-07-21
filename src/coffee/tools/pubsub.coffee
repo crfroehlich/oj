@@ -1,13 +1,15 @@
-﻿
+OJ = require '../oj'
+require 'pubsub-js'
 
-  tokens = {}
-  subscribers = []
-  events = {}
+tokens = {}
+subscribers = []
+events = {}
 
-  getEventName = (event) ->
+ps = 
+  getEventName: (event) ->
     event.toUpperCase().replace ' ', '_'
 
-  subscribe = (event, method) ->
+  subscribe: (event, method) ->
     eventName = getEventName event
     if not events[eventName] then events[eventName] = []
 
@@ -17,7 +19,7 @@
     events[eventName].push method
     token
 
-  publish = (event, data) ->
+  publish: (event, data) ->
     eventName = getEventName event
     if events[eventName]
       PubSub.publish eventName, data
@@ -25,7 +27,7 @@
       OJ.console.info 'Event named {' + event + '} is not recognized.'
     return
 
-  unsubscribe = (tokenOrMethod) ->
+  unsubscribe: (tokenOrMethod) ->
     if OJ.is.method tokenOrMethod
       if -1 isnt subscribers.indexOf tokenOrMethod
         PubSub.unsubscribe tokenOrMethod
@@ -38,13 +40,13 @@
         delete tokens[tokenOrMethod]
     return
 
-  unsubscribeAll = () ->
+  unsubscribeAll: () ->
     OJ.each tokens, (token) -> unsubscribe token
     subscribers = []
     events = {}
     return
 
-  unsubscribeEvent = (event) ->
+  unsubscribeEvent: (event) ->
     eventName = getEventName event
     if events[eventName]
       OJ.each events[eventName], (method) -> unsubscribe method
@@ -53,11 +55,13 @@
     delete events[eventName]
     return
 
-  OJ.register 'publish', publish
-  OJ.register 'subscribe', subscribe
-  OJ.register 'unsubscribe', unsubscribe
-  OJ.register 'unsubscribeAll', unsubscribeAll
-  OJ.register 'unsubscribeEvent', unsubscribeEvent
+Object.seal ps
+Object.freeze ps
 
-  return
+OJ.register 'publish', ps.publish
+OJ.register 'subscribe', ps.subscribe
+OJ.register 'unsubscribe', ps.unsubscribe
+OJ.register 'unsubscribeAll', ps.unsubscribeAll
+OJ.register 'unsubscribeEvent', ps.unsubscribeEvent
 
+module.exports = ps

@@ -1,5 +1,6 @@
 OJ = require '../oj'
 require '../core/object'
+_ = require 'lodash'
 
 array2D = (initLength, initWidth) ->
   array = []
@@ -53,4 +54,4 @@ array2D = (initLength, initWidth) ->
   ret
 
 OJ.register 'array2D', array2D
-modules.exports = array2D
+module.exports = array2D

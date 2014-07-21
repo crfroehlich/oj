@@ -1,4 +1,4 @@
-﻿OJ = require '../../src/coffee/oj'
+OJ = require 'ojs'
 QUnit.module 'ajax'
 
 QUnit.asyncTest 'Test ajax promises', ->
@@ -11,5 +11,4 @@ QUnit.asyncTest 'Test ajax promises', ->
     .catch ->
       deepEqual NaN, true, 'Event failed'
 
-  return
-
+  

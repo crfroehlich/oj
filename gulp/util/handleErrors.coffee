@@ -1,8 +1,6 @@
-﻿notify = require 'gulp-notify'
-_ = require 'lodash'
-
-module.exports = (err...)->
-
+notify = require 'gulp-notify'
+module.exports = (err...) ->
+  
   # Send error to notification center with gulp-notify
   onerror = notify.onError(
     title: 'Gulp Task Error'
@@ -12,7 +10,6 @@ module.exports = (err...)->
       console.error 'Message: ', opts.message
   )
   onerror err...
-
   # Keep gulp from hanging on this task
   @emit 'end'
-  return
+  

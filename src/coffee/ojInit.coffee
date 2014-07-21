@@ -1,24 +1,16 @@
 OJ = require './oj'
-
+_ = require 'lodash'
 # # OJ Post-Initialization
 
 # Simple array of anticipated/known child namespaces
 
 subNameSpaces = [
-  'errors'
-  'enums'
-  'is'
   'instanceOf'
-  'to'
   'nodes'
-  'db'
   'components'
   'controls'
   'inputs'
   'notifications'
-  'history'
-  'cookie'
-  'async'
 ]
 
 # ## SubNameSpaces
@@ -36,7 +28,3 @@ OJ['GENERATE_UNIQUE_IDS'] = false
 OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] = 'div'
 # Whether to hook into the global on error event to write errors to console (default false)
 OJ['TRACK_ON_ERROR'] = false
-
-return
-
-

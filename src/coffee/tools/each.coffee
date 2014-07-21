@@ -1,14 +1,13 @@
 OJ = require '../oj'
 _ = require 'lodash'
-require '../core/object'
-require './is'
 
 # # each
 
 # ## canEach
 canEach = (obj) ->
+  isMethod = require './is'
   # Return true if the object [is](is.html) truly iterable (e.g. an instance of Object or Array)
-  OJ.is.plainObject(obj) or OJ.is.object(obj) or OJ.is.array obj
+  isMethod.plainObject(obj) or isMethod.object(obj) or isMethod.array obj
 
 # ## [OJ](oj.html).each
 

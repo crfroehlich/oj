@@ -1,4 +1,4 @@
-OJ = require '../../src/coffee/oj'
+OJ = require 'ojs'
 QUnit.module 'to.string'
 QUnit.test 'to.string(null)', ->
   expect 16
@@ -29,7 +29,7 @@ QUnit.test 'to.string(null)', ->
   deepEqual OJ.to.string(0, 'a') is '0', true, 'to.string converts 0 to "0".'
   deepEqual OJ.to.string(true, 'a') is 'true', true, 'to.string converts true to "true".'
   deepEqual OJ.to.string(false, 'a') is 'false', true, 'to.string converts false to "false".'
-  return
+  
 
 QUnit.module 'to.bool'
 QUnit.test 'to.bool(null)', ->
@@ -51,7 +51,7 @@ QUnit.test 'to.bool(null)', ->
   deepEqual OJ.to.bool('1'), true, 'to.bool converts "1" to true.'
   deepEqual OJ.to.bool('true'), true, 'to.bool converts "true" to true.'
   deepEqual OJ.to.bool(true), true, 'to.bool converts true to true.'
-  return
+  
 
 QUnit.module '.number.isNaN'
 QUnit.test '.number.isNaN', ->
@@ -64,7 +64,7 @@ QUnit.test '.number.isNaN', ->
   deepEqual OJ.number.isNaN(OJ.to.number({})), true, 'to.number converts {} to NaN.'
   deepEqual OJ.number.isNaN(OJ.to.number([])), true, 'to.number converts [] to NaN.'
   deepEqual OJ.number.isNaN(OJ.to.number(new Date())), true, 'to.number converts new Date() to NaN.'
-  return
+  
 
 QUnit.module 'to.number'
 QUnit.test 'to.number(null)', ->
@@ -79,7 +79,4 @@ QUnit.test 'to.number(null)', ->
   deepEqual OJ.to.number(true) is 1, true, 'to.bool converts true to 1.'
   deepEqual OJ.to.number('42') is 42, true, 'to.number converts "42" to 42.'
   deepEqual OJ.to.number('-42') is -42, true, 'to.number converts "-42" to -42.'
-  return
-
-
-
+  

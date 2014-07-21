@@ -1,4 +1,4 @@
-﻿OJ = require '../oj'
+OJ = require '../oj'
 require '../ojInit'
 require '../core/object'
 require '../dom/component'
@@ -40,8 +40,6 @@ component = do ->
 
       tabContentClass = 'tab-pane ' + tabClass
       ret.add tabName, content.make('div', props: class: tabContentClass, id: tabName)
-
-      return
 
     ret
 

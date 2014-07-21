@@ -25,7 +25,7 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
       $elm = $(element)
       $elm.attr 'OJ_invalid', '1'
       $elm.animate backgroundColor: 'red'
-      return
+      null
 
     unhighlight: (element) ->
       $elm = $(element)
@@ -34,9 +34,8 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
         $elm.attr 'OJ_invalid', '0'
         setTimeout (->
           $elm.animate backgroundColor: 'transparent'
-          return
         ), 500
-      return
+      null
   )
 
   ret.add 'isFormValid', ->

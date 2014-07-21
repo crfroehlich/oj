@@ -1,4 +1,4 @@
-﻿OJ = require '../oj'
+OJ = require '../oj'
 require '../tools/to'
 require '../tools/is'
 
@@ -91,6 +91,7 @@ delimitedString = (string, opts) ->
       defaults.initString = dlms
       retObj.array = dlms.split(defaults.delimiter)
     defaults.deleteDuplicates()
+    return
   ) arguments
   retObj
 

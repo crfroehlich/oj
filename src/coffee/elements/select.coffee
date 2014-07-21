@@ -85,7 +85,6 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
     OJ.each options, ((val) ->
       value = ret.addOption(val)
       values.push value
-      return
     ), false
     values
 
@@ -103,7 +102,7 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
     while i < selectControl.length
       selectControl.remove i  if selectControl.options[i].value is valueToRemove
       i++
-    return
+    null
 
 
 

@@ -1,4 +1,4 @@
-OJ = require '../../src/coffee/oj'
+OJ = require 'ojs'
 QUnit.module 'x-datatable', setup: ->
 
 OJ['GENERATE_UNIQUE_IDS'] = true
@@ -44,9 +44,3 @@ QUnit.test 'Test the datatable component', ->
   datatable.remove()
   # Test 4: node is removed
   equal `undefined`, document.getElementById nodeId, 'datatable has been removed'
-
-  return
-
-  return
-
-

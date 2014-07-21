@@ -1,4 +1,4 @@
-﻿OJ = require '../oj'
+OJ = require '../oj'
 
 number = Object.create(null)
 Object.defineProperty number, 'isNaN',

@@ -1,4 +1,4 @@
-﻿# browserify task
+# browserify task
 #   ---------------
 #   Bundle javascripty things with browserify!
 #
@@ -12,12 +12,18 @@ gulp = require 'gulp'
 handleErrors = require '../util/handleErrors'
 source = require 'vinyl-source-stream'
 glob = require 'glob'
+debug = require 'gulp-debug'
+coffeeify = require 'coffeeify'
+uglify = require 'gulp-uglify'
+concat = require 'gulp-concat'
+rename = require 'gulp-rename'
+header = require '../util/header'
 
 # FIXME: tests can import modules from main but must do so via ../../src/coffee/..
 
 config =
   main:
-    entries: glob.sync('./src/coffee/**/*.coffee')
+    entries: './src/coffee/entrypoint.coffee'
     export:
       glob: './src/coffee/**/*.coffee'
       cwd: './src/coffee'
@@ -29,14 +35,11 @@ config =
     dest: './test'
     #paths: ['./', './src/coffee/']
     filename: 'test.js'
-    external:
-      glob: './src/coffee/**/*.coffee'
-      cwd: './src/coffee'
 
-runbrowserify = (name) ->
+runbrowserify = (name, isWatchify = global.isWatching) ->
   cfg = config[name]
 
-  bundleMethod = (if global.isWatching then watchify else browserify)
+  bundleMethod = (if true is isWatchify then watchify else browserify)
   bundleCfg =
     # Specify the entry point of your app
     entries: cfg.entries
@@ -44,16 +47,17 @@ runbrowserify = (name) ->
     fullPaths: true
     # Add file extentions to make optional in your requires
     extensions: [ '.coffee' ]
-
+    
   #if cfg.paths? then bundleCfg.paths = cfg.paths
 
   bundler = bundleMethod(bundleCfg)
-
+  bundler.transform coffeeify
+  
   bundle = ->
-
+    
     # Log when bundling starts
     bundleLogger.start()
-
+    
     bundler
       # Enable source maps!
       .bundle debug: true
@@ -63,8 +67,10 @@ runbrowserify = (name) ->
       # stream gulp compatible. Specify the
       # desired output filename here.
       .pipe source cfg.filename
+      
       # Specify the output destination
       .pipe gulp.dest cfg.dest
+      
       # Log when bundling completes!
       .on 'end', bundleLogger.end
 
@@ -74,4 +80,8 @@ runbrowserify = (name) ->
 
 gulp.task 'browserify', ->
   runbrowserify 'main'
-  #runbrowserify 'test'
+  runbrowserify 'test'
+  
+gulp.task 'watchify', ->
+  runbrowserify 'main', true
+  runbrowserify 'test', true  

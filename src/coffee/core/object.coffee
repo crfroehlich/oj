@@ -1,7 +1,11 @@
 OJ = require '../oj'
-require '../tools/is'
-require '../tools/console'
-require '../core/property'
+$ = require 'jquery'
+_ = require 'lodash'
+isMethod = require '../tools/is'
+each = require '../tools/each'
+property = require '../core/property'
+
+func = require './function'
 
 # # object
 
@@ -9,18 +13,17 @@ retObj = do ->
 
   # ## [OJ](oj.html).object
   # create an object with helper `add` and `each` methods.
-  object: ->
-    obj = {}
-
+  object: (obj = {}) ->
+    
     ###
     Add a property to the object and return it
     ###
     obj.add = (name, val) ->
-      OJ.property obj, name, val
+      property obj, name, val
       obj
 
     obj.add 'each', (callback) ->
-      OJ.each obj, (val, key) ->
+      each obj, (val, key) ->
         if key isnt 'each' and key isnt 'add'
           callback val, key
 
@@ -30,7 +33,8 @@ retObj = do ->
   # ## [OJ](oj.html).isInstanceOf
   # determines is a thing is an instance of a Thing, assuming the things were all created in OJ
   isInstanceOf: (name, obj) ->
-    retObj.contains(name, obj) and OJ.to.bool(obj[name])
+    to = require '../tools/to'
+    retObj.contains(name, obj) and to.bool(obj[name])
 
   # ## [OJ](oj.html).contains
   # true if the `object` contains the value
@@ -54,7 +58,7 @@ retObj = do ->
   # Convert an object to a JSON representation of the object
   serialize: (data) ->
     ret = ''
-    OJ.tryExec ->
+    func.tryExec ->
       ret = JSON.stringify(data)
       return
     ret or ''
@@ -64,11 +68,11 @@ retObj = do ->
   deserialize: (data) ->
     ret = {}
     if data
-      OJ.tryExec ->
-        ret = window.$.parseJSON(data)
+      func.tryExec ->
+        ret = $.parseJSON(data)
         return
 
-      ret = {}  if OJ.is.nullOrEmpty(ret)
+      ret = {}  if isMethod.nullOrEmpty(ret)
     ret
 
   # ## [OJ](oj.html).params
@@ -76,17 +80,17 @@ retObj = do ->
   params: (data, delimiter = '&') ->
     ret = ''
     if delimiter is '&'
-      OJ.tryExec ->
+      func.tryExec ->
         ret = $.param(data)
         return
 
     else
-      OJ.each data, (val, key) ->
+      each data, (val, key) ->
         ret += delimiter  if ret.length > 0
         ret += key + '=' + val
         return
 
-    OJ.to.string ret
+    to.string ret
 
   # ## [OJ](oj.html).extend
   # copy the properties of one object to another object
@@ -109,4 +113,4 @@ OJ.register 'deserialize', retObj.deserialize
 OJ.register 'params', retObj.params
 OJ.register 'extend', retObj.extend
 
-module.exports retObj
+module.exports = retObj

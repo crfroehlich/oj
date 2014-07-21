@@ -1,6 +1,6 @@
 # # OJ
 thisGlobal = (if (typeof global isnt 'undefined' and global) then global else (if (typeof self isnt 'undefined' and self) then self else (if (typeof window isnt 'undefined' and window) then window else this)))
-utilLib = thisGlobal.jQuery
+utilLib = require 'jquery'
 nameSpaceName = 'OJ'
 
 ###
@@ -141,7 +141,6 @@ makeTheJuice = ->
         false is depOn(imports)
       )
       nsInternal.dependents = deps  if Array.isArray(deps)
-      return
 
   #Create the root of the tree as the current namespace
   NsTree[nameSpaceName] = {}

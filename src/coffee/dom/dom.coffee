@@ -1,9 +1,5 @@
 OJ = require '../oj'
 $ = require 'jquery'
-require '../ojInit'
-require './element'
-require './nodeFactory'
-require '../core/object'
 
 # # dom
 
@@ -20,7 +16,8 @@ dom = (el, parent = OJ.body ) ->
     el and (el.el instanceof HTMLElement or el.el instanceof DocumentFragment)
 
   isControlStillValid = ->
-    valid = false is OJ.is.nullOrEmpty(el) and el.isValid()
+    isMethod = require '../tools/is'
+    valid = false is isMethod.nullOrEmpty(el) and el.isValid()
     throw new Error 'el is null. Event bindings may not have been GCd.'  if false is valid
     valid
 
@@ -51,7 +48,7 @@ dom = (el, parent = OJ.body ) ->
   # Bind an event to a key, when pressed in this control.
   # The OJ object (for chaining)
   el.add 'keyboard', (keys, event) ->
-    Mousetrap.bind keys, el[event]  if isControlStillValid()
+    #Mousetrap.bind keys, el[event]  if isControlStillValid()
     el
 
   # ## disable
@@ -96,8 +93,9 @@ dom = (el, parent = OJ.body ) ->
   # ## length
   # Get the length of this element.
   el.add 'length', ->
+    to = require '../tools/to'
     len = 0
-    len = OJ.to.number(el.$.length)  if isControlStillValid()
+    len = to.number(el.$.length)  if isControlStillValid()
     len
 
   # ## parent
@@ -136,7 +134,8 @@ dom = (el, parent = OJ.body ) ->
   # Mark the required status of the element.
   el.add 'required', (truthy, addLabel) ->
     if isControlStillValid()
-      switch OJ.to.bool(truthy)
+      to = require '../tools/to'
+      switch to.bool(truthy)
         when true
           el.attr 'required', true
           el.addClass 'required'
@@ -186,7 +185,8 @@ dom = (el, parent = OJ.body ) ->
   # Get or set the value of the element.
   el.add 'val', (value) ->
     if isControlStillValid()
-      if arguments.length is 1 and false is OJ.is.nullOrUndefined(value)
+      isMethod = require '../tools/is'
+      if arguments.length is 1 and false is isMethod.nullOrUndefined(value)
         el.$.val value
         el
       else
@@ -204,15 +204,12 @@ dom = (el, parent = OJ.body ) ->
 
   el
 
-  OJ.register 'isElementInDom', (elementId) ->
-    false is OJ.is.nullOrEmpty OJ.getElement elementId
+OJ.register 'isElementInDom', (elementId) ->
+  false is OJ.is.nullOrEmpty OJ.getElement elementId
 
-  OJ.register 'getElement', (id) ->
-    if typeof document isnt 'undefined'
-      document.getElementById(id)
+OJ.register 'getElement', (id) ->
+  if typeof document isnt 'undefined'
+    document.getElementById(id)
 
-  OJ.register 'dom', dom
-  module.exports = dom
-
-
-
+OJ.register 'dom', dom
+module.exports = dom

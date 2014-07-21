@@ -1,5 +1,5 @@
-﻿OJ = require '../oj'
-require '../ojInit'
+OJ = require '../oj'
+require './async'
 Promise = require 'bluebird'
 
 # # promise
@@ -21,7 +21,7 @@ promise = do ->
     promise = Promise.all(reqs)
     promise.push = (item) ->
       reqs.push item
-      return
+      
     promise
   # ## defer
   # [OJ](oj.html).async.defer converts a function into a Promise to execute that function.
@@ -34,4 +34,4 @@ OJ.async.register 'ajaxPromise', promise.ajaxPromise
 OJ.async.register 'all', promise.all
 OJ.async.register 'defer', promise.defer
 
-module.exports = promies
+module.exports = promise
