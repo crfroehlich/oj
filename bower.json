@@ -1,9 +1,8 @@
 {
   "name": "OJ",
-  "version": "0.4.22",
+  "version": "0.4.23",
   "main": [
-    "dist/OJ.min.js",
-    "dist/release.html"
+    "dist/OJ.min.js"
   ],
   "ignore": [
     ".editorconfig",
@@ -39,6 +38,5 @@
       ]
     }
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
