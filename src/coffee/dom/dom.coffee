@@ -8,7 +8,7 @@ $ = require 'jquery'
 
 # - `el` Object to extend
 # - `parent` parent object to which `el` will be appended
-dom = (el, parent = OJ.body ) ->
+dom = (el, parent = require('./body')) ->
   enabled = true
 
   # ## isValid

@@ -1,5 +1,5 @@
-OJ = require 'ojs'
-
+QUnit = require 'qunitjs'
+Faker = require 'faker'
 
 randomXys = []
 xy = 0

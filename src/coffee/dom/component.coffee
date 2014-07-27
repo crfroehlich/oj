@@ -1,8 +1,6 @@
 OJ = require '../oj'
-require '../ojInit'
-require './element'
-require './nodeFactory'
-require '../core/object'
+el = require './element'
+obj = require '../core/object'
 
 # # component
 
@@ -16,7 +14,7 @@ require '../core/object'
 # -- `events`: an object representing the named DOM events (and corresponding callback methods) to bind to the root node
 # - `owner` the parent to which the component node will be appended
 # - `tagName` the name of of the component, which will always be prefixed with 'x-'
-component = (options = OJ.object(), owner, tagName) ->
+component = (options = obj.object(), owner, tagName) ->
 
   if not tagName.startsWith 'x-' then tagName = 'x-' + tagName
   # web components are really just ordinary OJ [element](element.html)'s with a special name.
@@ -24,9 +22,8 @@ component = (options = OJ.object(), owner, tagName) ->
   # In most cases, the default behavior of the browser is acceptable (see also [HTML Semantics](http://diveintohtml5.info/semantics.html)), but
   # in some cases this is problematic (firstly, because these elements are always rendered inline).
   # In such conditions, the [controls](controls.html) class and name space is better suited to classes which require complete control (e.g. [icon](icon.html)).
-  widget = OJ.element tagName #, options.props, options.styles, options.events, options.text
-  OJ.nodes.factory widget, owner
-
+  widget = el.element tagName, obj.object(), owner, false #, options.props, options.styles, options.events, options.text
+  
   # Since the behavior of styling is not well controlled/controllable on unknown elements, it is necessary to create a root node for the component.
   # In most cases, [div](div.html) is perfectly acceptable, but this is configurable at the name space level or at runtime.
   rootNodeType = options.rootNodeType or OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] or 'div'

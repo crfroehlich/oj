@@ -1,8 +1,7 @@
 OJ = require '../oj'
-require './element'
+el = require './element'
 require '../ojInit'
-require '../core/object'
-require './nodeFactory'
+obj = require '../core/object'
 
 # # generic nodes
 
@@ -105,18 +104,15 @@ exports = {}
 # register semantic/structural aliases
 for loopName in all
   do (tag = loopName) ->
-    method = (options, owner = OJ.body, calledFromFactory = false) ->
+    method = (options, owner = require './body', calledFromFactory = false) ->
 
       defaults =
         props: {}
         styles: {}
         events: {}
 
-      OJ.extend defaults, options, true
-      ret = OJ.element tag, defaults.props, defaults.styles, defaults.events, defaults.text
-
-
-      if false is calledFromFactory then OJ.nodes.factory ret, owner
+      obj.extend defaults, options, true
+      ret = el.element tag, defaults, owner, calledFromFactory
 
       ret
     OJ.nodes.register tag, method

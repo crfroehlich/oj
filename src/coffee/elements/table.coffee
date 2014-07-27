@@ -1,6 +1,8 @@
 OJ = require '../oj'
-require '../core/object'
-require '../dom/nodeFactory'
+el = require '../dom/element'
+_ = require 'lodash'
+array2D = require '../tools/array2D'
+$ = require 'jquery'
 
 # # table
 
@@ -9,7 +11,7 @@ nodeName = 'table'
 ###
 Create an HTML table. Provides helper methods to create Columns and Cells.
 ###
-node = (options, owner = OJ.body, calledFromFactory = false) ->
+node = (options, owner = require('../dom/body'), calledFromFactory = false) ->
 
   # ## options
   defaults =
@@ -47,12 +49,12 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
     oddAlignRight: false
 
   rows = []
-  cells = OJ.array2D()
+  cells = array2D()
   columnCount = 0
 
   OJ.extend defaults, options, true
-  ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
-  if false is calledFromFactory then OJ.nodes.factory ret, owner
+  ret = el.element nodeName, defaults, owner, calledFromFactory
+ 
 
   tbody = null
   thead = null
@@ -68,12 +70,12 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
 
       jHead = jTbl.find 'thead'
       ret.$.append jHead
-      thead = OJ.restoreElement jHead[0]
-      theadRow = OJ.restoreElement thead[0].rows[0]
+      thead = el.restoreElement jHead[0]
+      theadRow = el.restoreElement thead[0].rows[0]
 
       jBody = jTbl.find 'tbody'
       ret.$.append jBody
-      tbody = OJ.restoreElement jBody[0]
+      tbody = el.restoreElement jBody[0]
 
       loadCells()
     else
@@ -89,12 +91,12 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
     r = 0
     while tbody[0].rows.length > r
       c = 0
-      memRow = OJ.restoreElement tbody[0].rows[r]
+      memRow = el.restoreElement tbody[0].rows[r]
       rows.push memRow
       while tbody[0].rows[r].cells.length > c
         memCell = cells.get r+1, c+1
         if not memCell
-          memCell = OJ.restoreElement tbody[0].rows[r].cells[c]
+          memCell = el.restoreElement tbody[0].rows[r].cells[c]
           cells.set r+1, c+1, memCell
         c += 1
       r += 1
@@ -119,11 +121,11 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
       if not nativeTh
         th = theadRow.make 'th', {}
       else
-        th = OJ.restoreElement nativeTh, 'th'
+        th = el.restoreElement nativeTh, 'th'
       i += 1
     if not th
       nativeTh = thead[0].rows[0].cells[colNo-1]
-      th = OJ.restoreElement nativeTh, 'th'
+      th = el.restoreElement nativeTh, 'th'
     th.text colName
     th
 

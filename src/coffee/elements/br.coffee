@@ -1,12 +1,11 @@
 OJ = require '../oj'
-require '../core/object'
-require '../dom/nodeFactory'
-
+el = require '../dom/element'
+to = require '../tools/to'
 # # br
 
 nodeName = 'br'
 
-node = (options, owner = OJ.body, calledFromFactory = false) ->
+node = (options, owner = require('../dom/body'), calledFromFactory = false) ->
 
   defaults =
     props: {}
@@ -17,13 +16,13 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
 
   OJ.extend defaults, options, true
   i = 0
-  while i < OJ.to.number defaults.number
+  while i < to.number defaults.number
     # In the case of multiple brs, it is desirable to only get the last one out
-    ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+    ret = el.element nodeName, defaults, owner, calledFromFactory
 
     i += 1
 
-  if false is calledFromFactory then OJ.nodes.factory ret, owner
+  if false is calledFromFactory then nodesFactory ret, owner
 
   ret
 

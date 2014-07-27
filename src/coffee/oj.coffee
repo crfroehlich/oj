@@ -2,6 +2,7 @@
 thisGlobal = (if (typeof global isnt 'undefined' and global) then global else (if (typeof self isnt 'undefined' and self) then self else (if (typeof window isnt 'undefined' and window) then window else this)))
 utilLib = require 'jquery'
 nameSpaceName = 'OJ'
+require 'es6-shim'
 
 ###
 boot strap name method into Object prototype

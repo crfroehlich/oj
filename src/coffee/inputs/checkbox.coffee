@@ -1,11 +1,10 @@
 OJ = require '../oj'
-require '../core/object'
-require '../dom/nodeFactory'
-require '../elements/input'
+obj = require '../core/object'
+input = require '../dom/input'
 
 inputName = 'checkbox'
 
-input = (options, owner = OJ.body) ->
+inpt = (options, owner = require('../dom/body')) ->
 
   defaults =
     checked: false
@@ -16,9 +15,9 @@ input = (options, owner = OJ.body) ->
     events:
       click: OJ.noop
 
-  OJ.extend defaults, options, true
+  obj.extend defaults, options, true
 
-  ret = OJ.input defaults, owner
+  ret = input defaults, owner
   if defaults.checked
     ret.attr 'checked', true
   else if defaults.indeterminate
@@ -26,5 +25,5 @@ input = (options, owner = OJ.body) ->
 
   ret
 
-OJ.inputs.register inputName, input
-module.exports = input
+OJ.inputs.register inputName, inpt
+module.exports = inpt

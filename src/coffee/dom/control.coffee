@@ -1,19 +1,16 @@
 OJ = require '../oj'
-require '../ojInit'
-require './element'
-require './nodeFactory'
-require '../core/object'
+el = require './element'
+obj = require '../core/object'
 
 ###
 Create a set of HTML Elements through ThinDom
 ###
-control = (options = OJ.object(), owner, tagName) ->
+control = (options = obj.object(), owner, tagName) ->
   if not tagName.startsWith 'y-' then tagName = 'y-' + tagName
 
   rootNodeType = options.rootNodeType or OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] or 'div'
 
-  ret = OJ.element rootNodeType, options.props, options.styles, options.events, options.text
-  OJ.nodes.factory ret, owner
+  ret = el.element rootNodeType, options, owner, false
 
   ret.add 'controlName', tagName
 

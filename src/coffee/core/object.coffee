@@ -9,7 +9,7 @@ func = require './function'
 
 # # object
 
-retObj = do ->
+retObj = 
 
   # ## [OJ](oj.html).object
   # create an object with helper `add` and `each` methods.

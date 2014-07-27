@@ -1,4 +1,6 @@
-OJ = require 'ojs'
+QUnit = require 'qunitjs'
+
+
 QUnit.module 'null'
 QUnit.test 'null is not of any OJ supported type', ->
   expect 8 #all 8 assertions must pass

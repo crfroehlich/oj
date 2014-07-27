@@ -1,12 +1,12 @@
 OJ = require '../oj'
-require '../core/object'
-require '../dom/nodeFactory'
+el = require '../dom/element'
+require 'jquery-validate'
 
 # # form
 
 nodeName = 'form'
 
-node = (options, owner = OJ.body, calledFromFactory = false) ->
+node = (options, owner = require('../dom/body'), calledFromFactory = false) ->
 
   defaults =
     props:
@@ -18,7 +18,7 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
       click: OJ.noop
 
   OJ.extend defaults, options, true
-  ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+  ret = el.element nodeName, defaults, owner, calledFromFactory
 
   ret.add 'validator', ret.$.validate(
     highlight: (element) ->
@@ -41,7 +41,7 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
   ret.add 'isFormValid', ->
     ret.$.valid() and (not ret.validator.invalidElements() or ret.validator.invalidElements().length is 0)
 
-  if false is calledFromFactory then OJ.nodes.factory ret, owner
+ 
 
   ret
 

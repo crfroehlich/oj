@@ -85,6 +85,7 @@
     <Content Include="src\coffee\async\ajax.coffee" />
     <Content Include="gulp\tasks\stripbom.coffee" />
     <Content Include="src\coffee\async\async.coffee" />
+    <Content Include="gulpfile.coffee" />
     <None Include="src\coffee\core\object.coffee" />
     <None Include="src\coffee\core\property.coffee" />
     <Content Include="src\css\main.css" />
@@ -145,6 +146,7 @@
     <Content Include="src\coffee\tools\to.coffee" />
     <Content Include="src\coffee\tools\uuid.coffee" />
     <Content Include="src\coffee\entrypoint.coffee" />
+    <Content Include="src\coffee\dom\body.coffee" />
     <None Include="src\dev.appcache">
       <DependentUpon>dev.html</DependentUpon>
     </None>

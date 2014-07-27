@@ -1,34 +1,30 @@
 OJ = require '../oj'
 require '../ojInit'
-require '../core/object'
-require '../dom/component'
-require 'jquery'
+component = require '../dom/component'
 
 className = 'datatable'
-component = do ->
+nodeName = 'x-datatable'
 
-  nodeName = 'x-datatable'
+OJ.components.members[className] = nodeName
 
-  OJ.components.members[className] = nodeName
+cmpnt = (options, owner) ->
+  defaults =
+    opts:
+      data: []
+      columns: []
+    table:
+      class: ''
+    props:
+      class: ''
+    rootNodeType: 'table'
 
-  (options, owner) ->
-    defaults =
-      opts:
-        data: []
-        columns: []
-      table:
-        class: ''
-      props:
-        class: ''
-      rootNodeType: 'table'
+  OJ.extend defaults, options, true
+  ret = component defaults, owner, nodeName
+  ret.empty()
+  ret.dataTable = ret.$.DataTable defaults.opts
 
-    OJ.extend defaults, options, true
-    ret = OJ.component defaults, owner, nodeName
-    ret.empty()
-    ret.dataTable = ret.$.DataTable defaults.opts
+  ret
 
-    ret
-
-OJ.components.register className, component
-module.exports = component
+OJ.components.register className, cmpnt
+module.exports = cmpnt
 

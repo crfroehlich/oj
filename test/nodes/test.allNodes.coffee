@@ -1,4 +1,5 @@
-OJ = require 'ojs'
+QUnit = require 'qunitjs'
+
 QUnit.module 'all nodes', setup: ->
   OJ['GENERATE_UNIQUE_IDS'] = true
 

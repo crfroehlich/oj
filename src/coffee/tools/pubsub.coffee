@@ -1,5 +1,5 @@
 OJ = require '../oj'
-require 'pubsub-js'
+PubSub = require 'pubsub-js'
 
 tokens = {}
 subscribers = []
@@ -10,7 +10,7 @@ ps =
     event.toUpperCase().replace ' ', '_'
 
   subscribe: (event, method) ->
-    eventName = getEventName event
+    eventName = ps.getEventName event
     if not events[eventName] then events[eventName] = []
 
     token = PubSub.subscribe eventName, method
@@ -20,7 +20,7 @@ ps =
     token
 
   publish: (event, data) ->
-    eventName = getEventName event
+    eventName = ps.getEventName event
     if events[eventName]
       PubSub.publish eventName, data
     else
@@ -47,7 +47,7 @@ ps =
     return
 
   unsubscribeEvent: (event) ->
-    eventName = getEventName event
+    eventName = ps.getEventName event
     if events[eventName]
       OJ.each events[eventName], (method) -> unsubscribe method
     else
@@ -58,6 +58,7 @@ ps =
 Object.seal ps
 Object.freeze ps
 
+OJ.register 'getEventName', ps.getEventName
 OJ.register 'publish', ps.publish
 OJ.register 'subscribe', ps.subscribe
 OJ.register 'unsubscribe', ps.unsubscribe

@@ -1,12 +1,11 @@
 OJ = require '../oj'
-require '../core/object'
-require '../dom/nodeFactory'
+el = require '../dom/element'
 
 # # select
 
 nodeName = 'select'
 
-node = (options, owner = OJ.body, calledFromFactory = false) ->
+node = (options, owner = require '../dom/body', calledFromFactory = false) ->
 
   defaults =
     props:
@@ -45,7 +44,7 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
       retval
     defaults.events.change = newChange
 
-  ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+  ret = el.element nodeName, defaults, owner, calledFromFactory
 
   ret.add 'selectedData', (propName) ->
     ret = ''
@@ -109,7 +108,7 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
   if defaults.values.length > 0
     ret.addOptions defaults.values
 
-  if false is calledFromFactory then OJ.nodes.factory ret, owner
+ 
 
   ret
 

@@ -1,12 +1,19 @@
-OJ = require 'ojs'
+QUnit = require 'qunitjs'
+
+
 QUnit.module 'x-flotchart', setup: ->
   OJ['GENERATE_UNIQUE_IDS'] = true
 
 
 QUnit.test 'Test the flotchart component', ->
   expect 4
-
-  flotchart = OJ.body.make 'flotchart'
+  
+  currentYear = new Date().getFullYear()
+  
+  flotchart = OJ.body.make 'flotchart', data:  
+    data: [[currentYear - 50, 0], [currentYear, 0]]
+    label: 'foo'
+    
 
 
   # Test 1: componentName is flotchart

@@ -1,11 +1,10 @@
 OJ = require '../oj'
-require '../core/object'
-require '../dom/nodeFactory'
-require '../elements/input'
+obj = require '../core/object'
+input = require '../dom/input'
 
 inputName = 'buttoninput'
 
-input = (options, owner = OJ.body) ->
+inpt = (options, owner = require('../dom/body')) ->
 
   defaults =
     props:
@@ -18,12 +17,12 @@ input = (options, owner = OJ.body) ->
     events:
       click: OJ.noop
 
-  OJ.extend defaults, options, true
+  obj.extend defaults, options, true
 
-  ret = OJ.input defaults, owner
+  ret = input defaults, owner
   ret
 
-OJ.inputs.register inputName, input
-module.exports = input
+OJ.inputs.register inputName, inpt
+module.exports = inpt
 
 

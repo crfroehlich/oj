@@ -1,4 +1,5 @@
-OJ = require 'ojs'
+QUnit = require 'qunitjs'
+
 QUnit.module 'to.string'
 QUnit.test 'to.string(null)', ->
   expect 16

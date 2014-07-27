@@ -41,16 +41,19 @@ element =
     ret = ThinDOM null, null, el
     element.finalize ret, tag
     ret.add 'isInDOM', true
-    nodeFactory ret
+    nodeFactory.make ret
     ret
 
   # ## element
   ###
   Create an HTML Element through ThinDom
   ###
-  element: (tag, props, styles, events, text) ->
-    ret = ThinDOM tag, props
-    element.finalize ret, tag, props, styles, events, text
+  element: (tag, options, owner, isCalledFromFactory = false) ->
+    ret = ThinDOM tag, options.props
+    element.finalize ret, tag, options.props, options.styles, options.events, options.text
+    if owner and false is isCalledFromFactory
+      nodeFactory = require './nodeFactory'
+      nodeFactory.make ret, owner
     ret
 
 OJ.register 'restoreElement', element.restoreElement

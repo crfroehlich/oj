@@ -1,12 +1,11 @@
 OJ = require '../oj'
-require '../core/object'
-require '../dom/nodeFactory'
+el = require '../dom/element'
 
 # # ol
 
 nodeName = 'ol'
 
-node = (options, owner = OJ.body, calledFromFactory = false) ->
+node = (options, owner = require('../dom/body'), calledFromFactory = false) ->
 
   defaults =
     props: {}
@@ -15,10 +14,10 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
       click: OJ.noop
 
   OJ.extend defaults, options, true
-  ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+  ret = el.element nodeName, defaults, owner, calledFromFactory
 
 
-  if false is calledFromFactory then OJ.nodes.factory ret, owner
+ 
 
   ret
 

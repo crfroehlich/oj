@@ -1,27 +1,27 @@
 OJ = require '../oj'
 require '../ojInit'
-require '../core/object'
-require '../dom/component'
-require 'jquery'
+component = require '../dom/component'
+$ = require 'jquery'
+require 'flot'
 
 nodeName = 'x-flotchart'
 className = 'flotchart'
 
-component = do ->
-  OJ.components.members[className] = nodeName
-  (options, owner) ->
-    defaults =
-      config: {}
+OJ.components.members[className] = nodeName
 
-      data: []
-      props:
-        class: 'flotchart'
+cmpnt = (options, owner) ->
+  defaults =
+    config: {}
 
-    OJ.extend defaults, options, true
-    ret = OJ.component defaults, owner, nodeName
-    ret.flot = $.plot ret.$, defaults.data, defaults.config
+    data: []
+    props:
+      class: 'flotchart'
 
-    ret
+  OJ.extend defaults, options, true
+  ret = component defaults, owner, nodeName
+  ret.flot = $.plot ret.$, defaults.data, defaults.config
 
-OJ.components.register className, component
-module.exports = component
+  ret
+
+OJ.components.register className, cmpnt
+module.exports = cmpnt

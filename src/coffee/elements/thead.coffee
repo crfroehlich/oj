@@ -1,10 +1,9 @@
 OJ = require '../oj'
-require '../core/object'
-require '../dom/nodeFactory'
+el = require '../dom/element'
 
 nodeName = 'thead'
 
-node = (options, owner = OJ.body, calledFromFactory = false) ->
+node = (options, owner = require('../dom/body'), calledFromFactory = false) ->
 
   defaults =
     props: {}
@@ -15,9 +14,9 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
 
   OJ.extend defaults, options, true
 
-  ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+  ret = el.element nodeName, defaults, owner, calledFromFactory
 
-  if false is calledFromFactory then OJ.nodes.factory ret, owner
+ 
 
   rows = []
   cells = {}
@@ -36,18 +35,18 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
 
     td = row[0].cells[colNo]
 
-    if td then cell = OJ.restoreElement td, 'td'
+    if td then cell = el.restoreElement td, 'td'
     if not td
       while row[0].cells.length < colNo
         idx = row[0].cells.length
         td = row[0].cells[idx-1]
         if td and idx is colNo
-          cell = OJ.restoreElement td, 'td'
+          cell = el.restoreElement td, 'td'
         else
           cell = OJ.nodes.td props: defaults.cells, row, false
 
     if not cell.isValid
-      OJ.nodes.factory cell, row, rowNo + colNo
+      nodeFactory cell, row, rowNo + colNo
 
     cell
 

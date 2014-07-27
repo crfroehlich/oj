@@ -31,10 +31,13 @@ config =
     filename: 'OJ.js'
     dest: './dist'
   test:
-    entries: ['./src/coffee/entrypoint.coffee', glob.sync('./test/**/*.coffee')]
+    entries: [ './src/coffee/entrypoint.coffee', glob.sync('./test/**/*.coffee')]
     dest: './test'
     #paths: ['./', './src/coffee/']
     filename: 'test.js'
+    external:
+      glob: './src/coffee/**/*.coffee'
+      cwd: './src/coffee'
 
 runbrowserify = (name, isWatchify = global.isWatching) ->
   cfg = config[name]

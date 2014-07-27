@@ -1,4 +1,6 @@
-OJ = require 'ojs'
+QUnit = require 'qunitjs'
+require 'datatables'
+
 QUnit.module 'x-datatable', setup: ->
 
 OJ['GENERATE_UNIQUE_IDS'] = true

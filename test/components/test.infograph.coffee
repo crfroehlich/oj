@@ -1,4 +1,6 @@
-OJ = require 'ojs'
+QUnit = require 'qunitjs'
+
+
 QUnit.module 'x-infograph', setup: ->
   OJ['GENERATE_UNIQUE_IDS'] = true
 

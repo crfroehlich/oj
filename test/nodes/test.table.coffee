@@ -1,4 +1,6 @@
-OJ = require 'ojs'
+QUnit = require 'qunitjs'
+Faker = require 'faker'
+
 QUnit.module 'table', setup: ->
   OJ['GENERATE_UNIQUE_IDS'] = true
 

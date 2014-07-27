@@ -1,4 +1,5 @@
-OJ = require 'ojs'
+QUnit = require 'qunitjs'
+
 QUnit.module 'pubSub'
 
 QUnit.asyncTest 'Test pubsub', ->

@@ -1,26 +1,26 @@
 OJ = require '../oj'
-require '../core/object'
-require '../dom/nodeFactory'
+el = require '../dom/element'
+enums = require '../tools/enums'
 
 nodeName = 'textarea'
 
-node = (options, owner = OJ.body, calledFromFactory = false) ->
+node = (options, owner = require('../dom/body'), calledFromFactory = false) ->
 
   defaults =
     props:
-      name: ""
-      placeholder: ""
-      value: ""
-      text: ""
-      maxlength: ""
+      name: ''
+      placeholder: ''
+      value: ''
+      text: ''
+      maxlength: ''
       autofocus: false
       isRequired: false
       rows: 3
       cols: 25
       disabled: false
       readonly: false
-      form: ""
-      wrap: ""
+      form: ''
+      wrap: ''
     styles: {}
     events:
       click: OJ.noop
@@ -31,10 +31,10 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
 
   syncValue = ->
     switch defaults.props.type
-      when OJ.enums.inputTypes.checkbox
-        value = ret.$.is(":checked")
-      when OJ.enums.inputTypes.radio
-        value = ret.$.find(":checked").val()
+      when enums.inputTypes.checkbox
+        value = ret.$.is(':checked')
+      when enums.inputTypes.radio
+        value = ret.$.find(':checked').val()
       else
         value = ret.val()
 
@@ -56,10 +56,10 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
       retval
     defaults.events.change = newChange
 
-  ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+  ret = el.element nodeName, defaults, owner, calledFromFactory
 
 
-  if false is calledFromFactory then OJ.nodes.factory ret, owner
+ 
 
   ret
 

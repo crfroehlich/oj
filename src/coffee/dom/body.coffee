@@ -1,6 +1,10 @@
 OJ = require '../oj'
 _ = require 'lodash'
 require 'thindom'
+nodeFactory = require './nodeFactory'
+element = require './element'
+dom = require './dom'
+
 
 ###
 Persist a handle on the body node
@@ -11,17 +15,12 @@ thinBody.isInDOM = true
 thinBody.getId = ->
   'body'
 
-thinBody.init = _.once -> 
-  nodeFactory = require './nodeFactory'
-  element = require './element'
-  dom = require './dom'
-
-  element.finalize thinBody, 'body'
-  thinBody.count = 0
-  thinBody.root = null
-  dom thinBody, null
-  nodeFactory.addMakeMethod thinBody, 0
-  thinBody.isFullyInit = true  
+element.finalize thinBody, 'body'
+thinBody.count = 0
+thinBody.root = null
+dom thinBody, null
+nodeFactory.addMakeMethod thinBody, 0
+thinBody.isFullyInit = true  
   
 OJ.register 'body', thinBody
 module.exports = thinBody

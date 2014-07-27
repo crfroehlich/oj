@@ -1,11 +1,10 @@
 OJ = require '../oj'
-require '../core/object'
-require '../dom/nodeFactory'
+el = require '../dom/element'
 
 # # a
 nodeName = 'a'
 
-node = (options, owner = OJ.body, calledFromFactory = false) ->
+node = (options, owner = require('../dom/body'), calledFromFactory = false) ->
 
   defaults =
     props:
@@ -45,10 +44,7 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
   else
     defaults.events.click = toggle
 
-  ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
-
-
-  if false is calledFromFactory then OJ.nodes.factory ret, owner
+  ret = el.element nodeName, defaults, owner, calledFromFactory
 
   ret
 

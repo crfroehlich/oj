@@ -1,12 +1,11 @@
 OJ = require '../oj'
-require '../core/object'
-require '../dom/nodeFactory'
-require '../tools/enums'
+el = require '../dom/element'
+enums = require '../tools/enums'
 
 # # input
 
 nodeName = 'input'
-node = (options, owner = OJ.body, calledFromFactory = false) ->
+node = (options, owner = require('../dom/body'), calledFromFactory = false) ->
 
   defaults =
     props:
@@ -20,18 +19,19 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
 
   OJ.extend defaults, options, true
 
-  if not defaults.props.type or not OJ.enums.inputTypes[defaults.props.type]
+  if not defaults.props.type or not enums.inputTypes[defaults.props.type]
     throw new Error 'No matching input type for {' + defaults.props.type + '} could be found.'
-  thisType = OJ.enums.inputTypes[defaults.props.type]
+  thisType = enums.inputTypes[defaults.props.type]
 
   syncValue = ->
     switch thisType
-      when OJ.enums.inputTypes.checkbox
+      when enums.inputTypes.checkbox
         ret.value = ret.$.is ':checked'
-      when OJ.enums.inputTypes.radio
+      when enums.inputTypes.radio
         ret.value = ret.$.find(':checked').val()
       else
         ret.value = ret.val()
+    defaults.props.value = ret.value    
     ret.value
 
   ###
@@ -72,10 +72,10 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
   defaults.events.focusout = newFocusout
 
 
-  ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+  ret = el.element nodeName, defaults, owner, calledFromFactory
   ret.value = defaults.props.value
 
-  if false is calledFromFactory then OJ.nodes.factory ret, owner
+ 
 
   ret
 

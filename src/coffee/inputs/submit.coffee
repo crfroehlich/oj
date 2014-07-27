@@ -1,11 +1,11 @@
 OJ = require '../oj'
 require '../core/object'
 require '../dom/nodeFactory'
-require '../elements/input'
+input = require '../dom/input'
 
 inputName = 'submit'
 
-input = (options, owner = OJ.body) ->
+inpt = (options, owner = require('../dom/body')) ->
 
   defaults =
     props:
@@ -16,8 +16,8 @@ input = (options, owner = OJ.body) ->
 
   OJ.extend defaults, options, true
 
-  ret = OJ.input defaults, owner
+  ret = input defaults, owner
   ret
 
-OJ.inputs.register inputName, input
-module.exports = input
+OJ.inputs.register inputName, inpt
+module.exports = inpt

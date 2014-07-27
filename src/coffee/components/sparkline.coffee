@@ -1,30 +1,29 @@
 OJ = require '../oj'
 require '../ojInit'
-require '../core/object'
-require '../dom/component'
-require 'jquery'
+component = require '../dom/component'
+require 'kapusta-jquery.sparkline'
 
 nodeName = 'x-sparkline'
 className = 'sparkline'
 
-component = do ->
-  OJ.components.members[className] = nodeName
-  (options, owner) ->
-    defaults =
-      config:
-        type: 'line'
-        height: '70'
-        width: ''
-        enableTagOptions: true
-      data: []
-      props:
-        class: 'sparkline'
+OJ.components.members[className] = nodeName
 
-    OJ.extend defaults, options, true
-    ret = OJ.component defaults, owner, nodeName
-    ret.$.sparkline defaults.data, defaults.config
+cmpnt = (options, owner) ->
+  defaults =
+    config:
+      type: 'line'
+      height: '70'
+      width: ''
+      enableTagOptions: true
+    data: []
+    props:
+      class: 'sparkline'
 
-    ret
+  OJ.extend defaults, options, true
+  ret = component defaults, owner, nodeName
+  ret.$.sparkline defaults.data, defaults.config
 
-OJ.components.register className, component
-module.exports = component
+  ret
+
+OJ.components.register className, cmpnt
+module.exports = cmpnt

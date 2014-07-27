@@ -96,16 +96,24 @@
     },
     "modernizr": "Modernizr",
     "google-code-prettify": "prettify",
-    "kapusta-jquery.sparkline": "kapusta-jquery.sparkline",
+    "kapusta-jquery.sparkline": {
+      "depends": [
+        "jquery:$"
+      ]
+    },
     "jquery.easy-pie-chart": {
       "depends": [
-        "jquery:$",
-        "requirejs"
+        "jquery:$"
       ]
     },
     "excanvas": {
       "depends": [
         "jquery:$"
+      ]
+    },
+    "flot": {
+      "depends": [
+        "jquery:jQuery"
       ]
     },
     "flot-resize": {
@@ -136,6 +144,7 @@
     "google-code-prettify": ".\\bower_components\\google-code-prettify\\src\\prettify.js",
     "kapusta-jquery.sparkline": ".\\bower_components\\kapusta-jquery.sparkline\\dist\\jquery.sparkline.min.js",
     "jquery.easy-pie-chart": ".\\bower_components\\jquery.easy-pie-chart\\dist\\jquery.easypiechart.js",
+    "flot": ".\\bower_components\\flot\\jquery.flot.js",
     "excanvas": ".\\bower_components\\flot\\excanvas.min.js",
     "flot-resize": ".\\bower_components\\flot\\jquery.flot.resize.js",
     "datatables": ".\\bower_components\\datatables\\media\\js\\jquery.dataTables.js",
