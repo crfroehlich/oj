@@ -45,11 +45,14 @@ runbrowserify = (name, isWatchify = global.isWatching) ->
   bundleMethod = (if true is isWatchify then watchify else browserify)
   bundleCfg =
     # Specify the entry point of your app
+    standaone: 'OJ', 
+    #commondir: false
     entries: cfg.entries
     #paths: cfg.paths
-    fullPaths: true
+    #fullPaths: true
     # Add file extentions to make optional in your requires
     extensions: [ '.coffee' ]
+    debug: true
     
   #if cfg.paths? then bundleCfg.paths = cfg.paths
 
@@ -63,7 +66,7 @@ runbrowserify = (name, isWatchify = global.isWatching) ->
     
     bundler
       # Enable source maps!
-      .bundle debug: true, standaone: 'OJS'
+      .bundle debug: true, standaone: 'OJ', fullPaths: true, commondir: false
       # Report compile errors
       .on 'error', handleErrors
       # Use vinyl-source-stream to make the
