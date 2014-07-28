@@ -86,6 +86,7 @@
     <Content Include="gulp\tasks\stripbom.coffee" />
     <Content Include="src\coffee\async\async.coffee" />
     <Content Include="gulpfile.coffee" />
+    <Content Include="gulp\tasks\uglify.coffee" />
     <None Include="src\coffee\core\object.coffee" />
     <None Include="src\coffee\core\property.coffee" />
     <Content Include="src\css\main.css" />

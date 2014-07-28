@@ -63,7 +63,7 @@ runbrowserify = (name, isWatchify = global.isWatching) ->
     
     bundler
       # Enable source maps!
-      .bundle debug: true
+      .bundle debug: true, standaone: 'OJS'
       # Report compile errors
       .on 'error', handleErrors
       # Use vinyl-source-stream to make the
