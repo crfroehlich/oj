@@ -1,30 +1,26 @@
-OJ = require '../oj'
-require '../ojInit'
-component = require '../dom/component'
+﻿do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
+  nodeName = 'x-datatable'
+  className = 'datatable'
+  
+  OJ.components.members[className] = nodeName
+  
+  OJ.components.register className, (options, owner) ->
+    defaults = 
+      opts:
+        data: []
+        columns: []
+      table: 
+        class: ''
+      props:
+        class: ''
+      rootNodeType: 'table'
+    
+    OJ.extend defaults, options, true
+    ret = OJ.component defaults, owner, nodeName 
+    ret.empty()
+    ret.dataTable = ret.$.DataTable defaults.opts
 
-className = 'datatable'
-nodeName = 'x-datatable'
+    ret
 
-OJ.components.members[className] = nodeName
-
-cmpnt = (options, owner) ->
-  defaults =
-    opts:
-      data: []
-      columns: []
-    table:
-      class: ''
-    props:
-      class: ''
-    rootNodeType: 'table'
-
-  OJ.extend defaults, options, true
-  ret = component defaults, owner, nodeName
-  ret.empty()
-  ret.dataTable = ret.$.DataTable defaults.opts
-
-  ret
-
-OJ.components.register className, cmpnt
-module.exports = cmpnt
+  return
 

@@ -1,8 +1,9 @@
 {
   "name": "OJ",
-  "version": "0.4.25",
+  "version": "0.4.22",
   "main": [
-    "dist/OJ.min.js"
+    "dist/OJ.min.js",
+    "dist/release.html"
   ],
   "ignore": [
     ".editorconfig",
@@ -13,15 +14,27 @@
     "oj.sln"
   ],
   "dependencies": {
+    "jquery": ">= 2.1.1",
+    "bootstrap": ">= 3.2.0",
     "jquery-ui": ">= 1.11.0",
     "modernizr": ">= 2.7.2",
     "google-code-prettify": ">= 1.0.1",
+    "lodash": ">= 2.4.1",
+    "setimmediate": ">= 1.0.1",
+    "localforage": ">=0.2.1",
+    "thindom": ">=0.0.12",
+    "mousetrap": ">=1.4.6",
+    "es6-shim": ">=0.10.1",
     "kapusta-jquery.sparkline": "~2.1.3",
     "jquery.easy-pie-chart": "~2.1.4",
     "flot": "~0.8.2",
+    "fontawesome": "~4.0.3",
     "datatables": "~1.10.0",
+    "pubsub-js": "~1.4.2",
     "jquery-cookie": "~1.4.1",
+    "html5-history-api": "~4.1.0",
     "jquery-validate": "~1.12.0",
+    "bluebird": "~2.1.3",
     "json-to-table": "*"
   },
   "overrides": {
@@ -36,7 +49,17 @@
         "excanvas.min.js",
         "jquery.flot.resize.js"
       ]
+    },
+    "fontawesome": {
+      "main": [
+        "css/font-awesome.min.css"
+      ]
     }
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "less.js": ">= 1.7.0",
+    "qunit": ">= 1.14.0",
+    "coffee-script": ">= 1.7.1",
+    "Faker": ">= 0.7.0"
+  }
 }

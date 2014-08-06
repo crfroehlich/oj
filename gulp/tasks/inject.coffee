@@ -1,4 +1,4 @@
-gulp = require 'gulp'
+﻿gulp = require 'gulp'
 gutil = require 'gulp-util'
 rename = require 'gulp-rename'
 path = require 'path'
@@ -22,7 +22,7 @@ injectTask = (path = '', pageName = '', sourceFiles = [], includeDevDependencies
       addPrefix: '..')
     #4: Inject all Bower resources into the file  
     .pipe wiredepStream
-      exclude: [/ojs/, /backbone/, /underscore/, /require/, /jquery.js/, /jqueryy-migrate/, /jquery-ui/] #these will break Lo-Dash
+      exclude: [/backbone/, /underscore/, /require/] #these will break Lo-Dash
       devDependencies: includeDevDependencies
     #5: write the file to disk  
     .pipe gulp.dest path
@@ -34,21 +34,13 @@ injectTask = (path = '', pageName = '', sourceFiles = [], includeDevDependencies
 # Inject JS & CSS Files
 gulp.task 'inject', ->
   
-  src = [
-    './src/coffee/*.js'
-    './src/coffee/components/component.js'
-    './src/coffee/components/filters/filterComponent.js'
-    './src/coffee/**/*.js'
-    './src/less/**/*.css'
-    './src/css/**/*.css'
-  ]
   #Inject into dev.html
-  injectTask './src', 'dev', src.concat ['./src/icons/pictoicons/css/picto.css']
+  injectTask './src', 'dev', [content.files.js, content.files.css]
   
   # Repeat for Unit Tests HTML page
-  injectTask './test', 'test', src.concat(['./test/**/*.js*']), true
+  injectTask './test', 'test', [content.files.js, content.files.testJs, content.files.css], true
   
   # Repeat for Release HTML page
-  injectTask './dist', 'release', ['./dist/**/*.min.*']
+  injectTask './dist', 'release', ['./dist/**/*.min*']
   
   return

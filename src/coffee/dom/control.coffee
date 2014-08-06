@@ -1,20 +1,21 @@
-OJ = require '../oj'
-el = require './element'
-obj = require '../core/object'
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
 
-###
-Create a set of HTML Elements through ThinDom
-###
-control = (options = obj.object(), owner, tagName) ->
-  if not tagName.startsWith 'y-' then tagName = 'y-' + tagName
+  ###
+  Create a set of HTML Elements through ThinDom
+  ###
+  control = (options = OJ.object(), owner, tagName) ->
+    if not tagName.startsWith 'y-' then tagName = 'y-' + tagName
+    
+    rootNodeType = options.rootNodeType or OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] or 'div'
+    
+    ret = OJ.element rootNodeType, options.props, options.styles, options.events, options.text
+    OJ.nodes.factory ret, owner
+    
+    ret.add 'controlName', tagName
+    
+    ret
+    
+  OJ.register 'control', control
 
-  rootNodeType = options.rootNodeType or OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] or 'div'
+  return
 
-  ret = el.element rootNodeType, options, owner, false
-
-  ret.add 'controlName', tagName
-
-  ret
-
-OJ.register 'control', control
-module.exports = control

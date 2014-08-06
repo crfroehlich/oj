@@ -1,15 +1,13 @@
-notify = require 'gulp-notify'
-module.exports = (err...) ->
+﻿notify = require 'gulp-notify'
+module.exports = ->
+  args = Array::slice.call(arguments)
   
   # Send error to notification center with gulp-notify
-  onerror = notify.onError(
-    title: 'Gulp Task Error'
-    message: '<%= error.message %> /n Stack Trace: <%= error.stack %>'
-    notifier: (opts, callback) ->
-      console.error 'Title: ', opts.title
-      console.error 'Message: ', opts.message
-  )
-  onerror err...
+  notify.onError(
+    title: 'Compile Error'
+    message: '<%= error.message %>'
+  ).apply this, args
+  
   # Keep gulp from hanging on this task
   @emit 'end'
-  
+  return

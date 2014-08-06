@@ -1,25 +1,26 @@
-OJ = require '../oj'
-el = require '../dom/element'
-
 # # ol
 
-nodeName = 'ol'
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
+  'use strict'
+  
+  nodeName = 'ol'
+  
+  OJ.nodes.register nodeName, (options, owner = OJ.body, calledFromFactory = false) ->
+    
+    defaults =
+      props: {}
+      styles: {}
+      events:
+        click: OJ.noop
+    
+    OJ.extend defaults, options, true
+    ret = OJ.element nodeName, defaults.props, defaults.styles, defaults.events, defaults.text
+    
+    
+    if false is calledFromFactory then OJ.nodes.factory ret, owner
 
-node = (options, owner = require('../dom/body'), calledFromFactory = false) ->
+    ret
 
-  defaults =
-    props: {}
-    styles: {}
-    events:
-      click: OJ.noop
-
-  OJ.extend defaults, options, true
-  ret = el.element nodeName, defaults, owner, calledFromFactory
+  return
 
 
- 
-
-  ret
-
-OJ.nodes.register nodeName, node
-module.exports = node

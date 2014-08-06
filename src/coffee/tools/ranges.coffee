@@ -1,23 +1,20 @@
-OJ = require '../oj'
-_ = require 'lodash'
-
 # # ranges
 
-rng = 
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
 
   # ## range
   # Using [Lo-Dash](http://lodash.com/docs#range)'s `range` method
-  range: (params...) ->
+  OJ.register 'range', (params...) ->
     _.range params...
-
+  
   # ## rangeMin
   # Using [Lo-Dash](http://lodash.com/docs#min)'s `min` method
-  rangeMin: (params...) ->
+  OJ.register 'rangeMin', (params...) ->
     _.min params...
 
   # ## rangeMax
   # Using [Lo-Dash](http://lodash.com/docs#max)'s `max` method
-  rangeMax: (params...) ->
+  OJ.register 'rangeMax', (params...) ->
     _.max params...
 
   # ## stringRangeToSubRanges
@@ -26,13 +23,13 @@ rng =
   Uses the first letter of each string value in the array to convert to unique code character (lower case)
   Builds a int range based on unique code chars.
   ###
-  stringRangeToSubRanges: (n = 6, range = []) ->
+  stringRangeToSubRanges = (n = 6, range = []) ->
     charRange = []
 
 
-    each range, (val) ->
+    OJ.each range, (val) ->
       char = val.trim()[0].toLowerCase()
-      if false is obj.contains charRange, char
+      if false is OJ.contains charRange, char
         charRange.push char.charCodeAt()
 
     ret = rangeToSubRanges n, charRange
@@ -56,19 +53,19 @@ rng =
   Divides the original array into the specified number of sub arrays.
   Overflow is passed to the final partition.
   ###
-  rangeToSubRanges: (n = 6, range = []) ->
-    ret = obj.object()
-    rangeLow = rng.rangeMin range
-    rangeHigh = rng.rangeMax range
+  rangeToSubRanges = (n = 6, range = []) ->
+    ret = OJ.object()
+    rangeLow = OJ.rangeMin range
+    rangeHigh = OJ.rangeMax range
 
     distance = rangeHigh - rangeLow
     subRangeSize = distance/n
-    subRanges = ret.add 'ranges', obj.object()
+    subRanges = ret.add 'ranges', OJ.object()
     chunkVal = rangeLow
 
-    map = obj.object()
+    map = OJ.object()
 
-    i = 0
+    i = 0;
     while i < n
       i += 1
       if i < n then jump = Math.round subRangeSize
@@ -77,8 +74,8 @@ rng =
         if chunkVal + jump <= rangeHigh
           jump += rangeHigh - chunkVal - jump + 1
 
-      subRange = rng.range chunkVal, chunkVal + jump
-      each subRange, (val) -> map.add val, i
+      subRange = OJ.range chunkVal, chunkVal + jump
+      OJ.each subRange, (val) -> map.add val, i
       subRanges[i] = subRange
       chunkVal += jump
 
@@ -87,8 +84,8 @@ rng =
 
     ret
 
-Object.seal rng
-Object.freeze rng
+  OJ.register 'stringRangeToSubRanges', stringRangeToSubRanges
+  OJ.register 'rangeToSubRanges', rangeToSubRanges
 
-OJ.register 'ranges', rng
-module.exports = rng  
+  return
+

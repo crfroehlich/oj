@@ -1,25 +1,18 @@
-gulp = require 'gulp'
+﻿gulp = require 'gulp'
 gutil = require 'gulp-util'
 content = require '../util/files'
 
- 
 # Init watch
 gulp.task 'watch', ->
   
-  gulp.watch ['./src/**/*.coffee', './src/**/*.less'], [
+  #gulp.watch(files.js, ['inject']);
+  gulp.watch content.files.coffee, [
     'compile'
   ]
-  gulp.watch ['./test/**/*.coffee'], [
+  gulp.watch content.files.test, [
     'compile'
   ]
-  
-
-gulp.task 'watch-src', ['compile-src'], ->
-  
-  gulp.watch ['./src/**/*.coffee', './src/**/*.less'], [
-    'compile-src'
+  gulp.watch content.files.css, [
+    'compile'
   ]
-  gulp.watch ['./test/**/*.coffee'], [
-    'compile-src'
-  ]
-  
+  return

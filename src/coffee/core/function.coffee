@@ -1,29 +1,32 @@
-OJ = require '../oj'
-isMethod = require '../tools/is'
-console = require '../tools/console'
+﻿do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
 
-func = do ->
-  # Wrap the execution of a method in a try..catch..finally
-  # ignore errors failing to exec self-executing functions
+  # Wrap the execution of a method in a try..catch..finally     
+  # ignore errors failing to exec self-executing functions 
   # Return a method wrapped in a try..catch..finally
-  tryExec: (tryFunc, params...) ->
+  OJ.register "tryExec", tryExec = (tryFunc) ->
+    'use strict'
+    ret = false
+    that = this
     try
-      ret = tryFunc params... if isMethod.method tryFunc
+      ret = tryFunc.apply(that, Array::slice.call(arguments, 1))  if OJ.is.method(tryFunc)
     catch exception
-      if (exception.name is 'TypeError' or exception.type is 'called_non_callable') and exception.type is 'non_object_property_load'
-        console.info 'Ignoring exception: ', exception
+      if (exception.name is "TypeError" or exception.type is "called_non_callable") and exception.type is "non_object_property_load"
+        OJ.console.info "Ignoring exception: ", exception
       else
-        console.error exception
+        OJ.console.error exception
     finally
 
     ret
 
 
-  method: (tryFunc, params...) ->
-    =>
-      func.tryExec.apply @, params...
+  OJ.register "method", method = (tryFunc) ->
+    'use strict'
+    that = this
+    ->
+      args = Array::slice.call(arguments, 0)
+      args.unshift tryFunc
+      OJ.tryExec.apply that, args
 
-
- OJ.register 'tryExec', func.tryExec
- OJ.register 'method', func.method
- module.exports = func
+  return
+ 
+ 

@@ -1,44 +1,36 @@
-OJ = require '../oj'
-$ = require 'jquery'
-_ = require 'lodash'
-isMethod = require '../tools/is'
-each = require '../tools/each'
-property = require '../core/property'
-
-func = require './function'
-
 # # object
 
-retObj = 
-
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
+  
   # ## [OJ](oj.html).object
   # create an object with helper `add` and `each` methods.
-  object: (obj = {}) ->
+  object = ->
+    obj = {}
     
     ###
     Add a property to the object and return it
     ###
-    obj.add = (name, val) ->
-      property obj, name, val
+    obj.add = (name, val) -> 
+      OJ.property obj, name, val
       obj
-
+    
     obj.add 'each', (callback) ->
-      each obj, (val, key) ->
+      OJ.each obj, (val, key) ->
         if key isnt 'each' and key isnt 'add'
           callback val, key
-
+        
     obj
 
-
+  OJ.register 'object', object
+  
   # ## [OJ](oj.html).isInstanceOf
   # determines is a thing is an instance of a Thing, assuming the things were all created in OJ
-  isInstanceOf: (name, obj) ->
-    to = require '../tools/to'
-    retObj.contains(name, obj) and to.bool(obj[name])
-
+  OJ.register 'isInstanceOf', (name, obj) ->
+    OJ.contains(name, obj) and OJ.to.bool(obj[name])
+   
   # ## [OJ](oj.html).contains
-  # true if the `object` contains the value
-  contains: (object, index) ->
+  # true if the `object` contains the value   
+  OJ.register 'contains', (object, index) ->
     ret = false
     if object
       ret = _.contains object, index
@@ -46,71 +38,64 @@ retObj =
 
   # ## [OJ](oj.html).compare
   # compare two objects/arrays/values for strict equality
-  compare: (obj1, obj2) ->
+  OJ.register 'compare', (obj1, obj2) ->
     _.isEqual obj1, obj2
-
+    
   # ## [OJ](oj.html).clone
-  # copy all of the values (recursively) from one object to another.
-  clone: (data) ->
+  # copy all of the values (recursively) from one object to another.  
+  OJ.register 'clone', (data) ->
     _.cloneDeep data true
 
   # ## [OJ](oj.html).serialize
   # Convert an object to a JSON representation of the object
-  serialize: (data) ->
+  OJ.register 'serialize', (data) ->
     ret = ''
-    func.tryExec ->
+    OJ.tryExec ->
       ret = JSON.stringify(data)
       return
     ret or ''
 
   # ## [OJ](oj.html).deserialize
   # Convert a JSON string to an object
-  deserialize: (data) ->
+  OJ.register 'deserialize', (data) ->
     ret = {}
     if data
-      func.tryExec ->
-        ret = $.parseJSON(data)
+      OJ.tryExec ->
+        ret = window.$.parseJSON(data)
         return
 
-      ret = {}  if isMethod.nullOrEmpty(ret)
+      ret = {}  if OJ.is.nullOrEmpty(ret)
     ret
 
   # ## [OJ](oj.html).params
   # Convert an object to a delimited list of parameters (normally query-string parameters)
-  params: (data, delimiter = '&') ->
+  OJ.register 'params', (data, delimiter = '&') ->
     ret = ''
     if delimiter is '&'
-      func.tryExec ->
+      OJ.tryExec ->
         ret = $.param(data)
         return
 
     else
-      each data, (val, key) ->
+      OJ.each data, (val, key) ->
         ret += delimiter  if ret.length > 0
         ret += key + '=' + val
         return
 
-    to.string ret
+    OJ.to.string ret
 
   # ## [OJ](oj.html).extend
   # copy the properties of one object to another object
-  extend: (destObj, srcObj, deepCopy = false) ->
+  OJ.register 'extend', (destObj, srcObj, deepCopy = false) ->
     ret = destObj or {}
     if deepCopy is true
       ret = $.extend(deepCopy, ret, srcObj)
     else
       ret = $.extend(ret, srcObj)
     ret
+  
+  
+  
+  
+  return
 
-
-OJ.register 'object', retObj.object
-OJ.register 'isInstanceOf', retObj.isInstanceOf
-OJ.register 'contains', retObj.contains
-OJ.register 'compare', retObj.compare
-OJ.register 'clone', retObj.clone
-OJ.register 'serialize', retObj.serialize
-OJ.register 'deserialize', retObj.deserialize
-OJ.register 'params', retObj.params
-OJ.register 'extend', retObj.extend
-
-module.exports = retObj

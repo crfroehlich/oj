@@ -1,17 +1,12 @@
-gulp = require 'gulp'
-
-gulp.task 'compile-src', [ 'browserify', 'inject' ]
+﻿gulp = require 'gulp'
 
 gulp.task 'compile', [
-  'cson'
-  'less'
-  #'img'
-  'compile-src'
+  'coffee'
+  'inject'
 ]
 
 gulp.task 'build', [
   'compile'
-  'test'
   'watch'
 ]
 

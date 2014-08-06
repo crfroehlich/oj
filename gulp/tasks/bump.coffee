@@ -1,4 +1,4 @@
-gulp = require 'gulp'
+﻿gulp = require 'gulp'
 gutil = require 'gulp-util'
 bump = require 'gulp-bump'
 

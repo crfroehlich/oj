@@ -1,68 +1,63 @@
-OJ = require '../oj'
-PubSub = require 'pubsub-js'
-
-tokens = {}
-subscribers = []
-events = {}
-
-ps = 
-  getEventName: (event) ->
+﻿do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
+  
+  tokens = {}
+  subscribers = []
+  events = {}
+  
+  getEventName = (event) ->
     event.toUpperCase().replace ' ', '_'
-
-  subscribe: (event, method) ->
-    eventName = ps.getEventName event
+  
+  subscribe = (event, method) ->
+    eventName = getEventName event
     if not events[eventName] then events[eventName] = []
-
+    
     token = PubSub.subscribe eventName, method
     tokens[token] = token
     subscribers.push method
     events[eventName].push method
     token
-
-  publish: (event, data) ->
-    eventName = ps.getEventName event
+  
+  publish = (event, data) ->
+    eventName = getEventName event
     if events[eventName]
       PubSub.publish eventName, data
     else
       OJ.console.info 'Event named {' + event + '} is not recognized.'
-    return
-
-  unsubscribe: (tokenOrMethod) ->
+    return  
+  
+  unsubscribe = (tokenOrMethod) ->
     if OJ.is.method tokenOrMethod
       if -1 isnt subscribers.indexOf tokenOrMethod
         PubSub.unsubscribe tokenOrMethod
         subscribers = _.remove subscribers, (method) -> method is tokenOrMethod
       else
-        OJ.console.info 'Event method is not recognized.'
+        OJ.console.info 'Event method is not recognized.'  
     else
       if tokens[tokenOrMethod]
         PubSub.unsubscribe tokenOrMethod
         delete tokens[tokenOrMethod]
     return
-
-  unsubscribeAll: () ->
+  
+  unsubscribeAll = () ->
     OJ.each tokens, (token) -> unsubscribe token
     subscribers = []
     events = {}
     return
-
-  unsubscribeEvent: (event) ->
-    eventName = ps.getEventName event
+  
+  unsubscribeEvent = (event) ->
+    eventName = getEventName event
     if events[eventName]
       OJ.each events[eventName], (method) -> unsubscribe method
     else
       OJ.console.info 'Event named {' + event + '} is not recognized.'
     delete events[eventName]
     return
+  
+  OJ.register 'publish', publish  
+  OJ.register 'subscribe', subscribe  
+  OJ.register 'unsubscribe', unsubscribe  
+  OJ.register 'unsubscribeAll', unsubscribeAll  
+  OJ.register 'unsubscribeEvent', unsubscribeEvent  
 
-Object.seal ps
-Object.freeze ps
+  return
 
-OJ.register 'getEventName', ps.getEventName
-OJ.register 'publish', ps.publish
-OJ.register 'subscribe', ps.subscribe
-OJ.register 'unsubscribe', ps.unsubscribe
-OJ.register 'unsubscribeAll', ps.unsubscribeAll
-OJ.register 'unsubscribeEvent', ps.unsubscribeEvent
-
-module.exports = ps

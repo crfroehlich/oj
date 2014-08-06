@@ -1,30 +1,25 @@
-OJ = require '../oj'
-require './async'
-console = require '../tools/console'
-isMethod = require '../tools/is'
-obj = require '../core/object'
-$ = require 'jquery'
+﻿# # ajax
 
-# # ajax
+do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
 
-ajax = do ->
   config = {}
-
+  
   # define a standard on success handler, write out the request stats to a table
   config.onSuccess = (opts, data, url) ->
     response = {}
-    obj.extend response, data, true
+    OJ.extend response, data, true
     opts.onSuccess response
-    console.table [
+    OJ.console.table [
       Webservice: opts.ajaxOpts.url
       StartTime: opts.startTime
       EndTime: new Date()
-    ]
-
+    ] 
+    return
+  
   # define a standard on error handler, write out the request error conext to a table
-  config.onError = (xmlHttpRequest, textStatus, param1, opts = obj.object()) ->
+  config.onError = (xmlHttpRequest, textStatus, param1, opts = OJ.object()) ->
     if textStatus isnt 'abort'
-      console.table [
+      OJ.console.table [
         Webservice: opts.ajaxOpts.url
         Data: opts.ajaxOpts.data
         Failed: textStatus
@@ -34,20 +29,22 @@ ajax = do ->
         ReadyState: xmlHttpRequest.readyState
         ResponseText: xmlHttpRequest.responseText
       ]
+
       opts.onError textStatus
- 
+    return
+  
   # in the case where `opts` is a string, convert it to an object
   optsFromUrl = (opts) ->
-    if isMethod.string opts
+    if OJ.is.string opts
       url = opts
-      opts = obj.object()
-      opts.add 'ajaxOpts', obj.object()
+      opts = OJ.object()
+      opts.add 'ajaxOpts', OJ.object()
       opts.ajaxOpts.add 'url', url
     opts
-
+  
   # define a standard `exec` method to handle all request verbs. Uses the [jQuery.ajax](http://api.jquery.com/category/ajax/) API.
   # `execRequest` returns a promise represent the actual AJAX call.
-
+  
   # - `verb` default value = 'GET'
   # - `opts` object
   # -- `opts.ajaxOpts` object for all jQuery's ajax-specific properties.
@@ -61,36 +58,36 @@ ajax = do ->
           withCredentials: true
         dataType: 'json'
         contentType: 'application/json; charset=utf-8'
-
+        
       onSuccess: OJ.noop
       onError: OJ.noop
       onComplete: OJ.noop
       overrideError: false
       watchGlobal: true
       useCache: false
-
+    
     opts = optsFromUrl opts
-    obj.extend defaults, opts, true
-
+    OJ.extend defaults, opts, true
+    
     defaults.startTime = new Date()
-
-    if false is isMethod.nullOrEmpty defaults.ajaxOpts.data
+    
+    if false is OJ.is.nullOrEmpty defaults.ajaxOpts.data
       # GET requests expect queryString parameters
       if defaults.ajaxOpts.verb is 'GET'
-        defaults.ajaxOpts.data = obj.params defaults.ajaxOpts.data
+        defaults.ajaxOpts.data = OJ.params defaults.ajaxOpts.data
       # all other requests take an object
       else
-        defaults.ajaxOpts.data = obj.serialize defaults.ajaxOpts.data
-
+        defaults.ajaxOpts.data = OJ.serialize defaults.ajaxOpts.data
+    
     getJQueryDeferred = (watchGlobal) ->
       ret = $.ajax defaults.ajaxOpts
-
+      
       ret.done (data, textStatus, jqXHR) ->
         config.onSuccess defaults, data
 
       ret.fail (jqXHR, textStatus, errorText) ->
         config.onError jqXHR, textStatus, errorText, defaults
-
+  
       ret.always (xmlHttpRequest, textStatus) ->
         defaults.onComplete xmlHttpRequest, textStatus
 
@@ -98,20 +95,20 @@ ajax = do ->
 
     promise = getJQueryDeferred(defaults.watchGlobal)
     promise
-
+  
   ajax = {}
-
+  
   # ## post
   # [OJ](oj.html).ajax.post: insert a new object or init a form post
-
+  
   # - `opts` can be an object representing the configuration of the request.
-  # - `opts` can also be a string, representing the URL to hit.
+  # - `opts` can also be a string, representing the URL to hit. 
   ajax.post = (opts) ->
     config.execRequest 'POST', opts
-
+  
   # ## get
   # [OJ](oj.html).ajax.get: get an existing object
-
+  
   # - `opts` can be an object representing the configuration of the request.
   # - `opts` can also be a string, representing the URL to hit.
   #
@@ -120,7 +117,7 @@ ajax = do ->
 
   # ## delete
   # [OJ](oj.html).ajax.delete: delete an existing object
-
+  
   # - `opts` can be an object representing the configuration of the request.
   # - `opts` can also be a string, representing the URL to hit.
   ajax.delete = (opts) ->
@@ -128,13 +125,14 @@ ajax = do ->
 
   # ## put
   # [OJ](oj.html).ajax.put: update an existing object
-
+  
   # - `opts` can be an object representing the configuration of the request.
   # - `opts` can also be a string, representing the URL to hit.
   ajax.put = (opts) ->
     config.execRequest 'PUT', opts
 
-  ajax
+  OJ.async.register 'ajax', ajax
 
-OJ.async.register 'ajax', ajax
-module.exports = ajax
+  return
+  
+

@@ -1,21 +1,22 @@
-paths =
+﻿paths =
+  css: './src/css'
+  js: './src/coffee'
   release: './dist'
   lib: './bower_components'
-  less: './src/less'
   coffee: './src/coffee'
   src: './src'
   test: './test'
-  img: './src/images'
 
 files =
   index: './dist/release.html'
   devIndex: './src/dev.html'
   testIndex: './test/test.html'
   testIndexCoffee: './test/test.coffee.html'
+  css: './src/css/**/*.css'
+  js: './src/coffee/**/*.js'
   coffee: './src/coffee/**/*.coffee'
-  less: './src/less/**/*.less'
-  test: './test/**/*.coffee*'
-  img: './src/images/**/*'
+  test: './test/**/*.coffee'
+  testJs: './test/**/*.js'
   
 module.exports = 
   paths: paths

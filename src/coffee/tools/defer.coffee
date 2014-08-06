@@ -1,10 +1,10 @@
-OJ = require '../oj'
+﻿do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
+  
+  defer = (method, waitMs) ->
+    if setTimeout
+      return setTimeout method, waitMs
+  
+  OJ.register 'defer', defer
 
-defer = (method, waitMs) ->
-  ret = null
-  if setTimeout
-    ret = setTimeout method, waitMs
-  ret
+  return
 
-OJ.register 'defer', defer
-module.exports = defer

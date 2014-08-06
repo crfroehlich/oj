@@ -1,4 +1,4 @@
-gulp = require 'gulp'
+﻿gulp = require 'gulp'
 gutil = require 'gulp-util'
 
 # Publish to npm

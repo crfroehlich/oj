@@ -12,8 +12,8 @@ CACHE:
     for(var i = 0, len = htmlFiles.length; i < len; i += 1) {
         print('../' + htmlFiles[i] + ' \n');
     }
-%>
-
+%> 
+        
 #js
 
 <%
@@ -24,15 +24,15 @@ CACHE:
         print('OJ.' + grunt.template.today("yyyy.m.d") + '.min.js \n');
         print('OJ.' + grunt.template.today("yyyy.m.d") + '.min.js.map \n');
     } else {
-
+        
         var jsVendorFiles = grunt.file.expand(grunt.config('files').vendorJs);
         for(var i = 0, len = jsVendorFiles.length; i < len; i += 1) {
             print('../' + jsVendorFiles[i] + ' \n');
         }
     }
-
+            
 %>
-
+       
 #css
 
 <%
@@ -77,7 +77,7 @@ NETWORK:
             print('../' + jsFiles[i] + ' \n');
         }
     }
-%>
+%>    
 
 #If cache or network fail, what's the fallback?
 FALLBACK:
