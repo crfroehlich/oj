@@ -47,9 +47,6 @@
     </Content>
     <Content Include="dist\humans.txt" />
     <Content Include="dist\robots.txt" />
-    <Content Include="gulpfile.js">
-      <DependentUpon>gulpfile.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\async\ajax.js">
       <DependentUpon>ajax.coffee</DependentUpon>
     </Content>
@@ -225,9 +222,6 @@
       <DependentUpon>to.coffee</DependentUpon>
     </Content>
     <Content Include="gulpfile.coffee" />
-    <Content Include="gulpfile.map">
-      <DependentUpon>gulpfile.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\dom\component.coffee" />
     <Content Include="src\coffee\components\grid.coffee" />
     <Content Include="src\coffee\components\sparkline.coffee" />
@@ -273,9 +267,6 @@
     </Content>
     <Content Include="src\coffee\async\ajax.js.map">
       <DependentUpon>ajax.js</DependentUpon>
-    </Content>
-    <Content Include="gulpfile.js.map">
-      <DependentUpon>gulpfile.js</DependentUpon>
     </Content>
     <Content Include="src\coffee\components\grid.js.map">
       <DependentUpon>grid.js</DependentUpon>
@@ -340,6 +331,30 @@
     <Content Include="src\coffee\dom\generics.js.map">
       <DependentUpon>generics.js</DependentUpon>
     </Content>
+    <Content Include="gulp\index.coffee" />
+    <Content Include="gulp\tasks\bower.coffee" />
+    <Content Include="gulp\tasks\browserify.coffee" />
+    <Content Include="gulp\tasks\bump.coffee" />
+    <Content Include="gulp\tasks\coffeelint.coffee" />
+    <Content Include="gulp\tasks\coffeescript.coffee" />
+    <Content Include="gulp\tasks\compile.coffee" />
+    <Content Include="gulp\tasks\cson.coffee" />
+    <Content Include="gulp\tasks\git.coffee" />
+    <Content Include="gulp\tasks\img.coffee" />
+    <Content Include="gulp\tasks\inject.coffee" />
+    <Content Include="gulp\tasks\less.coffee" />
+    <Content Include="gulp\tasks\npm.coffee" />
+    <Content Include="gulp\tasks\stripbom.coffee" />
+    <Content Include="gulp\tasks\test.coffee" />
+    <Content Include="gulp\tasks\uglify.coffee" />
+    <Content Include="gulp\tasks\watch.coffee" />
+    <Content Include="gulp\util\bundleLogger.coffee" />
+    <Content Include="gulp\util\config.coffee" />
+    <Content Include="gulp\util\files.coffee" />
+    <Content Include="gulp\util\handleErrors.coffee" />
+    <Content Include="gulp\util\header.coffee" />
+    <Content Include="gulp\util\notify.coffee" />
+    <Content Include="gulp\util\scriptFilter.coffee" />
     <None Include="src\coffee\tools\console.coffee" />
     <Content Include="src\coffee\tools\console.js">
       <DependentUpon>console.coffee</DependentUpon>

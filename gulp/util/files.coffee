@@ -1,4 +1,4 @@
-﻿paths =
+paths =
   css: './src/css'
   js: './src/coffee'
   release: './dist'

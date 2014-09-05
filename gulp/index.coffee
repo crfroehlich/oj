@@ -1,4 +1,4 @@
-﻿# includes
+# includes
 fs = require 'fs'
 onlyScripts = require './util/scriptFilter'
 

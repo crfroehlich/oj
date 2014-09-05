@@ -1,5 +1,4 @@
-﻿gulp = require 'gulp'
-pkg = require '../../package.json'
+gulp = require 'gulp'
 header = require 'gulp-header'
 
 extended = [
@@ -17,9 +16,11 @@ succint = '// <%= pkg.name %>@v<%= pkg.version %>, <%= pkg.license %> licensed. 
 
 module.exports =
   succint: ->
+    pkg = require '../../package.json'
     header succint, pkg: pkg
     
   extended: ->
+    pkg = require '../../package.json'
     header extended, pkg: pkg  
     
-  package: pkg
+  package: require '../../package.json'

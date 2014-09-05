@@ -1,4 +1,4 @@
-﻿gulp = require 'gulp'
+gulp = require 'gulp'
 sourceMaps = require 'gulp-sourcemaps'
 coffee = require 'gulp-coffee'
 coffeelint = require 'gulp-coffeelint'
@@ -6,7 +6,6 @@ uglify = require 'gulp-uglify'
 concat = require 'gulp-concat'
 rename = require 'gulp-rename'
 
-header = require '../util/header'
 handleErrors = require '../util/handleErrors'
 logger = require '../util/bundleLogger'
 notify = require '../util/notify'
@@ -29,6 +28,8 @@ gulp.task 'coffee', ->
 
   compileInPlace content.files.coffee
   compileInPlace './test/**/*.coffee'
+  
+  header = require '../util/header'
   
   #2: compile dist files
   gulp.src content.files.coffee

@@ -1,4 +1,4 @@
-﻿path = require("path")
+path = require("path")
 
 # Filters out non .coffee and .js files. Prevents
 # accidental inclusion of possible hidden files

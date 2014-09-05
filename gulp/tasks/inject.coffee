@@ -1,4 +1,4 @@
-﻿gulp = require 'gulp'
+gulp = require 'gulp'
 gutil = require 'gulp-util'
 rename = require 'gulp-rename'
 path = require 'path'

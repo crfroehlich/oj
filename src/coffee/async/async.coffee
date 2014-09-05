@@ -1,3 +1,3 @@
-﻿OJ = require '../oj'
+OJ = require '../oj'
 
 OJ.makeSubNameSpace 'async'

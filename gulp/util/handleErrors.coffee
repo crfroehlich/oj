@@ -1,4 +1,4 @@
-﻿notify = require 'gulp-notify'
+notify = require 'gulp-notify'
 module.exports = ->
   args = Array::slice.call(arguments)
   
