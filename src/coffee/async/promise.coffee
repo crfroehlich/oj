@@ -7,9 +7,7 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
   # See also [Promise.resolve](https://github.com/petkaantonov/bluebird/blob/master/API.md).
   OJ.async.register 'ajaxPromise', (ajax) -> 
     promise = Promise.resolve ajax
-    promise.abort -> 
-      ajax.abort()
-      promise.done()
+    promise.abort = ajax.abort
     promise.readyState = ajax.readyState
     promise
 
