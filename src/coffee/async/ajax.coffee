@@ -9,26 +9,28 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
     response = {}
     OJ.extend response, data, true
     opts.onSuccess response
-    OJ.console.table [
-      Webservice: opts.ajaxOpts.url
-      StartTime: opts.startTime
-      EndTime: new Date()
-    ] 
+    if OJ.LOG_ALL_AJAX
+      OJ.console.table [
+        Webservice: opts.ajaxOpts.url
+        StartTime: opts.startTime
+        EndTime: new Date()
+      ] 
     return
   
   # define a standard on error handler, write out the request error conext to a table
   config.onError = (xmlHttpRequest, textStatus, param1, opts = OJ.object()) ->
     if textStatus isnt 'abort'
-      OJ.console.table [
-        Webservice: opts.ajaxOpts.url
-        Data: opts.ajaxOpts.data
-        Failed: textStatus
-        State: xmlHttpRequest.state()
-        Status: xmlHttpRequest.status
-        StatusText: xmlHttpRequest.statusText
-        ReadyState: xmlHttpRequest.readyState
-        ResponseText: xmlHttpRequest.responseText
-      ]
+      if OJ.LOG_ALL_AJAX_ERRORS
+        OJ.console.table [
+          Webservice: opts.ajaxOpts.url
+          Data: opts.ajaxOpts.data
+          Failed: textStatus
+          State: xmlHttpRequest.state()
+          Status: xmlHttpRequest.status
+          StatusText: xmlHttpRequest.statusText
+          ReadyState: xmlHttpRequest.readyState
+          ResponseText: xmlHttpRequest.responseText
+        ]
 
       opts.onError textStatus
     return

@@ -36,6 +36,10 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
   OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] = 'div'
   # Whether to hook into the global on error event to write errors to console (default false)
   OJ['TRACK_ON_ERROR'] = false
+  #Whether to log all AJAX requests
+  OJ['LOG_ALL_AJAX'] = false
+  #Whether to log all AJAX errors
+  OJ['LOG_ALL_AJAX_ERRORS'] = false
   
   return
   

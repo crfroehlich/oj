@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.4.27
+ * @version v0.4.28
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -239,6 +239,8 @@
     OJ['GENERATE_UNIQUE_IDS'] = false;
     OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] = 'div';
     OJ['TRACK_ON_ERROR'] = false;
+    OJ['LOG_ALL_AJAX'] = false;
+    OJ['LOG_ALL_AJAX_ERRORS'] = false;
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
 
 }).call(this);
@@ -252,31 +254,35 @@
       response = {};
       OJ.extend(response, data, true);
       opts.onSuccess(response);
-      OJ.console.table([
-        {
-          Webservice: opts.ajaxOpts.url,
-          StartTime: opts.startTime,
-          EndTime: new Date()
-        }
-      ]);
+      if (OJ.LOG_ALL_AJAX) {
+        OJ.console.table([
+          {
+            Webservice: opts.ajaxOpts.url,
+            StartTime: opts.startTime,
+            EndTime: new Date()
+          }
+        ]);
+      }
     };
     config.onError = function(xmlHttpRequest, textStatus, param1, opts) {
       if (opts == null) {
         opts = OJ.object();
       }
       if (textStatus !== 'abort') {
-        OJ.console.table([
-          {
-            Webservice: opts.ajaxOpts.url,
-            Data: opts.ajaxOpts.data,
-            Failed: textStatus,
-            State: xmlHttpRequest.state(),
-            Status: xmlHttpRequest.status,
-            StatusText: xmlHttpRequest.statusText,
-            ReadyState: xmlHttpRequest.readyState,
-            ResponseText: xmlHttpRequest.responseText
-          }
-        ]);
+        if (OJ.LOG_ALL_AJAX_ERRORS) {
+          OJ.console.table([
+            {
+              Webservice: opts.ajaxOpts.url,
+              Data: opts.ajaxOpts.data,
+              Failed: textStatus,
+              State: xmlHttpRequest.state(),
+              Status: xmlHttpRequest.status,
+              StatusText: xmlHttpRequest.statusText,
+              ReadyState: xmlHttpRequest.readyState,
+              ResponseText: xmlHttpRequest.responseText
+            }
+          ]);
+        }
         opts.onError(textStatus);
       }
     };
@@ -363,7 +369,10 @@
     OJ.async.register('ajaxPromise', function(ajax) {
       var promise;
       promise = Promise.resolve(ajax);
-      promise.abort = ajax.abort;
+      promise.abort(function() {
+        ajax.abort();
+        return promise.done();
+      });
       promise.readyState = ajax.readyState;
       return promise;
     });
