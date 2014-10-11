@@ -105,7 +105,7 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
           styles: {}
           events: {}
           
-        OJ.extend defaults, options, true
+        OJ.extend defaults, options, false
         ret = OJ.element tag, defaults.props, defaults.styles, defaults.events, defaults.text
 
 
