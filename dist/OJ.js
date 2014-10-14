@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.4.29
+ * @version v0.4.30
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -1088,7 +1088,7 @@
       if (!obj) {
         throw new Error("Cannot define a property without an Object.");
       }
-      if (!name) {
+      if (name == null) {
         throw new Error("Cannot create a property without a valid property name.");
       }
       obj[name] = value;
@@ -1596,7 +1596,7 @@
           styles: {},
           events: {}
         };
-        OJ.extend(defaults, options, true);
+        OJ.extend(defaults, options, false);
         ret = OJ.element(tag, defaults.props, defaults.styles, defaults.events, defaults.text);
         if (false === calledFromFactory) {
           OJ.nodes.factory(ret, owner);
