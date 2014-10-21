@@ -7,7 +7,7 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
   # define a standard on success handler, write out the request stats to a table
   config.onSuccess = (opts, data, url) ->
     response = {}
-    OJ.extend response, data, true
+    OJ.extend response, data
     opts.onSuccess response
     if OJ.LOG_ALL_AJAX
       OJ.console.table [
