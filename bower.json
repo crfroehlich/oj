@@ -1,6 +1,6 @@
 {
   "name": "OJ",
-  "version": "0.4.31",
+  "version": "0.4.32",
   "main": [
     "dist/OJ.min.js",
     "dist/release.html"
@@ -21,8 +21,7 @@
     "google-code-prettify": ">= 1.0.1",
     "lodash": ">= 2.4.1",
     "setimmediate": ">= 1.0.1",
-    "localforage": ">=0.2.1",
-    "thindom": ">=0.0.12",
+    "thindom": ">=1.0.8",
     "mousetrap": ">=1.4.6",
     "es6-shim": ">=0.10.1",
     "es5-shim": ">=0.0.1",
