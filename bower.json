@@ -1,6 +1,6 @@
 {
   "name": "OJ",
-  "version": "0.4.32",
+  "version": "0.4.33",
   "main": [
     "dist/OJ.min.js",
     "dist/release.html"
@@ -15,6 +15,7 @@
   ],
   "dependencies": {
     "jquery": ">= 2.1.1",
+    "thindom": ">= 1.0.10",
     "bootstrap": ">= 3.2.0",
     "jquery-ui": ">= 1.11.0",
     "modernizr": ">= 2.7.2",
