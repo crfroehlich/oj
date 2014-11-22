@@ -22,45 +22,44 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
     if text then ret.text text
     ret.add '$', $(ret.get())
     ret.add '0', ret.get()
-    
+
     ret.add 'bindEvents', _.once () -> bindEvents ret, events
-    ret   
-      
+    ret
+
   # ## element
   ###
   Create an HTML Element through ThinDom
   ###
   OJ.register 'element', (tag, props, styles, events, text) ->
-    ret = ThinDOM tag, props
+    ret = new ThinDOM tag, props
     finalize ret, tag, props, styles, events, text
     ret
-  
+
   # ## restoreElement
   ###
   Restore an HTML Element through ThinDom
   ###
   OJ.register 'restoreElement', (el, tag = el.nodeName) ->
-    ret = ThinDOM null, null, el
+    ret = new ThinDOM null, null, el
     finalize ret, tag
-    ret.add 'isInDOM', true  
-    OJ.nodes.factory ret 
-    ret               
-   
-  
+    ret.add 'isInDOM', true
+    OJ.nodes.factory ret
+    ret
+
+
   ###
   Persist a handle on the body node
   ###
-  if typeof document isnt 'undefined' then body = document.body else body = null  
-  initBody = (el) ->  
-    ret = ThinDOM null, id: 'body', el
+  if typeof document isnt 'undefined' then body = document.body else body = null
+  initBody = (el) ->
+    ret = new ThinDOM null, id: 'body', el
     ret.isInDOM = true
     finalize ret, 'body'
-  
+
   thinBody = initBody body
   thinBody.getId = ->
     'body'
-  
-  OJ.register 'body', thinBody 
-          
-  return
 
+  OJ.register 'body', thinBody
+
+  return

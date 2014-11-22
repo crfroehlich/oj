@@ -1,6 +1,6 @@
 /**
  * ojs - OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.
- * @version v0.4.33
+ * @version v0.4.34
  * @link http://somecallmechief.github.io/oj/
  * @license 
  */
@@ -397,93 +397,6 @@
 (function() {
   (function(OJ) {
     var className, nodeName;
-    nodeName = 'x-datatable';
-    className = 'datatable';
-    OJ.components.members[className] = nodeName;
-    OJ.components.register(className, function(options, owner) {
-      var defaults, ret;
-      defaults = {
-        opts: {
-          data: [],
-          columns: []
-        },
-        table: {
-          "class": ''
-        },
-        props: {
-          "class": ''
-        },
-        rootNodeType: 'table'
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.component(defaults, owner, nodeName);
-      ret.empty();
-      ret.dataTable = ret.$.DataTable(defaults.opts);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var className, nodeName;
-    nodeName = 'x-easypie';
-    className = 'easypie';
-    OJ.components.members[className] = nodeName;
-    OJ.components.register(className, function(options, owner) {
-      var defaults, ret;
-      defaults = {
-        config: {
-          barColor: '#efefef',
-          percent: '50',
-          size: '95',
-          lineWidth: '',
-          trackColor: '#efefef',
-          scaleColor: 'false'
-        },
-        data: [],
-        props: {
-          "class": 'chart easy-pie inline-block primary'
-        }
-      };
-      OJ.extend(defaults, options, true);
-      defaults.props['data-percent'] = defaults.config.percent;
-      ret = OJ.component(defaults, owner, nodeName);
-      ret.$.easyPieChart(defaults.config);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var className, nodeName;
-    nodeName = 'x-flotchart';
-    className = 'flotchart';
-    OJ.components.members[className] = nodeName;
-    OJ.components.register(className, function(options, owner) {
-      var defaults, ret;
-      defaults = {
-        config: {},
-        data: [],
-        props: {
-          "class": 'flotchart'
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.component(defaults, owner, nodeName);
-      ret.flot = $.plot(ret.$, defaults.data, defaults.config);
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var className, nodeName;
     nodeName = 'x-grid';
     className = 'grid';
     OJ.components.members[className] = nodeName;
@@ -573,68 +486,6 @@
 (function() {
   (function(OJ) {
     var className, nodeName;
-    nodeName = 'x-infograph';
-    className = 'infograph';
-    OJ.components.members[className] = nodeName;
-    OJ.components.register(className, function(options, owner) {
-      var active, colNum, count, defaults, disabled, icon, inactive, ret, rowNum, total, unknown, _i, _j, _ref, _ref1;
-      defaults = {
-        icon: 'male',
-        height: 10,
-        width: 10,
-        active: 90,
-        inactive: 10,
-        disabled: 0,
-        unknown: 0,
-        props: {
-          "class": 'infograph'
-        },
-        styles: {
-          color: '#4193d0'
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.component(defaults, owner, nodeName);
-      count = defaults.width * defaults.height;
-      total = defaults.active + defaults.inactive + defaults.disabled + defaults.unknown;
-      if (total > count) {
-        throw new Error('Total members exceeds dimensions of infographic');
-      }
-      unknown = defaults.unknown;
-      disabled = defaults.disabled;
-      inactive = defaults.inactive;
-      active = defaults.active;
-      for (rowNum = _i = _ref = defaults.height; _ref <= 1 ? _i <= 1 : _i >= 1; rowNum = _ref <= 1 ? ++_i : --_i) {
-        for (colNum = _j = _ref1 = defaults.width; _ref1 <= 1 ? _j <= 1 : _j >= 1; colNum = _ref1 <= 1 ? ++_j : --_j) {
-          icon = 'fa fa-fw fa-' + defaults.icon + ' text-' + defaults.icon;
-          if (inactive > 0) {
-            inactive -= 1;
-            icon += '-light';
-          } else if (disabled > 0) {
-            disabled -= 1;
-            icon += ' text-error';
-          } else if (unknown > 0) {
-            unknown -= 1;
-            icon += ' text-warning';
-          } else if (active > 0) {
-            active -= 1;
-          }
-          ret.make('i', {
-            props: {
-              "class": icon
-            }
-          });
-        }
-      }
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var className, nodeName;
     nodeName = 'x-input-group';
     className = 'inputgroup';
     OJ.components.members[className] = nodeName;
@@ -678,35 +529,6 @@
       ret.groupValue = function() {
         return ret.groupInput.val();
       };
-      return ret;
-    });
-  })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
-
-}).call(this);
-
-(function() {
-  (function(OJ) {
-    var className, nodeName;
-    nodeName = 'x-sparkline';
-    className = 'sparkline';
-    OJ.components.members[className] = nodeName;
-    OJ.components.register(className, function(options, owner) {
-      var defaults, ret;
-      defaults = {
-        config: {
-          type: 'line',
-          height: '70',
-          width: '',
-          enableTagOptions: true
-        },
-        data: [],
-        props: {
-          "class": 'sparkline'
-        }
-      };
-      OJ.extend(defaults, options, true);
-      ret = OJ.component(defaults, owner, nodeName);
-      ret.$.sparkline(defaults.data, defaults.config);
       return ret;
     });
   })((typeof global !== 'undefined' && global ? global : (typeof window !== 'undefined' ? window : this)).OJ);
@@ -1516,7 +1338,7 @@
      */
     OJ.register('element', function(tag, props, styles, events, text) {
       var ret;
-      ret = ThinDOM(tag, props);
+      ret = new ThinDOM(tag, props);
       finalize(ret, tag, props, styles, events, text);
       return ret;
     });
@@ -1529,7 +1351,7 @@
       if (tag == null) {
         tag = el.nodeName;
       }
-      ret = ThinDOM(null, null, el);
+      ret = new ThinDOM(null, null, el);
       finalize(ret, tag);
       ret.add('isInDOM', true);
       OJ.nodes.factory(ret);
@@ -1546,7 +1368,7 @@
     }
     initBody = function(el) {
       var ret;
-      ret = ThinDOM(null, {
+      ret = new ThinDOM(null, {
         id: 'body'
       }, el);
       ret.isInDOM = true;
