@@ -1,5 +1,6 @@
-do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
-  module 'all controls', setup: ->
+qunit = require 'qunit'
+
+qunit.module 'all controls', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
     
     
@@ -41,9 +42,3 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
     
         # Test 7: child is removed
         equal `undefined`, document.getElementById(childId), 'Child has been removed'
-    
-    return
-
-  return
- 
-

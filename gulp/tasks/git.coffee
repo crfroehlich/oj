@@ -13,5 +13,9 @@ gulp.task 'tag', ->
   git.add()
   git.commit message
   git.tag v, message
-  git.push 'origin', 'master' #, '--tags'
+  try
+    git.push 'origin', 'master' #, '--tags'
+  catch e
+    console.log e 
+    
   return

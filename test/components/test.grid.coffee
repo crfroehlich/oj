@@ -1,16 +1,15 @@
-do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
-  
-  randomXys = []
-  xy = 0
-  while xy < 10
-    randomXys[xy] = 
-      x: Faker.random.number(99)
-      y: Faker.random.number(3)
-    xy += 1
-      
-  module 'grid', setup: ->
-    OJ['GENERATE_UNIQUE_IDS'] = true
-    
+qunit = require 'qunit'
+ 
+randomXys = []
+xy = 0
+while xy < 10
+  randomXys[xy] = 
+    x: Faker.random.number(99)
+    y: Faker.random.number(3)
+  xy += 1
+
+qunit.module 'grid', setup: ->
+  OJ['GENERATE_UNIQUE_IDS'] = true
   
   test 'Test the grid component', ->
     expect 4

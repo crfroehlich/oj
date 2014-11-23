@@ -1,4 +1,4 @@
-{
+﻿{
   "BrowserLink": {
     "CssIgnorePatterns": "bootstrap*; reset.css; normalize.css; jquery*; toastr*; foundation*; animate*; inuit*; elements*; ratchet*; hint*; flat-ui*; 960*; skeleton*",
     "EnableMenu": true,
@@ -15,8 +15,8 @@
     "CompileOnBuild": false,
     "CompileOnSave": false,
     "GenerateSourceMaps": false,
-    "LintOnBuild": true,
-    "LintOnSave": true,
+    "LintOnBuild": false,
+    "LintOnSave": false,
     "LintResultLocation": "Message",
     "MinifyInPlace": false,
     "OutputDirectory": null,
@@ -42,12 +42,15 @@
     "ValidateStarSelector": true,
     "ValidateVendorSpecifics": true,
     "ValidateZeroUnit": true,
-    "ValidationLocation": "Messages"
+    "ValidationLocation": "Messages",
+    "GenerateRtlSourceMaps": true,
+    "RtlCss": false
   },
   "General": {
     "AllMessagesToOutputWindow": false,
     "KeepImportantComments": true,
-    "SvgPreviewPane": true
+    "SvgPreviewPane": true,
+    "ShowWEIgnoreLogs": true
   },
   "Html": {
     "AutoMinify": false,
@@ -77,7 +80,12 @@
     "MakeMinified": false,
     "MinificationMode": "KeepQuotes",
     "OutputDirectory": null,
-    "RunOnBuild": false
+    "RunOnBuild": false,
+    "AttributeQuotesRemovalMode": "KeepQuotes",
+    "CustomAngularDirectiveList": null,
+    "MinifyAngularBindingExpressions": false,
+    "MinifyKnockoutBindingExpressions": false,
+    "ProcessableScriptTypeList": null
   },
   "JavaScript": {
     "AutoMinify": false,
@@ -89,7 +97,10 @@
     "LintResultLocation": "Message",
     "MakeMinified": false,
     "OutputDirectory": null,
-    "RunOnBuild": false
+    "RunOnBuild": false,
+    "EvalTreatment": "MakeImmediateSafe",
+    "RootDirectory": "/Scripts/",
+    "TermSemicolons": true
   },
   "Less": {
     "CompileOnBuild": false,
@@ -135,7 +146,8 @@
     "OutputDirectory": null,
     "OutputStyle": "Expanded",
     "ProcessSourceMapsForEditorEnhancements": true,
-    "ShowPreviewPane": true
+    "ShowPreviewPane": true,
+    "UseRubyRuntime": false
   },
   "Sprite": {
     "CssOutputDirectory": null,
@@ -146,7 +158,8 @@
     "RunOnBuild": false,
     "ScssOutputDirectory": null,
     "UseAbsoluteUrl": false,
-    "UseFullPathForIdentifierName": true
+    "UseFullPathForIdentifierName": true,
+    "Margin": 1
   },
   "SweetJs": {
     "CompileOnBuild": false,
@@ -162,5 +175,11 @@
     "LintOnSave": true,
     "LintResultLocation": "Message",
     "ShowPreviewPane": true
+  },
+  "Handlebars": {
+    "CompileOnBuild": false,
+    "CompileOnSave": true,
+    "MinifyInPlace": false,
+    "OutputDirectory": null
   }
 }

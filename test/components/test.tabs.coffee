@@ -1,5 +1,6 @@
-do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
-  module 'x-tabs', setup: ->
+qunit = require 'qunit'
+
+qunit.module 'x-tabs', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
      
   
@@ -23,11 +24,3 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
     tabs.remove()
     # Test 4: node is removed
     equal `undefined`, document.getElementById nodeId, 'tabs has been removed'
-    
-    return
-
-  
-
-  return
- 
-

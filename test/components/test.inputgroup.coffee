@@ -1,5 +1,6 @@
-do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
-  module 'x-input-group', setup: ->
+qunit = require 'qunit'
+
+qunit.module 'x-input-group', setup: ->
     OJ['GENERATE_UNIQUE_IDS'] = true
     
   
@@ -23,9 +24,3 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
     inputgroup.remove()
     # Test 4: node is removed
     equal `undefined`, document.getElementById nodeId, 'inputgroup has been removed'
-    
-    return
-  
-  return
- 
-

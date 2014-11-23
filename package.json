@@ -58,6 +58,7 @@
     "pretty-hrtime": "^0.2.2",
     "qunit": "^0.7.5",
     "tiny-lr": "^0.1.4",
+    "uglifyify": "^2.6.0",
     "vinyl-source-stream": "^1.0.0",
     "watchify": "^2.1.1",
     "wiredep": "^2.1.0"
@@ -70,12 +71,81 @@
   "scripts": {},
   "browserify": {
     "transform": [
+      "coffeeify",
       "browserify-shim"
     ]
   },
+  "coffeelintConfig": {
+    "max_line_length": {
+      "level": "warn",
+      "value": 120
+    },
+    "no_trailing_whitespace": {
+      "level": "ignore"
+    }
+  },
   "browserify-shim": {
     "jquery": "global:$",
+    "bootstrap": {
+      "depends": [
+        "jquery:jQuery"
+      ]
+    },
+    "datatables": {
+      "depends": [
+        "jquery:jQuery"
+      ]
+    },
+    "es6-shim": "es6-shim",
+    "html5shiv": "html5shiv",
+    "jquery.validation": {
+      "depends": [
+        "jquery:jQuery"
+      ]
+    },
+    "modernizr": "global:Modernizr",
+    "noty": "noty",
+    "moment": "global:moment",
+    "thindom": "global:ThinDOM",
     "lodash": "global:_",
-    "thindom": "global:ThinDOM"
+    "mousetrap": "global:Mousetrap",
+    "es5-shim": "es5-shim",
+    "pubsub-js": "global:PubSub",
+    "jquery-cookie": {
+      "depends": [
+        "jquery:jQuery"
+      ]
+    },
+    "html5-history-api": "history",
+    "jquery-validate": {
+      "depends": [
+        "jquery:jQuery"
+      ]
+    },
+    "bluebird": "global:Promise",
+    "humanize": "global:Humanize",
+    "qunit":  "global:QUnit"
+  },
+  "browser": {
+    "jquery": "./bower_components/jquery/dist/jquery.min.js",
+    "bootstrap": "./bower_components/bootstrap/dist/js/bootstrap.min.js",
+    "lodash": "./bower_components/lodash/dist/lodash.compat.min.js",
+    "datatables": "./bower_components/datatables/media/js/jquery.dataTables.min.js",
+    "es6-shim": "./bower_components/es6-shim/es6-shim.min.js",
+    "html5shiv": "./bower_components/html5shiv/dist/html5shiv.min.js",
+    "jquery.validation": "./bower_components/jquery.validation/dist/jquery.validate.min.js",
+    "modernizr": "./bower_components/modernizr/modernizr.js",
+    "noty": "./bower_components/noty/js/noty/packaged/jquery.noty.packaged.min.js",
+    "thindom": "./bower_components/thindom/dist/thinDOM.min.js",
+    "mousetrap": "./bower_components/mousetrap/mousetrap.min.js",
+    "es5-shim": "./bower_components/es5-shim/es5-shim.min.js",
+    "pubsub-js": "./bower_components/pubsub-js/src/pubsub.js",
+    "jquery-cookie": "./bower_components/jquery-cookie/jquery.cookie.js",
+    "html5-history-api": "./bower_components/html5-history-api/history.min.js",
+    "jquery-validate": "./bower_components/jquery-validate/dist/jquery.validate.min.js",
+    "bluebird": "./bower_components/bluebird/js/browser/bluebird.js",
+    "humanize": "./bower_components/humanize/public/dist/humanize.min.js",
+    "moment": "./bower_components/moment/min/moment.min.js",
+    "qunit": "./bower_components/qunit/qunit/qunit.js"
   }
 }

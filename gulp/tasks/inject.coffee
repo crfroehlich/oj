@@ -11,7 +11,10 @@ logger = require '../util/bundleLogger'
 notify = require '../util/notify'
 content = require '../util/files'
 
-injectTask = (path = '', pageName = '', sourceFiles = [], includeDevDependencies = false) ->
+src = [
+]
+
+injectTask = (path = '', pageName = '', sourceFiles = [], exclude = [], includeDevDependencies = false) ->
   #1. Add the template to a new stream
   gulp.src path + '/' + pageName + '.tmpl'
     #2: Rename the file from .tmpl to .html
@@ -22,7 +25,7 @@ injectTask = (path = '', pageName = '', sourceFiles = [], includeDevDependencies
       addPrefix: '..')
     #4: Inject all Bower resources into the file  
     .pipe wiredepStream
-      exclude: [/backbone/, /underscore/, /require/] #these will break Lo-Dash
+      exclude: exclude
       devDependencies: includeDevDependencies
     #5: write the file to disk  
     .pipe gulp.dest path
@@ -31,16 +34,19 @@ injectTask = (path = '', pageName = '', sourceFiles = [], includeDevDependencies
     #7: Write any errors to the console
     .on 'error', handleErrors
 
+
+gulp.task 'inject-dev', ->
+  injectTask './src', 'dev', src, [/es5-shim/, /es6-shim/, /backbone/, /underscore/, /require/, /jquery.min.js/, /jqueryy-migrate/]
+
+gulp.task 'inject-test', ->
+  injectTask './test', 'test', src, [/[.]js$/], true
+
+gulp.task 'inject-release', ->
+  injectTask './dist', 'index', src, [/[.]js$/] 
+
 # Inject JS & CSS Files
-gulp.task 'inject', ->
-  
-  #Inject into dev.html
-  injectTask './src', 'dev', [content.files.js, content.files.css]
-  
-  # Repeat for Unit Tests HTML page
-  injectTask './test', 'test', [content.files.js, content.files.testJs, content.files.css], true
-  
-  # Repeat for Release HTML page
-  injectTask './dist', 'release', ['./dist/**/*.min*']
-  
-  return
+gulp.task 'inject-all', [
+  'inject-dev'
+  'inject-test'
+  'inject-release'
+]
