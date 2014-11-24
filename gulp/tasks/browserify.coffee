@@ -16,7 +16,7 @@ glob = require 'glob'
 debug = require 'gulp-debug'
 basename = require('path').basename
 pkg = require '../../package.json'
-uglify = require 'uglifyify'
+minifyify = require 'minifyify'
 
 # FIXME: tests can import modules from dev but must do so via ../../src/coffee/..
 transforms = [
@@ -42,7 +42,7 @@ config =
       cwd: './src/coffee'
     #paths: ['./']
     filename: 'OJ.min.js'
-    transforms: transforms #.concat 'minifyify'
+    transforms: transforms.concat 'minifyify'
     debug: true
     dest: './dist'
     fullPaths: false
@@ -81,7 +81,7 @@ runbrowserify = (name) ->
       when 'uglifyify'
         bundler.transform global: true, transform
       when 'minifyify'
-        bundler.plugin transform, map: 'bundle.map.json', output: cfg.dest + '/' + cfg.filename
+        bundler.plugin transform, map: 'OJ.min.js.map', output: cfg.dest + '/' + cfg.filename
       else
         bundler.transform transform  
   

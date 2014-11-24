@@ -39,10 +39,10 @@ gulp.task 'inject-dev', ->
   injectTask './src', 'dev', src, [/es5-shim/, /es6-shim/, /backbone/, /underscore/, /require/, /jquery.min.js/, /jqueryy-migrate/]
 
 gulp.task 'inject-test', ->
-  injectTask './test', 'test', src, [/[.]js$/], true
+  injectTask './test', 'test', src, null, true
 
 gulp.task 'inject-release', ->
-  injectTask './dist', 'index', src, [/[.]js$/] 
+  injectTask './dist', 'index', src, null
 
 # Inject JS & CSS Files
 gulp.task 'inject-all', [
