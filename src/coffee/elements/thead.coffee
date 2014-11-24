@@ -3,7 +3,7 @@ el = require '../dom/element'
 
 nodeName = 'thead'
 
-node = (options, owner = require('../dom/body'), calledFromFactory = false) ->
+node = (options, owner = OJ.body, calledFromFactory = false) ->
 
   defaults =
     props: {}

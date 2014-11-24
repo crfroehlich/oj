@@ -4,7 +4,7 @@ input = require '../dom/input'
 
 inputName = 'checkbox'
 
-inpt = (options, owner = require('../dom/body')) ->
+inpt = (options, owner = OJ.body) ->
 
   defaults =
     checked: false

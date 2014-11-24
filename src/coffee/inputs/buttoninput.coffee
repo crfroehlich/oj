@@ -4,7 +4,7 @@ input = require '../dom/input'
 
 inputName = 'buttoninput'
 
-inpt = (options, owner = require('../dom/body')) ->
+inpt = (options, owner = OJ.body) ->
 
   defaults =
     props:

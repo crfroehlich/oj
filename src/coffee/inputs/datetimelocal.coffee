@@ -5,7 +5,7 @@ input = require '../dom/input'
 
 inputName = 'datetime-local'
 
-inpt = (options, owner = require('../dom/body')) ->
+inpt = (options, owner = OJ.body) ->
 
   defaults =
     props:

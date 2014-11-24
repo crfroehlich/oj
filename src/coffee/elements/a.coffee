@@ -4,7 +4,7 @@ el = require '../dom/element'
 # # a
 nodeName = 'a'
 
-node = (options, owner = require('../dom/body'), calledFromFactory = false) ->
+node = (options, owner = OJ.body, calledFromFactory = false) ->
 
   defaults =
     props:

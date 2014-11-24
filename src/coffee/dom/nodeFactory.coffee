@@ -127,7 +127,7 @@ makeUniqueId = (el, parent, count) ->
 ###
 Extends a OJ Control class with all the (permitted) methods on the factory
 ###
-exports.make = (el, parent = require('./body'), count = parent.count or 0) ->
+exports.make = (el, parent = OJ.body, count = parent.count or 0) ->
 
   # 1: for clarity, we are returning the extended element
   ret = el

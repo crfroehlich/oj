@@ -104,7 +104,7 @@ exports = {}
 # register semantic/structural aliases
 for loopName in all
   do (tag = loopName) ->
-    method = (options, owner = require './body', calledFromFactory = false) ->
+    method = (options, owner = OJ.body, calledFromFactory = false) ->
 
       defaults =
         props: {}
@@ -119,5 +119,3 @@ for loopName in all
     exports[tag] = method
 
 module.exports = exports
-
-

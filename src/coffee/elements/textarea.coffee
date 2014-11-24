@@ -4,7 +4,7 @@ enums = require '../tools/enums'
 
 nodeName = 'textarea'
 
-node = (options, owner = require('../dom/body'), calledFromFactory = false) ->
+node = (options, owner = OJ.body, calledFromFactory = false) ->
 
   defaults =
     props:

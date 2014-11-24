@@ -3,6 +3,7 @@ el = require '../dom/element'
 _ = require 'lodash'
 array2D = require '../tools/array2D'
 $ = require 'jquery'
+JsonToTable = require '../tools/JsonToTable'
 
 # # table
 
@@ -11,7 +12,7 @@ nodeName = 'table'
 ###
 Create an HTML table. Provides helper methods to create Columns and Cells.
 ###
-node = (options, owner = require('../dom/body'), calledFromFactory = false) ->
+node = (options, owner = OJ.body, calledFromFactory = false) ->
 
   # ## options
   defaults =
@@ -64,7 +65,8 @@ node = (options, owner = require('../dom/body'), calledFromFactory = false) ->
   # internal method for one time initialization of the table
   init = _.once ->
     if defaults.data
-      tblStr = ConvertJsonToTable defaults.data
+      j2t = new JsonToTable defaults.data
+      tblStr = j2t.table
     if tblStr
       jTbl = $ tblStr
 

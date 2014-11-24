@@ -5,7 +5,7 @@ input = require '../dom/input'
 
 inputName = 'week'
 
-inpt = (options, owner = require('../dom/body')) ->
+inpt = (options, owner = OJ.body) ->
 
   defaults =
     props:
