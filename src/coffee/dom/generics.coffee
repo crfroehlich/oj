@@ -1,119 +1,123 @@
+OJ = require '../oj'
+el = require './element'
+require '../ojInit'
+obj = require '../core/object'
+
 # # generic nodes
 
-do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
-  closed = [
-    'abbr'
-    'acronym'
-    'applet'
-    'article'
-    'aside'
-    'audio'
-    'b'
-    'bdo'
-    'big'
-    'blockquote'
-    'button'
-    'canvas'
-    'caption'
-    'center'
-    'cite'
-    'code'
-    'colgroup'
-    'datalist'
-    'dd'
-    'del'
-    'details'
-    'dfn'
-    'dir'
-    'div'
-    'dl'
-    'dt'
-    'em'
-    'fieldset'
-    'figcaption'
-    'figure'
-    'font'
-    'footer'
-    'h1'
-    'h2'
-    'h3'
-    'h4'
-    'h5'
-    'h6'
-    'head'
-    'header'
-    'hgroup'
-    'html'
-    'i'
-    'iframe'
-    'ins'
-    'kbd'
-    'label'
-    'legend'
-    'li'
-    'map'
-    'mark'
-    'menu'
-    'meter'
-    'nav'
-    'noframes'
-    'noscript'
-    'object'
-    'optgroup'
-    'option'
-    'output'
-    'p'
-    'pre'
-    'progress'
-    'q'
-    'rp'
-    'rt'
-    'ruby'
-    's'
-    'samp'
-    'section'
-    'small'
-    'span'
-    'strike'
-    'strong'
-    'style'
-    'sub'
-    'summary'
-    'sup'
-    'tbody'
-    'td'
-    'tfoot'
-    'th'
-    'time'
-    'title'
-    'tr'
-    'tt'
-    'u'
-    'var'
-    'video'
-    'xmp'
-  ]
-  open = 'area base col command css embed hr img keygen meta param source track wbr'.split ' '
-  all = closed.concat open
-  # register semantic/structural aliases
-  for loopName in all
-    do (tag = loopName) ->
-      OJ.nodes.register tag, (options, owner = OJ.body, calledFromFactory = false) ->
+closed = [
+  'abbr'
+  'acronym'
+  'applet'
+  'article'
+  'aside'
+  'audio'
+  'b'
+  'bdo'
+  'big'
+  'blockquote'
+  'button'
+  'canvas'
+  'caption'
+  'center'
+  'cite'
+  'code'
+  'colgroup'
+  'datalist'
+  'dd'
+  'del'
+  'details'
+  'dfn'
+  'dir'
+  'div'
+  'dl'
+  'dt'
+  'em'
+  'fieldset'
+  'figcaption'
+  'figure'
+  'font'
+  'footer'
+  'h1'
+  'h2'
+  'h3'
+  'h4'
+  'h5'
+  'h6'
+  'head'
+  'header'
+  'hgroup'
+  'html'
+  'i'
+  'iframe'
+  'ins'
+  'kbd'
+  'label'
+  'legend'
+  'li'
+  'map'
+  'mark'
+  'menu'
+  'meter'
+  'nav'
+  'noframes'
+  'noscript'
+  'object'
+  'optgroup'
+  'option'
+  'output'
+  'p'
+  'pre'
+  'progress'
+  'q'
+  'rp'
+  'rt'
+  'ruby'
+  's'
+  'samp'
+  'section'
+  'small'
+  'span'
+  'strike'
+  'strong'
+  'style'
+  'sub'
+  'summary'
+  'sup'
+  'tbody'
+  'td'
+  'tfoot'
+  'th'
+  'time'
+  'title'
+  'tr'
+  'tt'
+  'u'
+  'var'
+  'video'
+  'xmp'
+]
+open = 'area base col command css embed hr img keygen meta param source track wbr'.split ' '
+all = closed.concat open
 
-        defaults =
-          props: {}
-          styles: {}
-          events: {}
-          
-        OJ.extend defaults, options, false
-        ret = OJ.element tag, defaults.props, defaults.styles, defaults.events, defaults.text
+exports = {}
+# register semantic/structural aliases
+for loopName in all
+  do (tag = loopName) ->
+    method = (options, owner = require './body', calledFromFactory = false) ->
 
+      defaults =
+        props: {}
+        styles: {}
+        events: {}
 
-        if false is calledFromFactory then OJ.nodes.factory ret, owner
+      obj.extend defaults, options
+      ret = el.element tag, defaults, owner, calledFromFactory
 
-        ret
-    
-  return
+      ret
+    OJ.nodes.register tag, method
+    exports[tag] = method
 
+module.exports = exports
 
 

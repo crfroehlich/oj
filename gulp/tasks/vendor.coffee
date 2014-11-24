@@ -1,4 +1,4 @@
-﻿# browserify task
+# browserify task
 #   ---------------
 #   Bundle javascripty things with browserify!
 #

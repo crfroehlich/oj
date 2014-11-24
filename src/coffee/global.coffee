@@ -1,0 +1,2 @@
+thisGlobal = (if (typeof global isnt 'undefined' and global) then global else (if (typeof self isnt 'undefined' and self) then self else (if (typeof window isnt 'undefined' and window) then window else this)))
+module.exports = thisGlobal

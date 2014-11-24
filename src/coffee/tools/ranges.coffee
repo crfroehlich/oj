@@ -1,20 +1,25 @@
+OJ = require '../oj'
+_ = require 'lodash'
+obj = require '../core/object'
+each = require './each'
+
 # # ranges
 
-do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
+rng = 
 
   # ## range
   # Using [Lo-Dash](http://lodash.com/docs#range)'s `range` method
-  OJ.register 'range', (params...) ->
+  range: (params...) ->
     _.range params...
-  
+
   # ## rangeMin
   # Using [Lo-Dash](http://lodash.com/docs#min)'s `min` method
-  OJ.register 'rangeMin', (params...) ->
+  rangeMin: (params...) ->
     _.min params...
 
   # ## rangeMax
   # Using [Lo-Dash](http://lodash.com/docs#max)'s `max` method
-  OJ.register 'rangeMax', (params...) ->
+  rangeMax: (params...) ->
     _.max params...
 
   # ## stringRangeToSubRanges
@@ -23,13 +28,13 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
   Uses the first letter of each string value in the array to convert to unique code character (lower case)
   Builds a int range based on unique code chars.
   ###
-  stringRangeToSubRanges = (n = 6, range = []) ->
+  stringToSubRanges: (n = 6, range = []) ->
     charRange = []
 
 
-    OJ.each range, (val) ->
+    each range, (val) ->
       char = val.trim()[0].toLowerCase()
-      if false is OJ.contains charRange, char
+      if false is obj.contains charRange, char
         charRange.push char.charCodeAt()
 
     ret = rangeToSubRanges n, charRange
@@ -53,19 +58,19 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
   Divides the original array into the specified number of sub arrays.
   Overflow is passed to the final partition.
   ###
-  rangeToSubRanges = (n = 6, range = []) ->
-    ret = OJ.object()
-    rangeLow = OJ.rangeMin range
-    rangeHigh = OJ.rangeMax range
+  toSubRanges: (n = 6, range = []) ->
+    ret = obj.object()
+    rangeLow = rng.rangeMin range
+    rangeHigh = rng.rangeMax range
 
     distance = rangeHigh - rangeLow
     subRangeSize = distance/n
-    subRanges = ret.add 'ranges', OJ.object()
+    subRanges = ret.add 'ranges', obj.object()
     chunkVal = rangeLow
 
-    map = OJ.object()
+    map = obj.object()
 
-    i = 0;
+    i = 0
     while i < n
       i += 1
       if i < n then jump = Math.round subRangeSize
@@ -74,8 +79,8 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
         if chunkVal + jump <= rangeHigh
           jump += rangeHigh - chunkVal - jump + 1
 
-      subRange = OJ.range chunkVal, chunkVal + jump
-      OJ.each subRange, (val) -> map.add val, i
+      subRange = rng.range chunkVal, chunkVal + jump
+      each subRange, (val) -> map.add val, i
       subRanges[i] = subRange
       chunkVal += jump
 
@@ -84,8 +89,8 @@ do (OJ = (if typeof global isnt 'undefined' and global then global else (if type
 
     ret
 
-  OJ.register 'stringRangeToSubRanges', stringRangeToSubRanges
-  OJ.register 'rangeToSubRanges', rangeToSubRanges
+Object.seal rng
+Object.freeze rng
 
-  return
-
+OJ.register 'ranges', rng
+module.exports = rng  

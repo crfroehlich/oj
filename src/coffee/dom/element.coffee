@@ -1,65 +1,62 @@
+OJ = require '../oj'
+$ = require 'jquery'
+_ = require 'lodash'
+
+require 'thindom'
+
 # # element
 
-do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
-
+element = 
   ###
-   Bind all event handlers
+    Bind all event handlers
   ###
-  bindEvents = (el, events) ->
+  bindEvents: (el, events) ->
     if el then _.forOwn events, (val, key) ->
-      if OJ.is.method val
+      isMethod = require '../tools/is'
+      if isMethod.method val
         callback = (event...) -> val event...
         el.$.on key, callback
         el.add key, callback
-        return
+        null
 
   ###
   Finalize the ThimDOM node
   ###
-  finalize = (ret, tag, props, styles, events, text) ->
+  finalize: (ret, tag, props, styles, events, text) ->
     ret.add 'tagName', tag
     ret.css styles
     if text then ret.text text
     ret.add '$', $(ret.get())
     ret.add '0', ret.get()
 
-    ret.add 'bindEvents', _.once () -> bindEvents ret, events
-    ret
-
-  # ## element
-  ###
-  Create an HTML Element through ThinDom
-  ###
-  OJ.register 'element', (tag, props, styles, events, text) ->
-    ret = new ThinDOM tag, props
-    finalize ret, tag, props, styles, events, text
+    ret.add 'bindEvents', _.once () -> element.bindEvents ret, events
     ret
 
   # ## restoreElement
   ###
   Restore an HTML Element through ThinDom
   ###
-  OJ.register 'restoreElement', (el, tag = el.nodeName) ->
+  restoreElement: (el, tag = el.nodeName) ->
+    nodeFactory = require './nodeFactory'
     ret = new ThinDOM null, null, el
-    finalize ret, tag
+    element.finalize ret, tag
     ret.add 'isInDOM', true
-    OJ.nodes.factory ret
+    nodeFactory.make ret
     ret
 
-
+  # ## element
   ###
-  Persist a handle on the body node
+  Create an HTML Element through ThinDom
   ###
-  if typeof document isnt 'undefined' then body = document.body else body = null
-  initBody = (el) ->
-    ret = new ThinDOM null, id: 'body', el
-    ret.isInDOM = true
-    finalize ret, 'body'
+  element: (tag, options, owner, isCalledFromFactory = false) ->
+    ret = new ThinDOM tag, options.props
+    element.finalize ret, tag, options.props, options.styles, options.events, options.text
+    if owner and false is isCalledFromFactory
+      nodeFactory = require './nodeFactory'
+      nodeFactory.make ret, owner
+    ret
 
-  thinBody = initBody body
-  thinBody.getId = ->
-    'body'
+OJ.register 'restoreElement', element.restoreElement
+OJ.register 'element', element.element
 
-  OJ.register 'body', thinBody
-
-  return
+module.exports = element

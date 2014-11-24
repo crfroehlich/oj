@@ -28,7 +28,8 @@
     "jquery-validate": "^1.13.1",
     "bluebird": "^2.3.11",
     "json-to-table": "*",
-    "html5shiv": "~3.7.2"
+    "html5shiv": "~3.7.2",
+    "noty": "~2.3.1"
   },
   "overrides": {
     "modernizr": {

@@ -99,7 +99,7 @@
     "thindom": "global:ThinDOM",
     "lodash": "global:_",
     "mousetrap": "global:Mousetrap",
-    
+    "noty": "global:noty",
     "pubsub-js": "global:PubSub",
     "jquery-cookie": {
       "depends": [
@@ -130,6 +130,7 @@
     "html5-history-api": "./bower_components/html5-history-api/history.min.js",
     "jquery-validate": "./bower_components/jquery-validate/dist/jquery.validate.min.js",
     "bluebird": "./bower_components/bluebird/js/browser/bluebird.js",
-    "qunit": "./bower_components/qunit/qunit/qunit.js"
+    "qunit": "./bower_components/qunit/qunit/qunit.js",
+    "noty": "./bower_components/noty/js/noty/packaged/jquery.noty.packaged.min.js"
   }
 }

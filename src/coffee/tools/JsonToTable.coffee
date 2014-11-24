@@ -1,4 +1,4 @@
-﻿
+
 ###
 Return just the keys from the input array, optionally only for the specified search_value
 version: 1109.2015

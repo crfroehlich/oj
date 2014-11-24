@@ -1,91 +1,99 @@
-do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
-  
-  OJ.is.register 'bool', (boolean) ->
-    _.isBoolean boolean
+OJ = require '../oj'
+$ = require 'jquery'
+_ = require 'lodash'
 
-  OJ.is.register 'arrayNullOrEmpty', (arr) ->
-    _.isEmpty arr
+each = require './each'
 
-  OJ.is.register 'stringNullOrEmpty', (str) ->
-    str and (not str.length or str.length is 0 or not str.trim or not str.trim())
+isMethod = {}
 
-  OJ.is.register 'numberNullOrEmpty', (num) ->
-    not num or isNaN(num) or not num.toPrecision
+isMethod.bool = (boolean) ->
+  _.isBoolean boolean
 
-  OJ.is.register 'dateNullOrEmpty', (dt) ->
-    not dt or not dt.getTime
+isMethod.arrayNullOrEmpty = (arr) ->
+  _.isEmpty arr
 
-  OJ.is.register 'objectNullOrEmpty', (obj) ->
-    _.isEmpty obj or not Object.keys(obj) or Object.keys(obj).length is 0
+isMethod.stringNullOrEmpty = (str) ->
+  str and (not str.length or str.length is 0 or not str.trim or not str.trim())
 
-  OJ.is.register 'plainObject', (obj) ->
-    _.isPlainObject obj 
-    
-  OJ.is.register 'object', (obj) ->
-    _.isObject obj
+isMethod.numberNullOrEmpty = (num) ->
+  not num or isNaN(num) or not num.toPrecision
 
-  OJ.is.register 'date', (dt) ->
-    _.isDate dt
+isMethod.dateNullOrEmpty = (dt) ->
+  not dt or not dt.getTime
 
-  
-  ###
-  Determines if a value is an instance of a Number and not NaN*
-  ###
-  OJ.is.register 'number', (num) ->
-    typeof num is 'number' and false is (OJ.number.isNaN(num) or false is OJ.number.isFinite(num) or OJ.number.MAX_VALUE is num or OJ.number.MIN_VALUE is num)
+isMethod.objectNullOrEmpty = (obj) ->
+  _.isEmpty obj or not Object.keys(obj) or Object.keys(obj).length is 0
 
-  ###
-  Determines if a value is convertable to a Number
-  ###
-  OJ.is.register 'numeric', (num) ->
-    ret = OJ.is.number(num)
-    unless ret
-      nuNum = OJ.to.number(num)
-      ret = OJ.is.number(nuNum)
-    ret
+isMethod.plainObject = (obj) ->
+  _.isPlainObject obj
 
-  OJ.is.register 'vendorObject', (obj) ->
-    ret = (obj instanceof OJ['?'])
-    ret
+isMethod.object = (obj) ->
+  _.isObject obj
 
-  OJ.is.register 'elementInDom', (elementId) ->
-    false is OJ.is.nullOrEmpty(document.getElementById(elementId))
+isMethod.date = (dt) ->
+  _.isDate dt
 
-  OJ.is.register 'generic', (obj) ->
-    ret = (false is OJ.is.method(obj) and false is OJ.hasLength(obj) and false is OJ.is.plainObject(obj))
-    ret
 
-  OJ.is.register 'array', (obj) ->
-    _.isArray obj
+###
+Determines if a value is an instance of a Number and not NaN*
+###
+isMethod.number = (num) ->
+  number = require '../core/number'
+  typeof num is 'number' and false is (number.isNaN(num) or false is number.isFinite(num) or number.MAX_VALUE is num or number.MIN_VALUE is num)
 
-  OJ.is.register 'string', (str) ->
-    _.isString str
-    
-  OJ.is.register 'true', (obj) ->
-    obj is true or obj is 'true' or obj is 1 or obj is '1'
+###
+Determines if a value is convertible to a Number
+###
+isMethod.numeric = (num) ->
+  ret = isMethod.number(num)
+  unless ret
+    to = require './to'
+    nuNum = to.number(num)
+    ret = isMethod.number(nuNum)
+  ret
 
-  OJ.is.register 'false', (obj) ->
-    obj is false or obj is 'false' or obj is 0 or obj is '0'
+isMethod.vendorObject = (obj) ->
+  ret = (obj instanceof OJ['?'])
+  ret
 
-  OJ.is.register 'trueOrFalse', (obj) ->
-    OJ.is.true obj or OJ.is.false obj
+isMethod.elementInDom = (elementId) ->
+  false is isMethod.nullOrEmpty(document.getElementById(elementId))
 
-  OJ.is.register 'nullOrEmpty', (obj, checkLength) ->
-    _.isEmpty(obj) or _.isUndefined(obj) or _.isNull(obj) or _.isNaN(obj)
+isMethod.array = (obj) ->
+  _.isArray obj
 
-  OJ.is.register 'nullOrUndefined', (obj, checkLength) ->
-    _.isUndefined(obj) or _.isNull(obj) or _.isNaN(obj)
+isMethod.string = (str) ->
+  _.isString str
 
-  OJ.is.register 'instanceof', (name, obj) ->
-    obj.type is name or obj instanceof name
+isMethod.true = (obj) ->
+  obj is true or obj is 'true' or obj is 1 or obj is '1'
 
-  OJ.is.register 'method', (obj) ->
-    obj isnt OJ.noop and _.isFunction obj
+isMethod.false = (obj) ->
+  obj is false or obj is 'false' or obj is 0 or obj is '0'
 
-  ###
-  Deprecated. Left for backwards compatibility. Use is.method instead.
-  ###
-  OJ.is.register 'func', OJ.is.method
-  
-  return
+isMethod.trueOrFalse = (obj) ->
+  isMethod.true obj or isMethod.false obj
+
+isMethod.nullOrEmpty = (obj, checkLength) ->
+  _.isEmpty(obj) or _.isUndefined(obj) or _.isNull(obj) or _.isNaN(obj)
+
+isMethod.nullOrUndefined = (obj, checkLength) ->
+  _.isUndefined(obj) or _.isNull(obj) or _.isNaN(obj)
+
+isMethod.instanceof = (name, obj) ->
+  obj.type is name or obj instanceof name
+
+isMethod.method = (obj) ->
+  obj isnt OJ.noop and _.isFunction obj
+
+###
+Deprecated. Left for backwards compatibility. Use is.method instead.
+###
+isMethod.func = isMethod.method
+
+Object.seal isMethod
+Object.freeze isMethod
+
+OJ.register 'is', isMethod
+module.exports = isMethod
 

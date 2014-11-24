@@ -17,7 +17,7 @@ debug = require 'gulp-debug'
 basename = require('path').basename
 pkg = require '../../package.json'
 minifyify = require 'minifyify'
-
+uglifyify = require 'uglifyify'
 # FIXME: tests can import modules from dev but must do so via ../../src/coffee/..
 transforms = [
   
@@ -42,7 +42,7 @@ config =
       cwd: './src/coffee'
     #paths: ['./']
     filename: 'OJ.min.js'
-    transforms: transforms.concat 'minifyify'
+    transforms: ['minifyify']
     debug: true
     dest: './dist'
     fullPaths: false
@@ -99,7 +99,7 @@ runbrowserify = (name) ->
     bundler
       .bundle()
       # Report compile errors
-      .on 'error', handleErrors
+      #.on 'error', handleErrors
       # Use vinyl-source-stream to make the
       # stream gulp compatible. Specify the
       # desired output filename here.

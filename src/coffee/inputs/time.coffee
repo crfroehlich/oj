@@ -1,21 +1,23 @@
-do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
-  inputName = 'time'
-  
-  OJ.inputs.register inputName, (options, owner = OJ.body) ->
-    
-    defaults =
-      props:
-        type: inputName
-      styles: {}
-      events:
-        click: OJ.noop
-    
-    OJ.extend defaults, options, true
-    
-    ret = OJ.input defaults, owner
-    ret
+OJ = require '../oj'
+require '../core/object'
+require '../dom/nodeFactory'
+input = require '../dom/input'
 
-  return
+inputName = 'time'
 
+inpt = (options, owner = require('../dom/body')) ->
 
+  defaults =
+    props:
+      type: inputName
+    styles: {}
+    events:
+      click: OJ.noop
 
+  OJ.extend defaults, options, true
+
+  ret = input defaults, owner
+  ret
+
+OJ.inputs.register inputName, inpt
+module.exports = inpt

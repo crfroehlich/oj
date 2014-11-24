@@ -1,28 +1,28 @@
 qunit = require 'qunit'
 
 qunit.module 'null'
-test 'null is not of any OJ supported type', ->
-  expect 8 #all 8 assertions must pass
-  deepEqual OJ.is.string(null), false, 'null is not a String'
-  deepEqual OJ.is.bool(null), false, 'null is not a Boolean'
-  deepEqual OJ.is.number(null), false, 'null is not a Number'
-  deepEqual OJ.is.numeric(null), false, 'null is not numeric'
-  deepEqual OJ.is.date(null), false, 'null is not a Date'
-  deepEqual OJ.is.method(null), false, 'null is not a Function'
-  deepEqual OJ.is.array(null), false, 'null is not an Array'
-  deepEqual OJ.is.plainObject(null), false, 'null is not an Object'
+qunit.test 'null is not of any OJ supported type', ->
+  qunit.expect 8 #all 8 assertions must pass
+  qunit.deepEqual OJ.is.string(null), false, 'null is not a String'
+  qunit.deepEqual OJ.is.bool(null), false, 'null is not a Boolean'
+  qunit.deepEqual OJ.is.number(null), false, 'null is not a Number'
+  qunit.deepEqual OJ.is.numeric(null), false, 'null is not numeric'
+  qunit.deepEqual OJ.is.date(null), false, 'null is not a Date'
+  qunit.deepEqual OJ.is.method(null), false, 'null is not a Function'
+  qunit.deepEqual OJ.is.array(null), false, 'null is not an Array'
+  qunit.deepEqual OJ.is.plainObject(null), false, 'null is not an Object'
   
 qunit.module 'explicit undefined'
-test 'undefined is not of any OJ supported type', ->
-  expect 8 #all 8 assertions must pass
-  deepEqual OJ.is.string(`undefined`), false, 'undefined is not a String'
-  deepEqual OJ.is.bool(`undefined`), false, 'undefined is not a Boolean'
-  deepEqual OJ.is.number(`undefined`), false, 'undefined is not a Number'
-  deepEqual OJ.is.numeric(`undefined`), false, 'undefined is not numeric'
-  deepEqual OJ.is.date(`undefined`), false, 'undefined is not a Date'
-  deepEqual OJ.is.method(`undefined`), false, 'undefined is not a Function'
-  deepEqual OJ.is.array(`undefined`), false, 'undefined is not an Array'
-  deepEqual OJ.is.plainObject(`undefined`), false, 'undefined is not an Object'
+qunit.test 'undefined is not of any OJ supported type', ->
+  qunit.expect 8 #all 8 assertions must pass
+  qunit.deepEqual OJ.is.string(`undefined`), false, 'undefined is not a String'
+  qunit.deepEqual OJ.is.bool(`undefined`), false, 'undefined is not a Boolean'
+  qunit.deepEqual OJ.is.number(`undefined`), false, 'undefined is not a Number'
+  qunit.deepEqual OJ.is.numeric(`undefined`), false, 'undefined is not numeric'
+  qunit.deepEqual OJ.is.date(`undefined`), false, 'undefined is not a Date'
+  qunit.deepEqual OJ.is.method(`undefined`), false, 'undefined is not a Function'
+  qunit.deepEqual OJ.is.array(`undefined`), false, 'undefined is not an Array'
+  qunit.deepEqual OJ.is.plainObject(`undefined`), false, 'undefined is not an Object'
   
 qunit.module 'implicit undefined by empty arguments'
 test 'undefined is not of any OJ supported type', ->

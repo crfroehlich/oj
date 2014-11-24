@@ -1,46 +1,41 @@
  # # OJ Post-Initialization
 
-do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
+OJ = require './oj'
+_ = require 'lodash'
 
-  # Simple array of anticipated/known child namespaces
+# Simple array of anticipated/known child namespaces
   
-  subNameSpaces = [
-    'errors'
-    'enums'
-    'is'
-    'instanceOf'
-    'to'
-    'nodes'
-    'db'
-    'components'
-    'controls'
-    'inputs'
-    'notifications'
-    'history'
-    'cookie'
-    'async'
-  ]
+subNameSpaces = [
+  'errors'
+  'enums'
+  'instanceOf'
+  'nodes'
+  'db'
+  'components'
+  'controls'
+  'inputs'
+  'notifications'
+  'history'
+  'cookie'
+  'async'
+]
 
-  # ## SubNameSpaces
+# ## SubNameSpaces
 
-  # Pre-allocate certain common namespaces to avoid future race conditions.
-  # This does require that the order of operations loads OJ.coffee first and oJInit.coffee second
-  _.each subNameSpaces, (name) ->
-    OJ.makeSubNameSpace name
+# Pre-allocate certain common namespaces to avoid future race conditions.
+# This does require that the order of operations loads OJ.coffee first and oJInit.coffee second
+_.each subNameSpaces, (name) ->
+  OJ.makeSubNameSpace name
   
-  # ## Configuration variables
+# ## Configuration variables
 
-  # Automatically generate unique IDs for each node (default false)
-  OJ['GENERATE_UNIQUE_IDS'] = false
-  # Default root node for components/controls (default 'div')
-  OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] = 'div'
-  # Whether to hook into the global on error event to write errors to console (default false)
-  OJ['TRACK_ON_ERROR'] = false
-  #Whether to log all AJAX requests
-  OJ['LOG_ALL_AJAX'] = false
-  #Whether to log all AJAX errors
-  OJ['LOG_ALL_AJAX_ERRORS'] = false
-  
-  return
-  
-
+# Automatically generate unique IDs for each node (default false)
+OJ['GENERATE_UNIQUE_IDS'] = false
+# Default root node for components/controls (default 'div')
+OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] = 'div'
+# Whether to hook into the global on error event to write errors to console (default false)
+OJ['TRACK_ON_ERROR'] = false
+#Whether to log all AJAX requests
+OJ['LOG_ALL_AJAX'] = false
+#Whether to log all AJAX errors
+OJ['LOG_ALL_AJAX_ERRORS'] = false

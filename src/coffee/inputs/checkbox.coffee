@@ -1,28 +1,29 @@
-do (OJ = (if typeof global isnt 'undefined' and global then global else (if typeof window isnt 'undefined' then window else this)).OJ) ->
-  inputName = 'checkbox'
-  
-  OJ.inputs.register inputName, (options, owner = OJ.body) ->
-    
-    defaults =
-      checked: false
-      indeterminate: false
-      props:
-        type: inputName
-      styles: {}
-      events:
-        click: OJ.noop
-    
-    OJ.extend defaults, options, true
-    
-    ret = OJ.input defaults, owner
-    if defaults.checked
-      ret.attr 'checked', true
-    else if defaults.indeterminate  
-      ret.attr 'indeterminate', true
-      
-    ret
+OJ = require '../oj'
+obj = require '../core/object'
+input = require '../dom/input'
 
-  return
+inputName = 'checkbox'
 
+inpt = (options, owner = require('../dom/body')) ->
 
+  defaults =
+    checked: false
+    indeterminate: false
+    props:
+      type: inputName
+    styles: {}
+    events:
+      click: OJ.noop
 
+  obj.extend defaults, options, true
+
+  ret = input defaults, owner
+  if defaults.checked
+    ret.attr 'checked', true
+  else if defaults.indeterminate
+    ret.attr 'indeterminate', true
+
+  ret
+
+OJ.inputs.register inputName, inpt
+module.exports = inpt
