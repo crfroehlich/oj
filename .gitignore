@@ -29,3 +29,4 @@ gulp/**/*.map
 gulpfile.js
 gulpfile.js.map
 web.config
+dist/vendor.js

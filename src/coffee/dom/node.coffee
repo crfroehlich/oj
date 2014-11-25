@@ -71,15 +71,6 @@ class Node
   bind: (eventName, event) ->
     @on eventName, event
 
-  # ## on
-  on: (eventName, event) ->
-    @['$'].on eventName, event  if @isControlStillValid()
-    @
-
-  # ## off
-  off: (eventName, event) ->
-    @['$'].off eventName, event  if @isControlStillValid()
-    @el
 
   # ## keyboard
   # Bind an event to a key, when pressed in this control.
@@ -121,6 +112,9 @@ class Node
     id = @[0].id  if @isControlStillValid()
     id
 
+  hasClass: (params...) ->
+    @['$'].hasClass params...
+
   # ## hide
   # Make the element invisible.
   hide: ->
@@ -134,6 +128,19 @@ class Node
     len = 0
     len = to.number(@['$'].length)  if @isControlStillValid()
     len
+  
+  # ## on
+  on: (eventName, event) ->
+    @['$'].on eventName, event  if @isControlStillValid()
+    @
+
+  # ## off
+  off: (eventName, event) ->
+    @['$'].off eventName, event  if @isControlStillValid()
+    @el
+
+  prop: (params...) ->
+    @['$'].prop params...
 
   # ## remove
   # Remove the node from the DOM
@@ -189,6 +196,9 @@ class Node
   # Toggle visibility
   toggle: ->
     @['$'].toggle()  if @isControlStillValid()
+    
+  @toggleClass: (params...)->
+    @['$'].toggleClass params...  if @isControlStillValid()
     @
 
   # ## toggleEnable
