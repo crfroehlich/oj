@@ -2,8 +2,6 @@ OJ = require '../oj'
 $ = require 'jquery'
 _ = require 'lodash'
 isMethod = require './is'
-obj = require '../core/object'
-each = require './each'
 
 # # to
 to =

@@ -3,8 +3,8 @@ $ = require 'jquery'
 _ = require 'lodash'
 isMethod = require '../tools/is'
 property = require './property'
-
 func = require './function'
+to = require '../tools/to'
 
 # # object
 
@@ -33,7 +33,6 @@ retObj =
   # ## [OJ](oj.html).isInstanceOf
   # determines is a thing is an instance of a Thing, assuming the things were all created in OJ
   isInstanceOf: (name, obj) ->
-    to = require '../tools/to'
     retObj.contains(name, obj) and to.bool(obj[name])
 
   # ## [OJ](oj.html).contains

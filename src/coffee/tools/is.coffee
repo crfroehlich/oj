@@ -2,8 +2,6 @@ OJ = require '../oj'
 $ = require 'jquery'
 _ = require 'lodash'
 
-each = require './each'
-
 isMethod = {}
 
 isMethod.bool = (boolean) ->
