@@ -53,26 +53,11 @@
     <Content Include="src\coffee\async\promise.js">
       <DependentUpon>promise.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\components\datatable.js">
-      <DependentUpon>datatable.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\components\easypie.js">
-      <DependentUpon>easypie.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\components\flotchart.js">
-      <DependentUpon>flotchart.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\components\grid.js">
       <DependentUpon>grid.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\components\infograph.js">
-      <DependentUpon>infograph.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\components\inputgroup.js">
       <DependentUpon>inputgroup.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\components\sparkline.js">
-      <DependentUpon>sparkline.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\components\tabs.js">
       <DependentUpon>tabs.coffee</DependentUpon>
@@ -224,22 +209,10 @@
     <Content Include="gulpfile.coffee" />
     <Content Include="src\coffee\dom\component.coffee" />
     <Content Include="src\coffee\components\grid.coffee" />
-    <Content Include="src\coffee\components\sparkline.coffee" />
-    <Content Include="src\coffee\components\sparkline.map">
-      <DependentUpon>sparkline.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\components\grid.map">
       <DependentUpon>grid.coffee</DependentUpon>
     </Content>
-    <Content Include="src\coffee\components\easypie.coffee" />
-    <Content Include="src\coffee\components\flotchart.coffee" />
-    <Content Include="src\coffee\components\easypie.map">
-      <DependentUpon>easypie.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\components\tile.coffee" />
-    <Content Include="src\coffee\components\flotchart.map">
-      <DependentUpon>flotchart.coffee</DependentUpon>
-    </Content>
     <Content Include="src\coffee\tools\array2D.coffee" />
     <Content Include="src\coffee\components\tile.map">
       <DependentUpon>tile.coffee</DependentUpon>
@@ -248,14 +221,6 @@
     <Content Include="src\coffee\components\inputgroup.coffee" />
     <Content Include="src\coffee\components\inputgroup.map">
       <DependentUpon>inputgroup.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\components\infograph.coffee" />
-    <Content Include="src\coffee\components\infograph.map">
-      <DependentUpon>infograph.coffee</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\components\datatable.coffee" />
-    <Content Include="src\coffee\components\datatable.map">
-      <DependentUpon>datatable.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\components\tabs.coffee" />
     <Content Include="src\coffee\components\tabs.map">
@@ -271,35 +236,20 @@
     <Content Include="src\coffee\components\grid.js.map">
       <DependentUpon>grid.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\components\easypie.js.map">
-      <DependentUpon>easypie.js</DependentUpon>
-    </Content>
     <Content Include="src\coffee\core\number.js.map">
       <DependentUpon>number.js</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\string.js.map">
       <DependentUpon>string.js</DependentUpon>
     </Content>
-    <Content Include="src\coffee\components\infograph.js.map">
-      <DependentUpon>infograph.js</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\components\datatable.js.map">
-      <DependentUpon>datatable.js</DependentUpon>
-    </Content>
     <Content Include="src\coffee\components\inputgroup.js.map">
       <DependentUpon>inputgroup.js</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\components\sparkline.js.map">
-      <DependentUpon>sparkline.js</DependentUpon>
     </Content>
     <Content Include="src\coffee\components\tabs.js.map">
       <DependentUpon>tabs.js</DependentUpon>
     </Content>
     <Content Include="src\coffee\core\function.js.map">
       <DependentUpon>function.js</DependentUpon>
-    </Content>
-    <Content Include="src\coffee\components\flotchart.js.map">
-      <DependentUpon>flotchart.js</DependentUpon>
     </Content>
     <Content Include="src\coffee\components\tile.js.map">
       <DependentUpon>tile.js</DependentUpon>
@@ -355,6 +305,9 @@
     <Content Include="gulp\util\header.coffee" />
     <Content Include="gulp\util\notify.coffee" />
     <Content Include="gulp\util\scriptFilter.coffee" />
+    <Content Include="src\coffee\dom\body.coffee" />
+    <Content Include="src\coffee\entrypoint.coffee" />
+    <Content Include="src\coffee\global.coffee" />
     <None Include="src\coffee\tools\console.coffee" />
     <Content Include="src\coffee\tools\console.js">
       <DependentUpon>console.coffee</DependentUpon>
@@ -394,6 +347,7 @@
     <Content Include="src\coffee\tools\functional.js.map">
       <DependentUpon>functional.js</DependentUpon>
     </Content>
+    <Content Include="src\coffee\tools\JsonToTable.coffee" />
     <None Include="src\coffee\tools\uuid.coffee" />
     <Content Include="src\coffee\tools\cookie.js">
       <DependentUpon>cookie.coffee</DependentUpon>
@@ -441,7 +395,7 @@
       <DependentUpon>element.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\dom.js.map">
-      <DependentUpon>dom.coffee</DependentUpon>
+      <DependentUpon>Node.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\nodeFactory.js.map">
       <DependentUpon>nodeFactory.coffee</DependentUpon>
@@ -453,7 +407,7 @@
       <DependentUpon>table.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\dom.map">
-      <DependentUpon>dom.coffee</DependentUpon>
+      <DependentUpon>Node.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\element.map">
       <DependentUpon>element.coffee</DependentUpon>
@@ -689,7 +643,7 @@
       <DependentUpon>functional.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\dom\dom.js">
-      <DependentUpon>dom.coffee</DependentUpon>
+      <DependentUpon>Node.coffee</DependentUpon>
     </Content>
     <Content Include="src\coffee\tools\enums.js">
       <DependentUpon>enums.coffee</DependentUpon>
@@ -728,7 +682,7 @@
       <DependentUpon>date.coffee</DependentUpon>
     </Content>
     <Content Include="src\workers\xhrWorker.js" />
-    <Content Include="src\coffee\dom\dom.coffee" />
+    <Content Include="src\coffee\dom\Node.coffee" />
     <Content Include="src\coffee\tools\enums.coffee" />
     <Content Include="src\coffee\elements\a.coffee" />
     <Content Include="src\coffee\elements\br.coffee" />
