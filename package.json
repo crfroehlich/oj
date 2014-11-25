@@ -103,7 +103,7 @@
     "pubsub-js": "global:PubSub",
     "jquery-cookie": {
       "depends": [
-        "jquery:jQuery"
+        "jquery:$"
       ]
     },
     "html5-history-api": "history",

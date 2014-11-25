@@ -1,5 +1,5 @@
 OJ = require '../oj'
-el = require '../dom/element'
+nodeFactory = require '../dom/nodeFactory'
 enums = require '../tools/enums'
 
 nodeName = 'textarea'
@@ -56,7 +56,7 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
       retval
     defaults.events.change = newChange
 
-  ret = el.element nodeName, defaults, owner, calledFromFactory
+  ret = nodeFactory nodeName, defaults, owner, calledFromFactory
 
 
  

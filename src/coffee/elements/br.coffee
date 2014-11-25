@@ -1,5 +1,5 @@
 OJ = require '../oj'
-el = require '../dom/element'
+nodeFactory = require '../dom/nodeFactory'
 to = require '../tools/to'
 # # br
 
@@ -18,11 +18,11 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
   i = 0
   while i < to.number defaults.number
     # In the case of multiple brs, it is desirable to only get the last one out
-    ret = el.element nodeName, defaults, owner, calledFromFactory
+    ret = nodeFactory nodeName, defaults, owner, calledFromFactory
 
     i += 1
 
-  if false is calledFromFactory then nodesFactory ret, owner
+ 
 
   ret
 

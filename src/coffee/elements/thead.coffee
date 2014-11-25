@@ -1,5 +1,5 @@
 OJ = require '../oj'
-el = require '../dom/element'
+nodeFactory = require '../dom/nodeFactory'
 
 nodeName = 'thead'
 
@@ -14,9 +14,7 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
 
   OJ.extend defaults, options, true
 
-  ret = el.element nodeName, defaults, owner, calledFromFactory
-
- 
+  ret = nodeFactory nodeName, defaults, owner, calledFromFactory
 
   rows = []
   cells = {}

@@ -1,5 +1,5 @@
 OJ = require '../oj'
-el = require '../dom/element'
+nodeFactory = require '../dom/nodeFactory'
 
 # # a
 nodeName = 'a'
@@ -44,7 +44,7 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
   else
     defaults.events.click = toggle
 
-  ret = el.element nodeName, defaults, owner, calledFromFactory
+  ret = nodeFactory nodeName, defaults, owner, calledFromFactory
 
   ret
 

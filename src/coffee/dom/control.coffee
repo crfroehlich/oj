@@ -1,5 +1,5 @@
 OJ = require '../oj'
-el = require './element'
+nodeFactory = require './nodeFactory'
 obj = require '../core/object'
 
 ###
@@ -10,7 +10,7 @@ control = (options = obj.object(), owner, tagName) ->
 
   rootNodeType = options.rootNodeType or OJ['DEFAULT_COMPONENT_ROOT_NODETYPE'] or 'div'
 
-  ret = el.element rootNodeType, options, owner, false
+  ret = nodeFactory rootNodeType, options, owner, false
 
   ret.add 'controlName', tagName
 

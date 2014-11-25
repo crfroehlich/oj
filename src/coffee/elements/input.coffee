@@ -1,5 +1,5 @@
 OJ = require '../oj'
-el = require '../dom/element'
+nodeFactory = require '../dom/nodeFactory'
 enums = require '../tools/enums'
 
 # # input
@@ -72,7 +72,7 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
   defaults.events.focusout = newFocusout
 
 
-  ret = el.element nodeName, defaults, owner, calledFromFactory
+  ret = nodeFactory nodeName, defaults, owner, calledFromFactory
   ret.value = defaults.props.value
   ret
 

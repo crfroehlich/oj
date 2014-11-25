@@ -1,5 +1,5 @@
 OJ = require '../oj'
-el = require '../dom/element'
+nodeFactory = require '../dom/nodeFactory'
 _ = require 'lodash'
 array2D = require '../tools/array2D'
 $ = require 'jquery'
@@ -54,7 +54,7 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
   columnCount = 0
 
   OJ.extend defaults, options, true
-  ret = el.element nodeName, defaults, owner, calledFromFactory
+  ret = nodeFactory nodeName, defaults, owner, calledFromFactory
  
 
   tbody = null
@@ -174,22 +174,19 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
 
     cell
 
-
-
   # ## Finalize
   # Finalize guarantees that thead and tbody and created when the node is fully instantiated
-  ret.add 'finalize', ->
-    init()
+  init()
 
-    # ## THead
-    # Expose the internal thead node
-    ret.add 'thead', thead
+  # ## THead
+  # Expose the internal thead node
+  ret.add 'thead', thead
 
-    # ## TBody
-    # Expose the internal tbody node
-    ret.add 'tbody', tbody
+  # ## TBody
+  # Expose the internal tbody node
+  ret.add 'tbody', tbody
 
-    ret
+    
 
   ret
 

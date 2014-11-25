@@ -1,5 +1,5 @@
 OJ = require '../oj'
-el = require './element'
+nodeFactory = require './nodeFactory'
 obj = require '../core/object'
 
 # # component
@@ -22,7 +22,7 @@ component = (options = obj.object(), owner, tagName) ->
   # In most cases, the default behavior of the browser is acceptable (see also [HTML Semantics](http://diveintohtml5.info/semantics.html)), but
   # in some cases this is problematic (firstly, because these elements are always rendered inline).
   # In such conditions, the [controls](controls.html) class and name space is better suited to classes which require complete control (e.g. [icon](icon.html)).
-  widget = el.element tagName, obj.object(), owner, false #, options.props, options.styles, options.events, options.text
+  widget = nodeFactory tagName, obj.object(), owner, false #, options.props, options.styles, options.events, options.text
   
   # Since the behavior of styling is not well controlled/controllable on unknown elements, it is necessary to create a root node for the component.
   # In most cases, [div](div.html) is perfectly acceptable, but this is configurable at the name space level or at runtime.
@@ -32,10 +32,10 @@ component = (options = obj.object(), owner, tagName) ->
   ret = widget.make rootNodeType, options
 
   # for convenience and debugging, persist the tagName
-  ret.add 'componentName', tagName
+  ret.componentName = tagName
 
   # `remove` does, however, behave as expected by removing `widget`
-  ret.add 'remove', widget.remove
+  ret.remove = widget.remove
   ret
 
 OJ.register 'component', component

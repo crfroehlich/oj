@@ -1,7 +1,7 @@
 OJ = require '../oj'
-el = require './element'
 require '../ojInit'
 obj = require '../core/object'
+nodeFactory = require './nodeFactory'
 
 # # generic nodes
 
@@ -112,7 +112,7 @@ for loopName in all
         events: {}
 
       obj.extend defaults, options
-      ret = el.element tag, defaults, owner, calledFromFactory
+      ret = nodeFactory tag, defaults, owner, calledFromFactory
 
       ret
     OJ.nodes.register tag, method

@@ -1,5 +1,5 @@
 OJ = require '../oj'
-el = require '../dom/element'
+nodeFactory = require '../dom/nodeFactory'
 
 # # form
 
@@ -17,7 +17,7 @@ node = (options, owner = OJ.body, calledFromFactory = false) ->
       click: OJ.noop
 
   OJ.extend defaults, options, true
-  ret = el.element nodeName, defaults, owner, calledFromFactory
+  ret = nodeFactory nodeName, defaults, owner, calledFromFactory
 
   ret.add 'validator', ret.$.validate(
     highlight: (element) ->

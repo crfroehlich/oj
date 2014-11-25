@@ -1,11 +1,11 @@
 OJ = require '../oj'
-el = require '../dom/element'
+nodeFactory = require '../dom/nodeFactory'
 
 # # select
 
 nodeName = 'select'
 
-node = (options, owner = require '../dom/body', calledFromFactory = false) ->
+node = (options, owner, calledFromFactory = false) ->
 
   defaults =
     props:
@@ -44,7 +44,7 @@ node = (options, owner = require '../dom/body', calledFromFactory = false) ->
       retval
     defaults.events.change = newChange
 
-  ret = el.element nodeName, defaults, owner, calledFromFactory
+  ret = nodeFactory nodeName, defaults, owner, calledFromFactory
 
   ret.add 'selectedData', (propName) ->
     ret = ''

@@ -1,4 +1,5 @@
 OJ = require '../oj'
+$ = require 'jquery'
   
 ###
 Setup settings

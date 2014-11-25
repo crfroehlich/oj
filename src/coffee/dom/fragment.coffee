@@ -1,5 +1,5 @@
 OJ = require '../oj'
-el = require './element'
+nodeFactory = require './nodeFactory'
 
 # # fragment
 
@@ -8,7 +8,11 @@ fragment = ->
   ret = null
   if typeof document isnt 'undefined'
     fragment = document.createDocumentFragment()
-    ret = el.restoreElement fragment, 'fragment'
+    
+    frag = new ThinDOM null, null, fragment
+    frag.isInDOM = true
+    ret = nodeFactory frag
+    
   ret
 
 OJ.register 'fragment', fragment
