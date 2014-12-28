@@ -5,7 +5,7 @@ each = require './each'
 
 # # ranges
 
-rng = 
+rng =
 
   # ## range
   # Using [Lo-Dash](http://lodash.com/docs#range)'s `range` method
@@ -37,7 +37,7 @@ rng =
       if false is obj.contains charRange, char
         charRange.push char.charCodeAt()
 
-    ret = rangeToSubRanges n, charRange
+    ret = rng.toSubRanges n, charRange
 
     i = 0
     while i < n
@@ -93,4 +93,4 @@ Object.seal rng
 Object.freeze rng
 
 OJ.register 'ranges', rng
-module.exports = rng  
+module.exports = rng
