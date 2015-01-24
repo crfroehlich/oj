@@ -5,7 +5,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{7b39f7bc-017b-4dcd-9e99-d33f30e403f3}</ProjectGuid>
     <ProjectHome />
-    <ProjectView>ShowAllFiles</ProjectView>
+    <ProjectView>ProjectFiles</ProjectView>
     <StartupFile />
     <WorkingDirectory>.</WorkingDirectory>
     <OutputPath>.</OutputPath>
@@ -19,9 +19,149 @@
     <Content Include=".groc.json" />
     <Content Include="bower.json" />
     <Content Include="coffeelint.json" />
+    <Content Include="gulpfile.coffee" />
+    <Content Include="gulp\index.coffee" />
+    <Content Include="gulp\tasks\browserify.coffee" />
+    <Content Include="gulp\tasks\bump.coffee" />
+    <Content Include="gulp\tasks\coffeelint.coffee" />
+    <Content Include="gulp\tasks\compile.coffee" />
+    <Content Include="gulp\tasks\cson.coffee" />
+    <Content Include="gulp\tasks\git.coffee" />
+    <Content Include="gulp\tasks\inject.coffee" />
+    <Content Include="gulp\tasks\npm.coffee" />
+    <Content Include="gulp\tasks\stripbom.coffee" />
+    <Content Include="gulp\tasks\test.coffee" />
+    <Content Include="gulp\tasks\vendor.coffee" />
+    <Content Include="gulp\tasks\watch.coffee" />
+    <Content Include="gulp\util\bundleLogger.coffee" />
+    <Content Include="gulp\util\config.coffee" />
+    <Content Include="gulp\util\files.coffee" />
+    <Content Include="gulp\util\handleErrors.coffee" />
+    <Content Include="gulp\util\header.coffee" />
+    <Content Include="gulp\util\notify.coffee" />
+    <Content Include="gulp\util\scriptFilter.coffee" />
+    <Content Include="LICENSE" />
     <Content Include="package.json" />
-    <Content Include="WebEssentials-Settings.json" />
+    <Content Include="src\coffee\async\ajax.coffee" />
+    <Content Include="src\coffee\async\promise.coffee" />
+    <Content Include="src\coffee\components\grid.coffee" />
+    <Content Include="src\coffee\components\inputgroup.coffee" />
+    <Content Include="src\coffee\components\tabs.coffee" />
+    <Content Include="src\coffee\components\tile.coffee" />
+    <Content Include="src\coffee\controls\icon.coffee" />
+    <Content Include="src\coffee\core\date.coffee" />
+    <Content Include="src\coffee\core\function.coffee" />
+    <Content Include="src\coffee\core\number.coffee" />
+    <Content Include="src\coffee\core\object.coffee" />
+    <Content Include="src\coffee\core\property.coffee" />
+    <Content Include="src\coffee\core\string.coffee" />
+    <Content Include="src\coffee\dom\body.coffee" />
+    <Content Include="src\coffee\dom\component.coffee" />
+    <Content Include="src\coffee\dom\control.coffee" />
+    <Content Include="src\coffee\dom\element.coffee" />
+    <Content Include="src\coffee\dom\fragment.coffee" />
+    <Content Include="src\coffee\dom\generics.coffee" />
+    <Content Include="src\coffee\dom\input.coffee" />
+    <Content Include="src\coffee\dom\node.coffee" />
+    <Content Include="src\coffee\dom\nodeFactory.coffee" />
+    <Content Include="src\coffee\elements\a.coffee" />
+    <Content Include="src\coffee\elements\br.coffee" />
+    <Content Include="src\coffee\elements\form.coffee" />
+    <Content Include="src\coffee\elements\input.coffee" />
+    <Content Include="src\coffee\elements\ol.coffee" />
+    <Content Include="src\coffee\elements\select.coffee" />
+    <Content Include="src\coffee\elements\table.coffee" />
+    <Content Include="src\coffee\elements\textarea.coffee" />
+    <Content Include="src\coffee\elements\thead.coffee" />
+    <Content Include="src\coffee\elements\ul.coffee" />
+    <Content Include="src\coffee\entrypoint.coffee" />
+    <Content Include="src\coffee\global.coffee" />
+    <Content Include="src\coffee\inputs\buttoninput.coffee" />
+    <Content Include="src\coffee\inputs\checkbox.coffee" />
+    <Content Include="src\coffee\inputs\color.coffee" />
+    <Content Include="src\coffee\inputs\date.coffee" />
+    <Content Include="src\coffee\inputs\datetime.coffee" />
+    <Content Include="src\coffee\inputs\datetimelocal.coffee" />
+    <Content Include="src\coffee\inputs\email.coffee" />
+    <Content Include="src\coffee\inputs\file.coffee" />
+    <Content Include="src\coffee\inputs\hidden.coffee" />
+    <Content Include="src\coffee\inputs\imageinput.coffee" />
+    <Content Include="src\coffee\inputs\month.coffee" />
+    <Content Include="src\coffee\inputs\number.coffee" />
+    <Content Include="src\coffee\inputs\password.coffee" />
+    <Content Include="src\coffee\inputs\radio.coffee" />
+    <Content Include="src\coffee\inputs\range.coffee" />
+    <Content Include="src\coffee\inputs\reset.coffee" />
+    <Content Include="src\coffee\inputs\search.coffee" />
+    <Content Include="src\coffee\inputs\submit.coffee" />
+    <Content Include="src\coffee\inputs\tel.coffee" />
+    <Content Include="src\coffee\inputs\textinput.coffee" />
+    <Content Include="src\coffee\inputs\time.coffee" />
+    <Content Include="src\coffee\inputs\url.coffee" />
+    <Content Include="src\coffee\inputs\week.coffee" />
+    <Content Include="src\coffee\oj.coffee" />
+    <Content Include="src\coffee\ojInit.coffee" />
+    <Content Include="src\coffee\tools\array2D.coffee" />
+    <Content Include="src\coffee\tools\console.coffee" />
+    <Content Include="src\coffee\tools\cookie.coffee" />
+    <Content Include="src\coffee\tools\defer.coffee" />
+    <Content Include="src\coffee\tools\each.coffee" />
+    <Content Include="src\coffee\tools\enums.coffee" />
+    <Content Include="src\coffee\tools\history.coffee" />
+    <Content Include="src\coffee\tools\is.coffee" />
+    <Content Include="src\coffee\tools\JsonToTable.coffee" />
+    <Content Include="src\coffee\tools\noty.coffee" />
+    <Content Include="src\coffee\tools\pubsub.coffee" />
+    <Content Include="src\coffee\tools\queryString.coffee" />
+    <Content Include="src\coffee\tools\ranges.coffee" />
+    <Content Include="src\coffee\tools\to.coffee" />
+    <Content Include="src\coffee\tools\uuid.coffee" />
+    <Content Include="src\dev.html" />
+    <Content Include="src\dev.tmpl" />
+    <Content Include="src\templates\closedNodes.json" />
+    <Content Include="src\templates\openNodes.json" />
+    <Content Include="test\async\test.ajax.coffee" />
+    <Content Include="test\async\test.ajax.json" />
+    <Content Include="test\components\test.grid.coffee" />
+    <Content Include="test\components\test.inputgroup.coffee" />
+    <Content Include="test\components\test.tabs.coffee" />
+    <Content Include="test\controls\test.allControls.coffee" />
+    <Content Include="test\core\test.is.coffee" />
+    <Content Include="test\core\test.pubsub.coffee" />
+    <Content Include="test\core\test.range.coffee" />
+    <Content Include="test\core\test.to.coffee" />
+    <Content Include="test\inputs\test.allInputs.coffee" />
+    <Content Include="test\nodes\test.allNodes.coffee" />
+    <Content Include="test\nodes\test.table.coffee" />
+    <Content Include="test\test.html" />
+    <Content Include="test\test.tmpl" />
     <Content Include="README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="gulp\" />
+    <Folder Include="gulp\tasks\" />
+    <Folder Include="gulp\util\" />
+    <Folder Include="src\" />
+    <Folder Include="src\coffee\" />
+    <Folder Include="src\coffee\async\" />
+    <Folder Include="src\coffee\components\" />
+    <Folder Include="src\coffee\controls\" />
+    <Folder Include="src\coffee\core\" />
+    <Folder Include="src\coffee\dom\" />
+    <Folder Include="src\coffee\elements\" />
+    <Folder Include="src\coffee\inputs\" />
+    <Folder Include="src\coffee\tools\" />
+    <Folder Include="src\templates\" />
+    <Folder Include="test\" />
+    <Folder Include="test\async\" />
+    <Folder Include="test\components\" />
+    <Folder Include="test\controls\" />
+    <Folder Include="test\core\" />
+    <Folder Include="test\inputs\" />
+    <Folder Include="test\nodes\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="test\test.js" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <!--Do not delete the following Import Project.  While this appears to do nothing it is a marker for setting TypeScript properties before our import that depends on them.-->
