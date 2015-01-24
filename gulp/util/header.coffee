@@ -3,21 +3,21 @@ header = require 'gulp-header'
 
 extended = [
   '/**'
-  ' * <%= pkg.name %> - <%= pkg.description %>'
-  ' * @version v<%= pkg.version %>'
-  ' * @link <%= pkg.homepage %>'
-  ' * @license <%= pkg.license %>'
+  ' * <%= pkg.name %>: <%= pkg.description %>'
+  ' * @version: v<%= pkg.version %>'
+  ' * @link: <%= pkg.homepage %>'
+  ' * @license: <%= pkg.licenses[0].type %> (<%= pkg.licenses[0].url %>)'
   ' */'
   ''
 ].join('\n')
 
-succint = '// <%= pkg.name %>@v<%= pkg.version %>, <%= pkg.license %> licensed. <%= pkg.homepage %>\n'
+succinct = '// <%= pkg.name %>@v<%= pkg.version %>, <%= pkg.licenses[0].type %> licensed (<%= pkg.licenses[0].url %>). <%= pkg.homepage %>\n'
 
 
 module.exports =
-  succint: ->
+  succinct: ->
     pkg = require '../../package.json'
-    header succint, pkg: pkg
+    header succinct, pkg: pkg
     
   extended: ->
     pkg = require '../../package.json'

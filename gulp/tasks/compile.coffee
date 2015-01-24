@@ -18,7 +18,6 @@ gulp.task 'compile-src', [
 
 gulp.task 'compile-all', [
   'vendor'
-  'img'
   'cson'
   'browserify'
   'inject-all'

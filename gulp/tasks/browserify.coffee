@@ -9,11 +9,13 @@ browserify = require 'browserify'
 watchify = require 'watchify'
 bundleLogger = require '../util/bundleLogger'
 notify = require '../util/notify'
+header = require '../util/header'
 gulp = require 'gulp'
 handleErrors = require '../util/handleErrors'
 source = require 'vinyl-source-stream'
 glob = require 'glob'
 debug = require 'gulp-debug'
+buffer = require 'gulp-buffer'
 basename = require('path').basename
 pkg = require '../../package.json'
 minifyify = require 'minifyify'
@@ -35,6 +37,7 @@ config =
     transforms: transforms
     debug: true
     fullPaths: true
+    header: 'extended'
   release:
     entries: './src/coffee/entrypoint.coffee'
     export:
@@ -46,6 +49,7 @@ config =
     debug: true
     dest: './dist'
     fullPaths: false
+    header: 'succinct'
   test:
     entries: [ './src/coffee/entrypoint.coffee', glob.sync('./test/**/*.coffee')]
     dest: './test'
@@ -57,6 +61,7 @@ config =
     transforms: transforms
     debug: true  
     fullPaths: true
+    header: 'succinct'
 
 runbrowserify = (name) ->
   cfg = config[name]
@@ -105,6 +110,8 @@ runbrowserify = (name) ->
       # desired output filename here.
       .pipe source cfg.filename
       # Specify the output destination
+      .pipe header[cfg.header]?()
+      .pipe buffer()
       .pipe gulp.dest cfg.dest
       .pipe notify.message 'Finished bundling ' + name
       # Log when bundling completes!
