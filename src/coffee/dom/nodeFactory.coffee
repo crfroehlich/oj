@@ -183,11 +183,7 @@ class NodeFactory
     @ojNode
 
 getNodeFromFactory = (tag, options, owner, isCalledFromFactory, node) ->
-  if OJ.is.string tag
-    factory = new NodeFactory tag, options, owner
-  else
-    factory = new NodeFactory null, options, {}, tag
-  factory.ojNode
+  new Node(createElement owner.element, tag or 'div', options)
 
 
 OJ.register 'nodeFactory', getNodeFromFactory

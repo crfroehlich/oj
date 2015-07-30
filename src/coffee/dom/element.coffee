@@ -1,6 +1,7 @@
 OJ = require '../oj'
 $ = require 'jquery'
 _ = require 'lodash'
+Node = require './node'
 
 ThinDOM = require 'thindom'
 
@@ -12,11 +13,7 @@ element =
   Restore an HTML Element through ThinDom
   ###
   restoreElement: (el, tag = el.nodeName) ->
-    nodeFactory = require './nodeFactory'
-    tD = new ThinDOM null, null, el
-    tD.isInDOM = true
-    ret = nodeFactory tD
-    ret
+    new Node(el)
 
 OJ.register 'restoreElement', element.restoreElement
 

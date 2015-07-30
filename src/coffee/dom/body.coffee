@@ -1,16 +1,13 @@
 OJ = require '../oj'
 _ = require 'lodash'
-ThinDOM = require 'thindom'
-nodeFactory = require './nodeFactory'
+Node = require './node'
 
 
 ###
 Persist a handle on the body node
 ###
 if typeof document isnt 'undefined' then body = document.body else body = null
-body = new ThinDOM null, id: 'body', body
-body.tagName = 'body'
-thinBody = nodeFactory body, {}
+body = new Node body
   
-OJ.register 'body', thinBody
-module.exports = thinBody
+OJ.register 'body', body
+module.exports = body
