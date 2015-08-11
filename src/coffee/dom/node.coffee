@@ -15,7 +15,7 @@ class Node
   
   #parent: require('./body')
   
-  constructor: (@element, parent) ->
+  constructor: (parent) ->
 
   make: (tagName, options) ->
     if tagName.make # provided a custom component directly
@@ -25,16 +25,47 @@ class Node
       if method
         method options
       else
-        method = OJ.components[tagName] or OJ.controls[tagName] or OJ.inputs[tagName]
-        if method
+        method = OJ.nodes[tagName] or OJ.components[tagName] or OJ.controls[tagName] or OJ.inputs[tagName]
+        if method && !method.defaultBehavior
           method options, this
         else
-          newElement = createElement this.element, tagName, options
-          new Node(newElement)
+          newOJNode = new Node()
+          newOJNode.element = createElement @element, tagName, options
+          newOJNode
+
   add: (name, value) ->
     this[name] = value
+    # make sure we have a link back to ourselves, so we can inherit values
+    @element.ojWrapper = this
 
-['on', 'empty', 'text', 'removeClass', 'addClass', 'hasClass', 'show', 'hide', 'attr', 'css', 'remove', 'append', 'val', 'html'].forEach((method) ->
+  get: (name) ->
+    value = this[name]
+    if value is undefined
+      parent = @element
+      while parent = parent.parentNode
+        if parent.ojWrapper
+          return parent.ojWrapper.get name
+    else
+      value
+
+[
+  'on'
+  'empty'
+  'text'
+  'removeClass'
+  'addClass'
+  'hasClass'
+  'show'
+  'hide'
+  'attr'
+  'css'
+  'remove'
+  'append'
+  'val'
+  'html'
+  'prop'
+  'trigger'
+].forEach((method) ->
   Node.prototype[method] = () ->
     jQueryWrapper = @$
     jQueryWrapper[method].apply(jQueryWrapper, arguments)
@@ -50,4 +81,4 @@ Object.defineProperty(Node.prototype, '$',
 )
 
 
-module.exports = Node
+module.exports = OJ.Node = Node

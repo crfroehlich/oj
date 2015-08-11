@@ -13,7 +13,9 @@ element =
   Restore an HTML Element through ThinDom
   ###
   restoreElement: (el, tag = el.nodeName) ->
-    new Node(el)
+    node = new Node
+    node.element = el
+    node
 
 OJ.register 'restoreElement', element.restoreElement
 

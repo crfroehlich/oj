@@ -183,8 +183,9 @@ class NodeFactory
     @ojNode
 
 getNodeFromFactory = (tag, options, owner, isCalledFromFactory, node) ->
-  new Node(createElement owner.element, tag or 'div', options)
-
+  newOJNode = new Node()
+  newOJNode.element = createElement(owner.element, tag || 'div', options)
+  newOJNode
 
 OJ.register 'nodeFactory', getNodeFromFactory
 

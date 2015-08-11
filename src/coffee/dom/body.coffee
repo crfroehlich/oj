@@ -7,7 +7,8 @@ Node = require './node'
 Persist a handle on the body node
 ###
 if typeof document isnt 'undefined' then body = document.body else body = null
-body = new Node body
+ojBody = new Node
+ojBody.element = body
   
-OJ.register 'body', body
-module.exports = body
+OJ.register 'body', ojBody
+module.exports = ojBody

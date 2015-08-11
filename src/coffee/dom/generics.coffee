@@ -115,6 +115,7 @@ for loopName in all
       ret = nodeFactory tag, defaults, owner, calledFromFactory
 
       ret
+    method.defaultBehavior = true
     OJ.nodes.register tag, method
     exports[tag] = method
 
