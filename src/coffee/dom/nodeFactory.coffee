@@ -182,11 +182,36 @@ class NodeFactory
     # 10: Return the extended element
     @ojNode
 
+defaultCreateElement = (parent, tag, options) ->
+  newElement = document.createElement tag
+  if options
+    for key, value of options.props
+      newElement.setAttribute(key, value)
+    for key, value of options.events
+      $(newElement).on(key, value)
+    for key, value of options.styles
+      $(newElement).css(key, value)
+    value = options.text
+    if value isnt undefined
+      $(newElement).text(value)
+  parent?.appendChild(newElement)
+
 getNodeFromFactory = (tag, options, owner, isCalledFromFactory, node) ->
   newOJNode = new Node()
-  newOJNode.element = createElement(owner.element, tag || 'div', options)
+  if !window.ojCreateElement
+    window.ojCreateElement = defaultCreateElement
+  newOJNode.element = ojCreateElement(owner.element, tag || 'div', options)
   newOJNode
 
 OJ.register 'nodeFactory', getNodeFromFactory
+
+make = (tag, options) ->
+  newOJNode = new Node()
+  newOJNode.element = ojCreateElement(null, tag || 'div', options)
+  newOJNode
+
+OJ.register 'make', make
+
+
 
 module.exports = getNodeFromFactory

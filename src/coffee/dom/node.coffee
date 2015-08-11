@@ -30,7 +30,7 @@ class Node
           method options, this
         else
           newOJNode = new Node()
-          newOJNode.element = createElement @element, tagName, options
+          newOJNode.element = ojCreateElement @element, tagName, options
           newOJNode
 
   add: (name, value) ->

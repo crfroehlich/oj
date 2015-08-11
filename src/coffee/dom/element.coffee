@@ -13,9 +13,10 @@ element =
   Restore an HTML Element through ThinDom
   ###
   restoreElement: (el, tag = el.nodeName) ->
-    node = new Node
-    node.element = el
-    node
+  	el.ofWrapper or
+	    node = new Node
+	    node.element = el
+	    node
 
 OJ.register 'restoreElement', element.restoreElement
 
