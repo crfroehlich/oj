@@ -8,7 +8,7 @@
     "name": "Christopher Froehlich",
     "email": "npm@luddites.me"
   },
-  "main": "dist/OJ.min.js",
+  "main": "dist/OJ.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/somecallmechief/oj"
@@ -18,7 +18,7 @@
   },
   "licenses": [
     {
-      "type": "Puclic Domain, CC0",
+      "type": "Public Domain, CC0",
       "url": "http://creativecommons.org/about/pdm"
     }
   ],
