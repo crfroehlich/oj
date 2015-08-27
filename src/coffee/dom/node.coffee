@@ -48,6 +48,18 @@ class Node
     else
       value
 
+  show: () ->
+    @$.show()
+    ojCreateElement.onShow @element
+
+  disable: () ->
+    @$.attr 'disabled', 'disabled'
+    @$.addClass 'disabled', 'disabled'
+
+  enable: () ->
+    @$.removeAttr  'disabled'
+    @$.removeClass 'disabled'
+
 [
   'on'
   'empty'
@@ -55,9 +67,9 @@ class Node
   'removeClass'
   'addClass'
   'hasClass'
-  'show'
   'hide'
   'attr'
+  'removeAttr'
   'css'
   'remove'
   'append'
