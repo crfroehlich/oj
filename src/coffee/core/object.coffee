@@ -96,12 +96,13 @@ retObj =
   # copy the properties of one object to another object
   extend: (destObj, srcObj, deepCopy = false) ->
     ret = destObj or {}
-    if deepCopy is true
-      ret = $.extend(deepCopy, ret, srcObj)
-    else
-      ret = $.extend(ret, srcObj)
+    for key, value of srcObj
+      if deepCopy and value and typeof value is 'object' and typeof ret[key] is 'object'
+        # merge into destination property
+        @extend ret[key], value, true
+      else
+        ret[key] = value
     ret
-
 
 OJ.register 'object', retObj.object
 OJ.register 'isInstanceOf', retObj.isInstanceOf
