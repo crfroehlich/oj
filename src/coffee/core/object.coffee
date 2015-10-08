@@ -97,7 +97,7 @@ retObj =
   extend: (destObj, srcObj, deepCopy = false) ->
     ret = destObj or {}
     for key, value of srcObj
-      if deepCopy and value and typeof value is 'object' and typeof ret[key] is 'object'
+      if deepCopy and value and $.isPlainObject(value) and $.isPlainObject(ret[key])
         # merge into destination property
         @extend ret[key], value, true
       else
