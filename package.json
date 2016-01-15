@@ -2,19 +2,19 @@
   "name": "ojs",
   "title": "JavaScript OJ",
   "description": "OJ is a framework for writing web components and templates in frothy CoffeeScript or pure JavaScript. OJ provides a mechanism to rapidly build web applications using well encapsulated, modular code that doesn't rely on string templating or partially baked web standards.",
-  "version": "0.4.39",
-  "homepage": "http://somecallmechief.github.io/oj/",
+  "version": "0.5.3",
+  "homepage": "https://github.com/DoctorEvidence/oj",
   "author": {
     "name": "Christopher Froehlich",
-    "email": "npm@luddites.me"
+    "email": "cfroehlich@doctorevidence.com"
   },
   "main": "dist/OJ.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/somecallmechief/oj"
+    "url": "https://github.com/DoctorEvidence/oj.git"
   },
   "bugs": {
-    "url": "https://github.com/somecallmechief/oj/issues"
+    "url": "https://github.com/DoctorEvidence/oj/issues"
   },
   "licenses": [
     {
@@ -98,7 +98,6 @@
         "jquery:$"
       ]
     },
-    "html5-history-api": "history",
     "jquery-validate": {
       "depends": [
         "jquery:jQuery"
@@ -113,7 +112,6 @@
     "thindom": "./bower_components/thindom/dist/thinDOM.min.js",
     "pubsub-js": "./bower_components/pubsub-js/src/pubsub.js",
     "jquery-cookie": "./bower_components/jquery-cookie/jquery.cookie.js",
-    "html5-history-api": "./bower_components/html5-history-api/history.min.js",
     "jquery-validate": "./bower_components/jquery-validate/dist/jquery.validate.min.js",
     "bluebird": "./bower_components/bluebird/js/browser/bluebird.js",
     "qunit": "./bower_components/qunit/qunit/qunit.js",

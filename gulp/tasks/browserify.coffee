@@ -110,7 +110,7 @@ runbrowserify = (name) ->
       # desired output filename here.
       .pipe source cfg.filename
       # Specify the output destination
-      .pipe header[cfg.header]?()
+      #.pipe header[JSON.stringify(cfg.header)]?()
       .pipe buffer()
       .pipe gulp.dest cfg.dest
       .pipe notify.message 'Finished bundling ' + name

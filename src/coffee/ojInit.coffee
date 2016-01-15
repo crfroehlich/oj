@@ -15,7 +15,6 @@ subNameSpaces = [
   'controls'
   'inputs'
   'notifications'
-  'history'
   'cookie'
   'async'
 ]

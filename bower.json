@@ -1,6 +1,6 @@
 {
   "name": "OJ",
-  "version": "0.4.39",
+  "version": "0.5.3",
   "main": [
     "dist/OJ.min.js"
   ],
@@ -19,7 +19,6 @@
     "fontawesome": "^4.2.0",
     "pubsub-js": "^1.5.0",
     "jquery-cookie": "^1.4.1",
-    "html5-history-api": "^4.1.15",
     "jquery-validate": "^1.13.1",
     "bluebird": "^2.9.0",
     "noty": "^2.3.4"
