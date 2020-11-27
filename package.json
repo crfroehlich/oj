@@ -49,7 +49,7 @@
     "gulp-plumber": "0.6.6",
     "gulp-qunit": "1.5.2",
     "gulp-rename": "1.4.0",
-    "gulp-replace": "0.5.4",
+    "gulp-replace": "0.6.1",
     "gulp-sourcemaps": "1.12.1",
     "gulp-stripbom": "1.0.5",
     "gulp-template": "2.1.1",
