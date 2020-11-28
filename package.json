@@ -59,7 +59,7 @@
     "minifyify": "6.4.0",
     "pretty-hrtime": "1.0.3",
     "qunit": "0.7.7",
-    "tiny-lr": "0.1.7",
+    "tiny-lr": "0.2.1",
     "uglifyify": "3.0.4",
     "vinyl-source-stream": "1.1.2",
     "watchify": "2.6.2",
