@@ -67,7 +67,7 @@
   },
   "keywords": [],
   "engines": {
-    "node": "0.12.x",
+    "node": "14.18.x",
     "npm": "2.4.x"
   },
   "scripts": {},
