@@ -28,7 +28,7 @@
     "browserify-shim": "3.8.14",
     "coffee-script": "1.12.7",
     "coffeeify": "1.2.0",
-    "glob": "4.5.3",
+    "glob": "7.2.0",
     "gulp": "3.9.1",
     "gulp-autoprefixer": "2.3.1",
     "gulp-buffer": "0.0.2",
